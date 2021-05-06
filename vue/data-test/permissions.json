@@ -1,0 +1,330 @@
+{
+  "entityDisplayName": "1847197c-bfc8-aa9c-bafd-39f8621f66ad",
+  "groups": [
+    {
+      "name": "AbpIdentity",
+      "displayName": "身份标识管理",
+      "permissions": [
+        {
+          "name": "AbpIdentity.Roles",
+          "displayName": "角色管理",
+          "parentName": null,
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Roles.Create",
+          "displayName": "创建",
+          "parentName": "AbpIdentity.Roles",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "U",
+              "providerKey": "1847197c-bfc8-aa9c-bafd-39f8621f66ad"
+            },
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Roles.Update",
+          "displayName": "编辑",
+          "parentName": "AbpIdentity.Roles",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "U",
+              "providerKey": "1847197c-bfc8-aa9c-bafd-39f8621f66ad"
+            },
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Roles.Delete",
+          "displayName": "删除",
+          "parentName": "AbpIdentity.Roles",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "U",
+              "providerKey": "1847197c-bfc8-aa9c-bafd-39f8621f66ad"
+            },
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Roles.ManagePermissions",
+          "displayName": "更改权限",
+          "parentName": "AbpIdentity.Roles",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "U",
+              "providerKey": "1847197c-bfc8-aa9c-bafd-39f8621f66ad"
+            },
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Users",
+          "displayName": "用户管理",
+          "parentName": null,
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Users.Create",
+          "displayName": "创建",
+          "parentName": "AbpIdentity.Users",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Users.Update",
+          "displayName": "编辑",
+          "parentName": "AbpIdentity.Users",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "U",
+              "providerKey": "1847197c-bfc8-aa9c-bafd-39f8621f66ad"
+            },
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Users.Delete",
+          "displayName": "删除",
+          "parentName": "AbpIdentity.Users",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpIdentity.Users.ManagePermissions",
+          "displayName": "更改权限",
+          "parentName": "AbpIdentity.Users",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FeatureManagement",
+      "displayName": "特性管理",
+      "permissions": [
+        {
+          "name": "FeatureManagement.ManageHostFeatures",
+          "displayName": "管理Host特性",
+          "parentName": null,
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AbpTenantManagement",
+      "displayName": "租户管理",
+      "permissions": [
+        {
+          "name": "AbpTenantManagement.Tenants",
+          "displayName": "租户管理",
+          "parentName": null,
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpTenantManagement.Tenants.Create",
+          "displayName": "创建",
+          "parentName": "AbpTenantManagement.Tenants",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpTenantManagement.Tenants.Update",
+          "displayName": "编辑",
+          "parentName": "AbpTenantManagement.Tenants",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "U",
+              "providerKey": "1847197c-bfc8-aa9c-bafd-39f8621f66ad"
+            },
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpTenantManagement.Tenants.Delete",
+          "displayName": "删除",
+          "parentName": "AbpTenantManagement.Tenants",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "U",
+              "providerKey": "1847197c-bfc8-aa9c-bafd-39f8621f66ad"
+            },
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpTenantManagement.Tenants.ManageFeatures",
+          "displayName": "管理功能",
+          "parentName": "AbpTenantManagement.Tenants",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "AbpTenantManagement.Tenants.ManageConnectionStrings",
+          "displayName": "管理连接字符串",
+          "parentName": "AbpTenantManagement.Tenants",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TigerAdmin",
+      "displayName": "TigerAdmin",
+      "permissions": [
+        {
+          "name": "TigerAdmin.Books",
+          "displayName": "Permission:Books",
+          "parentName": null,
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "TigerAdmin.Books.Create",
+          "displayName": "Permission:Book.Create",
+          "parentName": "TigerAdmin.Books",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "TigerAdmin.Books.Edit",
+          "displayName": "Permission:Book.Edit",
+          "parentName": "TigerAdmin.Books",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        },
+        {
+          "name": "TigerAdmin.Books.Delete",
+          "displayName": "Permission:Book.Delete",
+          "parentName": "TigerAdmin.Books",
+          "isGranted": true,
+          "allowedProviders": [],
+          "grantedProviders": [
+            {
+              "providerName": "R",
+              "providerKey": "admin"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
