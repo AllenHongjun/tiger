@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-row style="margin-bottom:20px">
+    <div>
       <!-- <FilenameOption v-model="filename" />
       <AutoWidthOption v-model="autoWidth" />
       <BookTypeOption v-model="bookType" /> -->
@@ -10,7 +10,7 @@
         </el-button>
       </router-link>
 
-    </el-row>
+    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -24,34 +24,52 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="名称" align="center" width="150">
+      <el-table-column label="名称">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="是否默认" align="center" width="95">
+      <el-table-column label="用户名">
         <template slot-scope="scope">
-          {{ scope.row.isDefault == true? '是':'否' }}
+          {{ scope.row.userName }}
         </template>
       </el-table-column>
-      <el-table-column label="是否发布" align="center" width="95">
+      <el-table-column label="手机号" width="120">
         <template slot-scope="scope">
-          {{ scope.row.isPublish == true? '是':'否' }}
+          {{ scope.row.phoneNumber }}
         </template>
       </el-table-column>
-      <el-table-column label="是否静态" align="center" width="95">
+      <el-table-column label="邮箱" width="180" align="center">
         <template slot-scope="scope">
-          {{ scope.row.isStatic == true? '是':'否' }}
+          {{ scope.row.email }}
         </template>
       </el-table-column>
-
-      <el-table-column align="center" label="操作">
+      <!-- <el-table-column class-name="status-col" label="是否删除" width="110" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
+        </template>
+      </el-table-column> -->
+      <el-table-column align="center" prop="created_at" label="创建日期" width="200">
+        <template slot-scope="scope">
+          <i class="el-icon-time" />
+          <span>{{ scope.row.creationTime }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" prop="created_at" label="修改日期" width="200">
+        <template slot-scope="scope">
+          <i class="el-icon-time" />
+          <span>{{ scope.row.lastModificationTime }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="300">
         <template slot-scope="scope">
           <router-link :to="'/user/edit/'+scope.row.id">
             <el-button type="info" size="small"  icon="el-icon-edit" plain>
             </el-button>
           </router-link>
+
           <el-button type="danger" size="small"  icon="el-icon-delete" plain>
+
           </el-button>
         </template>
       </el-table-column>
@@ -60,21 +78,24 @@
 </template>
 
 <script>
-import { getRoleList } from '@/api/user'
+import { getList } from '@/api/user'
+// import { parseTime } from '@/utils'
 
 export default {
+  filters: {
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'gray',
+        deleted: 'danger'
+      }
+      return statusMap[status]
+    }
+  },
   data() {
     return {
       list: null,
-      listLoading: true,
-      total: 0,
-      listQuery: {
-        // page: 1,
-        // limit: 20
-        SkipCount: 0,
-        // MaxResultCount: 1,
-        Sorting: 'name desc'
-      }
+      listLoading: true
     }
   },
   created() {
@@ -83,9 +104,9 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getRoleList(this.listQuery).then(response => {
+      getList().then(response => {
+        console.log(response)
         this.list = response.items
-        this.total = response.totalCount
         this.listLoading = false
       })
     }

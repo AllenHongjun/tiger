@@ -23,9 +23,9 @@ service.interceptors.request.use(
       // config.headers['X-Token'] = getToken()
       config.headers['authorization'] = 'Bearer ' + store.getters.token
     }
-    config.paramsSerializer = function(params) {
-      return encodeParam(params)
-    }
+    // config.paramsSerializer = function(params) {
+    //   return encodeParam(params)
+    // }
     console.log('requestjs-config:' + config)
     console.log(config)
     return config

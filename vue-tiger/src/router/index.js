@@ -279,10 +279,34 @@ export const constantRoutes = [
         meta: { title: '权限' }
       },
       {
-        path: 'role',
+        path: '/permistion/create',
+        component: () => import('@/views/setting/permission/create'),
+        name: 'permistion_create',
+        meta: { title: '权限添加' }
+      },
+      {
+        path: '/system_log/index',
+        component: () => import('@/views/setting/system_log/index'),
+        name: 'system_log',
+        meta: { title: '系统日志' }
+      },
+      {
+        path: 'role/list',
         component: () => import('@/views/setting/role/index'),
         name: 'role',
         meta: { title: '角色' }
+      },
+      {
+        path: 'role/create',
+        component: () => import('@/views/setting/role/create'),
+        name: 'role_create',
+        meta: { title: '角色添加' }
+      },
+      {
+        path: 'role/edit',
+        component: () => import('@/views/setting/role/edit'),
+        name: 'role_edit',
+        meta: { title: '角色修改' }
       },
       {
         path: '/user/list',
@@ -326,13 +350,8 @@ export const constantRoutes = [
         component: () => import('@/views/setting/menu/index'),
         name: 'menu',
         meta: { title: '菜单' }
-      },
-      {
-        path: 'system_log',
-        // component: () => import('@views/setting/system_log/index'),
-        name: 'system_log',
-        meta: { title: '系统日志' }
       }
+
     ]
   },
 

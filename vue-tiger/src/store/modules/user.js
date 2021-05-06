@@ -111,6 +111,25 @@ const actions = {
       commit('RESET_STATE')
       resolve()
     })
+  },
+
+  // get role list
+  getRoleList({ commit }) {
+    return new Promise((resolve, reject) => {
+      console.log('getinfo')
+      console.log(commit)
+      // console.log(state)
+      getRoleList().then(response => {
+        console.log(response)
+
+        if (!response) {
+          return reject('角色信息获取失败')
+        }
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 }
 
