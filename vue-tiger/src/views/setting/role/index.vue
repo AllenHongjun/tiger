@@ -4,12 +4,11 @@
       <!-- <FilenameOption v-model="filename" />
       <AutoWidthOption v-model="autoWidth" />
       <BookTypeOption v-model="bookType" /> -->
-      <router-link :to="'/user/create'">
+      <router-link :to="'/setting/role/create'">
         <el-button type="primary" size="small" icon="el-icon-edit">
           添加
         </el-button>
       </router-link>
-
     </el-row>
     <el-table
       v-loading="listLoading"
@@ -47,7 +46,7 @@
 
       <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <router-link :to="'/user/edit/'+scope.row.id">
+          <router-link :to="'/setting/role/edit/'+scope.row.id">
             <el-button type="info" size="small"  icon="el-icon-edit" plain>
             </el-button>
           </router-link>

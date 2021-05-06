@@ -303,7 +303,7 @@ export const constantRoutes = [
         meta: { title: '角色添加' }
       },
       {
-        path: 'role/edit',
+        path: 'role/edit/:id',
         component: () => import('@/views/setting/role/edit'),
         name: 'role_edit',
         meta: { title: '角色修改' }

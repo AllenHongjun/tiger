@@ -47,6 +47,7 @@ export function createUser(payload) {
   })
 }
 
+// role
 export function getRoleList(params) {
   return request({
     url: '/api/identity/roles',
@@ -54,3 +55,19 @@ export function getRoleList(params) {
     params
   })
 }
+
+export function getRole(id) {
+  return request({
+    url: `/api/identity/roles/${id}`,
+    method: 'get'
+  })
+}
+
+export function createRole(payload) {
+  return request({
+    url: '/api/identity/roles',
+    method: 'post',
+    data: payload
+  })
+}
+
