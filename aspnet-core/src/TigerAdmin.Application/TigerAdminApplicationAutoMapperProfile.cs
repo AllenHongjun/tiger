@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TigerAdmin.AuditLogs;
 using TigerAdmin.Books;
 using TigerAdmin.SecurityLogs;
 using Volo.Abp.AuditLogging;
@@ -16,7 +17,7 @@ namespace TigerAdmin
             CreateMap<Book, BookDto>();
             CreateMap<CreateUpdateBookDto, Book>();
             CreateMap<SecurityLogInfo, SecurityLogDto>();
-            //CreateMap < AuditLog., SecurityLogDto > ();
+            CreateMap<AuditLog, AuditLogDto>();
         }
     }
 }
