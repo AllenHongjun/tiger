@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import qs from 'querystring'
+import { transformAbpListQuery } from '@/utils/abp'
 
 export function login(data) {
   return request({
@@ -52,7 +53,7 @@ export function getRoleList(params) {
   return request({
     url: '/api/identity/roles',
     method: 'get',
-    params
+    params: transformAbpListQuery(params)
   })
 }
 
@@ -75,6 +76,16 @@ export function deleteRole(id) {
   return request({
     url: `/api/identity/roles/${id}`,
     method: 'delete'
+  })
+}
+
+
+// audit_log
+export function getAuditLogList(params) {
+  return request({
+    url: '/api/app/auditLog',
+    method: 'get',
+    params: transformAbpListQuery(params)
   })
 }
 

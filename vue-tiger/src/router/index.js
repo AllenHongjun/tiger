@@ -273,6 +273,14 @@ export const constantRoutes = [
 
       },
       {
+        path: 'audit_log/list',
+        component: () => import('@/views/setting/audit_log/index'), // Parent router-view
+        name: 'audit_log_list',
+        // hidden:true,
+        meta: { title: '审计日志' }
+
+      },
+      {
         path: 'permistion',
         component: () => import('@/views/setting/permission/index'),
         name: 'permistion',
