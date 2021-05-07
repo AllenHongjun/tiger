@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
+    <div class="filter-container" style="margin-bottom:20px;">
       <el-date-picker
       v-model="value2"
       type="datetimerange"
@@ -10,25 +10,34 @@
       end-placeholder="结束日期"
       align="right">
     </el-date-picker>
-      <!-- <el-input v-model="listQuery.title" placeholder="Title" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-select v-model="listQuery.importance" placeholder="Imp" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
-      <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-      </el-select>
+    <el-input v-model="listQuery.userName" placeholder="用户名" style="width: 150px;" class="filter-item"  />
+    <el-input v-model="listQuery.url" placeholder="URL过滤" style="width: 150px;" class="filter-item"  />
+    <el-select v-model="listQuery.httpMethod" placeholder="HTTP方法" clearable style="width: 110px" class="filter-item">
+        <el-option v-for="item in httpMethodOptions" :key="item" :label="item" :value="item" />
+    </el-select>
+    <!-- <el-select v-model="listQuery.type" placeholder="HTTP状态码" clearable class="filter-item" style="width: 130px">
+      <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+    </el-select> -->
+    <el-select v-model="listQuery.hasException" placeholder="是否存在异常" clearable style="width: 110px" class="filter-item">
+        <el-option v-for="item in hasExceptionOptions" :key="item" :label="item" :value="item" />
+    </el-select>
+    <el-button  class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+      搜索
+    </el-button>
+    <el-button   class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
+      导出
+    </el-button>
+      <!--
+
+
       <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
-      <!-- <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-        Search
-      </el-button>
+      <!--
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         Add
       </el-button>
-      <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
-        Export
-      </el-button>
+
       <el-checkbox v-model="showReviewer" class="filter-item" style="margin-left:15px;" @change="tableKey=tableKey+1">
         reviewer
       </el-checkbox> -->
@@ -41,9 +50,12 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="HTTP请求" width="300">
+      <el-table-column align="left" label="HTTP请求" width="350">
         <template slot-scope="scope">
-          {{ scope.row.httpStatusCode + scope.row.httpMethod + scope.row.url }}
+          <el-tag :type="scope.row.httpStatusCode | httpCodeFilter">
+            {{ scope.row.httpStatusCode }}&nbsp;&nbsp;{{scope.row.httpMethod}}
+          </el-tag>
+          {{ scope.row.url }}
         </template>
       </el-table-column>
       <el-table-column label="用户" align="center" width="80">
@@ -118,21 +130,53 @@
 import { getAuditLogList } from "@/api/user";
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 
+const httpStatueCodeOptions = [
+  { key: 'CN', display_name: 'China' },
+  { key: 'US', display_name: 'USA' },
+  { key: 'JP', display_name: 'Japan' },
+  { key: 'EU', display_name: 'Eurozone' }
+]
 export default {
   name: "audit_log_list",
   components: { Pagination },
+  filters: {
+    httpCodeFilter(code) {
+      var code = parseInt(code);
+      var result = '';
+      if(code <= 100){
+        result = 'info'
+      }else if(code <= 200){
+        result = 'success'
+      }else if(code <= 300){
+        result = 'warning'
+      }else{
+        result = 'danger'
+      }
+      return result
+    },
+    typeFilter(type) {
+      return calendarTypeKeyValue[type]
+    }
+  },
   data() {
     return {
       list: null,
       listLoading: true,
       total: 0,
       listQuery: {
+
+        userName:'',
+        url:'',
+        httpMethod:'',
+        hasException:null,
         page: 1,
         limit: 10,
         // SkipCount: 0,
         // MaxResultCount: 10,
         Sorting: "",
       },
+      httpMethodOptions:['GET','POST','DELETE','PUT','HEAD','CONNECT','OPTIONS','TRACE'],
+      hasExceptionOptions:['true','false'],
       pickerOptions: {
           shortcuts: [{
             text: '最近一周',
@@ -182,6 +226,10 @@ export default {
         this.listLoading = false;
       });
     },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.fetchData()
+    },
     deleteData(id) {
       console.log("delete");
       deleteRole(id)
@@ -194,6 +242,21 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    handleDownload() {
+      console.log('导出下载功能 todo')
+      // this.downloadLoading = true
+      // import('@/vendor/Export2Excel').then(excel => {
+      //   const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
+      //   const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+      //   const data = this.formatJson(filterVal)
+      //   excel.export_json_to_excel({
+      //     header: tHeader,
+      //     data,
+      //     filename: 'table-list'
+      //   })
+      //   this.downloadLoading = false
+      //})
     },
   },
 };
