@@ -91,6 +91,7 @@ export default {
         this.ruleForm.isDefault = response.isDefault
         this.ruleForm.isPublic = response.isPublic
         this.ruleForm.isStatic = response.isStatic
+        this.ruleForm.id = response.id
 
       }).catch(err => {
         console.log(err)
@@ -102,7 +103,7 @@ export default {
           createRole(this.ruleForm).then((response) => {
             console.log(response)
             this.$message({
-              message: '添加成功',
+              message: '操作成功',
               type: 'success'
             });
           })
@@ -116,6 +117,7 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields()
     }
+
   }
 }
 </script>

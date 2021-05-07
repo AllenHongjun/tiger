@@ -50,7 +50,7 @@
             <el-button type="info" size="small"  icon="el-icon-edit" plain>
             </el-button>
           </router-link>
-          <el-button type="danger" size="small"  icon="el-icon-delete" plain>
+          <el-button type="danger" size="small"  icon="el-icon-delete" @click="deleteData(scope.row.id)" plain>
           </el-button>
         </template>
       </el-table-column>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { getRoleList } from '@/api/user'
+import { getRoleList,deleteRole } from '@/api/user'
 
 export default {
   data() {
@@ -86,6 +86,17 @@ export default {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
+      })
+    },
+    deleteData(id){
+      console.log('delete')
+      deleteRole(id).then(response => {
+        this.$message({
+              message: '删除成功',
+              type: 'success'
+            });
+      }).catch(err => {
+        console.log(err)
       })
     }
   }

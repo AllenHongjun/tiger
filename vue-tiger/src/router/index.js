@@ -300,12 +300,14 @@ export const constantRoutes = [
         path: 'role/create',
         component: () => import('@/views/setting/role/create'),
         name: 'role_create',
+        hidden: true,
         meta: { title: '角色添加' }
       },
       {
         path: 'role/edit/:id',
         component: () => import('@/views/setting/role/edit'),
         name: 'role_edit',
+        hidden: true,
         meta: { title: '角色修改' }
       },
       {

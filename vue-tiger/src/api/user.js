@@ -71,3 +71,10 @@ export function createRole(payload) {
   })
 }
 
+export function deleteRole(id) {
+  return request({
+    url: `/api/identity/roles/${id}`,
+    method: 'delete'
+  })
+}
+

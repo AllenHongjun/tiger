@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using TigerAdmin.Books;
+using TigerAdmin.SecurityLogs;
+using Volo.Abp.AuditLogging;
+using Volo.Abp.SecurityLog;
 
 namespace TigerAdmin
 {
@@ -12,6 +15,8 @@ namespace TigerAdmin
              * into multiple profile classes for a better organization. */
             CreateMap<Book, BookDto>();
             CreateMap<CreateUpdateBookDto, Book>();
+            CreateMap<SecurityLogInfo, SecurityLogDto>();
+            //CreateMap < AuditLog., SecurityLogDto > ();
         }
     }
 }
