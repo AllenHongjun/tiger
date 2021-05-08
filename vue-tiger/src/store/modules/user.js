@@ -62,19 +62,19 @@ const actions = {
   // get user info
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      console.log('getinfo')
-      console.log(commit)
+      // console.log('getinfo')
+      // console.log(commit)
       // console.log(state)
       getInfo().then(response => {
-        console.log(response)
+        // console.log(response)
 
         if (!response) {
           return reject('Verification failed, please Login again.')
         }
 
         const { userName, name, phoneNumber, email, extraProperties } = response
-        console.log(userName)
-        console.log(name)
+        // console.log(userName)
+        // console.log(name)
 
         commit('SET_NAME', name)
         commit('SET_AVATAR', extraProperties.Avatar)
@@ -116,8 +116,8 @@ const actions = {
   // get role list
   getRoleList({ commit }) {
     return new Promise((resolve, reject) => {
-      console.log('getinfo')
-      console.log(commit)
+      // console.log('getinfo')
+      // console.log(commit)
       // console.log(state)
       getRoleList().then(response => {
         console.log(response)

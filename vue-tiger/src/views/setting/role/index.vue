@@ -50,30 +50,79 @@
             <el-button type="info" size="small"  icon="el-icon-edit" plain>
             </el-button>
           </router-link>
+          <el-button type="info" size="small" @click="handlePermission(scope)"  plain>
+            授权
+          </el-button>
           <el-button type="danger" size="small"  icon="el-icon-delete" @click="deleteData(scope.row.id)" plain>
           </el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog :visible.sync="dialogVisible" title='角色授权'>
+      <el-form label-width="80px" label-position="left">
+        <el-tabs tab-position="left">
+        <el-tab-pane
+          v-for="group in permissionData.groups"
+          :key="group.name"
+          :label="group.displayName"
+        >
+          <el-form-item :label="group.displayName">
+            <el-tree
+              ref="permissionTree"
+              :data="transformPermissionTree(group.permissions)"
+              :props="treeDefaultProps"
+              show-checkbox
+              check-strictly
+              node-key="name"
+              default-expand-all
+            />
+          </el-form-item>
+        </el-tab-pane>
+      </el-tabs>
+      </el-form>
+      <div style="text-align:right;">
+        <el-button type="danger" @click="dialogVisible=false">取消</el-button>
+        <el-button type="primary" >确认</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
-import { getRoleList,deleteRole } from '@/api/user'
+import { getRoleList,deleteRole,getPermissions } from '@/api/user'
 
 export default {
+  name: 'Role',
+  props: {
+    providerName: {
+      type: String,
+      required: false
+    }
+  },
   data() {
     return {
       list: null,
       listLoading: true,
       total: 0,
       listQuery: {
-        // page: 1,
-        // limit: 20
+        page: 1,
+        limit: 20,
         SkipCount: 0,
         // MaxResultCount: 1,
         Sorting: 'name desc'
-      }
+      },
+      dialogVisible:false,
+      permissionData: {
+        groups: []
+      },
+      treeDefaultProps: {
+        children: 'children',
+        label: 'label'
+      },
+      dialogPermissionFormVisible: false,
+      permissionsQuery: { providerKey: '', providerName: 'R' }
     }
   },
   created() {
@@ -98,6 +147,70 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    handlePermission(row) {
+      this.dialogVisible = true
+      // this.dialogPermissionFormVisible = true
+      if (this.permissionsQuery.providerName === 'R') {
+        this.permissionsQuery.providerKey = row.name
+      } else if (this.permissionsQuery.providerName === 'U') {
+        this.permissionsQuery.providerKey = row.id
+      }
+
+      getPermissions(this.permissionsQuery).then(response => {
+        console.log(response)
+        this.permissionData = response
+
+        for (const i in this.permissionData.groups) {
+          const keys = []
+          const group = this.permissionData.groups[i]
+          for (const j in group.permissions) {
+            if (group.permissions[j].isGranted) { keys.push(group.permissions[j].name) }
+          }
+          console.log(this.$refs['permissionTree'])
+          // this.$nextTick(() => {
+          //   this.$refs['permissionTree'][i].setCheckedKeys(keys)
+          // })
+        }
+      })
+    },
+    transformPermissionTree(permissions, name = null) {
+      const arr = []
+      if (!permissions || !permissions.some(v => v.parentName === name)) { return arr }
+
+      const parents = permissions.filter(v => v.parentName === name)
+      for (const i in parents) {
+        let label = ''
+        if (this.permissionsQuery.providerName === 'R') {
+          label = parents[i].displayName
+        } else if (this.permissionsQuery.providerName === 'U') {
+          label =
+            parents[i].displayName +
+            ' ' +
+            parents[i].grantedProviders.map(provider => {
+              return `${provider.providerName}: ${provider.providerKey}`
+            })
+        }
+        arr.push({
+          name: parents[i].name,
+          label,
+          disabled: this.isGrantedByOtherProviderName(
+            parents[i].grantedProviders
+          ),
+          children: this.transformPermissionTree(permissions, parents[i].name)
+        })
+      }
+      return arr
+    },
+    isGrantedByOtherProviderName(grantedProviders) {
+      if (grantedProviders.length) {
+        return (
+          grantedProviders.findIndex(
+            p => p.providerName !== this.permissionsQuery.providerName
+          ) > -1
+        )
+      }
+      return false
     }
   }
 }
