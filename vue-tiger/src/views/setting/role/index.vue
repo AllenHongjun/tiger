@@ -23,7 +23,7 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="名称" align="center" width="150">
+      <el-table-column label="名称" align="center" >
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
@@ -44,7 +44,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="操作">
+      <el-table-column align="center" label="操作" width="200">
         <template slot-scope="scope">
           <router-link :to="'/setting/role/edit/'+scope.row.id">
             <el-button type="info" size="small"  icon="el-icon-edit" plain>
@@ -83,7 +83,7 @@
       </el-form>
       <div style="text-align:right;">
         <el-button type="danger" @click="dialogVisible=false">取消</el-button>
-        <el-button type="primary" >确认</el-button>
+        <el-button type="primary" @click="updatePermissionData()">确认</el-button>
       </div>
     </el-dialog>
 
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { getRoleList,deleteRole,getPermissions } from '@/api/user'
+import { getRoleList,deleteRole,getPermissions,updatePermissions } from '@/api/user'
 
 export default {
   name: 'Role',
@@ -127,6 +127,7 @@ export default {
   },
   created() {
     this.fetchData()
+    this.permissionsQuery.providerName = 'R'
   },
   methods: {
     fetchData() {
@@ -148,29 +149,39 @@ export default {
         console.log(err)
       })
     },
-    handlePermission(row) {
+    handlePermission(scope) {
       this.dialogVisible = true
       // this.dialogPermissionFormVisible = true
+      // console.log(row)
+      // console.log(row.name)
       if (this.permissionsQuery.providerName === 'R') {
-        this.permissionsQuery.providerKey = row.name
+        this.permissionsQuery.providerKey = scope.row.name
       } else if (this.permissionsQuery.providerName === 'U') {
-        this.permissionsQuery.providerKey = row.id
+        this.permissionsQuery.providerKey = scope.row.id
       }
-
+      // console.log(this.permissionsQuery)
       getPermissions(this.permissionsQuery).then(response => {
-        console.log(response)
+        // console.log(response)
         this.permissionData = response
 
         for (const i in this.permissionData.groups) {
           const keys = []
           const group = this.permissionData.groups[i]
           for (const j in group.permissions) {
-            if (group.permissions[j].isGranted) { keys.push(group.permissions[j].name) }
+
+            if (group.permissions[j].isGranted) {
+              console.log(group.permissions[j])
+              keys.push(group.permissions[j].name)
+            }
           }
-          console.log(this.$refs['permissionTree'])
-          // this.$nextTick(() => {
-          //   this.$refs['permissionTree'][i].setCheckedKeys(keys)
-          // })
+
+          // console.log(this.$refs['permissionTree'])
+          this.$nextTick(() => {
+            // console.log(this.$refs)
+            // console.log(this.$refs.permissionTree)
+            // console.log(keys)
+            this.$refs.permissionTree[i].setCheckedKeys(keys)
+          })
         }
       })
     },
@@ -211,7 +222,43 @@ export default {
         )
       }
       return false
-    }
+    },
+    updatePermissionData() {
+      const tempData = []
+      for (const i in this.permissionData.groups) {
+        const keys = this.$refs.permissionTree[i].getCheckedKeys()
+        const group = this.permissionData.groups[i]
+        for (const j in group.permissions) {
+          if (
+            group.permissions[j].isGranted &&
+            !keys.some(v => v === group.permissions[j].name)
+          ) {
+            tempData.push({
+              isGranted: false,
+              name: group.permissions[j].name
+            })
+          } else if (
+            !group.permissions[j].isGranted &&
+            keys.some(v => v === group.permissions[j].name)
+          ) {
+            tempData.push({ isGranted: true, name: group.permissions[j].name })
+          }
+        }
+      }
+      updatePermissions(this.permissionsQuery, { permissions: tempData }).then(
+        () => {
+          this.dialogPermissionFormVisible = false
+          this.$message({
+            message: '权限添加成功',
+            type: 'success'
+          });
+          // fetchAppConfig(
+          //   this.permissionsQuery.providerKey,
+          //   this.permissionsQuery.providerName
+          // )
+        }
+      )
+    },
   }
 }
 </script>
