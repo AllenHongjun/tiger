@@ -58,6 +58,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <pagination
+      v-show="total > 0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.limit"
+      @pagination="fetchData"
+    />
 
     <el-dialog :visible.sync="dialogVisible" title='角色授权'>
       <el-form label-width="80px" label-position="left">
@@ -92,6 +99,7 @@
 
 <script>
 import { getRoleList,deleteRole,getPermissions,updatePermissions } from '@/api/user'
+import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 
 export default {
   name: 'Role',

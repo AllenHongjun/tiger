@@ -51,7 +51,7 @@ export const constantRoutes = [
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [{
       path: 'dashboard',
-      name: 'Dashboard',
+      name: '主页',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '主页', icon: 'dashboard' }
     }]
@@ -66,7 +66,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'table',
-        name: 'Table',
+        name: 'Table1',
         component: () => import('@/views/table/index'),
         meta: { title: 'Table', icon: 'table' }
       },
@@ -206,7 +206,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'form_layout',
-        name: 'FormLayout',
+        name: 'FormLayout1',
         meta: { title: '单列表单', icon: 'link' }
       },
       {
@@ -290,12 +290,14 @@ export const constantRoutes = [
         path: '/permistion/create',
         component: () => import('@/views/setting/permission/create'),
         name: 'permistion_create',
+        hidden: true,
         meta: { title: '权限添加' }
       },
       {
         path: '/system_log/index',
         component: () => import('@/views/setting/system_log/index'),
         name: 'system_log',
+        hidden: true,
         meta: { title: '系统日志' }
       },
       {
@@ -351,7 +353,7 @@ export const constantRoutes = [
       // },
       {
         path: 'tenant',
-        // component: () => import('@/views/setting/user/index'),
+        component: () => import('@/views/setting/tenant/index'),
         name: 'Tenant',
         meta: { title: '租户' }
       },
