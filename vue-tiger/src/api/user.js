@@ -25,11 +25,11 @@ export function logout() {
   })
 }
 
-export function getList(params) {
+export function getUserList(params) {
   return request({
     url: '/api/identity/users',
     method: 'get',
-    params
+    params:transformAbpListQuery(params)
   })
 }
 

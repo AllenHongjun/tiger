@@ -124,13 +124,14 @@ export default {
         Sorting: "name desc",
       },
       checked: true,
-      dialogFormVisible: false,
+
       temp: {
         id: "",
         name: "",
         adminPassword: "",
         adminEmailAddress: "",
       },
+      dialogFormVisible: false,
       dialogStatus: "",
       textMap: {
         update: "租户编辑",
@@ -158,34 +159,6 @@ export default {
         this.total = response.totalCount;
         this.listLoading = false;
       });
-    },
-    deleteData(id) {
-      console.log("delete");
-      this.$confirm("此操作将永久删除数据, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          deleteTenant(id)
-            .then((response) => {
-              const index = this.list.findIndex((v) => v.id === id);
-              this.list.splice(index, 1);
-              this.$message({
-                message: "删除成功",
-                type: "success",
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
     },
     resetTemp() {
       this.temp = {
@@ -246,6 +219,34 @@ export default {
           });
         }
       });
+    },
+    deleteData(id) {
+      console.log("delete");
+      this.$confirm("此操作将永久删除数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          deleteTenant(id)
+            .then((response) => {
+              const index = this.list.findIndex((v) => v.id === id);
+              this.list.splice(index, 1);
+              this.$message({
+                message: "删除成功",
+                type: "success",
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
     },
   },
 };
