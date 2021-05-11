@@ -11,6 +11,16 @@
 }
 
 /**
+ * @param {string} path
+ * @returns {Boolean}
+ */
+ export function validUsername(name) {
+  return true
+}
+
+
+
+/**
  * @param {string} url
  * @returns {Boolean}
  */

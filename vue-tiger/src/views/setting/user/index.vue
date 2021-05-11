@@ -2,8 +2,8 @@
   <div class="app-container">
     <div class="filter-container" style="margin-bottom: 20px">
       <el-input
-        v-model="listQuery.userName"
-        placeholder="用户名"
+        v-model="listQuery.Filter"
+        placeholder="关键词"
         style="width: 150px"
         class="filter-item"
       />
@@ -64,16 +64,18 @@
 
       <el-table-column align="right" label="操作" width="300">
         <template slot-scope="scope">
-          <el-dropdown size="small" split-button type="primary">
-            操作
+          <el-dropdown @command="handleCommand" trigger="click">
+            <el-button type="primary" size="small">
+              操作<i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click="handleUpdate(scope.row)"
+              <el-dropdown-item :command="beforeHandleCommand(scope,'edit')"
                 >编辑</el-dropdown-item
               >
               <el-dropdown-item>锁定</el-dropdown-item>
               <el-dropdown-item>权限</el-dropdown-item>
               <el-dropdown-item>设置密码</el-dropdown-item>
-              <el-dropdown-item @click="deleteData(scope.row.id)"
+              <el-dropdown-item :command="beforeHandleCommand(scope,'delete')"
                 >删除</el-dropdown-item
               >
             </el-dropdown-menu>
@@ -105,9 +107,9 @@
             <el-form-item
               v-if="dialogStatus === 'create'"
               label="密码"
-              prop="concurrencyStamp"
+              prop="password"
             >
-              <el-input v-model="temp.concurrencyStamp" />
+              <el-input v-model="temp.password" />
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="temp.email" />
@@ -116,8 +118,16 @@
               <el-input v-model="temp.phoneNumber" />
             </el-form-item>
           </el-tab-pane>
-          <el-tab-pane label="角色" name="second">角色</el-tab-pane>
-          <el-tab-pane label="组织机构" name="third">组织机构</el-tab-pane>
+          <el-tab-pane label="角色" name="second">
+            <template>
+              <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+              <div style="margin: 15px 0;"></div>
+              <el-checkbox-group v-model="checkedRoles" @change="handleCheckedRolesChange">
+                <el-checkbox v-for="role in roles" :label="role" :key="role">{{role}}</el-checkbox>
+              </el-checkbox-group>
+            </template>
+          </el-tab-pane>
+          <el-tab-pane label="组织机构" name="third">待开发</el-tab-pane>
         </el-tabs>
 
         <!-- <el-form-item label="使用共享数据库" prop="title">
@@ -139,10 +149,13 @@
 </template>
 
 <script>
-import { getUserList } from "@/api/user";
+import { getUserList, getUser, createUser, updateUser, deleteUser, getAssignableRoles,
+getUserRoles } from "@/api/user";
 // import { parseTime } from '@/utils'
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 import {validEmail, validPhone} from "@/utils/validate";
+
+const roleOptions = [];
 export default {
   name: "User",
   components: { Pagination },
@@ -193,21 +206,26 @@ export default {
       listLoading: true,
       total: 0,
       listQuery: {
-        userName: "",
+        Filter: "",
         page: 1,
         limit: 10,
         Sorting: "",
       },
+      checkAll: false,
+      checkedRoles: [],
+      roles: [],
+      isIndeterminate: true,
       activeName:"first",
       temp: {
         id: "",
         userName: "",
-        concurrencyStamp:"",
+        password:"",
         name:"",
         surname:"",
         email: "",
         lockoutEnabled: "",
         phoneNumber:"",
+        roleNames:[],
       },
       dialogFormVisible: false,
       dialogStatus: "",
@@ -226,8 +244,8 @@ export default {
         phoneNumber: [
           { required: true,  trigger: "blur" ,validator: checkPhone},
         ],
-        concurrencyStamp: [
-          { required: false, message: "请输入密码", trigger: "blur" },
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
         ],
       },
     };
@@ -245,7 +263,66 @@ export default {
         this.listLoading = false;
       });
     },
-    handleFilter() {},
+    fetchRoles(){
+      getAssignableRoles().then((response) => {
+        var obj = response.items;
+        var tempArr = [];
+        var arr = Object.keys(obj).forEach(function(key){
+          tempArr.push(obj[key].name);
+        })
+        this.roles = tempArr;
+      });
+    },
+    fetchGetUserRoles(id){
+      getUserRoles(id).then((response) => {
+        var obj = response.items;
+        console.log("obj",obj)
+        var tempArr = [];
+        if(obj.length > 0){
+          var arr = Object.keys(obj).forEach(function(key){
+            tempArr.push(obj[key].name);
+          })
+        }
+
+        this.checkedRoles = tempArr;
+      });
+
+    },
+    handleFilter() {
+      this.listQuery.page = 1;
+      this.fetchData();
+    },
+    handleCheckAllChange(val) {
+      this.checkedRoles = val ? this.roles : [];
+      this.isIndeterminate = false;
+    },
+    handleCheckedRolesChange(value) {
+      let checkedCount = value.length;
+      this.checkAll = checkedCount === this.roles.length;
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.roles.length;
+    },
+    handleCommand(param) {
+      switch (param.command) {
+        case "delete":
+          this.deleteData(param.scope.row.id)
+          break;
+        case "edit":
+          this.handleUpdate(param.scope.row)
+          break;
+        // case "门店关联":
+        //   this.handleBusiness(command.scope.row)
+        //   break;
+        default:
+          // this.handlePasswd(command.scope.row)
+          break;
+      }
+    },
+    beforeHandleCommand(scope,command){
+      return {
+        'scope':scope,
+        'command':command
+      }
+    },
     resetTemp() {
       this.temp = {
         name: "",
@@ -257,6 +334,8 @@ export default {
       this.resetTemp();
       this.dialogStatus = "create";
       this.dialogFormVisible = true;
+      this.temp.roleNames = [];
+      this.fetchRoles();
       this.$nextTick(() => {
         this.$refs["dataForm"].clearValidate();
       });
@@ -264,12 +343,14 @@ export default {
     createData() {
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
-          createTenant(this.temp).then(() => {
+          console.log(this.temp.roleNames)
+          this.temp.roleNames = this.checkedRoles;
+          createUser(this.temp).then(() => {
             this.list.unshift(this.temp);
             this.dialogFormVisible = false;
             this.$notify({
               title: "成功",
-              message: "租户添加成功",
+              message: "添加成功",
               type: "success",
               duration: 2000,
             });
@@ -279,9 +360,10 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row); // copy obj
-      // this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
+      this.fetchRoles();
+      this.fetchGetUserRoles(row.id);
       this.$nextTick(() => {
         this.$refs["dataForm"].clearValidate();
       });
@@ -289,10 +371,10 @@ export default {
     updateData() {
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
+          this.temp.roleNames = this.checkedRoles;
+          console.log(this.temp)
           const tempData = Object.assign({}, this.temp);
-          // console.log(tempData)
-          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateTenant(tempData.id, tempData).then(() => {
+          updateUser(tempData.id, tempData).then(() => {
             const index = this.list.findIndex((v) => v.id === this.temp.id);
             this.list.splice(index, 1, this.temp);
             this.dialogFormVisible = false;
@@ -314,7 +396,7 @@ export default {
         type: "warning",
       })
         .then(() => {
-          deleteTenant(id)
+          deleteUser(id)
             .then((response) => {
               const index = this.list.findIndex((v) => v.id === id);
               this.list.splice(index, 1);

@@ -25,6 +25,7 @@ export function logout() {
   })
 }
 
+// user
 export function getUserList(params) {
   return request({
     url: '/api/identity/users',
@@ -45,6 +46,37 @@ export function createUser(payload) {
     url: '/api/identity/users',
     method: 'post',
     data: payload
+  })
+}
+
+export function updateUser(id,payload) {
+  return request({
+    url: `/api/identity/users/${id}`,
+    method: 'put',
+    data: payload
+  })
+}
+
+export function deleteUser(id) {
+  return request({
+    url: `/api/identity/users/${id}`,
+    method: 'delete'
+  })
+}
+
+// 获取用户所有可用的角色
+export function getAssignableRoles() {
+  return request({
+    url: '/api/identity/users/assignable-roles',
+    method: 'get',
+  })
+}
+
+// 获取用户关联的角色
+export function getUserRoles(id) {
+  return request({
+    url: `/api/identity/users/${id}/roles`,
+    method: 'get',
   })
 }
 
