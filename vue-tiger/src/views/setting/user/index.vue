@@ -62,7 +62,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="right" label="操作" width="300">
+      <el-table-column align="right" label="操作" width="400">
         <template slot-scope="scope">
           <el-dropdown @command="handleCommand" trigger="click">
             <el-button type="primary" size="small">
@@ -123,7 +123,7 @@
               <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
               <div style="margin: 15px 0;"></div>
               <el-checkbox-group v-model="checkedRoles" @change="handleCheckedRolesChange">
-                <el-checkbox v-for="role in roles" :label="role" :key="role">{{role}}</el-checkbox>
+                <el-checkbox span="4" v-for="role in roles" :label="role" :key="role">{{role}}</el-checkbox>
               </el-checkbox-group>
             </template>
           </el-tab-pane>
@@ -419,3 +419,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.el-checkbox {
+  width: 60px;
+}
+</style>

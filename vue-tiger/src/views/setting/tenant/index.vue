@@ -1,6 +1,22 @@
 <template>
   <div class="app-container">
     <el-row style="margin-bottom: 20px">
+      <el-input
+        v-model="listQuery.Filter"
+        placeholder="关键词"
+        style="width: 150px"
+        class="filter-item"
+      />
+
+      <el-button
+        size="small"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @click="handleFilter"
+      >
+        搜索
+      </el-button>
       <el-button
         type="primary"
         size="small"
@@ -122,6 +138,7 @@ export default {
         limit: 20,
         SkipCount: 0,
         Sorting: "name desc",
+        Filter:"",
       },
       checked: true,
 
@@ -159,6 +176,10 @@ export default {
         this.total = response.totalCount;
         this.listLoading = false;
       });
+    },
+    handleFilter() {
+      this.listQuery.page = 1;
+      this.fetchData();
     },
     resetTemp() {
       this.temp = {

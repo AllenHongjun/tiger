@@ -1,9 +1,22 @@
 <template>
   <div class="app-container">
     <el-row style="margin-bottom:20px">
-      <!-- <FilenameOption v-model="filename" />
-      <AutoWidthOption v-model="autoWidth" />
-      <BookTypeOption v-model="bookType" /> -->
+      <el-input
+        v-model="listQuery.Filter"
+        placeholder="关键词"
+        style="width: 150px"
+        class="filter-item"
+      />
+
+      <el-button
+        size="small"
+        class="filter-item"
+        type="primary"
+        icon="el-icon-search"
+        @click="handleFilter"
+      >
+      </el-button>
+      &nbsp;&nbsp;
       <router-link :to="'/setting/role/create'">
         <el-button type="primary" size="small" icon="el-icon-edit">
           添加
@@ -44,16 +57,19 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="操作" width="200">
+      <el-table-column align="center" label="操作" width="400">
         <template slot-scope="scope">
           <router-link :to="'/setting/role/edit/'+scope.row.id">
-            <el-button type="info" size="small"  icon="el-icon-edit" plain>
+            <el-button type="primary" size="mini"  icon="el-icon-edit">
+              编辑
             </el-button>
           </router-link>
-          <el-button type="info" size="small" @click="handlePermission(scope)"  plain>
+          &nbsp;&nbsp;
+          <el-button type="primary" size="mini" @click="handlePermission(scope)" >
             授权
           </el-button>
-          <el-button type="danger" size="small"  icon="el-icon-delete" @click="deleteData(scope.row.id)" plain>
+          <el-button type="danger" size="mini"  icon="el-icon-delete" @click="deleteData(scope.row.id)">
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -89,8 +105,8 @@
       </el-tabs>
       </el-form>
       <div style="text-align:right;">
-        <el-button type="danger" @click="dialogVisible=false">取消</el-button>
-        <el-button type="primary" @click="updatePermissionData()">确认</el-button>
+        <el-button size="mini" type="danger" @click="dialogVisible=false">取消</el-button>
+        <el-button size="mini" type="primary" @click="updatePermissionData()">确认</el-button>
       </div>
     </el-dialog>
 
@@ -103,6 +119,7 @@ import Pagination from "@/components/Pagination"; // Secondary package based on 
 
 export default {
   name: 'Role',
+  components: { Pagination },
   props: {
     providerName: {
       type: String,
@@ -118,7 +135,7 @@ export default {
         page: 1,
         limit: 20,
         SkipCount: 0,
-        // MaxResultCount: 1,
+        Filter: '',
         Sorting: 'name desc'
       },
       dialogVisible:false,
@@ -145,6 +162,10 @@ export default {
         this.total = response.totalCount
         this.listLoading = false
       })
+    },
+    handleFilter() {
+      this.listQuery.page = 1;
+      this.fetchData();
     },
     deleteData(id){
       console.log('delete')
