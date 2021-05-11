@@ -18,7 +18,12 @@
         搜索
       </el-button>
 
-      <el-button type="primary" size="small" icon="el-icon-plus" @click="handleCreate">
+      <el-button
+        type="primary"
+        size="small"
+        icon="el-icon-plus"
+        @click="handleCreate"
+      >
         添加
       </el-button>
     </div>
@@ -62,11 +67,15 @@
           <el-dropdown size="small" split-button type="primary">
             操作
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click="handleUpdate(scope.row)">编辑</el-dropdown-item>
+              <el-dropdown-item @click="handleUpdate(scope.row)"
+                >编辑</el-dropdown-item
+              >
               <el-dropdown-item>锁定</el-dropdown-item>
               <el-dropdown-item>权限</el-dropdown-item>
               <el-dropdown-item>设置密码</el-dropdown-item>
-              <el-dropdown-item @click="deleteData(scope.row.id)">删除</el-dropdown-item>
+              <el-dropdown-item @click="deleteData(scope.row.id)"
+                >删除</el-dropdown-item
+              >
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -88,30 +97,28 @@
         label-width="180px"
         label-position="left"
       >
-        <el-tabs>
+        <el-tabs v-model="activeName">
           <el-tab-pane label="用户信息" name="first">
-            <el-form-item label="租户名称" prop="name">
-              <el-input v-model="temp.name" />
+            <el-form-item label="用户名" prop="userName">
+              <el-input v-model="temp.userName" />
             </el-form-item>
             <el-form-item
               v-if="dialogStatus === 'create'"
-              label="租户管理员邮箱地址"
-              prop="adminEmailAddress"
+              label="密码"
+              prop="concurrencyStamp"
             >
-              <el-input v-model="temp.adminEmailAddress" />
+              <el-input v-model="temp.concurrencyStamp" />
             </el-form-item>
-            <el-form-item
-              v-if="dialogStatus === 'create'"
-              label="租户管理员密码"
-              prop="adminPassword"
-            >
-              <el-input v-model="temp.adminPassword" />
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="temp.email" />
+            </el-form-item>
+            <el-form-item label="手机号" prop="phoneNumber">
+              <el-input v-model="temp.phoneNumber" />
             </el-form-item>
           </el-tab-pane>
           <el-tab-pane label="角色" name="second">角色</el-tab-pane>
           <el-tab-pane label="组织机构" name="third">组织机构</el-tab-pane>
         </el-tabs>
-
 
         <!-- <el-form-item label="使用共享数据库" prop="title">
           <el-checkbox v-model="checked"></el-checkbox>
@@ -128,8 +135,6 @@
         >
       </div>
     </el-dialog>
-
-
   </div>
 </template>
 
@@ -137,7 +142,7 @@
 import { getUserList } from "@/api/user";
 // import { parseTime } from '@/utils'
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
-
+import {validEmail, validPhone} from "@/utils/validate";
 export default {
   name: "User",
   components: { Pagination },
@@ -152,6 +157,37 @@ export default {
     },
   },
   data() {
+    var checkPhone = (rule, value, callback) =>  {
+          if (!value) {
+            return callback(new Error('电话号码不能为空'))
+          }
+          setTimeout(() => {
+            // Number.isInteger是es6验证数字是否为整数的方法,但是我实际用的时候输入的数字总是识别成字符串
+            // 所以我就在前面加了一个+实现隐式转换
+            if (!Number.isInteger(+value)) {
+              callback(new Error('请输入数字值'))
+            } else {
+              if (validPhone(value)) {
+                callback()
+              } else {
+                callback(new Error('电话号码格式/长度不正确'))
+              }
+            }
+          }, 100)
+      };
+    var checkEmail = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('邮箱不能为空'))
+      }
+      setTimeout(() => {
+        if (validEmail(value)) {
+          callback()
+        } else {
+          callback(new Error('请输入正确的邮箱格式'))
+        }
+      }, 100)
+    };
+
     return {
       list: null,
       listLoading: true,
@@ -162,25 +198,36 @@ export default {
         limit: 10,
         Sorting: "",
       },
+      activeName:"first",
       temp: {
         id: "",
-        name: "",
-        adminPassword: "",
-        adminEmailAddress: "",
+        userName: "",
+        concurrencyStamp:"",
+        name:"",
+        surname:"",
+        email: "",
+        lockoutEnabled: "",
+        phoneNumber:"",
       },
       dialogFormVisible: false,
       dialogStatus: "",
       textMap: {
-        update: "租户编辑",
-        create: "租户添加",
+        update: "编辑",
+        create: "添加",
       },
       rules: {
-        name: [{ required: true, message: "请输入名称", trigger: "blur" }],
-        adminEmailAddress: [
-          { required: true, message: "请输入邮箱", trigger: "blur" },
+        userName: [
+          { required: true, message: "请输入名称", trigger: "blur" },
+          { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+          ],
+        email: [
+          { required: true,  trigger: "blur" ,validator: checkEmail},
         ],
-        adminPassword: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+        phoneNumber: [
+          { required: true,  trigger: "blur" ,validator: checkPhone},
+        ],
+        concurrencyStamp: [
+          { required: false, message: "请输入密码", trigger: "blur" },
         ],
       },
     };
@@ -189,6 +236,7 @@ export default {
     this.fetchData();
   },
   methods: {
+
     fetchData() {
       this.listLoading = true;
       getUserList(this.listQuery).then((response) => {
