@@ -11,6 +11,23 @@ export function login(data) {
   })
 }
 
+// 根据名称获取租户
+export function getTenantByName(name) {
+  return request({
+    url: `/api/abp/multi-tenancy/tenants/by-name/${name}`,
+    method: 'get'
+  })
+}
+
+// 获取全局配置信息
+export function getApplicationConfiguration(name) {
+  return request({
+    url: `/api/abp/application-configuration`,
+    method: 'get'
+  })
+}
+
+
 export function getInfo() {
   return request({
     url: '/api/identity/my-profile',

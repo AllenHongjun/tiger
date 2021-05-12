@@ -3,8 +3,24 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">TigerAdmin</h3>
+        <h3 class="title">Tiger</h3>
       </div>
+
+
+      <el-form-item prop="username">
+        <span class="svg-container">
+          <svg-icon icon-class="link" />
+        </span>
+        <el-input
+          v-model="tenant"
+          placeholder="未选择租户"
+          name="tenent"
+          type="text"
+          tabindex="1"
+          auto-complete="on"
+        />
+        <el-button @click="dialogVisible = true" type="info" size="mini" class="switchBth">切换租户</el-button>
+      </el-form-item>
 
       <el-form-item prop="username">
         <span class="svg-container">
@@ -49,11 +65,37 @@
       </div>
 
     </el-form>
+
+
+
+    <el-dialog
+      title="切换租户"
+      :visible.sync="dialogVisible"
+      width="30%"
+      >
+      <el-form label-width="80px" label-position="top">
+        <el-form-item label="名称">
+          <el-input v-model="tenant"></el-input>
+        </el-form-item>
+        <span>将名称留空以切换到宿主端</span>
+      </el-form>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleSwichTenant">保 存</el-button>
+      </span>
+    </el-dialog>
+
+
   </div>
+
+
+
 </template>
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { getApplicationConfiguration, getTenantByName } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -73,6 +115,7 @@ export default {
       }
     }
     return {
+      dialogVisible: false,
       loginForm: {
         username: 'admin',
         password: '1q2w3E*'
@@ -83,7 +126,8 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      tenant: '',
     }
   },
   watch: {
@@ -110,6 +154,12 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
+          getApplicationConfiguration(this.tenant).then((response) => {
+            console.log(response)
+
+          });
+          return;
+
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             console.log('this.redirect:' + this.redirect)
 
@@ -120,11 +170,48 @@ export default {
             console.log('login err')
             this.loading = false
           })
+
+
+
+
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+
+    handleClose(done) {
+        this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+    },
+    handleSwichTenant(){
+      this.tenant = this.tenant;
+      getTenantByName(this.tenant).then((response) => {
+        if(response.success){
+          this.dialogVisible = false;
+          this.$notify({
+            title: "成功",
+            message: "获取成功",
+            type: "success",
+            duration: 2000,
+          });
+        }else{
+          this.dialogVisible = true;
+          this.$notify({
+            title: "失败",
+            message: "租户信息获取失败",
+            type: "fail",
+            duration: 2000,
+          });
+        }
+
+      });
+
+
     }
   }
 }
@@ -139,13 +226,13 @@ $light_gray:#fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
+  .login-container .login-form .el-input input {
     color: $cursor;
   }
 }
 
 /* reset element-ui css */
-.login-container {
+.login-form {
   .el-input {
     display: inline-block;
     height: 47px;
@@ -237,6 +324,17 @@ $light_gray:#eee;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  .switchBth{
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    font-size: 16px;
+  }
+  .tenantInput{
+    background-color:#2d3a4b;
+    line-height:40px;
+    // font-size:20px;
   }
 }
 </style>
