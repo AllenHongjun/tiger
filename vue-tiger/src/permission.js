@@ -20,7 +20,13 @@ router.beforeEach(async(to, from, next) => {
   // determine whether the user has logged in
   const hasToken = getToken()
 
-  if (hasToken) {
+  let abpConfig = store.getters.abpConfig
+  if (!abpConfig) {
+    abpConfig = await store.dispatch('app/applicationConfiguration')
+  }
+
+
+  if (abpConfig.currentUser.isAuthenticated) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
@@ -36,7 +42,22 @@ router.beforeEach(async(to, from, next) => {
           // get user info
           await store.dispatch('user/getInfo')
 
-          next()
+          store.dispatch('user/setRoles', abpConfig.currentUser.roles)
+
+          const grantedPolicies = abpConfig.auth.grantedPolicies
+          // console.log('grantedPolicies',grantedPolicies)
+          // generate accessible routes map based on grantedPolicies
+          const accessRoutes = await store.dispatch(
+            'permission/generateRoutes',
+            grantedPolicies
+          )
+
+          // dynamically add accessible routes
+          router.addRoutes(accessRoutes)
+
+          // hack method to ensure that addRoutes is complete
+          // set the replace: true, so the navigation will not leave a history record
+          next({ ...to, replace: true })
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')

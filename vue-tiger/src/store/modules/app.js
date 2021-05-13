@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { getApplicationConfiguration } from '@/api/user'
 
 const state = {
   sidebar: {
@@ -25,6 +26,9 @@ const mutations = {
   },
   TOGGLE_DEVICE: (state, device) => {
     state.device = device
+  },
+  SET_ABPCONFIG: (state, abpConfig) => {
+    state.abpConfig = abpConfig
   }
 }
 
@@ -37,7 +41,25 @@ const actions = {
   },
   toggleDevice({ commit }, device) {
     commit('TOGGLE_DEVICE', device)
-  }
+  },
+  applicationConfiguration({ commit }) {
+    return new Promise((resolve, reject) => {
+      getApplicationConfiguration()
+        .then(response => {
+          commit('SET_ABPCONFIG', response)
+
+
+          const language = response.localization.currentCulture.cultureName
+          const values = response.localization.values
+          // setLocale(language, values)
+
+          resolve(response)
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
 }
 
 export default {

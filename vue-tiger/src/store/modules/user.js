@@ -15,7 +15,12 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    userName: '',
+    avatar: '',
+    email: '',
+    introduction: '',
+    phoneNumber: '',
+    roles: []
   }
 }
 
@@ -33,7 +38,10 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
-  }
+  },
+  SET_ROLES: (state, roles) => {
+    state.roles = roles
+  },
 }
 
 const actions = {
@@ -43,13 +51,9 @@ const actions = {
     clientSetting.username = username.trim()
     clientSetting.password = password
     return new Promise((resolve, reject) => {
-      // console.log(clientSetting);
       login(clientSetting).then(response => {
-        // const { data } = response.data
-        console.log(response)
-        // console.log(response.data)
-        console.log(response.access_token)
-
+        // console.log(response)
+        // console.log(response.access_token)
         commit('SET_TOKEN', response.access_token)
         setToken(response.access_token)
         resolve()
@@ -62,23 +66,13 @@ const actions = {
   // get user info
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      // console.log('getinfo')
-      // console.log(commit)
-      // console.log(state)
       getInfo().then(response => {
-        // console.log(response)
-
         if (!response) {
           return reject('Verification failed, please Login again.')
         }
-
         const { userName, name, phoneNumber, email, extraProperties } = response
-        // console.log(userName)
-        // console.log(name)
-
         commit('SET_NAME', name)
         commit('SET_AVATAR', extraProperties.Avatar)
-
         // commit('SET_USERNAME', userName)
         // commit('SET_TEL', phoneNumber)
         // commit('SET_EMAIL', email)
@@ -89,7 +83,9 @@ const actions = {
       })
     })
   },
-
+  setRoles({ commit }, roles) {
+    commit('SET_ROLES', roles)
+  },
   // user logout
   logout({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
@@ -116,9 +112,6 @@ const actions = {
   // get role list
   getRoleList({ commit }) {
     return new Promise((resolve, reject) => {
-      // console.log('getinfo')
-      // console.log(commit)
-      // console.log(state)
       getRoleList().then(response => {
         console.log(response)
 

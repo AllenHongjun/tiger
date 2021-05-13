@@ -6,6 +6,9 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
+/* Router Modules */
+import settingRouter from './modules/setting'
+
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -24,6 +27,9 @@ import Layout from '@/layout'
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
   }
  */
+
+
+
 
 /**
  * constantRoutes
@@ -253,119 +259,110 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/setting',
-    component: Layout,
-    redirect: '/setting/system',
-    name: 'Setting',
-    // hidden: true,
-    meta: {
-      title: '设置',
-      icon: 'el-icon-setting'
-    },
-    children: [
-      {
-        path: 'system',
-        component: () => import('@/views/setting/system/index'), // Parent router-view
-        name: 'system',
-        // hidden:true,
-        meta: { title: '系统' }
+  // {
+  //   path: '/setting',
+  //   component: Layout,
+  //   redirect: '/setting/system',
+  //   name: 'Setting',
+  //   // hidden: true,
+  //   meta: {
+  //     title: '设置',
+  //     icon: 'el-icon-setting'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'system',
+  //       component: () => import('@/views/setting/system/index'), // Parent router-view
+  //       name: 'system',
+  //       // hidden:true,
+  //       meta: { title: '系统' }
 
-      },
-      {
-        path: 'audit_log/list',
-        component: () => import('@/views/setting/audit_log/index'), // Parent router-view
-        name: 'audit_log_list',
-        // hidden:true,
-        meta: { title: '审计日志' }
+  //     },
+  //     {
+  //       path: 'audit_log/list',
+  //       component: () => import('@/views/setting/audit_log/index'), // Parent router-view
+  //       name: 'audit_log_list',
+  //       // hidden:true,
+  //       meta: { title: '审计日志' }
 
-      },
-      {
-        path: 'permistion',
-        component: () => import('@/views/setting/permission/index'),
-        name: 'permistion',
-        meta: { title: '权限' }
-      },
-      {
-        path: '/permistion/create',
-        component: () => import('@/views/setting/permission/create'),
-        name: 'permistion_create',
-        hidden: true,
-        meta: { title: '权限添加' }
-      },
-      {
-        path: '/system_log/index',
-        component: () => import('@/views/setting/system_log/index'),
-        name: 'system_log',
-        hidden: true,
-        meta: { title: '系统日志' }
-      },
-      {
-        path: 'role/list',
-        component: () => import('@/views/setting/role/index'),
-        name: 'role',
-        meta: { title: '角色' }
-      },
-      {
-        path: 'role/create',
-        component: () => import('@/views/setting/role/create'),
-        name: 'role_create',
-        hidden: true,
-        meta: { title: '角色添加' }
-      },
-      {
-        path: 'role/edit/:id',
-        component: () => import('@/views/setting/role/edit'),
-        name: 'role_edit',
-        hidden: true,
-        meta: { title: '角色修改' }
-      },
-      {
-        path: '/user/list',
-        component: () => import('@/views/setting/user/index'),
-        name: 'user_list',
-        meta: { title: '用户列表' }
-      },
-      {
-        path: '/user/create',
-        //  redirect: '/setting/user/edit',
-        component: () => import('@/views/setting/user/create'),
-        hidden: true,
-        name: 'user_create',
-        meta: { title: '用户添加' }
-      },
-      {
-        path: '/user/edit/:id',
-        //  redirect: '/setting/user/edit',
-        component: () => import('@/views/setting/user/edit'),
-        name: 'user_edit',
-        hidden: true,
-        meta: { title: '用户编辑' }
+  //     },
+  //     {
+  //       path: 'permistion',
+  //       component: () => import('@/views/setting/permission/index'),
+  //       name: 'permistion',
+  //       meta: { title: '权限' }
+  //     },
+  //     {
+  //       path: '/permistion/create',
+  //       component: () => import('@/views/setting/permission/create'),
+  //       name: 'permistion_create',
+  //       hidden: true,
+  //       meta: { title: '权限添加' }
+  //     },
+  //     {
+  //       path: '/system_log/index',
+  //       component: () => import('@/views/setting/system_log/index'),
+  //       name: 'system_log',
+  //       hidden: true,
+  //       meta: { title: '系统日志' }
+  //     },
+  //     {
+  //       path: 'role/list',
+  //       component: () => import('@/views/setting/role/index'),
+  //       name: 'role',
+  //       meta: { title: '角色' }
+  //     },
+  //     {
+  //       path: 'role/create',
+  //       component: () => import('@/views/setting/role/create'),
+  //       name: 'role_create',
+  //       hidden: true,
+  //       meta: { title: '角色添加' }
+  //     },
+  //     {
+  //       path: 'role/edit/:id',
+  //       component: () => import('@/views/setting/role/edit'),
+  //       name: 'role_edit',
+  //       hidden: true,
+  //       meta: { title: '角色修改' }
+  //     },
+  //     {
+  //       path: '/user/list',
+  //       component: () => import('@/views/setting/user/index'),
+  //       name: 'user_list',
+  //       meta: { title: '用户列表' }
+  //     },
+  //     {
+  //       path: '/user/create',
+  //       //  redirect: '/setting/user/edit',
+  //       component: () => import('@/views/setting/user/create'),
+  //       hidden: true,
+  //       name: 'user_create',
+  //       meta: { title: '用户添加' }
+  //     },
+  //     {
+  //       path: '/user/edit/:id',
+  //       //  redirect: '/setting/user/edit',
+  //       component: () => import('@/views/setting/user/edit'),
+  //       name: 'user_edit',
+  //       hidden: true,
+  //       meta: { title: '用户编辑' }
+  //     },
+  //     {
+  //       path: 'tenant',
+  //       component: () => import('@/views/setting/tenant/index'),
+  //       name: 'Tenant',
+  //       meta: { title: '租户' }
+  //     },
+  //     {
+  //       path: 'menu',
+  //       component: () => import('@/views/setting/menu/index'),
+  //       name: 'menu',
+  //       meta: { title: '菜单' }
+  //     }
 
-      },
-      // {
-      //   path: 'edit',
-      //   // redirect: '/setting/user/edit',
-      //   component: () => import('@/views/setting/user/edit'),
-      //   name: 'user_edit',
-      //   meta: { title: '用户编辑' }
-
-      // },
-      {
-        path: 'tenant',
-        component: () => import('@/views/setting/tenant/index'),
-        name: 'Tenant',
-        meta: { title: '租户' }
-      },
-      {
-        path: 'menu',
-        component: () => import('@/views/setting/menu/index'),
-        name: 'menu',
-        meta: { title: '菜单' }
-      }
-
-    ]
-  },
+  //   ]
+  // },
 
   {
     path: 'external-link',
@@ -396,6 +393,22 @@ export const constantRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+ export const asyncRoutes = [
+  /** when your routing map is too long, you can split it into small modules **/
+  // identityRouter,
+  // tenantRouter,
+  // dictionaryRouter,
+  // auditlogRouter,
+  settingRouter,
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
+
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
