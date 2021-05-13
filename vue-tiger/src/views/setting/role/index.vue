@@ -96,9 +96,9 @@
               :data="transformPermissionTree(group.permissions)"
               :props="treeDefaultProps"
               show-checkbox
-              check-strictly
+              :check-strictly='false'
               node-key="name"
-              default-expand-all
+              :default-expand-all="false"
             />
           </el-form-item>
         </el-tab-pane>
