@@ -3,12 +3,14 @@ import Layout from '@/layout'
 const settingRouter = {
   path: '/setting',
   component: Layout,
-  // redirect: '/setting/system',
-  // name: 'Setting',
+  alwaysShow: true,
+  redirect: '/setting/system',
+  name: 'Setting',
   // hidden: true,
   meta: {
     title: '设置',
-    icon: 'el-icon-setting'
+    icon: 'el-icon-setting',
+    policy: 'AbpIdentity.Users'
   },
   children: [
     // {
@@ -48,7 +50,7 @@ const settingRouter = {
       path: 'role/list',
       component: () => import('@/views/setting/role/index'),
       name: 'role',
-      meta: { title: '角色' }
+      meta: { title: '角色' , policy: 'AbpIdentity.Roles'}
     },
     {
       path: 'role/create',
@@ -68,7 +70,7 @@ const settingRouter = {
       path: '/user/list',
       component: () => import('@/views/setting/user/index'),
       name: 'user_list',
-      meta: { title: '用户列表' }
+      meta: { title: '用户列表' , policy: 'AbpIdentity.Users'}
     },
     // {
     //   path: '/user/create',

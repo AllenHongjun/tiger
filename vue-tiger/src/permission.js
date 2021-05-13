@@ -52,9 +52,13 @@ router.beforeEach(async(to, from, next) => {
             grantedPolicies
           )
 
+          console.log('accessRoutes',accessRoutes)
           // dynamically add accessible routes
+
+          console.log('router_before',router)
           router.addRoutes(accessRoutes)
 
+          console.log('router_after',router)
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })

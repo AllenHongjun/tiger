@@ -57,7 +57,7 @@ export const constantRoutes = [
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [{
       path: 'dashboard',
-      name: '主页',
+      name: '主页1',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '主页', icon: 'dashboard' }
     }]
@@ -364,16 +364,16 @@ export const constantRoutes = [
   //   ]
   // },
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+  // {
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
   // {
   //   path: '/excel',
   //   component: Layout,
@@ -391,7 +391,7 @@ export const constantRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 
 /**

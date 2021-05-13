@@ -42,6 +42,16 @@ const mutations = {
   SET_ROLES: (state, roles) => {
     state.roles = roles
   },
+  CLEAN: state => {
+    state.token = ''
+    state.name = ''
+    state.userName = ''
+    state.avatar = ''
+    state.email = ''
+    state.introduction = ''
+    state.phoneNumber = ''
+    state.roles = []
+  }
 }
 
 const actions = {

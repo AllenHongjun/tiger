@@ -6,5 +6,6 @@ const getters = {
   name: state => state.user.name,
   language: state => state.app.language,
   abpConfig: state => state.app.abpConfig,
+  permission_routes: state => state.permission.routes,
 }
 export default getters
