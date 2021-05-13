@@ -11,6 +11,13 @@ export function login(data) {
   })
 }
 
+export function logout() {
+  return request({
+    url: '/api/account/logout',
+    method: 'get'
+  })
+}
+
 // 根据名称获取租户
 export function getTenantByName(name) {
   return request({
@@ -31,13 +38,6 @@ export function getApplicationConfiguration(name) {
 export function getInfo() {
   return request({
     url: '/api/identity/my-profile',
-    method: 'get'
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/api/account/logout',
     method: 'get'
   })
 }

@@ -158,7 +158,7 @@ export default {
             console.log(response)
 
           });
-          return;
+          // return;
 
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             console.log('this.redirect:' + this.redirect)
