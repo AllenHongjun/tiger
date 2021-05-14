@@ -4,7 +4,7 @@ const settingRouter = {
   path: '/setting',
   component: Layout,
   alwaysShow: true,
-  redirect: '/setting/system',
+  redirect: '/setting/audit_log/list',
   name: 'Setting',
   // hidden: true,
   meta: {

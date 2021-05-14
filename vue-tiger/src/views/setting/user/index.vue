@@ -72,8 +72,10 @@
               <el-dropdown-item :command="beforeHandleCommand(scope,'edit')"
                 >编辑</el-dropdown-item
               >
-              <el-dropdown-item>锁定</el-dropdown-item>
-              <el-dropdown-item>权限</el-dropdown-item>
+              <el-dropdown-item >锁定</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope,'updatePermission')">
+                授权
+              </el-dropdown-item>
               <el-dropdown-item>设置密码</el-dropdown-item>
               <el-dropdown-item :command="beforeHandleCommand(scope,'delete')"
                 >删除</el-dropdown-item
@@ -145,6 +147,11 @@
         >
       </div>
     </el-dialog>
+
+    <permission-dialog
+      ref="permissionDialog"
+      provider-name="U"
+    />
   </div>
 </template>
 
@@ -154,11 +161,12 @@ getUserRoles } from "@/api/user";
 // import { parseTime } from '@/utils'
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 import {validEmail, validPhone} from "@/utils/validate";
+import PermissionDialog from '../components/permission-dialog'
 
 const roleOptions = [];
 export default {
   name: "User",
-  components: { Pagination },
+  components: { Pagination ,PermissionDialog},
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -309,9 +317,9 @@ export default {
         case "edit":
           this.handleUpdate(param.scope.row)
           break;
-        // case "门店关联":
-        //   this.handleBusiness(command.scope.row)
-        //   break;
+        case "updatePermission":
+          this.handleUpdatePermission(param.scope.row)
+          break;
         default:
           // this.handlePasswd(command.scope.row)
           break;
@@ -387,6 +395,11 @@ export default {
           });
         }
       });
+    },
+    handleUpdatePermission(row) {
+      console.log("row",row)
+      // 用户授权
+      this.$refs['permissionDialog'].handleUpdatePermission(row)
     },
     deleteData(id) {
       console.log("delete");

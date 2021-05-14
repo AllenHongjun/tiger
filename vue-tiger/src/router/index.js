@@ -57,7 +57,7 @@ export const constantRoutes = [
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [{
       path: 'dashboard',
-      name: '主页1',
+      name: '主页',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '主页', icon: 'dashboard' }
     }]
