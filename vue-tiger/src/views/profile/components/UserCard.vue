@@ -6,7 +6,7 @@
 
     <div class="user-profile">
       <div class="box-center">
-        <!-- <pan-thumb
+        <pan-thumb
           :image="getFilePathByName(user.avatar)"
           :height="'100px'"
           :width="'100px'"
@@ -14,17 +14,17 @@
         >
           <div>欢迎</div>
           {{ user.name }}
-        </pan-thumb> -->
+        </pan-thumb>
       </div>
       <div />
       <div class="box-center">
         <div class="user-name text-center">{{ user.name }}</div>
         <div class="user-role text-center text-muted">
-          <!-- {{ user.role | uppercaseFirst }} -->
+          {{ user.role  }}
         </div>
       </div>
       <div class="box-center">
-        <!-- <el-upload
+        <el-upload
           action
           name="file"
           :before-upload="beforeUpload"
@@ -32,7 +32,7 @@
           :show-file-list="false"
         >
           <el-button type="primary" icon="el-icon-upload">修改头像</el-button>
-        </el-upload> -->
+        </el-upload>
       </div>
     </div>
     <div class="user-bio">
@@ -43,11 +43,11 @@
         </div>
         <div class="user-bio-section-body">
           <div class="text-muted">
-            <!-- {{
+            {{
               user.introduction
                 ? user.introduction
                 : '个人介绍内容'
-            }} -->
+            }}
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ export default {
           userName: '',
           email: '',
           avatar: '',
-          role: '',
+          role: 'admin',
           phoneNumber: '',
           introduction: ''
         }

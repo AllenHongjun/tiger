@@ -56,14 +56,15 @@ export default {
   },
   methods: {
     getUser() {
+      console.log(this)
       this.user = {
         name: this.name,
-        // role: this.roles.join(' | '),
-        // email: this.email,
+        role: this.roles.join(' | '),
+        email: this.email,
         avatar: this.avatar,
-        // userName: this.userName,
-        // phoneNumber: this.phoneNumber,
-        // introduction: this.introduction
+        userName: this.userName,
+        phoneNumber: this.phoneNumber,
+        introduction: this.introduction
       }
     }
   }

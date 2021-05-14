@@ -81,6 +81,15 @@ export function deleteUser(id) {
   })
 }
 
+// profile 修改用户信息
+export function setUserInfo(data) {
+  return request({
+    url: '/api/identity/my-profile',
+    method: 'put',
+    data: data
+  })
+}
+
 
 export function changePassword(payload) {
   return request({

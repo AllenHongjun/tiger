@@ -1,13 +1,13 @@
 <template>
   <el-form ref="aForm" :model="aForm" :rules="aRules">
     <el-form-item label="原密码" prop="password">
-      <el-input v-model.trim="aForm.password" type="password" />
+      <el-input v-model.trim="aForm.password" type="password" show-password/>
     </el-form-item>
     <el-form-item label="新密码" prop="newPassword">
-      <el-input v-model.trim="aForm.newPassword" type="password" />
+      <el-input v-model.trim="aForm.newPassword" type="password" show-password/>
     </el-form-item>
-    <el-form-item label="确认新密码" prop="againPassword">
-      <el-input v-model.trim="aForm.againPassword" type="password" />
+    <el-form-item label="确认新密码" prop="againPassword" >
+      <el-input v-model.trim="aForm.againPassword" type="password" show-password/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submit">提交</el-button>
@@ -22,19 +22,16 @@ export default {
     var avalidatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error(
-          // this.$i18n.t("AbpAccount['ThisFieldIsNotValid.']")
+          '确认密码不能为空'
         ))
       } else if (value !== this.aForm.newPassword) {
         callback(new Error(
-          // this.$i18n.t(
-          //   "AbpIdentity['{0} and {1} do not match.']",
-          //   [this.$i18n.t("AbpAccount['DisplayName:NewPassword']"),
-          //     this.$i18n.t("AbpAccount['DisplayName:NewPasswordConfirm']")]
-          // )
+          '两次输入的密码不一致'
         ))
-      } else {
-        callback()
       }
+      // else {
+      //   callback()
+      // }
     }
     return {
       aForm: {
@@ -45,19 +42,19 @@ export default {
       aRules: {
         password: [{
           required: true,
-          message: '密码不能为空',
+          message: '原密码不能为空',
           trigger: ['blur', 'change']
         }
         ],
         newPassword: [{
           required: true,
-          message: '密码不能为空',
+          message: '新密码不能为空',
           trigger: ['blur', 'change']
         }
         ],
         againPassword: [{
           required: true,
-          message: '密码不能为空',
+          message: '确认密码不能为空',
           validator: avalidatePass,
           trigger: ['blur', 'change']
         }

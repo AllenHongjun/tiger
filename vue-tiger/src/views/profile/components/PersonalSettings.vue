@@ -50,19 +50,19 @@ export default {
         ],
         email: [{
           required: true,
-          message: '字段不能为空',
+          message: '邮箱不能为空',
           trigger: ['blur', 'change']
         }
         ],
-        UserName: [{
+        userName: [{
           required: true,
-          message: '字段不能为空',
+          message: '用户名不能为空',
           trigger: ['blur', 'change']
         }
         ],
         phoneNumber: [{
           required: true,
-          message: '字段不能为空',
+          message: '手机号不能为空',
           trigger: ['blur', 'change']
         }
         ]
@@ -81,7 +81,7 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.user)
+    console.log(this.user)
   },
   methods: {
     submit() {

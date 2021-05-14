@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, setUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -37,7 +37,20 @@ const mutations = {
     state.name = name
   },
   SET_AVATAR: (state, avatar) => {
+    if (!avatar) avatar = 'https://pic4.zhimg.com/80/v2-aed9b5ce797df38ae4298ee6cb81f47e_720w.jpg?source=1940ef5c'
     state.avatar = avatar
+  },
+  SET_USERNAME: (state, userName) => {
+    state.userName = userName
+  },
+  SET_TEL: (state, phoneNumber) => {
+    state.phoneNumber = phoneNumber
+  },
+  SET_EMAIL: (state, email) => {
+    state.email = email
+  },
+  SET_INTRODUCTION: (state, Introduction) => {
+    state.Introduction = Introduction
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
@@ -83,10 +96,10 @@ const actions = {
         const { userName, name, phoneNumber, email, extraProperties } = response
         commit('SET_NAME', name)
         commit('SET_AVATAR', extraProperties.Avatar)
-        // commit('SET_USERNAME', userName)
-        // commit('SET_TEL', phoneNumber)
-        // commit('SET_EMAIL', email)
-        // commit('SET_INTRODUCTION', extraProperties.Introduction)
+        commit('SET_USERNAME', userName)
+        commit('SET_TEL', phoneNumber)
+        commit('SET_EMAIL', email)
+        commit('SET_INTRODUCTION', extraProperties.Introduction)
         resolve(response)
       }).catch(error => {
         reject(error)
@@ -95,6 +108,24 @@ const actions = {
   },
   setRoles({ commit }, roles) {
     commit('SET_ROLES', roles)
+  },
+  setUserInfo({ commit }, userInfo) {
+    return new Promise((resolve, reject) => {
+      setUserInfo(userInfo)
+        .then(response => {
+          const { userName, name, phoneNumber, email, extraProperties } = userInfo
+          commit('SET_NAME', name)
+          commit('SET_USERNAME', userName)
+          commit('SET_TEL', phoneNumber)
+          commit('SET_AVATAR', extraProperties.Avatar)
+          commit('SET_EMAIL', email)
+          commit('SET_INTRODUCTION', extraProperties.Introduction)
+          resolve(response)
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
   },
   // user logout
   logout({ commit, dispatch }) {
