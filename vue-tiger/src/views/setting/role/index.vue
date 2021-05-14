@@ -16,12 +16,10 @@
         @click="handleFilter"
       >
       </el-button>
-      &nbsp;&nbsp;
-      <router-link :to="'/setting/role/create'">
-        <el-button type="primary" size="small" icon="el-icon-edit">
+
+      <el-button type="primary" size="small" icon="el-icon-edit" @click="handleCreate">
           添加
         </el-button>
-      </router-link>
     </el-row>
     <el-table
       v-loading="listLoading"
@@ -48,22 +46,20 @@
       </el-table-column>
       <el-table-column label="是否发布" align="center" width="95">
         <template slot-scope="scope">
-          {{ scope.row.isPublish == true? '是':'否' }}
+          {{ scope.row.isPublic == true? '是':'否' }}
         </template>
       </el-table-column>
-      <el-table-column label="是否静态" align="center" width="95">
+      <!-- <el-table-column label="是否静态" align="center" width="95">
         <template slot-scope="scope">
           {{ scope.row.isStatic == true? '是':'否' }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column align="center" label="操作" width="400">
         <template slot-scope="scope">
-          <router-link :to="'/setting/role/edit/'+scope.row.id">
-            <el-button type="primary" size="mini"  icon="el-icon-edit">
+          <el-button type="primary" size="mini"  icon="el-icon-edit" @click="handleUpdate(scope.row)">
               编辑
-            </el-button>
-          </router-link>
+          </el-button>
           &nbsp;&nbsp;
           <el-button type="primary" size="mini" @click="handlePermission(scope)" >
             授权
@@ -110,11 +106,49 @@
       </div>
     </el-dialog>
 
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogRoleFormVisible">
+      <el-form
+        ref="dataForm"
+        :rules="rules"
+        :model="temp"
+        label-width="180px"
+        label-position="left"
+      >
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="temp.name" />
+        </el-form-item>
+        <el-form-item label="是否默认" prop="title">
+          <el-checkbox v-model="temp.isDefault"></el-checkbox>
+        </el-form-item>
+        <el-form-item label="是否公开" prop="title">
+          <el-checkbox v-model="temp.isPublic"></el-checkbox>
+        </el-form-item>
+      </el-form>
+      <div style="text-align: right">
+        <el-button type="danger" @click="dialogRoleFormVisible = false"
+          >取消</el-button
+        >
+        <el-button
+          type="primary"
+          @click="dialogStatus === 'create' ? createData() : updateData()"
+          >确认</el-button
+        >
+      </div>
+    </el-dialog>
+
+
   </div>
 </template>
 
 <script>
-import { getRoleList,deleteRole,getPermissions,updatePermissions } from '@/api/user'
+import {
+  getRoleList,
+  deleteRole,
+  getPermissions,
+  updatePermissions,
+  createRole,
+  updateRole
+} from '@/api/user'
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 
 export default {
@@ -138,6 +172,18 @@ export default {
         Filter: '',
         Sorting: 'name desc'
       },
+      dialogStatus:'',
+      dialogRoleFormVisible:false,
+      temp: {
+        id: "",
+        name: "",
+        isDefault: false,
+        isPublic: false,
+      },
+      textMap: {
+        update: "编辑",
+        create: "添加",
+      },
       dialogVisible:false,
       permissionData: {
         groups: []
@@ -147,7 +193,10 @@ export default {
         label: 'label'
       },
       dialogPermissionFormVisible: false,
-      permissionsQuery: { providerKey: '', providerName: 'R' }
+      permissionsQuery: { providerKey: '', providerName: 'R' },
+      rules: {
+        name: [{ required: true, message: "请输入名称", trigger: "blur" }],
+      },
     }
   },
   created() {
@@ -166,6 +215,67 @@ export default {
     handleFilter() {
       this.listQuery.page = 1;
       this.fetchData();
+    },
+    resetTemp() {
+      this.temp = {
+        name: "",
+        isDefault: false,
+        isPublic: false,
+      };
+    },
+    handleCreate() {
+      this.resetTemp();
+      this.dialogStatus = "create";
+      this.dialogRoleFormVisible = true;
+      this.$nextTick(() => {
+        this.$refs["dataForm"].clearValidate();
+      });
+    },
+    createData() {
+      this.$refs["dataForm"].validate((valid) => {
+        if (valid) {
+          createRole(this.temp).then(() => {
+            this.list.unshift(this.temp);
+            this.dialogRoleFormVisible = false;
+            this.$notify({
+              title: "成功",
+              message: "操作成功",
+              type: "success",
+              duration: 2000,
+            });
+          });
+        }
+      });
+    },
+    handleUpdate(row) {
+      this.temp = Object.assign({}, row); // copy obj
+      console.log(this.temp)
+      // this.temp.timestamp = new Date(this.temp.timestamp)
+      this.dialogStatus = "update";
+      this.dialogRoleFormVisible = true;
+      this.$nextTick(() => {
+        this.$refs["dataForm"].clearValidate();
+      });
+    },
+    updateData() {
+      this.$refs["dataForm"].validate((valid) => {
+        if (valid) {
+          const tempData = Object.assign({}, this.temp);
+          // console.log(tempData)
+          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          updateRole(tempData.id, tempData).then(() => {
+            const index = this.list.findIndex((v) => v.id === this.temp.id);
+            this.list.splice(index, 1, this.temp);
+            this.dialogRoleFormVisible = false;
+            this.$notify({
+              title: "成功",
+              message: "操作成功",
+              type: "success",
+              duration: 2000,
+            });
+          });
+        }
+      });
     },
     deleteData(id){
       console.log('delete')
@@ -291,3 +401,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.el-dialog{
+  min-height:800px;
+}
+</style>

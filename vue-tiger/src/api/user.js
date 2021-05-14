@@ -133,6 +133,14 @@ export function createRole(payload) {
   })
 }
 
+export function updateRole(id, payload) {
+  return request({
+    url: `/api/identity/roles/${id}`,
+    method: 'put',
+    data: payload
+  })
+}
+
 export function deleteRole(id) {
   return request({
     url: `/api/identity/roles/${id}`,
