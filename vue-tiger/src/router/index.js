@@ -63,6 +63,20 @@ export const constantRoutes = [
     }]
   },
 
+  {
+    path: '/profile',
+    // 你可以选择不同的layout组件
+    component: Layout,
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [{
+      path: '/profile/index',
+      name: '个人中心',
+      component: () => import('@/views/profile/index'),
+      meta: { title: '个人中心', icon: 'dashboard' },
+      hidden:true
+    }]
+  },
+
   // {
   //   path: '/example',
   //   component: Layout,

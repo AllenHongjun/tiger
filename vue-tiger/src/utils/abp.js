@@ -99,7 +99,7 @@ export function getFilePathByName(name) {
     return name
   }
 
-  return process.env.VUE_APP_BASE_API + '/api/file-management/files/' + name
+  return process.env.VUE_APP_BASE_API + '/api/file-management/' + name
 }
 
 export default baseListQuery

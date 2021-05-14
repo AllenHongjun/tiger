@@ -81,6 +81,18 @@ export function deleteUser(id) {
   })
 }
 
+
+export function changePassword(payload) {
+  return request({
+    url: `/api/identity/my-profile/change-password`,
+    method: 'post',
+    data: payload
+  })
+}
+
+
+
+
 // 获取用户所有可用的角色
 export function getAssignableRoles() {
   return request({
