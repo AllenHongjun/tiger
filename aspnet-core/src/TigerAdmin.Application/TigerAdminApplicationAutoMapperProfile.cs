@@ -3,6 +3,7 @@ using TigerAdmin.AuditLogs;
 using TigerAdmin.Books;
 using TigerAdmin.SecurityLogs;
 using Volo.Abp.AuditLogging;
+using Volo.Abp.Identity;
 using Volo.Abp.SecurityLog;
 
 namespace TigerAdmin
@@ -17,7 +18,10 @@ namespace TigerAdmin
             CreateMap<Book, BookDto>();
             CreateMap<CreateUpdateBookDto, Book>();
             CreateMap<SecurityLogInfo, SecurityLogDto>();
-            CreateMap<AuditLog, AuditLogDto>();
+            CreateMap<AuditLog, AuditLogs.AuditLogDto>();
+
+            CreateMap<OrganizationUnit, OrganizationUnitDto>()
+                .MapExtraProperties();
         }
     }
 }

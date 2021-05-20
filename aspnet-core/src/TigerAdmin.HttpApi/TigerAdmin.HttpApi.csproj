@@ -8,6 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Volo\Abp\AuditLogging\**" />
+    <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
+    <None Remove="Volo\Abp\AuditLogging\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Volo\Abp\Identity\HelloIdentityRoleController.cs" />
+    <Compile Remove="Volo\Abp\Identity\HelloIdentityUserController.cs" />
+    <Compile Remove="Volo\Abp\Identity\IdentityClaimTypeController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TigerAdmin.Application.Contracts\TigerAdmin.Application.Contracts.csproj" />
   </ItemGroup>
 
