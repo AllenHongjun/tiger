@@ -32,4 +32,15 @@
     <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="3.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Volo\Abp\AuditLoggings\" />
+    <Folder Include="Volo\Abp\BackgroundJobs\" />
+    <Folder Include="Volo\Abp\Blogging\" />
+    <Folder Include="Volo\Abp\FeatureManagement\" />
+    <Folder Include="Volo\Abp\TenantManagement\" />
+    <Folder Include="Volo\Abp\PermissionManagement\" />
+    <Folder Include="Volo\Abp\IdentityServer\" />
+    <Folder Include="Volo\Abp\CmsKit\" />
+  </ItemGroup>
+
 </Project>
