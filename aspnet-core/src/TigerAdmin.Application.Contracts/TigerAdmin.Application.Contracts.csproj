@@ -21,7 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Volo\Abp\BackgroundJobs\" />
+    <Folder Include="Volo\Abp\Blogging\" />
+    <Folder Include="Volo\Abp\CmsKit\" />
     <Folder Include="Volo\Abp\FeatureManagement\" />
+    <Folder Include="Volo\Abp\PermissionManagement\" />
   </ItemGroup>
 
 </Project>

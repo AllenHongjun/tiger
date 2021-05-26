@@ -6,7 +6,7 @@ using Volo.Abp.Application.Services;
 
 namespace Volo.Abp.Identity
 {
-    public interface IHelloIdentityRoleAppService : IApplicationService
+    public interface ITigerIdentityRoleAppService : IApplicationService
     {
         Task AddToOrganizationUnitAsync(Guid roleId, Guid ouId);
 
