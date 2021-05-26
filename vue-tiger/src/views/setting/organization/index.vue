@@ -31,7 +31,7 @@
       lazy
     >
       <el-table-column
-        label="OUCode"
+        label="编码"
         prop="code"
       >
         <template slot-scope="{ row }">
@@ -39,7 +39,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="OUDisplayName"
+        label="名称"
         prop="displayName"
       >
         <template slot-scope="{ row }">
@@ -47,7 +47,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="Actions"
+        label="操作"
         align="center"
         width="300"
         class-name="small-padding fixed-width"
@@ -56,11 +56,11 @@
           <el-button
             v-if="checkPermission('AbpIdentity.OrganitaionUnits.Create')"
             size="mini"
-            type="success"
-            icon="el-icon-arrow-down"
+            type="primary"
+            icon="el-icon-plus"
             @click="handleCreate(row)"
           >
-            NewOrganitaionUnitChild
+            新增
           </el-button>
           <el-button
             v-if="checkPermission('AbpIdentity.OrganitaionUnits.Update')"
@@ -69,7 +69,7 @@
             icon="el-icon-edit"
             @click="handleUpdate(row)"
           >
-            Edit
+            编辑
           </el-button>
           <el-button
             v-if="checkPermission('AbpIdentity.OrganitaionUnits.Delete')"
@@ -78,7 +78,7 @@
             icon="el-icon-delete"
             @click="handleDelete(row)"
           >
-            Delete
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -100,20 +100,20 @@
       >
         <el-form-item
           v-if="currentParentName!==''"
-          label="OUParentDisplayName"
+          label="父级名称"
         >
           <el-input v-model="currentParentName" disabled />
         </el-form-item>
         <el-form-item
-          prop="displayName"
-          label="OUDisplayName"
+          prop="名称"
+          label="名称"
         >
           <el-input v-model="temp.displayName" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
-          Cancel
+          取消
         </el-button>
         <el-button
           type="primary"
@@ -121,7 +121,7 @@
             dialogStatus === 'createChild' ?
             createData() : updateData()"
         >
-          Save
+          保存
         </el-button>
       </div>
     </el-dialog>
@@ -283,3 +283,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.filter-container{
+  margin-bottom:20px;
+}
+</style>
