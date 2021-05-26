@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AuditLogs\**" />
+    <EmbeddedResource Remove="AuditLogs\**" />
+    <None Remove="AuditLogs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TigerAdmin.Domain.Shared\TigerAdmin.Domain.Shared.csproj" />
   </ItemGroup>
 

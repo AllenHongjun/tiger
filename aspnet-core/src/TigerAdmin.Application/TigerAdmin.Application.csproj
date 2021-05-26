@@ -8,8 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AuditLogs\**" />
     <Compile Remove="Volo\Abp\AuditLogging\**" />
+    <EmbeddedResource Remove="AuditLogs\**" />
     <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
+    <None Remove="AuditLogs\**" />
     <None Remove="Volo\Abp\AuditLogging\**" />
   </ItemGroup>
 
@@ -33,7 +36,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Volo\Abp\AuditLoggings\" />
+    <Folder Include="Module\Order\" />
+    <Folder Include="Module\Purchase\" />
+    <Folder Include="Module\Stock\" />
+    <Folder Include="Module\BasicData\" />
+    <Folder Include="Module\Marketing\" />
+    <Folder Include="Module\Finance\" />
+    <Folder Include="Module\StatData\" />
+    <Folder Include="Module\Member\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />
     <Folder Include="Volo\Abp\FeatureManagement\" />
