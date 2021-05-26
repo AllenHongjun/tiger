@@ -7,7 +7,7 @@ namespace TigerAdmin.Controllers
     {
         public ActionResult Index()
         {
-            return Redirect("~/swagger");
+            return Redirect("~/swagger/index.html?docExpansion=none");
         }
     }
 }
