@@ -6,7 +6,7 @@ using Volo.Abp.Data;
 
 namespace Volo.Abp.AuditLogging
 {
-    public class AuditLogActionDto : EntityDto<Guid>, IHasExtraProperties
+    public class AuditLogActionDto : EntityDto<Guid>//, IHasExtraProperties
     {
         public string ServiceName { get; set; }
         public string MethodName { get; set; }

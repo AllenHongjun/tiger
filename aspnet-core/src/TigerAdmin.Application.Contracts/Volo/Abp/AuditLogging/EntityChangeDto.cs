@@ -7,7 +7,7 @@ using Volo.Abp.Data;
 
 namespace Volo.Abp.AuditLogging
 {
-    public class EntityChangeDto:EntityDto<Guid>,IHasExtraProperties
+    public class EntityChangeDto:EntityDto<Guid>//,IHasExtraProperties
     {
         public DateTime ChangeTime { get;  set; }
         public EntityChangeType ChangeType { get;  set; }
