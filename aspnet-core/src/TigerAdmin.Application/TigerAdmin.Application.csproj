@@ -52,8 +52,6 @@
     <Folder Include="Volo\Abp\PermissionManagement\" />
     <Folder Include="Volo\Abp\IdentityServer\" />
     <Folder Include="Volo\Abp\CmsKit\" />
-    <Folder Include="Volo\Abp\Payment\" />
-    <Folder Include="Volo\Abp\AuthLogin\" />
   </ItemGroup>
 
 </Project>

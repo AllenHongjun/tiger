@@ -19,10 +19,10 @@ namespace TigerAdmin.Permissions
             booksPermission.AddChild(TigerAdminPermissions.Books.Edit, L("Permission:Book.Edit"));
             booksPermission.AddChild(TigerAdminPermissions.Books.Delete, L("Permission:Book.Delete"));
 
-            var ouPermission = identityGroup.AddPermission(TigerIdentityPermissions.OrganitaionUnits.Default, IdentityL("Permission:OrganitaionUnitManagement"));
-            ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Create, IdentityL("Permission:Create"));
-            ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Update, IdentityL("Permission:Edit"));
-            ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Delete, IdentityL("Permission:Delete"));
+            var ouPermission = identityGroup.AddPermission(HelloIdentityPermissions.OrganitaionUnits.Default, IdentityL("Permission:OrganitaionUnitManagement"));
+            ouPermission.AddChild(HelloIdentityPermissions.OrganitaionUnits.Create, IdentityL("Permission:Create"));
+            ouPermission.AddChild(HelloIdentityPermissions.OrganitaionUnits.Update, IdentityL("Permission:Edit"));
+            ouPermission.AddChild(HelloIdentityPermissions.OrganitaionUnits.Delete, IdentityL("Permission:Delete"));
 
             //var userPermission = identityGroup.GetPermissionOrNull(IdentityPermissions.Users.Default);
             //userPermission?.AddChild(HelloIdentityPermissions.Users.DistributionOrganizationUnit, IdentityL("Permission:DistributionOrganizationUnit"));

@@ -9,10 +9,10 @@ namespace Volo.Abp.Identity
     [Area("identity")]
     [ControllerName("Role")]
     [Route("api/identity/roles")]
-    public class TigerIdentityRoleController : AbpController, ITigerIdentityRoleAppService
+    public class HelloIdentityRoleController : AbpController, IHelloIdentityRoleAppService
     {
-        protected ITigerIdentityRoleAppService RoleAppService { get; }
-        public TigerIdentityRoleController(ITigerIdentityRoleAppService roleAppService)
+        protected IHelloIdentityRoleAppService RoleAppService { get; }
+        public HelloIdentityRoleController(IHelloIdentityRoleAppService roleAppService)
         {
             RoleAppService = roleAppService;
         }
