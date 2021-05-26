@@ -31,4 +31,17 @@
     <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="3.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Module\BasicData\" />
+    <Folder Include="Module\Books\" />
+    <Folder Include="Module\Finance\" />
+    <Folder Include="Module\Marketing\" />
+    <Folder Include="Module\Member\" />
+    <Folder Include="Module\Order\" />
+    <Folder Include="Module\Purchase\" />
+    <Folder Include="Module\SecurityLogs\" />
+    <Folder Include="Module\StatData\" />
+    <Folder Include="Module\Stock\" />
+  </ItemGroup>
+
 </Project>
