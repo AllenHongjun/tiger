@@ -44,7 +44,7 @@ const settingRouter = {
       path: '/user/list',
       component: () => import('@/views/setting/user/index'),
       name: 'user_list',
-      meta: { title: '用户列表' , policy: 'AbpIdentity.Users'}
+      meta: { title: '用户' , policy: 'AbpIdentity.Users'}
     },
     {
       path: 'tenant',
@@ -52,12 +52,12 @@ const settingRouter = {
       name: 'Tenant',
       meta: { title: '租户' , policy: 'AbpTenantManagement.Tenants'}
     },
-    // {
-    //   path: 'menu',
-    //   component: () => import('@/views/setting/menu/index'),
-    //   name: 'menu',
-    //   meta: { title: '菜单' }
-    // }
+    {
+      path: '/organization/list',
+      component: () => import('@/views/setting/organization/index'),
+      name: 'organization',
+      meta: { title: '组织',policy: 'AbpIdentity.OrganitaionUnits' }
+    }
 
   ]
 }

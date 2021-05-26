@@ -129,7 +129,17 @@
               </el-checkbox-group>
             </template>
           </el-tab-pane>
-          <el-tab-pane label="组织机构" name="third">待开发</el-tab-pane>
+          <el-tab-pane label="组织机构" name="third">
+            <el-form-item>
+              <org-tree
+                ref="dialogOrgTree"
+                :show-checkbox="true"
+                :check-strictly="true"
+                :support-single-checked="singleChecked"
+                @handleCheckChange="handleCheckChange"
+              />
+            </el-form-item>
+          </el-tab-pane>
         </el-tabs>
 
         <!-- <el-form-item label="使用共享数据库" prop="title">
@@ -162,11 +172,12 @@ getUserRoles } from "@/api/user";
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 import {validEmail, validPhone} from "@/utils/validate";
 import PermissionDialog from '../components/permission-dialog'
+import OrgTree from '../components/org-tree'
 
 const roleOptions = [];
 export default {
   name: "User",
-  components: { Pagination ,PermissionDialog},
+  components: { Pagination ,PermissionDialog ,OrgTree},
   filters: {
     statusFilter(status) {
       const statusMap = {
