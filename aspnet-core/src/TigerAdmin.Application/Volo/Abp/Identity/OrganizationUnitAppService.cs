@@ -243,10 +243,10 @@ namespace Volo.Abp.Identity
         //[Authorize(IdentityPermissions.Roles.Default)]
         public virtual async Task<PagedResultDto<IdentityRoleDto>> GetRolesAsync(Guid? ouId, PagedAndSortedResultRequestDto roleInput)
         {
-            //if (!ouId.HasValue)
-            //{
-            //    return await RoleAppService.GetListAsync(roleInput);
-            //}
+            if (!ouId.HasValue)
+            {
+                return await RoleAppService.GetListAsync(roleInput);
+            }
             IEnumerable<IdentityRole> list = new List<IdentityRole>();
             var ou = await UnitRepository.GetAsync(ouId.Value);
             var selfAndChildren = await UnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
