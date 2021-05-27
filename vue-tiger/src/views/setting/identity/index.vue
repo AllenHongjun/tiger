@@ -1,8 +1,6 @@
 <template>
   <div class="identity">
-    <el-alert :closable="false" >
-      <router-view />
-    </el-alert>
+    <router-view />
   </div>
 </template>
 

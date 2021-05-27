@@ -3,7 +3,7 @@
     <div class="filter-container">
       <el-input
         v-model="filterText"
-        :placeholder="1"
+        placeholder="查询组织"
       />
     </div>
     <el-tree
