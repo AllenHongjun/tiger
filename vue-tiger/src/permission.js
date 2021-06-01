@@ -5,10 +5,12 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
+import constantRoutes from './router'
+
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login'] // no redirect whitelist
+const whiteList = ['/login','/register','/reset_password'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar
@@ -24,7 +26,7 @@ router.beforeEach(async(to, from, next) => {
   if (!abpConfig) {
     abpConfig = await store.dispatch('app/applicationConfiguration')
   }
-
+  // store.dispatch('user/getInfo')
 
   if (abpConfig.currentUser.isAuthenticated) {
     if (to.path === '/login') {
@@ -74,11 +76,24 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-
+    // console.log(router)
+    // return
+    // constantRoutes.forEach(function (item) {
+    //     if (item.path === to.path) {
+    //       next()
+    //     }
+    //     console.log(item);
+    // });
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
+      // console.log(to.path);
+      // return;
       next()
     } else {
+      if (to.path === '/login') {
+        next()
+      }
+      // next({path: '/login'})
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
       NProgress.done()

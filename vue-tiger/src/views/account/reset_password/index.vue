@@ -3,23 +3,10 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">账号注册</h3>
+        <h3 class="title">密码重置</h3>
       </div>
 
-      <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.userName"
-          placeholder="用户名"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
+
 
       <el-form-item prop="emailAddress">
         <span class="svg-container">
@@ -51,27 +38,9 @@
         />
       </el-form-item>
 
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
-      </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">注册</el-button>
+
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">发送邮件</el-button>
 
       <el-row>
         <el-col :span="12">
@@ -87,25 +56,6 @@
 
 
 
-    <el-dialog
-      title="切换租户"
-      :visible.sync="dialogVisible"
-      width="30%"
-      >
-      <el-form label-width="80px" label-position="top">
-        <el-form-item label="名称">
-          <el-input v-model="tenant"></el-input>
-        </el-form-item>
-        <span>将名称留空以切换到宿主端</span>
-      </el-form>
-
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleSwichTenant">保 存</el-button>
-      </span>
-    </el-dialog>
-
-
   </div>
 
 
@@ -117,7 +67,7 @@ import { validUsername } from '@/utils/validate'
 import { getApplicationConfiguration, getTenantByName } from '@/api/user'
 
 export default {
-  name: 'Register',
+  name: 'ResetPassword',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -136,9 +86,9 @@ export default {
     return {
       dialogVisible: false,
       loginForm: {
-        userName: '',
+
         emailAddress:'',
-        password: '1q2w3E*',
+
         appName: '',
       },
       loginRules: {
