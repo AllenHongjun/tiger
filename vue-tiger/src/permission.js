@@ -39,6 +39,7 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
+          // return;
           // get user info
           await store.dispatch('user/getInfo')
 

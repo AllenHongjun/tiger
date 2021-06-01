@@ -130,8 +130,9 @@
 </template>
 
 <script>
-import { getAuditLogList } from "@/api/user";
+import { getAuditLogs } from "@/api/auditlogging/auditlog";
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+import baseListQuery from '@/utils/abp'
 
 const httpStatueCodeOptions = [
   { key: "CN", display_name: "China" },
@@ -166,17 +167,18 @@ export default {
       list: null,
       listLoading: true,
       total: 0,
-      listQuery: {
-        userName: "",
-        url: "",
-        httpMethod: "",
-        hasException: null,
-        page: 1,
-        limit: 10,
-        // SkipCount: 0,
-        // MaxResultCount: 10,
-        Sorting: "",
-      },
+      queryDateTime: undefined,
+      listQuery: Object.assign({
+        startTime: undefined,
+        endTime: undefined,
+        httpMethod: undefined,
+        url: undefined,
+        userName: undefined,
+        tenantName: undefined,
+        applicationName: undefined,
+        hasException: false,
+        httpStatusCode: undefined
+      }, baseListQuery),
       httpMethodOptions: [
         "GET",
         "POST",
@@ -235,7 +237,11 @@ export default {
     fetchData() {
       this.listLoading = true;
       console.log(this.listQuery);
-      getAuditLogList(this.listQuery).then((response) => {
+      // if (this.listQuery) {
+      //   this.queryForm.startTime = this.queryDateTime[0]
+      //   this.queryForm.endTime = this.queryDateTime[1]
+      // }
+      getAuditLogs(this.listQuery).then((response) => {
         this.list = response.items;
         this.total = response.totalCount;
         this.listLoading = false;
