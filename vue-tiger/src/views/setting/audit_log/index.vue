@@ -79,8 +79,10 @@
       border
       fit
       highlight-current-row
+      :default-sort = "{prop: 'date', order: 'descending'}"
+      @sort-change="sortChange"
     >
-      <el-table-column align="left" label="HTTP请求" width="350">
+      <el-table-column align="left" label="HTTP请求" width="300">
         <template slot-scope="scope">
           <el-tag :type="scope.row.httpStatusCode | httpCodeFilter">
             {{ scope.row.httpStatusCode }}&nbsp;&nbsp;{{ scope.row.httpMethod }}
@@ -98,7 +100,7 @@
           {{ scope.row.clientIpAddress }}
         </template>
       </el-table-column>
-      <el-table-column label="时间" align="center" width="150">
+      <el-table-column label="时间" prop="executionTime" align="center" width="150" sortable="custom">
         <template slot-scope="scope">
           {{ scope.row.executionTime }}
         </template>
@@ -113,9 +115,20 @@
           {{ scope.row.clientId }}
         </template>
       </el-table-column>
-      <el-table-column label="浏览器信息" align="center">
+      <el-table-column label="correlationId" align="center">
         <template slot-scope="scope">
-          {{ scope.row.browserInfo }}
+          {{ scope.row.correlationId }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="操作" width="240">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini"  icon="el-icon-edit" @click="handleUpdate(scope.row)">
+              编辑
+          </el-button>
+          &nbsp;&nbsp;
+          <el-button type="danger" size="mini"  icon="el-icon-delete" @click="deleteData(scope.row.id)">
+              删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -177,7 +190,8 @@ export default {
         tenantName: undefined,
         applicationName: undefined,
         hasException: false,
-        httpStatusCode: undefined
+        httpStatusCode: undefined,
+        Sorting:'',
       }, baseListQuery),
       httpMethodOptions: [
         "GET",
@@ -250,6 +264,20 @@ export default {
     handleFilter() {
       this.listQuery.page = 1;
       this.fetchData();
+    },
+    sortChange(data) {
+      const { prop, order } = data
+      if (prop === 'executionTime') {
+        this.sortExecutionTime(order)
+      }
+    },
+    sortExecutionTime(order) {
+      if (order === 'ascending') {
+        this.listQuery.Sorting = 'executionTime ASC'
+      } else {
+        this.listQuery.Sorting = 'executionTime DESC'
+      }
+      this.handleFilter()
     },
     deleteData(id) {
       console.log("delete");

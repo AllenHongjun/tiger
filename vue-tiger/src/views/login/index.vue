@@ -58,7 +58,16 @@
       </el-form-item>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登  录</el-button>
-
+      <div style="text-align: right;">
+        <el-button
+          class="thirdparty-button"
+          type="primary"
+          size="small"
+          @click="showDialog = true"
+        >
+          第三方登录
+        </el-button>
+      </div>
       <el-row>
         <el-col :span="12">
           <el-link href="#/register" type="primary" >注册</el-link>
@@ -95,6 +104,17 @@
       </span>
     </el-dialog>
 
+    <el-dialog
+      title="第三方登录"
+      :visible.sync="showDialog"
+    >
+      提示
+      <br>
+      <br>
+      <br>
+      <social-sign />
+    </el-dialog>
+
 
   </div>
 
@@ -105,9 +125,11 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import { getApplicationConfiguration, getTenantByName } from '@/api/user'
+import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
+  components: { SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -137,6 +159,7 @@ export default {
       passwordType: 'password',
       redirect: undefined,
       tenant: '',
+      showDialog: false,
     }
   },
   watch: {
