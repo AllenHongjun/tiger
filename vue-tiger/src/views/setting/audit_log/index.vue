@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container" style="margin-bottom: 20px">
+
       <el-date-picker
         v-model="queryDateTime"
         value-format="yyyy-MM-dd hh:mm:ss"
@@ -64,6 +65,7 @@
         搜索
       </el-button>
       <el-button
+        :loading="downloadLoading"
         class="filter-item"
         type="primary"
         icon="el-icon-download"
@@ -71,6 +73,7 @@
       >
         导出
       </el-button>
+
 
     </div>
     <el-table
@@ -147,7 +150,11 @@
 import { getAuditLogs } from "@/api/auditlogging/auditlog";
 import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
 import baseListQuery from '@/utils/abp'
-
+// import FilenameOption from '@/views/excel/components/FilenameOption'
+// import AutoWidthOption from '@/views/excel/components/AutoWidthOption'
+// import BookTypeOption from '@/views/excel/components/BookTypeOption'
+import { parseTime } from '@/utils'
+// npm install --save @../../vendor/Export2Excel
 const httpStatueCodeOptions = [
   { key: "CN", display_name: "China" },
   { key: "US", display_name: "USA" },
@@ -180,6 +187,10 @@ export default {
     return {
       list: null,
       listLoading: true,
+      downloadLoading:false,
+      filename: 'auto-log',
+      autoWidth: true,
+      bookType: 'xlsx', // 'csv' ''
       total: 0,
       queryDateTime: undefined,
       listQuery: Object.assign({
@@ -305,20 +316,31 @@ export default {
         });
     },
     handleDownload() {
-      console.log("导出下载功能 todo");
-      // this.downloadLoading = true
-      // import('@/vendor/Export2Excel').then(excel => {
-      //   const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-      //   const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
-      //   const data = this.formatJson(filterVal)
-      //   excel.export_json_to_excel({
-      //     header: tHeader,
-      //     data,
-      //     filename: 'table-list'
-      //   })
-      //   this.downloadLoading = false
-      //})
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId','exceptions','executionDuration','executionTime','httpMethod','httpStatusCode','url','userId','userName']
+        const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId','exceptions','executionDuration','executionTime','httpMethod','httpStatusCode','url','userId','userName']
+        const list = this.list
+        const data = this.formatJson(filterVal, list)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: this.filename,
+          autoWidth: this.autoWidth,
+          bookType: this.bookType
+        })
+        this.downloadLoading = false
+      })
     },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        if (j === 'executionTime') {
+          return parseTime(v[j])
+        } else {
+          return v[j]
+        }
+      }))
+    }
   },
 };
 </script>
