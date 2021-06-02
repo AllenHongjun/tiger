@@ -2,7 +2,8 @@
   <div class="app-container">
     <div class="filter-container" style="margin-bottom: 20px">
       <el-date-picker
-        v-model="value2"
+        v-model="queryDateTime"
+        value-format="yyyy-MM-dd hh:mm:ss"
         type="datetimerange"
         :picker-options="pickerOptions"
         range-separator="至"
@@ -49,9 +50,9 @@
       >
         <el-option
           v-for="item in hasExceptionOptions"
-          :key="item"
-          :label="item"
-          :value="item"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
         />
       </el-select>
       <el-button
@@ -189,7 +190,7 @@ export default {
         userName: undefined,
         tenantName: undefined,
         applicationName: undefined,
-        hasException: false,
+        hasException: '',
         httpStatusCode: undefined,
         Sorting:'',
       }, baseListQuery),
@@ -203,7 +204,18 @@ export default {
         "OPTIONS",
         "TRACE",
       ],
-      hasExceptionOptions: ["true", "false"],
+      hasExceptionOptions: [
+        {
+          value: '',
+          label: '全部异常'
+        },
+        {
+          value: 'False',
+          label: '否'
+        }, {
+          value: 'True',
+          label: '是'
+        }],
       pickerOptions: {
         shortcuts: [
           {
@@ -250,11 +262,11 @@ export default {
     },
     fetchData() {
       this.listLoading = true;
-      console.log(this.listQuery);
-      // if (this.listQuery) {
-      //   this.queryForm.startTime = this.queryDateTime[0]
-      //   this.queryForm.endTime = this.queryDateTime[1]
-      // }
+      // console.log(this.listQuery);
+      if (this.queryDateTime) {
+        this.listQuery.startTime = this.queryDateTime[0]
+        this.listQuery.endTime = this.queryDateTime[1]
+      }
       getAuditLogs(this.listQuery).then((response) => {
         this.list = response.items;
         this.total = response.totalCount;
