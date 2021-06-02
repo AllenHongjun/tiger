@@ -127,7 +127,7 @@
       <el-table-column align="center" label="操作" width="240">
         <template slot-scope="scope">
           <el-button type="primary" size="mini"  icon="el-icon-edit" @click="handleUpdate(scope.row)">
-              编辑
+              详情
           </el-button>
           &nbsp;&nbsp;
           <el-button type="danger" size="mini"  icon="el-icon-delete" @click="deleteData(scope.row.id)">
@@ -143,6 +143,79 @@
       :limit.sync="listQuery.limit"
       @pagination="fetchData"
     />
+
+    <el-dialog title="日志明细" :visible.sync="dialogRoleFormVisible">
+      <el-form
+        ref="dataForm"
+        :model="temp"
+        label-width="180px"
+        label-position="left"
+      >
+        <el-form-item label="httpStatusCode" prop="httpStatusCode">
+          <div>{{temp.httpStatusCode}}</div>
+        </el-form-item>
+        <el-form-item label="applicationName" prop="applicationName">
+          <div>{{temp.applicationName}}</div>
+        </el-form-item>
+        <el-form-item label="browserInfo" prop="browserInfo">
+          <div>{{temp.browserInfo}}</div>
+        </el-form-item>
+        <!-- <el-form-item label="clientId" prop="clientId">
+          <div>{{temp.clientId}}</div>
+        </el-form-item> -->
+        <el-form-item label="clientIpAddress" prop="clientIpAddress">
+          <div>{{temp.clientIpAddress}}</div>
+        </el-form-item>
+        <el-form-item label="clientName" prop="clientName">
+          <div>{{temp.clientName}}</div>
+        </el-form-item>
+        <!-- <el-form-item label="correlationId" prop="correlationId">
+          <div>{{temp.correlationId}}</div>
+        </el-form-item> -->
+        <el-form-item label="exceptions" prop="exceptions">
+          <el-input
+            type="textarea"
+            :rows="5"
+
+            v-model="temp.exceptions">
+          </el-input>
+
+        </el-form-item>
+        <el-form-item label="executionDuration" prop="executionDuration">
+          <div>{{temp.executionDuration}}</div>
+        </el-form-item>
+        <el-form-item label="httpMethod" prop="httpMethod">
+          <div>{{temp.httpMethod}}</div>
+        </el-form-item>
+        <el-form-item label="httpStatusCode" prop="httpStatusCode">
+          <div>{{temp.httpStatusCode}}</div>
+        </el-form-item>
+        <el-form-item label="id" prop="id">
+          <div>{{temp.id}}</div>
+        </el-form-item>
+        <el-form-item label="url" prop="url">
+          <div>{{temp.url}}</div>
+        </el-form-item>
+        <el-form-item label="userId" prop="userId">
+          <div>{{temp.userId}}</div>
+        </el-form-item>
+        <el-form-item label="userName" prop="userName">
+          <div>{{temp.userName}}</div>
+        </el-form-item>
+
+      </el-form>
+      <div style="text-align: right">
+        <!-- <el-button type="danger" @click="dialogRoleFormVisible = false"
+          >取消</el-button> -->
+
+        <el-button
+          type="primary" @click="dialogRoleFormVisible = false"
+
+          >关闭</el-button
+        >
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -260,6 +333,31 @@ export default {
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       value2: "",
+      dialogStatus:'',
+      dialogRoleFormVisible:false,
+      temp: {
+        httpStatusCode: 204,
+        comments: "",
+        exceptions: "",
+        url: "/api/permission-management/permissions",
+        httpMethod: "PUT",
+        browserInfo: "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36",
+        correlationId: "3dd03595582048c1ae603ef669b756d6",
+        clientId: "TigerAdmin_App",
+        clientName: null,
+        clientIpAddress: "::1",
+        executionDuration: 65,
+        executionTime: "2020-10-24T22:27:54.9287546",
+        impersonatorTenantId: null,
+        impersonatorUserId: null,
+        tenantName: null,
+        tenantId: null,
+        userName: "admin",
+        userId: "1847197c-bfc8-aa9c-bafd-39f8621f66ad",
+        applicationName: null,
+        id: "67a91900-a8b1-8766-f751-39f86d2f15f1",
+        extraProperties: {}
+      },
     };
   },
   created() {
@@ -314,6 +412,16 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    handleUpdate(row) {
+      this.temp = Object.assign({}, row); // copy obj
+      console.log(this.temp)
+      // this.temp.timestamp = new Date(this.temp.timestamp)
+      this.dialogStatus = "update";
+      this.dialogRoleFormVisible = true;
+      // this.$nextTick(() => {
+      //   this.$refs["dataForm"].clearValidate();
+      // });
     },
     handleDownload() {
       this.downloadLoading = true
