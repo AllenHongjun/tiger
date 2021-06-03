@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
 
@@ -19,12 +20,27 @@ namespace TigerAdmin.Volo.Abp.Identity
     public class TigerIdentityUserAppService : IdentityUserAppService, ITigerIdentityUserAppService
     {
         //private readonly IStringLocalizer<HelloAbpResource> _localizer;
+
+        private readonly IBlobContainer _blobContainer;
         public TigerIdentityUserAppService(
             IdentityUserManager userManager, 
             IIdentityUserRepository userRepository, 
-            IIdentityRoleRepository roleRepository
+            IIdentityRoleRepository roleRepository,
+            IBlobContainer blobContainer
             ) : base(userManager, userRepository, roleRepository)
         {
+            _blobContainer = blobContainer;
+        }
+
+
+        public async Task SaveBytesAsync(byte[] bytes)
+        {
+            await _blobContainer.SaveAsync("my-blob-1", bytes);
+        }
+
+        public async Task<byte[]> GetBytesAsync()
+        {
+            return await _blobContainer.GetAllBytesOrNullAsync("my-blob-1");
         }
 
         /*

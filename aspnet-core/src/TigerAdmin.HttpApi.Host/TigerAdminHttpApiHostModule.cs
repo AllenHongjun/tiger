@@ -23,6 +23,7 @@ using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.Auditing;
 
 namespace TigerAdmin
 {
@@ -51,12 +52,14 @@ namespace TigerAdmin
             ConfigureAuthentication(context, configuration);
             ConfigureLocalization();
             ConfigureVirtualFileSystem(context);
+            ConfigureAuditing(context);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
         }
 
         private void ConfigureUrls(IConfiguration configuration)
-        {
+        {   
+            
             Configure<AppUrlOptions>(options =>
             {
                 options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
@@ -147,6 +150,19 @@ namespace TigerAdmin
                         .AllowAnyMethod()
                         .AllowCredentials();
                 });
+            });
+        }
+
+        /// <summary>
+        /// 配置日志
+        /// </summary>
+        private void ConfigureAuditing(ServiceConfigurationContext context)
+        {
+            Configure<AbpAuditingOptions>(options =>
+            {
+                options.IsEnabled = true; //Disables the auditing system
+                options.HideErrors = true;
+                options.IsEnabledForAnonymousUsers = true;
             });
         }
 

@@ -2,9 +2,11 @@
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.Auditing;
 
 namespace Volo.Abp.Identity
 {
+    [DisableAuditing]
     [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
     [Area("identity")]
     [ControllerName("Role")]
@@ -23,6 +25,7 @@ namespace Volo.Abp.Identity
         /// <param name="roleId"></param>
         /// <param name="ouId"></param>
         /// <returns></returns>
+        [DisableAuditing]
         [HttpPost]
         [Route("{roleId}/add-to-organization/{ouId}")]
         public virtual Task AddToOrganizationUnitAsync(Guid roleId, Guid ouId)
