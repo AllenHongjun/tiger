@@ -6,6 +6,7 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
+using Volo.Abp.Sms;
 using Volo.Abp.TenantManagement;
 
 namespace TigerAdmin
@@ -19,7 +20,9 @@ namespace TigerAdmin
         typeof(AbpTenantManagementApplicationModule),
         typeof(AbpFeatureManagementApplicationModule),
         typeof(AbpBlobStoringModule),
-        typeof(AbpBlobStoringFileSystemModule)
+        typeof(AbpBlobStoringFileSystemModule),
+        typeof(AbpSmsModule) //Add the new module dependency
+
         )]
     public class TigerAdminApplicationModule : AbpModule
     {
