@@ -109,6 +109,12 @@ namespace Volo.Abp.Identity
             return UnitAppService.GetNextChildCodeAsync(parentId);
         }
 
+        /// <summary>
+        /// 获取用户关联的组织机构
+        /// </summary>
+        /// <param name="ouId"></param>
+        /// <param name="usersInput"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("users")]
         public Task<PagedResultDto<IdentityUserDto>> GetUsersAsync(Guid? ouId, GetIdentityUsersInput usersInput)
@@ -116,6 +122,12 @@ namespace Volo.Abp.Identity
             return UnitAppService.GetUsersAsync(ouId, usersInput);
         }
 
+        /// <summary>
+        /// 获取组织机构关联的角色
+        /// </summary>
+        /// <param name="ouId">组织id</param>
+        /// <param name="roleInput">角色</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("roles")]
         public Task<PagedResultDto<IdentityRoleDto>> GetRolesAsync(Guid? ouId, PagedAndSortedResultRequestDto roleInput)

@@ -9,14 +9,20 @@ namespace Volo.Abp.Identity
     [Area("identity")]
     [ControllerName("Role")]
     [Route("api/identity/roles")]
-    public class HelloIdentityRoleController : AbpController, IHelloIdentityRoleAppService
+    public class HelloIdentityRoleController : AbpController, ITigerIdentityRoleAppService
     {
-        protected IHelloIdentityRoleAppService RoleAppService { get; }
-        public HelloIdentityRoleController(IHelloIdentityRoleAppService roleAppService)
+        protected ITigerIdentityRoleAppService RoleAppService { get; }
+        public HelloIdentityRoleController(ITigerIdentityRoleAppService roleAppService)
         {
             RoleAppService = roleAppService;
         }
 
+        /// <summary>
+        /// 添加组织单元
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="ouId"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("{roleId}/add-to-organization/{ouId}")]
         public virtual Task AddToOrganizationUnitAsync(Guid roleId, Guid ouId)
@@ -24,6 +30,11 @@ namespace Volo.Abp.Identity
             return RoleAppService.AddToOrganizationUnitAsync(roleId, ouId);
         }
 
+        /// <summary>
+        /// 添加角色关联组织单元
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("create-to-organization")]
         public Task<IdentityRoleDto> CreateAsync(IdentityRoleOrgCreateDto input)

@@ -66,6 +66,12 @@ namespace TigerAdmin.Volo.Abp.Identity
             return identity;
         }
 
+        /// <summary>
+        /// 获取用户关联的组织机构
+        /// </summary>
+        /// <param name="id">组织机构id</param>
+        /// <param name="includeDetails"></param>
+        /// <returns></returns>
         public virtual async Task<ListResultDto<OrganizationUnitDto>> GetListOrganizationUnitsAsync(Guid id, bool includeDetails = false)
         {
             var list = await UserRepository.GetOrganizationUnitsAsync(id, includeDetails);
@@ -74,6 +80,12 @@ namespace TigerAdmin.Volo.Abp.Identity
             );
         }
 
+        /// <summary>
+        /// 修改用户及用户关联的组织
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public virtual async Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input)
         {   
             

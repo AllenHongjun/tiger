@@ -69,6 +69,7 @@ export function getOrganizationChildren(pid) {
   })
 }
 
+// 获取组织关联的用户
 export function getOrgUsers(query) {
   return request({
     url: '/api/identity/organizations/users',

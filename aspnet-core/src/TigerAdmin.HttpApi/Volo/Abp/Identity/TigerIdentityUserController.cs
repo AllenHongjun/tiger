@@ -27,6 +27,12 @@ namespace TigerAdmin.Volo.Abp.Identity
         protected ITigerIdentityUserAppService UserAppService { get; }
 
 
+        /// <summary>
+        /// 将用户关联组织
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="ouIds"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("{userId}/add-to-organizations")]
         public Task AddToOrganizationUnitsAsync(Guid userId, List<Guid> ouIds)
@@ -34,6 +40,11 @@ namespace TigerAdmin.Volo.Abp.Identity
             return UserAppService.AddToOrganizationUnitsAsync(userId, ouIds);
         }
 
+        /// <summary>
+        /// 添加用户同时关联组织
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("create-to-organizations")]
         public Task<IdentityUserDto> CreateAsync(IdentityUserOrgCreateDto input)
@@ -42,6 +53,12 @@ namespace TigerAdmin.Volo.Abp.Identity
         }
 
 
+        /// <summary>
+        /// 获取用户关联的组织单元
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="includeDetails"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}/organizations")]
         public Task<ListResultDto<OrganizationUnitDto>> GetListOrganizationUnitsAsync(Guid id, bool includeDetails = false)
@@ -49,6 +66,12 @@ namespace TigerAdmin.Volo.Abp.Identity
             return UserAppService.GetListOrganizationUnitsAsync(id, includeDetails);
         }
 
+        /// <summary>
+        /// 修改用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id}/update-to-organizations")]
         public Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input)
