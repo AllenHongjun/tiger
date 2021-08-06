@@ -275,3 +275,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.filter-container{
+  margin-bottom: 20px;
+}
+</style>

@@ -59,41 +59,59 @@ export const constantRoutes = [
       name: '主页',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '主页', icon: 'dashboard' }
-    },
-    {
-      path: '/product/list',
-      name: '产品列表',
-      component: () => import('@/views/product/product/list'),
-      meta: { title: '产品列表', icon: 'dashboard' }
     }
 
     ]
   },
 
   {
-    path: '/product/list',
+    path: '/product',
     name: '产品',
     meta: { title: '产品', icon: 'el-icon-bangzhu' },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
     // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [{
-      path: 'dashboard',
-      name: '产品管理',
-      component: () => import('@/views/product/product/list'),
-      meta: { title: '产品管理', icon: 'el-icon-discover' }
-    },
-    {
-      path: '/product/list',
-      name: '产品分类',
-      component: () => import('@/views/product/product/list'),
-      meta: { title: '产品分类', icon: 'tree' }
-    }
-
+    children: [
+      {
+        path: 'product/list',
+        name: 'ProductList',
+        component: () => import('@/views/product/product/list'),
+        meta: { title: '产品管理', icon: 'el-icon-discover' }
+      },
+      {
+        path: 'product/create',
+        component: () => import('@/views/product/product/create'),
+        name: 'CreateProduct',
+        meta: { title: '添加产品', icon: 'edit' }
+      },
+      {
+        path: 'product/edit/:id(\\d+)',
+        component: () => import('@/views/product/product/edit'),
+        name: 'EditProduct',
+        meta: { title: '编辑产品', noCache: true, activeMenu: '/example/list' },
+        hidden: true
+      },
+      {
+        path: 'category/list',
+        name: '产品分类',
+        component: () => import('@/views/product/category/list'),
+        meta: { title: '产品分类', icon: 'tree' }
+      },
+      {
+        path: 'attribute/list',
+        name: '产品规格',
+        component: () => import('@/views/product/attribute/list'),
+        meta: { title: '产品规格', icon: 'tree' }
+      },
+      {
+        path: 'comment/list',
+        name: '产品评论',
+        component: () => import('@/views/product/comment/list'),
+        meta: { title: '产品评论', icon: 'tree' }
+      }
     ]
   },
-
   {
     path: '/profile',
     // 你可以选择不同的layout组件
