@@ -9,8 +9,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
         align="right"
-      >
-      </el-date-picker>
+      />
       <el-input
         v-model="listQuery.userName"
         placeholder="用户名"
@@ -130,36 +129,36 @@
 </template>
 
 <script>
-import { getAuditLogList } from "@/api/user";
-import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+import { getAuditLogList } from '@/api/user'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 const httpStatueCodeOptions = [
-  { key: "CN", display_name: "China" },
-  { key: "US", display_name: "USA" },
-  { key: "JP", display_name: "Japan" },
-  { key: "EU", display_name: "Eurozone" },
-];
+  { key: 'CN', display_name: 'China' },
+  { key: 'US', display_name: 'USA' },
+  { key: 'JP', display_name: 'Japan' },
+  { key: 'EU', display_name: 'Eurozone' }
+]
 export default {
-  name: "audit_log_list",
+  name: 'AuditLogList',
   components: { Pagination },
   filters: {
     httpCodeFilter(code) {
-      var code = parseInt(code);
-      var result = "";
+      code = parseInt(code)
+      var result = ''
       if (code <= 100) {
-        result = "info";
+        result = 'info'
       } else if (code <= 200) {
-        result = "success";
+        result = 'success'
       } else if (code <= 300) {
-        result = "warning";
+        result = 'warning'
       } else {
-        result = "danger";
+        result = 'danger'
       }
-      return result;
+      return result
     },
     typeFilter(type) {
-      return calendarTypeKeyValue[type];
-    },
+      return calendarTypeKeyValue[type]
+    }
   },
   data() {
     return {
@@ -167,99 +166,99 @@ export default {
       listLoading: true,
       total: 0,
       listQuery: {
-        userName: "",
-        url: "",
-        httpMethod: "",
+        userName: '',
+        url: '',
+        httpMethod: '',
         hasException: null,
         page: 1,
         limit: 10,
         // SkipCount: 0,
         // MaxResultCount: 10,
-        Sorting: "",
+        Sorting: ''
       },
       httpMethodOptions: [
-        "GET",
-        "POST",
-        "DELETE",
-        "PUT",
-        "HEAD",
-        "CONNECT",
-        "OPTIONS",
-        "TRACE",
+        'GET',
+        'POST',
+        'DELETE',
+        'PUT',
+        'HEAD',
+        'CONNECT',
+        'OPTIONS',
+        'TRACE'
       ],
-      hasExceptionOptions: ["true", "false"],
+      hasExceptionOptions: ['true', 'false'],
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: '最近一周',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
-            },
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
           },
           {
-            text: "最近一个月",
+            text: '最近一个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            },
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
           },
           {
-            text: "最近三个月",
+            text: '最近三个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            },
-          },
-        ],
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          }
+        ]
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-      value2: "",
-    };
+      value2: ''
+    }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      console.log(`每页 ${val} 条`)
       this.listQuery.SkipCount =
-        (this.listQuery.page - 1) * this.listQuery.MaxResultCount;
+        (this.listQuery.page - 1) * this.listQuery.MaxResultCount
     },
     fetchData() {
-      this.listLoading = true;
-      console.log(this.listQuery);
+      this.listLoading = true
+      console.log(this.listQuery)
       getAuditLogList(this.listQuery).then((response) => {
-        this.list = response.items;
-        this.total = response.totalCount;
-        this.listLoading = false;
-      });
+        this.list = response.items
+        this.total = response.totalCount
+        this.listLoading = false
+      })
     },
     handleFilter() {
-      this.listQuery.page = 1;
-      this.fetchData();
+      this.listQuery.page = 1
+      this.fetchData()
     },
     deleteData(id) {
-      console.log("delete");
+      console.log('delete')
       deleteRole(id)
         .then((response) => {
           this.$message({
-            message: "删除成功",
-            type: "success",
-          });
+            message: '删除成功',
+            type: 'success'
+          })
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     handleDownload() {
-      console.log("导出下载功能 todo");
+      console.log('导出下载功能 todo')
       // this.downloadLoading = true
       // import('@/vendor/Export2Excel').then(excel => {
       //   const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
@@ -271,8 +270,8 @@ export default {
       //     filename: 'table-list'
       //   })
       //   this.downloadLoading = false
-      //})
-    },
-  },
-};
+      // })
+    }
+  }
+}
 </script>

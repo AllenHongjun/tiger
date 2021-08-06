@@ -28,9 +28,6 @@ import settingRouter from './modules/setting'
   }
  */
 
-
-
-
 /**
  * constantRoutes
  * a base page that does not have permission requirements
@@ -51,6 +48,8 @@ export const constantRoutes = [
 
   {
     path: '/',
+    name: '主页',
+    meta: { title: '主页', icon: 'dashboard' },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
@@ -60,7 +59,39 @@ export const constantRoutes = [
       name: '主页',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '主页', icon: 'dashboard' }
-    }]
+    },
+    {
+      path: '/product/list',
+      name: '产品列表',
+      component: () => import('@/views/product/product/list'),
+      meta: { title: '产品列表', icon: 'dashboard' }
+    }
+
+    ]
+  },
+
+  {
+    path: '/product/list',
+    name: '产品',
+    meta: { title: '产品', icon: 'el-icon-bangzhu' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [{
+      path: 'dashboard',
+      name: '产品管理',
+      component: () => import('@/views/product/product/list'),
+      meta: { title: '产品管理', icon: 'el-icon-discover' }
+    },
+    {
+      path: '/product/list',
+      name: '产品分类',
+      component: () => import('@/views/product/product/list'),
+      meta: { title: '产品分类', icon: 'tree' }
+    }
+
+    ]
   },
 
   {
@@ -73,9 +104,10 @@ export const constantRoutes = [
       name: '个人中心',
       component: () => import('@/views/profile/index'),
       meta: { title: '个人中心', icon: 'dashboard' },
-      hidden:true
+      hidden: true
     }]
-  },
+
+  }
 
   // {
   //   path: '/example',
@@ -280,7 +312,7 @@ export const constantRoutes = [
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
- export const asyncRoutes = [
+export const asyncRoutes = [
   /** when your routing map is too long, you can split it into small modules **/
   // identityRouter,
   // tenantRouter,
@@ -290,7 +322,6 @@ export const constantRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
-
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

@@ -14,6 +14,7 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+console.log('begin')
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -27,7 +28,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: false,// process.env.NODE_ENV === 'development',  //lintOnSave: false
+  lintOnSave: false, // process.env.NODE_ENV === 'development',  //lintOnSave: false
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -36,6 +37,17 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    // proxy: {
+    //   // change xxx-api/login => mock/login
+    //   // detail: https://cli.vuejs.org/config/#devserver-proxy
+    //   [process.env.VUE_APP_BASE_API]: {
+    //     target: `http://localhost:${port}/mock`,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       ['^' + process.env.VUE_APP_BASE_API]: ''
+    //     }
+    //   }
+    // },
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {

@@ -25,7 +25,6 @@ router.beforeEach(async(to, from, next) => {
     abpConfig = await store.dispatch('app/applicationConfiguration')
   }
 
-
   if (abpConfig.currentUser.isAuthenticated) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page

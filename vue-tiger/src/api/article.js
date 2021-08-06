@@ -1,10 +1,13 @@
-import request from '@/utils/request'
+import request from '@/utils/requestMock'
 
 export function fetchList(query) {
+  console.log('process.env.BASE_API2', process.env.BASE_API2)
   return request({
-    url: '/vue-element-template/article/list',
+    url: '/article/list',
     method: 'get',
     params: query
+    // baseURL: process.env.BASE_API2 // 直接通过覆盖的方式
+    // baseURL: 'dev-api' // 直接通过覆盖的方式
   })
 }
 
@@ -37,5 +40,12 @@ export function updateArticle(data) {
     url: '/vue-element-template/article/update',
     method: 'post',
     data
+  })
+}
+
+export function fetchComments(id) {
+  return request({
+    url: `/article/${id}/comments`,
+    method: 'get'
   })
 }
