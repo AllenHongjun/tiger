@@ -159,27 +159,27 @@ export const constantRoutes = [
     ]
   },
 
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table1',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: '树结构', icon: 'tree' }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/table',
+    name: '例子',
+    meta: { title: '例子', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Table1',
+        component: () => import('@/views/table/index'),
+        meta: { title: '表格', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '树结构', icon: 'tree' }
+      }
+    ]
+  },
 
   {
     path: '/form',
