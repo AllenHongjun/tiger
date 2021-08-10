@@ -13,7 +13,7 @@
             <el-form-item label="名称" prop="name">
               <el-input v-model="ruleForm.name" />
             </el-form-item></div>
-          </el-col>
+        </el-col>
       </el-row>
       <el-form-item label="是否默认" prop="resource">
         <el-radio-group v-model="ruleForm.isDefault">
@@ -48,7 +48,7 @@
 import { getRole, createRole } from '@/api/user'
 
 export default {
-  name: 'role_detail',
+  name: 'RoleDetail',
   props: {
     isEdit: {
       type: Boolean,
@@ -92,7 +92,6 @@ export default {
         this.ruleForm.isPublic = response.isPublic
         this.ruleForm.isStatic = response.isStatic
         this.ruleForm.id = response.id
-
       }).catch(err => {
         console.log(err)
       })
@@ -105,9 +104,8 @@ export default {
             this.$message({
               message: '操作成功',
               type: 'success'
-            });
+            })
           })
-
         } else {
           console.log('error submit!!')
           return false

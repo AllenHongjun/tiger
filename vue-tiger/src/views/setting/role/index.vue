@@ -14,12 +14,11 @@
         type="primary"
         icon="el-icon-search"
         @click="handleFilter"
-      >
-      </el-button>
+      />
 
       <el-button type="primary" size="small" icon="el-icon-edit" @click="handleCreate">
-          添加
-        </el-button>
+        添加
+      </el-button>
     </el-row>
     <el-table
       v-loading="listLoading"
@@ -34,7 +33,7 @@
           {{ scope.$index }}
         </template>
       </el-table-column>
-      <el-table-column label="名称" align="center" >
+      <el-table-column label="名称" align="center">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
@@ -57,14 +56,14 @@
 
       <el-table-column align="center" label="操作" width="400">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini"  icon="el-icon-edit" @click="handleUpdate(scope.row)">
-              编辑
+          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
+            编辑
           </el-button>
           &nbsp;&nbsp;
-          <el-button type="primary" size="mini" @click="handlePermission(scope)" >
+          <el-button type="primary" size="mini" @click="handlePermission(scope)">
             授权
           </el-button>
-          <el-button type="danger" size="mini"  icon="el-icon-delete" @click="deleteData(scope.row.id)">
+          <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteData(scope.row.id)">
             删除
           </el-button>
         </template>
@@ -78,27 +77,27 @@
       @pagination="fetchData"
     />
 
-    <el-dialog :visible.sync="dialogVisible" title='角色授权'>
+    <el-dialog :visible.sync="dialogVisible" title="角色授权">
       <el-form label-width="80px" label-position="left">
         <el-tabs tab-position="left">
-        <el-tab-pane
-          v-for="group in permissionData.groups"
-          :key="group.name"
-          :label="group.displayName"
-        >
-          <el-form-item :label="group.displayName">
-            <el-tree
-              ref="permissionTree"
-              :data="transformPermissionTree(group.permissions)"
-              :props="treeDefaultProps"
-              show-checkbox
-              :check-strictly='false'
-              node-key="name"
-              :default-expand-all="false"
-            />
-          </el-form-item>
-        </el-tab-pane>
-      </el-tabs>
+          <el-tab-pane
+            v-for="group in permissionData.groups"
+            :key="group.name"
+            :label="group.displayName"
+          >
+            <el-form-item :label="group.displayName">
+              <el-tree
+                ref="permissionTree"
+                :data="transformPermissionTree(group.permissions)"
+                :props="treeDefaultProps"
+                show-checkbox
+                :check-strictly="false"
+                node-key="name"
+                :default-expand-all="false"
+              />
+            </el-form-item>
+          </el-tab-pane>
+        </el-tabs>
       </el-form>
       <div style="text-align:right;">
         <el-button size="mini" type="danger" @click="dialogVisible=false">取消</el-button>
@@ -118,24 +117,23 @@
           <el-input v-model="temp.name" />
         </el-form-item>
         <el-form-item label="是否默认" prop="title">
-          <el-checkbox v-model="temp.isDefault"></el-checkbox>
+          <el-checkbox v-model="temp.isDefault" />
         </el-form-item>
         <el-form-item label="是否公开" prop="title">
-          <el-checkbox v-model="temp.isPublic"></el-checkbox>
+          <el-checkbox v-model="temp.isPublic" />
         </el-form-item>
       </el-form>
       <div style="text-align: right">
-        <el-button type="danger" @click="dialogRoleFormVisible = false"
-          >取消</el-button
-        >
+        <el-button
+          type="danger"
+          @click="dialogRoleFormVisible = false"
+        >取消</el-button>
         <el-button
           type="primary"
           @click="dialogStatus === 'create' ? createData() : updateData()"
-          >确认</el-button
-        >
+        >确认</el-button>
       </div>
     </el-dialog>
-
 
   </div>
 </template>
@@ -149,7 +147,7 @@ import {
   createRole,
   updateRole
 } from '@/api/user'
-import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
   name: 'Role',
@@ -172,19 +170,19 @@ export default {
         Filter: '',
         Sorting: 'name desc'
       },
-      dialogStatus:'',
-      dialogRoleFormVisible:false,
+      dialogStatus: '',
+      dialogRoleFormVisible: false,
       temp: {
-        id: "",
-        name: "",
+        id: '',
+        name: '',
         isDefault: false,
-        isPublic: false,
+        isPublic: false
       },
       textMap: {
-        update: "编辑",
-        create: "添加",
+        update: '编辑',
+        create: '添加'
       },
-      dialogVisible:false,
+      dialogVisible: false,
       permissionData: {
         groups: []
       },
@@ -195,8 +193,8 @@ export default {
       dialogPermissionFormVisible: false,
       permissionsQuery: { providerKey: '', providerName: 'R' },
       rules: {
-        name: [{ required: true, message: "请输入名称", trigger: "blur" }],
-      },
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+      }
     }
   },
   created() {
@@ -213,77 +211,77 @@ export default {
       })
     },
     handleFilter() {
-      this.listQuery.page = 1;
-      this.fetchData();
+      this.listQuery.page = 1
+      this.fetchData()
     },
     resetTemp() {
       this.temp = {
-        name: "",
+        name: '',
         isDefault: false,
-        isPublic: false,
-      };
+        isPublic: false
+      }
     },
     handleCreate() {
-      this.resetTemp();
-      this.dialogStatus = "create";
-      this.dialogRoleFormVisible = true;
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogRoleFormVisible = true
       this.$nextTick(() => {
-        this.$refs["dataForm"].clearValidate();
-      });
+        this.$refs['dataForm'].clearValidate()
+      })
     },
     createData() {
-      this.$refs["dataForm"].validate((valid) => {
+      this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           createRole(this.temp).then(() => {
-            this.list.unshift(this.temp);
-            this.dialogRoleFormVisible = false;
+            this.list.unshift(this.temp)
+            this.dialogRoleFormVisible = false
             this.$notify({
-              title: "成功",
-              message: "操作成功",
-              type: "success",
-              duration: 2000,
-            });
-          });
+              title: '成功',
+              message: '操作成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
         }
-      });
+      })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row); // copy obj
+      this.temp = Object.assign({}, row) // copy obj
       console.log(this.temp)
       // this.temp.timestamp = new Date(this.temp.timestamp)
-      this.dialogStatus = "update";
-      this.dialogRoleFormVisible = true;
+      this.dialogStatus = 'update'
+      this.dialogRoleFormVisible = true
       this.$nextTick(() => {
-        this.$refs["dataForm"].clearValidate();
-      });
+        this.$refs['dataForm'].clearValidate()
+      })
     },
     updateData() {
-      this.$refs["dataForm"].validate((valid) => {
+      this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp);
+          const tempData = Object.assign({}, this.temp)
           // console.log(tempData)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateRole(tempData.id, tempData).then(() => {
-            const index = this.list.findIndex((v) => v.id === this.temp.id);
-            this.list.splice(index, 1, this.temp);
-            this.dialogRoleFormVisible = false;
+            const index = this.list.findIndex((v) => v.id === this.temp.id)
+            this.list.splice(index, 1, this.temp)
+            this.dialogRoleFormVisible = false
             this.$notify({
-              title: "成功",
-              message: "操作成功",
-              type: "success",
-              duration: 2000,
-            });
-          });
+              title: '成功',
+              message: '操作成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
         }
-      });
+      })
     },
-    deleteData(id){
+    deleteData(id) {
       console.log('delete')
       deleteRole(id).then(response => {
         this.$message({
-              message: '删除成功',
-              type: 'success'
-            });
+          message: '删除成功',
+          type: 'success'
+        })
       }).catch(err => {
         console.log(err)
       })
@@ -307,7 +305,6 @@ export default {
           const keys = []
           const group = this.permissionData.groups[i]
           for (const j in group.permissions) {
-
             if (group.permissions[j].isGranted) {
               console.log(group.permissions[j])
               keys.push(group.permissions[j].name)
@@ -390,14 +387,14 @@ export default {
           this.$message({
             message: '权限添加成功',
             type: 'success'
-          });
+          })
           // fetchAppConfig(
           //   this.permissionsQuery.providerKey,
           //   this.permissionsQuery.providerName
           // )
         }
       )
-    },
+    }
   }
 }
 </script>
