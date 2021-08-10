@@ -14,6 +14,15 @@
 
 
 
+
+
+### 官方文档
+
+- [https://docs.abp.io/zh-Hans/abp/latest/Module-Development-Basics](https://docs.abp.io/zh-Hans/abp/latest/Module-Development-Basics)
+- 
+
+
+
 ### 参考项目
 
 - [vue-elemnt-admin-demo](https://panjiachen.github.io/vue-element-admin/#/login?redirect=%2Fdashboard)
