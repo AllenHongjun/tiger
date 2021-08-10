@@ -22,8 +22,7 @@
             type="primary"
             icon="el-icon-search"
             @click="handleFilter"
-          >
-          </el-button>
+          />
 
           <el-button
             type="primary"
@@ -136,15 +135,16 @@
             </el-tabs>
           </el-form>
           <div style="text-align: right">
-            <el-button size="mini" type="danger" @click="dialogVisible = false"
-              >取消</el-button
-            >
+            <el-button
+              size="mini"
+              type="danger"
+              @click="dialogVisible = false"
+            >取消</el-button>
             <el-button
               size="mini"
               type="primary"
               @click="updatePermissionData()"
-              >确认</el-button
-            >
+            >确认</el-button>
           </div>
         </el-dialog>
 
@@ -166,21 +166,21 @@
               <el-input v-model="temp.name" />
             </el-form-item>
             <el-form-item label="是否默认" prop="title">
-              <el-checkbox v-model="temp.isDefault"></el-checkbox>
+              <el-checkbox v-model="temp.isDefault" />
             </el-form-item>
             <el-form-item label="是否公开" prop="title">
-              <el-checkbox v-model="temp.isPublic"></el-checkbox>
+              <el-checkbox v-model="temp.isPublic" />
             </el-form-item>
           </el-form>
           <div style="text-align: right">
-            <el-button type="danger" @click="dialogRoleFormVisible = false"
-              >取消</el-button
-            >
+            <el-button
+              type="danger"
+              @click="dialogRoleFormVisible = false"
+            >取消</el-button>
             <el-button
               type="primary"
               @click="dialogStatus === 'create' ? createData() : updateData()"
-              >确认</el-button
-            >
+            >确认</el-button>
           </div>
         </el-dialog>
       </el-col>
@@ -194,30 +194,30 @@ import {
   deleteRole,
   getPermissions,
   updatePermissions,
-  createRole,
+  createRole
   // updateRole,
-} from "@/api/user";
+} from '@/api/user'
 
 import {
   // getRoles,
   // createRole,
   createRoleToOrg,
   // getRoleById,
-  updateRole,
+  updateRole
   // deleteRole
 } from '@/api/identity/role'
-import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import OrgTree from '../components/org-tree'
 import { getOrgRoles } from '@/api/identity/organization'
 
 export default {
-  name: "Role",
+  name: 'Role',
   components: { Pagination, OrgTree },
   props: {
     providerName: {
       type: String,
-      required: false,
-    },
+      required: false
+    }
   },
   data() {
     return {
@@ -230,36 +230,36 @@ export default {
         SkipCount: 0,
         ouId: '',
         Filter: '',
-        Sorting: "name desc",
+        Sorting: 'name desc'
       },
-      dialogStatus: "",
+      dialogStatus: '',
       dialogRoleFormVisible: false,
       orgData: '',
       temp: {
-        id: "",
-        name: "",
-        orgId:'',
+        id: '',
+        name: '',
+        orgId: '',
         isDefault: false,
-        isPublic: false,
+        isPublic: false
       },
       textMap: {
-        update: "编辑",
-        create: "添加",
+        update: '编辑',
+        create: '添加'
       },
       dialogVisible: false,
       permissionData: {
-        groups: [],
+        groups: []
       },
       treeDefaultProps: {
-        children: "children",
-        label: "label",
+        children: 'children',
+        label: 'label'
       },
       dialogPermissionFormVisible: false,
-      permissionsQuery: { providerKey: "", providerName: "R" },
+      permissionsQuery: { providerKey: '', providerName: 'R' },
       rules: {
-        name: [{ required: true, message: "请输入名称", trigger: "blur" }],
-      },
-    };
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+      }
+    }
   },
   computed: {
     orgName() {
@@ -270,19 +270,19 @@ export default {
     }
   },
   created() {
-    this.fetchData();
-    this.permissionsQuery.providerName = "R";
+    this.fetchData()
+    this.permissionsQuery.providerName = 'R'
   },
   methods: {
     fetchData() {
-      this.listLoading = true;
+      this.listLoading = true
       console.log(this.listQuery)
       getOrgRoles(this.listQuery).then((response) => {
-        console.log('response',response)
-        this.list = response.items;
-        this.total = response.totalCount;
-        this.listLoading = false;
-      });
+        console.log('response', response)
+        this.list = response.items
+        this.total = response.totalCount
+        this.listLoading = false
+      })
     },
     handleRefresh() {
       this.listQuery.ouId = undefined
@@ -291,108 +291,108 @@ export default {
       this.handleFilter()
     },
     handleFilter() {
-      this.listQuery.page = 1;
-      this.fetchData();
+      this.listQuery.page = 1
+      this.fetchData()
     },
     resetTemp() {
       this.temp = {
-        name: "",
+        name: '',
         isDefault: false,
-        isPublic: false,
-      };
+        isPublic: false
+      }
     },
     handleCreate() {
-      this.resetTemp();
-      this.dialogStatus = "create";
-      this.dialogRoleFormVisible = true;
+      this.resetTemp()
+      this.dialogStatus = 'create'
+      this.dialogRoleFormVisible = true
       this.$nextTick(() => {
-        this.$refs["dataForm"].clearValidate();
-      });
+        this.$refs['dataForm'].clearValidate()
+      })
     },
     createData() {
-      this.$refs["dataForm"].validate((valid) => {
+      this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           if (this.orgData !== null) {
             this.temp.orgId = this.orgData.id
           }
           createRoleToOrg(this.temp).then(() => {
-            this.list.unshift(this.temp);
-            this.dialogRoleFormVisible = false;
+            this.list.unshift(this.temp)
+            this.dialogRoleFormVisible = false
             this.$notify({
-              title: "成功",
-              message: "操作成功",
-              type: "success",
-              duration: 2000,
-            });
-          });
+              title: '成功',
+              message: '操作成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
         }
-      });
+      })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row); // copy obj
-      console.log(this.temp);
+      this.temp = Object.assign({}, row) // copy obj
+      console.log(this.temp)
       // this.temp.timestamp = new Date(this.temp.timestamp)
-      this.dialogStatus = "update";
-      this.dialogRoleFormVisible = true;
+      this.dialogStatus = 'update'
+      this.dialogRoleFormVisible = true
       this.$nextTick(() => {
-        this.$refs["dataForm"].clearValidate();
-      });
+        this.$refs['dataForm'].clearValidate()
+      })
     },
     updateData() {
-      this.$refs["dataForm"].validate((valid) => {
+      this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          const tempData = Object.assign({}, this.temp);
+          const tempData = Object.assign({}, this.temp)
           // console.log(tempData)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateRole(tempData).then(() => {
-            const index = this.list.findIndex((v) => v.id === this.temp.id);
-            this.list.splice(index, 1, this.temp);
-            this.dialogRoleFormVisible = false;
+            const index = this.list.findIndex((v) => v.id === this.temp.id)
+            this.list.splice(index, 1, this.temp)
+            this.dialogRoleFormVisible = false
             this.$notify({
-              title: "成功",
-              message: "操作成功",
-              type: "success",
-              duration: 2000,
-            });
-          });
+              title: '成功',
+              message: '操作成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
         }
-      });
+      })
     },
     deleteData(id) {
-      console.log("delete");
+      console.log('delete')
       deleteRole(id)
         .then((response) => {
           this.$message({
-            message: "删除成功",
-            type: "success",
-          });
+            message: '删除成功',
+            type: 'success'
+          })
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     handlePermission(scope) {
-      this.dialogVisible = true;
+      this.dialogVisible = true
       // this.dialogPermissionFormVisible = true
       // console.log(row)
       // console.log(row.name)
-      if (this.permissionsQuery.providerName === "R") {
-        this.permissionsQuery.providerKey = scope.row.name;
-      } else if (this.permissionsQuery.providerName === "U") {
-        this.permissionsQuery.providerKey = scope.row.id;
+      if (this.permissionsQuery.providerName === 'R') {
+        this.permissionsQuery.providerKey = scope.row.name
+      } else if (this.permissionsQuery.providerName === 'U') {
+        this.permissionsQuery.providerKey = scope.row.id
       }
       // console.log(this.permissionsQuery)
       getPermissions(this.permissionsQuery).then((response) => {
         // console.log(response)
-        this.permissionData = response;
+        this.permissionData = response
 
         for (const i in this.permissionData.groups) {
-          const keys = [];
-          const group = this.permissionData.groups[i];
+          const keys = []
+          const group = this.permissionData.groups[i]
           for (const j in group.permissions) {
             if (group.permissions[j].isGranted) {
-              console.log(group.permissions[j]);
-              keys.push(group.permissions[j].name);
+              console.log(group.permissions[j])
+              keys.push(group.permissions[j].name)
             }
           }
 
@@ -401,29 +401,29 @@ export default {
             // console.log(this.$refs)
             // console.log(this.$refs.permissionTree)
             // console.log(keys)
-            this.$refs.permissionTree[i].setCheckedKeys(keys);
-          });
+            this.$refs.permissionTree[i].setCheckedKeys(keys)
+          })
         }
-      });
+      })
     },
     transformPermissionTree(permissions, name = null) {
-      const arr = [];
+      const arr = []
       if (!permissions || !permissions.some((v) => v.parentName === name)) {
-        return arr;
+        return arr
       }
 
-      const parents = permissions.filter((v) => v.parentName === name);
+      const parents = permissions.filter((v) => v.parentName === name)
       for (const i in parents) {
-        let label = "";
-        if (this.permissionsQuery.providerName === "R") {
-          label = parents[i].displayName;
-        } else if (this.permissionsQuery.providerName === "U") {
+        let label = ''
+        if (this.permissionsQuery.providerName === 'R') {
+          label = parents[i].displayName
+        } else if (this.permissionsQuery.providerName === 'U') {
           label =
             parents[i].displayName +
-            " " +
+            ' ' +
             parents[i].grantedProviders.map((provider) => {
-              return `${provider.providerName}: ${provider.providerKey}`;
-            });
+              return `${provider.providerName}: ${provider.providerKey}`
+            })
         }
         arr.push({
           name: parents[i].name,
@@ -431,10 +431,10 @@ export default {
           disabled: this.isGrantedByOtherProviderName(
             parents[i].grantedProviders
           ),
-          children: this.transformPermissionTree(permissions, parents[i].name),
-        });
+          children: this.transformPermissionTree(permissions, parents[i].name)
+        })
       }
-      return arr;
+      return arr
     },
     isGrantedByOtherProviderName(grantedProviders) {
       if (grantedProviders.length) {
@@ -442,15 +442,15 @@ export default {
           grantedProviders.findIndex(
             (p) => p.providerName !== this.permissionsQuery.providerName
           ) > -1
-        );
+        )
       }
-      return false;
+      return false
     },
     updatePermissionData() {
-      const tempData = [];
+      const tempData = []
       for (const i in this.permissionData.groups) {
-        const keys = this.$refs.permissionTree[i].getCheckedKeys();
-        const group = this.permissionData.groups[i];
+        const keys = this.$refs.permissionTree[i].getCheckedKeys()
+        const group = this.permissionData.groups[i]
         for (const j in group.permissions) {
           if (
             group.permissions[j].isGranted &&
@@ -458,29 +458,29 @@ export default {
           ) {
             tempData.push({
               isGranted: false,
-              name: group.permissions[j].name,
-            });
+              name: group.permissions[j].name
+            })
           } else if (
             !group.permissions[j].isGranted &&
             keys.some((v) => v === group.permissions[j].name)
           ) {
-            tempData.push({ isGranted: true, name: group.permissions[j].name });
+            tempData.push({ isGranted: true, name: group.permissions[j].name })
           }
         }
       }
       updatePermissions(this.permissionsQuery, { permissions: tempData }).then(
         () => {
-          this.dialogPermissionFormVisible = false;
+          this.dialogPermissionFormVisible = false
           this.$message({
-            message: "权限添加成功",
-            type: "success",
-          });
+            message: '权限添加成功',
+            type: 'success'
+          })
           // fetchAppConfig(
           //   this.permissionsQuery.providerKey,
           //   this.permissionsQuery.providerName
           // )
         }
-      );
+      )
     },
 
     handleOrgTreeNodeClick(data) {
@@ -490,8 +490,8 @@ export default {
         this.handleFilter()
       }
     }
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss" scoped>

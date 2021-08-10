@@ -28,9 +28,6 @@ import settingRouter from './modules/setting'
   }
  */
 
-
-
-
 /**
  * constantRoutes
  * a base page that does not have permission requirements
@@ -60,6 +57,8 @@ export const constantRoutes = [
 
   {
     path: '/',
+    name: '主页',
+    meta: { title: '主页', icon: 'dashboard' },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
@@ -69,22 +68,302 @@ export const constantRoutes = [
       name: '主页',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '主页', icon: 'dashboard' }
-    }]
+    }
+
+    ]
   },
 
+  {
+    path: '/product',
+    name: '产品',
+    meta: { title: '产品', icon: 'el-icon-bangzhu' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'product/list',
+        name: 'ProductList',
+        component: () => import('@/views/product/product/list'),
+        meta: { title: '产品管理', icon: 'el-icon-discover' }
+      },
+      {
+        path: 'product/create',
+        component: () => import('@/views/product/product/create'),
+        name: 'CreateProduct',
+        meta: { title: '添加产品', icon: 'edit' }
+      },
+      {
+        path: 'product/edit/:id(\\d+)',
+        component: () => import('@/views/product/product/edit'),
+        name: 'EditProduct',
+        meta: { title: '编辑产品', noCache: true, activeMenu: '/example/list' },
+        hidden: true
+      },
+      {
+        path: 'category/list',
+        name: '产品分类',
+        component: () => import('@/views/product/category/list'),
+        meta: { title: '产品分类', icon: 'tree' }
+      },
+      {
+        path: 'attribute/list',
+        name: '产品规格',
+        component: () => import('@/views/product/attribute/list'),
+        meta: { title: '产品规格', icon: 'tree' }
+      },
+      {
+        path: 'comment/list',
+        name: '产品评论',
+        component: () => import('@/views/product/comment/list'),
+        meta: { title: '产品评论', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/chart',
+    name: '图表',
+    meta: { title: '图表', icon: 'dashboard' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: '/chart/line',
+        name: '简单示例',
+        component: () => import('@/views/charts/line'),
+        meta: { title: '简单示例', icon: 'dashboard' },
+        hidden: false
+      },
+      {
+        path: '/chart/keybord',
+        name: '键盘图',
+        component: () => import('@/views/charts/keyboard'),
+        meta: { title: '折线图', icon: 'dashboard' },
+        hidden: false
+      },
+      {
+        path: '/chart/mix-chart',
+        name: '混合图',
+        component: () => import('@/views/charts/mix-chart'),
+        meta: { title: '混合图', icon: 'dashboard' },
+        hidden: false
+      }
+    ]
+  },
   {
     path: '/profile',
     // 你可以选择不同的layout组件
     component: Layout,
     // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [{
-      path: '/profile/index',
-      name: '个人中心',
-      component: () => import('@/views/profile/index'),
-      meta: { title: '个人中心', icon: 'dashboard' },
-      hidden:true
-    }]
+    children: [
+      {
+        path: '/profile/index',
+        name: '个人中心',
+        component: () => import('@/views/profile/index'),
+        meta: { title: '个人中心', icon: 'dashboard' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/table',
+    name: '例子',
+    meta: { title: '例子', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Table1',
+        component: () => import('@/views/table/index'),
+        meta: { title: '表格', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '树结构', icon: 'tree' }
+      }
+    ]
+  },
+
+  {
+    path: '/form',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Form',
+        component: () => import('@/views/form/index'),
+        meta: { title: '表单', icon: 'form' }
+      }
+    ]
   }
+
+  // {
+  //   path: '/blank',
+  //   component: Layout,
+  //   name: 'Blank',
+  //   meta: {
+  //     title: '空白',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'Blank2',
+  //       name: 'Blank2',
+  //       component: () => import('@/views/blank/index'),
+  //       meta: { title: '空白页面', icon: 'form' }
+  //     },
+  //     {
+  //       path: 'Blank3',
+  //       name: 'Blank3',
+  //       component: () => import('@/views/blank/index'),
+  //       meta: { title: '空白页面2', icon: 'form' }
+  //     }
+  //   ]
+  // },
+
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   redirect: '/nested/menu1',
+  //   name: 'Nested',
+  //   meta: {
+  //     title: 'Nested',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
+  //       name: 'Menu1',
+  //       meta: { title: 'Menu1' },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           component: () => import('@/views/nested/menu1/menu1-1'),
+  //           name: 'Menu1-1',
+  //           meta: { title: 'Menu1-1' }
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           component: () => import('@/views/nested/menu1/menu1-2'),
+  //           name: 'Menu1-2',
+  //           meta: { title: 'Menu1-2' },
+  //           children: [
+  //             {
+  //               path: 'menu1-2-1',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+  //               name: 'Menu1-2-1',
+  //               meta: { title: 'Menu1-2-1' }
+  //             },
+  //             {
+  //               path: 'menu1-2-2',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+  //               name: 'Menu1-2-2',
+  //               meta: { title: 'Menu1-2-2' }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: 'menu1-3',
+  //           component: () => import('@/views/nested/menu1/menu1-3'),
+  //           name: 'Menu1-3',
+  //           meta: { title: 'Menu1-3' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       component: () => import('@/views/nested/menu2/index'),
+  //       name: 'Menu2',
+  //       meta: { title: 'menu2' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/table',
+  //   component: Layout,
+  //   name: 'Table',
+  //   meta: {
+  //     title: '图表',
+  //     icon: 'pie-table'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'simple_table',
+  //       name: 'SimpleTable',
+  //       meta: { title: '简单表格', icon: 'link' }
+  //     },
+  //     {
+  //       path: 'complex_table',
+  //       name: 'complex_table',
+  //       meta: { title: '复杂表格', icon: 'link' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/form_layout',
+  //   component: Layout,
+  //   name: 'FormLayout',
+  //   meta: {
+  //     title: '表单',
+  //     icon: 'form'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'form_layout',
+  //       name: 'FormLayout1',
+  //       meta: { title: '单列表单', icon: 'link' }
+  //     },
+  //     {
+  //       path: 'form_layout2',
+  //       name: 'FormLayout2',
+  //       meta: { title: '多列表单', icon: 'link' }
+  //     },
+  //     {
+  //       path: 'file_upload',
+  //       name: 'FileUpload',
+  //       meta: { title: '文件上传', icon: 'link' }
+  //     },
+  //     {
+  //       path: 'form_upload',
+  //       name: 'FormUpload',
+  //       meta: { title: '表单文件上传', icon: 'link' }
+  //     },
+  //     {
+  //       path: 'form_editor',
+  //       name: 'FormEditor',
+  //       meta: { title: '表格编辑器', icon: 'link' }
+  //     }
+
+  //   ]
+  // },
+  // {
+  //   path: '/stat',
+  //   component: Layout,
+  //   name: 'Stat',
+  //   meta: {
+  //     title: '图表统计',
+  //     icon: 'table'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'chart',
+  //       name: 'Chart',
+  //       meta: { title: '图表', icon: 'link' }
+  //     },
+  //     {
+  //       path: 'flex',
+  //       name: 'Flex',
+  //       meta: { title: '数字排版', icon: 'link' }
+  //     }
+  //   ]
+  // }
 
 ]
 
@@ -92,7 +371,7 @@ export const constantRoutes = [
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
  */
- export const asyncRoutes = [
+export const asyncRoutes = [
   /** when your routing map is too long, you can split it into small modules **/
   // identityRouter,
   // tenantRouter,
@@ -102,7 +381,6 @@ export const constantRoutes = [
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
-
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support

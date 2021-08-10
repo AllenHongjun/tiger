@@ -11,8 +11,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
         align="right"
-      >
-      </el-date-picker>
+      />
       <el-input
         v-model="listQuery.userName"
         placeholder="用户名"
@@ -74,7 +73,6 @@
         导出
       </el-button>
 
-
     </div>
     <el-table
       v-loading="listLoading"
@@ -83,7 +81,7 @@
       border
       fit
       highlight-current-row
-      :default-sort = "{prop: 'date', order: 'descending'}"
+      :default-sort="{prop: 'date', order: 'descending'}"
       @sort-change="sortChange"
     >
       <el-table-column align="left" label="HTTP请求" width="300">
@@ -126,12 +124,12 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="240">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini"  icon="el-icon-edit" @click="handleUpdate(scope.row)">
-              详情
+          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
+            详情
           </el-button>
           &nbsp;&nbsp;
-          <el-button type="danger" size="mini"  icon="el-icon-delete" @click="deleteData(scope.row.id)">
-              删除
+          <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteData(scope.row.id)">
+            删除
           </el-button>
         </template>
       </el-table-column>
@@ -152,55 +150,55 @@
         label-position="left"
       >
         <el-form-item label="httpStatusCode" prop="httpStatusCode">
-          <div>{{temp.httpStatusCode}}</div>
+          <div>{{ temp.httpStatusCode }}</div>
         </el-form-item>
         <el-form-item label="applicationName" prop="applicationName">
-          <div>{{temp.applicationName}}</div>
+          <div>{{ temp.applicationName }}</div>
         </el-form-item>
         <el-form-item label="browserInfo" prop="browserInfo">
-          <div>{{temp.browserInfo}}</div>
+          <div>{{ temp.browserInfo }}</div>
         </el-form-item>
         <!-- <el-form-item label="clientId" prop="clientId">
           <div>{{temp.clientId}}</div>
         </el-form-item> -->
         <el-form-item label="clientIpAddress" prop="clientIpAddress">
-          <div>{{temp.clientIpAddress}}</div>
+          <div>{{ temp.clientIpAddress }}</div>
         </el-form-item>
         <el-form-item label="clientName" prop="clientName">
-          <div>{{temp.clientName}}</div>
+          <div>{{ temp.clientName }}</div>
         </el-form-item>
         <!-- <el-form-item label="correlationId" prop="correlationId">
           <div>{{temp.correlationId}}</div>
         </el-form-item> -->
         <el-form-item label="exceptions" prop="exceptions">
           <el-input
+            v-model="temp.exceptions"
             type="textarea"
-            :rows="5"
 
-            v-model="temp.exceptions">
-          </el-input>
+            :rows="5"
+          />
 
         </el-form-item>
         <el-form-item label="executionDuration" prop="executionDuration">
-          <div>{{temp.executionDuration}}</div>
+          <div>{{ temp.executionDuration }}</div>
         </el-form-item>
         <el-form-item label="httpMethod" prop="httpMethod">
-          <div>{{temp.httpMethod}}</div>
+          <div>{{ temp.httpMethod }}</div>
         </el-form-item>
         <el-form-item label="httpStatusCode" prop="httpStatusCode">
-          <div>{{temp.httpStatusCode}}</div>
+          <div>{{ temp.httpStatusCode }}</div>
         </el-form-item>
         <el-form-item label="id" prop="id">
-          <div>{{temp.id}}</div>
+          <div>{{ temp.id }}</div>
         </el-form-item>
         <el-form-item label="url" prop="url">
-          <div>{{temp.url}}</div>
+          <div>{{ temp.url }}</div>
         </el-form-item>
         <el-form-item label="userId" prop="userId">
-          <div>{{temp.userId}}</div>
+          <div>{{ temp.userId }}</div>
         </el-form-item>
         <el-form-item label="userName" prop="userName">
-          <div>{{temp.userName}}</div>
+          <div>{{ temp.userName }}</div>
         </el-form-item>
 
       </el-form>
@@ -209,10 +207,9 @@
           >取消</el-button> -->
 
         <el-button
-          type="primary" @click="dialogRoleFormVisible = false"
-
-          >关闭</el-button
-        >
+          type="primary"
+          @click="dialogRoleFormVisible = false"
+        >关闭</el-button>
       </div>
     </el-dialog>
 
@@ -220,8 +217,8 @@
 </template>
 
 <script>
-import { getAuditLogs } from "@/api/auditlogging/auditlog";
-import Pagination from "@/components/Pagination"; // Secondary package based on el-pagination
+import { getAuditLogs } from '@/api/auditlogging/auditlog'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import baseListQuery from '@/utils/abp'
 // import FilenameOption from '@/views/excel/components/FilenameOption'
 // import AutoWidthOption from '@/views/excel/components/AutoWidthOption'
@@ -229,38 +226,38 @@ import baseListQuery from '@/utils/abp'
 import { parseTime } from '@/utils'
 // npm install --save @../../vendor/Export2Excel
 const httpStatueCodeOptions = [
-  { key: "CN", display_name: "China" },
-  { key: "US", display_name: "USA" },
-  { key: "JP", display_name: "Japan" },
-  { key: "EU", display_name: "Eurozone" },
-];
+  { key: 'CN', display_name: 'China' },
+  { key: 'US', display_name: 'USA' },
+  { key: 'JP', display_name: 'Japan' },
+  { key: 'EU', display_name: 'Eurozone' }
+]
 export default {
-  name: "audit_log_list",
+  name: 'AuditLogList',
   components: { Pagination },
   filters: {
     httpCodeFilter(code) {
-      var code = parseInt(code);
-      var result = "";
+      code = parseInt(code)
+      var result = ''
       if (code <= 100) {
-        result = "info";
+        result = 'info'
       } else if (code <= 200) {
-        result = "success";
+        result = 'success'
       } else if (code <= 300) {
-        result = "warning";
+        result = 'warning'
       } else {
-        result = "danger";
+        result = 'danger'
       }
-      return result;
+      return result
     },
     typeFilter(type) {
-      return calendarTypeKeyValue[type];
-    },
+      return calendarTypeKeyValue[type]
+    }
   },
   data() {
     return {
       list: null,
       listLoading: true,
-      downloadLoading:false,
+      downloadLoading: false,
       filename: 'auto-log',
       autoWidth: true,
       bookType: 'xlsx', // 'csv' ''
@@ -276,17 +273,17 @@ export default {
         applicationName: undefined,
         hasException: '',
         httpStatusCode: undefined,
-        Sorting:'',
+        Sorting: ''
       }, baseListQuery),
       httpMethodOptions: [
-        "GET",
-        "POST",
-        "DELETE",
-        "PUT",
-        "HEAD",
-        "CONNECT",
-        "OPTIONS",
-        "TRACE",
+        'GET',
+        'POST',
+        'DELETE',
+        'PUT',
+        'HEAD',
+        'CONNECT',
+        'OPTIONS',
+        'TRACE'
       ],
       hasExceptionOptions: [
         {
@@ -303,88 +300,88 @@ export default {
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: '最近一周',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit("pick", [start, end]);
-            },
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
           },
           {
-            text: "最近一个月",
+            text: '最近一个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit("pick", [start, end]);
-            },
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
           },
           {
-            text: "最近三个月",
+            text: '最近三个月',
             onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit("pick", [start, end]);
-            },
-          },
-        ],
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          }
+        ]
       },
       value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-      value2: "",
-      dialogStatus:'',
-      dialogRoleFormVisible:false,
+      value2: '',
+      dialogStatus: '',
+      dialogRoleFormVisible: false,
       temp: {
         httpStatusCode: 204,
-        comments: "",
-        exceptions: "",
-        url: "/api/permission-management/permissions",
-        httpMethod: "PUT",
-        browserInfo: "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36",
-        correlationId: "3dd03595582048c1ae603ef669b756d6",
-        clientId: "TigerAdmin_App",
+        comments: '',
+        exceptions: '',
+        url: '/api/permission-management/permissions',
+        httpMethod: 'PUT',
+        browserInfo: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36',
+        correlationId: '3dd03595582048c1ae603ef669b756d6',
+        clientId: 'TigerAdmin_App',
         clientName: null,
-        clientIpAddress: "::1",
+        clientIpAddress: '::1',
         executionDuration: 65,
-        executionTime: "2020-10-24T22:27:54.9287546",
+        executionTime: '2020-10-24T22:27:54.9287546',
         impersonatorTenantId: null,
         impersonatorUserId: null,
         tenantName: null,
         tenantId: null,
-        userName: "admin",
-        userId: "1847197c-bfc8-aa9c-bafd-39f8621f66ad",
+        userName: 'admin',
+        userId: '1847197c-bfc8-aa9c-bafd-39f8621f66ad',
         applicationName: null,
-        id: "67a91900-a8b1-8766-f751-39f86d2f15f1",
+        id: '67a91900-a8b1-8766-f751-39f86d2f15f1',
         extraProperties: {}
-      },
-    };
+      }
+    }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      console.log(`每页 ${val} 条`)
       this.listQuery.SkipCount =
-        (this.listQuery.page - 1) * this.listQuery.MaxResultCount;
+        (this.listQuery.page - 1) * this.listQuery.MaxResultCount
     },
     fetchData() {
-      this.listLoading = true;
+      this.listLoading = true
       // console.log(this.listQuery);
       if (this.queryDateTime) {
         this.listQuery.startTime = this.queryDateTime[0]
         this.listQuery.endTime = this.queryDateTime[1]
       }
       getAuditLogs(this.listQuery).then((response) => {
-        this.list = response.items;
-        this.total = response.totalCount;
-        this.listLoading = false;
-      });
+        this.list = response.items
+        this.total = response.totalCount
+        this.listLoading = false
+      })
     },
     handleFilter() {
-      this.listQuery.page = 1;
-      this.fetchData();
+      this.listQuery.page = 1
+      this.fetchData()
     },
     sortChange(data) {
       const { prop, order } = data
@@ -401,24 +398,24 @@ export default {
       this.handleFilter()
     },
     deleteData(id) {
-      console.log("delete");
+      console.log('delete')
       deleteRole(id)
         .then((response) => {
           this.$message({
-            message: "删除成功",
-            type: "success",
-          });
+            message: '删除成功',
+            type: 'success'
+          })
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     handleUpdate(row) {
-      this.temp = Object.assign({}, row); // copy obj
+      this.temp = Object.assign({}, row) // copy obj
       console.log(this.temp)
       // this.temp.timestamp = new Date(this.temp.timestamp)
-      this.dialogStatus = "update";
-      this.dialogRoleFormVisible = true;
+      this.dialogStatus = 'update'
+      this.dialogRoleFormVisible = true
       // this.$nextTick(() => {
       //   this.$refs["dataForm"].clearValidate();
       // });
@@ -426,8 +423,8 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId','exceptions','executionDuration','executionTime','httpMethod','httpStatusCode','url','userId','userName']
-        const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId','exceptions','executionDuration','executionTime','httpMethod','httpStatusCode','url','userId','userName']
+        const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
+        const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
         const list = this.list
         const data = this.formatJson(filterVal, list)
         excel.export_json_to_excel({
@@ -449,6 +446,12 @@ export default {
         }
       }))
     }
-  },
-};
+  }
+}
 </script>
+
+<style scoped>
+.filter-container{
+  margin-bottom: 20px;
+}
+</style>
