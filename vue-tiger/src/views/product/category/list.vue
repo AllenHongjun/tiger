@@ -30,72 +30,60 @@
       <el-button v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleImport">
         导入
       </el-button>
-      <el-button v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleDownload">
-        导出
-      </el-button>
+
+      <el-dropdown>
+        <el-button size="mini">
+          批量操作<i class="el-icon-arrow-down el-icon--right" />
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <el-link icon="el-icon-edit">审核</el-link>
+          </el-dropdown-item>
+          <el-dropdown-item><el-link icon="el-icon-delete">删除</el-link></el-dropdown-item>
+          <el-dropdown-item>
+            <el-link v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleDownload">导出
+            </el-link>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <div v-show="searchDivVisibilty" class="search-container">
-        <el-form ref="form" :model="form" label-width="80px">
+        <el-form ref="searchForm" :model="listQuery" label-width="80px">
           <el-row>
             <el-col :span="6">
-              <el-form-item label="虚拟销量" label-width="120px" class="postInfo-container-item">
-                <el-input />
+              <el-form-item v-model="listQuery.title" label="名称" placeholder="请输入名称" label-width="120px" class="postInfo-container-item">
+                <el-input v-model="listQuery.title" />
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item label="额外赠送积分" label-width="120px" class="postInfo-container-item">
-                <el-input />
+              <el-form-item label="重要性" label-width="120px" class="postInfo-container-item">
+                <el-select v-model="listQuery.importance" placeholder="重要性" clearable style="width: 90px" class="filter-item">
+                  <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
+                </el-select>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="6">
+              <el-form-item label="类型" label-width="120px" class="postInfo-container-item">
+                <el-select v-model="listQuery.type" placeholder="类型" clearable class="filter-item" style="width: 130px">
+                  <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="排序" label-width="120px" class="postInfo-container-item">
-                <el-input />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="商品状态" label-width="120px" class="postInfo-container-item">
-              <!-- <el-radio v-model="postForm.productStatus" label="1">上架</el-radio>
-              <el-radio v-model="postForm.productStatus" label="2">下架</el-radio> -->
+                <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
+                  <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
+                </el-select>
               </el-form-item>
             </el-col>
 
           </el-row>
-
-          <el-row>
-            <el-col :span="6">
-              <el-form-item label="热卖单品" label-width="120px" class="postInfo-container-item">
-              <!-- <el-radio v-model="postForm.selling" label="1">开启</el-radio>
-              <el-radio v-model="postForm.selling" label="2">关闭</el-radio> -->
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="促销单品" label-width="120px" class="postInfo-container-item">
-              <!-- <el-radio v-model="postForm.promotion" label="1">开启</el-radio>
-              <el-radio v-model="postForm.promotion" label="2">关闭</el-radio> -->
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="精品推荐" label-width="120px" class="postInfo-container-item">
-              <!-- <el-radio v-model="postForm.recommend" label="1">上架</el-radio>
-              <el-radio v-model="postForm.recommend" label="2">下架</el-radio> -->
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="首发新品" label-width="120px" class="postInfo-container-item">
-              <!-- <el-radio v-model="postForm.new" label="1">开启</el-radio>
-              <el-radio v-model="postForm.new" label="2">关闭</el-radio> -->
-              </el-form-item>
-            </el-col>
-          </el-row>
-
-          <el-form-item label="商品口令:" label-width="120px">
-            <el-input class="form-input" placeholder="请输入订单" />
-          </el-form-item>
 
           <el-form-item label="" label-width="120px">
             <el-button type="primary" @click="handleFilter">
               搜索
             </el-button>
-            <el-button type="primary">
+            <el-button type="primary" @click="resetSearchForm('searchForm')">
               重置
             </el-button>
             <el-button type="primary" @click="handleSearch">
@@ -106,8 +94,9 @@
       </div>
     </div>
 
-    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
-      <el-table-column align="center" label="ID" width="80">
+    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+      <el-table-column align="center" type="selection" width="55" />
+      <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
@@ -120,16 +109,23 @@
           </router-link>
         </template>
       </el-table-column>
-
+      <!-- <el-table-column width="120px" align="center" label="合并一列">
+        <template slot-scope="scope">
+          <span>{{ scope.row.title }}</span>
+          <span>{{ scope.row.author }}</span>
+          <span><img :src="scope.row.image_uri" width="100px"></span>
+        </template>
+      </el-table-column> -->
       <el-table-column width="120px" align="center" label="图标">
         <template slot-scope="scope">
-          <span>显示分类图片</span>
+          <!-- <span>{{ scope.row.image_uri }}</span> -->
+          <span><img :src="scope.row.image_uri" width="100px"></span>
         </template>
       </el-table-column>
 
       <el-table-column width="120px" align="center" label="排序">
         <template slot-scope="scope">
-          <span>34</span>
+          <span>{{ scope.row.author }}</span>
         </template>
       </el-table-column>
 
@@ -146,7 +142,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="180px" align="center" label="时间">
+      <el-table-column width="180px" align="center" label="时间" sortable>
         <template slot-scope="scope">
           <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
@@ -160,40 +156,40 @@
 
       <el-table-column align="center" label="操作" width="400">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate">
+          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
             编辑
           </el-button>
-          <el-button type="danger" size="mini" icon="el-icon-edit" @click="handleUpdate">
+          <el-button type="danger" size="mini" icon="el-icon-edit" @click="handleDelete(scope.row)">
             删除
           </el-button>
         </template>
       </el-table-column>
-    </el-table>
+      </el-table-column></el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="Type" prop="type">
+        <el-form-item label="类型" prop="type">
           <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
             <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Date" prop="timestamp">
+        <el-form-item label="时间" prop="timestamp">
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
         </el-form-item>
-        <el-form-item label="Title" prop="title">
+        <el-form-item label="标题" prop="title">
           <el-input v-model="temp.title" />
         </el-form-item>
-        <el-form-item label="Status">
+        <el-form-item label="状态">
           <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
             <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
           </el-select>
         </el-form-item>
-        <el-form-item label="Imp">
+        <el-form-item label="重要性">
           <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />
         </el-form-item>
-        <el-form-item label="Remark">
+        <el-form-item label="点评">
           <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
         </el-form-item>
       </el-form>
@@ -294,7 +290,7 @@ export default {
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
       calendarTypeOptions,
-      sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],
+      sortOptions: [{ label: '升序', key: '+id' }, { label: '降序', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       show: true,
@@ -347,11 +343,12 @@ export default {
     },
     handleModifyStatus(row, status) {
       this.$message({
-        message: '操作Success',
+        message: '操作成功',
         type: 'success'
       })
       row.status = status
     },
+    // 排序
     sortChange(data) {
       const { prop, order } = data
       if (prop === 'id') {
@@ -365,6 +362,10 @@ export default {
         this.listQuery.sort = '-id'
       }
       this.handleFilter()
+    },
+    resetSearchForm(formName) {
+      console.log('formName', formName)
+      this.$refs[formName].resetFields()
     },
     resetTemp() {
       this.temp = {
@@ -394,8 +395,8 @@ export default {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
+              title: '成功',
+              message: '创建成功',
               type: 'success',
               duration: 2000
             })
@@ -427,8 +428,8 @@ export default {
             }
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
+              title: '成功',
+              message: '修改成功',
               type: 'success',
               duration: 2000
             })
@@ -438,11 +439,12 @@ export default {
     },
     handleDelete(row) {
       this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
+        title: '成功',
+        message: '删除成功',
         type: 'success',
         duration: 2000
       })
+      console.log(row)
       const index = this.list.indexOf(row)
       this.list.splice(index, 1)
     },
