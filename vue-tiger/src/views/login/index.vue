@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Tiger</h3>
+        <h3 class="title">TIGER 管理后台</h3>
       </div>
 
 
@@ -57,12 +57,30 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登  录</el-button>
+      <div style="text-align: right;">
+        <el-button
+          class="thirdparty-button"
+          type="primary"
+          size="small"
+          @click="showDialog = true"
+        >
+          第三方登录
+        </el-button>
+      </div>
+      <el-row>
+        <el-col :span="12">
+          <el-link href="#/register" type="primary" >注册</el-link>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <el-link href="#/reset_password" type="primary">忘记密码</el-link>
+          </el-col>
+        <el-col :span="12"></el-col>
+      </el-row>
 
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right:20px;">用户名: admin</span>
         <span> 密码: 1q2w3E*</span>
-      </div>
+      </div> -->
 
     </el-form>
 
@@ -86,6 +104,17 @@
       </span>
     </el-dialog>
 
+    <el-dialog
+      title="第三方登录"
+      :visible.sync="showDialog"
+    >
+      提示
+      <br>
+      <br>
+      <br>
+      <social-sign />
+    </el-dialog>
+
 
   </div>
 
@@ -96,9 +125,11 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import { getApplicationConfiguration, getTenantByName } from '@/api/user'
+import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
+  components: { SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -128,6 +159,7 @@ export default {
       passwordType: 'password',
       redirect: undefined,
       tenant: '',
+      showDialog: false,
     }
   },
   watch: {

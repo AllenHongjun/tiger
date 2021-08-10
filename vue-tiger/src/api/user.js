@@ -74,10 +74,38 @@ export function updateUser(id,payload) {
   })
 }
 
+// 添加用户同时关联组织机构
+export function createUserToOrg(payload) {
+  return request({
+    url: '/api/identity/users/create-to-organizations',
+    method: 'post',
+    data: payload
+  })
+}
+
+//修改用户关联组织机构
+export function updateUserToOrg(payload) {
+  return request({
+    url: `/api/identity/users/${payload.id}/update-to-organizations`,
+    method: 'put',
+    data: payload
+  })
+}
+
+
 export function deleteUser(id) {
   return request({
     url: `/api/identity/users/${id}`,
     method: 'delete'
+  })
+}
+
+// 通过用户id获取用户关联的组织
+export function getOrganizationsByUserId(id, includeDetails = false) {
+  return request({
+    url: `/api/identity/users/${id}/organizations`,
+    method: 'get',
+    params: includeDetails
   })
 }
 

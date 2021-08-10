@@ -39,7 +39,16 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
+  {
+    path: '/register',
+    component: () => import('@/views/account/register/index'),
+    hidden: true
+  },
+  {
+    path: '/reset_password',
+    component: () => import('@/views/account/reset_password/index'),
+    hidden: true
+  },
   {
     path: '/404',
     component: () => import('@/views/404'),
@@ -159,27 +168,27 @@ export const constantRoutes = [
     ]
   },
 
-  // {
-  //   path: '/example',
-  //   component: Layout,
-  //   redirect: '/example/table',
-  //   name: 'Example',
-  //   meta: { title: 'Example', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'table',
-  //       name: 'Table1',
-  //       component: () => import('@/views/table/index'),
-  //       meta: { title: 'Table', icon: 'table' }
-  //     },
-  //     {
-  //       path: 'tree',
-  //       name: 'Tree',
-  //       component: () => import('@/views/tree/index'),
-  //       meta: { title: '树结构', icon: 'tree' }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/table',
+    name: '例子',
+    meta: { title: '例子', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Table1',
+        component: () => import('@/views/table/index'),
+        meta: { title: '表格', icon: 'table' }
+      },
+      {
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: '树结构', icon: 'tree' }
+      }
+    ]
+  },
 
   {
     path: '/form',

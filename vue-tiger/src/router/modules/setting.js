@@ -21,43 +21,55 @@ const settingRouter = {
 
     },
     {
-      path: 'role/list',
-      component: () => import('@/views/setting/role/index'),
-      name: 'role',
-      meta: { title: '角色' , policy: 'AbpIdentity.Roles'}
-    },
-    {
-      path: 'role/create',
-      component: () => import('@/views/setting/role/create'),
-      name: 'role_create',
-      hidden: true,
-      meta: { title: '角色添加' }
-    },
-    {
-      path: 'role/edit/:id',
-      component: () => import('@/views/setting/role/edit'),
-      name: 'role_edit',
-      hidden: true,
-      meta: { title: '角色修改' }
-    },
-    {
-      path: '/user/list',
-      component: () => import('@/views/setting/user/index'),
-      name: 'user_list',
-      meta: { title: '用户列表' , policy: 'AbpIdentity.Users'}
-    },
-    {
-      path: 'tenant',
-      component: () => import('@/views/setting/tenant/index'),
-      name: 'Tenant',
-      meta: { title: '租户' , policy: 'AbpTenantManagement.Tenants'}
-    },
-    // {
-    //   path: 'menu',
-    //   component: () => import('@/views/setting/menu/index'),
-    //   name: 'menu',
-    //   meta: { title: '菜单' }
-    // }
+      path: '/identity',
+      component: () => import('@/views/setting/identity/index'), // Parent router-view
+      name: 'identity',
+      redirect: '/user/list',
+      meta: { title: '身份认证' },
+      children:[
+        {
+          path: 'role/list',
+          component: () => import('@/views/setting/role/index'),
+          name: 'role',
+          meta: { title: '角色' , policy: 'AbpIdentity.Roles'}
+        },
+        {
+          path: 'role/create',
+          component: () => import('@/views/setting/role/create'),
+          name: 'role_create',
+          hidden: true,
+          meta: { title: '角色添加' }
+        },
+        {
+          path: 'role/edit/:id',
+          component: () => import('@/views/setting/role/edit'),
+          name: 'role_edit',
+          hidden: true,
+          meta: { title: '角色修改' }
+        },
+        {
+          path: '/user/list',
+          component: () => import('@/views/setting/user/index'),
+          name: 'user_list',
+          meta: { title: '用户' , policy: 'AbpIdentity.Users'}
+        },
+        {
+          path: 'tenant',
+          component: () => import('@/views/setting/tenant/index'),
+          name: 'Tenant',
+          meta: { title: '租户' , policy: 'AbpTenantManagement.Tenants'}
+        },
+        {
+          path: '/organization/list',
+          component: () => import('@/views/setting/organization/index'),
+          name: 'organization',
+          meta: { title: '组织',policy: 'AbpIdentity.OrganitaionUnits' }
+        }
+      ]
+
+    }
+
+
 
   ]
 }
