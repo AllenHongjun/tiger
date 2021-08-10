@@ -258,3 +258,5 @@ src/TigerAdmin.IdentityServer/Logs/*
 src/TigerAdmin.HttpApi.Host/Logs/*
 src/TigerAdmin.HttpApi.Host/Logs/*
 src/TigerAdmin.DbMigrator/Logs/*
+
+src/vue-tiger/dist
