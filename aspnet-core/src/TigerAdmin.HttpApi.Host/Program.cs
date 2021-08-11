@@ -1,8 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using TigerAdmin.Extensions;
 
 namespace TigerAdmin
 {
@@ -10,19 +12,19 @@ namespace TigerAdmin
     {
         public static int Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-#if DEBUG
-                .MinimumLevel.Debug()
-#else
-                .MinimumLevel.Information()
-#endif
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Async(c => c.File("Logs/logs.txt"))
-#if DEBUG
-                .WriteTo.Async(c => c.Console())
-#endif
-                .CreateLogger();
+//            Log.Logger = new LoggerConfiguration()
+//#if DEBUG
+//                .MinimumLevel.Debug()
+//#else
+//                .MinimumLevel.Information()
+//#endif
+//                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+//                .Enrich.FromLogContext()
+//                .WriteTo.Async(c => c.File("Logs/logs.txt"))
+//#if DEBUG
+//                .WriteTo.Async(c => c.Console())
+//#endif
+//                .CreateLogger();
 
             try
             {
@@ -42,12 +44,23 @@ namespace TigerAdmin
         }
 
         internal static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+                Host.CreateDefaultBuilder(args)
+                .ConfigureLogging((context, loggingBuilder) =>
+                {
+                    loggingBuilder.AddFilter("System", LogLevel.Information);
+                    loggingBuilder.AddFilter("Microsoft", LogLevel.Information);
+                    var path = context.HostingEnvironment.ContentRootPath;
+                    loggingBuilder.AddLog4Net($"{path}/Config/log4net.xml");//配置文件
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 })
                 .UseAutofac()
                 .UseSerilog();
+
+             
+
+
     }
 }

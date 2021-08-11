@@ -9,7 +9,7 @@ namespace TigerAdmin.Books
     {
 
         [Required]
-        [StringLength(3)]
+        [StringLength(8, ErrorMessage = "长度不能超过8个字符")]
         public string Name { get; set; }
 
 

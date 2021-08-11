@@ -31,7 +31,7 @@
         </member>
         <member name="M:TigerAdmin.TigerAdminHttpApiHostModule.ConfigureAuditing(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>
-            配置日志
+            配置系统日志
             </summary>
         </member>
     </members>

@@ -1,7 +1,9 @@
-﻿using Volo.Abp.Account;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.FileSystem;
+using Volo.Abp.Caching;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -21,7 +23,8 @@ namespace TigerAdmin
         typeof(AbpFeatureManagementApplicationModule),
         typeof(AbpBlobStoringModule),
         typeof(AbpBlobStoringFileSystemModule),
-        typeof(AbpSmsModule) //Add the new module dependency
+        typeof(AbpSmsModule), //Add the new module dependency
+        typeof(AbpCachingModule)
 
         )]
     public class TigerAdminApplicationModule : AbpModule
@@ -46,6 +49,13 @@ namespace TigerAdmin
                     //TODO...
                     container.IsMultiTenant = true;
                 });
+            });
+
+            context.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "127.0.0.1:6379,ConnectTimeout=15000,SyncTimeout=5000";
+                //options.InstanceName
+                //options.ConfigurationOptions
             });
         }
     }

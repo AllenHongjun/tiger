@@ -13,5 +13,7 @@ namespace TigerAdmin.Books
             PagedAndSortedResultRequestDto,
             CreateUpdateBookDto> // Used to create/update a book
     {
+
+        void Set(Guid bookId);
     }
 }

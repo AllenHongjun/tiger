@@ -207,7 +207,7 @@ namespace TigerAdmin
         }
 
         /// <summary>
-        /// 配置日志
+        /// 配置系统日志
         /// </summary>
         private void ConfigureAuditing(ServiceConfigurationContext context)
         {
