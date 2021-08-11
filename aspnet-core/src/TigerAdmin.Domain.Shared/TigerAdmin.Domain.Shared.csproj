@@ -21,7 +21,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Localization\TigerAdmin\*.json" />
+    <Compile Remove="Module\**" />
     <Content Remove="Localization\TigerAdmin\*.json" />
+    <EmbeddedResource Remove="Module\**" />
+    <None Remove="Module\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,16 +32,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Module\BasicData\" />
-    <Folder Include="Module\Books\" />
-    <Folder Include="Module\Finance\" />
-    <Folder Include="Module\Marketing\" />
-    <Folder Include="Module\Member\" />
-    <Folder Include="Module\Order\" />
-    <Folder Include="Module\Purchase\" />
-    <Folder Include="Module\SecurityLogs\" />
-    <Folder Include="Module\StatData\" />
-    <Folder Include="Module\Stock\" />
+    <Folder Include="Purchase\" />
+    <Folder Include="Order\" />
+    <Folder Include="Finance\" />
+    <Folder Include="Stock\" />
+    <Folder Include="Stat\" />
+    <Folder Include="Security\" />
+    <Folder Include="Basic\" />
   </ItemGroup>
 
 </Project>

@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Module\**" />
+    <EmbeddedResource Remove="Module\**" />
+    <None Remove="Module\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TigerAdmin.Domain.Shared\TigerAdmin.Domain.Shared.csproj" />
   </ItemGroup>
 
@@ -25,16 +31,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Module\BasicData\" />
-    <Folder Include="Module\Books\" />
-    <Folder Include="Module\Finance\" />
-    <Folder Include="Module\Marketing\" />
-    <Folder Include="Module\Member\" />
-    <Folder Include="Module\Order\" />
-    <Folder Include="Module\Purchase\" />
-    <Folder Include="Module\SecurityLogs\" />
-    <Folder Include="Module\StatData\" />
-    <Folder Include="Module\Stock\" />
+    <Folder Include="Finance\" />
+    <Folder Include="Security\" />
+    <Folder Include="Stat\" />
+    <Folder Include="Customer\Member\" />
   </ItemGroup>
 
 </Project>
