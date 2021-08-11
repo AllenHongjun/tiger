@@ -38,6 +38,8 @@
     <Folder Include="Stat\" />
     <Folder Include="Customer\Member\" />
     <Folder Include="Utility\" />
+    <Folder Include="Cache\" />
+    <Folder Include="Event\" />
   </ItemGroup>
 
 </Project>
