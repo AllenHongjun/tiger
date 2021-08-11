@@ -34,10 +34,16 @@ namespace Volo.Abp.AuditLogging
         }
 
         /// <summary>
-        /// 搜索列表
+        /// 审核日志列表
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// 例子:
+        /// Get api/Values/1
+        /// </remarks>
+        /// <param name="id">主键</param>
+        /// <returns>测试字符串</returns> 
         public virtual async Task<PagedResultDto<AuditLogDto>> GetListAsync(GetAuditLogDto input)
         {
             var count = await AuditLogRepository.GetCountAsync(

@@ -7,6 +7,10 @@
     <RootNamespace>TigerAdmin</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\TigerAdmin.Application.Contracts\TigerAdmin.Application.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="AuditLogs\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
@@ -42,6 +46,12 @@
     <Folder Include="Volo\Abp\CmsKit\" />
     <Folder Include="Volo\Abp\FeatureManagement\" />
     <Folder Include="Volo\Abp\PermissionManagement\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TigerAdmin.Application.Contracts.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

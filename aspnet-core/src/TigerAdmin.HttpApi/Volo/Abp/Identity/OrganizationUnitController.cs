@@ -7,7 +7,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Volo.Abp.Identity
-{
+{   
+    /// <summary>
+    /// 组织架构
+    /// </summary>
     [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
     [Area("identity")]
     [ControllerName("Organization")]
@@ -20,12 +23,22 @@ namespace Volo.Abp.Identity
             UnitAppService = unitAppService;
         }
 
+        /// <summary>
+        /// 添加组织
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         public virtual Task<OrganizationUnitDto> CreateAsync(OrganizationUnitCreateDto input)
         {
             return UnitAppService.CreateAsync(input);
         }
 
+        /// <summary>
+        /// 删除组织
+        /// </summary>
+        /// <param name="id">Guid</param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
         public virtual Task DeleteAsync(Guid id)
@@ -33,6 +46,11 @@ namespace Volo.Abp.Identity
             return UnitAppService.DeleteAsync(id);
         }
 
+        /// <summary>
+        /// 获取所有组织
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("all")]
         public virtual Task<ListResultDto<OrganizationUnitDto>> GetAllListAsync(GetAllOrgnizationUnitInput input)
@@ -40,6 +58,11 @@ namespace Volo.Abp.Identity
             return UnitAppService.GetAllListAsync(input);
         }
 
+        /// <summary>
+        /// 获取明细
+        /// </summary>
+        /// <param name="id">Guid</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public virtual Task<OrganizationUnitDto> GetAsync(Guid id)
@@ -47,12 +70,23 @@ namespace Volo.Abp.Identity
             return UnitAppService.GetAsync(id);
         }
 
+        /// <summary>
+        /// 获取组织列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         public virtual Task<PagedResultDto<OrganizationUnitDto>> GetListAsync(GetOrganizationUnitInput input)
         {
             return UnitAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// 修改组织
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
         public virtual Task<OrganizationUnitDto> UpdateAsync(Guid id, OrganizationUnitUpdateDto input)
@@ -67,6 +101,11 @@ namespace Volo.Abp.Identity
             return UnitAppService.MoveAsync(id, parentId);
         }
 
+        /// <summary>
+        /// 获取组织明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}/details")]
         public Task<OrganizationUnitDto> GetDetailsAsync(Guid id)
@@ -74,6 +113,11 @@ namespace Volo.Abp.Identity
             return UnitAppService.GetDetailsAsync(id);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("details")]
         public Task<PagedResultDto<OrganizationUnitDto>> GetListDetailsAsync(GetOrganizationUnitInput input)
@@ -88,6 +132,11 @@ namespace Volo.Abp.Identity
             return UnitAppService.GetAllListDetailsAsync(input);
         }
 
+        /// <summary>
+        /// 根据父级id获取组织
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("children/{parentId}")]
         public Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId)
@@ -95,6 +144,10 @@ namespace Volo.Abp.Identity
             return UnitAppService.GetChildrenAsync(parentId);
         }
 
+        /// <summary>
+        /// 获取根组织
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("root")]
         public Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()

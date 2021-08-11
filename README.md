@@ -5,6 +5,8 @@
 
 [演示地址](http://tiger_fe.hongjy.cn/)
 
+[接口地址](https://localhost:44306/swagger/index.html?docExpansion=none)
+
 
 
 ## 开发一些后台的通用功能。打架一个基于框架的脚手架项目。

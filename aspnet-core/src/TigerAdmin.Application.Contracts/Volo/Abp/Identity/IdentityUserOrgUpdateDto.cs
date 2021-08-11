@@ -6,6 +6,9 @@ namespace Volo.Abp.Identity
 {
     public class IdentityUserOrgUpdateDto : IdentityUserUpdateDto
     {
+        /// <summary>
+        /// 组织id列表
+        /// </summary>
         public List<Guid> OrgIds { get; set; }
     }
 }

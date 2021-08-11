@@ -11,7 +11,15 @@ namespace Volo.Abp.Identity
         {
             Sorting = "Code";
         }
+
+        /// <summary>
+        /// 过滤条件
+        /// </summary>
         public string Filter { get; set; }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
         public string Sorting { get; set; }
     }
 }

@@ -90,6 +90,11 @@ namespace TigerAdmin
             });
         }
 
+        /// <summary>
+        /// 配置identityServer授权认证服务
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="configuration"></param>
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
         {
             context.Services.AddAuthentication()
@@ -105,16 +110,58 @@ namespace TigerAdmin
                 });
         }
 
+        /// <summary>
+        /// 配置SwaggerUI
+        /// </summary>
+        /// <param name="context"></param>
         private static void ConfigureSwaggerServices(ServiceConfigurationContext context)
         {
             context.Services.AddSwaggerGen(
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "TigerAdmin API", Version = "v1"});
+                    options.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Title = "TigerAdmin API接口",
+                        Version = "v1",
+                        Description = "TigerAdmin API 接口说明文档",
+                        //TermsOfService = "None",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "hongjy",
+                            Email = "hongjy1991@gmail.com",
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "MIT",
+                        }
+                    });
+
+                    
+
+                    // 为 Swagger JSON and UI设置xml文档注释路径
+                    //获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
+                    var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+                    
+                    var xmlPathHost = Path.Combine(basePath, "TigerAdmin.HttpApi.Host.xml");
+                    var xmlPathHttpApi = Path.Combine(basePath, "TigerAdmin.HttpApi.xml");
+                    var xmlPathApplication = Path.Combine(basePath, "TigerAdmin.Application.xml");
+                    var xmlPathContracts = Path.Combine(basePath, "TigerAdmin.Application.Contracts.xml");
+
+
+                    options.IncludeXmlComments(xmlPathHost);
+                    options.IncludeXmlComments(xmlPathHttpApi);
+                    options.IncludeXmlComments(xmlPathApplication);
+                    options.IncludeXmlComments(xmlPathContracts);
+                    options.EnableAnnotations();//注释
+                    //options.SwaggerDoc("v2", new OpenApiInfo { Title = "TinyErp API", Version = "v2" });
+
                     options.DocInclusionPredicate((docName, description) => true);
                 });
         }
 
+        /// <summary>
+        /// 多语言配置
+        /// </summary>
         private void ConfigureLocalization()
         {
             Configure<AbpLocalizationOptions>(options =>
@@ -131,6 +178,12 @@ namespace TigerAdmin
             });
         }
 
+
+        /// <summary>
+        /// 跨域配置
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="configuration"></param>
         private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
         {
             context.Services.AddCors(options =>

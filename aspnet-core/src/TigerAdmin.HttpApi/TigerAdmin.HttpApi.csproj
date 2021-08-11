@@ -7,6 +7,10 @@
     <RootNamespace>TigerAdmin</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\TigerAdmin.HttpApi\TigerAdmin.HttpApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Volo\Abp\AuditLogging\**" />
     <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />

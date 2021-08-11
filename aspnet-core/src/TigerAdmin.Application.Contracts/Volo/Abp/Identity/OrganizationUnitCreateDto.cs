@@ -8,7 +8,10 @@ using Xhznl.HelloAbp.Volo.Abp.Identity;
 namespace Volo.Abp.Identity
 {
     public class OrganizationUnitCreateDto : OrganizationUnitCreateOrUpdateDtoBase
-    {
+    {   
+        /// <summary>
+        /// 父级id
+        /// </summary>
         public Guid? ParentId { get; set; }
 
         //TODO:Consider custom coding later
