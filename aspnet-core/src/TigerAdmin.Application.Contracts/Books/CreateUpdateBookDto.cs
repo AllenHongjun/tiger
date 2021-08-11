@@ -9,7 +9,7 @@ namespace TigerAdmin.Books
     {
 
         [Required]
-        [StringLength(128)]
+        [StringLength(3)]
         public string Name { get; set; }
 
 
@@ -19,6 +19,7 @@ namespace TigerAdmin.Books
         [DataType(DataType.Date)]
         public DateTime PublishDate { get; set; } = DateTime.Now;
 
+        
         [Required]
         public float Price { get; set; }
 

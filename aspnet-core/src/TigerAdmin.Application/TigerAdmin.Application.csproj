@@ -43,14 +43,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Module\Order\" />
-    <Folder Include="Module\Purchase\" />
-    <Folder Include="Module\Stock\" />
-    <Folder Include="Module\BasicData\" />
-    <Folder Include="Module\Finance\" />
-    <Folder Include="Module\StatData\" />
-    <Folder Include="Module\Member\" />
-    <Folder Include="Module\Utils\" />
+    <Folder Include="Finance\" />
+    <Folder Include="Order\" />
+    <Folder Include="Purchase\" />
+    <Folder Include="Security\" />
+    <Folder Include="Stat\" />
+    <Folder Include="Stock\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />
     <Folder Include="Volo\Abp\FeatureManagement\" />

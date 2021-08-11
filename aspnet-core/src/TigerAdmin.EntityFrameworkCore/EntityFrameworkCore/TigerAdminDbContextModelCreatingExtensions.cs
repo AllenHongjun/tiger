@@ -20,6 +20,7 @@ namespace TigerAdmin.EntityFrameworkCore
             //    //...
             //});
 
+            //4. 添加 Book 实体的映射代码 自动根据代码生成数据表
             builder.Entity<Book>(b =>
             {
                 b.ToTable(TigerAdminConsts.DbTablePrefix + "Books",

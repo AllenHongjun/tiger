@@ -8,6 +8,9 @@ using Volo.Abp.Domain.Repositories;
 
 namespace TigerAdmin.Books
 {
+    /// <summary>
+    /// 书籍管理
+    /// </summary>
     public class BookAppService:
         CrudAppService<
             Book, //The Book entity
@@ -17,6 +20,8 @@ namespace TigerAdmin.Books
             CreateUpdateBookDto>, //Used to create/update a book
         IBookAppService //implement the IBookAppService
     {
+
+        //BookAppService注入IRepository <Book,Guid>,这是Book实体的默认仓储. ABP自动为每个聚合根(或实体)创建默认仓储. 
         public BookAppService(IRepository<Book, Guid> repository) : base(repository)
         {
             //使用权限

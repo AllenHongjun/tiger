@@ -4,6 +4,11 @@
         <name>TigerAdmin.Application</name>
     </assembly>
     <members>
+        <member name="T:TigerAdmin.Books.BookAppService">
+            <summary>
+            书籍管理
+            </summary>
+        </member>
         <member name="M:TigerAdmin.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)

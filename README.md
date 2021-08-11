@@ -18,10 +18,12 @@
 
 
 
-### 官方文档
+### 官方文档-使用教程
 
-- [https://docs.abp.io/zh-Hans/abp/latest/Module-Development-Basics](https://docs.abp.io/zh-Hans/abp/latest/Module-Development-Basics)
-- 
+- [abp官方文档](https://docs.abp.io/zh-Hans/abp/latest/Module-Development-Basics)
+- [awesome-abp](https://github.com/EasyAbp/awesome-abp)
+- [abp对接vue的思路](https://www.cnblogs.com/xhznl/tag/ABP%20vNext/)
+- [基于 abp vNext 和 .NET Core 开发博客项目 - 使用Redis缓存数据](https://www.cnblogs.com/meowv/p/12956696.html)
 
 
 

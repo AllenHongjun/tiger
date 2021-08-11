@@ -9,6 +9,9 @@ using Volo.Abp.Domain.Repositories;
 
 namespace TigerAdmin
 {
+    /// <summary>
+    /// 生成数据表之前，给表添加数据。
+    /// </summary>
     public class TigerAdminDataSeederContributor : IDataSeedContributor, ITransientDependency
     {
 

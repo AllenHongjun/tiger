@@ -5,6 +5,14 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace TigerAdmin.Books
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// 
+    /// 1.AuditedAggregateRoot类在AggregateRoot类的基础上添加了一些审计属性(CreationTime, CreatorId, LastModificationTime 等).
+    /// </remarks>
     public class Book:AuditedAggregateRoot<Guid>
     {
         public string Name { get; set; }

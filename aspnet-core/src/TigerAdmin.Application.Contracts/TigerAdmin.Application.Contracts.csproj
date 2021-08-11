@@ -13,8 +13,11 @@
 
   <ItemGroup>
     <Compile Remove="AuditLogs\**" />
+    <Compile Remove="Module\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
+    <EmbeddedResource Remove="Module\**" />
     <None Remove="AuditLogs\**" />
+    <None Remove="Module\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,16 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Module\BasicData\" />
-    <Folder Include="Module\Books\" />
-    <Folder Include="Module\Finance\" />
-    <Folder Include="Module\Marketing\" />
-    <Folder Include="Module\Member\" />
-    <Folder Include="Module\Order\" />
-    <Folder Include="Module\Purchase\" />
-    <Folder Include="Module\SecurityLogs\" />
-    <Folder Include="Module\StatData\" />
-    <Folder Include="Module\Stock\" />
+    <Folder Include="Finance\" />
+    <Folder Include="Order\" />
+    <Folder Include="Purchase\" />
+    <Folder Include="Security\" />
+    <Folder Include="Stat\" />
+    <Folder Include="Stock\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />
     <Folder Include="Volo\Abp\CmsKit\" />
