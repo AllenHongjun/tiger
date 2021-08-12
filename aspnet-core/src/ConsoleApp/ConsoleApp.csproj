@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TigerAdmin.Domain\TigerAdmin.Domain.csproj" />
+    <ProjectReference Include="..\Tiger.Domain\Tiger.Domain.csproj" />
   </ItemGroup>
 
 </Project>

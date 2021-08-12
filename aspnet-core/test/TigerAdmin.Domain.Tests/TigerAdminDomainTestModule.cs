@@ -1,12 +1,12 @@
-﻿using TigerAdmin.EntityFrameworkCore;
+﻿using Tiger.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 
-namespace TigerAdmin
+namespace Tiger
 {
     [DependsOn(
-        typeof(TigerAdminEntityFrameworkCoreTestModule)
+        typeof(TigerEntityFrameworkCoreTestModule)
         )]
-    public class TigerAdminDomainTestModule : AbpModule
+    public class TigerDomainTestModule : AbpModule
     {
 
     }

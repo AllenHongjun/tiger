@@ -8,15 +8,15 @@ using Volo.Abp.IdentityServer;
 using Volo.Abp.Modularity;
 using Volo.Abp.Threading;
 
-namespace TigerAdmin
+namespace Tiger
 {
     [DependsOn(
         typeof(AbpAutofacModule),
         typeof(AbpTestBaseModule),
         typeof(AbpAuthorizationModule),
-        typeof(TigerAdminDomainModule)
+        typeof(TigerDomainModule)
         )]
-    public class TigerAdminTestBaseModule : AbpModule
+    public class TigerTestBaseModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {

@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 
-namespace TigerAdmin.HttpApi.Client.ConsoleTestApp
+namespace Tiger.HttpApi.Client.ConsoleTestApp
 {
     public class ConsoleTestAppHostedService : IHostedService
     {
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            using (var application = AbpApplicationFactory.Create<TigerAdminConsoleApiClientModule>())
+            using (var application = AbpApplicationFactory.Create<TigerConsoleApiClientModule>())
             {
                 application.Initialize();
 

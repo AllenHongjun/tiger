@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TigerAdmin.Users;
+using Tiger.Users;
 using Shouldly;
 using System;
 using System.Linq;
@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Xunit;
 
-namespace TigerAdmin.EntityFrameworkCore.Samples
+namespace Tiger.EntityFrameworkCore.Samples
 {
     /* This is just an example test class.
      * Normally, you don't test ABP framework code
      * (like default AppUser repository IRepository<AppUser, Guid> here).
      * Only test your custom repository methods.
      */
-    public class SampleRepositoryTests : TigerAdminEntityFrameworkCoreTestBase
+    public class SampleRepositoryTests : TigerEntityFrameworkCoreTestBase
     {
         private readonly IRepository<AppUser, Guid> _appUserRepository;
 

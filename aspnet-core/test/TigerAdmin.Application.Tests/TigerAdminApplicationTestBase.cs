@@ -1,6 +1,6 @@
-﻿namespace TigerAdmin
+﻿namespace Tiger
 {
-    public abstract class TigerAdminApplicationTestBase : TigerAdminTestBase<TigerAdminApplicationTestModule> 
+    public abstract class TigerApplicationTestBase : TigerTestBase<TigerApplicationTestModule> 
     {
 
     }

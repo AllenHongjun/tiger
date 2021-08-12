@@ -3,14 +3,14 @@ using Shouldly;
 using Volo.Abp.Identity;
 using Xunit;
 
-namespace TigerAdmin.Samples
+namespace Tiger.Samples
 {
     /* This is just an example test class.
      * Normally, you don't test code of the modules you are using
      * (like IdentityUserManager here).
      * Only test your own domain services.
      */
-    public class SampleDomainTests : TigerAdminDomainTestBase
+    public class SampleDomainTests : TigerDomainTestBase
     {
         private readonly IIdentityUserRepository _identityUserRepository;
         private readonly IdentityUserManager _identityUserManager;

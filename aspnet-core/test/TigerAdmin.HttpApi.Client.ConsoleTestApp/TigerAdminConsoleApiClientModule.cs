@@ -1,13 +1,13 @@
 ﻿using Volo.Abp.Http.Client.IdentityModel;
 using Volo.Abp.Modularity;
 
-namespace TigerAdmin.HttpApi.Client.ConsoleTestApp
+namespace Tiger.HttpApi.Client.ConsoleTestApp
 {
     [DependsOn(
-        typeof(TigerAdminHttpApiClientModule),
+        typeof(TigerHttpApiClientModule),
         typeof(AbpHttpClientIdentityModelModule)
         )]
-    public class TigerAdminConsoleApiClientModule : AbpModule
+    public class TigerConsoleApiClientModule : AbpModule
     {
         
     }

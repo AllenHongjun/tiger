@@ -8,14 +8,14 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Sqlite;
 using Volo.Abp.Modularity;
 
-namespace TigerAdmin.EntityFrameworkCore
+namespace Tiger.EntityFrameworkCore
 {
     [DependsOn(
-        typeof(TigerAdminEntityFrameworkCoreDbMigrationsModule),
-        typeof(TigerAdminTestBaseModule),
+        typeof(TigerEntityFrameworkCoreDbMigrationsModule),
+        typeof(TigerTestBaseModule),
         typeof(AbpEntityFrameworkCoreSqliteModule)
         )]
-    public class TigerAdminEntityFrameworkCoreTestModule : AbpModule
+    public class TigerEntityFrameworkCoreTestModule : AbpModule
     {
         private SqliteConnection _sqliteConnection;
 
@@ -47,11 +47,11 @@ namespace TigerAdmin.EntityFrameworkCore
             var connection = new SqliteConnection("Data Source=:memory:");
             connection.Open();
 
-            var options = new DbContextOptionsBuilder<TigerAdminMigrationsDbContext>()
+            var options = new DbContextOptionsBuilder<TigerMigrationsDbContext>()
                 .UseSqlite(connection)
                 .Options;
 
-            using (var context = new TigerAdminMigrationsDbContext(options))
+            using (var context = new TigerMigrationsDbContext(options))
             {
                 context.GetService<IRelationalDatabaseCreator>().CreateTables();
             }

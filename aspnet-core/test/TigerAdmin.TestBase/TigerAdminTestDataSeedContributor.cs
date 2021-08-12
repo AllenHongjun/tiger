@@ -2,9 +2,9 @@
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 
-namespace TigerAdmin
+namespace Tiger
 {
-    public class TigerAdminTestDataSeedContributor : IDataSeedContributor, ITransientDependency
+    public class TigerTestDataSeedContributor : IDataSeedContributor, ITransientDependency
     {
         public Task SeedAsync(DataSeedContext context)
         {

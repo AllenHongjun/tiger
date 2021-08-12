@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Tiger</RootNamespace>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Identity.Domain.Shared" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.IdentityServer.Domain.Shared" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.Domain.Shared" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.AuditLogging.Domain.Shared" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Domain.Shared" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Domain.Shared" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Shared" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Domain.Shared" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\Tiger\*.json" />
+    <Compile Remove="Module\**" />
+    <Content Remove="Localization\Tiger\*.json" />
+    <EmbeddedResource Remove="Module\**" />
+    <None Remove="Module\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Purchase\" />
+    <Folder Include="Order\" />
+    <Folder Include="Finance\" />
+    <Folder Include="Stock\" />
+    <Folder Include="Stat\" />
+    <Folder Include="Security\" />
+    <Folder Include="Basic\" />
+  </ItemGroup>
+
+</Project>

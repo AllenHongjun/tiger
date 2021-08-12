@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace TigerAdmin.HttpApi.Client.ConsoleTestApp
+namespace Tiger.HttpApi.Client.ConsoleTestApp
 {
     class Program
     {

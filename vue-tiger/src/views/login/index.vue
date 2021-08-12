@@ -6,7 +6,6 @@
         <h3 class="title">TIGER 管理后台</h3>
       </div>
 
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="link" />
@@ -19,7 +18,7 @@
           tabindex="1"
           auto-complete="on"
         />
-        <el-button @click="dialogVisible = true" type="info" size="mini" class="switchBth">切换租户</el-button>
+        <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
       </el-form-item>
 
       <el-form-item prop="username">
@@ -70,11 +69,11 @@
       </div>
       <el-row>
         <el-col :span="12">
-          <el-link href="#/register" type="primary" >注册</el-link>
+          <el-link href="#/register" type="primary">注册</el-link>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <el-link href="#/reset_password" type="primary">忘记密码</el-link>
-          </el-col>
-        <el-col :span="12"></el-col>
+        </el-col>
+        <el-col :span="12" />
       </el-row>
 
       <!-- <div class="tips">
@@ -84,16 +83,14 @@
 
     </el-form>
 
-
-
     <el-dialog
       title="切换租户"
       :visible.sync="dialogVisible"
       width="30%"
-      >
+    >
       <el-form label-width="80px" label-position="top">
         <el-form-item label="名称">
-          <el-input v-model="tenant"></el-input>
+          <el-input v-model="tenant" />
         </el-form-item>
         <span>将名称留空以切换到宿主端</span>
       </el-form>
@@ -115,10 +112,7 @@
       <social-sign />
     </el-dialog>
 
-
   </div>
-
-
 
 </template>
 
@@ -159,7 +153,7 @@ export default {
       passwordType: 'password',
       redirect: undefined,
       tenant: '',
-      showDialog: false,
+      showDialog: false
     }
   },
   watch: {
@@ -188,8 +182,7 @@ export default {
           this.loading = true
           getApplicationConfiguration(this.tenant).then((response) => {
             console.log(response)
-
-          });
+          })
           // return;
 
           this.$store.dispatch('user/login', this.loginForm).then(() => {
@@ -202,48 +195,40 @@ export default {
             console.log('login err')
             this.loading = false
           })
-
-
-
-
         } else {
           console.log('error submit!!')
           return false
         }
       })
     },
-
     handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {})
     },
-    handleSwichTenant(){
-      this.tenant = this.tenant;
+    handleSwichTenant() {
+      this.tenant = this.tenant
       getTenantByName(this.tenant).then((response) => {
-        if(response.success){
-          this.dialogVisible = false;
+        if (response.success) {
+          this.dialogVisible = false
           this.$notify({
-            title: "成功",
-            message: "获取成功",
-            type: "success",
-            duration: 2000,
-          });
-        }else{
-          this.dialogVisible = true;
+            title: '成功',
+            message: '获取成功',
+            type: 'success',
+            duration: 2000
+          })
+        } else {
+          this.dialogVisible = true
           this.$notify({
-            title: "失败",
-            message: "租户信息获取失败",
-            type: "fail",
-            duration: 2000,
-          });
+            title: '失败',
+            message: '租户信息获取失败',
+            type: 'fail',
+            duration: 2000
+          })
         }
-
-      });
-
-
+      })
     }
   }
 }

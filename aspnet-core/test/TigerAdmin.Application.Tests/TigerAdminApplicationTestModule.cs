@@ -1,12 +1,12 @@
 ﻿using Volo.Abp.Modularity;
 
-namespace TigerAdmin
+namespace Tiger
 {
     [DependsOn(
-        typeof(TigerAdminApplicationModule),
-        typeof(TigerAdminDomainTestModule)
+        typeof(TigerApplicationModule),
+        typeof(TigerDomainTestModule)
         )]
-    public class TigerAdminApplicationTestModule : AbpModule
+    public class TigerApplicationTestModule : AbpModule
     {
 
     }

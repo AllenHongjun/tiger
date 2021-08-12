@@ -1,8 +1,8 @@
 ﻿using Volo.Abp;
 
-namespace TigerAdmin.EntityFrameworkCore
+namespace Tiger.EntityFrameworkCore
 {
-    public abstract class TigerAdminEntityFrameworkCoreTestBase : TigerAdminTestBase<TigerAdminEntityFrameworkCoreTestModule> 
+    public abstract class TigerEntityFrameworkCoreTestBase : TigerTestBase<TigerEntityFrameworkCoreTestModule> 
     {
 
     }

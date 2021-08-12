@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
 
-namespace TigerAdmin.HttpApi.Client.ConsoleTestApp
+namespace Tiger.HttpApi.Client.ConsoleTestApp
 {
     public class ClientDemoService : ITransientDependency
     {
