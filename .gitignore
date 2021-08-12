@@ -265,3 +265,5 @@ aspnet-core/src/Tiger.HttpApi.Host/Logs/logs.txt
 aspnet-core/src/Tiger.HttpApi.Host/Logs/logs.txt
 aspnet-core/src/Tiger.HttpApi.Host/Logs/logs.txt
 aspnet-core/src/Tiger.HttpApi.Host/Logs/logs.txt
+aspnet-core/src/Tiger.DbMigrator/appsettings.json
+aspnet-core/src/Tiger.HttpApi.Host/appsettings.json
