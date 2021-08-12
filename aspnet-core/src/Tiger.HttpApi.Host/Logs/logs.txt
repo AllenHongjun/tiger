@@ -18970,3 +18970,39 @@ FROM [AbpBackgroundJobs] AS [a]
 WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
 ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
 2021-08-12 13:08:13.718 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:08:18.705 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:08:18.705 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:08:18.708 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:08:19.061 +08:00 [INF] Executed DbCommand (352ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:08:19.061 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:08:23.697 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:08:23.697 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:08:23.699 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:08:23.711 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:08:23.712 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:08:28.693 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:08:28.693 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:08:28.695 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:08:28.707 +08:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:08:28.707 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:08:33.705 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:08:33.705 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:08:33.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:08:33.722 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:08:33.722 +08:00 [DBG] Trigger instruction : NoInstruction
