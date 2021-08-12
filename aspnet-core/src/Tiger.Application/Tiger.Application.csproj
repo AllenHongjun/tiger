@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="3.1.7" />
     <PackageReference Include="Volo.Abp.Account.Application" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="3.2.1" />
@@ -57,6 +58,7 @@
     <Folder Include="Volo\Abp\PermissionManagement\" />
     <Folder Include="Volo\Abp\IdentityServer\" />
     <Folder Include="Volo\Abp\CmsKit\" />
+    <Folder Include="Payment\" />
   </ItemGroup>
 
 </Project>

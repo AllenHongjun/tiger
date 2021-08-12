@@ -107,7 +107,12 @@ namespace Tiger
                     {
                         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                     };
-                });
+                })
+                .AddGitHub(options =>
+                {
+                    options.ClientId = configuration["Github:ClientID"];
+                    options.ClientSecret = configuration["Github:ClientSecret"];
+                }); ;
         }
 
         /// <summary>
