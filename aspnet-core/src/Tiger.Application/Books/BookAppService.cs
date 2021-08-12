@@ -39,9 +39,7 @@ namespace Tiger.Books
         //BookAppService注入IRepository <Book,Guid>,这是Book实体的默认仓储. ABP自动为每个聚合根(或实体)创建默认仓储. 
         public BookAppService(IRepository<Book, Guid> repository, 
             IDistributedCache<BookCacheItem> cache, 
-           
             IBackgroundJobManager backgroundJobManager
-            
         ) : base(repository)
         {
             //使用权限

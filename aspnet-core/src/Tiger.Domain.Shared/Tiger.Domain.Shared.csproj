@@ -22,7 +22,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Localization\Tiger\*.json" />
     <Compile Remove="Module\**" />
-    <Content Remove="Localization\Tiger\*.json" />
     <EmbeddedResource Remove="Module\**" />
     <None Remove="Module\**" />
   </ItemGroup>

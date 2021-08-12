@@ -4,10 +4,10 @@ import { resetRouter } from '@/router'
 
 const clientSetting = {
   grant_type: 'password',
-  scope: 'TigerAdmin',
+  scope: 'Tiger',
   username: '',
   password: '',
-  client_id: 'TigerAdmin_App',
+  client_id: 'Tiger_App',
   client_secret: '1q2w3e*'
 }
 

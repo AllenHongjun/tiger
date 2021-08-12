@@ -47,6 +47,17 @@ namespace Tiger
                     },
                     autoSave: true
                 );
+
+                await _bookRepository.InsertAsync(
+                    new Book
+                    {
+                        Name = "fdsfdsf  e to the Galaxy",
+                        Type = BookType.ScienceFiction,
+                        PublishDate = new DateTime(1995, 9, 27),
+                        Price = 23.0f
+                    },
+                    autoSave: true
+                );
             }
         }
     }
