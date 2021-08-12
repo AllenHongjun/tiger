@@ -18574,3 +18574,390 @@ FROM [AbpBackgroundJobs] AS [a]
 WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
 ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
 2021-08-12 13:04:33.709 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:04:38.705 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:04:38.705 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:04:38.708 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:04:38.748 +08:00 [INF] Executed DbCommand (40ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:04:38.748 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:04:43.704 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:04:43.704 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:04:43.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:04:43.719 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:04:43.719 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:04:48.695 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:04:48.695 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:04:48.699 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:04:48.725 +08:00 [INF] Executed DbCommand (26ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:04:48.725 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:04:53.705 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:04:53.705 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:04:53.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:04:53.723 +08:00 [INF] Executed DbCommand (15ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:04:53.723 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:04:58.694 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:04:58.694 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:04:58.699 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:04:58.754 +08:00 [INF] Executed DbCommand (55ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:04:58.755 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:03.699 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:03.699 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:03.701 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:03.716 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:03.716 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:08.702 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:08.702 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:08.706 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:08.767 +08:00 [INF] Executed DbCommand (60ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:08.767 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:13.698 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:13.698 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:13.700 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:13.712 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:13.712 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:18.697 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:18.697 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:18.700 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:18.836 +08:00 [INF] Executed DbCommand (136ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:18.837 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:23.705 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:23.705 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:23.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:23.722 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:23.722 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:28.705 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:28.705 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:28.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:28.798 +08:00 [INF] Executed DbCommand (91ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:28.799 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:33.698 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:33.698 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:33.702 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:33.715 +08:00 [INF] Executed DbCommand (13ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:33.715 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:38.694 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:38.694 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:38.696 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:38.836 +08:00 [INF] Executed DbCommand (139ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:38.836 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:43.698 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:43.698 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:43.701 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:43.713 +08:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:43.714 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:48.703 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:48.703 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:48.706 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:48.717 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:48.717 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:53.704 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:53.704 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:53.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:53.721 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:53.722 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:05:58.693 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:05:58.693 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:05:58.696 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:05:58.713 +08:00 [INF] Executed DbCommand (17ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:05:58.713 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:03.700 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:03.700 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:03.702 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:03.714 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:03.714 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:08.704 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:08.704 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:08.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:08.824 +08:00 [INF] Executed DbCommand (117ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:08.824 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:13.702 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:13.702 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:13.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:13.719 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:13.719 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:18.702 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:18.702 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:18.704 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:18.720 +08:00 [INF] Executed DbCommand (15ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:18.720 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:23.697 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:23.697 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:23.702 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:23.715 +08:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:23.715 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:28.695 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:28.695 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:28.697 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:28.709 +08:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:28.709 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:33.695 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:33.695 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:33.698 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:33.710 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:33.710 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:38.700 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:38.700 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:38.704 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:38.716 +08:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:38.717 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:43.700 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:43.700 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:43.704 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:43.716 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:43.716 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:48.701 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:48.703 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:48.708 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:48.745 +08:00 [INF] Executed DbCommand (36ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:48.745 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:53.704 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:53.704 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:53.708 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:53.720 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:53.720 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:06:58.696 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:06:58.696 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:06:58.699 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:06:58.741 +08:00 [INF] Executed DbCommand (42ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:06:58.741 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:03.696 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:03.696 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:03.698 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:03.710 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:03.710 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:08.704 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:08.704 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:08.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:08.810 +08:00 [INF] Executed DbCommand (103ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:08.810 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:13.699 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:13.699 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:13.702 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:13.716 +08:00 [INF] Executed DbCommand (13ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:13.716 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:18.698 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:18.698 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:18.701 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:18.769 +08:00 [INF] Executed DbCommand (68ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:18.769 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:23.702 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:23.702 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:23.704 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:23.719 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:23.719 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:28.702 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:28.702 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:28.705 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:28.795 +08:00 [INF] Executed DbCommand (89ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:28.795 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:33.705 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:33.705 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:33.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:33.718 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:33.719 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:38.700 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:38.700 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:38.702 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:38.789 +08:00 [INF] Executed DbCommand (87ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:38.790 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:43.696 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:43.696 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:43.698 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:43.710 +08:00 [INF] Executed DbCommand (11ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:43.710 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:48.695 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:48.696 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:48.698 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:48.850 +08:00 [INF] Executed DbCommand (152ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:48.850 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:53.694 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:53.695 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:53.697 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:53.709 +08:00 [INF] Executed DbCommand (12ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:53.709 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:07:58.695 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:07:58.695 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:07:58.698 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:07:58.836 +08:00 [INF] Executed DbCommand (137ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:07:58.836 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:08:03.704 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:08:03.704 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:08:03.707 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:08:03.721 +08:00 [INF] Executed DbCommand (13ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:08:03.721 +08:00 [DBG] Trigger instruction : NoInstruction
+2021-08-12 13:08:08.695 +08:00 [DBG] Batch acquisition of 1 triggers
+2021-08-12 13:08:08.695 +08:00 [DBG] Calling Execute on job DEFAULT.Volo.Abp.BackgroundJobs.BackgroundJobWorker
+2021-08-12 13:08:08.697 +08:00 [INF] Entity Framework Core 3.1.6 initialized 'BackgroundJobsDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2021-08-12 13:08:08.711 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@__p_1='?' (DbType = Int32), @__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_1) [a].[Id], [a].[ConcurrencyStamp], [a].[CreationTime], [a].[ExtraProperties], [a].[IsAbandoned], [a].[JobArgs], [a].[JobName], [a].[LastTryTime], [a].[NextTryTime], [a].[Priority], [a].[TryCount]
+FROM [AbpBackgroundJobs] AS [a]
+WHERE ([a].[IsAbandoned] <> CAST(1 AS bit)) AND ([a].[NextTryTime] <= @__now_0)
+ORDER BY [a].[Priority] DESC, [a].[TryCount], [a].[NextTryTime]
+2021-08-12 13:08:08.711 +08:00 [DBG] Trigger instruction : NoInstruction

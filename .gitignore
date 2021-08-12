@@ -260,3 +260,4 @@ src/TigerAdmin.HttpApi.Host/Logs/*
 src/TigerAdmin.DbMigrator/Logs/*
 
 vue-tiger/dist/*
+aspnet-core/src/Tiger.HttpApi.Host/Logs/logs.txt
