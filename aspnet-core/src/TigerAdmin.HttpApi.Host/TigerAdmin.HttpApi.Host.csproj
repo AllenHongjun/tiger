@@ -41,6 +41,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include=".config\log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="TigerAdmin.HttpApi.Host.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

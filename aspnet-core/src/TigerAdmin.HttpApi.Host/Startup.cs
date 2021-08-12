@@ -14,6 +14,9 @@ namespace TigerAdmin
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            
+            //loggerFactory.AddLog4Net(); // << Add this line
             app.InitializeApplication();
         }
     }

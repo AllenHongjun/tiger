@@ -9,6 +9,12 @@
             书籍管理
             </summary>
         </member>
+        <member name="M:TigerAdmin.TigerAdminApplicationModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            预配置 
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="M:TigerAdmin.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)
