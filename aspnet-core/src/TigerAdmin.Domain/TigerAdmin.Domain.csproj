@@ -39,7 +39,6 @@
     <Folder Include="Security\" />
     <Folder Include="Entity\Stat\" />
     <Folder Include="Entity\Customer\Member\" />
-    <Folder Include="Utility\" />
     <Folder Include="Cache\" />
     <Folder Include="Event\" />
     <Folder Include="Infrastructure\" />
