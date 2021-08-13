@@ -86,6 +86,11 @@
             用户名
             </summary>
         </member>
+        <member name="T:Volo.Abp.AuditLogging.AuditLogPermissions">
+            <summary>
+            系统日志权限配置
+            </summary>
+        </member>
         <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.StartTime">
             <summary>
             开始时间
@@ -140,6 +145,61 @@
             <summary>
             组织id列表
             </summary>
+        </member>
+        <member name="T:Volo.Abp.Identity.IOrganizationUnitAppService">
+            <summary>
+            组织机构
+            </summary>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetRootListAsync">
+            <summary>
+            获取根组织列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取组织明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetAllListAsync(Volo.Abp.Identity.GetAllOrgnizationUnitInput)">
+            <summary>
+            获取所有组织列表数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetAllListDetailsAsync(Volo.Abp.Identity.GetAllOrgnizationUnitInput)">
+            <summary>
+            获取所有组织列表明细数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetChildrenAsync(System.Guid)">
+            <summary>
+            获取子集组织
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">
+            <summary>
+            获取组织关联的用户
+            </summary>
+            <param name="ouId"></param>
+            <param name="userInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetRolesAsync(System.Nullable{System.Guid},Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+            <summary>
+            获取组织关联的角色
+            </summary>
+            <param name="ouId"></param>
+            <param name="roleInput"></param>
+            <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.ITigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>

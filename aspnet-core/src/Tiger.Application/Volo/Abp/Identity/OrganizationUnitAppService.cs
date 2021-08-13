@@ -31,6 +31,11 @@ namespace Volo.Abp.Identity
             RoleAppService = roleAppService;
         }
 
+        /// <summary>
+        /// 获取单条组织机构
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public virtual async Task<OrganizationUnitDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(
@@ -38,6 +43,11 @@ namespace Volo.Abp.Identity
             );
         }
 
+        /// <summary>
+        /// 获取单条组织明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public virtual async Task<OrganizationUnitDto> GetDetailsAsync(Guid id)
         {
             var ou = await UnitRepository.GetAsync(id);
@@ -115,6 +125,11 @@ namespace Volo.Abp.Identity
             return list;
         }
 
+        /// <summary>
+        /// 添加组织
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(TigerIdentityPermissions.OrganitaionUnits.Create)]
         public virtual async Task<OrganizationUnitDto> CreateAsync(OrganizationUnitCreateDto input)
         {
@@ -135,6 +150,12 @@ namespace Volo.Abp.Identity
             return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(ou);
         }
 
+        /// <summary>
+        /// 修改组织
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(TigerIdentityPermissions.OrganitaionUnits.Update)]
         public virtual async Task<OrganizationUnitDto> UpdateAsync(Guid id, OrganizationUnitUpdateDto input)
         {
@@ -150,6 +171,11 @@ namespace Volo.Abp.Identity
             return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(ou);
         }
 
+        /// <summary>
+        /// 删除组织
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(TigerIdentityPermissions.OrganitaionUnits.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
@@ -187,6 +213,12 @@ namespace Volo.Abp.Identity
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <param name="children"></param>
+        /// <returns></returns>
         protected virtual async Task TraverseTreeAsync(OrganizationUnitDto dto, List<OrganizationUnitDto> children)
         {
             if (dto.Children.Count == 0)
@@ -207,6 +239,12 @@ namespace Volo.Abp.Identity
             }
         }
 
+        /// <summary>
+        /// 获取组织机构关联的用户
+        /// </summary>
+        /// <param name="ouId"></param>
+        /// <param name="userInput"></param>
+        /// <returns></returns>
         [Authorize(IdentityPermissions.Users.Default)]
         public virtual async Task<PagedResultDto<IdentityUserDto>> GetUsersAsync(Guid? ouId, GetIdentityUsersInput userInput)
         {
@@ -240,6 +278,13 @@ namespace Volo.Abp.Identity
             );
         }
 
+        
+        /// <summary>
+        /// 获取组织机构关联的角色
+        /// </summary>
+        /// <param name="ouId"></param>
+        /// <param name="roleInput"></param>
+        /// <returns></returns>
         [Authorize(IdentityPermissions.Roles.Default)]
         public virtual async Task<PagedResultDto<IdentityRoleDto>> GetRolesAsync(Guid? ouId, PagedAndSortedResultRequestDto roleInput)
         {

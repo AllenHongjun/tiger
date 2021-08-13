@@ -102,7 +102,7 @@ namespace Volo.Abp.Identity
         }
 
         /// <summary>
-        /// 获取组织明细
+        /// 获取组织id查询组织树
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

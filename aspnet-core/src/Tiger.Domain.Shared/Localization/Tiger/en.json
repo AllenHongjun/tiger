@@ -31,10 +31,12 @@
     "Permission:Book": "Book Management",
     "Permission:Books.Creat": "Creating new books",
     "Permission:Books.Edit": "Editing the books",
-    "Permission:Books.Delete": "Deleting the books",
-    "Permission:OrganitaionUnitManagement": "权限管理",
-    "Permission:Edit": "权限编辑",
-    "Permission:Delete": "权限删除",
-    "Permission:Create": "权限添加"
+    "Permission:Books.Delete": "Deleting the books"
+
+
+    //"Permission:OrganitaionUnit": "组织管理",
+    //"Permission:OrganitaionUnit.Edit": "组织编辑",
+    //"Permission:OrganitaionUnit.Delete": "组织删除",
+    //"Permission:OrganitaionUnit.Create": "组织添加"
   }
 }

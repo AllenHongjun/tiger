@@ -26,18 +26,21 @@ namespace Tiger.Volo.Abp.Identity
         private readonly IBlobContainer _blobContainer;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
+        private readonly IIdentityUserRepository _identityUserRepository;
         public TigerIdentityUserAppService(
             IdentityUserManager userManager, 
             IIdentityUserRepository userRepository, 
             IIdentityRoleRepository roleRepository,
             IBlobContainer blobContainer,
             IEmailSender emailSender,
-            ISmsSender smsSender
+            ISmsSender smsSender,
+            IIdentityUserRepository identityUserRepository
             ) : base(userManager, userRepository, roleRepository)
         {
             _blobContainer = blobContainer;
             _emailSender = emailSender;
             _smsSender = smsSender;
+            _identityUserRepository = identityUserRepository;
         }
 
         /// <summary>
@@ -151,5 +154,12 @@ namespace Tiger.Volo.Abp.Identity
             await UserManager.SetOrganizationUnitsAsync(result.Id, input.OrgIds.ToArray());
             return result;
         }
+
+        //public virtual async Task<IdentityUserDto> UpdateAsync(Guid id)
+        //{
+        //    var result = await base.UpdateAsync(id, update);
+        //    return result;
+        //}
+
     }
 }

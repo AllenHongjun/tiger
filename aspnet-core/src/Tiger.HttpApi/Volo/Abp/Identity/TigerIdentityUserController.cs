@@ -21,6 +21,7 @@ namespace Tiger.Volo.Abp.Identity
     {
         protected ITigerIdentityUserAppService _userAppService;
         private readonly IIdentityUserAppService _identityUserAppService;
+        
 
         public TigerIdentityUserController(ITigerIdentityUserAppService userAppService, IIdentityUserAppService identityUserAppService)
         {

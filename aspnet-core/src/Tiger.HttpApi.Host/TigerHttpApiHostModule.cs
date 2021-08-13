@@ -50,7 +50,7 @@ namespace Tiger
             ConfigureUrls(configuration);
             ConfigureConventionalControllers();
             ConfigureAuthentication(context, configuration);
-            //ConfigureLocalization();
+            ConfigureLocalization();
             ConfigureVirtualFileSystem(context);
             ConfigureAuditing(context);
             ConfigureCors(context, configuration);
