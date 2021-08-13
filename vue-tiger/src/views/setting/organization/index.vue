@@ -26,7 +26,7 @@
       style="width: 100%"
       type="expand"
       row-key="id"
-      :default-expand-all="true"
+      :default-expand-all="false"
       border
       fit
       highlight-current-row
@@ -44,14 +44,14 @@
       </el-table-column>
       <el-table-column label="创建时间" prop="displayName">
         <template slot-scope="{ row }">
-          <span>{{ row.creationTime | formatDate }}</span>
+          <span>{{ row.creationTime | formatDate('YYYY-MM-DD HH:mm:ss') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="最后修改时间" prop="displayName">
-        <template slot-scope="{ row }">
-          <span>{{ row.lastModificationTime == null ? '' : (row.lastModificationTime | formatDate) }}</span>
+      <!-- <el-table-column label="最后修改时间" prop="displayName">
+        <template slot-scope="scope">
+          <span>{{ scope.row.lastModificationTime == null ? '' : (scope.row.lastModificationTime | formatDate) }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         label="操作"
         align="center"
@@ -145,8 +145,27 @@ import {
   deleteOrganization
 } from '@/api/identity/organization'
 import { checkPermission } from '@/utils/abp'
+import { parseTime, formatDate } from '@/utils'
+
 export default {
   name: 'Organizations',
+  filters: {
+    httpCodeFilter(code) {
+      code = parseInt(code)
+      var result = ''
+      if (code <= 100) {
+        result = 'info'
+      } else if (code <= 200) {
+        result = 'success'
+      } else if (code <= 300) {
+        result = 'warning'
+      } else {
+        result = 'danger'
+      }
+      return result
+    }
+
+  },
   data() {
     return {
       tableKey: 0,
@@ -241,10 +260,13 @@ export default {
         if (valid) {
           updateOrganization(this.currentId, this.temp).then(() => {
             this.handleRefresh(false)
+            // console.log(this.list)
+            // const index = this.list.findIndex((v) => v.id === this.temp.id)
+            // this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
             this.$notify({
-              title: this.$i18n.t("HelloAbp['Success']"),
-              message: this.$i18n.t("HelloAbp['SuccessMessage']"),
+              title: '成功',
+              message: '修改成功',
               type: 'success',
               duration: 2000
             })
@@ -253,27 +275,19 @@ export default {
       })
     },
     handleDelete(row, index) {
-      this.$confirm(
-        this.$i18n.t("AbpIdentity['OUDeletionConfirmationMessage']", [
-          row.displayName
-        ]),
-        this.$i18n.t("AbpIdentity['AreYouSure']"),
-        {
-          confirmButtonText: this.$i18n.t("AbpIdentity['Yes']"),
-          cancelButtonText: this.$i18n.t("AbpIdentity['Cancel']"),
-          type: 'warning'
-        }
-      ).then(async() => {
-        deleteOrganization(row.id).then(() => {
-          this.handleRefresh()
-          this.$notify({
-            title: this.$i18n.t("HelloAbp['Success']"),
-            message: this.$i18n.t("HelloAbp['SuccessMessage']"),
-            type: 'success',
-            duration: 2000
+      this.$confirm('确认删除？')
+        .then(_ => {
+          deleteOrganization(row.id).then(() => {
+            this.handleRefresh()
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            })
           })
         })
-      })
+        .catch(_ => {})
     },
     handleRefresh(firstPage = true) {
       // if (firstPage) this.listQuery.page = 1
