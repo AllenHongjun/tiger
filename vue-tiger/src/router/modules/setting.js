@@ -17,7 +17,7 @@ const settingRouter = {
       path: 'audit_log/list',
       component: () => import('@/views/setting/audit_log/index'), // Parent router-view
       name: 'audit_log_list',
-      meta: { title: '审计日志' }
+      meta: { title: '系统日志' }
 
     },
     {

@@ -11,18 +11,21 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
         align="right"
+        size="mini"
       />
       <el-input
         v-model="listQuery.userName"
         placeholder="用户名"
         style="width: 150px"
         class="filter-item"
+        size="mini"
       />
       <el-input
         v-model="listQuery.url"
         placeholder="URL过滤"
         style="width: 150px"
         class="filter-item"
+        size="mini"
       />
       <el-select
         v-model="listQuery.httpMethod"
@@ -30,6 +33,7 @@
         clearable
         style="width: 110px"
         class="filter-item"
+        size="mini"
       >
         <el-option
           v-for="item in httpMethodOptions"
@@ -38,15 +42,14 @@
           :value="item"
         />
       </el-select>
-      <!-- <el-select v-model="listQuery.type" placeholder="HTTP状态码" clearable class="filter-item" style="width: 130px">
-      <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-    </el-select> -->
+
       <el-select
         v-model="listQuery.hasException"
         placeholder="是否存在异常"
         clearable
         style="width: 110px"
         class="filter-item"
+        size="mini"
       >
         <el-option
           v-for="item in hasExceptionOptions"
@@ -84,10 +87,13 @@
       :default-sort="{prop: 'date', order: 'descending'}"
       @sort-change="sortChange"
     >
-      <el-table-column align="left" label="HTTP请求" width="300">
+      <el-table-column align="left" label="HTTP请求">
         <template slot-scope="scope">
           <el-tag :type="scope.row.httpStatusCode | httpCodeFilter">
-            {{ scope.row.httpStatusCode }}&nbsp;&nbsp;{{ scope.row.httpMethod }}
+            {{ scope.row.httpStatusCode }}
+          </el-tag>
+          <el-tag :type="scope.row.httpStatusCode | httpCodeFilter">
+            {{ scope.row.httpMethod }}
           </el-tag>
           {{ scope.row.url }}
         </template>
@@ -102,35 +108,29 @@
           {{ scope.row.clientIpAddress }}
         </template>
       </el-table-column>
-      <el-table-column label="时间" prop="executionTime" align="center" width="150" sortable="custom">
+      <el-table-column label="时间" prop="executionTime" align="center" width="140" sortable="custom">
         <template slot-scope="scope">
-          {{ scope.row.executionTime }}
+          {{ scope.row.executionTime | formatDate('YYYY-MM-DD HH:mm:ss') }}
         </template>
       </el-table-column>
-      <el-table-column label="持续时间" align="center" width="100">
+      <el-table-column label="持续时间(s)" align="center" width="100">
         <template slot-scope="scope">
           {{ scope.row.executionDuration }}
         </template>
       </el-table-column>
-      <el-table-column label="应用名称" align="center" width="150">
+      <el-table-column label="应用名称" align="center" width="120">
         <template slot-scope="scope">
           {{ scope.row.clientId }}
         </template>
       </el-table-column>
-      <el-table-column label="correlationId" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.correlationId }}
-        </template>
-      </el-table-column>
+
       <el-table-column align="center" label="操作" width="240">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
             详情
           </el-button>
           &nbsp;&nbsp;
-          <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteData(scope.row.id)">
-            删除
-          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -149,62 +149,34 @@
         label-width="180px"
         label-position="left"
       >
-        <el-form-item label="httpStatusCode" prop="httpStatusCode">
-          <div>{{ temp.httpStatusCode }}</div>
-        </el-form-item>
-        <el-form-item label="applicationName" prop="applicationName">
-          <div>{{ temp.applicationName }}</div>
-        </el-form-item>
-        <el-form-item label="browserInfo" prop="browserInfo">
+
+        <el-form-item label="浏览器信息" prop="browserInfo">
           <div>{{ temp.browserInfo }}</div>
         </el-form-item>
-        <!-- <el-form-item label="clientId" prop="clientId">
-          <div>{{temp.clientId}}</div>
-        </el-form-item> -->
-        <el-form-item label="clientIpAddress" prop="clientIpAddress">
-          <div>{{ temp.clientIpAddress }}</div>
-        </el-form-item>
-        <el-form-item label="clientName" prop="clientName">
-          <div>{{ temp.clientName }}</div>
-        </el-form-item>
-        <!-- <el-form-item label="correlationId" prop="correlationId">
-          <div>{{temp.correlationId}}</div>
-        </el-form-item> -->
-        <el-form-item label="exceptions" prop="exceptions">
+
+        <el-form-item v-if="temp.exceptions != ''" label="异常信息" prop="exceptions">
           <el-input
             v-model="temp.exceptions"
             type="textarea"
-
-            :rows="5"
+            :rows="8"
           />
+        </el-form-item>
 
-        </el-form-item>
-        <el-form-item label="executionDuration" prop="executionDuration">
-          <div>{{ temp.executionDuration }}</div>
-        </el-form-item>
-        <el-form-item label="httpMethod" prop="httpMethod">
-          <div>{{ temp.httpMethod }}</div>
-        </el-form-item>
-        <el-form-item label="httpStatusCode" prop="httpStatusCode">
-          <div>{{ temp.httpStatusCode }}</div>
-        </el-form-item>
         <el-form-item label="id" prop="id">
           <div>{{ temp.id }}</div>
         </el-form-item>
-        <el-form-item label="url" prop="url">
+        <el-form-item label="url地址" prop="url">
           <div>{{ temp.url }}</div>
         </el-form-item>
-        <el-form-item label="userId" prop="userId">
+        <el-form-item label="用户id" prop="userId">
           <div>{{ temp.userId }}</div>
         </el-form-item>
-        <el-form-item label="userName" prop="userName">
+        <el-form-item label="用户名" prop="userName">
           <div>{{ temp.userName }}</div>
         </el-form-item>
 
       </el-form>
       <div style="text-align: right">
-        <!-- <el-button type="danger" @click="dialogRoleFormVisible = false"
-          >取消</el-button> -->
 
         <el-button
           type="primary"
@@ -220,17 +192,8 @@
 import { getAuditLogs } from '@/api/auditlogging/auditlog'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import baseListQuery from '@/utils/abp'
-// import FilenameOption from '@/views/excel/components/FilenameOption'
-// import AutoWidthOption from '@/views/excel/components/AutoWidthOption'
-// import BookTypeOption from '@/views/excel/components/BookTypeOption'
 import { parseTime } from '@/utils'
-// npm install --save @../../vendor/Export2Excel
-const httpStatueCodeOptions = [
-  { key: 'CN', display_name: 'China' },
-  { key: 'US', display_name: 'USA' },
-  { key: 'JP', display_name: 'Japan' },
-  { key: 'EU', display_name: 'Eurozone' }
-]
+
 export default {
   name: 'AuditLogList',
   components: { Pagination },
@@ -399,26 +362,12 @@ export default {
     },
     deleteData(id) {
       console.log('delete')
-      deleteRole(id)
-        .then((response) => {
-          this.$message({
-            message: '删除成功',
-            type: 'success'
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
       console.log(this.temp)
-      // this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogRoleFormVisible = true
-      // this.$nextTick(() => {
-      //   this.$refs["dataForm"].clearValidate();
-      // });
     },
     handleDownload() {
       this.downloadLoading = true

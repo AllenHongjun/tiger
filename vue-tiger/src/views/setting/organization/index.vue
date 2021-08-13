@@ -24,26 +24,32 @@
       :load="loadChildren"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
       style="width: 100%"
+      type="expand"
       row-key="id"
+      :default-expand-all="true"
       border
       fit
       highlight-current-row
       lazy
     >
-      <el-table-column
-        label="编码"
-        prop="code"
-      >
+      <el-table-column label="编码" prop="code">
         <template slot-scope="{ row }">
           <span>{{ row.code }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="名称"
-        prop="displayName"
-      >
+      <el-table-column label="名称" prop="displayName">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" prop="displayName">
+        <template slot-scope="{ row }">
+          <span>{{ row.creationTime | formatDate }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="最后修改时间" prop="displayName">
+        <template slot-scope="{ row }">
+          <span>{{ row.lastModificationTime == null ? '' : (row.lastModificationTime | formatDate) }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -119,7 +125,7 @@
           type="primary"
           @click="dialogStatus === 'create' ||
             dialogStatus === 'createChild' ?
-            createData() : updateData()"
+              createData() : updateData()"
         >
           保存
         </el-button>
@@ -159,8 +165,19 @@ export default {
   created() {
     this.getList()
   },
+
+  mounted() {
+
+  },
+
   methods: {
     checkPermission,
+    // expandAll() {
+    //   const els = this.$el.getElementsByClassName('el-table__expand-icon')
+    //   for (let i = 0; i < els.length; i++) {
+    //     els[i].click()
+    //   }
+    // },
     getList() {
       this.listLoading = true
       // 这里会出现感觉是重新刷新了(给人感觉不好的感觉),后期考虑下通过level进行控制返回层架数据,

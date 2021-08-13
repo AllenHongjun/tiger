@@ -3,7 +3,7 @@ import router, { resetRouter } from '@/router'
 
 const baseListQuery = {
   page: 1,
-  limit: 20,
+  limit: 13,
   sort: undefined,
   filter: undefined
 }
@@ -85,7 +85,7 @@ export function fetchAppConfig(providerKey, providerName) {
 
 export function checkPermission(policy) {
   const abpConfig = store.getters.abpConfig
-  return true;
+  return true
   if (abpConfig.auth.grantedPolicies[policy]) {
     return true
   } else {

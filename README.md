@@ -32,6 +32,7 @@
 - [vue-elemnt-admin-demo](https://panjiachen.github.io/vue-element-admin/#/login?redirect=%2Fdashboard)
 - [volcore快速业务开发框架](http://www.volcore.xyz/#/home)
 - [crmeb商城](https://pro.crmeb.net/admin/home/)
+- [进销存项目](https://a.mxyun.com/)
 - [EasyAbp](https://github.com/EasyAbp)
 - [abp-vue-admin-element-typescript](https://github.com/colinin/abp-vue-admin-element-typescript)
 - [HelloAbp](https://github.com/xiajingren/HelloAbp)

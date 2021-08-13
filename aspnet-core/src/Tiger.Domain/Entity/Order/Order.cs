@@ -12,7 +12,8 @@ using System.Text;
 
 namespace Tiger.Order
 {
-    class Order
+    public class Order
     {
+
     }
 }

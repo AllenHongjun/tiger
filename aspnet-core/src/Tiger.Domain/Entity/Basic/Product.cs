@@ -17,5 +17,30 @@ namespace Tiger.Basic
     /// </summary>
     public class Product
     {
+        public int BrandId { get; set; }
+
+        public int ProductCategoryId { get; set; }
+
+        public String Name { get; set; }
+
+        public string Picture { get; set; }
+
+        public string ProductSn { get; set; }
+
+        public int DeleteStatus { get; set; }
+
+        public int Sort { get; set; }
+
+        public decimal Price { get; set; }
+
+        public String SubTitle { get; set; }
+
+        public string Unit { get; set; }
+
+        public string DetailDesc { get; set; }
+
+
+
+
     }
 }
