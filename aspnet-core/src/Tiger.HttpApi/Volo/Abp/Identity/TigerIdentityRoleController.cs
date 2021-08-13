@@ -11,16 +11,16 @@ namespace Volo.Abp.Identity
     [Area("identity")]
     [ControllerName("Role")]
     [Route("api/identity/roles")]
-    public class HelloIdentityRoleController : AbpController, ITigerIdentityRoleAppService
+    public class TigerIdentityRoleController : AbpController, ITigerIdentityRoleAppService
     {
         protected ITigerIdentityRoleAppService RoleAppService { get; }
-        public HelloIdentityRoleController(ITigerIdentityRoleAppService roleAppService)
+        public TigerIdentityRoleController(ITigerIdentityRoleAppService roleAppService)
         {
             RoleAppService = roleAppService;
         }
 
         /// <summary>
-        /// 添加组织单元
+        /// 将角色关联组织
         /// </summary>
         /// <param name="roleId"></param>
         /// <param name="ouId"></param>

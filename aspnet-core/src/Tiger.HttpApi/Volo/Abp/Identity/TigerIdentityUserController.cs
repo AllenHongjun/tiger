@@ -19,12 +19,16 @@ namespace Tiger.Volo.Abp.Identity
     [Route("api/identity/users")]
     public class TigerIdentityUserController : AbpController, ITigerIdentityUserAppService
     {
-        public TigerIdentityUserController(ITigerIdentityUserAppService userAppService)
+        protected ITigerIdentityUserAppService _userAppService;
+        private readonly IIdentityUserAppService _identityUserAppService;
+
+        public TigerIdentityUserController(ITigerIdentityUserAppService userAppService, IIdentityUserAppService identityUserAppService)
         {
-            UserAppService = userAppService;
+            _userAppService = userAppService;
+            _identityUserAppService = identityUserAppService;
         }
 
-        protected ITigerIdentityUserAppService UserAppService { get; }
+        
 
 
         /// <summary>
@@ -37,7 +41,7 @@ namespace Tiger.Volo.Abp.Identity
         [Route("{userId}/add-to-organizations")]
         public Task AddToOrganizationUnitsAsync(Guid userId, List<Guid> ouIds)
         {
-            return UserAppService.AddToOrganizationUnitsAsync(userId, ouIds);
+            return _userAppService.AddToOrganizationUnitsAsync(userId, ouIds);
         }
 
         /// <summary>
@@ -49,9 +53,8 @@ namespace Tiger.Volo.Abp.Identity
         [Route("create-to-organizations")]
         public Task<IdentityUserDto> CreateAsync(IdentityUserOrgCreateDto input)
         {
-            return UserAppService.CreateAsync(input);
+            return _userAppService.CreateAsync(input);
         }
-
 
         /// <summary>
         /// 获取用户关联的组织单元
@@ -63,7 +66,7 @@ namespace Tiger.Volo.Abp.Identity
         [Route("{id}/organizations")]
         public Task<ListResultDto<OrganizationUnitDto>> GetListOrganizationUnitsAsync(Guid id, bool includeDetails = false)
         {
-            return UserAppService.GetListOrganizationUnitsAsync(id, includeDetails);
+            return _userAppService.GetListOrganizationUnitsAsync(id, includeDetails);
         }
 
         /// <summary>
@@ -76,7 +79,9 @@ namespace Tiger.Volo.Abp.Identity
         [Route("{id}/update-to-organizations")]
         public Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input)
         {
-            return UserAppService.UpdateAsync(id, input);
+            return _userAppService.UpdateAsync(id, input);
         }
+
+       
     }
 }

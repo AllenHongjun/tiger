@@ -11,7 +11,7 @@ using Volo.Abp.AuditLogging;
 namespace Volo.Abp.AuditLogging
 {       
     /// <summary>
-    /// 审核日志
+    /// 系统日志功能
     /// </summary>
     [RemoteService(false)]
     //[Authorize(AuditLogPermissions.AuditLogs.Default)]

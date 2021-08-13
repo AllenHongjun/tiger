@@ -164,15 +164,15 @@
             <param name="roleInput">角色</param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.HelloIdentityRoleController.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
-            添加组织单元
+            将角色关联组织
             </summary>
             <param name="roleId"></param>
             <param name="ouId"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.HelloIdentityRoleController.CreateAsync(Volo.Abp.Identity.IdentityRoleOrgCreateDto)">
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.CreateAsync(Volo.Abp.Identity.IdentityRoleOrgCreateDto)">
             <summary>
             添加角色关联组织单元
             </summary>

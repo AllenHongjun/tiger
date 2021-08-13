@@ -15,6 +15,11 @@
             </summary>
             <param name="context"></param>
         </member>
+        <member name="T:Tiger.Volo.Abp.FeatureManagement.TigerFeatureAppService">
+            <summary>
+            特性管理
+            </summary>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)
@@ -88,7 +93,7 @@
         </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogAppService">
             <summary>
-            审核日志
+            系统日志功能
             </summary>
         </member>
         <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetAsync(System.Guid)">

@@ -18,14 +18,16 @@ namespace Tiger.Volo.Abp.Identity
     public class TigerIdentityRoleAppService : IdentityRoleAppService, ITigerIdentityRoleAppService
     {
         //private IStringLocalizer<HelloAbpResource> _localizer;
-        protected OrganizationUnitManager OrgManager { get; }
+        protected OrganizationUnitManager _orgManager { get; }
+        private readonly IdentityRoleManager _roleManager;
         public TigerIdentityRoleAppService(IdentityRoleManager roleManager,
             IIdentityRoleRepository roleRepository,
             //IStringLocalizer<HelloAbpResource> localizer,
             OrganizationUnitManager orgManager) : base(roleManager, roleRepository)
         {
             //_localizer = localizer;
-            OrgManager = orgManager;
+            _orgManager = orgManager;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -37,7 +39,7 @@ namespace Tiger.Volo.Abp.Identity
         //[Authorize(TigerIdentityPermissions.Roles.AddOrganizationUnitRole)]
         public Task AddToOrganizationUnitAsync(Guid roleId, Guid ouId)
         {
-            return OrgManager.AddRoleToOrganizationUnitAsync(roleId, ouId);
+            return _orgManager.AddRoleToOrganizationUnitAsync(roleId, ouId);
         }
 
         /// <summary>
@@ -54,7 +56,7 @@ namespace Tiger.Volo.Abp.Identity
             );
             if (input.OrgId.HasValue)
             {
-                await OrgManager.AddRoleToOrganizationUnitAsync(role.Id, input.OrgId.Value);
+                await _orgManager.AddRoleToOrganizationUnitAsync(role.Id, input.OrgId.Value);
             }
             return role;
         }
