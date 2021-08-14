@@ -14,11 +14,37 @@ const settingRouter = {
   },
   children: [
     {
-      path: 'audit_log/list',
-      component: () => import('@/views/setting/audit_log/index'), // Parent router-view
+      path: 'audit-log/list',
+      component: () => import('@/views/setting/audit-log/index'), // Parent router-view
       name: 'audit_log_list',
       meta: { title: '系统日志' }
 
+    },
+    {
+      path: 'system/list',
+      component: () => import('@/views/setting/system/index'), // Parent router-view
+      name: 'system',
+      meta: { title: '系统设置' }
+    },
+    {
+      path: 'sass',
+      component: () => import('@/views/setting/saas/tenant/index'), // Parent router-view
+      name: 'Saas',
+      meta: { title: 'Saas' },
+      children: [
+        {
+          path: 'tenant/list',
+          component: () => import('@/views/setting/saas/tenant/index'),
+          name: 'Tenant',
+          meta: { title: '租户', policy: 'AbpTenantManagement.Tenants' }
+        },
+        {
+          path: 'version/list',
+          component: () => import('@/views/setting/saas/tenant/index'),
+          name: 'version',
+          meta: { title: '版本', policy: 'AbpTenantManagement.Tenants' }
+        }
+      ]
     },
     {
       path: '/identity',
@@ -53,12 +79,7 @@ const settingRouter = {
           name: 'user_list',
           meta: { title: '用户', policy: 'AbpIdentity.Users' }
         },
-        {
-          path: 'tenant',
-          component: () => import('@/views/setting/tenant/index'),
-          name: 'Tenant',
-          meta: { title: '租户', policy: 'AbpTenantManagement.Tenants' }
-        },
+
         {
           path: '/organization/list',
           component: () => import('@/views/setting/organization/index'),

@@ -8,112 +8,114 @@
         class="filter-item"
         @keyup.enter.native="handleRefresh"
       /> -->
-      <el-button
-        v-if="checkPermission('AbpIdentity.OrganitaionUnits.Create')"
-        class="filter-item"
-        style="margin-left: 10px;"
-        type="primary"
-        icon="el-icon-plus"
-        @click="handleCreate"
-      >
+      <el-button v-if="checkPermission('AbpIdentity.OrganitaionUnits.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         新增
       </el-button>
     </div>
-    <el-table
-      :data="list"
-      :load="loadChildren"
-      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
-      style="width: 100%"
-      type="expand"
-      row-key="id"
-      :default-expand-all="false"
-      border
-      fit
-      highlight-current-row
-      lazy
-    >
-      <el-table-column label="编码" prop="code">
-        <template slot-scope="{ row }">
-          <span>{{ row.code }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="名称" prop="displayName">
-        <template slot-scope="{ row }">
-          <span>{{ row.displayName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间" prop="displayName">
-        <template slot-scope="{ row }">
-          <span>{{ row.creationTime | formatDate('YYYY-MM-DD HH:mm:ss') }}</span>
-        </template>
-      </el-table-column>
-      <!-- <el-table-column label="最后修改时间" prop="displayName">
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <div class="grid-content bg-purple">
+          <div class="custom-tree-container">
+            <!-- <div class="block">
+              <p>使用 render-content</p>
+              <el-tree :data="data" show-checkbox node-key="id" default-expand-all :expand-on-click-node="false" :render-content="renderContent" />
+            </div> -->
+            <div class="block">
+              <p>组织树
+                <el-link type="warning" size="mini" style="float:right;diplay:inline-block;">
+                  添加根组织
+                </el-link>
+              </p>
+              <el-tree :data="data" show-checkbox node-key="id" default-expand-all :expand-on-click-node="false">
+                <span slot-scope="{ node, data }" class="custom-tree-node">
+                  <span>{{ node.label }}</span>
+                  <span>
+                    <el-button type="text" size="mini" @click="() => append(data)">
+                      添加
+                    </el-button>
+                    <el-button type="text" size="mini" @click="() => append(data)">
+                      编辑
+                    </el-button>
+                    <el-button type="text" size="mini" @click="() => remove(node, data)">
+                      删除
+                    </el-button>
+                  </span>
+                </span>
+              </el-tree>
+            </div>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="18">
+        <div class="grid-content bg-purple-light">
+          <el-table
+            :data="list"
+            :load="loadChildren"
+            :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+            style="width: 100%"
+            type="expand"
+            row-key="id"
+            :default-expand-all="false"
+            border
+            fit
+            highlight-current-row
+            lazy
+          >
+            <el-table-column label="编码" prop="code">
+              <template slot-scope="{ row }">
+                <span>{{ row.code }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="名称" prop="displayName">
+              <template slot-scope="{ row }">
+                <span>{{ row.displayName }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="创建时间" prop="displayName">
+              <template slot-scope="{ row }">
+                <span>{{
+                  row.creationTime | formatDate("YYYY-MM-DD HH:mm:ss")
+                }}</span>
+              </template>
+            </el-table-column>
+            <!-- <el-table-column label="最后修改时间" prop="displayName">
         <template slot-scope="scope">
           <span>{{ scope.row.lastModificationTime == null ? '' : (scope.row.lastModificationTime | formatDate) }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column
-        label="操作"
-        align="center"
-        width="300"
-        class-name="small-padding fixed-width"
-      >
-        <template slot-scope="{ row }">
-          <el-button
-            v-if="checkPermission('AbpIdentity.OrganitaionUnits.Create')"
-            size="mini"
-            type="primary"
-            icon="el-icon-plus"
-            @click="handleCreate(row)"
-          >
-            新增
-          </el-button>
-          <el-button
-            v-if="checkPermission('AbpIdentity.OrganitaionUnits.Update')"
-            size="mini"
-            type="primary"
-            icon="el-icon-edit"
-            @click="handleUpdate(row)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            v-if="checkPermission('AbpIdentity.OrganitaionUnits.Delete')"
-            size="mini"
-            type="danger"
-            icon="el-icon-delete"
-            @click="handleDelete(row)"
-          >
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+            <el-table-column label="操作" align="center" width="300" class-name="small-padding fixed-width">
+              <template slot-scope="{ row }">
+                <el-button v-if="checkPermission('AbpIdentity.OrganitaionUnits.Create')" size="mini" type="primary" icon="el-icon-plus" @click="handleCreate(row)">
+                  新增
+                </el-button>
+                <el-button v-if="checkPermission('AbpIdentity.OrganitaionUnits.Update')" size="mini" type="primary" icon="el-icon-edit" @click="handleUpdate(row)">
+                  编辑
+                </el-button>
+                <el-button v-if="checkPermission('AbpIdentity.OrganitaionUnits.Delete')" size="mini" type="danger" icon="el-icon-delete" @click="handleDelete(row)">
+                  删除
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-col>
+    </el-row>
 
     <el-dialog
-      :title="dialogStatus==='create'?
-        'NewOrganitaionUnit' :
-        dialogStatus==='createChild'?
-          'NewOrganitaionUnitChild' :
-          'Edit'"
+      :title="
+        dialogStatus === 'create'
+          ? 'NewOrganitaionUnit'
+          : dialogStatus === 'createChild'
+            ? 'NewOrganitaionUnitChild'
+            : 'Edit'
+      "
       :visible.sync="dialogFormVisible"
     >
-      <el-form
-        ref="dataForm"
-        :model="temp"
-        label-position="right"
-        label-width="120px"
-      >
-        <el-form-item
-          v-if="currentParentName!==''"
-          label="父级名称"
-        >
+      <el-form ref="dataForm" :model="temp" label-position="right" label-width="120px">
+        <el-form-item v-if="currentParentName !== ''" label="父级名称">
           <el-input v-model="currentParentName" disabled />
         </el-form-item>
-        <el-form-item
-          prop="名称"
-          label="名称"
-        >
+        <el-form-item prop="名称" label="名称">
           <el-input v-model="temp.displayName" />
         </el-form-item>
       </el-form>
@@ -123,15 +125,16 @@
         </el-button>
         <el-button
           type="primary"
-          @click="dialogStatus === 'create' ||
-            dialogStatus === 'createChild' ?
-              createData() : updateData()"
+          @click="
+            dialogStatus === 'create' || dialogStatus === 'createChild'
+              ? createData()
+              : updateData()
+          "
         >
           保存
         </el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
@@ -145,8 +148,8 @@ import {
   deleteOrganization
 } from '@/api/identity/organization'
 import { checkPermission } from '@/utils/abp'
-import { parseTime, formatDate } from '@/utils'
 
+// const id = 1000
 export default {
   name: 'Organizations',
   filters: {
@@ -164,10 +167,45 @@ export default {
       }
       return result
     }
-
   },
   data() {
+    const data = [{
+      id: 1,
+      label: '一级 1',
+      children: [{
+        id: 4,
+        label: '二级 1-1',
+        children: [{
+          id: 9,
+          label: '三级 1-1-1'
+        }, {
+          id: 10,
+          label: '三级 1-1-2'
+        }]
+      }]
+    }, {
+      id: 2,
+      label: '一级 2',
+      children: [{
+        id: 5,
+        label: '二级 2-1'
+      }, {
+        id: 6,
+        label: '二级 2-2'
+      }]
+    }, {
+      id: 3,
+      label: '一级 3',
+      children: [{
+        id: 7,
+        label: '二级 3-1'
+      }, {
+        id: 8,
+        label: '二级 3-2'
+      }]
+    }]
     return {
+
       tableKey: 0,
       list: null,
       listLoading: true,
@@ -178,16 +216,17 @@ export default {
         displayName: ''
       },
       dialogFormVisible: false,
-      dialogStatus: ''
+      dialogStatus: '',
+      id: 1000,
+      data: JSON.parse(JSON.stringify(data))
+
     }
   },
   created() {
     this.getList()
   },
 
-  mounted() {
-
-  },
+  mounted() { },
 
   methods: {
     checkPermission,
@@ -287,7 +326,7 @@ export default {
             })
           })
         })
-        .catch(_ => {})
+        .catch(_ => { })
     },
     handleRefresh(firstPage = true) {
       // if (firstPage) this.listQuery.page = 1
@@ -310,13 +349,47 @@ export default {
         item.hasChildren = !item.isLeaf
         return item
       })
+    },
+    append(data) {
+      const newChild = { id: this.id++, label: 'testtest', children: [] }
+      if (!data.children) {
+        this.$set(data, 'children', [])
+      }
+      data.children.push(newChild)
+    },
+
+    remove(node, data) {
+      const parent = node.parent
+      const children = parent.data.children || parent.data
+      const index = children.findIndex(d => d.id === data.id)
+      children.splice(index, 1)
+    },
+
+    renderContent(h, { node, data, store }) {
+      return (
+        <span class='custom-tree-node'>
+          <span>{node.label}</span>
+          <span>
+            <el-button size='mini' type='text' on-click={() => this.append(data)}>添加</el-button>
+            <el-button size='mini' type='text' on-click={() => this.remove(node, data)}>删除</el-button>
+          </span>
+        </span>)
     }
   }
 }
 </script>
 
 <style>
-.filter-container{
-  margin-bottom:20px;
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
 }
 </style>

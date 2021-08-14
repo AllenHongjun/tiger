@@ -65,9 +65,9 @@ export const constantRoutes = [
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [{
       path: 'dashboard',
-      name: '主页',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '主页', icon: 'dashboard' }
+      name: '仪表盘',
+      component: () => import('@/views/charts/line'),
+      meta: { title: '仪表盘', icon: 'dashboard' }
     }
 
     ]
@@ -134,7 +134,7 @@ export const constantRoutes = [
         name: '简单示例',
         component: () => import('@/views/charts/line'),
         meta: { title: '简单示例', icon: 'dashboard' },
-        hidden: false
+        hidden: true
       },
       {
         path: '/chart/keybord',

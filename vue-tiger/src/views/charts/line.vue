@@ -1,17 +1,12 @@
 <template>
   <div class="chart-container">
     <el-row :gutter="32">
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <a-chart />
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <pie-chart />
         </div>
       </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <bar-chart />
         </div>
@@ -21,7 +16,7 @@
     <el-divider />
 
     <el-row :gutter="32">
-      <el-col :xs="24" :sm="24" :lg="8">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <line-simpe-chart />
         </div>
@@ -35,11 +30,7 @@
     </el-row>
 
     <el-row :gutter="32">
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <data-set-simple-chart />
-        </div>
-      </el-col>
+
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <!-- <line-stack-chart /> -->

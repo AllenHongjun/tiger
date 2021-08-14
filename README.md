@@ -45,45 +45,45 @@
 
 ### 后端技术
 
-| 技术            | 版本    | 说明                        |
-| --------------- | ------- | --------------------------- |
-| Asp.Net core    |         | MVC框架                     |
-| IDentityServer4 |         | 认证和授权框架              |
-| EntityFreamwork |         | ORM框架                     |
-| ABP Freamwork   | 3.2.1   | 基于Asp.Net coreweb应用框架 |
-| AutoFac         |         | 容器                        |
-| Swagger-UI      |         | 文档生产工具                |
-| Elasticsearch   | 7.6.2   | 搜索引擎                    |
-| RabbitMq        | 3.7.14  | 消息队列                    |
-| Redis           | 5.0     | 分布式缓存                  |
-| MongoDb         | 4.2.5   | NoSql数据库                 |
-| Docker          | 18.09.0 | 应用容器引擎                |
-|                 |         | 数据库连接池                |
-| OSS             | 2.5.0   | 对象存储                    |
-| JWT             | 0.9.0   | JWT登录支持                 |
-|                 |         | 简化对象封装工具            |
+| 技术            | 版本    | 说明                        | 站点                                                         |
+| --------------- | ------- | --------------------------- | ------------------------------------------------------------ |
+| Asp.Net core    |         | MVC框架                     | [live-demo](https://commercial-demo.abp.io/identity/organization-units) |
+| IDentityServer4 |         | 认证和授权框架              |                                                              |
+| EntityFreamwork |         | ORM框架                     |                                                              |
+| ABP Freamwork   | 3.2.1   | 基于Asp.Net coreweb应用框架 |                                                              |
+| AutoFac         |         | 容器                        |                                                              |
+| Swagger-UI      |         | 文档生产工具                |                                                              |
+| Elasticsearch   | 7.6.2   | 搜索引擎                    |                                                              |
+| RabbitMq        | 3.7.14  | 消息队列                    |                                                              |
+| Redis           | 5.0     | 分布式缓存                  |                                                              |
+| MongoDb         | 4.2.5   | NoSql数据库                 |                                                              |
+| Docker          | 18.09.0 | 应用容器引擎                |                                                              |
+|                 |         | 数据库连接池                |                                                              |
+| OSS             | 2.5.0   | 对象存储                    |                                                              |
+| JWT             | 0.9.0   | JWT登录支持                 |                                                              |
+|                 |         | 简化对象封装工具            |                                                              |
 
 
 
 #### 前端技术
 
-| 技术                                                         | 说明             | 官网                                                  |      |
-| :----------------------------------------------------------- | ---------------- | ----------------------------------------------------- | ---- |
-|                                                              |                  |                                                       |      |
-| [vue](https://cn.vuejs.org/index.html)                       | 前端框架         | https://vuejs.org/                                    |      |
-| [vue-router](https://next.router.vuejs.org/)                 | 路由框架         | https://router.vuejs.org/                             |      |
-| [vuex](https://vuex.vuejs.org/zh/guide/)                     | 全局状态管理框架 | https://vuex.vuejs.org/                               |      |
-| Element                                                      | 前端UI框架       | [https://element.eleme.io](https://element.eleme.io/) |      |
-| [axios](https://axios-http.com/zh/)                          | 前端HTTP框架     | https://github.com/axios/axios                        |      |
-| [echarts 4.1.3](https://echarts.apache.org/v4/examples/zh/editor.html?c=pie-legend) | 图表框架         | https://v-charts.js.org/                              |      |
-| Js-cookie                                                    | cookie管理工具   | https://github.com/js-cookie/js-cookie                |      |
-| nprogress                                                    | 进度条控件       | https://github.com/rstacruz/nprogress                 |      |
-| [vue-cli](https://cli.vuejs.org/zh/)                         |                  |                                                       |      |
-| [mockjs](http://mockjs.com/)                                 |                  |                                                       |      |
-| [vue-admin-template](https://github.com/PanJiaChen/vue-admin-template/blob/master/README-zh.md) |                  |                                                       |      |
-| [vue-elment-admin](https://panjiachen.github.io/vue-element-admin-site/zh/) |                  |                                                       |      |
-| [elemnt-ui](https://element.eleme.cn/2.13/#/zh-CN)           |                  |                                                       |      |
-|                                                              |                  |                                                       |      |
+| 技术                                                         | 说明             | 官网                                                         |      |
+| :----------------------------------------------------------- | ---------------- | ------------------------------------------------------------ | ---- |
+|                                                              |                  |                                                              |      |
+| [vue](https://cn.vuejs.org/index.html)                       | 前端框架         | https://vuejs.org/                                           |      |
+| [vue-router](https://next.router.vuejs.org/)                 | 路由框架         | https://router.vuejs.org/                                    |      |
+| [vuex](https://vuex.vuejs.org/zh/guide/)                     | 全局状态管理框架 | https://vuex.vuejs.org/                                      |      |
+| Element                                                      | 前端UI框架       | [https://element.eleme.io](https://element.eleme.io/)        |      |
+| [axios](https://axios-http.com/zh/)                          | 前端HTTP框架     | https://github.com/axios/axios                               |      |
+| [echarts 4.1.3](https://echarts.apache.org/v4/examples/zh/editor.html?c=pie-legend) | 图表框架         | https://v-charts.js.org/                                     |      |
+| Js-cookie                                                    | cookie管理工具   | https://github.com/js-cookie/js-cookie                       |      |
+| nprogress                                                    | 进度条控件       | https://github.com/rstacruz/nprogress                        |      |
+| [vue-cli](https://cli.vuejs.org/zh/)                         |                  |                                                              |      |
+| [mockjs](http://mockjs.com/)                                 |                  |                                                              |      |
+| [vue-admin-template 4.4.0](https://github.com/PanJiaChen/vue-admin-template/blob/master/README-zh.md) | 前端界面脚手架   | [演示地址](https://panjiachen.github.io/vue-admin-template/#/login?redirect=%2Fdashboard) |      |
+| [vue-elment-admin 4.2.1](https://panjiachen.github.io/vue-element-admin-site/zh/) | 界面框架         | [演示地址](https://panjiachen.github.io/vue-element-admin/#/dashboard) |      |
+| [elemnt-ui 2.13.2](https://element.eleme.cn/2.13/#/zh-CN)    | 前端界面组件     | [https://element.eleme.cn/2.13/#/zh-CN/component/installation](https://element.eleme.cn/2.13/#/zh-CN/component/installation) |      |
+|                                                              |                  |                                                              |      |
 
 
 

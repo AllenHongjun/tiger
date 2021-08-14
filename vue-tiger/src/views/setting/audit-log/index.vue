@@ -2,91 +2,25 @@
   <div class="app-container">
     <div class="filter-container" style="margin-bottom: 20px">
 
-      <el-date-picker
-        v-model="queryDateTime"
-        value-format="yyyy-MM-dd hh:mm:ss"
-        type="datetimerange"
-        :picker-options="pickerOptions"
-        range-separator="至"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-        align="right"
-        size="mini"
-      />
-      <el-input
-        v-model="listQuery.userName"
-        placeholder="用户名"
-        style="width: 150px"
-        class="filter-item"
-        size="mini"
-      />
-      <el-input
-        v-model="listQuery.url"
-        placeholder="URL过滤"
-        style="width: 150px"
-        class="filter-item"
-        size="mini"
-      />
-      <el-select
-        v-model="listQuery.httpMethod"
-        placeholder="HTTP方法"
-        clearable
-        style="width: 110px"
-        class="filter-item"
-        size="mini"
-      >
-        <el-option
-          v-for="item in httpMethodOptions"
-          :key="item"
-          :label="item"
-          :value="item"
-        />
+      <el-date-picker v-model="queryDateTime" value-format="yyyy-MM-dd hh:mm:ss" type="datetimerange" :picker-options="pickerOptions" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" align="right" size="mini" />
+      <el-input v-model="listQuery.userName" placeholder="用户名" style="width: 150px" class="filter-item" size="mini" />
+      <el-input v-model="listQuery.url" placeholder="URL过滤" style="width: 150px" class="filter-item" size="mini" />
+      <el-select v-model="listQuery.httpMethod" placeholder="HTTP方法" clearable style="width: 110px" class="filter-item" size="mini">
+        <el-option v-for="item in httpMethodOptions" :key="item" :label="item" :value="item" />
       </el-select>
 
-      <el-select
-        v-model="listQuery.hasException"
-        placeholder="是否存在异常"
-        clearable
-        style="width: 110px"
-        class="filter-item"
-        size="mini"
-      >
-        <el-option
-          v-for="item in hasExceptionOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
+      <el-select v-model="listQuery.hasException" placeholder="是否存在异常" clearable style="width: 110px" class="filter-item" size="mini">
+        <el-option v-for="item in hasExceptionOptions" :key="item.value" :label="item.label" :value="item.value" />
       </el-select>
-      <el-button
-        class="filter-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleFilter"
-      >
+      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         搜索
       </el-button>
-      <el-button
-        :loading="downloadLoading"
-        class="filter-item"
-        type="primary"
-        icon="el-icon-download"
-        @click="handleDownload"
-      >
+      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
         导出
       </el-button>
 
     </div>
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-      :default-sort="{prop: 'date', order: 'descending'}"
-      @sort-change="sortChange"
-    >
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row :default-sort="{prop: 'date', order: 'descending'}" @sort-change="sortChange">
       <el-table-column align="left" label="HTTP请求">
         <template slot-scope="scope">
           <el-tag :type="scope.row.httpStatusCode | httpCodeFilter">
@@ -134,32 +68,17 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination
-      v-show="total > 0"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="fetchData"
-    />
+    <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
     <el-dialog title="日志明细" :visible.sync="dialogRoleFormVisible">
-      <el-form
-        ref="dataForm"
-        :model="temp"
-        label-width="180px"
-        label-position="left"
-      >
+      <el-form ref="dataForm" :model="temp" label-width="180px" label-position="left">
 
         <el-form-item label="浏览器信息" prop="browserInfo">
           <div>{{ temp.browserInfo }}</div>
         </el-form-item>
 
         <el-form-item v-if="temp.exceptions != ''" label="异常信息" prop="exceptions">
-          <el-input
-            v-model="temp.exceptions"
-            type="textarea"
-            :rows="8"
-          />
+          <el-input v-model="temp.exceptions" type="textarea" :rows="8" />
         </el-form-item>
 
         <el-form-item label="id" prop="id">
@@ -178,10 +97,7 @@
       </el-form>
       <div style="text-align: right">
 
-        <el-button
-          type="primary"
-          @click="dialogRoleFormVisible = false"
-        >关闭</el-button>
+        <el-button type="primary" @click="dialogRoleFormVisible = false">关闭</el-button>
       </div>
     </el-dialog>
 
@@ -400,7 +316,7 @@ export default {
 </script>
 
 <style scoped>
-.filter-container{
+.filter-container {
   margin-bottom: 20px;
 }
 </style>
