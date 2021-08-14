@@ -8,7 +8,7 @@
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="link" />
+          <svg-icon icon-class="international" />
         </span>
         <el-input
           v-model="tenant"
@@ -209,9 +209,9 @@ export default {
         .catch(_ => {})
     },
     handleSwichTenant() {
-      this.tenant = this.tenant
       getTenantByName(this.tenant).then((response) => {
         if (response.success) {
+          // 请求头设置租户信息
           this.dialogVisible = false
           this.$notify({
             title: '成功',

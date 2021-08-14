@@ -75,8 +75,9 @@ const actions = {
     clientSetting.password = password
     return new Promise((resolve, reject) => {
       login(clientSetting).then(response => {
-        // console.log(response)
-        // console.log(response.access_token)
+        console.log('login-response', response)
+        console.log('12312')
+        console.log('login-response.access_token', response.access_token)
         commit('SET_TOKEN', response.access_token)
         setToken(response.access_token)
         resolve()

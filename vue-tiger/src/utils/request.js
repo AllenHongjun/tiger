@@ -54,7 +54,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // console.log('response11')
-    // console.log('response11', response.data)
+    console.log('response', response.data)
     return res
     // if the custom code is not 20000, it is judged as an error.
     // if (res.code !== 20000) {
@@ -83,7 +83,12 @@ service.interceptors.response.use(
     // }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log('err', error) // for debug
+    console.log(error) // for debug
+    console.log(error.response) // for debug
+    console.log(error.response.data) // for debug
+    console.log(error.response.data.error) // for debug
+    console.log(error.response.data.error_description) // for debug
     if (error.status === 401) {
       // to re-login
       MessageBox.confirm(
@@ -102,8 +107,8 @@ service.interceptors.response.use(
     }
 
     let message = ''
-    if (error.response && error.response.data && error.response.data.error) {
-      message = error.response.data.error.message
+    if (error.response.data.error_description) {
+      message = error.response.data.error_description
     } else {
       message = error.message
     }

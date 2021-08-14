@@ -24,6 +24,10 @@ using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.Auditing;
+using Microsoft.IdentityModel.Tokens;
+using IdentityServer4;
+using IdentityServer;
+using IdentityServerHost.Quickstart.UI;
 
 namespace Tiger
 {
@@ -97,6 +101,15 @@ namespace Tiger
         /// <param name="configuration"></param>
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
         {
+
+            //var builder = context.Services.AddIdentityServer()
+            //   .AddInMemoryIdentityResources(Config.IdentityResources)
+            //   //.AddInMemoryApiScopes(Config.ApiScopes)
+            //   .AddInMemoryClients(Config.Clients)
+            //   .AddTestUsers(TestUsers.Users);
+
+
+
             context.Services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
@@ -108,11 +121,28 @@ namespace Tiger
                         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                     };
                 })
+                .AddOpenIdConnect("oidc", "Tiger IdentityServer", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                    options.SaveTokens = true;
+
+                    options.Authority = configuration["AuthServer:Authority"];
+                    options.ClientId = "interactive.confidential";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code";
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name",
+                        RoleClaimType = "role"
+                    };
+                })
                 .AddGitHub(options =>
                 {
                     options.ClientId = configuration["Github:ClientID"];
                     options.ClientSecret = configuration["Github:ClientSecret"];
-                }); ;
+                });
         }
 
         /// <summary>
