@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using System;
 using System.Collections.Specialized;
+using Tiger.BlobDemo;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BackgroundJobs;
@@ -47,19 +48,28 @@ namespace Tiger
             });
 
 
-            // 配置使用对象存储
+            // 配置使用BLOB
             Configure<AbpBlobStoringOptions>(options =>
             {
-                options.Containers.ConfigureDefault(container =>
+                options.Containers.Configure<ProfilePictureContainer>(container =>
                 {
-                    container.UseFileSystem(fileSystem =>
-                    {
-                        fileSystem.BasePath = "D:\\tiger-files";
-                    });
-                    //TODO...
+                    //TODO... 在这里配置具体项目
+
+
+                    //是否启用多租户
                     container.IsMultiTenant = true;
                 });
+
+                // 配置使用自定义的blob 提供程序
+                options.Containers.ConfigureDefault(container =>
+                {
+                    container.UseMyCustomBlobProvider(provider =>
+                    {
+                        provider.MyOption1 = "my value";
+                    });
+                });
             });
+
 
 
             // 配置模块使用redis缓存

@@ -139,7 +139,10 @@
   - [七牛使用教程](https://blog.csdn.net/guoer9973/article/details/44410959)
   - [hexo 博客配置使用七牛上传图片管理工具](https://marvae.github.io/2017-12-01/qiqiu/)
   - [asp.net core文件上传](https://blog.csdn.net/wf824284257/article/details/102880064)
+  - [asp.net  单文件，多文件上传](https://www.cnblogs.com/Can-daydayup/p/12637100.html)
   - [dot.net core  获取网站根路径](https://www.cnblogs.com/wintertone/p/12906464.html)
+  - [blob源码分析](https://www.cnblogs.com/myzony/p/13387382.html)
+  - [blob官方使用教程](https://docs.abp.io/zh-Hans/abp/3.2/Blob-Storing)
   
 - 租户的数据没有做隔离。 给租户添加用户
 
