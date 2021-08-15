@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Tiger.Books;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Caching;
 using Volo.Abp.ObjectExtending;
 using Xhznl.HelloAbp;
 
@@ -15,6 +18,7 @@ namespace Volo.Abp.Identity
     [Authorize(TigerIdentityPermissions.OrganitaionUnits.Default)]
     public class OrganizationUnitAppService : IdentityAppServiceBase, IOrganizationUnitAppService
     {
+        private readonly IDistributedCache<OrganizationUnitDto> _cache;
         protected OrganizationUnitManager UnitManager { get; }
         protected IOrganizationUnitRepository UnitRepository { get; }
         protected IIdentityUserAppService UserAppService { get; }
@@ -23,12 +27,15 @@ namespace Volo.Abp.Identity
             OrganizationUnitManager unitManager,
             IOrganizationUnitRepository unitRepository,
             IIdentityUserAppService userAppService,
-            IIdentityRoleAppService roleAppService)
+            IIdentityRoleAppService roleAppService,
+            IDistributedCache<OrganizationUnitDto> cache
+            )
         {
             UnitManager = unitManager;
             UnitRepository = unitRepository;
             UserAppService = userAppService;
             RoleAppService = roleAppService;
+            _cache = cache;
         }
 
         /// <summary>
@@ -38,8 +45,18 @@ namespace Volo.Abp.Identity
         /// <returns></returns>
         public virtual async Task<OrganizationUnitDto> GetAsync(Guid id)
         {
-            return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(
-                await UnitRepository.GetAsync(id)
+             return await _cache.GetOrAddAsync(
+                id.ToString(), //Cache key
+                async () => {
+
+                    return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(
+                        await UnitRepository.GetAsync(id)
+                    );
+                },
+                () => new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+                }
             );
         }
 
@@ -59,6 +76,7 @@ namespace Volo.Abp.Identity
         public virtual async Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()
         {
             //TODO:Consider submitting to ABP to get the ou root node PR
+
             var root = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await UnitRepository.GetChildrenAsync(null));
             await SetLeaf(root);
             return new PagedResultDto<OrganizationUnitDto>(

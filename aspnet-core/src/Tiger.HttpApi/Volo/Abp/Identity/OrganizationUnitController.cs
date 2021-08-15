@@ -29,7 +29,7 @@ namespace Volo.Abp.Identity
     [Area("identity")]
     [ControllerName("Organization")]
     [Route("api/identity/organizations")]
-    [ApiExplorerSettings(GroupName = "gp")]
+    [ApiExplorerSettings(GroupName = "admin")]
     public class OrganizationUnitController : AbpController, IOrganizationUnitAppService
     {
         protected IOrganizationUnitAppService UnitAppService { get; }

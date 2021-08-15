@@ -34,6 +34,7 @@
     <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Emailing" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Identity.Domain" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="3.2.1" />
