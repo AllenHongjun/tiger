@@ -143,6 +143,10 @@
   - [dot.net core  获取网站根路径](https://www.cnblogs.com/wintertone/p/12906464.html)
   - [blob源码分析](https://www.cnblogs.com/myzony/p/13387382.html)
   - [blob官方使用教程](https://docs.abp.io/zh-Hans/abp/3.2/Blob-Storing)
+  - 优化的点
+    - 区域设置代码里面写死了。
+    - 生成的文件key 没有带上后缀。不知道文件类型。
+    - 
   
 - 租户的数据没有做隔离。 给租户添加用户
 

@@ -23,6 +23,13 @@
             注意: 命名约定很重要. 如果类名没有以 BlobProvider 结尾,则必须手动注册/公开你的服务为 IBlobProvider.
              </summary>
         </member>
+        <member name="M:Tiger.BlobDemo.MyCustomBlobProvider.SaveAsync(Volo.Abp.BlobStoring.BlobProviderSaveArgs)">
+            <summary>
+            七牛文件上传保存
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.BlobDemo.MyCustomBlobProviderConfiguration">
             <summary>
             BlobContainerConfiguration 允许添加/删除提供程序特定的配置对象. 
@@ -66,7 +73,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveQiniuBlobAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            保存图片
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.BlobDemo.ProfilePictureContainer">
+            <summary>
+            类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
+            </summary>
+        </member>
+        <member name="T:Tiger.Blob.Qinui.QiniuBlobContainer">
             <summary>
             类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
             </summary>

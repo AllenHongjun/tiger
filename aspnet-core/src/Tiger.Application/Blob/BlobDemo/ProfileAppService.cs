@@ -8,11 +8,13 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Blob.Qinui;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Users;
@@ -27,13 +29,17 @@ namespace Tiger.BlobDemo
     {
         private readonly IBlobContainer<ProfilePictureContainer> _blobContainer;
         private readonly IBlobContainer<MyBlobContainer> _myBlobContainer;
+        private readonly IBlobContainer<QiniuBlobContainer> _qiniuBlobContainer;
 
         public ProfileAppService(
             //IBlobContainer<ProfilePictureContainer> blobContainer, 
-            IBlobContainer<MyBlobContainer> myBlobContainer)
+            IBlobContainer<MyBlobContainer> myBlobContainer,
+            IBlobContainer<QiniuBlobContainer> qiniuBlobContainer
+            )
         {
             //_blobContainer = blobContainer;
             _myBlobContainer = myBlobContainer;
+            _qiniuBlobContainer = qiniuBlobContainer;
         }
 
         /// <summary>
@@ -63,15 +69,17 @@ namespace Tiger.BlobDemo
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public async Task SaveMyBlobAsync(IFormFile file)
+        public JsonResult SaveMyBlobAsync(IFormFile file)
         {
-            
+            // 将 file类型转为 byte[]
             BinaryReader r = new BinaryReader(file.OpenReadStream());
-            r.BaseStream.Seek(0, SeekOrigin.Begin);    //将文件指针设置到文件
-
+            //将文件指针设置到文件
+            r.BaseStream.Seek(0, SeekOrigin.Begin);    
             byte[] bytes = r.ReadBytes((int)r.BaseStream.Length);
-            var blobName = CurrentUser.GetId().ToString();
-            await _myBlobContainer.SaveAsync(blobName, bytes);
+            
+            var blobName = Guid.NewGuid().ToString() + file.FileName; 
+             _myBlobContainer.SaveAsync(blobName, bytes);
+            return new JsonResult(new { blobName});
         }
 
         /// <summary>
@@ -82,6 +90,25 @@ namespace Tiger.BlobDemo
         {
             var blobName = CurrentUser.GetId().ToString();
             return await _myBlobContainer.GetAllBytesOrNullAsync(blobName);
+        }
+
+
+        /// <summary>
+        /// 保存图片
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public JsonResult SaveQiniuBlobAsync(IFormFile file)
+        {
+            // 将 file类型转为 byte[]
+            BinaryReader r = new BinaryReader(file.OpenReadStream());
+            //将文件指针设置到文件
+            r.BaseStream.Seek(0, SeekOrigin.Begin);
+            byte[] bytes = r.ReadBytes((int)r.BaseStream.Length);
+
+            var blobName = Guid.NewGuid().ToString() + file.FileName;
+            _qiniuBlobContainer.SaveAsync(blobName, bytes);
+            return new JsonResult(new { blobName });
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using System;
 using System.Collections.Specialized;
+using Tiger.Blob.Qinui;
 using Tiger.BlobDemo;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
@@ -51,6 +52,7 @@ namespace Tiger
             // 配置使用BLOB
             Configure<AbpBlobStoringOptions>(options =>
             {
+                ////配置 demo ProfilePictureContainer
                 //options.Containers.Configure<ProfilePictureContainer>(container =>
                 //{
                 //    //TODO... 在这里配置具体项目
@@ -60,14 +62,20 @@ namespace Tiger
                 //    container.IsMultiTenant = true;
                 //});
 
-                // 配置使用自定义的blob 提供程序
+                // 配置使用 QiniuOSS对象存储
                 options.Containers.ConfigureDefault(container =>
                 {
-                    container.UseMyCustomBlobProvider(provider =>
-                    {
-                        provider.MyOption1 = "my value";
-                    });
+                    container.ProviderType = typeof(QiniuBlobProvider);
                 });
+
+                //// demo配置使用自定义的blob 提供程序
+                //options.Containers.ConfigureDefault(container =>
+                //{
+                //    container.UseMyCustomBlobProvider(provider =>
+                //    {
+                //        provider.MyOption1 = "my value";
+                //    });
+                //});
             });
 
 

@@ -38,18 +38,24 @@ namespace Tiger.BlobDemo
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// 七牛文件上传保存
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public override Task SaveAsync(BlobProviderSaveArgs args)
         {
             //TODO...
             //使用 GetMyCustomBlobProviderConfiguration 方法访问额外的选项:
-
             //var config = args.Configuration.GetMyCustomBlobProviderConfiguration();
             //var value = config.MyOption1;
 
 
-            IFormFile file = null;
+            var containerName = args.ContainerName;
+            var blobName = $"{args.BlobName}";
+
+
             var configurationSection = _configuration.GetSection("Qiniu");
-            //_configuration.GetValue("");
 
             Mac mac = new Mac(configurationSection["AccessKey"], configurationSection["SecretKey"]);// AK SK使用
             PutPolicy putPolicy = new PutPolicy();
@@ -65,25 +71,23 @@ namespace Tiger.BlobDemo
             HttpResult result = new HttpResult();
             List<Object> list = new List<Object>();
 
-
-            //var _fileName = ContentDispositionHeaderValue
-            //                .Parse(file.ContentDisposition)
-            //                .FileName
-            //                .Trim('"');
-            var _qiniuName = "qiniu" + "/" + DateTime.Now.ToString("yyyyMMddHHmmssffffff");//重命名文件加上时间戳
+            
+            //var _qiniuName = "qiniu" + "/" + DateTime.Now.ToString("yyyyMMddHHmmssffffff");//重命名文件加上时间戳
             Stream stream = args.BlobStream;
-            result = upload.UploadStream(stream, _qiniuName, token, null);
+            result =  upload.UploadStream(stream, blobName, token, null);
             if (result.Code == 200)
             {
-                list.Add(new { fileName = "", qiniuName = _qiniuName, uploadTime = DateTime.Now, Remark = "" });
+                list.Add(new { fileName = "", qiniuName = blobName, uploadTime = DateTime.Now, Remark = "" });
             }
             else
             {
                 throw new Exception(result.RefText);//上传失败错误信息
             }
 
-            return null;
+            return Task.CompletedTask;
         }
+
+        
 
         public override Task<bool> DeleteAsync(BlobProviderDeleteArgs args)
         {
