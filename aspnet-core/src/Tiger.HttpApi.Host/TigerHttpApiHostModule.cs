@@ -159,7 +159,7 @@ namespace Tiger
             context.Services.AddSwaggerGen(
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo
+                    options.SwaggerDoc("api", new OpenApiInfo
                     {
                         Title = "Tiger API接口",
                         Version = "v1",
@@ -177,31 +177,30 @@ namespace Tiger
                         }
                     }); ;
 
-                    options.SwaggerDoc("v2", new OpenApiInfo
+                    options.SwaggerDoc("admin", new OpenApiInfo
                     {
                         Version = "v2",
-                        Title = "ToDo API",
-                        Description = "A simple example ASP.NET Core Web API",
+                        Title = "Tiger admin接口",
+                        Description = "Tiger admin接口",
 
                         //API 服务条款的 URL。 必须采用 URL 格式。
                         TermsOfService = new Uri("https://example.com/terms"),
                         Contact = new OpenApiContact
                         {
-                            Name = "Shayne Boyer",
-                            Email = string.Empty,
-                            Url = new Uri("https://twitter.com/spboyer"),
+                            Name = "hongjy",
+                            Email = "hongjy1991@gmail.com",
+                            Url = new Uri("https://www.hongjy.cn/"),
                         },
                         License = new OpenApiLicense
                         {
                             Name = "Use under LICX",
-                            Url = new Uri("https://example.com/license"),
                         }
                     });
 
-                    options.SwaggerDoc("auth", new OpenApiInfo { Title = "TinyErpAuth", Version = "auth" });
-                    options.SwaggerDoc("gp", new OpenApiInfo { Title = "登录模块", Version = "GP" });
-                    options.SwaggerDoc("mom", new OpenApiInfo { Title = "业务模块", Version = "YW" });
-                    options.SwaggerDoc("dm", new OpenApiInfo { Title = "其他模块", Version = "QT" });
+                    //options.SwaggerDoc("auth", new OpenApiInfo { Title = "TinyErpAuth", Version = "auth" });
+                    //options.SwaggerDoc("gp", new OpenApiInfo { Title = "登录模块", Version = "GP" });
+                    //options.SwaggerDoc("mom", new OpenApiInfo { Title = "业务模块", Version = "YW" });
+                    //options.SwaggerDoc("dm", new OpenApiInfo { Title = "其他模块", Version = "QT" });
 
 
 
@@ -216,7 +215,7 @@ namespace Tiger
                          * 我们这里是想以action的特性为主
                          * */
                         var version = method.DeclaringType.GetCustomAttributes(true).OfType<ApiExplorerSettingsAttribute>().Select(m => m.GroupName);
-                        if (docName == "v1" && !version.Any())
+                        if (docName == "admin" && !version.Any())
                             return true;
                         //这里获取action的特性
                         var actionVersion = method.GetCustomAttributes(true).OfType<ApiExplorerSettingsAttribute>().Select(m => m.GroupName);
@@ -369,13 +368,14 @@ namespace Tiger
                 // 配置自定义的样式
                 //options.InjectStylesheet("/swagger-ui/custom.css");
 
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tiger API");
-                options.SwaggerEndpoint("/swagger/v2/swagger.json", "Tiger API v2");
-                options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
+                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Tiger Admin");
+                options.SwaggerEndpoint("/swagger/api/swagger.json", "Tiger API");
+                
+                //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
 
-                options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
-                options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
-                options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");
+                //options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
+                //options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
+                //options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");
 
                 // 设置接口文档默认不展开
                 options.DocExpansion(DocExpansion.None);

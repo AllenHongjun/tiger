@@ -4,6 +4,13 @@
         <name>Tiger.HttpApi.Host</name>
     </assembly>
     <members>
+        <member name="M:Tiger.Controllers.Authentication.UploadFile(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.TigerHttpApiHostModule.ConfigureAuthentication(Volo.Abp.Modularity.ServiceConfigurationContext,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             配置identityServer授权认证服务

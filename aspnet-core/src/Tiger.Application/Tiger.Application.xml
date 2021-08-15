@@ -9,6 +9,20 @@
             书籍管理
             </summary>
         </member>
+        <member name="M:Tiger.Books.BookAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.TigerApplicationModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>
             预配置 

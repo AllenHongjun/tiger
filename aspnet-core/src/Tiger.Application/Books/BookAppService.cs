@@ -1,6 +1,9 @@
 ﻿
 using log4net;
 using log4net.Repository;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using System;
@@ -36,10 +39,12 @@ namespace Tiger.Books
         private readonly ILog _logger = LogManager.GetLogger(typeof(BookAppService));
         private readonly IRepository<Book, Guid> _repository;
         private readonly IBackgroundJobManager _backgroundJobManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         //BookAppService注入IRepository <Book,Guid>,这是Book实体的默认仓储. ABP自动为每个聚合根(或实体)创建默认仓储. 
         public BookAppService(IRepository<Book, Guid> repository, 
             IDistributedCache<BookCacheItem> cache, 
-            IBackgroundJobManager backgroundJobManager
+            IBackgroundJobManager backgroundJobManager,
+            IWebHostEnvironment webHostEnvironment
         ) : base(repository)
         {
             //使用权限
@@ -53,7 +58,9 @@ namespace Tiger.Books
             _repository = repository;
             _cache = cache;
             _backgroundJobManager = backgroundJobManager;
+            _webHostEnvironment = webHostEnvironment;
         }
+        #region 日志 缓存使用demo
 
         public void Set(Guid bookId)
         {
@@ -112,7 +119,8 @@ namespace Tiger.Books
             //    }
             //); 
             #endregion
-        }
+        } 
+        #endregion
 
         //private Task<BookCacheItem> GetBookFromDatabaseAsync(Guid bookId)
         //{
@@ -135,5 +143,43 @@ namespace Tiger.Books
                 }
             );
         }
+
+
+        #region 文件上传
+        /// <summary>
+        /// 上传 文件,并返回相对url(不包含 host port wwwroot)
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        [Route("upload-file")]
+        [HttpPost]
+        public async Task<string> Upload(IFormFile file)
+        {
+            // 网站根目录
+            string content_path = _webHostEnvironment.ContentRootPath;
+            // wwwroot 静态资源根目录
+            string web_path = _webHostEnvironment.WebRootPath;
+
+
+            string webRootPath = web_path; // wwwroot 文件夹
+            string uploadPath = Path.Combine("uploads", DateTime.Now.ToString("yyyyMMdd"));
+            string dirPath = Path.Combine(webRootPath, uploadPath);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            string fileExt = Path.GetExtension(file.FileName).Trim('.'); //文件扩展名，不含“.”
+            string newFileName = Guid.NewGuid().ToString().Replace("-", "") + "." + fileExt; //随机生成新的文件名
+            var filePath = Path.Combine(dirPath, newFileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            var url = $@"\{uploadPath}\{newFileName}";
+
+            return url;
+        } 
+        #endregion
     }
 }

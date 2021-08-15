@@ -4,11 +4,27 @@
 
 - 熟悉linqpad 工具的使用。
 
+- 给接口分api admin 区域。确认接口写在哪一层里面。
+
+  - #### HttpApi 项目  主要编写接口的地方
+
+  - #### Application 项目 service服务层
+
+  - #### Web 项目 mvc 界面显示层。
+
 - ABP整合存储过程
 
   - 考虑弃用存储过程。查询全部写在linq当中。
   
 - abp 整合分词搜索
+
+- 实现定时任务
+
+- 实现redis缓存
+
+- 整合mongodb实现文档操作
+
+- 结合id4实现授权登录
 
 - abp github登录功能。
   - 对接github 授权登录功能
@@ -110,8 +126,15 @@
   - [git .gitignore 忽略的文件还会被提交](https://blog.csdn.net/zzk220106/article/details/108639115)
   
 - **abp 对接七牛云文件存储 这个估计要2天**
+  
   - [七牛开发者中心](https://developer.qiniu.com/kodo)
+  - [七牛第三方sdk](https://github.com/qiniu/csharp-sdk)
+  - [七牛sdk使用说明](https://developer.qiniu.com/kodo/1237/csharp)
   - 对接开发一些第三方的服务接口。
+  - [七牛使用教程](https://blog.csdn.net/guoer9973/article/details/44410959)
+  - [hexo 博客配置使用七牛上传图片管理工具](https://marvae.github.io/2017-12-01/qiqiu/)
+  - [asp.net core文件上传](https://blog.csdn.net/wf824284257/article/details/102880064)
+  - [dot.net core  获取网站根路径](https://www.cnblogs.com/wintertone/p/12906464.html)
   
 - 租户的数据没有做隔离。 给租户添加用户
 

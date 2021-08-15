@@ -1,41 +1,18 @@
 <template>
   <div class="app-container">
     <div class="filter-container" style="margin-bottom: 20px">
-      <el-input
-        v-model="listQuery.Filter"
-        placeholder="关键词"
-        style="width: 150px"
-        class="filter-item"
-      />
+      <el-input v-model="listQuery.Filter" placeholder="关键词" style="width: 150px" class="filter-item" />
 
-      <el-button
-        size="small"
-        class="filter-item"
-        type="primary"
-        icon="el-icon-search"
-        @click="handleFilter"
-      >
+      <el-button size="small" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         搜索
       </el-button>
 
-      <el-button
-        type="primary"
-        size="small"
-        icon="el-icon-plus"
-        @click="handleCreate"
-      >
+      <el-button type="primary" size="small" icon="el-icon-plus" @click="handleCreate">
         添加
       </el-button>
     </div>
 
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
       <!-- <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.$index }}
@@ -94,50 +71,28 @@
               操作<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                :command="beforeHandleCommand(scope, 'edit')"
-              >编辑</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope, 'edit')">编辑</el-dropdown-item>
               <el-dropdown-item>锁定</el-dropdown-item>
-              <el-dropdown-item
-                :command="beforeHandleCommand(scope, 'updatePermission')"
-              >
+              <el-dropdown-item :command="beforeHandleCommand(scope, 'updatePermission')">
                 授权
               </el-dropdown-item>
               <el-dropdown-item>设置密码</el-dropdown-item>
-              <el-dropdown-item
-                :command="beforeHandleCommand(scope, 'delete')"
-              >删除</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(scope, 'delete')">删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
-    <pagination
-      v-show="total > 0"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="fetchData"
-    />
+    <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form
-        ref="dataForm"
-        :rules="rules"
-        :model="temp"
-        label-width="180px"
-        label-position="left"
-      >
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-width="180px" label-position="left">
         <el-tabs v-model="activeName">
           <el-tab-pane label="用户信息" name="first">
             <el-form-item label="用户名" prop="userName">
               <el-input v-model="temp.userName" />
             </el-form-item>
-            <el-form-item
-              v-if="dialogStatus === 'create'"
-              label="密码"
-              prop="password"
-            >
+            <el-form-item v-if="dialogStatus === 'create'" label="密码" prop="password">
               <el-input v-model="temp.password" />
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
@@ -149,32 +104,15 @@
           </el-tab-pane>
           <el-tab-pane label="角色" name="second">
             <template>
-              <el-checkbox
-                v-model="checkAll"
-                :indeterminate="isIndeterminate"
-                @change="handleCheckAllChange"
-              >全选</el-checkbox>
+              <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
               <div style="margin: 15px 0" />
-              <el-checkbox-group
-                v-model="checkedRoles"
-                @change="handleCheckedRolesChange"
-              >
-                <el-checkbox
-                  v-for="role in roles"
-                  :key="role"
-                  span="4"
-                  :label="role"
-                >{{ role }}</el-checkbox>
+              <el-checkbox-group v-model="checkedRoles" @change="handleCheckedRolesChange">
+                <el-checkbox v-for="role in roles" :key="role" span="4" :label="role">{{ role }}</el-checkbox>
               </el-checkbox-group>
             </template>
           </el-tab-pane>
           <el-tab-pane label="组织机构" name="third">
-            <org-tree
-              ref="dialogOrgTree"
-              :show-checkbox="true"
-              :support-single-checked="singleChecked"
-              @handleCheckChange="handleCheckChange"
-            />
+            <org-tree ref="dialogOrgTree" :show-checkbox="true" :support-single-checked="singleChecked" @handleCheckChange="handleCheckChange" />
             <el-form-item />
           </el-tab-pane>
         </el-tabs>
@@ -184,14 +122,8 @@
         </el-form-item> -->
       </el-form>
       <div style="text-align: right">
-        <el-button
-          type="danger"
-          @click="dialogFormVisible = false"
-        >取消</el-button>
-        <el-button
-          type="primary"
-          @click="dialogStatus === 'create' ? createData() : updateData()"
-        >确认</el-button>
+        <el-button type="danger" @click="dialogFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">确认</el-button>
       </div>
     </el-dialog>
 

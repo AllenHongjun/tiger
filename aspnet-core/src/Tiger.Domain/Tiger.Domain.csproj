@@ -15,6 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\UpLoadFiles.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tiger.Domain.Shared\Tiger.Domain.Shared.csproj" />
   </ItemGroup>
 
@@ -43,6 +50,7 @@
     <Folder Include="Cache\" />
     <Folder Include="Event\" />
     <Folder Include="Infrastructure\" />
+    <Folder Include="Utility\DownLoadUpLoadFilesHelper\" />
   </ItemGroup>
 
 </Project>

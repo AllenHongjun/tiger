@@ -4,6 +4,11 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Controllers.Admin.OrderController">
+            <summary>
+            订单管理
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserController">
             <summary>
             用户管理
@@ -184,6 +189,13 @@
             </summary>
             <param name="ouId">组织id</param>
             <param name="roleInput">角色</param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.UploadFile(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
