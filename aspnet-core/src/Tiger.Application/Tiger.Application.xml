@@ -4,6 +4,11 @@
         <name>Tiger.Application</name>
     </assembly>
     <members>
+        <member name="T:Tiger.BlobDemo.MyBlobContainer">
+            <summary>
+            类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
+            </summary>
+        </member>
         <member name="T:Tiger.BlobDemo.MyBlobContainerConfigurationExtensions">
             <summary>
             一个更简单的配置方式,可以为 BlobContainerConfiguration 类创建一个扩展方法:
@@ -17,6 +22,12 @@
             实现 ITransientDependency 接口将这个类注做为瞬态服务注册到依赖注入系统.
             注意: 命名约定很重要. 如果类名没有以 BlobProvider 结尾,则必须手动注册/公开你的服务为 IBlobProvider.
              </summary>
+        </member>
+        <member name="T:Tiger.BlobDemo.MyCustomBlobProviderConfiguration">
+            <summary>
+            BlobContainerConfiguration 允许添加/删除提供程序特定的配置对象. 
+            如果你的提供者需要额外的配置,你可以为 BlobContainerConfiguration 创建一个包装类提供的类型安全配置选项:
+            </summary>
         </member>
         <member name="T:Tiger.BlobDemo.MyService">
             <summary>
@@ -37,6 +48,19 @@
             <returns></returns>
         </member>
         <member name="M:Tiger.BlobDemo.ProfileAppService.GetProfilePictureAsync">
+            <summary>
+            获取图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveMyBlobAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            保存图片
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.GetMyBlobAsync">
             <summary>
             获取图片
             </summary>

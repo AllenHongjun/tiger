@@ -6,9 +6,15 @@
  * 
  */
 
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Qiniu.Http;
+using Qiniu.Storage;
+using Qiniu.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.BlobStoring;
@@ -25,13 +31,56 @@ namespace Tiger.BlobDemo
     /// </summary>
     public class MyCustomBlobProvider : BlobProviderBase, ITransientDependency
     {
+        private readonly IConfiguration _configuration;
+
+        public MyCustomBlobProvider(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public override Task SaveAsync(BlobProviderSaveArgs args)
         {
             //TODO...
             //使用 GetMyCustomBlobProviderConfiguration 方法访问额外的选项:
 
-            var config = args.Configuration.GetMyCustomBlobProviderConfiguration();
-            var value = config.MyOption1;
+            //var config = args.Configuration.GetMyCustomBlobProviderConfiguration();
+            //var value = config.MyOption1;
+
+
+            IFormFile file = null;
+            var configurationSection = _configuration.GetSection("Qiniu");
+            //_configuration.GetValue("");
+
+            Mac mac = new Mac(configurationSection["AccessKey"], configurationSection["SecretKey"]);// AK SK使用
+            PutPolicy putPolicy = new PutPolicy();
+            putPolicy.Scope = configurationSection["Bucket"];
+            string token = Auth.CreateUploadToken(mac, putPolicy.ToJsonString());//token生成
+            Config config = new Config()
+            {
+                Zone = Zone.ZONE_CN_South,
+                UseHttps = true
+            };
+
+            FormUploader upload = new FormUploader(config);
+            HttpResult result = new HttpResult();
+            List<Object> list = new List<Object>();
+
+
+            //var _fileName = ContentDispositionHeaderValue
+            //                .Parse(file.ContentDisposition)
+            //                .FileName
+            //                .Trim('"');
+            var _qiniuName = "qiniu" + "/" + DateTime.Now.ToString("yyyyMMddHHmmssffffff");//重命名文件加上时间戳
+            Stream stream = args.BlobStream;
+            result = upload.UploadStream(stream, _qiniuName, token, null);
+            if (result.Code == 200)
+            {
+                list.Add(new { fileName = "", qiniuName = _qiniuName, uploadTime = DateTime.Now, Remark = "" });
+            }
+            else
+            {
+                throw new Exception(result.RefText);//上传失败错误信息
+            }
 
             return null;
         }

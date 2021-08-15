@@ -51,14 +51,14 @@ namespace Tiger
             // 配置使用BLOB
             Configure<AbpBlobStoringOptions>(options =>
             {
-                options.Containers.Configure<ProfilePictureContainer>(container =>
-                {
-                    //TODO... 在这里配置具体项目
+                //options.Containers.Configure<ProfilePictureContainer>(container =>
+                //{
+                //    //TODO... 在这里配置具体项目
 
 
-                    //是否启用多租户
-                    container.IsMultiTenant = true;
-                });
+                //    //是否启用多租户
+                //    container.IsMultiTenant = true;
+                //});
 
                 // 配置使用自定义的blob 提供程序
                 options.Containers.ConfigureDefault(container =>
