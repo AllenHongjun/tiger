@@ -11,7 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Tiger.Controllers
-{
+{   
+    [ApiExplorerSettings(GroupName = "auth")]
     [Route("api/[controller]")]
     [ApiController]
     public class Authentication : AbpController

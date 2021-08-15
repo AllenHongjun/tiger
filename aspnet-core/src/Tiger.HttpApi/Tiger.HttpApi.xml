@@ -74,16 +74,38 @@
             <returns></returns>
         </member>
         <member name="T:Volo.Abp.Identity.OrganizationUnitController">
-            <summary>
-            组织架构
-            </summary>
+             <summary>
+             组织架构
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Todo
+                 {
+                    "id": 1,
+                    "name": "Item1",
+                    "isComplete": true
+                 }
+            
+             </remarks>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitController.CreateAsync(Volo.Abp.Identity.OrganizationUnitCreateDto)">
-            <summary>
-            添加组织
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
+             <summary>
+             添加组织
+             </summary>
+             <param name="input"></param>
+             <returns></returns>
+             <remarks>
+             Sample request:
+            
+                 POST /Todo
+                 {
+                    "id": 1,
+                    "name": "Item1",
+                    "isComplete": true
+                 }
+            
+             </remarks>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitController.DeleteAsync(System.Guid)">
             <summary>

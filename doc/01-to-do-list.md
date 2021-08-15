@@ -60,11 +60,48 @@
 
 - **开发特性功能。abp**
 
-- **[给swagger-ui分组显示](https://mp.weixin.qq.com/s/cNB469s18plbCLbHxL1QUA)**
+- **[给swagger-ui分组显示](https://mp.weixin.qq.com/s/cNB469s18plbCLbHxL1QUA)**  配置默认不展开。
+
+  > 配置根据版本来过滤接口。
 
   - [swagger-ui接口分组显示--第一次尝试失败。](https://blog.csdn.net/qq_35655841/article/details/102838850)
+
   - [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
+
   - [ABP api控制器官方文档](https://docs.abp.io/zh-Hans/abp/3.2/API/Auto-API-Controllers)
+
+  - [swaggui-ui接口分组配置展示](https://www.cnblogs.com/FateHuli/p/10821018.html)
+
+  - ```c#
+     options.SwaggerDoc("auth", new OpenApiInfo { Title = "TinyErpAuth", Version = "auth" });
+                        options.SwaggerDoc("gp", new OpenApiInfo { Title = "登录模块", Version = "GP" });
+                        options.SwaggerDoc("mom", new OpenApiInfo { Title = "业务模块", Version = "YW" });
+                        options.SwaggerDoc("dm", new OpenApiInfo { Title = "其他模块", Version = "QT" });
+    
+    
+    
+    
+                        //根据分组来设置要展示的接口
+                        options.DocInclusionPredicate((docName, apiDes) =>
+                        {
+                            if (!apiDes.TryGetMethodInfo(out MethodInfo method))
+                                return false;
+                            /*使用ApiExplorerSettingsAttribute里面的GroupName进行特性标识
+                             * DeclaringType只能获取controller上的特性
+                             * 我们这里是想以action的特性为主
+                             * */
+                            var version = method.DeclaringType.GetCustomAttributes(true).OfType<ApiExplorerSettingsAttribute>().Select(m => m.GroupName);
+                            if (docName == "v1" && !version.Any())
+                                return true;
+                            //这里获取action的特性
+                            var actionVersion = method.GetCustomAttributes(true).OfType<ApiExplorerSettingsAttribute>().Select(m => m.GroupName);
+                            if (actionVersion.Any())
+                                return actionVersion.Any(v => v == docName);
+                            return version.Any(v => v == docName);
+                        });
+    ```
+
+  - 
 
 - 项目开源 如何忽略key 等配置文件？****
 

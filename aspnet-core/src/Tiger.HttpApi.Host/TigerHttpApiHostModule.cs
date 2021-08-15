@@ -28,6 +28,11 @@ using Microsoft.IdentityModel.Tokens;
 using IdentityServer4;
 using IdentityServer;
 using IdentityServerHost.Quickstart.UI;
+using System.Collections.Generic;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tiger
 {
@@ -160,6 +165,7 @@ namespace Tiger
                         Version = "v1",
                         Description = "Tiger API 接口说明文档",
                         //TermsOfService = "None",
+                        TermsOfService = new Uri("http://www.baidu.com"),
                         Contact = new OpenApiContact
                         {
                             Name = "hongjy",
@@ -169,9 +175,72 @@ namespace Tiger
                         {
                             Name = "MIT",
                         }
+                    }); ;
+
+                    options.SwaggerDoc("v2", new OpenApiInfo
+                    {
+                        Version = "v2",
+                        Title = "ToDo API",
+                        Description = "A simple example ASP.NET Core Web API",
+
+                        //API 服务条款的 URL。 必须采用 URL 格式。
+                        TermsOfService = new Uri("https://example.com/terms"),
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Shayne Boyer",
+                            Email = string.Empty,
+                            Url = new Uri("https://twitter.com/spboyer"),
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "Use under LICX",
+                            Url = new Uri("https://example.com/license"),
+                        }
                     });
 
-                    
+                    options.SwaggerDoc("auth", new OpenApiInfo { Title = "TinyErpAuth", Version = "auth" });
+                    options.SwaggerDoc("gp", new OpenApiInfo { Title = "登录模块", Version = "GP" });
+                    options.SwaggerDoc("mom", new OpenApiInfo { Title = "业务模块", Version = "YW" });
+                    options.SwaggerDoc("dm", new OpenApiInfo { Title = "其他模块", Version = "QT" });
+
+
+
+
+                    //根据分组来设置要展示的接口
+                    options.DocInclusionPredicate((docName, apiDes) =>
+                    {
+                        if (!apiDes.TryGetMethodInfo(out MethodInfo method))
+                            return false;
+                        /*使用ApiExplorerSettingsAttribute里面的GroupName进行特性标识
+                         * DeclaringType只能获取controller上的特性
+                         * 我们这里是想以action的特性为主
+                         * */
+                        var version = method.DeclaringType.GetCustomAttributes(true).OfType<ApiExplorerSettingsAttribute>().Select(m => m.GroupName);
+                        if (docName == "v1" && !version.Any())
+                            return true;
+                        //这里获取action的特性
+                        var actionVersion = method.GetCustomAttributes(true).OfType<ApiExplorerSettingsAttribute>().Select(m => m.GroupName);
+                        if (actionVersion.Any())
+                            return actionVersion.Any(v => v == docName);
+                        return version.Any(v => v == docName);
+                    });
+                    //options.DocInclusionPredicate((docName, description) => true);
+
+
+                    //添加授权 登录的小绿锁
+                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Description = "请输入带有Bearer开头的Token",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey
+                    });
+                    ////认证方式，此方式为全局添加
+                    //options.AddSecurityRequirement(new OpenApiSecurityRequirement<string, IEnumerable<string>>
+                    //{
+                    //    { "Bearer", Enumerable.Empty<string>() }
+                    // });
+
 
                     // 为 Swagger JSON and UI设置xml文档注释路径
                     //获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
@@ -188,9 +257,9 @@ namespace Tiger
                     options.IncludeXmlComments(xmlPathApplication);
                     options.IncludeXmlComments(xmlPathContracts);
                     options.EnableAnnotations();//注释
-                    //options.SwaggerDoc("v2", new OpenApiInfo { Title = "TinyErp API", Version = "v2" });
+                    
 
-                    options.DocInclusionPredicate((docName, description) => true);
+                    
                 });
         }
 
@@ -286,11 +355,41 @@ namespace Tiger
             app.UseIdentityServer();
             app.UseAuthorization();
 
-            app.UseSwagger();
+            #region swaggerui 配置
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger(options =>
+            {
+                // 改为openAPI 2.0版本 默认是3.0版本
+                //options.SerializeAsV2 = true;
+            });
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(options =>
             {
+                // 配置自定义的样式
+                //options.InjectStylesheet("/swagger-ui/custom.css");
+
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tiger API");
-            });
+                options.SwaggerEndpoint("/swagger/v2/swagger.json", "Tiger API v2");
+                options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
+
+                options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
+                options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
+                options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");
+
+                // 设置接口文档默认不展开
+                options.DocExpansion(DocExpansion.None);
+                options.DefaultModelExpandDepth(1);
+
+                // API前缀设置为空
+                options.RoutePrefix = string.Empty;
+                // API页面Title
+                options.DocumentTitle = "Tiger接口文档 - 花生了什么树";
+
+
+                options.OAuthClientId("testOauthClientId");
+            }); 
+            #endregion
 
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();

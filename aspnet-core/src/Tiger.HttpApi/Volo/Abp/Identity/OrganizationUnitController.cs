@@ -7,14 +7,26 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Volo.Abp.Identity
-{   
+{
     /// <summary>
     /// 组织架构
     /// </summary>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /Todo
+    ///     {
+    ///        "id": 1,
+    ///        "name": "Item1",
+    ///        "isComplete": true
+    ///     }
+    ///
+    /// </remarks>
     [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
     [Area("identity")]
     [ControllerName("Organization")]
     [Route("api/identity/organizations")]
+    [ApiExplorerSettings(GroupName = "gp")]
     public class OrganizationUnitController : AbpController, IOrganizationUnitAppService
     {
         protected IOrganizationUnitAppService UnitAppService { get; }
@@ -28,6 +40,17 @@ namespace Volo.Abp.Identity
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///        "id": 1,
+        ///        "name": "Item1",
+        ///        "isComplete": true
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         public virtual Task<OrganizationUnitDto> CreateAsync(OrganizationUnitCreateDto input)
         {

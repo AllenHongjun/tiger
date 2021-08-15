@@ -6,6 +6,7 @@ using Volo.Abp.Auditing;
 
 namespace Volo.Abp.Identity
 {
+    [ApiExplorerSettings(GroupName = "mom")]
     [DisableAuditing]
     [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
     [Area("identity")]
