@@ -16,6 +16,47 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Books.BookAppService.MultiFileUpload(Microsoft.AspNetCore.Http.IFormFileCollection)">
+            <summary>
+             多文件上传
+            </summary>
+            <param name="formCollection">表单集合值</param>
+            <returns>服务器存储的文件信息</returns>
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Books.BookAppService.UploadFileRequest">
+            <summary>
+            对文件上传响应模型
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.BookAppService.UploadFileRequest.FileName">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.BookAppService.UploadFileRequest.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.UploadQiniu(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            七牛单文件上传
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.UploadQiniu(System.Collections.Generic.IList{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            七牛多文件上传
+            </summary>
+            <param name="files"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)

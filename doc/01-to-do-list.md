@@ -26,6 +26,10 @@
 
 - 结合id4实现授权登录
 
+- [短信和邮件的支持]
+
+  - [短信和邮件](https://www.cnblogs.com/myzony/p/abp-vnext-email-and-sms-source-analyzsis.html)
+
 - abp github登录功能。
   - 对接github 授权登录功能
 
@@ -130,6 +134,7 @@
   - [七牛开发者中心](https://developer.qiniu.com/kodo)
   - [七牛第三方sdk](https://github.com/qiniu/csharp-sdk)
   - [七牛sdk使用说明](https://developer.qiniu.com/kodo/1237/csharp)
+  - [七牛.net core sdk](https://www.cnblogs.com/omango/p/8447480.html)
   - 对接开发一些第三方的服务接口。
   - [七牛使用教程](https://blog.csdn.net/guoer9973/article/details/44410959)
   - [hexo 博客配置使用七牛上传图片管理工具](https://marvae.github.io/2017-12-01/qiqiu/)

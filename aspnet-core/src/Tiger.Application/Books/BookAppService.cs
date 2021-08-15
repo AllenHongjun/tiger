@@ -5,10 +5,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Qiniu.Http;
+using Qiniu.Storage;
+using Qiniu.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.BackgroundJob;
@@ -40,11 +46,13 @@ namespace Tiger.Books
         private readonly IRepository<Book, Guid> _repository;
         private readonly IBackgroundJobManager _backgroundJobManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IConfiguration _configuration;
         //BookAppService注入IRepository <Book,Guid>,这是Book实体的默认仓储. ABP自动为每个聚合根(或实体)创建默认仓储. 
         public BookAppService(IRepository<Book, Guid> repository, 
             IDistributedCache<BookCacheItem> cache, 
             IBackgroundJobManager backgroundJobManager,
-            IWebHostEnvironment webHostEnvironment
+            IWebHostEnvironment webHostEnvironment,
+            IConfiguration configuration
         ) : base(repository)
         {
             //使用权限
@@ -59,6 +67,7 @@ namespace Tiger.Books
             _cache = cache;
             _backgroundJobManager = backgroundJobManager;
             _webHostEnvironment = webHostEnvironment;
+            _configuration = configuration;
         }
         #region 日志 缓存使用demo
 
@@ -179,7 +188,212 @@ namespace Tiger.Books
             var url = $@"\{uploadPath}\{newFileName}";
 
             return url;
-        } 
-        #endregion
+        }
+
+
+        /// <summary>
+        ///  多文件上传
+        /// </summary>
+        /// <param name="formCollection">表单集合值</param>
+        /// <returns>服务器存储的文件信息</returns>
+        /// <summary>
+        /// 上传 文件,并返回相对url(不包含 host port wwwroot)
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        [Route("upload-files")]
+        [HttpPost]
+        public JsonResult MultiFileUpload(IFormFileCollection files)
+        {
+            var currentDate = DateTime.Now;
+            var webRootPath = _webHostEnvironment.WebRootPath;//>>>相当于HttpContext.Current.Server.MapPath("") 
+            var uploadFileRequestList = new List<UploadFileRequest>();
+            try
+            {
+                //FormCollection转化为FormFileCollection
+                //var files = (FormFileCollection)formCollection.Files;
+
+                if (files.Any())
+                {
+                    foreach (var file in files)
+                    {
+                        var uploadFileRequest = new UploadFileRequest();
+
+                        var filePath = $"/UploadFile/{currentDate:yyyyMMdd}/";
+
+                        //创建每日存储文件夹
+                        if (!Directory.Exists(webRootPath + filePath))
+                        {
+                            Directory.CreateDirectory(webRootPath + filePath);
+                        }
+
+                        //文件后缀
+                        var fileExtension = Path.GetExtension(file.FileName);//获取文件格式，拓展名
+
+                        //判断文件大小
+                        var fileSize = file.Length;
+
+                        if (fileSize > 1024 * 1024 * 10) //10M TODO:(1mb=1024X1024b)
+                        {
+                            continue;
+                        }
+
+                        //保存的文件名称(以名称和保存时间命名)
+                        var saveName = file.FileName.Substring(0, file.FileName.LastIndexOf('.')) + "_" + currentDate.ToString("HHmmss") + fileExtension;
+
+                        //文件保存
+                        using (var fs = System.IO.File.Create(webRootPath + filePath + saveName))
+                        {
+                            file.CopyTo(fs);
+                            fs.Flush();
+                        }
+
+                        //完整的文件路径
+                        var completeFilePath = Path.Combine(filePath, saveName);
+
+                        uploadFileRequestList.Add(new UploadFileRequest()
+                        {
+                            FileName = saveName,
+                            FilePath = completeFilePath
+                        });
+                    }
+                }
+                else
+                {
+                    return new JsonResult(new { isSuccess = false, resultMsg = "上传失败，未检测上传的文件信息~" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { isSuccess = false, resultMsg = "文件保存失败，异常信息为：" + ex.Message });
+            }
+
+            if (uploadFileRequestList.Any())
+            {
+                return new JsonResult(new { isSuccess = true, returnMsg = "上传成功", filePathArray = uploadFileRequestList });
+            }
+            else
+            {
+                return new JsonResult(new { isSuccess = false, resultMsg = "网络打瞌睡了，文件保存失败" });
+            }
+        }
+
+    
+
+        /// <summary>
+        /// 对文件上传响应模型
+        /// </summary>
+        public class UploadFileRequest
+        {
+            /// <summary>
+            /// 文件名称
+            /// </summary>
+            public string FileName { get; set; }
+
+            /// <summary>
+            /// 文件路径
+            /// </summary>
+            public string FilePath { get; set; }
+        }
+    #endregion
+
+
+    /// <summary>
+    /// 七牛单文件上传
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    [Route("upload-file-qn")]
+        [HttpPost]
+        public List<Object> UploadQiniu(IFormFile file)
+        {
+
+            var configurationSection = _configuration.GetSection("Qiniu");
+            //_configuration.GetValue("");
+
+            Mac mac = new Mac(configurationSection["AccessKey"], configurationSection["SecretKey"]);// AK SK使用
+            PutPolicy putPolicy = new PutPolicy();
+            putPolicy.Scope = configurationSection["Bucket"];
+            string token = Auth.CreateUploadToken(mac, putPolicy.ToJsonString());//token生成
+            Config config = new Config()
+            {
+                Zone = Zone.ZONE_CN_South,
+                UseHttps = true
+            };
+
+            FormUploader upload = new FormUploader(config);
+            HttpResult result = new HttpResult();
+            List<Object> list = new List<Object>();
+            if (file.Length > 0)
+            {
+                var _fileName = ContentDispositionHeaderValue
+                                .Parse(file.ContentDisposition)
+                                .FileName
+                                .Trim('"');
+                var _qiniuName = "qiniu" + "/" + DateTime.Now.ToString("yyyyMMddHHmmssffffff") + _fileName;//重命名文件加上时间戳
+                Stream stream = file.OpenReadStream();
+                result = upload.UploadStream(stream, _qiniuName, token, null);
+                if (result.Code == 200)
+                {
+                    list.Add(new { fileName = _fileName, qiniuName = _qiniuName, uploadTime = DateTime.Now, Remark = "" });
+                }
+                else
+                {
+                    throw new Exception(result.RefText);//上传失败错误信息
+                }
+            }
+            return list;
+        }
+
+
+        /// <summary>
+        /// 七牛多文件上传
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        [Route("upload-files-qn")]
+        [HttpPost]
+        public List<Object> UploadQiniu(IList<IFormFile> files)
+        {
+
+            var configurationSection = _configuration.GetSection("Qiniu");
+            //_configuration.GetValue("");
+
+            Mac mac = new Mac(configurationSection["AccessKey"], configurationSection["SecretKey"]);// AK SK使用
+             PutPolicy putPolicy = new PutPolicy();
+            putPolicy.Scope = configurationSection["Bucket"];
+            string token = Auth.CreateUploadToken(mac, putPolicy.ToJsonString());//token生成
+            Config config = new Config()
+            {
+                Zone = Zone.ZONE_CN_East,
+                UseHttps = true
+            };
+
+            FormUploader upload = new FormUploader(config);
+            HttpResult result = new HttpResult();
+            List<Object> list = new List<Object>();
+            foreach (IFormFile file in files)//获取多个文件列表集合
+            {
+                if (file.Length > 0)
+                {
+                    var _fileName = ContentDispositionHeaderValue
+                                    .Parse(file.ContentDisposition)
+                                    .FileName
+                                    .Trim('"');
+                    var _qiniuName = "qiniu" + "/" + DateTime.Now.ToString("yyyyMMddHHmmssffffff") + _fileName;//重命名文件加上时间戳
+                    Stream stream = file.OpenReadStream();
+                    result = upload.UploadStream(stream, _qiniuName, token, null);
+                    if (result.Code == 200)
+                    {
+                        list.Add(new { fileName = _fileName, qiniuName = _qiniuName, uploadTime = DateTime.Now, Remark = "" });
+                    }
+                    else
+                    {
+                        throw new Exception(result.RefText);//上传失败错误信息
+                    }
+                }
+            }
+            return list;
+        }
     }
 }
