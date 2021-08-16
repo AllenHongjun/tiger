@@ -142,12 +142,12 @@ namespace Tiger
                         NameClaimType = "name",
                         RoleClaimType = "role"
                     };
-                })
-                .AddGitHub(options =>
-                {
-                    options.ClientId = configuration["Github:ClientID"];
-                    options.ClientSecret = configuration["Github:ClientSecret"];
                 });
+                //.AddGitHub(options =>
+                //{
+                //    options.ClientId = configuration["Github:ClientID"];
+                //    options.ClientSecret = configuration["Github:ClientSecret"];
+                //});
         }
 
         /// <summary>
