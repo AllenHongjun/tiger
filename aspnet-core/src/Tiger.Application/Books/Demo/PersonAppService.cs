@@ -38,7 +38,9 @@ namespace Tiger.Books.Demo
 
         //GetList 方法使用标准LINQ Where 和 ToList 方法在数据源中过滤并获取People集合.
         public List<PersonDto> GetList(string nameFilter)
-        {
+        {   
+            // 主键 始终使用这个来创建。 可以可以保证连续性
+            GuidGenerator.Create();
             var people = _personRepository
                 .Where(p => p.Name.Contains(nameFilter))
                 .ToList();

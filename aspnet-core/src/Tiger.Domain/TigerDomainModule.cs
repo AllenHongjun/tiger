@@ -39,7 +39,8 @@ namespace Tiger
             });
 
 #if DEBUG
-            context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
+            // NullEmailSender is a built-in class that implements the IEmailSender, but writes email contents to the standard log system, rathen than actually sending the emails.
+            //context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
         }
     }

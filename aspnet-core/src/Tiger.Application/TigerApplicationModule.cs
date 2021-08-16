@@ -45,7 +45,12 @@ namespace Tiger
         {
             Configure<AbpAutoMapperOptions>(options =>
             {
+                //Add all mappings defined in the assembly of the TigerApplicationModule class
                 options.AddMaps<TigerApplicationModule>();
+
+                //AddMaps 使用可选的 bool 参数控制模块的配置验证:
+                //options.AddMaps<TigerApplicationModule>(validate: true);
+
             });
 
 

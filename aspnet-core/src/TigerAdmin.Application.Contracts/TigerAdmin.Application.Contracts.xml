@@ -11,6 +11,11 @@
             数据传输层对象使用说明 https://docs.abp.io/zh-Hans/abp/latest/Data-Transfer-Objects
             </summary>
         </member>
+        <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
+            <summary>
+            修改用户信息
+            </summary>
+        </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
             <summary>
             

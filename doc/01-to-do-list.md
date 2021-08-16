@@ -94,7 +94,12 @@
 
 - [短信和邮件的支持]
 
+  > 有点小麻烦 需要花费一点时间。
+
   - [短信和邮件](https://www.cnblogs.com/myzony/p/abp-vnext-email-and-sms-source-analyzsis.html)
+    - [阿里云短信 服务](https://help.aliyun.com/document_detail/44350.html?spm=5176.8195934.J_5834642020.5.65044378DBQXtd#section-kwn-68l-hxi)
+  - [abp vnext 发送邮件](https://www.cnblogs.com/webenh/p/13140460.html)
+  - [asp.net core 发送邮件。](https://www.cnblogs.com/savorboard/p/aspnetcore-email.html)
 
 - abp github登录功能。
   - 对接github 授权登录功能

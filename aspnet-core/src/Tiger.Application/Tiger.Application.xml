@@ -100,6 +100,7 @@
             <summary>
             书籍管理
             </summary>
+            
         </member>
         <member name="M:Tiger.Books.BookAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
@@ -149,9 +150,38 @@
             <param name="files"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Books.Demo.EmailSettingProvider">
+            <summary>
+            ABP设置系统使用 demo
+            </summary>
+        </member>
         <member name="T:Tiger.Books.Demo.ExtraPropertiesDemoService">
             <summary>
             ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.MyProductService">
+            <summary>
+            实现这个接口 ITransientDependency 就会作为瞬态注入到服务当中。
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.MyService">
+            <summary>
+            获取当前用户相关的信息
+            
+            在Web应用程序中检索有关已登录用户的信息是很常见的. 当前用户是与Web应用程序中的当前请求相关的活动用户.
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.MyAppService">
+            <summary>
+            公共基类已经将此服务作为基本属性注入. 例如你可以直接在应用服务中使用 CurrentUser 属性:
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.UserAppService">
+            <summary>
+            对象 到 对象的 映射
+            http://automapper.org/
+            
             </summary>
         </member>
         <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
@@ -160,6 +190,12 @@
             </summary>
             <param name="file"></param>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.TigerApplicationAutoMapperProfile">
+             <summary>
+             AutoMapper提供了多种定义类之间映射的方法. 有关详细信息请参阅AutoMapper的文档.
+            其中定义一种映射的方法是创建一个Profile 类.例如:
+             </summary>
         </member>
         <member name="M:Tiger.TigerApplicationModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>

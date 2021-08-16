@@ -25,12 +25,16 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Emailing;
+using Volo.Abp.Settings;
 
 namespace Tiger.Books
 {
     /// <summary>
     /// 书籍管理
     /// </summary>
+    /// 
+    [ApiExplorerSettings(GroupName = "api")]
     public class BookAppService:
         CrudAppService<
             Book, //The Book entity
@@ -47,12 +51,18 @@ namespace Tiger.Books
         private readonly IBackgroundJobManager _backgroundJobManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _configuration;
+        private readonly IEmailSender _emailSender;
+        private readonly ISettingEncryptionService _settingEncryptionService;
+
+
         //BookAppService注入IRepository <Book,Guid>,这是Book实体的默认仓储. ABP自动为每个聚合根(或实体)创建默认仓储. 
         public BookAppService(IRepository<Book, Guid> repository, 
             IDistributedCache<BookCacheItem> cache, 
             IBackgroundJobManager backgroundJobManager,
             IWebHostEnvironment webHostEnvironment,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IEmailSender emailSender,
+            ISettingEncryptionService settingEncryptionService
         ) : base(repository)
         {
             //使用权限
@@ -68,7 +78,45 @@ namespace Tiger.Books
             _backgroundJobManager = backgroundJobManager;
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
+            _emailSender = emailSender;
+            _settingEncryptionService = settingEncryptionService;
         }
+
+
+        /*
+         Provides IEmailSender service that is used to send emails.
+        Defines settings to configure email sending.
+        Integrates to the background job system to send emails via background jobs.
+        Provides MailKit integration package.
+        1. 定义发送邮件的同一接口
+        2. 集成后台定时发送消息的任务
+        3. 集成第三方发送邮件的服务
+         
+         */
+        public async Task DoItAsync()
+        {
+             await _emailSender.SendAsync(
+                "652971723@163.com",     // target email address
+                "Email subject",         // subject
+                "This is email body..."  // email body
+            );
+
+            //Task.CompletedTask;
+        }
+
+        public JsonResult GetEncryptionSecret()
+        {
+            SettingDefinition rd = new SettingDefinition("Settings:Abp.Mailing.Smtp.Password", "123456");
+            var res = _settingEncryptionService.Encrypt(rd, _configuration.GetValue<string>("Settings:Abp.Mailing.Smtp.Password"));
+
+            return new JsonResult(res);
+        }
+
+
+
+
+
+
         #region 日志 缓存使用demo
 
         public void Set(Guid bookId)

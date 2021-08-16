@@ -13,7 +13,7 @@ using Volo.Abp.AspNetCore.Mvc;
 
 namespace Tiger.Controllers
 {   
-    [ApiExplorerSettings(GroupName = "auth")]
+    [ApiExplorerSettings(GroupName = "api")]
     [Route("api/[controller]")]
     [ApiController]
     public class Authentication : AbpController
