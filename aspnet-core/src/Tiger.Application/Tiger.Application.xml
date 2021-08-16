@@ -96,6 +96,32 @@
             
             </summary>
         </member>
+        <member name="T:Tiger.Books.BlogModule.BlogModule">
+            <summary>
+            由于ABP是一个模块化框架,因此每个模块都定义它自己的服务并在它自己的单独模块类中通过依赖注入进行注册.例:
+            </summary>
+        </member>
+        <member name="M:Tiger.Books.BlogModule.BlogModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            ABP引入了依照约定的服务注册.依照约定你无需做任何事,它会自动完成.如果要禁用它,你可以通过重写PreConfigureServices方法,设置SkipAutoServiceRegistration为true.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Tiger.Books.BlogModule.BlogPostAppService">
+            <summary>
+            BlogPostAppService 由于它是从已知的基类派生的,因此会自动注册为transient生命周期.
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.BlogModule.TaxAppService">
+            <summary>
+            注入依赖关系
+            使用已注册的服务有三种常用方法.
+            
+            继承 autofac 很简单 主要是使用。 有些时候 不是按照规范来依赖注入组件的话 就会无法启用。
+            
+            
+            </summary>
+        </member>
         <member name="T:Tiger.Books.BookAppService">
             <summary>
             书籍管理
@@ -160,6 +186,26 @@
             ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.
             </summary>
         </member>
+        <member name="T:Tiger.Books.Demo.MyBookService">
+             <summary>
+             注入 IDataFilter 服务到你的类中.
+            在 using 语句中使用 Disable 方法创建一个代码块, 其中禁用了 ISoftDelete 过滤器(始终与 using 搭配使用,确保代码块执行后将过滤重置为之前的状态).
+            IDataFilter.Enable 方法可以启用过滤.可以嵌套使用 Enable 和 Disable 方法定义内部作用域.
+            
+             
+             
+             
+             
+             </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.MyIdentityUserAppService">
+            <summary>
+            如果给定的服务定义了接口,像 IdentityUserAppService 类实现了 IIdentityUserAppService 接口,你可以为这个接口创建自己的实现并且替换当前的实现. 例如:
+            
+            
+            MyIdentityUserAppService 通过命名约定替换了 IIdentityUserAppService 的当前实现. 如果你的类名不匹配,你需要手动公开服务接口:
+            </summary>
+        </member>
         <member name="T:Tiger.Books.Demo.MyProductService">
             <summary>
             实现这个接口 ITransientDependency 就会作为瞬态注入到服务当中。
@@ -175,6 +221,13 @@
         <member name="T:Tiger.Books.Demo.MyAppService">
             <summary>
             公共基类已经将此服务作为基本属性注入. 例如你可以直接在应用服务中使用 CurrentUser 属性:
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.TestAppService">
+            <summary>
+            类名不匹配,你需要手动公开服务接口:  替换默认的服务
+            
+            依赖注入系统允许为一个接口注册多个服务. 注入接口时会解析最后一个注入的服务. 显式的替换服务是一个好习惯.
             </summary>
         </member>
         <member name="T:Tiger.Books.Demo.UserAppService">

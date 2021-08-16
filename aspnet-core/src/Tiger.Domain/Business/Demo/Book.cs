@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Books
 {
@@ -13,7 +15,7 @@ namespace Tiger.Books
     /// 
     /// 1.AuditedAggregateRoot类在AggregateRoot类的基础上添加了一些审计属性(CreationTime, CreatorId, LastModificationTime 等).
     /// </remarks>
-    public class Book:AuditedEntity<Guid>
+    public class Book:AuditedEntity<Guid>, ISoftDelete, IMultiTenant
     {
         //如果使用带参数的构造函数创建实体,那么还要创建一个 private 或 protected 构造函数. 当数据库提供程序从数据库读取你的实体时(反序列化时)将使用它.
         public Book()
@@ -36,5 +38,12 @@ namespace Tiger.Books
         public DateTime PublishDate { get; set; }
 
         public float Price { get; set; }
+
+        // 将实体标记为已删除,并不是物理删除. 实现 ISoftDelete 接口将你的实体"软删除".
+        public bool IsDeleted { get; set; } //Defined by ISoftDelete
+
+        //  多租户应用程序通常需要在租户间隔离数据. 实现 IMultiTenant 接口使你的实体支持 "多租户".
+
+        public Guid? TenantId { get; set; } //Defined by IMultiTenant
     }
 }
