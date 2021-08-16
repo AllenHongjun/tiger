@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Tiger</RootNamespace>
+    <AssemblyName>Tiger.Domain</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Module\**" />
+    <EmbeddedResource Remove="Module\**" />
+    <None Remove="Module\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />
+    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\UpLoadFiles.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tiger.Domain.Shared\Tiger.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.18" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
+    <PackageReference Include="MQiniu.CoreSdk" Version="1.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.Quartz" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Emailing" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Identity.Domain" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.IdentityServer.Domain" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.IdentityServer" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.Domain" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.AuditLogging.Domain" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Domain" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Domain" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Domain" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Business\Finance\" />
+    <Folder Include="Security\" />
+    <Folder Include="Business\Stat\" />
+    <Folder Include="Business\Customer\Member\" />
+    <Folder Include="Event\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Utility\DownLoadUpLoadFilesHelper\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Tiger</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\Tiger.Application\Tiger.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AuditLogs\**" />
+    <Compile Remove="Volo\Abp\AuditLogging\**" />
+    <EmbeddedResource Remove="AuditLogs\**" />
+    <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
+    <None Remove="AuditLogs\**" />
+    <None Remove="Volo\Abp\AuditLogging\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helper\BrowscapXmlParser.cs" />
+    <Compile Remove="Helper\DateTimeHelper.cs" />
+    <Compile Remove="Helper\DateTimeSettings.cs" />
+    <Compile Remove="Helper\IDateTimeHelper.cs" />
+    <Compile Remove="Helper\IUserAgentHelper.cs" />
+    <Compile Remove="Helper\UserAgentHelper.cs" />
+    <Compile Remove="Volo\Abp\Identity\HelloIdentityRoleAppService.cs" />
+    <Compile Remove="Volo\Abp\Identity\HelloIdentityUserAppService.cs" />
+    <Compile Remove="Volo\Abp\Identity\IdentityClaimTypeAppService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tiger.Domain\Tiger.Domain.csproj" />
+    <ProjectReference Include="..\Tiger.Application.Contracts\Tiger.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="3.1.7" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Sms" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Finance\" />
+    <Folder Include="Order\" />
+    <Folder Include="Purchase\" />
+    <Folder Include="Security\" />
+    <Folder Include="Stat\" />
+    <Folder Include="Stock\" />
+    <Folder Include="Volo\Abp\BackgroundJobs\" />
+    <Folder Include="Volo\Abp\Blogging\" />
+    <Folder Include="Volo\Abp\IdentityServer\" />
+    <Folder Include="Volo\Abp\CmsKit\" />
+    <Folder Include="Payment\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,27 @@
+{
+  "culture": "zh-Hans",
+  "texts": {
+    "Menu:Home": "首页",
+    "Welcome": "欢迎",
+    "AbpAuditLogging": "审计日志",
+    "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
+
+    "Permission:PermissionManagement": "权限管理",
+    "Permission:Create": "权限添加",
+    "Permission:Edit": "权限编辑",
+    "Permission:Delete": "权限删除",
+
+
+    "Permission:OrganitaionUnits": "组织管理",
+    "Permission:OrganitaionUnits.Edit": "编辑",
+    "Permission:OrganitaionUnits.Delete": "删除",
+    "Permission:OrganitaionUnits.Create": "添加",
+    "Permission:OrganitaionUnits.Audit": "审核",
+
+    "Permission:AuditLog": "系统日志管理",
+    "Permission:AuditLog.Edit": "编辑",
+    "Permission:AuditLog.Delete": "删除",
+    "Permission:AuditLog.Create": "添加",
+    "Permission:AuditLog.Audit": "审核"
+  }
+}

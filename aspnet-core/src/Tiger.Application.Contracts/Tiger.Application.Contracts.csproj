@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>TigerAdmin</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\TigerAdmin.Application.Contracts\TigerAdmin.Application.Contracts.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AuditLogs\**" />
+    <Compile Remove="Module\**" />
+    <EmbeddedResource Remove="AuditLogs\**" />
+    <EmbeddedResource Remove="Module\**" />
+    <None Remove="AuditLogs\**" />
+    <None Remove="Module\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tiger.Domain.Shared\Tiger.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.FluentValidation" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.ObjectExtending" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application.Contracts" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Finance\" />
+    <Folder Include="Order\" />
+    <Folder Include="Purchase\" />
+    <Folder Include="Security\" />
+    <Folder Include="Stat\" />
+    <Folder Include="Stock\" />
+    <Folder Include="Volo\Abp\BackgroundJobs\" />
+    <Folder Include="Volo\Abp\Blogging\" />
+    <Folder Include="Volo\Abp\CmsKit\" />
+    <Folder Include="Volo\Abp\FeatureManagement\" />
+    <Folder Include="Volo\Abp\PermissionManagement\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Tiger.Application.Contracts.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

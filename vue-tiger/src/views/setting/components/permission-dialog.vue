@@ -6,7 +6,7 @@
     "
     :visible.sync="dialogPermissionFormVisible"
   >
-    <el-form label-position="top">
+    <el-form label-position="top" style="min-height:500px;">
       <el-tabs tab-position="left">
         <el-tab-pane
           v-for="group in permissionData.groups"

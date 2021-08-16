@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tiger.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Tiger.BlobDemo.MyBlobContainer">
+            <summary>
+            类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
+            </summary>
+        </member>
+        <member name="T:Tiger.BlobDemo.MyBlobContainerConfigurationExtensions">
+            <summary>
+            一个更简单的配置方式,可以为 BlobContainerConfiguration 类创建一个扩展方法:
+            </summary>
+        </member>
+        <member name="T:Tiger.BlobDemo.MyCustomBlobProvider">
+             <summary>
+             自定义 对象存储提供程序
+             
+             MyCustomBlobProvider 继承 BlobProviderBase 并覆盖 abstract 方法. 实际的实现取决于你.
+            实现 ITransientDependency 接口将这个类注做为瞬态服务注册到依赖注入系统.
+            注意: 命名约定很重要. 如果类名没有以 BlobProvider 结尾,则必须手动注册/公开你的服务为 IBlobProvider.
+             </summary>
+        </member>
+        <member name="M:Tiger.BlobDemo.MyCustomBlobProvider.SaveAsync(Volo.Abp.BlobStoring.BlobProviderSaveArgs)">
+            <summary>
+            七牛文件上传保存
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.BlobDemo.MyCustomBlobProviderConfiguration">
+            <summary>
+            BlobContainerConfiguration 允许添加/删除提供程序特定的配置对象. 
+            如果你的提供者需要额外的配置,你可以为 BlobContainerConfiguration 创建一个包装类提供的类型安全配置选项:
+            </summary>
+        </member>
+        <member name="T:Tiger.BlobDemo.MyService">
+            <summary>
+            该服务用 my-blob-1 名称保存给定的字节,然后以相同的名称获取先前保存的字节.
+            一个BLOB是一个命名对象,每个BLOB都应该有一个唯一的名称,它是一个任意的字符串.
+            </summary>
+        </member>
+        <member name="T:Tiger.BlobDemo.ProfileAppService">
+            <summary>
+            示例: 用于保存和读取当前用户的个人资料图片的应用服务
+            </summary>
+        </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveProfilePictureAsync(System.Byte[])">
+            <summary>
+            保存图片
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.GetProfilePictureAsync">
+            <summary>
+            获取图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveMyBlobAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            保存图片
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.GetMyBlobAsync">
+            <summary>
+            获取图片
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveQiniuBlobAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            保存图片
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.BlobDemo.ProfilePictureContainer">
+            <summary>
+            类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
+            </summary>
+        </member>
+        <member name="T:Tiger.Blob.Qinui.QiniuBlobContainer">
+            <summary>
+            类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
+            </summary>
+        </member>
+        <member name="T:Tiger.Blob.Qinui.QiniuBlobProvider">
+            <summary>
+            七牛 oss对象存储  https://developer.qiniu.com/kodo/1237/csharp  
+            
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.BookAppService">
+            <summary>
+            书籍管理
+            </summary>
+            
+        </member>
+        <member name="M:Tiger.Books.BookAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.MultiFileUpload(Microsoft.AspNetCore.Http.IFormFileCollection)">
+            <summary>
+             多文件上传
+            </summary>
+            <param name="formCollection">表单集合值</param>
+            <returns>服务器存储的文件信息</returns>
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Books.BookAppService.UploadFileRequest">
+            <summary>
+            对文件上传响应模型
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.BookAppService.UploadFileRequest.FileName">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.BookAppService.UploadFileRequest.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.UploadQiniu(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            七牛单文件上传
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.UploadQiniu(System.Collections.Generic.IList{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            七牛多文件上传
+            </summary>
+            <param name="files"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Books.Demo.EmailSettingProvider">
+            <summary>
+            ABP设置系统使用 demo
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.ExtraPropertiesDemoService">
+            <summary>
+            ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.MyProductService">
+            <summary>
+            实现这个接口 ITransientDependency 就会作为瞬态注入到服务当中。
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.MyService">
+            <summary>
+            获取当前用户相关的信息
+            
+            在Web应用程序中检索有关已登录用户的信息是很常见的. 当前用户是与Web应用程序中的当前请求相关的活动用户.
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.MyAppService">
+            <summary>
+            公共基类已经将此服务作为基本属性注入. 例如你可以直接在应用服务中使用 CurrentUser 属性:
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.UserAppService">
+            <summary>
+            对象 到 对象的 映射
+            http://automapper.org/
+            
+            </summary>
+        </member>
+        <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传 文件,并返回相对url(不包含 host port wwwroot)
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.TigerApplicationAutoMapperProfile">
+             <summary>
+             AutoMapper提供了多种定义类之间映射的方法. 有关详细信息请参阅AutoMapper的文档.
+            其中定义一种映射的方法是创建一个Profile 类.例如:
+             </summary>
+        </member>
+        <member name="M:Tiger.TigerApplicationModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            预配置 
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Tiger.Volo.Abp.FeatureManagement.TigerFeatureAppService">
+            <summary>
+            特性管理
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
+            <summary>
+            角色关联组织(一个角色之关联一个组织)
+            </summary>
+            <param name="roleId"></param>
+            <param name="ouId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.CreateAsync(Volo.Abp.Identity.IdentityRoleOrgCreateDto)">
+            <summary>
+            添加角色同时关联组织
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.SmsSend">
+            <summary>
+            发送短信
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.EmailSend">
+            <summary>
+            发送邮件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.SaveBytesAsync(System.Byte[])">
+            <summary>
+            保存文件
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.GetBytesAsync">
+            <summary>
+            获取文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.AddToOrganizationUnitsAsync(System.Guid,System.Collections.Generic.List{System.Guid})">
+            <summary>
+            将用户关联组织机构
+            </summary>
+            <param name="userId"></param>
+            <param name="ouId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.CreateAsync(Volo.Abp.Identity.IdentityUserOrgCreateDto)">
+            <summary>
+            添加用户，同时用户关联组织id
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.GetListOrganizationUnitsAsync(System.Guid,System.Boolean)">
+            <summary>
+            获取用户关联的组织机构
+            </summary>
+            <param name="id">组织机构id</param>
+            <param name="includeDetails"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.UpdateAsync(System.Guid,Volo.Abp.Identity.IdentityUserOrgUpdateDto)">
+            <summary>
+            修改用户及用户关联的组织
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Volo.Abp.AuditLogging.AuditLogAppService">
+            <summary>
+            系统日志功能
+            </summary>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetAsync(System.Guid)">
+            <summary>
+            获取一条
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetListAsync(Volo.Abp.AuditLogging.GetAuditLogDto)">
+            <summary>
+            审核日志列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <remarks>
+            例子:
+            Get api/Values/1
+            </remarks>
+            <param name="id">主键</param>
+            <returns>测试字符串</returns> 
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.DeleteAsync(System.Guid)">
+            <summary>
+            删除一条
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.DeleteManyAsync(System.Guid[])">
+            <summary>
+            删除多条
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetAsync(System.Guid)">
+            <summary>
+            获取单条组织机构
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取单条组织明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.CreateAsync(Volo.Abp.Identity.OrganizationUnitCreateDto)">
+            <summary>
+            添加组织
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.UpdateAsync(System.Guid,Volo.Abp.Identity.OrganizationUnitUpdateDto)">
+            <summary>
+            修改组织
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.DeleteAsync(System.Guid)">
+            <summary>
+            删除组织
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.SetLeaf(System.Collections.Generic.List{Volo.Abp.Identity.OrganizationUnitDto})">
+            <summary>
+            后面考虑处理存储leaf到数据库,避免这么进行处理
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.TraverseTreeAsync(Volo.Abp.Identity.OrganizationUnitDto,System.Collections.Generic.List{Volo.Abp.Identity.OrganizationUnitDto})">
+            <summary>
+            
+            </summary>
+            <param name="dto"></param>
+            <param name="children"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">
+            <summary>
+            获取组织机构关联的用户
+            </summary>
+            <param name="ouId"></param>
+            <param name="userInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetRolesAsync(System.Nullable{System.Guid},Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+            <summary>
+            获取组织机构关联的角色
+            </summary>
+            <param name="ouId"></param>
+            <param name="roleInput"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
