@@ -7,7 +7,15 @@ using Serilog;
 using Serilog.Events;
 
 namespace Tiger.DbMigrator
-{
+{   
+    /// <summary>
+    /// 有这样一个单独的控制台应用程序有几个优点;
+    /// 
+    /// 部署到新的服务器 或者 数据库字段有修改是 有迁移内容 优先更新的程序
+    ///你可以在更新你的应用程序之前运行它,所以你的应用程序可以在准备就绪的数据库上运行.
+    ///与本身初始化种子数据相比,你的应用程序启动速度更快.
+    ///应用程序可以在集群环境中正确运行(其中应用程序的多个实例并发运行). 在这种情况下如果在应用程序启动时播种数据就会有冲突.
+    /// </summary>
     class Program
     {
         static async Task Main(string[] args)

@@ -17,6 +17,8 @@ namespace Tiger.EntityFrameworkCore
      *
      * Don't use this DbContext for database migrations since it does not contain tables of the
      * used modules (as explained above). See TigerMigrationsDbContext for migrations.
+     * 
+     * 模块通常使用 ConnectionStringName attribute 为 DbContext 类关联一个唯一的连接字符串名称. 示例:
      */
     [ConnectionStringName("Default")]
     public class TigerDbContext : AbpDbContext<TigerDbContext>
