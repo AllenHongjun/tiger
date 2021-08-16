@@ -4,10 +4,10 @@ import { resetRouter } from '@/router'
 
 const clientSetting = {
   grant_type: 'password',
-  scope: 'TigerAdmin',
+  scope: 'Tiger',
   username: '',
   password: '',
-  client_id: 'TigerAdmin_App',
+  client_id: 'Tiger_App',
   client_secret: '1q2w3e*'
 }
 
@@ -75,8 +75,9 @@ const actions = {
     clientSetting.password = password
     return new Promise((resolve, reject) => {
       login(clientSetting).then(response => {
-        // console.log(response)
-        // console.log(response.access_token)
+        console.log('login-response', response)
+        console.log('12312')
+        console.log('login-response.access_token', response.access_token)
         commit('SET_TOKEN', response.access_token)
         setToken(response.access_token)
         resolve()

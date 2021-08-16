@@ -1,6 +1,14 @@
 /**
  * Created by PanJiaChen on 16/11/18.
  */
+import moment from 'moment/moment'
+/**
+ * 时间格式化
+ */
+export function formatDate(value, formatString) {
+  formatString = formatString || 'YYYY-MM-DD HH:mm:ss'
+  return moment(value).format(formatString)
+}
 
 /**
  * Parse the time to string
