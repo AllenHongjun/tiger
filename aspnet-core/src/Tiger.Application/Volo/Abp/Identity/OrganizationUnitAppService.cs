@@ -19,6 +19,10 @@ namespace Volo.Abp.Identity
     public class OrganizationUnitAppService : IdentityAppServiceBase, IOrganizationUnitAppService
     {
         private readonly IDistributedCache<OrganizationUnitDto> _cache;
+        private readonly IDistributedCache<ListResultDto<OrganizationUnitDto>> _cacheList;
+        private readonly IDistributedCache<PagedResultDto<OrganizationUnitDto>> _cachePage;
+
+
         protected OrganizationUnitManager UnitManager { get; }
         protected IOrganizationUnitRepository UnitRepository { get; }
         protected IIdentityUserAppService UserAppService { get; }
@@ -28,14 +32,20 @@ namespace Volo.Abp.Identity
             IOrganizationUnitRepository unitRepository,
             IIdentityUserAppService userAppService,
             IIdentityRoleAppService roleAppService,
-            IDistributedCache<OrganizationUnitDto> cache
+            IDistributedCache<OrganizationUnitDto> cache,
+            IDistributedCache<ListResultDto<OrganizationUnitDto>> cacheList,
+            IDistributedCache<PagedResultDto<OrganizationUnitDto>> cachePage
             )
         {
             UnitManager = unitManager;
             UnitRepository = unitRepository;
             UserAppService = userAppService;
             RoleAppService = roleAppService;
+
+
             _cache = cache;
+            _cacheList = cacheList;
+            _cachePage = cachePage;
         }
 
         /// <summary>
@@ -77,12 +87,25 @@ namespace Volo.Abp.Identity
         {
             //TODO:Consider submitting to ABP to get the ou root node PR
 
-            var root = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await UnitRepository.GetChildrenAsync(null));
-            await SetLeaf(root);
-            return new PagedResultDto<OrganizationUnitDto>(
-                root.Count,
-                root
+            return await _cacheList.GetOrAddAsync(
+                Guid.NewGuid().ToString(), //Cache key
+                async () => {
+
+                    var root = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await UnitRepository.GetChildrenAsync(null));
+                    await SetLeaf(root);
+                    return new PagedResultDto<OrganizationUnitDto>(
+                        root.Count,
+                        root
+                    );
+                },
+                () => new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+                }
             );
+
+
+           
         }
 
         public virtual async Task<PagedResultDto<OrganizationUnitDto>> GetListAsync(GetOrganizationUnitInput input)

@@ -2,6 +2,10 @@
 
 - 使用 c# js分别实现递归的方法。实现树和对象的遍历。
 
+- 熟悉官方的文档  教程。跟着操作一遍。练习。还有微软官方的。。找到自己需要掌握的地方。
+
+- 查看类关系图。  vitual studio 
+
 - 熟悉linqpad 工具的使用。
 
 - 给接口分api admin 区域。确认接口写在哪一层里面。
@@ -22,11 +26,67 @@
 
 - 实现redis缓存
 
+- > 弄一个扩展方法。缓存的对象都是string类型 来保存。生成自定义的的key  缓存的时候 读取的时候解析出来。
+
   - [官方 abp redis使用教程](https://docs.abp.io/en/abp/3.2/Redis-Cache)
+
   - [redis-缓存继承教程](https://www.cnblogs.com/meowv/p/12956696.html)
+
   - redis缓存的key 如何来定义
+
   - IDistributedCache<OrganizationUnitDto>  这个泛型服务 如果有服务里有另外一个类型要存储 如何来处理。
+
     - 这样如果有page 有 list 的缓存如何来处理？
+
+    - 如何给abp框架里面的方法写一个扩展方法。
+
+    - [IDistributedCache封装使用](https://www.cnblogs.com/fanfan-90/p/12151924.html)
+
+    - abp 缓存的用法 。看源码是如何来使用。
+
+      - 缓存是专门封装一个缓存类来使用 缓存的key也在类中来生成
+
+      - ```C#
+        [Serializable]
+            public class PermissionGrantCacheItem
+            {
+                private const string CacheKeyFormat = "pn:{0},pk:{1},n:{2}";
+        
+                public bool IsGranted
+                {
+                    get;
+                    set;
+                }
+        
+                public PermissionGrantCacheItem()
+                {
+                }
+        
+                public PermissionGrantCacheItem(bool isGranted)
+                {
+                    IsGranted = isGranted;
+                }
+        
+                public static string CalculateCacheKey(string name, string providerName, string providerKey)
+                {
+                    return $"pn:{providerName},pk:{providerKey},n:{name}";
+                }
+        
+                public static string GetPermissionNameFormCacheKeyOrNull(string cacheKey)
+                {
+                    FormattedStringValueExtracter.ExtractionResult extractionResult = FormattedStringValueExtracter.Extract(cacheKey, "pn:{0},pk:{1},n:{2}", ignoreCase: true);
+                    if (!extractionResult.IsMatch)
+                    {
+                        return null;
+                    }
+        
+                    return extractionResult.Matches.Last().Value;
+                }
+            }
+        }
+        ```
+
+      - 
 
 - 整合mongodb实现文档操作
 

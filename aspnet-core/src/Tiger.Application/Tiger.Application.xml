@@ -149,6 +149,11 @@
             <param name="files"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Books.Demo.ExtraPropertiesDemoService">
+            <summary>
+            ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.
+            </summary>
+        </member>
         <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)

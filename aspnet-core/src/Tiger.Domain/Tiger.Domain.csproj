@@ -48,11 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entity\Finance\" />
+    <Folder Include="Business\Finance\" />
     <Folder Include="Security\" />
-    <Folder Include="Entity\Stat\" />
-    <Folder Include="Entity\Customer\Member\" />
-    <Folder Include="Cache\" />
+    <Folder Include="Business\Stat\" />
+    <Folder Include="Business\Customer\Member\" />
     <Folder Include="Event\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Utility\DownLoadUpLoadFilesHelper\" />

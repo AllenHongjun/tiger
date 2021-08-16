@@ -15,6 +15,15 @@ namespace Tiger.Books
     /// </remarks>
     public class Book:AuditedAggregateRoot<Guid>
     {
+        //如果使用带参数的构造函数创建实体,那么还要创建一个 private 或 protected 构造函数. 当数据库提供程序从数据库读取你的实体时(反序列化时)将使用它.
+        public Book()
+        {
+        }
+
+        public Book(Guid id):base(id)
+        {
+        }
+
         public string Name { get; set; }
 
         public BookType Type { get; set; }
