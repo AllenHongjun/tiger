@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tiger.Books;
+using Tiger.Business.Demo;
 using Tiger.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
@@ -27,6 +28,8 @@ namespace Tiger.EntityFrameworkCore
 
         //3.EF Core需要你将实体和 DbContext 建立关联.最简单的做法是在Acme.BookStore.EntityFrameworkCore项目的BookStoreDbContext类中添加DbSet属性.如下所示:
         public DbSet<Book> Books { get; set; }
+
+        public DbSet<Author> Authors { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside TigerDbContextModelCreatingExtensions.ConfigureTiger

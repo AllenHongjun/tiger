@@ -1,4 +1,5 @@
-﻿using Tiger.Localization;
+﻿using Tiger.Books;
+using Tiger.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity;
@@ -19,6 +20,20 @@ namespace Tiger.Permissions
             //booksPermission.AddChild(TigerPermissions.Books.Create, L("Permission:Book.Create"));
             //booksPermission.AddChild(TigerPermissions.Books.Edit, L("Permission:Book.Edit"));
             //booksPermission.AddChild(TigerPermissions.Books.Delete, L("Permission:Book.Delete"));
+
+            // 添加 demo 作者权限
+            var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName);
+            var authorsPermission = bookStoreGroup.AddPermission(
+                    BookStorePermissions.Authors.Default, L("Permission:Authors"));
+                authorsPermission.AddChild(
+                    BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
+
+                authorsPermission.AddChild(
+                    BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
+
+                authorsPermission.AddChild(
+                    BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
+
 
             // 组织
             var identityGroup = context.GetGroup(IdentityPermissions.GroupName);
@@ -54,6 +69,6 @@ namespace Tiger.Permissions
             return LocalizableString.Create<TigerResource>(name);
         }
 
-        
+
     }
 }

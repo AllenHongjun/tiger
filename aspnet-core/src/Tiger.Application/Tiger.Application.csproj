@@ -9,6 +9,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\Tiger.Application\Tiger.Application.xml</DocumentationFile>
+    <NoWarn>1701;1702;CS1591;CS0436;CS1587;CS1572;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -7,7 +7,8 @@
   - 日志 
   - 选项模式
   - EF core 
-  - 
+  - log  自带的 如何按天分文件 按类型 单独写入日志 
+  - [asp.net core configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0)
 
 - 熟悉官方的文档  教程。跟着操作一遍。练习。还有微软官方的。。找到自己需要掌握的地方。
 

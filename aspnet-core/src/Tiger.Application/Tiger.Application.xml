@@ -96,6 +96,11 @@
             
             </summary>
         </member>
+        <member name="T:Tiger.Books.AuthorAppService">
+            <summary>
+            实现 author 的服务层
+            </summary>
+        </member>
         <member name="T:Tiger.Books.BlogModule.BlogModule">
             <summary>
             由于ABP是一个模块化框架,因此每个模块都定义它自己的服务并在它自己的单独模块类中通过依赖注入进行注册.例:

@@ -4,6 +4,12 @@
         <name>Tiger.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
+            <summary>
+            修改用户信息
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->
         <member name="T:Tiger.Books.BookDto">
             <summary>
             
@@ -11,10 +17,16 @@
             数据传输层对象使用说明 https://docs.abp.io/zh-Hans/abp/latest/Data-Transfer-Objects
             </summary>
         </member>
-        <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
+        <member name="T:Tiger.Books.CreateAuthorDto">
             <summary>
-            修改用户信息
+            poco 
             </summary>
+        </member>
+        <member name="T:Tiger.Books.GetAuthorListDto">
+             <summary>
+             Filter is used to search authors. It can be null (or empty string) to get all the authors.
+            PagedAndSortedResultRequestDto has the standard paging and sorting properties: int MaxResultCount, int SkipCount and string Sorting.
+             </summary>
         </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
             <summary>
