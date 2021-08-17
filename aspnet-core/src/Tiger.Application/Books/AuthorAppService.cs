@@ -7,6 +7,7 @@
  */
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace Tiger.Books
     /// <summary>
     /// 实现 author 的服务层
     /// </summary>
+
+    [ApiExplorerSettings(GroupName = "api")]
     [Authorize(BookStorePermissions.Authors.Default)]
     public class AuthorAppService : TigerAppService, IAuthorAppService
     {

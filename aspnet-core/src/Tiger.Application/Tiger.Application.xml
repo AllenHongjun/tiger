@@ -133,6 +133,26 @@
             </summary>
             
         </member>
+        <member name="M:Tiger.Books.BookAppService.GetAsync(System.Guid)">
+            <summary>
+            查询一条书籍数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+            <summary>
+            分页查询书籍的数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.GetAuthorLookupAsync">
+            <summary>
+            获取作者筛选列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Books.BookAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)

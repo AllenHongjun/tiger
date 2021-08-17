@@ -29,8 +29,12 @@ namespace Tiger.EntityFrameworkCore
                           TigerConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
                 b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+
+                // ADD THE MAPPING FOR THE RELATION
+                b.HasOne<Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
             });
 
+            // 添加作者
             builder.Entity<Author>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Authors",
@@ -43,6 +47,8 @@ namespace Tiger.EntityFrameworkCore
                     .HasMaxLength(AuthorConsts.MaxNameLength);
 
                 b.HasIndex(x => x.Name);
+
+                
             });
         }
     }

@@ -17,9 +17,19 @@
             数据传输层对象使用说明 https://docs.abp.io/zh-Hans/abp/latest/Data-Transfer-Objects
             </summary>
         </member>
+        <member name="P:Tiger.Books.BookDto.AuthorId">
+            <summary>
+             dto 对象里面 需要把 autherId  和 author name 属性全部都加上去
+            </summary>
+        </member>
         <member name="T:Tiger.Books.CreateAuthorDto">
             <summary>
             poco 
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateUpdateBookDto.AuthorId">
+            <summary>
+            添加关联的作者id
             </summary>
         </member>
         <member name="T:Tiger.Books.GetAuthorListDto">
@@ -27,6 +37,13 @@
              Filter is used to search authors. It can be null (or empty string) to get all the authors.
             PagedAndSortedResultRequestDto has the standard paging and sorting properties: int MaxResultCount, int SkipCount and string Sorting.
              </summary>
+        </member>
+        <member name="M:Tiger.Books.IBookAppService.GetAuthorLookupAsync">
+            <summary>
+            his new method will be used from the UI to get a list of authors and fill a dropdown list to select the author of a book.
+            获取下拉框选中作者的列表数据
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using Tiger.Books;
+using Tiger.Business.Demo;
 using Tiger.SecurityLogs;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Identity;
@@ -21,9 +22,14 @@ namespace Tiger
              * into multiple profile classes for a better organization. */
             CreateMap<Book, BookDto>();
             CreateMap<CreateUpdateBookDto, Book>();
+            CreateMap<Author, AuthorLookupDto>();
+
+
+
+
+
             CreateMap<SecurityLogInfo, SecurityLogDto>();
             CreateMap<AuditLog, AuditLogDto>();
-
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
                 .MapExtraProperties();
         }

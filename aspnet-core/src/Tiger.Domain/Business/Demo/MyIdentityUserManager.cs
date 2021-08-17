@@ -70,19 +70,19 @@ namespace Tiger.Business.Demo
 
         public override async Task<IdentityResult> CreateAsync(IdentityUser user)
         {
-            if (user.PhoneNumber.IsNullOrWhiteSpace())
-            {
-                throw new AbpValidationException(
-                    "Phone number is required for new users!",
-                    new List<ValidationResult>
-                    {
-                    new ValidationResult(
-                        "Phone number can not be empty!",
-                        new []{"PhoneNumber"}
-                    )
-                    }
-                );
-            }
+            //if (user.PhoneNumber.IsNullOrWhiteSpace())
+            //{
+            //    throw new AbpValidationException(
+            //        "Phone number is required for new users!",
+            //        new List<ValidationResult>
+            //        {
+            //        new ValidationResult(
+            //            "Phone number can not be empty!",
+            //            new []{"PhoneNumber"}
+            //        )
+            //        }
+            //    );
+            //}
 
             return await base.CreateAsync(user);
         }

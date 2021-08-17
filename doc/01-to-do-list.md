@@ -2,11 +2,19 @@
 
 - 使用 c# js分别实现递归的方法。实现树和对象的遍历。
 
+- > 使用ABP 有很多常用的组件。用熟悉。。会用。做好东西。。进阶学习一些微服务的知识。
+  >
+  > demo里面的代码看着确实写的舒服很多。。
+
 - **学习 微软 asp.net core 官方文档的资料** 
 
   - 日志 
   - 选项模式
   - EF core 
+    - 一对多
+    - 多对一
+    - 多对多教程
+      - EF 1对多  hasmany 这个又点搞不清楚
   - log  自带的 如何按天分文件 按类型 单独写入日志 
   - [asp.net core configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0)
 

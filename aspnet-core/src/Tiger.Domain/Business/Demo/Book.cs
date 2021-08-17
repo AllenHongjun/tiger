@@ -14,6 +14,7 @@ namespace Tiger.Books
     /// <remarks>
     /// 
     /// 1.AuditedAggregateRoot类在AggregateRoot类的基础上添加了一些审计属性(CreationTime, CreatorId, LastModificationTime 等).
+    /// 目前一本书 值关联一个作者 一个作者可以关联多本书籍
     /// </remarks>
     public class Book:AuditedEntity<Guid>, ISoftDelete, IMultiTenant
     {
@@ -45,5 +46,11 @@ namespace Tiger.Books
         //  多租户应用程序通常需要在租户间隔离数据. 实现 IMultiTenant 接口使你的实体支持 "多租户".
 
         public Guid? TenantId { get; set; } //Defined by IMultiTenant
+
+        /// <summary>
+        /// In this tutorial, we preferred to not add a navigation property to the Author entity from the Book class (like public Author Author { get; set; }). This is due to follow the DDD best practices (rule: refer to other aggregates only by id).
+        /// </summary>
+        public Guid AuthorId { get; set; }
+
     }
 }
