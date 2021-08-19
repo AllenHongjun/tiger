@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Business.Demo;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -51,6 +54,9 @@ namespace Tiger.Books
         /// In this tutorial, we preferred to not add a navigation property to the Author entity from the Book class (like public Author Author { get; set; }). This is due to follow the DDD best practices (rule: refer to other aggregates only by id).
         /// </summary>
         public Guid AuthorId { get; set; }
+
+        [ForeignKey("AuthorId")]
+        public virtual Author Author { get; set; }
 
     }
 }

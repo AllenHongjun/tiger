@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Books;
+using Tiger.Books.Demo;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Business.Demo

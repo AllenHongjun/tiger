@@ -13,14 +13,21 @@ using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp;
 using TigerAdmin.Books;
+using Tiger.Books.Demo;
+using Tiger.Books;
 
 namespace Tiger.Business.Demo
-{
+{   
+    /// <summary>
+    /// 作者
+    /// </summary>
     public class Author : FullAuditedAggregateRoot<Guid>
     {
         public string Name { get; private set; }
         public DateTime BirthDate { get; set; }
         public string ShortBio { get; set; }
+
+        public virtual ICollection<Book> Books { get; set; }
 
         private Author()
         {

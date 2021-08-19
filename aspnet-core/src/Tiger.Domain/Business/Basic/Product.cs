@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using Tiger.Business;
+
 namespace Tiger.Basic
 {   
     /// <summary>
@@ -23,8 +25,14 @@ namespace Tiger.Basic
 
         public String Name { get; set; }
 
+        /// <summary>
+        /// 图片地址
+        /// </summary>
         public string Picture { get; set; }
 
+        /// <summary>
+        /// 货号
+        /// </summary>
         public string ProductSn { get; set; }
 
         public int DeleteStatus { get; set; }
@@ -38,6 +46,8 @@ namespace Tiger.Basic
         public string Unit { get; set; }
 
         public string DetailDesc { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
 
 
 

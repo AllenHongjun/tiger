@@ -100,7 +100,7 @@ namespace Tiger.Books
             var totalCount = await AsyncExecuter.CountAsync<Author>(
                 _authorRepository.WhereIf(
                     !input.Filter.IsNullOrWhiteSpace(),
-                    author => author.Name.Contains(input.Filter)
+                    author => author.Name.Contains(input.Filter) && author.Books.Any()
                 )
             );
 

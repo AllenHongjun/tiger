@@ -1,7 +1,7 @@
 # Tiger Admin
 ## 基于 vue-template-admin abp vnext 开发的基础后台项目
 
-> 学习abp 和 vue 的入门项目
+> 学习abp 和 vue 的入门项目  锻炼自己独立完整的开发一个项目
 
 [演示地址](http://tiger_fe.hongjy.cn/)
 
@@ -24,6 +24,7 @@
 - [awesome-abp](https://github.com/EasyAbp/awesome-abp)
 - [abp对接vue的思路](https://www.cnblogs.com/xhznl/tag/ABP%20vNext/)
 - [基于 abp vNext 和 .NET Core 开发博客项目 - 使用Redis缓存数据](https://www.cnblogs.com/meowv/p/12956696.html)
+- [EFcore文档](docs.microsoft.com/zh-cn/ef/core/get-started/overview/first-app?tabs=netcore-cli)
 
 
 

@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Order
+namespace Tiger.Orders
 {
     class OrderReturnApply
     {
