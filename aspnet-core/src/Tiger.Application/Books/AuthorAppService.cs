@@ -22,7 +22,7 @@ namespace Tiger.Books
     /// 实现 author 的服务层
     /// </summary>
 
-    [ApiExplorerSettings(GroupName = "api")]
+    [ApiExplorerSettings(GroupName = "admin")]
     [Authorize(BookStorePermissions.Authors.Default)]
     public class AuthorAppService : TigerAppService, IAuthorAppService
     {
@@ -37,6 +37,11 @@ namespace Tiger.Books
             _authorManager = authorManager;
         }
 
+        /// <summary>
+        /// 添加作者
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(BookStorePermissions.Authors.Create)]
         public async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
         {
@@ -51,18 +56,33 @@ namespace Tiger.Books
             return ObjectMapper.Map<Author, AuthorDto>(author);
         }
 
+        /// <summary>
+        /// 删除作者
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(BookStorePermissions.Authors.Delete)]
         public async Task DeleteAsync(Guid id)
         {
             await _authorRepository.DeleteAsync(id);
         }
 
+        /// <summary>
+        /// 获取作者明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<AuthorDto> GetAsync(Guid id)
         {
             var author = await _authorRepository.GetAsync(id);
             return ObjectMapper.Map<Author, AuthorDto>(author);
         }
-
+        
+        /// <summary>
+        /// 获取作者列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async Task<PagedResultDto<AuthorDto>> GetListAsync(GetAuthorListDto input)
         {
             if (input.Sorting.IsNullOrWhiteSpace())
@@ -90,6 +110,12 @@ namespace Tiger.Books
             );
         }
 
+        /// <summary>
+        /// 修改作者信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(BookStorePermissions.Authors.Edit)]
         public async Task UpdateAsync(Guid id, UpdateAuthorDto input)
         {

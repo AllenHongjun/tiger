@@ -368,8 +368,8 @@ namespace Tiger
                 // 配置自定义的样式
                 //options.InjectStylesheet("/swagger-ui/custom.css");
 
-                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Tiger Admin");
-                options.SwaggerEndpoint("/swagger/api/swagger.json", "Tiger API");
+                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin");
+                options.SwaggerEndpoint("/swagger/api/swagger.json", "API");
                 
                 //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
 

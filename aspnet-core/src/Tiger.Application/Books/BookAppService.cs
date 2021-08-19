@@ -36,7 +36,7 @@ namespace Tiger.Books
     /// 书籍管理
     /// </summary>
     /// 
-    [ApiExplorerSettings(GroupName = "api")]
+    [ApiExplorerSettings(GroupName = "admin")]
     public class BookAppService :
         CrudAppService<
             Book, //The Book entity

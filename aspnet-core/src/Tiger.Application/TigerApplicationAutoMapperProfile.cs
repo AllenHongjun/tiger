@@ -23,6 +23,7 @@ namespace Tiger
             CreateMap<Book, BookDto>();
             CreateMap<CreateUpdateBookDto, Book>();
             CreateMap<Author, AuthorLookupDto>();
+            CreateMap<Author, AuthorDto>();
 
 
 
