@@ -10,13 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Business;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Orders
 {   
     /// <summary>
     /// 订单操作历史记录
     /// </summary>
-    public class OrderOperateHistory
+    public class OrderOperateHistory: FullAuditedAggregateRoot<Guid>
     {
         public int OrderId { get; set; }
 

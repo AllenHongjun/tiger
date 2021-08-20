@@ -9,10 +9,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Domain.Entities;
 
 namespace Tiger.Orders
 {
-    public class OrderSetting
+    public class OrderSetting: AggregateRoot<Guid>
     {   
         /// <summary>
         /// 秒杀订单超时关闭时间

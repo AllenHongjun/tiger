@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Migrations
 {
     [DbContext(typeof(TigerMigrationsDbContext))]
-    partial class TigerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210820122031_add-Product-")]
+    partial class addProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +79,6 @@ namespace Tiger.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
 
@@ -110,8 +109,6 @@ namespace Tiger.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Name");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductTagId");
 
@@ -285,399 +282,6 @@ namespace Tiger.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("AppAuthors");
-                });
-
-            modelBuilder.Entity("Tiger.Business.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("AutoConfirmDay")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BillContent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BillHeader")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BillReceiverEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BillReceiverPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BillType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CommentTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<int>("ConfirmStatus")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("CouponAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("CouponId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnName("DeleterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnName("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeliveryCompany")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeliverySn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DeliveryTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("FreightAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Growth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Integration")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("IntegrationAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ModifyTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderSn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrderType")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PayAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("PayType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PaymentTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("PromotionAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("PromotionInfo")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReceiveTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReceiverCity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverDetailAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverPostCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverProvince")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverRegion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SourceType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("UseIntegration")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppOrders");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<decimal>("CouponAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnName("DeleterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnName("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("GiftGrowth")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("GiftIntegration")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("IntegrationAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("OrderId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("OrderSn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductAttr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductBrand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("ProductId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductPic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ProductPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductQuantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductSkuCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductSkuId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductSn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PromotionAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("PromotionName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("RealAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId1");
-
-                    b.HasIndex("ProductId1");
-
-                    b.ToTable("AppOrderItems");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderOperateHistory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnName("DeleterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnName("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OperateMan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("OrderId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("OrderStatus")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId1");
-
-                    b.ToTable("AppOrderOperateHistorys");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderSetting", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ComfirmOvertime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CommentOvertime")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FlashOrderOverTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NormalOrderOverTime")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppOrderSettings");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2435,10 +2039,6 @@ namespace Tiger.Migrations
 
             modelBuilder.Entity("Tiger.Basic.Product", b =>
                 {
-                    b.HasOne("Tiger.Business.Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
-
                     b.HasOne("Tiger.Business.Basic.ProductTag", null)
                         .WithMany("Products")
                         .HasForeignKey("ProductTagId");
@@ -2466,24 +2066,6 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Business.Basic.ProductTag", "ProductTag")
                         .WithMany()
                         .HasForeignKey("ProductTagId1");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderItem", b =>
-                {
-                    b.HasOne("Tiger.Business.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId1");
-
-                    b.HasOne("Tiger.Basic.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId1");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderOperateHistory", b =>
-                {
-                    b.HasOne("Tiger.Business.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId1");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
