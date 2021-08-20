@@ -1,26 +1,11 @@
-﻿/**
- * 类    名：Product   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/11 13:53:14       
- * 说    明: 
- * 
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using Tiger.Basic.Products;
-using Tiger.Business;
-using Tiger.Business.Basic;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Basic
-{   
-    /// <summary>
-    /// 商品表
-    /// </summary>
-    public class Product : FullAuditedAggregateRoot<Guid>
+namespace Tiger.Basic.Products
+{
+    public class ProductDto : AuditedEntityDto<Guid>
     {
         public int BrandId { get; set; }
 
@@ -60,14 +45,5 @@ namespace Tiger.Basic
         /// 详情描述
         /// </summary>
         public string DetailDesc { get; set; }
-
-        [NotMapped]
-        public virtual ICollection<ProductTag> ProductTags { get; set; }
-
-        //public virtual ICollection<Order> Orders { get; set; }
-
-
-
-
     }
 }

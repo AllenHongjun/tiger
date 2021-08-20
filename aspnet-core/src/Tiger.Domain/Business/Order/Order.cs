@@ -13,6 +13,7 @@ using System.Text;
 using Tiger.Basic;
 using Tiger;
 using Tiger.Orders;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Business
 {   
@@ -20,7 +21,7 @@ namespace Tiger.Business
     /// 订单表
     /// </summary>
     [Table("Order")]
-    public class Order
+    public class Order : FullAuditedAggregateRoot<Guid>
     {
         public int MemberId { get; set; }
 

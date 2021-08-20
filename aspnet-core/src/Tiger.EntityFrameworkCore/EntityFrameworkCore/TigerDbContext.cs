@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tiger.Basic;
 using Tiger.Books;
+using Tiger.Business.Basic;
 using Tiger.Business.Demo;
 using Tiger.Users;
 using Volo.Abp.Data;
@@ -30,6 +32,13 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Book> Books { get; set; }
 
         public DbSet<Author> Authors { get; set; }
+
+
+        public DbSet<Basic.Product> Products { get; set; }
+
+        public DbSet<ProductTag> ProductTags { get; set; }
+
+        public DbSet<ProductTagRelation> ProductTagRelations { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside TigerDbContextModelCreatingExtensions.ConfigureTiger

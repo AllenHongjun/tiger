@@ -11,13 +11,14 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Basic;
 using Tiger.Business;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Orders
 {
     /// <summary>
     /// 订单明细
     /// </summary>
-    public class OrderItem
+    public class OrderItem : FullAuditedAggregateRoot<Guid>
     {
         public int OrderId { get; set; }
 

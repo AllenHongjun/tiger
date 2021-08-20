@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Basic;
+using Volo.Abp.Domain.Entities;
 
 namespace Tiger.Business.Basic
 {   
     /// <summary>
     /// 产品标签关系表
     /// </summary>
-    public class ProductTagRelation
+    public class ProductTagRelation:Entity<Guid>
     {
         public int ProductId { get; set; }
 

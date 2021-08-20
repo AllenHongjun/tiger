@@ -4,9 +4,54 @@
         <name>Tiger.Application.Contracts</name>
     </assembly>
     <members>
-        <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Picture">
             <summary>
-            修改用户信息
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PublishStatus">
+            <summary>
+            发布状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.DetailDesc">
+            <summary>
+            详情描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Picture">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PublishStatus">
+            <summary>
+            发布状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.DetailDesc">
+            <summary>
+            详情描述
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->
@@ -44,6 +89,11 @@
             获取下拉框选中作者的列表数据
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
+            <summary>
+            修改用户信息
+            </summary>
         </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
             <summary>

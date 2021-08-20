@@ -10,6 +10,10 @@
 
   - DF 多对一关系。使用
 
+- 循环修改数据。
+
+  - 一条一条的循环修改数据
+
 - **学习 微软 asp.net core 官方文档的资料** 
 
   - 日志 
@@ -208,10 +212,12 @@
                             return version.Any(v => v == docName);
                         });
     ```
-  
+
   - 
     ```
 
+    ```
+    
 - 项目开源 如何忽略key 等配置文件？****
 
   - [如何看待大疆的服务器 key 在 Github 上泄露事件？](https://www.zhihu.com/question/68495272)

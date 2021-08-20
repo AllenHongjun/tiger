@@ -6,7 +6,10 @@ using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace Tiger.EntityFrameworkCore
-{
+{   
+    /// <summary>
+    /// 配置数据结构表约束
+    /// </summary>
     public static class TigerDbContextModelCreatingExtensions
     {
         public static void ConfigureTiger(this ModelBuilder builder)
@@ -49,6 +52,23 @@ namespace Tiger.EntityFrameworkCore
                 b.HasIndex(x => x.Name);
 
                 
+            });
+
+            // 产品表
+            builder.Entity<Product>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Products",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.Property(x => x.Name)
+                    .IsRequired();
+                    //.HasMaxLength(AuthorConsts.MaxNameLength);
+
+                b.HasIndex(x => x.Name);
+
+
             });
         }
     }
