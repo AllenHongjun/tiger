@@ -50,7 +50,6 @@
 
   <ItemGroup>
     <Folder Include="Finance\" />
-    <Folder Include="Order\" />
     <Folder Include="Purchase\" />
     <Folder Include="Security\" />
     <Folder Include="Stat\" />
