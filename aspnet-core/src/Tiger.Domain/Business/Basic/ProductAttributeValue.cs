@@ -22,7 +22,11 @@ namespace Tiger.Basic
     {
         public Guid ProductId { get; set; }
 
+        public virtual Product Product { get; set; }
+
         public Guid ProductAttributeId { get; set; }
+
+        public virtual ProductAttribute ProductAttribute { get; set; }
 
         /// <summary>
         /// 规格有多个时以逗号隔开

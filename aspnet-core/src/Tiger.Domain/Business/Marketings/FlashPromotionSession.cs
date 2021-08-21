@@ -9,13 +9,30 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Marketing
 {
     /// <summary>
     /// 显示购物场次表
     /// </summary>
-    class FlashPromotionSession
+    public class FlashPromotionSession:AuditedAggregateRoot<Guid>
     {
+        public string Name { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        /// <summary>
+        /// 启用状态 0->不启用  1->启用
+        /// </summary>
+        public int Status { get; set; }
+
+        public Guid FlashPromotionId { get; set; }
+
+        public virtual FlashPromotion FlashPromotion { get; set; }
+
+        
     }
 }
