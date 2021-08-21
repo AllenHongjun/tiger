@@ -9,13 +9,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Domain.Entities;
 
 namespace Tiger.Orders
 {
     /// <summary>
     /// 退货原因 
     /// </summary>
-    class OrderReturnReason
+    public class OrderReturnReason:Entity<Guid>
     {
+        public string Name { get; set; }
+
+        public int Sort { get; set; }
+
+        public int Status { get; set; }
+
+        public DateTime DateTime { get; set; }
     }
 }
