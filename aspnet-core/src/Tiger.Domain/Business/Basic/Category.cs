@@ -45,7 +45,9 @@ namespace Tiger.Basic
         [CanBeNull]
         public Guid ParentId { get; set; }
 
-        public virtual Category ParentCategory { get; set; }
+        public virtual Category Parent { get; set; }
+
+        public virtual List<Category>  Children { get; set; }
 
         public string Name { get; set; }
 

@@ -4,6 +4,49 @@
         <name>Tiger.Application</name>
     </assembly>
     <members>
+        <member name="M:Tiger.Basic.CategoryAppService.GetAllListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
+            <summary>
+            获取分类列表树
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.CategoryAppService.GetAsync(System.Guid)">
+            <summary>
+            获取分类
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.CategoryAppService.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取分类树明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.CategoryAppService.GetChildrenAsync(System.Guid)">
+            <summary>
+            根据父级id查找子分类
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.CategoryAppService.TraverseTreeAsync(Tiger.Basic.Categorys.CategoryDto,System.Collections.Generic.List{Tiger.Basic.Categorys.CategoryDto})">
+            <summary>
+            将列表转换为组织树
+            </summary>
+            <param name="dto"></param>
+            <param name="children"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.CategoryAppService.SetLeaf(System.Collections.Generic.List{Tiger.Basic.Categorys.CategoryDto})">
+            <summary>
+            设置为叶子节点
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Basic.ProductAppService.GetListAsync(Tiger.Basic.Products.GetProductListDto)">
             <summary>
             获取产品列表
