@@ -13,18 +13,22 @@ using System.Text;
 using Tiger.Basic.Products;
 using Tiger.Business;
 using Tiger.Business.Basic;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Basic
 {   
     /// <summary>
     /// 商品表
     /// </summary>
-    public class Product : FullAuditedAggregateRoot<Guid>
+    public class Product : FullAuditedAggregateRoot<Guid>,  ISoftDelete, IMultiTenant
     {
         public int BrandId { get; set; }
 
         public int ProductCategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
 
         public String Name { get; set; }
 
@@ -63,6 +67,8 @@ namespace Tiger.Basic
 
         [NotMapped]
         public virtual ICollection<ProductTag> ProductTags { get; set; }
+
+        public Guid? TenantId { get; set; }
 
         //public virtual ICollection<Order> Orders { get; set; }
 

@@ -28,6 +28,7 @@ namespace Tiger.EntityFrameworkCore
             //    //...
             //});
 
+            #region Demo模块
             //4. 添加 Book 实体的映射代码 自动根据代码生成数据表
             builder.Entity<Book>(b =>
             {
@@ -54,9 +55,11 @@ namespace Tiger.EntityFrameworkCore
 
                 b.HasIndex(x => x.Name);
 
-                
-            });
 
+            }); 
+            #endregion
+
+            #region 基础模块
             // 产品表
             builder.Entity<Product>(b =>
             {
@@ -67,9 +70,35 @@ namespace Tiger.EntityFrameworkCore
 
                 b.Property(x => x.Name)
                     .IsRequired();
-                    //.HasMaxLength(AuthorConsts.MaxNameLength);
+                //.HasMaxLength(AuthorConsts.MaxNameLength);
 
                 b.HasIndex(x => x.Name);
+
+            });
+
+            // 产品分类
+            builder.Entity<Category>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Categorys",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name)
+                    .IsRequired();
+                b.Property(x => x.Level).IsRequired().HasMaxLength(10)
+                    .HasColumnName(nameof(Category.Level));
+                b.Property(x => x.Keyword).HasDefaultValue(false);
+
+
+                //b.HasMany(u => u.Claims).WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
+                //b.HasMany(u => u.Logins).WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
+                //b.HasMany(u => u.Roles).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+                //b.HasMany(u => u.Tokens).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+                //b.HasMany(u => u.OrganizationUnits).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+
+                //b.HasIndex(u => u.NormalizedUserName);
+                //b.HasIndex(u => u.NormalizedEmail);
+                //b.HasIndex(u => u.UserName);
+                //b.HasIndex(u => u.Email);
 
             });
 
@@ -96,7 +125,8 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
-            });
+            }); 
+            #endregion
 
             #region 订单模块
             //订单

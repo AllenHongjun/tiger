@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Tiger.Module.Marketing
 {
-    class Class1
+    class CouponAppService
     {
     }
 }

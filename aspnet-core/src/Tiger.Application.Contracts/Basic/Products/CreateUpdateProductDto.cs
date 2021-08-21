@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Basic.Products
 {
-    public class CreateUpdateProductDto
+    public class CreateUpdateProductDto:EntityDto<Guid>
     {
         public int BrandId { get; set; }
 

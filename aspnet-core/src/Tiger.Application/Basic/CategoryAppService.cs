@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tiger.Basic.Products;
+using Tiger.Basic.Categorys;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Basic
 {
-    public class ProductAppService
-    :
+    public class CategoryAppService :
         CrudAppService<
-            Product, //The  entity
-            ProductDto, 
+            Category, //The  entity
+            CategoryDto,
             Guid, //Primary key 
             PagedAndSortedResultRequestDto, //Used for paging/sorting
-            CreateUpdateProductDto>, //Used to create/update
-        IProductAppService 
+            CreateUpdateCategoryDto>, //Used to create/update
+        ICategoryAppService
     {
-        public ProductAppService(IRepository<Product, Guid> repository)
-            : base(repository)
+        public CategoryAppService(IRepository<Category, Guid> repository) : base(repository)
         {
-
         }
     }
 }

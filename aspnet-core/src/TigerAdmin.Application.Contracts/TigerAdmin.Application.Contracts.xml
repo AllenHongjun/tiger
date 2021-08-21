@@ -4,6 +4,36 @@
         <name>Tiger.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.ShowStatus">
+            <summary>
+            显示状态 0->不显示 1->显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.Keyword">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.ShowStatus">
+            <summary>
+            显示状态 0->不显示 1->显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Keyword">
+            <summary>
+            关键字
+            </summary>
+        </member>
         <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Picture">
             <summary>
             图片地址
