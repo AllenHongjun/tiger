@@ -7,9 +7,9 @@ namespace Tiger.Basic.Products
 {
     public class ProductDto : AuditedEntityDto<Guid>
     {
-        public int BrandId { get; set; }
+        //public int BrandId { get; set; }
 
-        public int ProductCategoryId { get; set; }
+        //public int ProductCategoryId { get; set; }
 
         public String Name { get; set; }
 

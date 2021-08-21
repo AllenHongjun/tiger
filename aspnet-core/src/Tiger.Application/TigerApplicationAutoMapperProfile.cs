@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Tiger.Basic;
+using Tiger.Basic.Categorys;
 using Tiger.Basic.Products;
 using Tiger.Books;
 using Tiger.Business.Demo;
@@ -26,7 +28,10 @@ namespace Tiger
             CreateMap<Author, AuthorDto>();
 
             CreateMap<Basic.Product, ProductDto>();
-            CreateMap<CreateUpdateBookDto, Basic.Product>();
+            CreateMap<CreateUpdateProductDto, Basic.Product>();
+
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CreateUpdateCategoryDto, Category>();
 
 
 

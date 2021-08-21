@@ -21,26 +21,26 @@ namespace Tiger.Basic
     /// </summary>
     public class Category:AggregateRoot<Guid>, IMultiTenant
     {
-        public Category()
-        {
-        }
+        //public Category()
+        //{
+        //}
 
-        public Category(Guid parentId, Category parentCategory, string name, int level, int productCount, int showStatus, int sort, string icon, string keyword, string description, ICollection<Product> products)
-        {
-            ParentId = parentId;
-            ParentCategory = parentCategory ?? throw new ArgumentNullException(nameof(parentCategory));
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Level = level;
-            ProductCount = productCount;
-            ShowStatus = showStatus;
-            Sort = sort;
-            Icon = icon ?? throw new ArgumentNullException(nameof(icon));
-            Keyword = keyword ?? throw new ArgumentNullException(nameof(keyword));
-            Description = description ?? throw new ArgumentNullException(nameof(description));
+        //public Category(Guid parentId, Category parentCategory, string name, int level, int productCount, int showStatus, int sort, string icon, string keyword, string description, ICollection<Product> products)
+        //{
+        //    ParentId = parentId;
+        //    ParentCategory = parentCategory ?? throw new ArgumentNullException(nameof(parentCategory));
+        //    Name = name ?? throw new ArgumentNullException(nameof(name));
+        //    Level = level;
+        //    ProductCount = productCount;
+        //    ShowStatus = showStatus;
+        //    Sort = sort;
+        //    Icon = icon ?? throw new ArgumentNullException(nameof(icon));
+        //    Keyword = keyword ?? throw new ArgumentNullException(nameof(keyword));
+        //    Description = description ?? throw new ArgumentNullException(nameof(description));
 
 
-            Products = new Collection<Product>();
-        }
+        //    Products = new Collection<Product>();
+        //}
 
         [CanBeNull]
         public Guid ParentId { get; set; }

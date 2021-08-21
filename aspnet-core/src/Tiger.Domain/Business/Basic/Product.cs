@@ -24,11 +24,11 @@ namespace Tiger.Basic
     /// </summary>
     public class Product : FullAuditedAggregateRoot<Guid>,  ISoftDelete, IMultiTenant
     {
-        public int BrandId { get; set; }
+        //public int BrandId { get; set; }
 
-        public int ProductCategoryId { get; set; }
+        //public int ProductCategoryId { get; set; }
 
-        public virtual Category Category { get; set; }
+        //public virtual Category Category { get; set; }
 
         public String Name { get; set; }
 
@@ -65,8 +65,8 @@ namespace Tiger.Basic
         /// </summary>
         public string DetailDesc { get; set; }
 
-        [NotMapped]
-        public virtual ICollection<ProductTag> ProductTags { get; set; }
+        //[NotMapped]
+        //public virtual ICollection<ProductTag> ProductTags { get; set; }
 
         public Guid? TenantId { get; set; }
 

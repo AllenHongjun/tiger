@@ -5,11 +5,11 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Basic.Products
 {
-    public class CreateUpdateProductDto:EntityDto<Guid>
+    public class CreateUpdateProductDto
     {
-        public int BrandId { get; set; }
+        //public int BrandId { get; set; }
 
-        public int ProductCategoryId { get; set; }
+        //public int ProductCategoryId { get; set; }
 
         public String Name { get; set; }
 
