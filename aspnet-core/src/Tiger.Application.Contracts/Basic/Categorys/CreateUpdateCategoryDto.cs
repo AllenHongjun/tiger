@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.MultiTenancy;
@@ -8,10 +9,12 @@ namespace Tiger.Basic.Categorys
 {
     public class CreateUpdateCategoryDto:Entity<Guid>, IMultiTenant
     {
-        public Guid? TenantId => throw new NotImplementedException();
+        public Guid? TenantId { get; set; }
 
         public Guid? ParentId { get; set; }
 
+        [Required]
+        [StringLength(200)]
         public string Name { get; set; }
 
         /// <summary>
@@ -24,8 +27,10 @@ namespace Tiger.Basic.Categorys
         /// <summary>
         /// 显示状态 0->不显示 1->显示
         /// </summary>
+        [Required]
         public int ShowStatus { get; set; }
 
+        [Required]
         public int Sort { get; set; }
 
         public string Icon { get; set; }

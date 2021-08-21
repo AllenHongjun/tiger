@@ -12,6 +12,13 @@
     "Permission:Delete": "权限删除",
 
 
+    "Permission:Product": "产品管理",
+    "Permission:Product.Update": "编辑",
+    "Permission:Product.Delete": "删除",
+    "Permission:Product.Create": "添加",
+    "Permission:Product.Audit": "审核",
+
+
     "Permission:OrganitaionUnits": "组织管理",
     "Permission:OrganitaionUnits.Edit": "编辑",
     "Permission:OrganitaionUnits.Delete": "删除",

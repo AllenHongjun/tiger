@@ -1,4 +1,5 @@
-﻿using Tiger.Books;
+﻿using Tiger.Basic.Products;
+using Tiger.Books;
 using Tiger.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Authorization.Permissions;
@@ -25,29 +26,40 @@ namespace Tiger.Permissions
             var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName);
             var authorsPermission = bookStoreGroup.AddPermission(
                     BookStorePermissions.Authors.Default, L("Permission:Authors"));
-                authorsPermission.AddChild(
-                    BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
+            authorsPermission.AddChild(
+                BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
 
-                authorsPermission.AddChild(
-                    BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
+            authorsPermission.AddChild(
+                BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
 
-                authorsPermission.AddChild(
-                    BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
+            authorsPermission.AddChild(
+                BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
+
+            // 添加产品管理
+            var basicGroup = context.AddGroup(BasicPermissions.GroupName);
+            var productsPermission = basicGroup.AddPermission(
+                    BasicPermissions.Product.Default, L("Permission:Product"));
+            productsPermission.AddChild(
+                BasicPermissions.Product.Create, L("Permission:Product.Create"));
+            productsPermission.AddChild(
+                BasicPermissions.Product.Update, L("Permission:Product.Update"));
+            productsPermission.AddChild(
+                BasicPermissions.Product.Delete, L("Permission:Product.Delete"));
 
 
             // 组织
             var identityGroup = context.GetGroup(IdentityPermissions.GroupName);
             var ouPermission = identityGroup.AddPermission(TigerIdentityPermissions.OrganitaionUnits.Default, L("Permission:OrganitaionUnits"));
-            ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Create, L("Permission:OrganitaionUnits.Create"));
-            ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Update, L("Permission:OrganitaionUnits.Edit"));
-            ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Delete, L("Permission:OrganitaionUnits.Delete"));
+                ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Create, L("Permission:OrganitaionUnits.Create"));
+                ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Update, L("Permission:OrganitaionUnits.Edit"));
+                ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Delete, L("Permission:OrganitaionUnits.Delete"));
 
             //系统日志
             var auditLogGroup = context.AddGroup(AuditLogPermissions.GroupName);
             var aduditLogPermission = auditLogGroup.AddPermission(AuditLogPermissions.AuditLogs.Default, L("Permission:AuditLog"));
-            aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Create, L("Permission:AuditLog.Create"));
-            aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Update, L("Permission:AuditLog.Edit"));
-            aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Delete, L("Permission:AuditLog.Delete"));
+                aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Create, L("Permission:AuditLog.Create"));
+                aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Update, L("Permission:AuditLog.Edit"));
+                aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Delete, L("Permission:AuditLog.Delete"));
 
             //var userPermission = identityGroup.GetPermissionOrNull(IdentityPermissions.Users.Default);
             //userPermission?.AddChild(TigerIdentityPermissions.Users.DistributionOrganizationUnit, IdentityL("Permission:DistributionOrganizationUnit"));
