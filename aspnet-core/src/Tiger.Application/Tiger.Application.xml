@@ -4,7 +4,7 @@
         <name>Tiger.Application</name>
     </assembly>
     <members>
-        <member name="M:Tiger.Basic.ProductAppService.GetListV2Async(Tiger.Basic.Products.GetProductListDto)">
+        <member name="M:Tiger.Basic.ProductAppService.GetListAsync(Tiger.Basic.Products.GetProductListDto)">
             <summary>
             获取产品列表
             </summary>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Basic.Products;
@@ -10,12 +12,14 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Basic
 {
+    
     public class ProductAppService
     :
         CrudAppService<
             Product, //The  entity
-            ProductDto, 
+            ProductDto,
             Guid, //Primary key 
+            GetProductListDto,
             PagedAndSortedResultRequestDto, //Used for paging/sorting
             CreateUpdateProductDto>, //Used to create/update
         IProductAppService 
@@ -27,12 +31,15 @@ namespace Tiger.Basic
             _productRepository = productRepository;
         }
 
+
+
         /// <summary>
         /// 获取产品列表
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<PagedResultDto<ProductDto>> GetListV2Async(GetProductListDto input)
+      
+        public override async Task<PagedResultDto<ProductDto>> GetListAsync(GetProductListDto input)
         {
             if (input.Sorting.IsNullOrWhiteSpace())
             {
@@ -46,19 +53,21 @@ namespace Tiger.Basic
                 input.Filter
             );
 
-            //var totalCount = await AsyncExecuter.CountAsync<Product>(
-            //    _productRepository.WhereIf(
-            //        !input.Filter.IsNullOrWhiteSpace(),
-            //        product => product.Name.Contains(input.Filter) 
-            //    )
-            //);
-
-            var totalCount = 10;
+            var totalCount = _productRepository.Where(
+                    product => String.IsNullOrEmpty(input.Filter) || product.Name.Contains(input.Filter)
+                ).Count();
 
             return new PagedResultDto<ProductDto>(
                 totalCount,
                 ObjectMapper.Map<List<Product>, List<ProductDto>>(products)
             );
         }
+
+        //public Task<PagedResultDto<ProductDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+       
     }
 }

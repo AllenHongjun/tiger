@@ -10,6 +10,7 @@ namespace Tiger.Basic.Products
         ICrudAppService< //Defines CRUD methods
             ProductDto, //Used to show books
             Guid, //Primary key of the book entity
+            GetProductListDto,
             PagedAndSortedResultRequestDto, //Used for paging/sorting
             CreateUpdateProductDto> //Used to create/update a book
     {
