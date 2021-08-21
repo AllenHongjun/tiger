@@ -20,5 +20,12 @@ namespace Tiger.Books
     public class GetAuthorListDto : PagedAndSortedResultRequestDto
     {
         public string Filter { get; set; }
+
+        /// <summary>
+        /// 货号
+        /// </summary>
+        public string ProductSn { get; set; }
+
+        
     }
 }
