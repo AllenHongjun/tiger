@@ -1,6 +1,9 @@
 - # to do list
 
-- 使用 c# js分别实现递归的方法。实现树和对象的遍历。
+- **使用 c# js分别实现递归的方法。实现树和对象的遍历。**
+
+  - 技术点结合功能来时间。
+  - 商品分类功能开发
 
 - > 使用ABP 有很多常用的组件。用熟悉。。会用。做好东西。。进阶学习一些微服务的知识。
   >
@@ -9,46 +12,28 @@
 - EF 一对多 多对多 关系 增删改查使用
 
   - DF 多对一关系。使用
-
-- 为什么有代码调试还需要单元测试。
+  - 订单 产品 和订单明细的管理 
+  - 商品SKU 商品 属性 属性值的关联
 
 - 循环修改数据。
 
   - 一条一条的循环修改数据
+  - 批量修改数据功能
 
-- **学习 微软 asp.net core 官方文档的资料** 
-
-  - 日志 
-  - 选项模式
-  - - - 
-  - log  自带的 如何按天分文件 按类型 单独写入日志 
-  - [asp.net core configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0)
-
-- 熟悉官方的文档  教程。跟着操作一遍。练习。还有微软官方的。。找到自己需要掌握的地方。
-
-- 查看类关系图。  vitual studio 
-
-- 熟悉linqpad 工具的使用。
-
-- 给接口分api admin 区域。确认接口写在哪一层里面。
-
-  - #### HttpApi 项目  主要编写接口的地方
-
-  - #### Application 项目 service服务层
-
-  - #### Web 项目 mvc 界面显示层。
-
-- ABP整合存储过程
-
-  - 考虑弃用存储过程。查询全部写在linq当中。
-  
 - abp 整合分词搜索
 
+  - 商品分词搜索接口功能
+
 - 实现定时任务
+
+  - 定时发送邮件
+  - 定时统计数据
 
 - 实现redis缓存
 
 - > 弄一个扩展方法。缓存的对象都是string类型 来保存。生成自定义的的key  缓存的时候 读取的时候解析出来。
+  >
+  > 商品列表数据缓存。后台数据缓存 等
 
   - [官方 abp redis使用教程](https://docs.abp.io/en/abp/3.2/Redis-Cache)
 
@@ -124,6 +109,7 @@
   - [asp.net core 发送邮件。](https://www.cnblogs.com/savorboard/p/aspnetcore-email.html)
 
 - abp github登录功能。
+
   - 对接github 授权登录功能
 
     - [授权配置页面](https://github.com/settings/developers)
@@ -140,8 +126,10 @@
       - 其他使用处理
         - token 过期处理
       - 兼容qq 等其他第三方登录
-  
+
 - **如何集成帮助类。比如生成二维码，导出excel 等等。**
+
+  - 导入导出 excel 文档操作
 
 - 整理参考一些好的开源web项目。
 
@@ -149,16 +137,21 @@
 
 - **实现 elementUI- 三级联动地址选择器。**
 
+  - 用户地址管理功能开发
+
 - **文件上传。单图片上传。多图片自动上传。单文件excel上传。**
+
+  - 分类图片编辑。
 
 - **增加一个mock.列表来显示**
 
 - **开发一个后台的dashboard主页。**
 
 - **npm 命令  整理npm 前端常用的命令 设置 镜像等。**
+
   - npm uninstall --save echarts
   - npm install echarts@4.2.1
-  
+
 - 菜单管理。后台菜单控制
 
 - **如何使用消息队列** 
@@ -172,6 +165,46 @@
 - **开发系统设置功能**
 
 - **开发特性功能。abp**
+
+
+
+
+
+
+
+- 为什么有代码调试还需要单元测试。
+
+- - 
+
+- **学习 微软 asp.net core 官方文档的资料** 
+
+  - 日志 
+  - 选项模式
+  - - - 
+  - log  自带的 如何按天分文件 按类型 单独写入日志 
+  - [asp.net core configuration](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-5.0)
+
+- 熟悉官方的文档  教程。跟着操作一遍。练习。还有微软官方的。。找到自己需要掌握的地方。
+
+- 查看类关系图。  vitual studio 
+
+- 熟悉linqpad 工具的使用。
+
+- 给接口分api admin 区域。确认接口写在哪一层里面。
+
+  - #### HttpApi 项目  主要编写接口的地方
+
+  - #### Application 项目 service服务层
+
+  - #### Web 项目 mvc 界面显示层。
+
+- ABP整合存储过程
+
+  - 考虑弃用存储过程。查询全部写在linq当中。
+
+
+
+- 
 
 - **[给swagger-ui分组显示](https://mp.weixin.qq.com/s/cNB469s18plbCLbHxL1QUA)**  配置默认不展开。
 

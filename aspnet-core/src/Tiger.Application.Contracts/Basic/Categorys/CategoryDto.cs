@@ -8,7 +8,7 @@ namespace Tiger.Basic.Categorys
 {
     public class CategoryDto : EntityDto<Guid>, IMultiTenant
     {
-        public Guid? TenantId => throw new NotImplementedException();
+        public Guid? TenantId { get; set; }
 
         public Guid? ParentId { get; set; }
 

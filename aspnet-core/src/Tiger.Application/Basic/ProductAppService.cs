@@ -63,10 +63,6 @@ namespace Tiger.Basic
             );
         }
 
-        //public Task<PagedResultDto<ProductDto>> GetListAsync(PagedAndSortedResultRequestDto input)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
        
     }

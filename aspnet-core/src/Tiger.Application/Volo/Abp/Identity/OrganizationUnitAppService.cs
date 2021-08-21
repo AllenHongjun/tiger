@@ -158,13 +158,7 @@ namespace Volo.Abp.Identity
             return UnitManager.GetNextChildCodeAsync(parentId);
         }
 
-        public virtual async Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId)
-        {
-            //TODO:How to set is a leaf node when lazy loading
-            var list = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await UnitManager.FindChildrenAsync(parentId));
-            await SetLeaf(list);
-            return list;
-        }
+        
 
         /// <summary>
         /// 添加组织
@@ -238,24 +232,10 @@ namespace Volo.Abp.Identity
             await UnitManager.MoveAsync(id, parentId);
         }
 
-        /// <summary>
-        /// 后面考虑处理存储leaf到数据库,避免这么进行处理
-        /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
-        protected virtual async Task SetLeaf(List<OrganizationUnitDto> list)
-        {
-            foreach (var item in list)
-            {
-                if ((await UnitRepository.GetChildrenAsync(item.Id)).Count == 0)
-                {
-                    item.SetLeaf();
-                }
-            }
-        }
+        
 
         /// <summary>
-        /// 
+        /// 将列表转换为组织树
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="children"></param>
@@ -277,6 +257,30 @@ namespace Volo.Abp.Identity
                 var next = await GetChildrenAsync(child.Id);
                 child.Children.AddRange(next);
                 await TraverseTreeAsync(dto, child.Children);
+            }
+        }
+
+        public virtual async Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId)
+        {
+            //TODO:How to set is a leaf node when lazy loading
+            var list = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await UnitManager.FindChildrenAsync(parentId));
+            await SetLeaf(list);
+            return list;
+        }
+
+        /// <summary>
+        /// 后面考虑处理存储leaf到数据库,避免这么进行处理
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        protected virtual async Task SetLeaf(List<OrganizationUnitDto> list)
+        {
+            foreach (var item in list)
+            {
+                if ((await UnitRepository.GetChildrenAsync(item.Id)).Count == 0)
+                {
+                    item.SetLeaf();
+                }
             }
         }
 

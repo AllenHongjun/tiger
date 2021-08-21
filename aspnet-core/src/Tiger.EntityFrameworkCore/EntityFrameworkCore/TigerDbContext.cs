@@ -38,6 +38,8 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<Basic.Product> Products { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         public DbSet<ProductTag> ProductTags { get; set; }
 
         public DbSet<ProductTagRelation> ProductTagRelations { get; set; }

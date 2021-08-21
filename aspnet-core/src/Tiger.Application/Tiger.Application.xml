@@ -480,19 +480,19 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.TraverseTreeAsync(Volo.Abp.Identity.OrganizationUnitDto,System.Collections.Generic.List{Volo.Abp.Identity.OrganizationUnitDto})">
+            <summary>
+            将列表转换为组织树
+            </summary>
+            <param name="dto"></param>
+            <param name="children"></param>
+            <returns></returns>
+        </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.SetLeaf(System.Collections.Generic.List{Volo.Abp.Identity.OrganizationUnitDto})">
             <summary>
             后面考虑处理存储leaf到数据库,避免这么进行处理
             </summary>
             <param name="list"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.TraverseTreeAsync(Volo.Abp.Identity.OrganizationUnitDto,System.Collections.Generic.List{Volo.Abp.Identity.OrganizationUnitDto})">
-            <summary>
-            
-            </summary>
-            <param name="dto"></param>
-            <param name="children"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">

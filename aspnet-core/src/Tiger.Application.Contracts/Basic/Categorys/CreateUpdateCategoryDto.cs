@@ -7,9 +7,9 @@ using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Basic.Categorys
 {
-    public class CreateUpdateCategoryDto:Entity<Guid>, IMultiTenant
+    public class CreateUpdateCategoryDto
     {
-        public Guid? TenantId { get; set; }
+        //public Guid? TenantId { get; set; }
 
         public Guid? ParentId { get; set; }
 

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\TigerAdmin.Application.Contracts\TigerAdmin.Application.Contracts.xml</DocumentationFile>
+    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\Tiger.Application.Contracts\Tiger.Application.Contracts.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,12 +45,6 @@
     <Folder Include="Volo\Abp\CmsKit\" />
     <Folder Include="Volo\Abp\FeatureManagement\" />
     <Folder Include="Volo\Abp\PermissionManagement\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Tiger.Application.Contracts.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
