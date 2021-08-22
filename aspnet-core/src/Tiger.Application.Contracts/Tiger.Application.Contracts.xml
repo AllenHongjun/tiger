@@ -29,14 +29,9 @@
             推荐状态；0->不推荐；1->推荐
             </summary>
         </member>
-        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.VerifyStatus">
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Sort">
             <summary>
             审核状态：0->未审核；1->审核通过
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Sale">
-            <summary>
-            销量
             </summary>
         </member>
         <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Note">

@@ -14,7 +14,7 @@ namespace Tiger.Basic.Categorys
         public Guid? ParentId { get; set; }
 
         [Required]
-        [StringLength(200)]
+        [StringLength(200, ErrorMessage = "请输入分类名称")]
         public string Name { get; set; }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Tiger.Basic.Categorys
         /// </summary>
         public int Level { get; set; }
 
-        public int ProductCount { get; set; }
+        //public int ProductCount { get; set; }
 
         /// <summary>
         /// 显示状态 0->不显示 1->显示
@@ -30,7 +30,8 @@ namespace Tiger.Basic.Categorys
         [Required]
         public int ShowStatus { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "请输入排序值")]
+        [Range(1, 9999, ErrorMessage = "排序最大值 9999")]
         public int Sort { get; set; }
 
         public string Icon { get; set; }

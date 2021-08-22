@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Tiger.Basic.ProductAttributes
 {
     public class CreateUpdateProductAttributeDto
     {
+
+        [Required(ErrorMessage = "请输入商品属性名称")]
+        [StringLength(300)]
         public string Name { get; set; }
 
         /// <summary>

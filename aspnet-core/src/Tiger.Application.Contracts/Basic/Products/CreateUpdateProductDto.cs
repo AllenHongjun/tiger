@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
@@ -15,32 +16,39 @@ namespace Tiger.Basic.Products
         /// </summary>
         public Guid ProductAttributeTypeId { get; set; }
 
-        public String Name { get; set; }
+        [Required(ErrorMessage = "请输入商品名称")]
+        [StringLength(300)]
+        public string Name { get; set; }
 
         /// <summary>
         /// 货号
         /// </summary>
+        [StringLength(150)]
+        [Required(ErrorMessage = "请输入货号")]
         public string ProductSn { get; set; }
 
         /// <summary>
         /// 发布状态
         /// </summary>
+        [Required]
         public ProductPublishStatus PublishStatus { get; set; }
 
         /// <summary>
         /// 新品状态:0->不是新品；1->新品
         /// </summary>
+        [Required]
         public int NewStatus { get; set; }
 
         /// <summary>
         /// 推荐状态；0->不推荐；1->推荐
         /// </summary>
+        [Required]
         public int RecommandStatus { get; set; }
 
         /// <summary>
         /// 审核状态：0->未审核；1->审核通过
         /// </summary>
-        public int VerifyStatus { get; set; }
+        //public int VerifyStatus { get; set; }
 
 
         public int Sort { get; set; }
@@ -48,7 +56,7 @@ namespace Tiger.Basic.Products
         /// <summary>
         /// 销量
         /// </summary>
-        public int Sale { get; set; }
+        //public int Sale { get; set; }
 
         /// <summary>
         /// 备注
@@ -87,6 +95,8 @@ namespace Tiger.Basic.Products
         /// <summary>
         /// 销售价
         /// </summary>
+        [Required]
+        [Range(0, 99999.99, ErrorMessage = "销售价不能超过99999.99元")]
         public decimal Price { get; set; }
 
         /// <summary>
