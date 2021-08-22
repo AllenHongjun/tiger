@@ -240,6 +240,51 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.CouponCode">
+            <summary>
+            优惠券编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.MemberNickName">
+            <summary>
+            领券用户昵称
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.GetType">
+            <summary>
+            获取类型：0->后台赠送；1->主动获取
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.UseStatus">
+            <summary>
+            使用状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CreateUpdateCouponHistoryDto.CouponCode">
+            <summary>
+            优惠券编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CreateUpdateCouponHistoryDto.GetType">
+            <summary>
+            获取类型：0->后台赠送；1->主动获取
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CreateUpdateCouponHistoryDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.GetCouponHistoryListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
         <member name="P:Tiger.Marketings.Coupons.CouponDto.Type">
             <summary>
             优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；

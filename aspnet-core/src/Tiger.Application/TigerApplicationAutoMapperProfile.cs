@@ -5,6 +5,9 @@ using Tiger.Basic.ProductAttributes;
 using Tiger.Basic.Products;
 using Tiger.Books;
 using Tiger.Business.Demo;
+using Tiger.Marketing;
+using Tiger.Marketings.CouponHistorys;
+using Tiger.Marketings.Coupons;
 using Tiger.SecurityLogs;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Identity;
@@ -28,6 +31,7 @@ namespace Tiger
             CreateMap<Author, AuthorLookupDto>();
             CreateMap<Author, AuthorDto>();
 
+            #region Basic
             CreateMap<Basic.Product, ProductDto>();
             CreateMap<CreateUpdateProductDto, Basic.Product>();
 
@@ -36,6 +40,15 @@ namespace Tiger
 
             CreateMap<Category, CategoryDto>();
             CreateMap<CreateUpdateCategoryDto, Category>();
+            #endregion
+
+            #region Markting
+            CreateMap<Coupon, CouponDto>();
+            CreateMap<CreateUpdateCouponDto, Coupon>();
+
+            CreateMap<CouponHistory, CouponHistoryDto>();
+            CreateMap<CreateUpdateCouponHistoryDto, CouponHistory>(); 
+            #endregion
 
 
 

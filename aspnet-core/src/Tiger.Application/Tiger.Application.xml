@@ -358,12 +358,22 @@
             
             </summary>
         </member>
+        <member name="T:Tiger.Module.Marketings.CouponAppService">
+            <summary>
+            优惠券
+            </summary>
+        </member>
         <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)
             </summary>
             <param name="file"></param>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.Marketings.CouponHistoryAppService">
+            <summary>
+            优惠券领取记录
+            </summary>
         </member>
         <member name="T:Tiger.TigerApplicationAutoMapperProfile">
              <summary>
