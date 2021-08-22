@@ -1,36 +1,11 @@
-﻿/**
- * 类    名：Attribute   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/11 13:15:28       
- * 说    明: 
- * 
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
-using Volo.Abp;
-using Volo.Abp.Domain.Entities.Auditing;
-using Volo.Abp.MultiTenancy;
 
-namespace Tiger.Basic
+namespace Tiger.Basic.ProductAttributes
 {
-    /// <summary>
-    /// 商品属性表
-    /// 比如 颜色 容量 重量
-    /// 如果对应的参数是规格且规格支持手动添加，那么该表用于存储手动新增的值；如果对应的商品属性是参数，那么该表用于存储参数的值。
-    /// </summary>
-    [Table("ProductAttribute")]
-    //[Comment("商品属性表")]
-    public class ProductAttribute: AuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
+    public class CreateUpdateProductAttributeDto
     {
-        //[Column("Name")]
-        [Column(TypeName = "varchar(200)")]
-        [MaxLength(500)]
-        [Required]
         public string Name { get; set; }
 
         /// <summary>
@@ -52,8 +27,7 @@ namespace Tiger.Basic
         /// 排序字段：最高的可以单独上传图片
         /// </summary>
         public int Sort { get; set; }
-        
-        [Description("分类筛选样式：1->普通；1->颜色")]
+
         public int FilterType { get; set; }
 
         /// <summary>
@@ -64,7 +38,6 @@ namespace Tiger.Basic
         /// <summary>
         /// '相同属性产品是否关联；0->不关联；1->关联',
         /// </summary>
-        [NotMapped]
         public int RelatedStatus { get; set; }
 
         /// <summary>
@@ -76,8 +49,5 @@ namespace Tiger.Basic
         /// '属性的类型；0->规格；1->参数',
         /// </summary>
         public int Type { get; set; }
-        public bool IsDeleted { get ; set ; }
-
-        public Guid? TenantId { get; set; }
     }
 }

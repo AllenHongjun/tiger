@@ -114,6 +114,91 @@
             父级分类id
             </summary>
         </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SelectType">
+            <summary>
+            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputType">
+            <summary>
+            属性录入方式：0->手工录入；1->从列表中选取
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputList">
+            <summary>
+            可选值列表，以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Sort">
+            <summary>
+            排序字段：最高的可以单独上传图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SearchType">
+            <summary>
+            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.RelatedStatus">
+            <summary>
+            '相同属性产品是否关联；0->不关联；1->关联',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.HandAddStatus">
+            <summary>
+            '是否支持手动新增；0->不支持；1->支持',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Type">
+            <summary>
+            '属性的类型；0->规格；1->参数',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.GetProductAttributeListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SelectType">
+            <summary>
+            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputType">
+            <summary>
+            属性录入方式：0->手工录入；1->从列表中选取
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputList">
+            <summary>
+            可选值列表，以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Sort">
+            <summary>
+            排序字段：最高的可以单独上传图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SearchType">
+            <summary>
+            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.RelatedStatus">
+            <summary>
+            '相同属性产品是否关联；0->不关联；1->关联',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.HandAddStatus">
+            <summary>
+            '是否支持手动新增；0->不支持；1->支持',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Type">
+            <summary>
+            '属性的类型；0->规格；1->参数',
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->
         <member name="T:Tiger.Books.BookDto">
             <summary>

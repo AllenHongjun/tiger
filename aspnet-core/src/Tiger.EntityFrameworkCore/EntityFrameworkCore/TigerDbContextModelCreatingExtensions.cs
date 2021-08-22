@@ -65,6 +65,7 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Products",
                     TigerConsts.DbSchema);
+                
 
                 b.ConfigureByConvention();
 
@@ -75,6 +76,7 @@ namespace Tiger.EntityFrameworkCore
                 b.HasIndex(x => x.Name);
 
             });
+
 
             // 产品分类
             builder.Entity<Category>(b =>
@@ -88,6 +90,11 @@ namespace Tiger.EntityFrameworkCore
                     .HasColumnName(nameof(Category.Level));
                 b.Property(x => x.Keyword).HasDefaultValue(false);
 
+                b.HasMany(t => t.Children)
+                .WithOne(t => t.Parent)
+                .HasForeignKey(t => t.ParentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
                 //b.HasMany(u => u.Claims).WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
                 //b.HasMany(u => u.Logins).WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
@@ -99,6 +106,20 @@ namespace Tiger.EntityFrameworkCore
                 //b.HasIndex(u => u.NormalizedEmail);
                 //b.HasIndex(u => u.UserName);
                 //b.HasIndex(u => u.Email);
+
+            });
+
+            // 产品属性表
+            builder.Entity<ProductAttribute>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributes",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.Property(x => x.Name)
+                    .IsRequired();
+                b.HasIndex(x => x.Name);
 
             });
 

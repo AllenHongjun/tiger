@@ -20,7 +20,7 @@ namespace Tiger.Basic
             ProductDto,
             Guid, //Primary key 
             GetProductListDto,
-            PagedAndSortedResultRequestDto, //Used for paging/sorting
+            CreateUpdateProductDto, //Used for paging/sorting
             CreateUpdateProductDto>, //Used to create/update
         IProductAppService 
     {

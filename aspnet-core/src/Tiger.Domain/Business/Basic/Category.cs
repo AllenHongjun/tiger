@@ -47,7 +47,7 @@ namespace Tiger.Basic
 
         public virtual Category Parent { get; set; }
 
-        public virtual List<Category>  Children { get; set; }
+        public virtual List<Category> Children { get; set; }
 
         public string Name { get; set; }
 

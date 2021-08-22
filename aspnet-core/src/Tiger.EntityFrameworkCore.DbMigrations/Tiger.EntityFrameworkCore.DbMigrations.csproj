@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210821160615_CreateProductAttribute.cs" />
+    <Compile Remove="Migrations\20210821160615_CreateProductAttribute.Designer.cs" />
+    <Compile Remove="Migrations\20210821160913_CreateProductAttribute1.cs" />
+    <Compile Remove="Migrations\20210821160913_CreateProductAttribute1.Designer.cs" />
+    <Compile Remove="Migrations\20210821162110_ProductAttribute.cs" />
+    <Compile Remove="Migrations\20210821162110_ProductAttribute.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tiger.EntityFrameworkCore\Tiger.EntityFrameworkCore.csproj" />
   </ItemGroup>
 

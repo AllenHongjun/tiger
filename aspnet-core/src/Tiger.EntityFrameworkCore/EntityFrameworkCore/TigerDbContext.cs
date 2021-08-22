@@ -36,22 +36,28 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Author> Authors { get; set; }
 
 
+        #region Basic
         public DbSet<Basic.Product> Products { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<ProductAttribute> ProductAttributes { get; set; }
+
         public DbSet<ProductTag> ProductTags { get; set; }
 
         public DbSet<ProductTagRelation> ProductTagRelations { get; set; }
+        #endregion
 
 
+        #region Order
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderItem> OrderItems { get; set; }
 
         public DbSet<OrderSetting> OrderSettings { get; set; }
 
-        public DbSet<OrderOperateHistory> OrderOperateHistories { get; set; }
+        public DbSet<OrderOperateHistory> OrderOperateHistories { get; set; } 
+        #endregion
 
 
 

@@ -13,6 +13,9 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace Tiger.Basic
 {
+    /// <summary>
+    /// 产品分类
+    /// </summary>
     public class CategoryAppService :
         CrudAppService<
             Category, //The  entity
@@ -57,7 +60,7 @@ namespace Tiger.Basic
 
 
         /// <summary>
-        /// 获取分类
+        /// 获取单条分类
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

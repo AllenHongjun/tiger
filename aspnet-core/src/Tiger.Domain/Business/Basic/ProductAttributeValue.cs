@@ -14,7 +14,7 @@ using Volo.Abp.Domain.Entities;
 namespace Tiger.Basic
 {   
     /// <summary>
-    /// 属性值表
+    /// 属性值表(熟悉和商品关系表)
     /// 
     /// 如果对应参数是规格切支持手动添加，该表用于存储手动新增的值;如果对应的商品属性是参数，那么该表用于存储参数的值
     /// </summary>

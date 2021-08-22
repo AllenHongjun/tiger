@@ -22,4 +22,10 @@
      at Autofac.Core.Activators.Reflection.ReflectionActivator.ActivateInstance(IComponentContext cont
   ```
 
-- 
+- [可能会导致循环或多重级联路径。请指定 ON DELETE NO ACTION 或 ON UPDATE NO ACTION，或修改其他 FOREIGN KEY 约束。](cnblogs.com/hao-1234-1234/p/8664922.html)
+- [Specifying ON DELETE NO ACTION in Entity Framework 7? [duplicate]](https://stackoverflow.com/questions/34768976/specifying-on-delete-no-action-in-entity-framework-7)
+- [EF Core 遇到“可能会导致循环或多重级联路径”](bbsmax.com/A/RnJWwOPoJq/)
+- 有外键约束的时候 EF修改字段 迁移会报错。。。
+  - 除了删除数据库 还有什么办法
+  - EF的生成数据库功能是否好用？ 
+    - 学习如何使用。。迁移需要注意的点。

@@ -4,6 +4,11 @@
         <name>Tiger.Application</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Basic.CategoryAppService">
+            <summary>
+            产品分类
+            </summary>
+        </member>
         <member name="M:Tiger.Basic.CategoryAppService.GetAllListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
             <summary>
             获取分类列表树
@@ -13,7 +18,7 @@
         </member>
         <member name="M:Tiger.Basic.CategoryAppService.GetAsync(System.Guid)">
             <summary>
-            获取分类
+            获取单条分类
             </summary>
             <param name="id"></param>
             <returns></returns>
