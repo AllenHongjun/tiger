@@ -4,9 +4,9 @@
         <name>Tiger.Application.Contracts</name>
     </assembly>
     <members>
-        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Picture">
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.ProductAttributeTypeId">
             <summary>
-            图片地址
+            商品属性类型id
             </summary>
         </member>
         <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.ProductSn">
@@ -19,6 +19,41 @@
             发布状态
             </summary>
         </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.NewStatus">
+            <summary>
+            新品状态:0->不是新品；1->新品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.RecommandStatus">
+            <summary>
+            推荐状态；0->不推荐；1->推荐
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.VerifyStatus">
+            <summary>
+            审核状态：0->未审核；1->审核通过
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Sale">
+            <summary>
+            销量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Picture">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.AlbumPics">
+            <summary>
+            相册图片
+            </summary>
+        </member>
         <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Unit">
             <summary>
             单位
@@ -29,14 +64,84 @@
             详情描述
             </summary>
         </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Price">
+            <summary>
+            销售价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.OriPrice">
+            <summary>
+            原价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PurchasePrice">
+            <summary>
+            采购价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionPrice">
+            <summary>
+            促销价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.GiftGrowth">
+            <summary>
+            赠送成长值
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.GiftIntegration">
+            <summary>
+            赠送积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Stock">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.LowStock">
+            <summary>
+            预警库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Weight">
+            <summary>
+            重量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PreviewStatus">
+            <summary>
+            是否为预告商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionType">
+            <summary>
+            促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionStartTime">
+            <summary>
+            促销活动开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionPerLimit">
+            <summary>
+            活动限购数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.CategoryName">
+            <summary>
+            分类名字
+            </summary>
+        </member>
         <member name="P:Tiger.Basic.Products.GetProductListDto.Filter">
             <summary>
             查询关键字
             </summary>
         </member>
-        <member name="P:Tiger.Basic.Products.GetProductListDto.BrandId">
+        <member name="P:Tiger.Basic.Products.GetProductListDto.ProductSn">
             <summary>
-            品牌id
+            货号
             </summary>
         </member>
         <member name="P:Tiger.Basic.Products.GetProductListDto.ProductCategoryId">
@@ -49,9 +154,24 @@
             发布状态
             </summary>
         </member>
-        <member name="P:Tiger.Basic.Products.ProductDto.Picture">
+        <member name="P:Tiger.Basic.Products.GetProductListDto.NewStatus">
             <summary>
-            图片地址
+            新品状态:0->不是新品；1->新品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.RecommandStatus">
+            <summary>
+            推荐状态；0->不推荐；1->推荐
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.VerifyStatus">
+            <summary>
+            审核状态：0->未审核；1->审核通过
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.ProductAttributeTypeId">
+            <summary>
+            商品属性类型id
             </summary>
         </member>
         <member name="P:Tiger.Basic.Products.ProductDto.ProductSn">
@@ -64,6 +184,41 @@
             发布状态
             </summary>
         </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.NewStatus">
+            <summary>
+            新品状态:0->不是新品；1->新品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.RecommandStatus">
+            <summary>
+            推荐状态；0->不推荐；1->推荐
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.VerifyStatus">
+            <summary>
+            审核状态：0->未审核；1->审核通过
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Sale">
+            <summary>
+            销量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Picture">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.AlbumPics">
+            <summary>
+            相册图片
+            </summary>
+        </member>
         <member name="P:Tiger.Basic.Products.ProductDto.Unit">
             <summary>
             单位
@@ -72,6 +227,76 @@
         <member name="P:Tiger.Basic.Products.ProductDto.DetailDesc">
             <summary>
             详情描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Price">
+            <summary>
+            销售价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.OriPrice">
+            <summary>
+            原价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PurchasePrice">
+            <summary>
+            采购价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionPrice">
+            <summary>
+            促销价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.GiftGrowth">
+            <summary>
+            赠送成长值
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.GiftIntegration">
+            <summary>
+            赠送积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Stock">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.LowStock">
+            <summary>
+            预警库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Weight">
+            <summary>
+            重量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PreviewStatus">
+            <summary>
+            是否为预告商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionType">
+            <summary>
+            促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionStartTime">
+            <summary>
+            促销活动开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionPerLimit">
+            <summary>
+            活动限购数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.CategoryName">
+            <summary>
+            分类名字
             </summary>
         </member>
         <member name="P:Tiger.Basic.Categorys.CategoryDto.Level">
