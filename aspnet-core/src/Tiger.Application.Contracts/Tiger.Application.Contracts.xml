@@ -240,6 +240,76 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.Type">
+            <summary>
+            优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.Platform">
+            <summary>
+            使用平台 0 全部 1 移动 2 PC
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.MinPoint">
+            <summary>
+            使用门槛 0 表示无门槛
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.UseType">
+            <summary>
+            使用类型 0 全场通用 ； 1 指定分类  2 指定商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.MemberLevel">
+            <summary>
+            可以领取的会员类型 0 无限制
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.Type">
+            <summary>
+            优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.Platform">
+            <summary>
+            使用平台 0 全部 1 移动 2 PC
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.MinPoint">
+            <summary>
+            使用门槛 0 表示无门槛
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.UseType">
+            <summary>
+            使用类型 0 全场通用 ； 1 指定分类  2 指定商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.MemberLevel">
+            <summary>
+            可以领取的会员类型 0 无限制
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.GetCouponListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.GetCouponListDto.Type">
+            <summary>
+            优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
+            </summary>
+        </member>
         <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
             <summary>
             修改用户信息

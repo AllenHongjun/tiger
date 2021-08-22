@@ -46,6 +46,17 @@ namespace Tiger.Permissions
             productsPermission.AddChild(
                 BasicPermissions.Product.Delete, L("Permission:Product.Delete"));
 
+            // 添加产品属性管理
+           
+            //var productAttributesPermission = basicGroup.AddPermission(
+            //        BasicPermissions.ProductAttribute.Default, L("Permission:ProductAttributes"));
+            //productAttributesPermission.AddChild(
+            //    BasicPermissions.ProductAttribute.Create, L("Permission:ProductAttributes.Create"));
+            //productAttributesPermission.AddChild(
+            //    BasicPermissions.ProductAttribute.Update, L("Permission:ProductAttributes.Update"));
+            //productAttributesPermission.AddChild(
+            //    BasicPermissions.ProductAttribute.Delete, L("Permission:ProductAttributes.Delete"));
+
 
             // 组织
             var identityGroup = context.GetGroup(IdentityPermissions.GroupName);

@@ -14,7 +14,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 namespace Tiger.Basic
 {
     /// <summary>
-    /// 商品属性分类表
+    /// 商品属性类型表
     /// 
     /// 商品属性分规格和参数 规格用户用户购买商品是选择  参数用户标注商品属性以及搜索是筛选
     /// </summary>

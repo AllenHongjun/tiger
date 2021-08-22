@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Marketing
+namespace Tiger.Marketings
 {
-    class CouponHistoryAppService
+    class FlashPromotionAppService
     {
     }
 }

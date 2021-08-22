@@ -18,6 +18,15 @@ namespace Tiger.Basic.Products
             public const string ManagePermissions = Default + ".ManagePermissions";
         }
 
+        public static class ProductAttribute
+        {
+            public const string Default = GroupName + ".ProductAttributes";
+            public const string Create = Default + ".Create";
+            public const string Update = Default + ".Update";
+            public const string Delete = Default + ".Delete";
+            public const string ManagePermissions = Default + ".ManagePermissions";
+        }
+
         public static class Category
         {
             public const string Default = GroupName + ".Categorys";

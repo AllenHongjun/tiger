@@ -18,6 +18,13 @@
     "Permission:Product.Create": "添加",
     "Permission:Product.Audit": "审核",
 
+    "Permission:ProductAttributes": "产品属性",
+    "Permission:ProductAttributes.ManagePermissions": "产品属性管理",
+    "Permission:ProductAttributes.Update": "编辑",
+    "Permission:ProductAttributes.Delete": "删除",
+    "Permission:ProductAttributes.Create": "添加",
+    "Permission:ProductAttributes.Audit": "审核",
+
 
     "Permission:OrganitaionUnits": "组织管理",
     "Permission:OrganitaionUnits.Edit": "编辑",
