@@ -14,6 +14,10 @@
     <Compile Remove="Migrations\20210821160913_CreateProductAttribute1.Designer.cs" />
     <Compile Remove="Migrations\20210821162110_ProductAttribute.cs" />
     <Compile Remove="Migrations\20210821162110_ProductAttribute.Designer.cs" />
+    <Compile Remove="Migrations\20210822160822_OrderForeignKey.cs" />
+    <Compile Remove="Migrations\20210822160822_OrderForeignKey.Designer.cs" />
+    <Compile Remove="Migrations\20210822161657_update-order.cs" />
+    <Compile Remove="Migrations\20210822161657_update-order.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

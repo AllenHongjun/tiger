@@ -4,6 +4,8 @@ using Tiger.Books;
 using Tiger.Business;
 using Tiger.Business.Basic;
 using Tiger.Business.Orders;
+using Tiger.Business.Users;
+using Tiger.Marketing;
 using Tiger.Orders;
 using TigerAdmin.Books;
 using Volo.Abp;
@@ -112,6 +114,22 @@ namespace Tiger.EntityFrameworkCore
 
             });
 
+            // Sku表
+            builder.Entity<Sku>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Skus",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.Property(x => x.Price)
+                    .IsRequired();
+                //.HasMaxLength(AuthorConsts.MaxNameLength);
+
+                b.HasIndex(x => x.SkuCode);
+
+            });
+
             // 产品属性类型表
             builder.Entity<ProductAttributeType>(b =>
             {
@@ -191,10 +209,19 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
-            }); 
+            });
             #endregion
 
             #region 订单模块
+
+            // 购物车
+            builder.Entity<CartItem>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "CartItems",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
             //订单
             builder.Entity<Order>(b =>
             {
@@ -207,6 +234,14 @@ namespace Tiger.EntityFrameworkCore
             builder.Entity<OrderItem>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "OrderItems",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            //订单退款明细
+            builder.Entity<OrderReturnDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnDetails",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
             });
@@ -225,7 +260,48 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "OrderSettings",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
-            }); 
+            });
+            #endregion
+
+
+            #region 营销
+
+            // 会员
+            builder.Entity<Coupon>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Coupons",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            builder.Entity<CouponHistory>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "CouponHistories",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+
+            #endregion
+
+
+
+            #region 会员模块
+            // 会员
+            builder.Entity<Member>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Members",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            // 会员收货地址
+            builder.Entity<MemberReceiveAddress>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberReceiveAddresses",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
             #endregion
 
 

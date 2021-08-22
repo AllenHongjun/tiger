@@ -9,6 +9,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Basic;
+using Tiger.Business.Orders;
+using Tiger.Business.Users;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Orders
@@ -18,13 +21,6 @@ namespace Tiger.Orders
     /// </summary>
     public class OrderReturnDetail : FullAuditedAggregateRoot<Guid>
     {
-        public Guid OrderId { get; set; }
-
-        public Guid ReceiveAddressId { get; set; }
-
-        public Guid ProductId { get; set; }
-
-        public Guid MemberId { get; set; }
 
         /// <summary>
         /// 订单编码
@@ -76,7 +72,6 @@ namespace Tiger.Orders
         public string ProductRealPrice { get; set; }
 
 
-
         /// <summary>
         /// 退货理由
         /// </summary>
@@ -115,5 +110,24 @@ namespace Tiger.Orders
         /// 收货备注
         /// </summary>
         public string ReceiveNote { get; set; }
+
+
+
+
+        public Guid OrderId { get; set; }
+
+        public virtual Order Order { get; set; }
+
+        public Guid ReceiveAddressId { get; set; }
+
+        public virtual MemberReceiveAddress MemberReceiveAddress { get; set; }
+
+        public Guid ProductId { get; set; }
+
+        public virtual Product Product { get; set; }
+
+        public Guid MemberId { get; set; }
+
+        public virtual Member Member { get; set; }
     }
 }

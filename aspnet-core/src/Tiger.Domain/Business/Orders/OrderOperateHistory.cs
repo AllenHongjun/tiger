@@ -20,9 +20,6 @@ namespace Tiger.Orders
     /// </summary>
     public class OrderOperateHistory: FullAuditedAggregateRoot<Guid>
     {
-        public int OrderId { get; set; }
-
-        public virtual Order Order { get; set; }
 
         /// <summary>
         /// 操作人 用户  系统  后台管理员
@@ -38,5 +35,9 @@ namespace Tiger.Orders
         /// 备注
         /// </summary>
         public string Note { get; set; }
+
+        public int OrderId { get; set; }
+
+        public virtual Order Order { get; set; }
     }
 }

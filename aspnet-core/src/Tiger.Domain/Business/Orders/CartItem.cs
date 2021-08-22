@@ -8,8 +8,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Basic;
+using Tiger.Business.Users;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Orders
@@ -19,15 +21,7 @@ namespace Tiger.Orders
     /// </summary>
     public class CartItem:FullAuditedAggregateRoot<Guid>
     {
-        public Guid ProductId { get; set; }
-
-        public virtual Product Product { get; set; }
-
-        public Guid SkuId { get; set; }
-
-        public Guid MemberId { get; set; }
-
-        public Guid CategoryId { get; set; }
+        
 
         /// <summary>
         /// 购买数量
@@ -68,5 +62,24 @@ namespace Tiger.Orders
         /// 商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}]
         /// </summary>
         public string ProductAttr { get; set; }
+
+        public Guid ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
+
+        public Guid SkuId { get; set; }
+
+        public virtual Sku Sku { get; set; }
+
+        public Guid MemberId { get; set; }
+
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; set; }
+
+        public Guid CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
     }
 }

@@ -16,6 +16,8 @@ using Tiger.Orders;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp;
 using Volo.Abp.MultiTenancy;
+using Tiger.Business.Users;
+using Tiger.Marketing;
 
 namespace Tiger.Business.Orders
 {   
@@ -26,9 +28,7 @@ namespace Tiger.Business.Orders
     public class Order : FullAuditedAggregateRoot<Guid>,ISoftDelete,IMultiTenant
     {
         public Guid? TenantId { get; set; }
-        public int MemberId { get; set; }
-
-        public int CouponId { get; set; }
+        
 
         public string OrderSn { get; set; }
 
@@ -203,9 +203,23 @@ namespace Tiger.Business.Orders
         public DateTime CommentTime { get; set; }
 
 
+        //public Guid MemberId { get; set; }
+
+        //[ForeignKey("MemberId")]
+        //public virtual Member Member { get; set; }
+
+        //public Guid CouponId { get; set; }
+
+        //[ForeignKey("CouponId")]
+        //public virtual Coupon Coupon { get; set; }
+
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
+
+        public virtual ICollection<OrderOperateHistory> OrderOperateHistories { get; set; }
+
+        public virtual ICollection<OrderReturnDetail> OrderReturnDetails { get; set; }
 
         
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Migrations
 {
     [DbContext(typeof(TigerMigrationsDbContext))]
-    partial class TigerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210822161204_OrderUpdate")]
+    partial class OrderUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -852,6 +854,9 @@ namespace Tiger.Migrations
                     b.Property<decimal>("CouponAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("CouponId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnName("CreationTime")
                         .HasColumnType("datetime2");
@@ -908,6 +913,9 @@ namespace Tiger.Migrations
 
                     b.Property<Guid?>("LastModifierId")
                         .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Note")
@@ -975,6 +983,10 @@ namespace Tiger.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CouponId");
+
+                    b.HasIndex("MemberId");
 
                     b.ToTable("AppOrders");
                 });
@@ -3618,6 +3630,21 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Business.Basic.ProductTag", "ProductTag")
                         .WithMany()
                         .HasForeignKey("ProductTagId1");
+                });
+
+            modelBuilder.Entity("Tiger.Business.Orders.Order", b =>
+                {
+                    b.HasOne("Tiger.Marketing.Coupon", "Coupon")
+                        .WithMany()
+                        .HasForeignKey("CouponId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tiger.Business.Users.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tiger.Marketing.CouponHistory", b =>

@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Basic;
 using Tiger.Business;
@@ -25,18 +26,10 @@ namespace Tiger.Orders
     {
         public Guid? TenantId { get; set; }
 
-        public int OrderId { get; set; }
-
-        public virtual Order Order { get; set; }
-
         /// <summary>
         /// 订单编码
         /// </summary>
         public string OrderSn { get; set; }
-
-        public int ProductId { get; set; }
-
-        public virtual Product Product { get; set; }
 
         public string ProductPic { get; set; }
 
@@ -55,11 +48,6 @@ namespace Tiger.Orders
         /// 购买数量
         /// </summary>
         public int ProductQuantity { get; set; }
-
-        /// <summary>
-        /// 商品sku编号
-        /// </summary>
-        public int ProductSkuId { get; set; }
 
         /// <summary>
         /// 商品sku条码
@@ -112,6 +100,24 @@ namespace Tiger.Orders
         /// </remarks>
         public string ProductAttr { get; set; }
 
-        
+
+        /// <summary>
+        /// 商品sku编号
+        /// </summary>
+        public Guid SkuId { get; set; }
+
+        [ForeignKey("SkuId")]
+        public virtual Sku Sku { get; set; }
+
+        public Guid OrderId { get; set; }
+
+        [ForeignKey("OrderId")]
+        public virtual Order Order { get; set; }
+
+        public Guid ProductId { get; set; }
+
+        public virtual Product Product { get; set; }
+
+
     }
 }

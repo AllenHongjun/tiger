@@ -16,16 +16,25 @@
 - xml文件  Swagger新添加的接口没有注释 
   
   - 项目选址生成的文件。重新打钩 重新生成
+  
+- ALTER TABLE [AppOrders] ALTER COLUMN [MemberId] uniqueidentifier NOT NULL;
+   Microsoft.Data.SqlClient.SqlException (0x80131904): 操作数类型冲突: int 与 uniqueidentifier 不兼容  int 与GUId不兼容
+
+- 
+
 - 如何重新 ABP 框架自带的CRUD 方法。基础父类。然后重新
   
   - 官方文档有说明。可以参考。
+  
 - 效率变高很多。
   - 基础的CRUD方法就基本不用自己写了。。可以完成单表的增删改查
     - 有关联的表的 就需要继承调用父类的方法。然后完成其他关联表的操作。
   - 定义好实体类。定义好注释。定义好验证。
   - 基础的CRUD方法就已经完成了。
+  
 - An exception was thrown while activating Castle.Proxies.CategoryAppServiceProxy.
    ---> Autofac.Core.DependencyResolutionException: None of the constructors found with  
+   
 - 注意 EF context需要注入实体类。 错误 和 异常报错 不太相关。。看不太出来。
 
 - ```
@@ -38,8 +47,11 @@
   ```
 
 - [可能会导致循环或多重级联路径。请指定 ON DELETE NO ACTION 或 ON UPDATE NO ACTION，或修改其他 FOREIGN KEY 约束。](cnblogs.com/hao-1234-1234/p/8664922.html)
+
 - [Specifying ON DELETE NO ACTION in Entity Framework 7? [duplicate]](https://stackoverflow.com/questions/34768976/specifying-on-delete-no-action-in-entity-framework-7)
+
 - [EF Core 遇到“可能会导致循环或多重级联路径”](bbsmax.com/A/RnJWwOPoJq/)
+
 - 有外键约束的时候 EF修改字段 迁移会报错。。。
   - 除了删除数据库 还有什么办法
   - EF的生成数据库功能是否好用？ 
