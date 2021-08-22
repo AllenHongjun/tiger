@@ -30,11 +30,19 @@ namespace Tiger.Marketing
         /// </summary>
         public int Platform { get; set; }
 
-
+        /// <summary>
+        /// 数量
+        /// </summary>
         public int Count { get; set; }
 
+        /// <summary>
+        /// 金额
+        /// </summary>
         public decimal Amount { get; set; }
 
+        /// <summary>
+        /// 每人限领张数
+        /// </summary>
         public int PerLimit { get; set; }
 
         /// <summary>
@@ -56,18 +64,33 @@ namespace Tiger.Marketing
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        /// 发行数量
+        /// </summary>
         public int PublishCount { get; set; }
 
+        /// <summary>
+        /// 已使用数量
+        /// </summary>
         public int UseCount { get; set; }
 
+        /// <summary>
+        /// 领取数量
+        /// </summary>
         public int ReceiveCount { get; set; }
 
+        /// <summary>
+        /// 可以领取的日期
+        /// </summary>
         public DateTime EnableTime { get; set; }
 
+        /// <summary>
+        /// 优惠码
+        /// </summary>
         public string Code { get; set; }
 
         /// <summary>
-        /// 可以领取的会员类型 0 无限制
+        /// 可以领取的会员类型 0->无限制
         /// </summary>
         public int MemberLevel { get; set; }
 

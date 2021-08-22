@@ -33,6 +33,9 @@ namespace Tiger.Orders
         /// </summary>
         public int OrderStatus { get; set; }
 
+        /// <summary>
+        /// 备注
+        /// </summary>
         public string Note { get; set; }
     }
 }

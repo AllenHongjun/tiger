@@ -18,11 +18,19 @@ namespace Tiger.Marketing
     /// </summary>
     public class FlashPromotion: AuditedAggregateRoot<Guid>
     {
-
+        /// <summary>
+        /// 活动名称
+        /// </summary>
         public string Title { get; set; }
 
+        /// <summary>
+        /// 开始时间
+        /// </summary>
         public DateTime StartDate { get; set; }
 
+        /// <summary>
+        /// 结束时间
+        /// </summary>
         public DateTime EndDate { get; set; }
 
         /// <summary>
@@ -30,7 +38,6 @@ namespace Tiger.Marketing
         /// </summary>
         public int Status { get; set; }
 
-        public DateTime CreateTime { get; set; }
 
         public virtual ICollection<FlashPromotionSession> FlashPromotionSessions { get; set; }
     }

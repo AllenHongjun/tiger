@@ -50,14 +50,26 @@ namespace Tiger.Orders
         /// </summary>
         public decimal ProductPrice { get; set; }
 
+        /// <summary>
+        /// 购买数量
+        /// </summary>
         public int ProductQuantity { get; set; }
 
+        /// <summary>
+        /// 商品sku编号
+        /// </summary>
         public int ProductSkuId { get; set; }
 
+        /// <summary>
+        /// 商品sku条码
+        /// </summary>
         public string ProductSkuCode { get; set; }
 
         public int ProductCategoryId { get; set; }
 
+        /// <summary>
+        /// 商品促销名称
+        /// </summary>
         public string PromotionName { get; set; }
 
         /// <summary>

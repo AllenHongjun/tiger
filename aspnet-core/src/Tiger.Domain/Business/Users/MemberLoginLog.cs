@@ -5,14 +5,22 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Business.Users
 {
+    /// <summary>
+    /// 会员登录记录表
+    /// </summary>
     public class MemberLoginLog : FullAuditedAggregateRoot<Guid>
     {
         public Guid MemberId { get; set; }
 
         public virtual Member  Member { get; set; }
-
+        /// <summary>
+        /// 登录ip
+        /// </summary>
         public string IP { get; set; }
 
+        /// <summary>
+        /// 登录城市
+        /// </summary>
         public string City { get; set; }
 
         /// <summary>
@@ -20,6 +28,9 @@ namespace Tiger.Business.Users
         /// </summary>
         public int LoginType { get; set; }
 
+        /// <summary>
+        /// 登录省份
+        /// </summary>
         public string Province { get; set; }
     }
 }

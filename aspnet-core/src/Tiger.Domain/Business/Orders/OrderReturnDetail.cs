@@ -24,8 +24,10 @@ namespace Tiger.Orders
 
         public Guid ProductId { get; set; }
 
+        public Guid MemberId { get; set; }
+
         /// <summary>
-        /// 订单号
+        /// 订单编码
         /// </summary>
 
         public string OrderSn { get; set; }
@@ -55,6 +57,26 @@ namespace Tiger.Orders
         /// </summary>
         public DateTime HandleTime { get; set; }
 
+        public string ProductPic { get; set; }
+
+        public string ProductName { get; set; }
+
+        public string ProductAttr { get; set; }
+
+        /// <summary>
+        /// 退货数量
+        /// </summary>
+        public string ProductQuantity { get; set; }
+
+        /// <summary>
+        /// 商品单价
+        /// </summary>
+        public string ProductPrice { get; set; }
+
+        public string ProductRealPrice { get; set; }
+
+
+
         /// <summary>
         /// 退货理由
         /// </summary>
@@ -65,6 +87,10 @@ namespace Tiger.Orders
         /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// 凭证图片，以逗号隔开
+        /// </summary>
+        public string ProofPics { get; set; }
         /// <summary>
         /// 处理备注
         /// </summary>

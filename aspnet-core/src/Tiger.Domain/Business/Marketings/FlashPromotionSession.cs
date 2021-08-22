@@ -20,8 +20,14 @@ namespace Tiger.Marketing
     {
         public string Name { get; set; }
 
+        /// <summary>
+        /// 开始时间
+        /// </summary>
         public DateTime StartTime { get; set; }
 
+        /// <summary>
+        /// 结束时间
+        /// </summary>
         public DateTime EndTime { get; set; }
 
         /// <summary>
@@ -29,6 +35,9 @@ namespace Tiger.Marketing
         /// </summary>
         public int Status { get; set; }
 
+        /// <summary>
+        /// 限制购物活动id
+        /// </summary>
         public Guid FlashPromotionId { get; set; }
 
         public virtual FlashPromotion FlashPromotion { get; set; }

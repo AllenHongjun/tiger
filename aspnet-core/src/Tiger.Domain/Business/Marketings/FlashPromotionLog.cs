@@ -24,8 +24,14 @@ namespace Tiger.Marketing
 
         public Guid ProductId { get; set; }
 
+        /// <summary>
+        /// 订阅人手机号
+        /// </summary>
         public string MemberPhone { get; set; }
 
+        /// <summary>
+        /// 订阅产品名称
+        /// </summary>
         public string ProductName { get; set; }
 
         /// <summary>
@@ -33,6 +39,9 @@ namespace Tiger.Marketing
         /// </summary>
         public DateTime SubscribeTime { get; set; }
 
+        /// <summary>
+        /// 发送时间
+        /// </summary>
         public DateTime Sendtime { get; set; }
     }
 }

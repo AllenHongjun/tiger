@@ -9,6 +9,9 @@ namespace Tiger.Business.Users
     {
         public string Name { get; set; }
 
+        /// <summary>
+        /// 成长值
+        /// </summary>
         public int GrowthPoint { get; set; }
 
         /// <summary>

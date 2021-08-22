@@ -34,6 +34,9 @@ namespace Tiger.Marketing
         /// </summary>
         public string CouponCode { get; set; }
 
+        /// <summary>
+        /// 领取人昵称
+        /// </summary>
         public string MemberNickName { get; set; }
 
         /// <summary>
@@ -43,8 +46,14 @@ namespace Tiger.Marketing
 
         //public DateTime CreateTime { get; set; }
 
+        /// <summary>
+        /// 使用状态：0->未使用；1->已使用；2->已过期
+        /// </summary>
         public int UseStatus { get; set; }
 
+        /// <summary>
+        /// 使用时间
+        /// </summary>
         public DateTime UseTime { get; set; }
 
         public Guid OrderId { get; set; }

@@ -129,22 +129,37 @@ namespace Tiger.Business
         /// </summary>
         public string BillHeader { get; set; }
 
+        /// <summary>
+        /// 发票内容
+        /// </summary>
         public string BillContent { get; set; }
-
+        /// <summary>
+        /// 收票人电话
+        /// </summary>
         public string BillReceiverPhone { get; set; }
-
+        /// <summary>
+        /// 收票人邮箱
+        /// </summary>
         public string BillReceiverEmail { get; set; }
 
 
 
 
-
+        /// <summary>
+        /// 收货人姓名
+        /// </summary>
         public string ReceiverName { get; set; }
-
+        /// <summary>
+        /// 收货人电话
+        /// </summary>
         public string ReceiverPhone { get; set; }
-
+        /// <summary>
+        /// 收货人邮编
+        /// </summary>
         public string ReceiverPostCode { get; set; }
-
+        /// <summary>
+        /// 省份/直辖市
+        /// </summary>
         public string ReceiverProvince { get; set; }
 
         public string ReceiverCity { get; set; }
@@ -156,25 +171,37 @@ namespace Tiger.Business
 
 
 
-
+        /// <summary>
+        /// 备注
+        /// </summary>
         public string Note { get; set; }
 
         /// <summary>
         /// '确认收货状态：0->未确认；1->已确认',
         /// </summary>
         public int ConfirmStatus { get; set; }
-
+        /// <summary>
+        /// 下单时使用的积分
+        /// </summary>
         public int UseIntegration { get; set; }
 
+        /// <summary>
+        /// 支付时间
+        /// </summary>
         public DateTime PaymentTime { get; set; }
-
+        /// <summary>
+        /// 发货时间
+        /// </summary>
         public DateTime DeliveryTime { get; set; }
-
+        /// <summary>
+        /// 确认收货时间
+        /// </summary>
         public DateTime ReceiveTime { get; set; }
-
+        /// <summary>
+        /// 评价时间
+        /// </summary>
         public DateTime CommentTime { get; set; }
 
-        public DateTime ModifyTime { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 

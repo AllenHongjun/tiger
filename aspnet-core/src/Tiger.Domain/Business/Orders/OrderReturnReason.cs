@@ -18,10 +18,19 @@ namespace Tiger.Orders
     /// </summary>
     public class OrderReturnReason:Entity<Guid>
     {
+        /// <summary>
+        /// 退货类型描述
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// 排序
+        /// </summary>
         public int Sort { get; set; }
 
+        /// <summary>
+        /// 状态：0->不启用；1->启用
+        /// </summary>
         public int Status { get; set; }
 
         public DateTime DateTime { get; set; }
