@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Basic.ProductAttributeTpyes
 {
-    public class GetProductAttributeTpyeListDto:PagedAndSortedResultRequestDto
+    public class GetProductAttributeTypeListDto:PagedAndSortedResultRequestDto
     {
     }
 }

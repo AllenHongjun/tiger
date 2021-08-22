@@ -12,7 +12,7 @@ namespace Tiger.Basic.ProductAttributeTpyes
         ICrudAppService<
             ProductAttributeTypeDto, // Used to show ProductAttributeTpye
             Guid,
-            GetProductAttributeTpyeListDto,
+            GetProductAttributeTypeListDto,
             CreateUpdateProductAttributeTypeDto,
             CreateUpdateProductAttributeTypeDto>
     {

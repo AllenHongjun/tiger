@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiger.Basic.Products;
 using Tiger.Business.Basic;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Basic
 {
-    
+    [RemoteService(false)]
     public class ProductAppService
     :
         CrudAppService<

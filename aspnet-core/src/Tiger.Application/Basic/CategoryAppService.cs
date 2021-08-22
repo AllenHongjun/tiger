@@ -41,6 +41,9 @@ namespace Tiger.Basic
             _categoryRepository = categoryRepository;
         }
 
+        // TODO: 完善分类树的接口 完善从数据库读取的功能。
+
+
         /// <summary>
         /// 获取分类列表树
         /// </summary>

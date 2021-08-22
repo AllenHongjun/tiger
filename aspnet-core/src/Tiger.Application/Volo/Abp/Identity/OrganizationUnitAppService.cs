@@ -103,9 +103,6 @@ namespace Volo.Abp.Identity
                     AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
                 }
             );
-
-
-           
         }
 
         public virtual async Task<PagedResultDto<OrganizationUnitDto>> GetListAsync(GetOrganizationUnitInput input)
