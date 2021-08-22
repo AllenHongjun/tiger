@@ -9,9 +9,7 @@ namespace Tiger.Basic.Categorys
 {
     public interface ICategoryAppService:
         ICrudAppService<
-           
             CategoryDto, // Used to show category
-         
             Guid,
             GetCategoryListDto,
             CreateUpdateCategoryDto,

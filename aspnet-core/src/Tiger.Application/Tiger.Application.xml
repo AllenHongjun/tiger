@@ -385,6 +385,13 @@
             优惠券领取记录
             </summary>
         </member>
+        <member name="T:Tiger.Orders.CartItemAppService">
+            <summary>
+            购物车
+            
+            ICartItemAppService 注意实现接口的中 泛型的类型必须一致
+            </summary>
+        </member>
         <member name="T:Tiger.TigerApplicationAutoMapperProfile">
              <summary>
              AutoMapper提供了多种定义类之间映射的方法. 有关详细信息请参阅AutoMapper的文档.

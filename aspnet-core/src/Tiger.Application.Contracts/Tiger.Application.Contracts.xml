@@ -651,6 +651,66 @@
             优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
             </summary>
         </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.Quantity">
+            <summary>
+            购买数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.Price">
+            <summary>
+            添加到购物车的价格
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.ProductPic">
+            <summary>
+            商品主图
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.SkuCode">
+            <summary>
+            商品sku条码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.Brand">
+            <summary>
+            品牌名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.ProductAttr">
+            <summary>
+            商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}]
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.Quantity">
+            <summary>
+            购买数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.Price">
+            <summary>
+            添加到购物车的价格
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.SkuCode">
+            <summary>
+            商品sku条码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.Brand">
+            <summary>
+            品牌名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
         <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.TotalAmount">
             <summary>
             订单总金额
