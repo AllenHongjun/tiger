@@ -197,6 +197,26 @@ namespace Tiger
                         }
                     });
 
+                    options.SwaggerDoc("admin-basic", new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "Tiger Basic接口",
+                        Description = "Tiger 后台 Basic接口",
+
+                        //API 服务条款的 URL。 必须采用 URL 格式。
+                        //TermsOfService = new Uri("https://example.com/terms"),
+                        Contact = new OpenApiContact
+                        {
+                            Name = "hongjy",
+                            Email = "hongjy1991@gmail.com",
+                            Url = new Uri("https://www.hongjy.cn/"),
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "Use under LICX",
+                        }
+                    });
+
                     //options.SwaggerDoc("auth", new OpenApiInfo { Title = "TinyErpAuth", Version = "auth" });
                     //options.SwaggerDoc("gp", new OpenApiInfo { Title = "登录模块", Version = "GP" });
                     //options.SwaggerDoc("mom", new OpenApiInfo { Title = "业务模块", Version = "YW" });
@@ -368,6 +388,7 @@ namespace Tiger
                 // 配置自定义的样式
                 //options.InjectStylesheet("/swagger-ui/custom.css");
 
+                options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "后台基础模块");
                 options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin");
                 options.SwaggerEndpoint("/swagger/api/swagger.json", "API");
                 

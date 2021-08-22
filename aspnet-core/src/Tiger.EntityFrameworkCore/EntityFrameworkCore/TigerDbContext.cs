@@ -41,7 +41,13 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<ProductAttributeType> ProductAttributeTypes { get; set; }
+
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
+
+        public DbSet<Comment>  Comments { get; set; }
+
+        public DbSet<CommentReply> CommentReplies { get; set; }
 
         public DbSet<ProductTag> ProductTags { get; set; }
 

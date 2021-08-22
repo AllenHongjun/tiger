@@ -10,12 +10,14 @@ using Volo.Abp.Domain.Repositories;
 using Tiger.Business.Basic;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
+using Volo.Abp;
 
 namespace Tiger.Basic
 {
     /// <summary>
     /// 产品分类
     /// </summary>
+    [RemoteService(false)]
     public class CategoryAppService :
         CrudAppService<
             Category, //The  entity

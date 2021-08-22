@@ -39,6 +39,17 @@ namespace Tiger.EntityFrameworkCore
 
                 // ADD THE MAPPING FOR THE RELATION
                 b.HasOne<Business.Demo.Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
+
+                //b.HasMany(u => u.Claims).WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
+                //b.HasMany(u => u.Logins).WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
+                //b.HasMany(u => u.Roles).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+                //b.HasMany(u => u.Tokens).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+                //b.HasMany(u => u.OrganizationUnits).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+
+                //b.HasIndex(u => u.NormalizedUserName);
+                //b.HasIndex(u => u.NormalizedEmail);
+                //b.HasIndex(u => u.UserName);
+                //b.HasIndex(u => u.Email);
             });
 
             // 添加作者
@@ -96,16 +107,21 @@ namespace Tiger.EntityFrameworkCore
                 .OnDelete(DeleteBehavior.Restrict);
 
 
-                //b.HasMany(u => u.Claims).WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
-                //b.HasMany(u => u.Logins).WithOne().HasForeignKey(ul => ul.UserId).IsRequired();
-                //b.HasMany(u => u.Roles).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
-                //b.HasMany(u => u.Tokens).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
-                //b.HasMany(u => u.OrganizationUnits).WithOne().HasForeignKey(ur => ur.UserId).IsRequired();
+                
 
-                //b.HasIndex(u => u.NormalizedUserName);
-                //b.HasIndex(u => u.NormalizedEmail);
-                //b.HasIndex(u => u.UserName);
-                //b.HasIndex(u => u.Email);
+            });
+
+            // 产品属性类型表
+            builder.Entity<ProductAttributeType>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributeTypes",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.Property(x => x.Name)
+                    .IsRequired();
+                b.HasIndex(x => x.Name);
 
             });
 
@@ -123,19 +139,37 @@ namespace Tiger.EntityFrameworkCore
 
             });
 
-            // 产品标签
-            builder.Entity<ProductTag>(b =>
+            // 产品属性表
+            builder.Entity<ProductAttribute>(b =>
             {
-                b.ToTable(TigerConsts.DbTablePrefix + "ProductTags",
+                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributes",
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
 
-                //b.Property(x => x.Name)
-                //    .IsRequired();
-                //.HasMaxLength(AuthorConsts.MaxNameLength);
+                b.Property(x => x.Name)
+                    .IsRequired();
+                b.HasIndex(x => x.Name);
 
-                //b.HasIndex(x => x.Name);
+            });
+
+            // 产品评论表
+            builder.Entity<Comment>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Comments",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
+
+            });
+
+            // 产品评论回复表
+            builder.Entity<CommentReply>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "CommentReplys",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
 
             });
 

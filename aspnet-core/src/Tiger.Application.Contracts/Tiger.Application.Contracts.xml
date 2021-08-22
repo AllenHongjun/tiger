@@ -339,6 +339,27 @@
             父级分类id
             </summary>
         </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetAllListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
+            <summary>
+            获取分类列表树
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取分类明细树
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetChildrenAsync(System.Guid)">
+            <summary>
+            根据父级id查找子分类
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
         <member name="P:Tiger.Basic.Comments.CommentDto.Pics">
             <summary>
             上传图片以逗号隔开

@@ -16,7 +16,7 @@ namespace Tiger.Basic
     /// <summary>
     /// 商品评价回复表
     /// </summary>
-    public class CommentReplay: FullAuditedAggregateRoot<Guid>
+    public class CommentReply: FullAuditedAggregateRoot<Guid>
     {
         public Guid CommentId { get; set; }
 
