@@ -8,11 +8,11 @@ namespace Tiger.Basic.Products
 {
     public interface IProductAppService :
         ICrudAppService< //Defines CRUD methods
-            ProductDto, //Used to show books
-            Guid, //Primary key of the book entity
+            ProductDto, //Used to show 
+            Guid, //Primary key 
             GetProductListDto,
             CreateUpdateProductDto, //Used for paging/sorting
-            CreateUpdateProductDto> //Used to create/update a book
+            CreateUpdateProductDto> //Used to create/update 
     {
 
     }

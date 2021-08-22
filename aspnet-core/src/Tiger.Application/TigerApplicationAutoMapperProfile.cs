@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Tiger.Basic;
 using Tiger.Basic.Categorys;
+using Tiger.Basic.Comments;
 using Tiger.Basic.ProductAttributes;
 using Tiger.Basic.ProductAttributeTpyes;
 using Tiger.Basic.Products;
@@ -44,6 +45,9 @@ namespace Tiger
 
             CreateMap<Category, CategoryDto>();
             CreateMap<CreateUpdateCategoryDto, Category>();
+
+            CreateMap<Comment, CommentDto>();
+            CreateMap<CreateUpdateCommentDto, Comment>();
             #endregion
 
             #region Markting

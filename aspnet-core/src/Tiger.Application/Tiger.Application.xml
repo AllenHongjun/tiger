@@ -52,6 +52,11 @@
             <param name="list"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Basic.CommentAppService">
+            <summary>
+            商品评论
+            </summary>
+        </member>
         <member name="M:Tiger.Basic.ProductAppService.GetListAsync(Tiger.Basic.Products.GetProductListDto)">
             <summary>
             获取产品列表

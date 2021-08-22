@@ -114,6 +114,36 @@
             父级分类id
             </summary>
         </member>
+        <member name="P:Tiger.Basic.Comments.CommentDto.Pics">
+            <summary>
+            上传图片以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CommentDto.ProductAttribute">
+            <summary>
+            购买时产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.Pics">
+            <summary>
+            上传图片以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.ProductAttribute">
+            <summary>
+            购买时产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.GetCommentListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.GetCommentListDto.ShowStatus">
+            <summary>
+            显示状态 0 不显示; 1 显示;
+            </summary>
+        </member>
         <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SelectType">
             <summary>
             属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；

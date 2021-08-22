@@ -27,9 +27,27 @@ namespace Tiger.Basic.Products
             public const string ManagePermissions = Default + ".ManagePermissions";
         }
 
+        public static class ProductAttributeType
+        {
+            public const string Default = GroupName + ".ProductAttributeTypes";
+            public const string Create = Default + ".Create";
+            public const string Update = Default + ".Update";
+            public const string Delete = Default + ".Delete";
+            public const string ManagePermissions = Default + ".ManagePermissions";
+        }
+
         public static class Category
         {
             public const string Default = GroupName + ".Categorys";
+            public const string Create = Default + ".Create";
+            public const string Update = Default + ".Update";
+            public const string Delete = Default + ".Delete";
+            public const string ManagePermissions = Default + ".ManagePermissions";
+        }
+
+        public static class Comment
+        {
+            public const string Default = GroupName + ".Comments";
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";

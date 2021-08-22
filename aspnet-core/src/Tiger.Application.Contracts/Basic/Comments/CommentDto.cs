@@ -1,28 +1,17 @@
-﻿/**
- * 类    名：Comment   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/11 14:38:22       
- * 说    明: 
- * 
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Basic
+namespace Tiger.Basic.Comments
 {
-    /// <summary>
-    /// 商品评价表
-    /// </summary>
-    public class Comment: FullAuditedAggregateRoot<Guid>
+    public class CommentDto:EntityDto<Guid>
     {
         public Guid ProductId { get; set; }
 
         public Guid OrderId { get; set; }
 
-        public virtual Product Product { get; set; }
+        public string OrderSn { get; set; }
 
         /// <summary>
         /// 上传图片以逗号隔开
@@ -53,7 +42,5 @@ namespace Tiger.Basic
         public int ReadCount { get; set; }
 
         public int ReplayCount { get; set; }
-
-        
     }
 }
