@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Basic
 {
@@ -18,8 +19,13 @@ namespace Tiger.Basic
     /// 
     /// 商品属性分规格和参数 规格用户用户购买商品是选择  参数用户标注商品属性以及搜索是筛选
     /// </summary>
-    public class ProductAttributeCategory: AuditedAggregateRoot<Guid>
+    public class ProductAttributeType: AuditedAggregateRoot<Guid>,IMultiTenant
     {
+        public Guid? TenantId { get; set; }
+
+        /// <summary>
+        /// 类型名称
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
@@ -31,5 +37,7 @@ namespace Tiger.Basic
         /// 参数数量
         /// </summary>
         public int ParamCount { get; set; }
+
+        
     }
 }

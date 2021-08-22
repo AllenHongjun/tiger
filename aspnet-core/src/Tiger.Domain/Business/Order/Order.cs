@@ -14,6 +14,8 @@ using Tiger.Basic;
 using Tiger;
 using Tiger.Orders;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Business
 {   
@@ -21,8 +23,9 @@ namespace Tiger.Business
     /// 订单表
     /// </summary>
     [Table("Order")]
-    public class Order : FullAuditedAggregateRoot<Guid>
+    public class Order : FullAuditedAggregateRoot<Guid>,ISoftDelete,IMultiTenant
     {
+        public Guid? TenantId { get; set; }
         public int MemberId { get; set; }
 
         public int CouponId { get; set; }
@@ -177,6 +180,6 @@ namespace Tiger.Business
 
         public virtual ICollection<Product> Products { get; set; }
 
-
+        
     }
 }

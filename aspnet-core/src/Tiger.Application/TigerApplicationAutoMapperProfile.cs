@@ -2,6 +2,7 @@
 using Tiger.Basic;
 using Tiger.Basic.Categorys;
 using Tiger.Basic.ProductAttributes;
+using Tiger.Basic.ProductAttributeTpyes;
 using Tiger.Basic.Products;
 using Tiger.Books;
 using Tiger.Business.Demo;
@@ -34,6 +35,9 @@ namespace Tiger
             #region Basic
             CreateMap<Basic.Product, ProductDto>();
             CreateMap<CreateUpdateProductDto, Basic.Product>();
+
+            CreateMap<ProductAttributeType, ProductAttributeTypeDto>();
+            CreateMap<CreateUpdateProductAttributeTypeDto, ProductAttributeType>();
 
             CreateMap<ProductAttribute, ProductAttributeDto>();
             CreateMap<CreateUpdateProductAttributeDto, ProductAttribute>();

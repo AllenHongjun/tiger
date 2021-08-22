@@ -59,6 +59,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Basic.ProductAttributeTpyeAppService">
+            <summary>
+            商品属性分类
+            </summary>
+        </member>
         <member name="T:Tiger.BlobDemo.MyBlobContainer">
             <summary>
             类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;

@@ -11,15 +11,19 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Basic;
 using Tiger.Business;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Orders
 {
     /// <summary>
     /// 订单明细
     /// </summary>
-    public class OrderItem : FullAuditedAggregateRoot<Guid>
+    public class OrderItem : FullAuditedAggregateRoot<Guid>,ISoftDelete,IMultiTenant
     {
+        public Guid? TenantId { get; set; }
+
         public int OrderId { get; set; }
 
         public virtual Order Order { get; set; }
@@ -95,6 +99,6 @@ namespace Tiger.Orders
         /// </remarks>
         public string ProductAttr { get; set; }
 
-
+        
     }
 }

@@ -199,6 +199,26 @@
             '属性的类型；0->规格；1->参数',
             </summary>
         </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.CreateUpdateProductAttributeTypeDto.Name">
+            <summary>
+            类型名称
+            </summary>
+        </member>
+        <member name="T:Tiger.Basic.ProductAttributeTpyes.IProductAttributeTypeAppService">
+            <summary>
+            产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.AttributeCount">
+            <summary>
+            属性数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.ParamCount">
+            <summary>
+            参数数量
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->
         <member name="T:Tiger.Books.BookDto">
             <summary>

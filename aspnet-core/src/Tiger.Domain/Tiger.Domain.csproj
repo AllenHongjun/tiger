@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Business\Basic\Shop.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />
