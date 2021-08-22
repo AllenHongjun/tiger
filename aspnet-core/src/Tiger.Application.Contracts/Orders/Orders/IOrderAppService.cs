@@ -10,7 +10,8 @@ namespace Tiger.Orders.Orders
         ICrudAppService<
             OrderDto,
             Guid,
-            PagedAndSortedResultRequestDto,
+            GetOrderListDto,
+            CreateUpdateOrderDto,
             CreateUpdateOrderDto>
     {
 

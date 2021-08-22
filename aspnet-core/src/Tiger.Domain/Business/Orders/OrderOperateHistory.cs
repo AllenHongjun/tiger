@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Business;
+using Tiger.Business.Orders;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Orders

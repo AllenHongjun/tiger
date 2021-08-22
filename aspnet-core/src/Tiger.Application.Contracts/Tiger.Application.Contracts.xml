@@ -651,6 +651,346 @@
             优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
             </summary>
         </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.TotalAmount">
+            <summary>
+            订单总金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PayAmount">
+            <summary>
+            实际支付金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.FreightAmount">
+            <summary>
+            运费金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PromotionAmount">
+            <summary>
+            促销优化金额(促销价，满减价， 阶梯价)
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.IntegrationAmount">
+            <summary>
+            积分抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.CouponAmount">
+            <summary>
+            优惠券抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DiscountAmount">
+            <summary>
+            折扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PayType">
+            <summary>
+            支付方式：0->未支付；1->支付宝；2->微信
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.SourceType">
+            <summary>
+            订单来源：0->PC订单；1->app订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.Status">
+            <summary>
+            订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.OrderType">
+            <summary>
+            订单类型：0->正常订单；1->秒杀订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DeliveryCompany">
+            <summary>
+            物流公司
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DeliverySn">
+            <summary>
+            物流单号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.AutoConfirmDay">
+            <summary>
+            自动确认时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PromotionInfo">
+            <summary>
+            活动信息
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillType">
+            <summary>
+            发票类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillHeader">
+            <summary>
+            发票抬头
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillContent">
+            <summary>
+            发票内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillReceiverPhone">
+            <summary>
+            收票人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillReceiverEmail">
+            <summary>
+            收票人邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverPhone">
+            <summary>
+            收货人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverPostCode">
+            <summary>
+            收货人邮编
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverProvince">
+            <summary>
+            省份/直辖市
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ConfirmStatus">
+            <summary>
+            '确认收货状态：0->未确认；1->已确认',
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.UseIntegration">
+            <summary>
+            下单时使用的积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PaymentTime">
+            <summary>
+            支付时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DeliveryTime">
+            <summary>
+            发货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiveTime">
+            <summary>
+            确认收货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.CommentTime">
+            <summary>
+            评价时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.Status">
+            <summary>
+            订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.PayType">
+            <summary>
+            支付方式：0->未支付；1->支付宝；2->微信
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.SourceType">
+            <summary>
+            订单来源：0->PC订单；1->app订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.ReceiverName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.TotalAmount">
+            <summary>
+            订单总金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PayAmount">
+            <summary>
+            实际支付金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.FreightAmount">
+            <summary>
+            运费金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PromotionAmount">
+            <summary>
+            促销优化金额(促销价，满减价， 阶梯价)
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.IntegrationAmount">
+            <summary>
+            积分抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.CouponAmount">
+            <summary>
+            优惠券抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DiscountAmount">
+            <summary>
+            折扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PayType">
+            <summary>
+            支付方式：0->未支付；1->支付宝；2->微信
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.SourceType">
+            <summary>
+            订单来源：0->PC订单；1->app订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.Status">
+            <summary>
+            订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.OrderType">
+            <summary>
+            订单类型：0->正常订单；1->秒杀订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DeliveryCompany">
+            <summary>
+            物流公司
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DeliverySn">
+            <summary>
+            物流单号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PromotionInfo">
+            <summary>
+            活动信息
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillType">
+            <summary>
+            发票类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillHeader">
+            <summary>
+            发票抬头
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillContent">
+            <summary>
+            发票内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillReceiverPhone">
+            <summary>
+            收票人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillReceiverEmail">
+            <summary>
+            收票人邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverPhone">
+            <summary>
+            收货人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverPostCode">
+            <summary>
+            收货人邮编
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverProvince">
+            <summary>
+            省份/直辖市
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ConfirmStatus">
+            <summary>
+            '确认收货状态：0->未确认；1->已确认',
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.UseIntegration">
+            <summary>
+            下单时使用的积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PaymentTime">
+            <summary>
+            支付时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DeliveryTime">
+            <summary>
+            发货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiveTime">
+            <summary>
+            确认收货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.CommentTime">
+            <summary>
+            评价时间
+            </summary>
+        </member>
         <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
             <summary>
             修改用户信息

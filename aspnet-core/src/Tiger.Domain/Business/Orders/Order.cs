@@ -17,7 +17,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp;
 using Volo.Abp.MultiTenancy;
 
-namespace Tiger.Business
+namespace Tiger.Business.Orders
 {   
     /// <summary>
     /// 订单表
