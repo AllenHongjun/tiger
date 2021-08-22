@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 
@@ -22,10 +23,12 @@ namespace Tiger.Basic
     {
         public Guid ProductId { get; set; }
 
+        [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 
         public Guid ProductAttributeId { get; set; }
 
+        [ForeignKey("ProductAttributeId")]
         public virtual ProductAttribute ProductAttribute { get; set; }
 
         /// <summary>

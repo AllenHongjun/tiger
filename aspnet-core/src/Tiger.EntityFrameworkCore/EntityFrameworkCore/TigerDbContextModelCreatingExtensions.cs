@@ -126,10 +126,10 @@ namespace Tiger.EntityFrameworkCore
 
             });
 
-            // 产品属性表
-            builder.Entity<ProductAttribute>(b =>
+            // 产品属性类型表
+            builder.Entity<ProductAttributeType>(b =>
             {
-                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributes",
+                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributeTypes",
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
@@ -151,6 +151,16 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(x => x.Name)
                     .IsRequired();
                 b.HasIndex(x => x.Name);
+
+            });
+
+            // 产品属性值表
+            builder.Entity<ProductAttributeValue>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributeValues",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
 
             });
 

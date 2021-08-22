@@ -46,6 +46,8 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
 
+        public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+
         public DbSet<Comment>  Comments { get; set; }
 
         public DbSet<CommentReply> CommentReplies { get; set; }

@@ -10,6 +10,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.MultiTenancy;
@@ -42,9 +43,12 @@ namespace Tiger.Basic
         //    Products = new Collection<Product>();
         //}
 
+        public Guid? TenantId { get; set; }
+
         [CanBeNull]
         public Guid ParentId { get; set; }
-
+       
+        [ForeignKey("ParentId")]
         public virtual Category Parent { get; set; }
 
         public virtual List<Category> Children { get; set; }
@@ -78,6 +82,6 @@ namespace Tiger.Basic
 
         public virtual ICollection<Product> Products { get; set; }
 
-        public Guid? TenantId { get; set; }
+        
     }
 }

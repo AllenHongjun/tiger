@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -19,6 +20,9 @@ namespace Tiger.Basic
     public class CommentReply: FullAuditedAggregateRoot<Guid>
     {
         public Guid CommentId { get; set; }
+
+        [ForeignKey("CommentId")]
+        public virtual Comment Comment { get; set; }
 
         public string MemberNickName { get; set; }
 

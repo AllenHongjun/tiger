@@ -20,9 +20,12 @@ namespace Tiger.Basic
     {
         public Guid ProductId { get; set; }
 
+        public virtual Product Product { get; set; }
+
+
         public Guid OrderId { get; set; }
 
-        public virtual Product Product { get; set; }
+        
 
         /// <summary>
         /// 上传图片以逗号隔开
@@ -53,6 +56,8 @@ namespace Tiger.Basic
         public int ReadCount { get; set; }
 
         public int ReplayCount { get; set; }
+
+        public virtual ICollection<CommentReply> CommentReplies { get; set; }
 
         
     }
