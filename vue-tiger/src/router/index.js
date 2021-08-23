@@ -66,7 +66,7 @@ export const constantRoutes = [
     children: [{
       path: 'dashboard',
       name: '仪表盘',
-      component: () => import('@/views/charts/line'),
+      component: () => import('@/views/dashboard/index1'),
       meta: { title: '仪表盘', icon: 'dashboard' }
     }
 
@@ -103,16 +103,27 @@ export const constantRoutes = [
       },
       {
         path: 'category/list',
-        name: '产品分类',
+        name: '分类',
         component: () => import('@/views/product/category/list'),
         meta: { title: '分类', icon: 'form' }
       },
       {
-        path: 'attribute/list',
-        name: '产品规格',
-        component: () => import('@/views/product/attribute/list'),
-        meta: { title: '规格', icon: 'eye' }
+        path: 'product-attribute-type/list',
+        name: '属性类型',
+        component: () => import('@/views/product/product-attribute-type/list'),
+        meta: { title: '属性类型', icon: 'qq' },
+        children: [
+          {
+            path: '/product-attribute/list',
+            name: '属性',
+            component: () => import('@/views/product/product-attribute/list'),
+            meta: { title: '属性', icon: 'search' },
+            hidden: true
+          }
+        ]
+
       },
+
       {
         path: 'comment/list',
         name: '产品评论',
@@ -134,7 +145,7 @@ export const constantRoutes = [
         path: 'order/list',
         name: 'OrderList',
         component: () => import('@/views/order/list'),
-        meta: { title: '订单', icon: 'el-icon-discover' }
+        meta: { title: '订单列表', icon: 'el-icon-discover' }
       },
       {
         path: 'order-return-apply/list',
@@ -149,6 +160,54 @@ export const constantRoutes = [
         component: () => import('@/views/order/order-setting/list'),
         meta: { title: '订单设置', icon: 'form' }
       }
+      // {
+      //   path: 'attribute/list',
+      //   name: '产品规格',
+      //   component: () => import('@/views/product/attribute/list'),
+      //   meta: { title: '规格', icon: 'eye' }
+      // },
+      // {
+      //   path: 'comment/list',
+      //   name: '产品评论',
+      //   component: () => import('@/views/product/comment/list'),
+      //   meta: { title: '评论', icon: 'eye-open' }
+      // }
+    ]
+  },
+  {
+    path: '/member',
+    name: 'Member',
+    meta: { title: '会员', icon: 'size' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'member/list',
+        name: 'MemberList',
+        component: () => import('@/views/member/list'),
+        meta: { title: '会员列表', icon: 'skill' }
+      },
+      {
+        path: 'member-level/list',
+        component: () => import('@/views/member/member-level/list'),
+        name: 'CouponHistory',
+        meta: { title: '会员等级', icon: 'star' }
+      },
+      {
+        path: 'member-statistic/list',
+        component: () => import('@/views/member/member-statistic/list'),
+        name: 'CouponHistory',
+        meta: { title: '会员统计', icon: 'tab' }
+      }
+
+      // {
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
+      // }
       // {
       //   path: 'attribute/list',
       //   name: '产品规格',
@@ -218,7 +277,7 @@ export const constantRoutes = [
         name: '简单示例',
         component: () => import('@/views/charts/line'),
         meta: { title: '简单示例', icon: 'dashboard' },
-        hidden: true
+        hidden: false
       },
       {
         path: '/chart/keybord',
