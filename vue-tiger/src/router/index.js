@@ -164,6 +164,48 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/marketing',
+    name: 'marketing',
+    meta: { title: '营销', icon: 'email' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'coupon/list',
+        name: 'CouponList',
+        component: () => import('@/views/marketing/coupon/list'),
+        meta: { title: '优惠券', icon: 'education' }
+      },
+      {
+        path: 'coupon-history/list',
+        component: () => import('@/views/marketing/coupon-history/list'),
+        name: 'CouponHistory',
+        meta: { title: '会员领取记录', icon: 'shopping' }
+      }
+
+      // {
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
+      // }
+      // {
+      //   path: 'attribute/list',
+      //   name: '产品规格',
+      //   component: () => import('@/views/product/attribute/list'),
+      //   meta: { title: '规格', icon: 'eye' }
+      // },
+      // {
+      //   path: 'comment/list',
+      //   name: '产品评论',
+      //   component: () => import('@/views/product/comment/list'),
+      //   meta: { title: '评论', icon: 'eye-open' }
+      // }
+    ]
+  },
+  {
     path: '/chart',
     name: '图表',
     meta: { title: '图表', icon: 'dashboard' },
