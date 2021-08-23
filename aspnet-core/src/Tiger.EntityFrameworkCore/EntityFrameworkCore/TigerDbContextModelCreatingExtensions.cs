@@ -89,6 +89,11 @@ namespace Tiger.EntityFrameworkCore
 
                 b.HasIndex(x => x.Name);
 
+                b.HasMany(t => t.CartItems)
+                .WithOne(t => t.Product)
+                .HasForeignKey(t => t.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             });
 
 
@@ -220,6 +225,12 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "CartItems",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
+
+                b.HasOne(t => t.Product)
+                .WithMany(t => t.CartItems)
+                .HasForeignKey(t => t.ProductId)
+                // 使用Fluent API禁用级联删除
+                .OnDelete(DeleteBehavior.Restrict);
             });
 
             //订单
@@ -228,6 +239,11 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "Orders",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
+
+                //b.HasMany(t => t.OrderReturnDetails)
+                //.WithOne(t => t.Order)
+                //.HasForeignKey(t => t.OrderId)
+                //.OnDelete(DeleteBehavior.Restrict);
             });
 
             //订单明细
@@ -239,12 +255,18 @@ namespace Tiger.EntityFrameworkCore
             });
 
             //订单退款明细
-            builder.Entity<OrderReturnDetail>(b =>
-            {
-                b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnDetails",
-                    TigerConsts.DbSchema);
-                b.ConfigureByConvention();
-            });
+            //builder.Entity<OrderReturnDetail>(b =>
+            //{
+            //    b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnDetails",
+            //        TigerConsts.DbSchema);
+            //    b.ConfigureByConvention();
+
+            //    b.HasOne(t => t.Order)
+            //    .WithMany(t => t.OrderReturnDetails)
+            //    .HasForeignKey(t => t.OrderId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //});
 
             //订单操作历史记录
             builder.Entity<OrderOperateHistory>(b =>

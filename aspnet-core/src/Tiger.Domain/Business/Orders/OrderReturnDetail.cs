@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Basic;
 using Tiger.Business.Orders;
@@ -114,8 +115,9 @@ namespace Tiger.Orders
 
 
 
-        public Guid OrderId { get; set; }
+        public Guid? OrderId { get; set; }
 
+        [ForeignKey("OrderId")]
         public virtual Order Order { get; set; }
 
         public Guid ReceiveAddressId { get; set; }

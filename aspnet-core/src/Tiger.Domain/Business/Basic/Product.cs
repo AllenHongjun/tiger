@@ -13,6 +13,7 @@ using System.Text;
 using Tiger.Basic.Products;
 using Tiger.Business;
 using Tiger.Business.Basic;
+using Tiger.Orders;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -198,6 +199,8 @@ namespace Tiger.Basic
         //public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<CartItem> CartItems { get; set; }
 
         public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
 

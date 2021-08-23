@@ -203,15 +203,15 @@ namespace Tiger.Business.Orders
         public DateTime CommentTime { get; set; }
 
 
-        //public Guid MemberId { get; set; }
+        public Guid MemberId { get; set; }
 
-        //[ForeignKey("MemberId")]
-        //public virtual Member Member { get; set; }
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; set; }
 
-        //public Guid CouponId { get; set; }
+        public Guid CouponId { get; set; }
 
-        //[ForeignKey("CouponId")]
-        //public virtual Coupon Coupon { get; set; }
+        [ForeignKey("CouponId")]
+        public virtual Coupon Coupon { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 
@@ -219,8 +219,8 @@ namespace Tiger.Business.Orders
 
         public virtual ICollection<OrderOperateHistory> OrderOperateHistories { get; set; }
 
-        public virtual ICollection<OrderReturnDetail> OrderReturnDetails { get; set; }
+        //public virtual ICollection<OrderReturnDetail> OrderReturnDetails { get; set; }
 
-        
+
     }
 }

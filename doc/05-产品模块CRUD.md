@@ -56,3 +56,17 @@
   - 除了删除数据库 还有什么办法
   - EF的生成数据库功能是否好用？ 
     - 学习如何使用。。迁移需要注意的点。
+
+
+
+
+
+
+
+
+
+- 订单退款表 添加订单的外键 级联删除会有问题、、
+
+- 将 FOREIGN KEY 约束 'FK_AppCartItems_AppProducts_ProductId' 引入表 'AppCartItems' 可能会导致循环或多重级联路径。请指定 ON DELETE NO ACTION 或 ON UPDATE NO ACTION，或修改其他 FOREIGN KEY 约束。
+  无法创建约束或索引。请参阅前面的错误。
+  - [引入FOREIGN KEY约束可能会导致循环或多个级联路径-为什么？](https://qastack.cn/programming/17127351/introducing-foreign-key-constraint-may-cause-cycles-or-multiple-cascade-paths)

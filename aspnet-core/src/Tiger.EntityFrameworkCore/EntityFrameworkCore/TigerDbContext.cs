@@ -5,6 +5,8 @@ using Tiger.Business;
 using Tiger.Business.Basic;
 using Tiger.Business.Demo;
 using Tiger.Business.Orders;
+using Tiger.Business.Users;
+using Tiger.Marketing;
 using Tiger.Orders;
 using Tiger.Users;
 using Volo.Abp.Data;
@@ -59,15 +61,38 @@ namespace Tiger.EntityFrameworkCore
 
 
         #region Order
+
+        public DbSet<CartItem> CartItems { get; set; }
+
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderItem> OrderItems { get; set; }
 
         public DbSet<OrderSetting> OrderSettings { get; set; }
 
-        public DbSet<OrderOperateHistory> OrderOperateHistories { get; set; } 
+        //public DbSet<OrderReturnDetail> OrderReturnDetails { get; set; }
+
+        public DbSet<OrderOperateHistory> OrderOperateHistories { get; set; }
         #endregion
 
+
+        #region Coupon
+
+        public DbSet<Coupon> Coupons { get; set; }
+
+        public DbSet<CouponHistory> CouponHistories { get; set; }
+
+        public DbSet<CouponProductRelation> CouponProductRelations { get; set; }
+
+        #endregion
+
+        #region User
+        public DbSet<Member> Members { get; set; }
+
+
+
+
+        #endregion
 
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.

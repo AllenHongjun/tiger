@@ -852,6 +852,9 @@ namespace Tiger.Migrations
                     b.Property<decimal>("CouponAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("CouponId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnName("CreationTime")
                         .HasColumnType("datetime2");
@@ -908,6 +911,9 @@ namespace Tiger.Migrations
 
                     b.Property<Guid?>("LastModifierId")
                         .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Note")
@@ -975,6 +981,10 @@ namespace Tiger.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CouponId");
+
+                    b.HasIndex("MemberId");
 
                     b.ToTable("AppOrders");
                 });
@@ -1606,140 +1616,6 @@ namespace Tiger.Migrations
                     b.HasIndex("OrderId1");
 
                     b.ToTable("AppOrderOperateHistorys");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderReturnDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnName("DeleterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnName("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HandleMan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HandleNote")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("HandleTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MemberId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("MemberReceiveAddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("OrderSn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductAttr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductPic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductPrice")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductQuantity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductRealPrice")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProofPics")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ReceiveAddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ReceiveMan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiveNote")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiveTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ReturnAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ReturnName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReturnPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.HasIndex("MemberReceiveAddressId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("AppOrderReturnDetails");
                 });
 
             modelBuilder.Entity("Tiger.Orders.OrderSetting", b =>
@@ -3620,6 +3496,21 @@ namespace Tiger.Migrations
                         .HasForeignKey("ProductTagId1");
                 });
 
+            modelBuilder.Entity("Tiger.Business.Orders.Order", b =>
+                {
+                    b.HasOne("Tiger.Marketing.Coupon", "Coupon")
+                        .WithMany()
+                        .HasForeignKey("CouponId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tiger.Business.Users.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Tiger.Marketing.CouponHistory", b =>
                 {
                     b.HasOne("Tiger.Marketing.Coupon", "Coupon")
@@ -3650,9 +3541,9 @@ namespace Tiger.Migrations
                         .IsRequired();
 
                     b.HasOne("Tiger.Basic.Product", "Product")
-                        .WithMany()
+                        .WithMany("CartItems")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Tiger.Basic.Sku", "Sku")
@@ -3688,31 +3579,6 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Business.Orders.Order", "Order")
                         .WithMany("OrderOperateHistories")
                         .HasForeignKey("OrderId1");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderReturnDetail", b =>
-                {
-                    b.HasOne("Tiger.Business.Users.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Business.Users.MemberReceiveAddress", "MemberReceiveAddress")
-                        .WithMany()
-                        .HasForeignKey("MemberReceiveAddressId");
-
-                    b.HasOne("Tiger.Business.Orders.Order", "Order")
-                        .WithMany("OrderReturnDetails")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Basic.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

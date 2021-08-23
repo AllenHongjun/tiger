@@ -63,14 +63,18 @@ namespace Tiger.Orders
         /// </summary>
         public string ProductAttr { get; set; }
 
-        public Guid ProductId { get; set; }
-
-        [ForeignKey("ProductId")]
-        public virtual Product Product { get; set; }
+        
 
         public Guid SkuId { get; set; }
 
         public virtual Sku Sku { get; set; }
+
+        
+
+        public Guid ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
 
         public Guid MemberId { get; set; }
 
@@ -81,5 +85,7 @@ namespace Tiger.Orders
 
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+
+        
     }
 }
