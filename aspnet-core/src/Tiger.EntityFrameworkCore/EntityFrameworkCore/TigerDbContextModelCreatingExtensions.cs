@@ -114,8 +114,11 @@ namespace Tiger.EntityFrameworkCore
                 .HasForeignKey(t => t.ParentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+                //b.HasMany(x => x.Children)
+                //.WithOne(x => x.Parent)
+                //.OnDelete(DeleteBehavior.Cascade);
 
-                
+
 
             });
 

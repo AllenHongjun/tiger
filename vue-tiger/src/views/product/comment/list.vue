@@ -7,19 +7,25 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="180px" align="center" label="Date">
+      <el-table-column min-width="150px" label="商品信息">
+        <template slot-scope="{row}">
+          <span>{{ row.title }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column width="130px" align="center" label="评价时间">
         <template slot-scope="scope">
           <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="120px" align="center" label="Author">
+      <el-table-column width="80px" align="center" label="用户名称">
         <template slot-scope="scope">
           <span>{{ scope.row.author }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="100px" label="Importance">
+      <el-table-column width="80px" label="评分">
         <template slot-scope="scope">
           <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon" />
         </template>
@@ -33,7 +39,18 @@
         </template>
       </el-table-column>
 
-      <el-table-column min-width="300px" label="Title">
+      <el-table-column min-width="180px" label="评价内容">
+        <template slot-scope="{row}">
+          <router-link :to="'/example/edit/'+row.id" class="link-type">
+            <span>{{ row.title }}</span> <br>
+            <span><img :src="row.image_uri" width="50px"></span>
+            <span><img :src="row.image_uri" width="50px"></span>
+            <span><img :src="row.image_uri" width="50px"></span>
+          </router-link>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="180px" label="回复内容">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
             <span>{{ row.title }}</span>
@@ -41,13 +58,14 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="Actions" width="120">
+      <el-table-column align="center" label="操作" width="300">
         <template slot-scope="scope">
-          <router-link :to="'/example/edit/'+scope.row.id">
-            <el-button type="primary" size="small" icon="el-icon-edit">
-              Edit
-            </el-button>
-          </router-link>
+          <el-button type="primary" size="small" icon="el-icon-edit">
+            回复
+          </el-button>
+          <el-button type="primary" size="small" icon="el-icon-edit">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -80,7 +98,7 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 20
+        limit: 10
       }
     }
   },

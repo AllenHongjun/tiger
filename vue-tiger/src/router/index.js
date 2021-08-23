@@ -76,7 +76,7 @@ export const constantRoutes = [
   {
     path: '/product',
     name: '产品',
-    meta: { title: '产品', icon: 'el-icon-bangzhu' },
+    meta: { title: '基础资料', icon: 'el-icon-bangzhu' },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
@@ -86,14 +86,14 @@ export const constantRoutes = [
         path: 'product/list',
         name: 'ProductList',
         component: () => import('@/views/product/product/list'),
-        meta: { title: '产品管理', icon: 'el-icon-discover' }
+        meta: { title: '商品', icon: 'el-icon-discover' }
       },
-      {
-        path: 'product/create',
-        component: () => import('@/views/product/product/create'),
-        name: 'CreateProduct',
-        meta: { title: '添加产品', icon: 'edit' }
-      },
+      // {
+      //   path: 'product/create',
+      //   component: () => import('@/views/product/product/create'),
+      //   name: 'CreateProduct',
+      //   meta: { title: '添加产品', icon: 'theme' }
+      // },
       {
         path: 'product/edit/:id(\\d+)',
         component: () => import('@/views/product/product/edit'),
@@ -105,20 +105,62 @@ export const constantRoutes = [
         path: 'category/list',
         name: '产品分类',
         component: () => import('@/views/product/category/list'),
-        meta: { title: '产品分类', icon: 'tree' }
+        meta: { title: '分类', icon: 'form' }
       },
       {
         path: 'attribute/list',
         name: '产品规格',
         component: () => import('@/views/product/attribute/list'),
-        meta: { title: '产品规格', icon: 'tree' }
+        meta: { title: '规格', icon: 'eye' }
       },
       {
         path: 'comment/list',
         name: '产品评论',
         component: () => import('@/views/product/comment/list'),
-        meta: { title: '产品评论', icon: 'tree' }
+        meta: { title: '评论', icon: 'eye-open' }
       }
+    ]
+  },
+  {
+    path: '/order',
+    name: 'order',
+    meta: { title: '订单', icon: 'el-icon-bangzhu' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'order/list',
+        name: 'OrderList',
+        component: () => import('@/views/order/list'),
+        meta: { title: '订单', icon: 'el-icon-discover' }
+      },
+      {
+        path: 'order-return-apply/list',
+        component: () => import('@/views/order/order-return-apply/list'),
+        name: 'OrderReturnApply',
+        meta: { title: '退款', icon: 'theme' }
+      },
+
+      {
+        path: 'order-setting/list',
+        name: 'OrderSetting',
+        component: () => import('@/views/order/order-setting/list'),
+        meta: { title: '订单设置', icon: 'form' }
+      }
+      // {
+      //   path: 'attribute/list',
+      //   name: '产品规格',
+      //   component: () => import('@/views/product/attribute/list'),
+      //   meta: { title: '规格', icon: 'eye' }
+      // },
+      // {
+      //   path: 'comment/list',
+      //   name: '产品评论',
+      //   component: () => import('@/views/product/comment/list'),
+      //   meta: { title: '评论', icon: 'eye-open' }
+      // }
     ]
   },
   {

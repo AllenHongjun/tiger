@@ -37,6 +37,7 @@
 - [EasyAbp](https://github.com/EasyAbp)
 - [abp-vue-admin-element-typescript](https://github.com/colinin/abp-vue-admin-element-typescript)
 - [HelloAbp](https://github.com/xiajingren/HelloAbp)
+- [Mall Learning](macrozheng.com/#/)
 
 
 

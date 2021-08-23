@@ -102,11 +102,61 @@
         </template>
       </el-table-column>
 
-      <el-table-column min-width="300px" label="名称">
+      <el-table-column min-width="180px" label="订单号">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
             <span>{{ row.title }}</span>
           </router-link>
+        </template>
+      </el-table-column>
+
+      <el-table-column class-name="status-col" label="订单类型" width="110">
+        <template slot-scope="{row}">
+          <el-tag :type="row.status | statusFilter">
+            {{ row.status }}
+          </el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="180px" label="商品信息">
+        <template slot-scope="{row}">
+          <router-link :to="'/example/edit/'+row.id" class="link-type">
+            <span>{{ row.title }}</span>
+          </router-link>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="100px" label="用户">
+        <template slot-scope="{row}">
+          <span>{{ row.author }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="100px" label="支付金额">
+        <template slot-scope="{row}">
+          <span>{{ row.forecast }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column width="180px" align="center" label="付款时间" sortable>
+        <template slot-scope="scope">
+          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column class-name="status-col" label="支付方式" width="110">
+        <template slot-scope="{row}">
+          <el-tag :type="row.status | statusFilter">
+            {{ row.status }}
+          </el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column class-name="status-col" label="订单状态" width="110">
+        <template slot-scope="{row}">
+          <el-tag :type="row.status | statusFilter">
+            {{ row.status }}
+          </el-tag>
         </template>
       </el-table-column>
       <!-- <el-table-column width="120px" align="center" label="合并一列">
@@ -116,9 +166,8 @@
           <span><img :src="scope.row.image_uri" width="100px"></span>
         </template>
       </el-table-column> -->
-      <el-table-column width="120px" align="center" label="图标">
+      <!-- <el-table-column width="120px" align="center" label="图标">
         <template slot-scope="scope">
-          <!-- <span>{{ scope.row.image_uri }}</span> -->
           <span><img :src="scope.row.image_uri" width="100px"></span>
         </template>
       </el-table-column>
@@ -127,26 +176,17 @@
         <template slot-scope="scope">
           <span>{{ scope.row.author }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
-      <el-table-column class-name="status-col" label="状态" width="110">
-        <template slot-scope="{row}">
-          <!-- <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
-          </el-tag> -->
+      <!-- <el-table-column class-name="status-col" label="状态" width="110">
+        <template>
           <el-switch
             v-model="show"
             active-color="#13ce66"
             inactive-color="#ff4949"
           />
         </template>
-      </el-table-column>
-
-      <el-table-column width="180px" align="center" label="时间" sortable>
-        <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- <el-table-column width="100px" label="重要性">
         <template slot-scope="scope">
@@ -154,14 +194,25 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column align="center" label="操作" width="400">
+      <el-table-column align="center" label="操作" width="180">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
-            编辑
-          </el-button>
-          <el-button type="danger" size="mini" icon="el-icon-edit" @click="handleDelete(scope.row)">
-            删除
-          </el-button>
+          <!-- <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
+            详情
+          </el-button> -->
+
+          <el-dropdown trigger="click" size="mini" @command="handleCommand">
+            <el-button type="primary" size="small">
+              操作<i class="el-icon-arrow-down el-icon--right" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>订单详情</el-dropdown-item>
+              <el-dropdown-item>订单记录</el-dropdown-item>
+              <el-dropdown-item>
+                小票打印
+              </el-dropdown-item>
+              <el-dropdown-item>订单备注</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
 
       </el-table-column>
@@ -249,10 +300,10 @@ const calendarTypeOptions = [
   { key: 'hidden', display_name: '隐藏' }
 ]
 
-const showCategoryTypeOptions = [
-  { key: 'show', display_name: '显示' },
-  { key: 'hidden', display_name: '隐藏' }
-]
+// const showCategoryTypeOptions = [
+//   { key: 'show', display_name: '显示' },
+//   { key: 'hidden', display_name: '隐藏' }
+// ]
 
 // arr to obj, such as { CN : "China", US : "USA" }
 const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
@@ -286,7 +337,7 @@ export default {
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 15,
+        limit: 10,
         importance: undefined,
         // status: undefined,
         title: undefined,
