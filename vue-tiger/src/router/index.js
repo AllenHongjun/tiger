@@ -133,6 +133,37 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/purchase',
+    name: 'Purchase',
+    meta: { title: '采购', icon: 'message' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: '/list',
+        name: 'PurchaseList',
+        component: () => import('@/views/purchase/list'),
+        meta: { title: '进货单', icon: '404' }
+      },
+      {
+        path: 'purchase-order-return-apply/list',
+        component: () => import('@/views/order/order-return-apply/list'),
+        name: 'PurchaseOrderReturnApply',
+        meta: { title: '采购退货', icon: 'bug' }
+      }
+
+      // {
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
+      // }
+
+    ]
+  },
+  {
     path: '/order',
     name: 'order',
     meta: { title: '订单', icon: 'el-icon-bangzhu' },
@@ -160,18 +191,62 @@ export const constantRoutes = [
         component: () => import('@/views/order/order-setting/list'),
         meta: { title: '订单设置', icon: 'form' }
       }
+
+    ]
+  },
+  {
+    path: '/stock',
+    name: 'Stock',
+    meta: { title: '库存', icon: 'international' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'inventory/list',
+        name: 'InventoryList',
+        component: () => import('@/views/stock/inventory/list'),
+        meta: { title: '库存量', icon: 'table' }
+      },
+      {
+        path: 'receipt/list',
+        component: () => import('@/views/stock/receipt/list'),
+        name: 'ReceiptList',
+        meta: { title: '入库单', icon: 'international' }
+      },
+      {
+        path: 'out-of-stock/list',
+        component: () => import('@/views/stock/out-of-stock/list'),
+        name: 'out-of-stockList',
+        meta: { title: '出库单', icon: 'lock' }
+      },
+      {
+        path: 'check/list',
+        component: () => import('@/views/stock/check/list'),
+        name: 'CheckList',
+        meta: { title: '盘点单', icon: 'message' }
+      },
+      {
+        path: 'transfer/list',
+        component: () => import('@/views/stock/transfer/list'),
+        name: 'TransferList',
+        meta: { title: '调拨单', icon: 'money' }
+      },
+      {
+        path: 'reverse/list',
+        component: () => import('@/views/stock/reverse/list'),
+        name: 'ReverseList',
+        meta: { title: '拆套单', icon: 'skill' }
+      }
+
       // {
-      //   path: 'attribute/list',
-      //   name: '产品规格',
-      //   component: () => import('@/views/product/attribute/list'),
-      //   meta: { title: '规格', icon: 'eye' }
-      // },
-      // {
-      //   path: 'comment/list',
-      //   name: '产品评论',
-      //   component: () => import('@/views/product/comment/list'),
-      //   meta: { title: '评论', icon: 'eye-open' }
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
       // }
+
     ]
   },
   {
