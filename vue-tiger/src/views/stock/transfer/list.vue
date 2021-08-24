@@ -102,7 +102,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column min-width="180px" label="订单号">
+      <el-table-column min-width="160px" label="单据号">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
             <span>{{ row.title }}</span>
@@ -110,41 +110,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col" label="订单类型" width="110">
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
-          </el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="180px" label="商品信息">
-        <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.title }}</span>
-          </router-link>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="100px" label="用户">
-        <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="100px" label="支付金额">
-        <template slot-scope="{row}">
-          <span>{{ row.forecast }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="180px" align="center" label="付款时间" sortable>
+      <el-table-column width="140px" align="center" label="单据日期" sortable>
         <template slot-scope="scope">
           <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col" label="支付方式" width="110">
+      <el-table-column class-name="status-col" label="调拨类型" width="110">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
             {{ row.status }}
@@ -152,7 +124,45 @@
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col" label="订单状态" width="110">
+      <el-table-column min-width="100px" label="出库仓">
+        <template slot-scope="{row}">
+          <span>{{ row.author }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="100px" label="入库仓">
+        <template slot-scope="{row}">
+          <span>{{ row.author }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="160px" label="备注信息">
+        <template slot-scope="{row}">
+          <router-link :to="'/example/edit/'+row.id" class="link-type">
+            <span>{{ row.title }}</span>
+          </router-link>
+        </template>
+      </el-table-column>
+
+      <el-table-column width="160px" align="center" label="创建时间" sortable>
+        <template slot-scope="scope">
+          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="80px" label="制单人">
+        <template slot-scope="{row}">
+          <span>{{ row.author }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="80px" label="审核人">
+        <template slot-scope="{row}">
+          <span>{{ row.author }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column class-name="status-col" label="单据状态" width="110">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
             {{ row.status }}
@@ -194,24 +204,24 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column align="center" label="操作" width="180">
+      <el-table-column align="center" label="操作" width="220">
         <template slot-scope="scope">
           <!-- <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
             详情
           </el-button> -->
 
           <el-dropdown trigger="click" size="mini" @command="handleCommand">
-            <el-button type="primary" size="small">
-              操作<i class="el-icon-arrow-down el-icon--right" />
+            <!-- <el-button type="primary" size="small">
+              审核<i class="el-icon-arrow-down el-icon--right" />
+            </el-button> -->
+
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
+              编辑
             </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>订单详情</el-dropdown-item>
-              <el-dropdown-item>订单记录</el-dropdown-item>
-              <el-dropdown-item>
-                小票打印
-              </el-dropdown-item>
-              <el-dropdown-item>订单备注</el-dropdown-item>
-            </el-dropdown-menu>
+            <el-button type="danger" size="mini" icon="el-icon-edit" @click="handleDelete(scope.row)">
+              删除
+            </el-button>
+
           </el-dropdown>
         </template>
 

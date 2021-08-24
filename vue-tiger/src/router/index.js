@@ -339,37 +339,39 @@ export const constantRoutes = [
       // }
     ]
   },
-  {
-    path: '/chart',
-    name: '图表',
-    meta: { title: '图表', icon: 'dashboard' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: '/chart/line',
-        name: '简单示例',
-        component: () => import('@/views/charts/line'),
-        meta: { title: '简单示例', icon: 'dashboard' },
-        hidden: false
-      },
-      {
-        path: '/chart/keybord',
-        name: '键盘图',
-        component: () => import('@/views/charts/keyboard'),
-        meta: { title: '折线图', icon: 'dashboard' },
-        hidden: false
-      },
-      {
-        path: '/chart/mix-chart',
-        name: '混合图',
-        component: () => import('@/views/charts/mix-chart'),
-        meta: { title: '混合图', icon: 'dashboard' },
-        hidden: false
-      }
-    ]
-  },
+
+  // // 图表
+  // {
+  //   path: '/chart',
+  //   name: '图表',
+  //   meta: { title: '图表', icon: 'dashboard' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: '/chart/line',
+  //       name: '简单示例',
+  //       component: () => import('@/views/charts/line'),
+  //       meta: { title: '简单示例', icon: 'dashboard' },
+  //       hidden: false
+  //     },
+  //     {
+  //       path: '/chart/keybord',
+  //       name: '键盘图',
+  //       component: () => import('@/views/charts/keyboard'),
+  //       meta: { title: '折线图', icon: 'dashboard' },
+  //       hidden: false
+  //     },
+  //     {
+  //       path: '/chart/mix-chart',
+  //       name: '混合图',
+  //       component: () => import('@/views/charts/mix-chart'),
+  //       meta: { title: '混合图', icon: 'dashboard' },
+  //       hidden: false
+  //     }
+  //   ]
+  // },
   {
     path: '/profile',
     // 你可以选择不同的layout组件
@@ -384,42 +386,44 @@ export const constantRoutes = [
         hidden: true
       }
     ]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: '例子',
-    meta: { title: '例子', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table1',
-        component: () => import('@/views/table/index'),
-        meta: { title: '表格', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '树结构', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: '表单', icon: 'form' }
-      }
-    ]
   }
+
+  // // 例子
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: '例子',
+  //   meta: { title: '例子', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'table',
+  //       name: 'Table1',
+  //       component: () => import('@/views/table/index'),
+  //       meta: { title: '表格', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'tree',
+  //       name: 'Tree',
+  //       component: () => import('@/views/tree/index'),
+  //       meta: { title: '树结构', icon: 'tree' }
+  //     }
+  //   ]
+  // },
+
+  // // 表单
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: '表单', icon: 'form' }
+  //     }
+  //   ]
+  // }
 
   // {
   //   path: '/blank',

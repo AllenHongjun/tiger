@@ -23,7 +23,7 @@
         <el-button size="mini" type="primary" icon="el-icon-arrow-down" @click="handleSearch" />
       </el-button-group>
 
-      <el-button class="filter-item" size="mini" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
+      <el-button class="filter-item" size="mini" style="margin-left: 10px;" type="primary" icon="el-icon-delete-solid" @click="handleCreate">
         添加
       </el-button>
 
