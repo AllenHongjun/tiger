@@ -7,9 +7,11 @@ using Tiger.Orders.Orders;
 using Tiger.Business;
 using Tiger.Business.Orders;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp;
 
 namespace Tiger.Orders
 {
+    [RemoteService(false)]
     public class OrderAppService :
         CrudAppService<
             Business.Orders.Order, 

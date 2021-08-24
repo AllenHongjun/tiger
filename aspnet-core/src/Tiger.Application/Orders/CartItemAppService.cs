@@ -13,7 +13,7 @@ namespace Tiger.Orders
     /// 
     /// ICartItemAppService 注意实现接口的中 泛型的类型必须一致
     /// </summary>
-    [RemoteService]
+    [RemoteService(false)]
     public class CartItemAppService :
         CrudAppService<
             CartItem, //The  entity

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Orders;
 using Tiger.Orders.OrderItems;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Order
 {
+    [RemoteService(false)]
     public class OrderItemAppService :
         CrudAppService<
             OrderItem,

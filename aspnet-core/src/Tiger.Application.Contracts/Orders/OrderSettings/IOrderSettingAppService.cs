@@ -7,12 +7,12 @@ using Volo.Abp.Application.Services;
 
 namespace Tiger.Orders.OrderSettings
 {
-    public interface IOrderSettingAppServcie:
+    public interface IOrderSettingAppService:
         ICrudAppService<
             OrderSettingDto, // Used to show books
             Guid,
             PagedAndSortedResultRequestDto,
-            CreateUpdateBookDto> // Used to create/update a book
+            CreateUpdateOrderSettingDto> // Used to create/update a book
     {
     }
 }
