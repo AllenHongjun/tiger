@@ -66,7 +66,7 @@ export const constantRoutes = [
     children: [{
       path: 'dashboard',
       name: '仪表盘',
-      component: () => import('@/views/charts/line'),
+      component: () => import('@/views/dashboard/index1'),
       meta: { title: '仪表盘', icon: 'dashboard' }
     }
 
@@ -76,7 +76,7 @@ export const constantRoutes = [
   {
     path: '/product',
     name: '产品',
-    meta: { title: '产品', icon: 'el-icon-bangzhu' },
+    meta: { title: '基础资料', icon: 'el-icon-bangzhu' },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
@@ -86,14 +86,14 @@ export const constantRoutes = [
         path: 'product/list',
         name: 'ProductList',
         component: () => import('@/views/product/product/list'),
-        meta: { title: '产品管理', icon: 'el-icon-discover' }
+        meta: { title: '商品', icon: 'el-icon-discover' }
       },
-      {
-        path: 'product/create',
-        component: () => import('@/views/product/product/create'),
-        name: 'CreateProduct',
-        meta: { title: '添加产品', icon: 'edit' }
-      },
+      // {
+      //   path: 'product/create',
+      //   component: () => import('@/views/product/product/create'),
+      //   name: 'CreateProduct',
+      //   meta: { title: '添加产品', icon: 'theme' }
+      // },
       {
         path: 'product/edit/:id(\\d+)',
         component: () => import('@/views/product/product/edit'),
@@ -103,55 +103,275 @@ export const constantRoutes = [
       },
       {
         path: 'category/list',
-        name: '产品分类',
+        name: '分类',
         component: () => import('@/views/product/category/list'),
-        meta: { title: '产品分类', icon: 'tree' }
+        meta: { title: '分类', icon: 'form' }
       },
       {
-        path: 'attribute/list',
-        name: '产品规格',
-        component: () => import('@/views/product/attribute/list'),
-        meta: { title: '产品规格', icon: 'tree' }
+        path: 'product-attribute-type/list',
+        name: '属性类型',
+        component: () => import('@/views/product/product-attribute-type/list'),
+        meta: { title: '属性类型', icon: 'qq' },
+        children: [
+          {
+            path: '/product-attribute/list',
+            name: '属性',
+            component: () => import('@/views/product/product-attribute/list'),
+            meta: { title: '属性', icon: 'search' },
+            hidden: true
+          }
+        ]
+
       },
+
       {
         path: 'comment/list',
         name: '产品评论',
         component: () => import('@/views/product/comment/list'),
-        meta: { title: '产品评论', icon: 'tree' }
+        meta: { title: '评论', icon: 'eye-open' }
       }
     ]
   },
   {
-    path: '/chart',
-    name: '图表',
-    meta: { title: '图表', icon: 'dashboard' },
+    path: '/purchase',
+    name: 'Purchase',
+    meta: { title: '采购', icon: 'message' },
     // 你可以选择不同的layout组件
     component: Layout,
+    redirect: '/dashboard',
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [
       {
-        path: '/chart/line',
-        name: '简单示例',
-        component: () => import('@/views/charts/line'),
-        meta: { title: '简单示例', icon: 'dashboard' },
-        hidden: true
+        path: '/list',
+        name: 'PurchaseList',
+        component: () => import('@/views/purchase/list'),
+        meta: { title: '进货单', icon: '404' }
       },
       {
-        path: '/chart/keybord',
-        name: '键盘图',
-        component: () => import('@/views/charts/keyboard'),
-        meta: { title: '折线图', icon: 'dashboard' },
-        hidden: false
-      },
-      {
-        path: '/chart/mix-chart',
-        name: '混合图',
-        component: () => import('@/views/charts/mix-chart'),
-        meta: { title: '混合图', icon: 'dashboard' },
-        hidden: false
+        path: 'purchase-order-return-apply/list',
+        component: () => import('@/views/order/order-return-apply/list'),
+        name: 'PurchaseOrderReturnApply',
+        meta: { title: '采购退货', icon: 'bug' }
       }
+
+      // {
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
+      // }
+
     ]
   },
+  {
+    path: '/order',
+    name: 'order',
+    meta: { title: '订单', icon: 'el-icon-bangzhu' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'order/list',
+        name: 'OrderList',
+        component: () => import('@/views/order/list'),
+        meta: { title: '订单列表', icon: 'el-icon-discover' }
+      },
+      {
+        path: 'order-return-apply/list',
+        component: () => import('@/views/order/order-return-apply/list'),
+        name: 'OrderReturnApply',
+        meta: { title: '退款', icon: 'theme' }
+      },
+
+      {
+        path: 'order-setting/list',
+        name: 'OrderSetting',
+        component: () => import('@/views/order/order-setting/list'),
+        meta: { title: '订单设置', icon: 'form' }
+      }
+
+    ]
+  },
+  {
+    path: '/stock',
+    name: 'Stock',
+    meta: { title: '库存', icon: 'international' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'inventory/list',
+        name: 'InventoryList',
+        component: () => import('@/views/stock/inventory/list'),
+        meta: { title: '库存量', icon: 'table' }
+      },
+      {
+        path: 'receipt/list',
+        component: () => import('@/views/stock/receipt/list'),
+        name: 'ReceiptList',
+        meta: { title: '入库单', icon: 'international' }
+      },
+      {
+        path: 'out-of-stock/list',
+        component: () => import('@/views/stock/out-of-stock/list'),
+        name: 'out-of-stockList',
+        meta: { title: '出库单', icon: 'lock' }
+      },
+      {
+        path: 'check/list',
+        component: () => import('@/views/stock/check/list'),
+        name: 'CheckList',
+        meta: { title: '盘点单', icon: 'message' }
+      },
+      {
+        path: 'transfer/list',
+        component: () => import('@/views/stock/transfer/list'),
+        name: 'TransferList',
+        meta: { title: '调拨单', icon: 'money' }
+      },
+      {
+        path: 'reverse/list',
+        component: () => import('@/views/stock/reverse/list'),
+        name: 'ReverseList',
+        meta: { title: '拆套单', icon: 'skill' }
+      }
+
+      // {
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
+      // }
+
+    ]
+  },
+  {
+    path: '/member',
+    name: 'Member',
+    meta: { title: '会员', icon: 'size' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'member/list',
+        name: 'MemberList',
+        component: () => import('@/views/member/list'),
+        meta: { title: '会员列表', icon: 'skill' }
+      },
+      {
+        path: 'member-level/list',
+        component: () => import('@/views/member/member-level/list'),
+        name: 'CouponHistory',
+        meta: { title: '会员等级', icon: 'star' }
+      },
+      {
+        path: 'member-statistic/list',
+        component: () => import('@/views/member/member-statistic/list'),
+        name: 'CouponHistory',
+        meta: { title: '会员统计', icon: 'tab' }
+      }
+
+      // {
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
+      // }
+      // {
+      //   path: 'attribute/list',
+      //   name: '产品规格',
+      //   component: () => import('@/views/product/attribute/list'),
+      //   meta: { title: '规格', icon: 'eye' }
+      // },
+      // {
+      //   path: 'comment/list',
+      //   name: '产品评论',
+      //   component: () => import('@/views/product/comment/list'),
+      //   meta: { title: '评论', icon: 'eye-open' }
+      // }
+    ]
+  },
+  {
+    path: '/marketing',
+    name: 'marketing',
+    meta: { title: '营销', icon: 'email' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'coupon/list',
+        name: 'CouponList',
+        component: () => import('@/views/marketing/coupon/list'),
+        meta: { title: '优惠券', icon: 'education' }
+      },
+      {
+        path: 'coupon-history/list',
+        component: () => import('@/views/marketing/coupon-history/list'),
+        name: 'CouponHistory',
+        meta: { title: '会员领取记录', icon: 'shopping' }
+      }
+
+      // {
+      //   path: 'order-setting/list',
+      //   name: 'OrderSetting',
+      //   component: () => import('@/views/order/order-setting/list'),
+      //   meta: { title: '订单设置', icon: 'form' }
+      // }
+      // {
+      //   path: 'attribute/list',
+      //   name: '产品规格',
+      //   component: () => import('@/views/product/attribute/list'),
+      //   meta: { title: '规格', icon: 'eye' }
+      // },
+      // {
+      //   path: 'comment/list',
+      //   name: '产品评论',
+      //   component: () => import('@/views/product/comment/list'),
+      //   meta: { title: '评论', icon: 'eye-open' }
+      // }
+    ]
+  },
+
+  // // 图表
+  // {
+  //   path: '/chart',
+  //   name: '图表',
+  //   meta: { title: '图表', icon: 'dashboard' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: '/chart/line',
+  //       name: '简单示例',
+  //       component: () => import('@/views/charts/line'),
+  //       meta: { title: '简单示例', icon: 'dashboard' },
+  //       hidden: false
+  //     },
+  //     {
+  //       path: '/chart/keybord',
+  //       name: '键盘图',
+  //       component: () => import('@/views/charts/keyboard'),
+  //       meta: { title: '折线图', icon: 'dashboard' },
+  //       hidden: false
+  //     },
+  //     {
+  //       path: '/chart/mix-chart',
+  //       name: '混合图',
+  //       component: () => import('@/views/charts/mix-chart'),
+  //       meta: { title: '混合图', icon: 'dashboard' },
+  //       hidden: false
+  //     }
+  //   ]
+  // },
   {
     path: '/profile',
     // 你可以选择不同的layout组件
@@ -166,42 +386,44 @@ export const constantRoutes = [
         hidden: true
       }
     ]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: '例子',
-    meta: { title: '例子', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table1',
-        component: () => import('@/views/table/index'),
-        meta: { title: '表格', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '树结构', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: '表单', icon: 'form' }
-      }
-    ]
   }
+
+  // // 例子
+  // {
+  //   path: '/example',
+  //   component: Layout,
+  //   redirect: '/example/table',
+  //   name: '例子',
+  //   meta: { title: '例子', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'table',
+  //       name: 'Table1',
+  //       component: () => import('@/views/table/index'),
+  //       meta: { title: '表格', icon: 'table' }
+  //     },
+  //     {
+  //       path: 'tree',
+  //       name: 'Tree',
+  //       component: () => import('@/views/tree/index'),
+  //       meta: { title: '树结构', icon: 'tree' }
+  //     }
+  //   ]
+  // },
+
+  // // 表单
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: '表单', icon: 'form' }
+  //     }
+  //   ]
+  // }
 
   // {
   //   path: '/blank',

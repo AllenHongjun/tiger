@@ -18,12 +18,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.BackgroundJob;
+using Tiger.Business.Demo;
 using Tiger.Domain.Log;
 using Tiger.Permissions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Caching;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Emailing;
 using Volo.Abp.Settings;
@@ -34,8 +36,8 @@ namespace Tiger.Books
     /// 书籍管理
     /// </summary>
     /// 
-    [ApiExplorerSettings(GroupName = "api")]
-    public class BookAppService:
+    [ApiExplorerSettings(GroupName = "admin")]
+    public class BookAppService :
         CrudAppService<
             Book, //The Book entity
             BookDto, //Used to show books
@@ -44,8 +46,10 @@ namespace Tiger.Books
             CreateUpdateBookDto>, //Used to create/update a book
         IBookAppService //implement the IBookAppService
     {
+        private readonly IAuthorRepository _authorRepository;
+
         private readonly IDistributedCache<BookCacheItem> _cache;
-        
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(BookAppService));
         private readonly IRepository<Book, Guid> _repository;
         private readonly IBackgroundJobManager _backgroundJobManager;
@@ -56,23 +60,28 @@ namespace Tiger.Books
 
 
         //BookAppService注入IRepository <Book,Guid>,这是Book实体的默认仓储. ABP自动为每个聚合根(或实体)创建默认仓储. 
-        public BookAppService(IRepository<Book, Guid> repository, 
-            IDistributedCache<BookCacheItem> cache, 
+        public BookAppService(
+            IAuthorRepository authorRepository,
+            IRepository<Book, Guid> repository,
+            IDistributedCache<BookCacheItem> cache,
             IBackgroundJobManager backgroundJobManager,
             IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration,
             IEmailSender emailSender,
             ISettingEncryptionService settingEncryptionService
+            
         ) : base(repository)
-        {
+        {   
+
+
             //使用权限
-            GetPolicyName = TigerPermissions.Books.Default;
-            GetListPolicyName = TigerPermissions.Books.Default;
-            CreatePolicyName = TigerPermissions.Books.Create;
-            UpdatePolicyName = TigerPermissions.Books.Edit;
-            DeletePolicyName = TigerPermissions.Books.Delete;
+            //GetPolicyName = TigerPermissions.Books.Default;
+            //GetListPolicyName = TigerPermissions.Books.Default;
+            //CreatePolicyName = TigerPermissions.Books.Create;
+            //UpdatePolicyName = TigerPermissions.Books.Edit;
+            //DeletePolicyName = TigerPermissions.Books.Delete;
 
-
+            _authorRepository = authorRepository;
             _repository = repository;
             _cache = cache;
             _backgroundJobManager = backgroundJobManager;
@@ -82,34 +91,84 @@ namespace Tiger.Books
             _settingEncryptionService = settingEncryptionService;
         }
 
-
-        /*
-         Provides IEmailSender service that is used to send emails.
-        Defines settings to configure email sending.
-        Integrates to the background job system to send emails via background jobs.
-        Provides MailKit integration package.
-        1. 定义发送邮件的同一接口
-        2. 集成后台定时发送消息的任务
-        3. 集成第三方发送邮件的服务
-         
-         */
-        public async Task DoItAsync()
+        /// <summary>
+        /// 查询一条书籍数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override async Task<BookDto> GetAsync(Guid id)
         {
-             await _emailSender.SendAsync(
-                "652971723@163.com",     // target email address
-                "Email subject",         // subject
-                "This is email body..."  // email body
-            );
+            await CheckGetPolicyAsync();
 
-            //Task.CompletedTask;
+            //Prepare a query to join books and authors
+            var query = from book in Repository
+                        join author in _authorRepository on book.AuthorId equals author.Id
+                        where book.Id == id
+                        select new { book, author };
+
+            //Execute the query and get the book with author
+            var queryResult = await AsyncExecuter.FirstOrDefaultAsync(query);
+            if (queryResult == null)
+            {
+                throw new EntityNotFoundException(typeof(Book), id);
+            }
+
+            var bookDto = ObjectMapper.Map<Book, BookDto>(queryResult.book);
+            bookDto.AuthorName = queryResult.author.Name;
+            return bookDto;
         }
 
-        public JsonResult GetEncryptionSecret()
+        /// <summary>
+        /// 分页查询书籍的数据
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<PagedResultDto<BookDto>>
+            GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            SettingDefinition rd = new SettingDefinition("Settings:Abp.Mailing.Smtp.Password", "123456");
-            var res = _settingEncryptionService.Encrypt(rd, _configuration.GetValue<string>("Settings:Abp.Mailing.Smtp.Password"));
+            await CheckGetListPolicyAsync();
 
-            return new JsonResult(res);
+            //Prepare a query to join books and authors
+            var query = from book in Repository
+                        join author in _authorRepository on book.AuthorId equals author.Id
+                        orderby input.Sorting
+                        select new { book, author };
+
+            query = query
+                .Skip(input.SkipCount)
+                .Take(input.MaxResultCount);
+
+            //Execute the query and get a list
+            var queryResult = await AsyncExecuter.ToListAsync(query);
+
+            //Convert the query result to a list of BookDto objects
+            var bookDtos = queryResult.Select(x =>
+            {
+                var bookDto = ObjectMapper.Map<Book, BookDto>(x.book);
+                bookDto.AuthorName = x.author.Name;
+                return bookDto;
+            }).ToList();
+
+            //Get the total count with another query
+            var totalCount = await Repository.GetCountAsync();
+
+            return new PagedResultDto<BookDto>(
+                totalCount,
+                bookDtos
+            );
+        }
+
+        /// <summary>
+        /// 获取作者筛选列表
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync()
+        {
+            var authors = await _authorRepository.GetListAsync();
+
+            return new ListResultDto<AuthorLookupDto>(
+                ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
+            );
         }
 
 
@@ -176,9 +235,10 @@ namespace Tiger.Books
             //    }
             //);
             #endregion
-        } 
+        }
         #endregion
 
+        #region 电子邮件测试
         //private Task<BookCacheItem> GetBookFromDatabaseAsync(Guid bookId)
         //{
         //    return _repository.GetAsync(bookId);
@@ -200,6 +260,37 @@ namespace Tiger.Books
                 }
             );
         }
+
+
+        /*
+        Provides IEmailSender service that is used to send emails.
+       Defines settings to configure email sending.
+       Integrates to the background job system to send emails via background jobs.
+       Provides MailKit integration package.
+       1. 定义发送邮件的同一接口
+       2. 集成后台定时发送消息的任务
+       3. 集成第三方发送邮件的服务
+
+        */
+        public async Task DoItAsync()
+        {
+            await _emailSender.SendAsync(
+               "652971723@163.com",     // target email address
+               "Email subject",         // subject
+               "This is email body..."  // email body
+           );
+
+            //Task.CompletedTask;
+        }
+
+        public JsonResult GetEncryptionSecret()
+        {
+            SettingDefinition rd = new SettingDefinition("Settings:Abp.Mailing.Smtp.Password", "123456");
+            var res = _settingEncryptionService.Encrypt(rd, _configuration.GetValue<string>("Settings:Abp.Mailing.Smtp.Password"));
+
+            return new JsonResult(res);
+        } 
+        #endregion
 
 
         #region 文件上传
@@ -326,7 +417,7 @@ namespace Tiger.Books
             }
         }
 
-    
+
 
         /// <summary>
         /// 对文件上传响应模型
@@ -343,15 +434,16 @@ namespace Tiger.Books
             /// </summary>
             public string FilePath { get; set; }
         }
-    #endregion
+        #endregion
 
 
-    /// <summary>
-    /// 七牛单文件上传
-    /// </summary>
-    /// <param name="file"></param>
-    /// <returns></returns>
-    [Route("upload-file-qn")]
+        #region 七牛文件上传
+        /// <summary>
+        /// 七牛单文件上传
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        [Route("upload-file-qn")]
         [HttpPost]
         public List<Object> UploadQiniu(IFormFile file)
         {
@@ -408,7 +500,7 @@ namespace Tiger.Books
             //_configuration.GetValue("");
 
             Mac mac = new Mac(configurationSection["AccessKey"], configurationSection["SecretKey"]);// AK SK使用
-             PutPolicy putPolicy = new PutPolicy();
+            PutPolicy putPolicy = new PutPolicy();
             putPolicy.Scope = configurationSection["Bucket"];
             string token = Auth.CreateUploadToken(mac, putPolicy.ToJsonString());//token生成
             Config config = new Config()
@@ -442,6 +534,7 @@ namespace Tiger.Books
                 }
             }
             return list;
-        }
+        } 
+        #endregion
     }
 }

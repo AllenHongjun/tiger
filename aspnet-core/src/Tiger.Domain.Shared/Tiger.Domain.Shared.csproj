@@ -32,12 +32,11 @@
 
   <ItemGroup>
     <Folder Include="Purchase\" />
-    <Folder Include="Order\" />
     <Folder Include="Finance\" />
     <Folder Include="Stock\" />
     <Folder Include="Stat\" />
     <Folder Include="Security\" />
-    <Folder Include="Basic\" />
+    <Folder Include="Orders\" />
   </ItemGroup>
 
 </Project>

@@ -4,11 +4,1051 @@
         <name>Tiger.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.ProductAttributeTypeId">
+            <summary>
+            商品属性类型id
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PublishStatus">
+            <summary>
+            发布状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.NewStatus">
+            <summary>
+            新品状态:0->不是新品；1->新品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.RecommandStatus">
+            <summary>
+            推荐状态；0->不推荐；1->推荐
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Sort">
+            <summary>
+            审核状态：0->未审核；1->审核通过
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Picture">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.AlbumPics">
+            <summary>
+            相册图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.DetailDesc">
+            <summary>
+            详情描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Price">
+            <summary>
+            销售价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.OriPrice">
+            <summary>
+            原价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PurchasePrice">
+            <summary>
+            采购价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionPrice">
+            <summary>
+            促销价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.GiftGrowth">
+            <summary>
+            赠送成长值
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.GiftIntegration">
+            <summary>
+            赠送积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Stock">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.LowStock">
+            <summary>
+            预警库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.Weight">
+            <summary>
+            重量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PreviewStatus">
+            <summary>
+            是否为预告商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionType">
+            <summary>
+            促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionStartTime">
+            <summary>
+            促销活动开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.PromotionPerLimit">
+            <summary>
+            活动限购数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.CategoryName">
+            <summary>
+            分类名字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.ProductCategoryId">
+            <summary>
+            产品分类id
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.PublishStatus">
+            <summary>
+            发布状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.NewStatus">
+            <summary>
+            新品状态:0->不是新品；1->新品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.RecommandStatus">
+            <summary>
+            推荐状态；0->不推荐；1->推荐
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.GetProductListDto.VerifyStatus">
+            <summary>
+            审核状态：0->未审核；1->审核通过
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.ProductAttributeTypeId">
+            <summary>
+            商品属性类型id
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PublishStatus">
+            <summary>
+            发布状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.NewStatus">
+            <summary>
+            新品状态:0->不是新品；1->新品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.RecommandStatus">
+            <summary>
+            推荐状态；0->不推荐；1->推荐
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.VerifyStatus">
+            <summary>
+            审核状态：0->未审核；1->审核通过
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Sale">
+            <summary>
+            销量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Picture">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.AlbumPics">
+            <summary>
+            相册图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.DetailDesc">
+            <summary>
+            详情描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Price">
+            <summary>
+            销售价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.OriPrice">
+            <summary>
+            原价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PurchasePrice">
+            <summary>
+            采购价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionPrice">
+            <summary>
+            促销价
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.GiftGrowth">
+            <summary>
+            赠送成长值
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.GiftIntegration">
+            <summary>
+            赠送积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Stock">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.LowStock">
+            <summary>
+            预警库存
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.Weight">
+            <summary>
+            重量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PreviewStatus">
+            <summary>
+            是否为预告商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionType">
+            <summary>
+            促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionStartTime">
+            <summary>
+            促销活动开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.PromotionPerLimit">
+            <summary>
+            活动限购数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.CategoryName">
+            <summary>
+            分类名字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.ShowStatus">
+            <summary>
+            显示状态 0->不显示 1->显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.Keyword">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.ShowStatus">
+            <summary>
+            显示状态 0->不显示 1->显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Keyword">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.GetCategoryListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.GetCategoryListDto.ParentId">
+            <summary>
+            父级分类id
+            </summary>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetAllListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
+            <summary>
+            获取分类列表树
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取分类明细树
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetChildrenAsync(System.Guid)">
+            <summary>
+            根据父级id查找子分类
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CommentDto.Pics">
+            <summary>
+            上传图片以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CommentDto.ProductAttribute">
+            <summary>
+            购买时产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.Pics">
+            <summary>
+            上传图片以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.ProductAttribute">
+            <summary>
+            购买时产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.GetCommentListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.GetCommentListDto.ShowStatus">
+            <summary>
+            显示状态 0 不显示; 1 显示;
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SelectType">
+            <summary>
+            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputType">
+            <summary>
+            属性录入方式：0->手工录入；1->从列表中选取
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputList">
+            <summary>
+            可选值列表，以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Sort">
+            <summary>
+            排序字段：最高的可以单独上传图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SearchType">
+            <summary>
+            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.RelatedStatus">
+            <summary>
+            '相同属性产品是否关联；0->不关联；1->关联',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.HandAddStatus">
+            <summary>
+            '是否支持手动新增；0->不支持；1->支持',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Type">
+            <summary>
+            '属性的类型；0->规格；1->参数',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.GetProductAttributeListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SelectType">
+            <summary>
+            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputType">
+            <summary>
+            属性录入方式：0->手工录入；1->从列表中选取
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputList">
+            <summary>
+            可选值列表，以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Sort">
+            <summary>
+            排序字段：最高的可以单独上传图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SearchType">
+            <summary>
+            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.RelatedStatus">
+            <summary>
+            '相同属性产品是否关联；0->不关联；1->关联',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.HandAddStatus">
+            <summary>
+            '是否支持手动新增；0->不支持；1->支持',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Type">
+            <summary>
+            '属性的类型；0->规格；1->参数',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.CreateUpdateProductAttributeTypeDto.Name">
+            <summary>
+            类型名称
+            </summary>
+        </member>
+        <member name="T:Tiger.Basic.ProductAttributeTpyes.IProductAttributeTypeAppService">
+            <summary>
+            产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.AttributeCount">
+            <summary>
+            属性数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.ParamCount">
+            <summary>
+            参数数量
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->
         <member name="T:Tiger.Books.BookDto">
             <summary>
             
             数据传输对象(DTO)用于在应用层和表示层或其他类型的客户端之间传输数据.
             数据传输层对象使用说明 https://docs.abp.io/zh-Hans/abp/latest/Data-Transfer-Objects
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.BookDto.AuthorId">
+            <summary>
+             dto 对象里面 需要把 autherId  和 author name 属性全部都加上去
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.CreateAuthorDto">
+            <summary>
+            poco 
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateUpdateBookDto.AuthorId">
+            <summary>
+            添加关联的作者id
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.GetAuthorListDto">
+             <summary>
+             Filter is used to search authors. It can be null (or empty string) to get all the authors.
+            PagedAndSortedResultRequestDto has the standard paging and sorting properties: int MaxResultCount, int SkipCount and string Sorting.
+             </summary>
+        </member>
+        <member name="P:Tiger.Books.GetAuthorListDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="M:Tiger.Books.IBookAppService.GetAuthorLookupAsync">
+            <summary>
+            his new method will be used from the UI to get a list of authors and fill a dropdown list to select the author of a book.
+            获取下拉框选中作者的列表数据
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.CouponCode">
+            <summary>
+            优惠券编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.MemberNickName">
+            <summary>
+            领券用户昵称
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.GetType">
+            <summary>
+            获取类型：0->后台赠送；1->主动获取
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.UseStatus">
+            <summary>
+            使用状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CouponHistoryDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CreateUpdateCouponHistoryDto.CouponCode">
+            <summary>
+            优惠券编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CreateUpdateCouponHistoryDto.GetType">
+            <summary>
+            获取类型：0->后台赠送；1->主动获取
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.CreateUpdateCouponHistoryDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.CouponHistorys.GetCouponHistoryListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.Type">
+            <summary>
+            优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.Platform">
+            <summary>
+            使用平台 0 全部 1 移动 2 PC
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.MinPoint">
+            <summary>
+            使用门槛 0 表示无门槛
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.UseType">
+            <summary>
+            使用类型 0 全场通用 ； 1 指定分类  2 指定商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CouponDto.MemberLevel">
+            <summary>
+            可以领取的会员类型 0 无限制
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.Type">
+            <summary>
+            优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.Platform">
+            <summary>
+            使用平台 0 全部 1 移动 2 PC
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.MinPoint">
+            <summary>
+            使用门槛 0 表示无门槛
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.UseType">
+            <summary>
+            使用类型 0 全场通用 ； 1 指定分类  2 指定商品
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.CreateUpdateCouponDto.MemberLevel">
+            <summary>
+            可以领取的会员类型 0 无限制
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.GetCouponListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Marketings.Coupons.GetCouponListDto.Type">
+            <summary>
+            优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.Quantity">
+            <summary>
+            购买数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.Price">
+            <summary>
+            添加到购物车的价格
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.ProductPic">
+            <summary>
+            商品主图
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.SkuCode">
+            <summary>
+            商品sku条码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.Brand">
+            <summary>
+            品牌名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CartItemDto.ProductAttr">
+            <summary>
+            商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}]
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.Quantity">
+            <summary>
+            购买数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.Price">
+            <summary>
+            添加到购物车的价格
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.SkuCode">
+            <summary>
+            商品sku条码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.Brand">
+            <summary>
+            品牌名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.CartItems.CreateUpdateCartItemDto.ProductSn">
+            <summary>
+            货号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.TotalAmount">
+            <summary>
+            订单总金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PayAmount">
+            <summary>
+            实际支付金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.FreightAmount">
+            <summary>
+            运费金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PromotionAmount">
+            <summary>
+            促销优化金额(促销价，满减价， 阶梯价)
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.IntegrationAmount">
+            <summary>
+            积分抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.CouponAmount">
+            <summary>
+            优惠券抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DiscountAmount">
+            <summary>
+            折扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PayType">
+            <summary>
+            支付方式：0->未支付；1->支付宝；2->微信
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.SourceType">
+            <summary>
+            订单来源：0->PC订单；1->app订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.Status">
+            <summary>
+            订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.OrderType">
+            <summary>
+            订单类型：0->正常订单；1->秒杀订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DeliveryCompany">
+            <summary>
+            物流公司
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DeliverySn">
+            <summary>
+            物流单号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.AutoConfirmDay">
+            <summary>
+            自动确认时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PromotionInfo">
+            <summary>
+            活动信息
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillType">
+            <summary>
+            发票类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillHeader">
+            <summary>
+            发票抬头
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillContent">
+            <summary>
+            发票内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillReceiverPhone">
+            <summary>
+            收票人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.BillReceiverEmail">
+            <summary>
+            收票人邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverPhone">
+            <summary>
+            收货人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverPostCode">
+            <summary>
+            收货人邮编
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiverProvince">
+            <summary>
+            省份/直辖市
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ConfirmStatus">
+            <summary>
+            '确认收货状态：0->未确认；1->已确认',
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.UseIntegration">
+            <summary>
+            下单时使用的积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.PaymentTime">
+            <summary>
+            支付时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.DeliveryTime">
+            <summary>
+            发货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.ReceiveTime">
+            <summary>
+            确认收货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.CommentTime">
+            <summary>
+            评价时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.Status">
+            <summary>
+            订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.PayType">
+            <summary>
+            支付方式：0->未支付；1->支付宝；2->微信
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.SourceType">
+            <summary>
+            订单来源：0->PC订单；1->app订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.GetOrderListDto.ReceiverName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.TotalAmount">
+            <summary>
+            订单总金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PayAmount">
+            <summary>
+            实际支付金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.FreightAmount">
+            <summary>
+            运费金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PromotionAmount">
+            <summary>
+            促销优化金额(促销价，满减价， 阶梯价)
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.IntegrationAmount">
+            <summary>
+            积分抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.CouponAmount">
+            <summary>
+            优惠券抵扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DiscountAmount">
+            <summary>
+            折扣金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PayType">
+            <summary>
+            支付方式：0->未支付；1->支付宝；2->微信
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.SourceType">
+            <summary>
+            订单来源：0->PC订单；1->app订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.Status">
+            <summary>
+            订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.OrderType">
+            <summary>
+            订单类型：0->正常订单；1->秒杀订单
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DeliveryCompany">
+            <summary>
+            物流公司
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DeliverySn">
+            <summary>
+            物流单号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PromotionInfo">
+            <summary>
+            活动信息
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillType">
+            <summary>
+            发票类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillHeader">
+            <summary>
+            发票抬头
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillContent">
+            <summary>
+            发票内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillReceiverPhone">
+            <summary>
+            收票人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.BillReceiverEmail">
+            <summary>
+            收票人邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverPhone">
+            <summary>
+            收货人电话
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverPostCode">
+            <summary>
+            收货人邮编
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiverProvince">
+            <summary>
+            省份/直辖市
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.Note">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ConfirmStatus">
+            <summary>
+            '确认收货状态：0->未确认；1->已确认',
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.UseIntegration">
+            <summary>
+            下单时使用的积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.PaymentTime">
+            <summary>
+            支付时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.DeliveryTime">
+            <summary>
+            发货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.ReceiveTime">
+            <summary>
+            确认收货时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.Orders.OrderDto.CommentTime">
+            <summary>
+            评价时间
+            </summary>
+        </member>
+        <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
+            <summary>
+            修改用户信息
             </summary>
         </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
@@ -86,6 +1126,11 @@
             用户名
             </summary>
         </member>
+        <member name="T:Volo.Abp.AuditLogging.AuditLogPermissions">
+            <summary>
+            系统日志权限配置
+            </summary>
+        </member>
         <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.StartTime">
             <summary>
             开始时间
@@ -140,6 +1185,61 @@
             <summary>
             组织id列表
             </summary>
+        </member>
+        <member name="T:Volo.Abp.Identity.IOrganizationUnitAppService">
+            <summary>
+            组织机构
+            </summary>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetRootListAsync">
+            <summary>
+            获取根组织列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取组织明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetAllListAsync(Volo.Abp.Identity.GetAllOrgnizationUnitInput)">
+            <summary>
+            获取所有组织列表数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetAllListDetailsAsync(Volo.Abp.Identity.GetAllOrgnizationUnitInput)">
+            <summary>
+            获取所有组织列表明细数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetChildrenAsync(System.Guid)">
+            <summary>
+            获取子集组织
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">
+            <summary>
+            获取组织关联的用户
+            </summary>
+            <param name="ouId"></param>
+            <param name="userInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.IOrganizationUnitAppService.GetRolesAsync(System.Nullable{System.Guid},Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+            <summary>
+            获取组织关联的角色
+            </summary>
+            <param name="ouId"></param>
+            <param name="roleInput"></param>
+            <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.ITigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>

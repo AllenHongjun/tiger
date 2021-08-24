@@ -9,8 +9,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Settings;
 using Volo.Abp.Users;
 
 namespace Tiger.Books.Demo
@@ -25,15 +27,43 @@ namespace Tiger.Books.Demo
         // ICurrentUser 是主要的服务,用于获取有关当前活动的用户信息.
         private readonly ICurrentUser _currentUser;
 
-        public MyService(ICurrentUser currentUser)
+        private readonly ISettingProvider _settingProvider;
+
+        //Inject ISettingProvider in the constructor
+        public MyService(ICurrentUser currentUser, ISettingProvider settingProvider)
         {
             _currentUser = currentUser;
+
+            _settingProvider = settingProvider;
         }
 
         public void Foo()
         {
             Guid? userId = _currentUser.Id;
             string email = _currentUser.Email;
+        }
+
+
+        public async Task FooAsync()
+        {
+            //Get a value as string.
+            string userName = await _settingProvider.GetOrNullAsync("Smtp.UserName");
+
+            //Get a bool value and fallback to the default value (false) if not set.
+            bool enableSsl = await _settingProvider.GetAsync<bool>("Smtp.EnableSsl");
+
+            //Get a bool value and fallback to the provided default value (true) if not set.
+            bool enableSsl2 = await _settingProvider.GetAsync<bool>(
+                "Smtp.EnableSsl", defaultValue: true);
+
+            //Get a bool value with the IsTrueAsync shortcut extension method
+            bool enableSsl3 = await _settingProvider.IsTrueAsync("Smtp.EnableSsl");
+
+            //Get an int value or the default value (0) if not set
+            int port = (await _settingProvider.GetAsync<int>("Smtp.Port"));
+
+            //Get an int value or null if not provided
+            int? port2 = (await _settingProvider.GetOrNullAsync("Smtp.Port"))?.To<int>();
         }
     }
 

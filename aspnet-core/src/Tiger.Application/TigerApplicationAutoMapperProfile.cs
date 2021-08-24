@@ -1,6 +1,15 @@
 ﻿using AutoMapper;
-
+using Tiger.Basic;
+using Tiger.Basic.Categorys;
+using Tiger.Basic.Comments;
+using Tiger.Basic.ProductAttributes;
+using Tiger.Basic.ProductAttributeTpyes;
+using Tiger.Basic.Products;
 using Tiger.Books;
+using Tiger.Business.Demo;
+using Tiger.Marketing;
+using Tiger.Marketings.CouponHistorys;
+using Tiger.Marketings.Coupons;
 using Tiger.SecurityLogs;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Identity;
@@ -21,9 +30,40 @@ namespace Tiger
              * into multiple profile classes for a better organization. */
             CreateMap<Book, BookDto>();
             CreateMap<CreateUpdateBookDto, Book>();
+            CreateMap<Author, AuthorLookupDto>();
+            CreateMap<Author, AuthorDto>();
+
+            #region Basic
+            CreateMap<Basic.Product, ProductDto>();
+            CreateMap<CreateUpdateProductDto, Basic.Product>();
+
+            CreateMap<ProductAttributeType, ProductAttributeTypeDto>();
+            CreateMap<CreateUpdateProductAttributeTypeDto, ProductAttributeType>();
+
+            CreateMap<ProductAttribute, ProductAttributeDto>();
+            CreateMap<CreateUpdateProductAttributeDto, ProductAttribute>();
+
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CreateUpdateCategoryDto, Category>();
+
+            CreateMap<Comment, CommentDto>();
+            CreateMap<CreateUpdateCommentDto, Comment>();
+            #endregion
+
+            #region Markting
+            CreateMap<Coupon, CouponDto>();
+            CreateMap<CreateUpdateCouponDto, Coupon>();
+
+            CreateMap<CouponHistory, CouponHistoryDto>();
+            CreateMap<CreateUpdateCouponHistoryDto, CouponHistory>(); 
+            #endregion
+
+
+
+
+
             CreateMap<SecurityLogInfo, SecurityLogDto>();
             CreateMap<AuditLog, AuditLogDto>();
-
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
                 .MapExtraProperties();
         }

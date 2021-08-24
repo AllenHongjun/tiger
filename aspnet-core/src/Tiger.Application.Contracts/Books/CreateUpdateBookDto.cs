@@ -23,5 +23,10 @@ namespace Tiger.Books
         [Required]
         public float Price { get; set; }
 
+        /// <summary>
+        /// 添加关联的作者id
+        /// </summary>
+        public Guid AuthorId { get; set; }
+
     }
 }

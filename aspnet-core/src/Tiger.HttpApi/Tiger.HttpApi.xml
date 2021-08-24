@@ -4,6 +4,314 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Controllers.Admin.Basics.CategoryController">
+            <summary>
+            产品分类
+            </summary>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.CreateAsync(Tiger.Basic.Categorys.CreateUpdateCategoryDto)">
+            <summary>
+            添加
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.GetAsync(System.Guid)">
+            <summary>
+            获取单条
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.GetListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.UpdateAsync(System.Guid,Tiger.Basic.Categorys.CreateUpdateCategoryDto)">
+            <summary>
+            修改
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.GetAllListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
+            <summary>
+            获取分类列表树
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取分类明细树
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CategoryController.GetChildrenAsync(System.Guid)">
+            <summary>
+            根据父级id查找子分类
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Controllers.Admin.Basics.CommentController">
+            <summary>
+            评论
+            </summary>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CommentController.CreateAsync(Tiger.Basic.Comments.CreateUpdateCommentDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CommentController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CommentController.GetAsync(System.Guid)">
+            <summary>
+            获取明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CommentController.GetListAsync(Tiger.Basic.Comments.GetCommentListDto)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.CommentController.UpdateAsync(System.Guid,Tiger.Basic.Comments.CreateUpdateCommentDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Controllers.Admin.Basics.ProductAttributeController">
+            <summary>
+            商品属性
+            </summary>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeController.CreateAsync(Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeController.GetAsync(System.Guid)">
+            <summary>
+            获取明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeController.GetListAsync(Tiger.Basic.ProductAttributes.GetProductAttributeListDto)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeController.UpdateAsync(System.Guid,Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController">
+            <summary>
+            商品属性类型
+            </summary>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.CreateAsync(Tiger.Basic.ProductAttributeTpyes.CreateUpdateProductAttributeTypeDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.GetAsync(System.Guid)">
+            <summary>
+            获取明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.GetListAsync(Tiger.Basic.ProductAttributeTpyes.GetProductAttributeTypeListDto)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.UpdateAsync(System.Guid,Tiger.Basic.ProductAttributeTpyes.CreateUpdateProductAttributeTypeDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Controllers.Admin.Basics.ProductController">
+            <summary>
+            产品
+            </summary>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductController.CreateAsync(Tiger.Basic.Products.CreateUpdateProductDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductController.GetAsync(System.Guid)">
+            <summary>
+            获取明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductController.GetListAsync(Tiger.Basic.Products.GetProductListDto)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductController.UpdateAsync(System.Guid,Tiger.Basic.Products.CreateUpdateProductDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Controllers.Admin.Basics.OrderController">
+            <summary>
+            产品分类
+            </summary>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderController.CreateAsync(Tiger.Orders.Orders.CreateUpdateOrderDto)">
+            <summary>
+            添加
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderController.GetAsync(System.Guid)">
+            <summary>
+            获取单条
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderController.GetListAsync(Tiger.Orders.Orders.GetOrderListDto)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderController.UpdateAsync(System.Guid,Tiger.Orders.Orders.CreateUpdateOrderDto)">
+            <summary>
+            修改
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Controllers.Admin.Basics.OrderSettingController">
+            <summary>
+            产品分类
+            </summary>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderSettingController.CreateAsync(Tiger.Orders.OrderSettings.CreateUpdateOrderSettingDto)">
+            <summary>
+            添加
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderSettingController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderSettingController.GetAsync(System.Guid)">
+            <summary>
+            获取单条
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderSettingController.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+            <summary>
+            获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.OrderSettingController.UpdateAsync(System.Guid,Tiger.Orders.OrderSettings.CreateUpdateOrderSettingDto)">
+            <summary>
+            修改
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Controllers.Admin.OrderController">
             <summary>
             订单管理

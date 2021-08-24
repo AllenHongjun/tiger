@@ -19,16 +19,16 @@ namespace Tiger.Controllers
     public class Authentication : AbpController
     {
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IConfiguration _configuration;
+        //private readonly IConfiguration _configuration;
 
         public Authentication(IHttpContextAccessor contextAccessor, IConfiguration configuration)
         {
             _contextAccessor = contextAccessor;
-            _configuration = configuration;
+            //_configuration = configuration;
         }
 
         [HttpGet("~/signin")]
-        public async Task<IActionResult> SignIn(string provider, string redirectUrl)
+        public IActionResult SignIn(string provider, string redirectUrl)
         {
             var request = _contextAccessor.HttpContext.Request;
             var url =
@@ -53,8 +53,8 @@ namespace Tiger.Controllers
 
             //string email = authenticateResult.Principal.FindFirst(ClaimTypes.Email)?.Value;
             //string name = authenticateResult.Principal.FindFirst(ClaimTypes.Name)?.Value;
-            string gitHubName = authenticateResult.Principal.FindFirst(GitHubAuthenticationConstants.Claims.Name)?.Value;
-            string gitHubUrl = authenticateResult.Principal.FindFirst(GitHubAuthenticationConstants.Claims.Url)?.Value;
+            //string gitHubName = authenticateResult.Principal.FindFirst(GitHubAuthenticationConstants.Claims.Name)?.Value;
+            //string gitHubUrl = authenticateResult.Principal.FindFirst(GitHubAuthenticationConstants.Claims.Url)?.Value;
             //startup 中 AddGitHub配置项  options.ClaimActions.MapJsonKey(LinConsts.Claims.AvatarUrl, "avatar_url");  
             //string avatarUrl = authenticateResult.Principal.FindFirst(LinConsts.Claims.AvatarUrl)?.Value;
 

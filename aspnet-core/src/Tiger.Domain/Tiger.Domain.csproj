@@ -9,12 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Business\Customers\**" />
     <Compile Remove="Module\**" />
+    <EmbeddedResource Remove="Business\Customers\**" />
     <EmbeddedResource Remove="Module\**" />
+    <None Remove="Business\Customers\**" />
     <None Remove="Module\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Business\Basic\Shop.cs" />
+    <Compile Remove="Business\Demo\Order.cs" />
+    <Compile Remove="Business\Demo\OrderLine.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />
@@ -48,10 +54,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Finance\" />
+    <Folder Include="Business\Finances\" />
     <Folder Include="Security\" />
     <Folder Include="Business\Stat\" />
-    <Folder Include="Business\Customer\Member\" />
     <Folder Include="Event\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Utility\DownLoadUpLoadFilesHelper\" />

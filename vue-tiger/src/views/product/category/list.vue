@@ -11,7 +11,7 @@
       <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
         <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-
+      <el-cascader :props="listQuery.props" />
       <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
@@ -163,17 +163,21 @@
             删除
           </el-button>
         </template>
+
       </el-table-column>
-      </el-table-column></el-table>
+    </el-table>
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="70px" style="width: 400px; margin-left:50px;">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
         <el-form-item label="类型" prop="type">
           <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
             <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
           </el-select>
+        </el-form-item>
+        <el-form-item label="父级分类" prop="title">
+          <el-cascader :props="listQuery.props" />
         </el-form-item>
         <el-form-item label="时间" prop="timestamp">
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
@@ -256,6 +260,8 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
   return acc
 }, {})
 
+let id = 0
+
 export default {
   name: 'CategoryList',
   components: { Pagination, UploadExcelComponent },
@@ -285,7 +291,23 @@ export default {
         // status: undefined,
         title: undefined,
         type: undefined,
-        sort: '+id'
+        sort: '+id',
+        props: {
+          lazy: true,
+          lazyLoad(node, resolve) {
+            const { level } = node
+            setTimeout(() => {
+              const nodes = Array.from({ length: level + 1 })
+                .map(item => ({
+                  value: ++id,
+                  label: `选项${id}`,
+                  leaf: level >= 2
+                }))
+              // 通过调用resolve将子节点数据返回，通知组件数据加载完成
+              resolve(nodes)
+            }, 1000)
+          }
+        }
       },
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
