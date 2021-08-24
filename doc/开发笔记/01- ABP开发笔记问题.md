@@ -161,3 +161,19 @@
 - [elementui TAB跟随上一步 下一步切换实现。](https://segmentfault.com/q/1010000023794629)
 
 - chrome 浏览器。下载完成自动打开excel的功能。
+
+- abp pro的界面先话起来。
+
+- 有些功能。
+
+- [vscode格式化文档时设置成不换行](https://blog.csdn.net/weixin_42555643/article/details/108054253)
+
+- [vscode 设置自动换行](https://zhuanlan.zhihu.com/p/65268106)
+
+- 变量的命名 maxFailedAccessAttempts  allowedForNewUsers requireUppercase 可以多个单词组合一起。长一点没有关系。能够表达清楚意思就可以
+
+- 前端文件 或者文件夹如果有两个单词的页面和组件统一使用中划线
+
+- 修改后台主题验证。弄一个变色的选项
+
+- 功能管理 和权限设置的区别在哪里？？、看一下数据表结构。
