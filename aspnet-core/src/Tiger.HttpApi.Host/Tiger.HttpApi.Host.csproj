@@ -42,6 +42,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings.json" />
+    <Content Remove="appsettings.sample.json" />
+    <Content Remove="web.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include=".config\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
