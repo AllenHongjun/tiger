@@ -121,33 +121,34 @@ namespace Tiger
                     options.Authority = configuration["AuthServer:Authority"];
                     options.RequireHttpsMetadata = false;
                     options.Audience = "Tiger";
+
                     options.BackchannelHttpHandler = new HttpClientHandler()
                     {
                         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                     };
-                })
-                .AddOpenIdConnect("oidc", "Tiger IdentityServer", options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-                    options.SaveTokens = true;
-
-                    options.Authority = configuration["AuthServer:Authority"];
-                    options.ClientId = "interactive.confidential";
-                    options.ClientSecret = "secret";
-                    options.ResponseType = "code";
-
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        NameClaimType = "name",
-                        RoleClaimType = "role"
-                    };
                 });
-                //.AddGitHub(options =>
+                //.AddOpenIdConnect("oidc", "Tiger IdentityServer", options =>
                 //{
-                //    options.ClientId = configuration["Github:ClientID"];
-                //    options.ClientSecret = configuration["Github:ClientSecret"];
-                //});
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                //    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                //    options.SaveTokens = true;
+
+            //    options.Authority = configuration["AuthServer:Authority"];
+            //    options.ClientId = "interactive.confidential";
+            //    options.ClientSecret = "secret";
+            //    options.ResponseType = "code";
+
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        NameClaimType = "name",
+            //        RoleClaimType = "role"
+            //    };
+            //});
+            //.AddGitHub(options =>
+            //{
+            //    options.ClientId = configuration["Github:ClientID"];
+            //    options.ClientSecret = configuration["Github:ClientSecret"];
+            //});
         }
 
         /// <summary>
