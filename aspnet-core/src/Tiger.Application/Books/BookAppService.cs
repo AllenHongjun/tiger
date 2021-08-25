@@ -21,6 +21,7 @@ using Tiger.BackgroundJob;
 using Tiger.Business.Demo;
 using Tiger.Domain.Log;
 using Tiger.Permissions;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BackgroundJobs;
@@ -36,6 +37,7 @@ namespace Tiger.Books
     /// 书籍管理
     /// </summary>
     /// 
+    [RemoteService(false)]
     [ApiExplorerSettings(GroupName = "admin")]
     public class BookAppService :
         CrudAppService<

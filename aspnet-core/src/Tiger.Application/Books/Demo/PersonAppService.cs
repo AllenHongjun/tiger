@@ -12,11 +12,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Business.Demo;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Books.Demo
 {
+    [RemoteService(false)]
     public class PersonAppService : ApplicationService
     {
         //ABP为每个聚合根或实体提供了 默认的通用(泛型)仓储 . 你可以在服务中注入 IRepository<TEntity, TKey> 使用标准的CRUD操作.

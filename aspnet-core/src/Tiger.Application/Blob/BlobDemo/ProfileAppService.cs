@@ -15,6 +15,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Blob.Qinui;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Users;
@@ -24,6 +25,7 @@ namespace Tiger.BlobDemo
     /// <summary>
     /// 示例: 用于保存和读取当前用户的个人资料图片的应用服务
     /// </summary>
+    [RemoteService(false)]
     [Authorize]
     public class ProfileAppService : TigerAppService
     {

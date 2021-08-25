@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Business.Demo;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Books
@@ -21,7 +22,7 @@ namespace Tiger.Books
     /// <summary>
     /// 实现 author 的服务层
     /// </summary>
-
+    [RemoteService(false)]
     [ApiExplorerSettings(GroupName = "admin")]
     [Authorize(BookStorePermissions.Authors.Default)]
     public class AuthorAppService : TigerAppService, IAuthorAppService

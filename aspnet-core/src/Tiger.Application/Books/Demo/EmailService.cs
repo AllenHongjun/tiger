@@ -11,12 +11,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Emailing;
 
 namespace Tiger.Books.Demo
 {
     [ApiExplorerSettings(GroupName = "api")]
+    [RemoteService(false)]
     public class EmailService : ITransientDependency
     {
         private readonly IEmailSender _emailSender;

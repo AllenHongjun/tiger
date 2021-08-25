@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
@@ -22,6 +23,7 @@ namespace Tiger.Books.Demo
     /// 
     /// MyIdentityUserAppService 通过命名约定替换了 IIdentityUserAppService 的当前实现. 如果你的类名不匹配,你需要手动公开服务接口:
     /// </summary>
+    [RemoteService(false)]
     public class MyIdentityUserAppService : IIdentityUserAppService, ITransientDependency
     {
         public Task<IdentityUserDto> CreateAsync(IdentityUserCreateDto input)

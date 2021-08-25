@@ -12,18 +12,69 @@
     "Permission:Delete": "权限删除",
 
 
-    "Permission:Product": "产品管理",
+    "Permission:Product": "产品",
+    "Permission:Product.ManagePermissions": "产品管理",
     "Permission:Product.Update": "编辑",
     "Permission:Product.Delete": "删除",
     "Permission:Product.Create": "添加",
     "Permission:Product.Audit": "审核",
 
+    "Permission:Category": "分类",
+    "Permission:Category.ManagePermissions": "分类管理",
+    "Permission:Category.Update": "编辑",
+    "Permission:Category.Delete": "删除",
+    "Permission:Category.Create": "添加",
+    "Permission:Category.Audit": "审核",
+
+    "Permission:ProductAttributeTypes": "产品属性分类",
+    "Permission:ProductAttributeTypes.ManagePermissions": "产品属性分类管理",
+    "Permission:ProductAttributeTypes.Update": "编辑",
+    "Permission:ProductAttributeTypes.Delete": "删除",
+    "Permission:ProductAttributeTypes.Create": "添加",
+    "Permission:ProductAttributeTypes.Audit": "审核",
+
     "Permission:ProductAttributes": "产品属性",
-    "Permission:ProductAttributes.ManagePermissions": "产品属性管理",
+    "Permission:ProductAttributes.ManagePermissions": "产品属性分类管理",
     "Permission:ProductAttributes.Update": "编辑",
     "Permission:ProductAttributes.Delete": "删除",
     "Permission:ProductAttributes.Create": "添加",
     "Permission:ProductAttributes.Audit": "审核",
+
+    "Permission:Comments": "产品评论",
+    "Permission:Comments.ManagePermissions": "产品评论管理",
+    "Permission:Comments.Update": "编辑",
+    "Permission:Comments.Delete": "删除",
+    "Permission:Comments.Create": "添加",
+    "Permission:Comments.Audit": "审核",
+
+
+    "Permission:Order": "订单",
+    "Permission:Order.ManagePermissions": "订单管理",
+    "Permission:Order.Update": "编辑",
+    "Permission:Order.Delete": "删除",
+    "Permission:Order.Create": "添加",
+    "Permission:Order.Audit": "审核",
+
+    "Permission:OrderReturn": "订单退款",
+    "Permission:OrderReturn.ManagePermissions": "订单退款管理",
+    "Permission:OrderReturn.Update": "编辑",
+    "Permission:OrderReturn.Delete": "删除",
+    "Permission:OrderReturn.Create": "添加",
+    "Permission:OrderReturn.Audit": "审核",
+
+
+    "Permission:OrderSetting": "订单设置",
+    "Permission:OrderSetting.ManagePermissions": "订单设置管理",
+    "Permission:OrderSetting.Update": "编辑",
+    "Permission:OrderSetting.Delete": "删除",
+    "Permission:OrderSetting.Create": "添加",
+    "Permission:OrderSetting.Audit": "审核",
+
+
+
+
+
+
 
 
     "Permission:OrganitaionUnits": "组织管理",

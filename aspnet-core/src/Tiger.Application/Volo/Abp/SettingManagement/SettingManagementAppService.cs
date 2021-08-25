@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.Settings;
 
 namespace Tiger.Volo.Abp.SettingManagement
 {
+    [RemoteService(false)]
     public class SettingManagementAppService
     {
         public SettingManagementAppService(ISettingManager settingManager, ISettingRepository settingRepository)

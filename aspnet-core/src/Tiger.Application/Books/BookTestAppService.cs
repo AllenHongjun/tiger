@@ -3,15 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Books
-{   
+{
     /// <summary>
     /// 测试基础crud demo
     /// </summary>
+    [RemoteService(false)]
     [ApiExplorerSettings(GroupName = "admin")]
     public class BookTestAppService :
         CrudAppService<

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.DependencyInjection;
 
@@ -18,6 +19,8 @@ namespace Tiger.Books.BlogModule
     /// <summary>
     /// BlogPostAppService 由于它是从已知的基类派生的,因此会自动注册为transient生命周期.
     /// </summary>
+
+    [RemoteService(false)]
     public class BlogPostAppService:ApplicationService
     {
     }

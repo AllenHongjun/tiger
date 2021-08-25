@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Business.Demo;
+using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
@@ -20,6 +21,7 @@ namespace Tiger.Books.Demo
     /// <summary>
     /// 实现这个接口 ITransientDependency 就会作为瞬态注入到服务当中。
     /// </summary>
+    [RemoteService(false)]
     public class MyProductService : ITransientDependency
     {
         private readonly IRepository<Product, Guid> _productRepository;

@@ -44,7 +44,6 @@
   <ItemGroup>
     <Content Remove="appsettings.json" />
     <Content Remove="appsettings.sample.json" />
-    <Content Remove="web.config" />
   </ItemGroup>
 
   <ItemGroup>

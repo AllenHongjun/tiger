@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Books.BlogModule
@@ -23,6 +24,8 @@ namespace Tiger.Books.BlogModule
     /// 
     /// 
     /// </summary>
+
+    [RemoteService(false)]
     public class TaxAppService : ApplicationService
     {
         private readonly ITaxCalculator _taxCalculator;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Marketing;
 using Tiger.Marketings.CouponHistorys;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
@@ -11,6 +12,7 @@ namespace Tiger.Marketings
     /// <summary>
     /// 优惠券领取记录
     /// </summary>
+    [RemoteService(false)]
     public class CouponHistoryAppService :
         CrudAppService<
             CouponHistory, //The  entity

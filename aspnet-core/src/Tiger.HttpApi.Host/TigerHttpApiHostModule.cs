@@ -126,24 +126,24 @@ namespace Tiger
                     {
                         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                     };
+                })
+                .AddOpenIdConnect("oidc", "Tiger IdentityServer", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                    options.SaveTokens = true;
+
+                    options.Authority = configuration["AuthServer:Authority"];
+                    options.ClientId = "interactive.confidential";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code";
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name",
+                        RoleClaimType = "role"
+                    };
                 });
-                //.AddOpenIdConnect("oidc", "Tiger IdentityServer", options =>
-                //{
-                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                //    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-                //    options.SaveTokens = true;
-
-            //    options.Authority = configuration["AuthServer:Authority"];
-            //    options.ClientId = "interactive.confidential";
-            //    options.ClientSecret = "secret";
-            //    options.ResponseType = "code";
-
-            //    options.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        NameClaimType = "name",
-            //        RoleClaimType = "role"
-            //    };
-            //});
             //.AddGitHub(options =>
             //{
             //    options.ClientId = configuration["Github:ClientID"];
@@ -389,8 +389,8 @@ namespace Tiger
                 // 配置自定义的样式
                 //options.InjectStylesheet("/swagger-ui/custom.css");
 
-                options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "后台基础模块");
-                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin");
+                options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "订单商品营销");
+                options.SwaggerEndpoint("/swagger/admin/swagger.json", "系统设置");
                 options.SwaggerEndpoint("/swagger/api/swagger.json", "API");
                 
                 //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");

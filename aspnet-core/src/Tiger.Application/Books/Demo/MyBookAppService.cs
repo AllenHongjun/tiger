@@ -16,7 +16,7 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp;
 
 namespace Tiger.Books.Demo
-{   
+{
 
     /// <summary>
     /// 注入 IDataFilter 服务到你的类中.
@@ -28,6 +28,7 @@ namespace Tiger.Books.Demo
     /// 
     /// 
     /// </summary>
+    [RemoteService(false)]
     public class MyBookService : ITransientDependency
     {
         private readonly IDataFilter _dataFilter;

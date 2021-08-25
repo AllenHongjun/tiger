@@ -135,6 +135,8 @@
     - 可能是ABP还有其他的地方要配置 identityserver 的时候。数据库可能不一样。
     - 之前使用tiger_fe域名有部署过。是可以使用。
   - 原因。identity server 的种子数据库正式库没有更新。授权认证的数据是测试库的。本地的端口就无法使用了。
+  - [asp.net core 跨域问题](https://www.cnblogs.com/stulzq/p/9392150.html)
+  - 服务器 IIS6 比较老 不支持 put delete 添加了 webconfig的配置。导致本地跨域
 
 
 

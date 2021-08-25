@@ -12,6 +12,7 @@ using System.Text;
 using Tiger.Business.Marketings;
 using Tiger.Marketing;
 using Tiger.Marketings.Coupons;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
@@ -20,6 +21,7 @@ namespace Tiger.Module.Marketings
     /// <summary>
     /// 优惠券
     /// </summary>
+    [RemoteService(false)]
     public class CouponAppService
         : CrudAppService<
             Coupon, //The  entity

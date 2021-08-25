@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
@@ -21,6 +22,7 @@ namespace Tiger.Books.Demo
     /// 
     /// 依赖注入系统允许为一个接口注册多个服务. 注入接口时会解析最后一个注入的服务. 显式的替换服务是一个好习惯.
     /// </summary>
+    [RemoteService(false)]
     [ExposeServices(typeof(IIdentityUserAppService))]
     [Dependency(ReplaceServices = true)]
     public class TestAppService : IIdentityUserAppService, ITransientDependency

@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
@@ -19,6 +20,7 @@ namespace Tiger.Books.Demo
     /// <summary>
     /// ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.
     /// </summary>
+    [RemoteService(false)]
     public class ExtraPropertiesDemoService : ITransientDependency
     {
         private readonly IIdentityUserRepository _identityUserRepository;

@@ -54,9 +54,9 @@ namespace Tiger.Basic.Products
             public const string ManagePermissions = Default + ".ManagePermissions";
         }
 
-        public static class UserLookup
+        public static class ProductLookup
         {
-            public const string Default = GroupName + ".UserLookup";
+            public const string Default = GroupName + ".ProductLookup";
         }
 
         public static string[] GetAll()

@@ -10,11 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TigerAdmin.Volo.Abp.TenantManagement;
+using Volo.Abp;
 using Volo.Abp.Data;
 using Volo.Abp.TenantManagement;
 
 namespace Tiger.Volo.Abp.TenantManagement
 {
+    [RemoteService(false)]
     public class TigerTenantManagement : TenantAppService, ITigerTenantAppService
     {
         public TigerTenantManagement(

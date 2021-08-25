@@ -349,23 +349,11 @@
             在Web应用程序中检索有关已登录用户的信息是很常见的. 当前用户是与Web应用程序中的当前请求相关的活动用户.
             </summary>
         </member>
-        <member name="T:Tiger.Books.Demo.MyAppService">
-            <summary>
-            公共基类已经将此服务作为基本属性注入. 例如你可以直接在应用服务中使用 CurrentUser 属性:
-            </summary>
-        </member>
         <member name="T:Tiger.Books.Demo.TestAppService">
             <summary>
             类名不匹配,你需要手动公开服务接口:  替换默认的服务
             
             依赖注入系统允许为一个接口注册多个服务. 注入接口时会解析最后一个注入的服务. 显式的替换服务是一个好习惯.
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.Demo.UserAppService">
-            <summary>
-            对象 到 对象的 映射
-            http://automapper.org/
-            
             </summary>
         </member>
         <member name="T:Tiger.Module.Marketings.CouponAppService">
