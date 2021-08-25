@@ -20,6 +20,8 @@ namespace Tiger.Basic
     {
         public int ProductId { get; set; }
 
+        public virtual Product Product { get; set; }
+
         /// <summary>
         /// SKU编码
         /// </summary>

@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Admin\Users\" />
+    <Folder Include="Controllers\Admin\Members\" />
     <Folder Include="Controllers\WebApp\" />
     <Folder Include="Module\BasicData\" />
     <Folder Include="Module\Books\" />

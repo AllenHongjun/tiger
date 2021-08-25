@@ -29,63 +29,63 @@ namespace Tiger.Business.Demo
     /// 
     /// 这里需要 [ExposeServices(typeof(IdentityUserManager))] attribute,因为 IdentityUserManager 没有定义接口 (像 IIdentityUserManager) ,依赖注入系统并不会按照约定公开继承类的服务(如已实现的接口).
     /// </summary>
-    [Dependency(ReplaceServices = true)]
-    [ExposeServices(typeof(IdentityUserManager))]
-    public class MyIdentityUserManager : IdentityUserManager
-    {
-        public MyIdentityUserManager(
-            IdentityUserStore store,
-            IIdentityRoleRepository roleRepository,
-            IIdentityUserRepository userRepository,
-            IOptions<IdentityOptions> optionsAccessor,
-            IPasswordHasher<IdentityUser> passwordHasher,
-            IEnumerable<IUserValidator<IdentityUser>> userValidators,
-            IEnumerable<IPasswordValidator<IdentityUser>> passwordValidators,
-            ILookupNormalizer keyNormalizer,
-            IdentityErrorDescriber errors,
-            IServiceProvider services,
-            ILogger<IdentityUserManager> logger,
-            ICancellationTokenProvider cancellationTokenProvider,
-            IOrganizationUnitRepository organizationUnitRepository, 
-            ISettingProvider settingProvider
+    //[Dependency(ReplaceServices = true)]
+    //[ExposeServices(typeof(IdentityUserManager))]
+    //public class MyIdentityUserManager : IdentityUserManager
+    //{
+    //    public MyIdentityUserManager(
+    //        IdentityUserStore store,
+    //        IIdentityRoleRepository roleRepository,
+    //        IIdentityUserRepository userRepository,
+    //        IOptions<IdentityOptions> optionsAccessor,
+    //        IPasswordHasher<IdentityUser> passwordHasher,
+    //        IEnumerable<IUserValidator<IdentityUser>> userValidators,
+    //        IEnumerable<IPasswordValidator<IdentityUser>> passwordValidators,
+    //        ILookupNormalizer keyNormalizer,
+    //        IdentityErrorDescriber errors,
+    //        IServiceProvider services,
+    //        ILogger<IdentityUserManager> logger,
+    //        ICancellationTokenProvider cancellationTokenProvider,
+    //        IOrganizationUnitRepository organizationUnitRepository, 
+    //        ISettingProvider settingProvider
 
-            ) :
-            base(store,
-                roleRepository,
-                userRepository,
-                optionsAccessor,
-                passwordHasher,
-                userValidators,
-                passwordValidators,
-                keyNormalizer,
-                errors,
-                services,
-                logger,
-                cancellationTokenProvider,
-                organizationUnitRepository,
-                settingProvider
-                )
-        {
-        }
+    //        ) :
+    //        base(store,
+    //            roleRepository,
+    //            userRepository,
+    //            optionsAccessor,
+    //            passwordHasher,
+    //            userValidators,
+    //            passwordValidators,
+    //            keyNormalizer,
+    //            errors,
+    //            services,
+    //            logger,
+    //            cancellationTokenProvider,
+    //            organizationUnitRepository,
+    //            settingProvider
+    //            )
+    //    {
+    //    }
 
-        public override async Task<IdentityResult> CreateAsync(IdentityUser user)
-        {
-            //if (user.PhoneNumber.IsNullOrWhiteSpace())
-            //{
-            //    throw new AbpValidationException(
-            //        "Phone number is required for new users!",
-            //        new List<ValidationResult>
-            //        {
-            //        new ValidationResult(
-            //            "Phone number can not be empty!",
-            //            new []{"PhoneNumber"}
-            //        )
-            //        }
-            //    );
-            //}
+    //    public override async Task<IdentityResult> CreateAsync(IdentityUser user)
+    //    {
+    //        //if (user.PhoneNumber.IsNullOrWhiteSpace())
+    //        //{
+    //        //    throw new AbpValidationException(
+    //        //        "Phone number is required for new users!",
+    //        //        new List<ValidationResult>
+    //        //        {
+    //        //        new ValidationResult(
+    //        //            "Phone number can not be empty!",
+    //        //            new []{"PhoneNumber"}
+    //        //        )
+    //        //        }
+    //        //    );
+    //        //}
 
-            return await base.CreateAsync(user);
-        }
-    }
+    //        return await base.CreateAsync(user);
+    //    }
+    //}
 
 }

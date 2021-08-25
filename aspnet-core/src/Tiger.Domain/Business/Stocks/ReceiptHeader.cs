@@ -17,5 +17,6 @@ namespace Tiger.Stock
     /// </summary>
     public class ReceiptHeader
     {
+
     }
 }

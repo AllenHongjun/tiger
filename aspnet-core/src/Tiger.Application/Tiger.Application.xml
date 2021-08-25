@@ -329,14 +329,6 @@
              
              </summary>
         </member>
-        <member name="T:Tiger.Books.Demo.MyIdentityUserAppService">
-            <summary>
-            如果给定的服务定义了接口,像 IdentityUserAppService 类实现了 IIdentityUserAppService 接口,你可以为这个接口创建自己的实现并且替换当前的实现. 例如:
-            
-            
-            MyIdentityUserAppService 通过命名约定替换了 IIdentityUserAppService 的当前实现. 如果你的类名不匹配,你需要手动公开服务接口:
-            </summary>
-        </member>
         <member name="T:Tiger.Books.Demo.MyProductService">
             <summary>
             实现这个接口 ITransientDependency 就会作为瞬态注入到服务当中。
@@ -347,13 +339,6 @@
             获取当前用户相关的信息
             
             在Web应用程序中检索有关已登录用户的信息是很常见的. 当前用户是与Web应用程序中的当前请求相关的活动用户.
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.Demo.TestAppService">
-            <summary>
-            类名不匹配,你需要手动公开服务接口:  替换默认的服务
-            
-            依赖注入系统允许为一个接口注册多个服务. 注入接口时会解析最后一个注入的服务. 显式的替换服务是一个好习惯.
             </summary>
         </member>
         <member name="T:Tiger.Module.Marketings.CouponAppService">

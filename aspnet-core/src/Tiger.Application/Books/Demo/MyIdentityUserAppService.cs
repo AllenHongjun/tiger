@@ -23,57 +23,57 @@ namespace Tiger.Books.Demo
     /// 
     /// MyIdentityUserAppService 通过命名约定替换了 IIdentityUserAppService 的当前实现. 如果你的类名不匹配,你需要手动公开服务接口:
     /// </summary>
-    [RemoteService(false)]
-    public class MyIdentityUserAppService : IIdentityUserAppService, ITransientDependency
-    {
-        public Task<IdentityUserDto> CreateAsync(IdentityUserCreateDto input)
-        {
-            throw new NotImplementedException();
-        }
+    //[RemoteService(false)]
+    //public class MyIdentityUserAppService : IIdentityUserAppService, ITransientDependency
+    //{
+    //    public Task<IdentityUserDto> CreateAsync(IdentityUserCreateDto input)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task DeleteAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task DeleteAsync(Guid id)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task<IdentityUserDto> FindByEmailAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task<IdentityUserDto> FindByEmailAsync(string email)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task<IdentityUserDto> FindByUsernameAsync(string username)
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task<IdentityUserDto> FindByUsernameAsync(string username)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task<ListResultDto<IdentityRoleDto>> GetAssignableRolesAsync()
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task<ListResultDto<IdentityRoleDto>> GetAssignableRolesAsync()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task<IdentityUserDto> GetAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task<IdentityUserDto> GetAsync(Guid id)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task<PagedResultDto<IdentityUserDto>> GetListAsync(GetIdentityUsersInput input)
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task<PagedResultDto<IdentityUserDto>> GetListAsync(GetIdentityUsersInput input)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task<ListResultDto<IdentityRoleDto>> GetRolesAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task<ListResultDto<IdentityRoleDto>> GetRolesAsync(Guid id)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserUpdateDto input)
-        {
-            throw new NotImplementedException();
-        }
+    //    public Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserUpdateDto input)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public Task UpdateRolesAsync(Guid id, IdentityUserUpdateRolesDto input)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public Task UpdateRolesAsync(Guid id, IdentityUserUpdateRolesDto input)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

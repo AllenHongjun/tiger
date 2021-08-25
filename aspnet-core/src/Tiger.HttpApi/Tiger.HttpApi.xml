@@ -394,11 +394,6 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="T:Tiger.Controllers.Admin.OrderController">
-            <summary>
-            订单管理
-            </summary>
-        </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserController">
             <summary>
             用户管理
