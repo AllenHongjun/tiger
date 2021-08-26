@@ -9,13 +9,38 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Purchase
 {
     /// <summary>
-    /// 采购单头
+    /// 采购进货单
     /// </summary>
-    public class PurchaseOrderHeader
-    {
+    public class PurchaseOrderHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    {   
+
+        public Guid? TenantId { get; set; }
+
+        /// <summary>
+        /// 单号
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
+        /// 采购金额
+        /// </summary>
+        public decimal PurchasePrice { get; set; }
+
+        /// <summary>
+        /// 采购单状态
+        /// </summary>
+        public int Status { get; set; }
+
+        public Guid WarehouseId { get; set; }
+
+        public Guid SupplyId { get; set; }
+
+
     }
 }

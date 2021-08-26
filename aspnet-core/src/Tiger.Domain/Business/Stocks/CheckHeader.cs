@@ -17,5 +17,7 @@ namespace Tiger.Stock
     /// </summary>
     public class CheckHeader
     {
+
+
     }
 }

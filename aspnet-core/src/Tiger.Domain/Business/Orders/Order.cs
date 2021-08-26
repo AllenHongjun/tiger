@@ -29,7 +29,9 @@ namespace Tiger.Business.Orders
     {
         public Guid? TenantId { get; set; }
         
-
+        /// <summary>
+        /// 订单号
+        /// </summary>
         public string OrderSn { get; set; }
 
         /// <summary>

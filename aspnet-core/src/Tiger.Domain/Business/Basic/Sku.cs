@@ -39,6 +39,14 @@ namespace Tiger.Basic
         /// </summary>
         public decimal LowStock { get; set; }
 
+        /// <summary>
+        /// 商品属性数据
+        /// 
+        /// [{"key":"颜色","value":"红色"},{"key":"尺寸","value":"38"},{"key":"风格","value":"夏季"}]
+        /// [{"key":"颜色","value":"银色"},{"key":"容量","value":"128G"}]
+        /// </summary>
+        public string SPData { get; set; }
+
         public string SP1 { get; set; }
 
         public string SP2 { get; set; }

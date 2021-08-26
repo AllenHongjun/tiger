@@ -12,7 +12,8 @@ using System.Text;
 
 namespace Tiger.Stock
 {
-    class CheckDetail
+    public class CheckDetail
     {
+
     }
 }

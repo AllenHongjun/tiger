@@ -1,7 +1,7 @@
 ﻿/**
- * 类    名：LocationInventoryHis   
+ * 类    名：LocaationInventory   
  * 作    者：花生了什么树       
- * 创建时间：2021/8/11 15:05:21       
+ * 创建时间：2021/8/11 15:04:52       
  * 说    明: 
  * 
  */
@@ -9,14 +9,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Stock
-{   
+{
     /// <summary>
-    /// 库存变动历史记录
+    /// 库存表
     /// </summary>
-    public class LocationInventoryHis
+    public class LocationInventory: FullAuditedAggregateRoot<Guid>, ISoftDelete
     {
+        
+
         public string ProductName { get; set; }
 
         /// <summary>
@@ -26,15 +30,15 @@ namespace Tiger.Stock
         /// </summary>
         public int OnHandQty { get; set; }
 
-        /// <summary>
-        /// 变动数量
-        /// </summary>
-        public int TransitQty { get; set; }
+        ///// <summary>
+        ///// 移入数量
+        ///// </summary>
+        //public int TransitQty { get; set; }
 
-        /// <summary>
-        /// 分配数量
-        /// </summary>
-        public int AllocateQty { get; set; }
+        ///// <summary>
+        ///// 分配数量
+        ///// </summary>
+        //public int AllocateQty { get; set; }
 
         public int LockedQty { get; set; }
 
@@ -48,24 +52,11 @@ namespace Tiger.Stock
         /// </summary>
         public int InventoryStatus { get; set; }
 
+        /// <summary>
+        /// 商品属性
+        /// </summary>
         public string AttributeData { get; set; }
-
-        public string Batch { get; set; }
-
-        /// <summary>
-        /// 生产日期
-        /// </summary>
-        public DateTime ManufactureDate { get; set; }
-
-        /// <summary>
-        /// 失效日期
-        /// </summary>
-        public DateTime ExpirationDate { get; set; }
-
-        /// <summary>
-        /// 变动日期
-        /// </summary>
-        public DateTime AgingDate { get; set; }
+       
 
         /// <summary>
         /// 箱换算数量
@@ -75,5 +66,9 @@ namespace Tiger.Stock
         public Guid WarehouseId { get; set; }
 
         public Guid ProductId { get; set; }
+
+        //public Guid SkuId { get; set; }
+
+
     }
 }

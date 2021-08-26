@@ -11,8 +11,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Tiger.Stock
-{
-    class TransferDetail
+{   
+    /// <summary>
+    /// 挑拨单明细
+    /// </summary>
+    public class TransferDetail
     {
     }
 }
