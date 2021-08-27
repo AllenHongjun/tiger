@@ -14,6 +14,8 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
+using Tiger.Stock;
+using Tiger.Business.Stocks;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -74,6 +76,39 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<OrderOperateHistory> OrderOperateHistories { get; set; }
         #endregion
+
+        #region Stock
+
+        public DbSet<Inventory> Inventorys { get; set; }
+        public DbSet<InventoryHistory> InventoryHistories { get; set; }
+
+        public DbSet<BomDetail> BomDetails { get; set; }
+
+        public DbSet<BomHeader> BomHeaders { get; set; }
+
+        public DbSet<ReverseDetail> ReverseDetails { get; set; }
+
+        public DbSet<ReverseHeader> ReverseHeaders { get; set; }
+
+        public DbSet<CheckDetail> CheckDetails { get; set; }
+
+        public DbSet<CheckHeader> CheckHeaders { get; set; }
+
+        public DbSet<ReceiptDetail> ReceiptDetails { get; set; }
+
+        public DbSet<ReceiptHeader> ReceiptHeaders { get; set; }
+
+
+        public DbSet<TransferDetail> TransferDetails { get; set; }
+
+        public DbSet<TransferHeader> TransferHeaders { get; set; }
+
+        public DbSet<ShipmentDetail> ShipmentDetails { get; set; }
+
+        public DbSet<ShipmentHeader> ShipmentHeader { get; set; }
+
+        #endregion
+
 
 
         #region Coupon

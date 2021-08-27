@@ -1,7 +1,7 @@
 ﻿/**
- * 类    名：LocaationInventory   
+ * 类    名：LocationInventoryHis   
  * 作    者：花生了什么树       
- * 创建时间：2021/8/11 15:04:52       
+ * 创建时间：2021/8/11 15:05:21       
  * 说    明: 
  * 
  */
@@ -11,18 +11,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Basic;
-using Volo.Abp;
-using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Stock
-{
+{   
     /// <summary>
-    /// 库存表
+    /// 库存变动历史记录
     /// </summary>
-    public class LocationInventory: FullAuditedAggregateRoot<Guid>, ISoftDelete
+    public class InventoryHistory
     {
-        
-
         public string ProductName { get; set; }
 
         /// <summary>
@@ -32,15 +28,15 @@ namespace Tiger.Stock
         /// </summary>
         public int OnHandQty { get; set; }
 
-        ///// <summary>
-        ///// 移入数量
-        ///// </summary>
-        //public int TransitQty { get; set; }
+        /// <summary>
+        /// 变动数量
+        /// </summary>
+        public int TransitQty { get; set; }
 
-        ///// <summary>
-        ///// 分配数量
-        ///// </summary>
-        //public int AllocateQty { get; set; }
+        /// <summary>
+        /// 分配数量
+        /// </summary>
+        public int AllocateQty { get; set; }
 
         public int LockedQty { get; set; }
 
@@ -54,11 +50,24 @@ namespace Tiger.Stock
         /// </summary>
         public int InventoryStatus { get; set; }
 
-        /// <summary>
-        /// 商品属性
-        /// </summary>
         public string AttributeData { get; set; }
-       
+
+        public string Batch { get; set; }
+
+        /// <summary>
+        /// 生产日期
+        /// </summary>
+        public DateTime ManufactureDate { get; set; }
+
+        /// <summary>
+        /// 失效日期
+        /// </summary>
+        public DateTime ExpirationDate { get; set; }
+
+        /// <summary>
+        /// 变动日期
+        /// </summary>
+        public DateTime AgingDate { get; set; }
 
         /// <summary>
         /// 箱换算数量
@@ -70,13 +79,12 @@ namespace Tiger.Stock
         [ForeignKey("WarehouseId")]
         public virtual Warehouse Warehouse { get; set; }
 
-        [ForeignKey("ProductId")]
         public Guid ProductId { get; set; }
 
+        [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 
-        //public Guid SkuId { get; set; }
 
-
+        
     }
 }

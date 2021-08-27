@@ -47,5 +47,7 @@ namespace Tiger.Stock
         public Guid ReverseOrderId { get; set; }
 
         public Guid? TenantId { get; set; }
+
+        public virtual ICollection<ReverseDetail> ReverseDetails { get; set; } 
     }
 }

@@ -35,5 +35,7 @@ namespace Tiger.Stock
 
         public Guid? TenantId { get; set; }
 
+        public virtual ICollection<TransferHeader> TransferHeaders { get; set; }
+
     }
 }

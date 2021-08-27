@@ -56,6 +56,11 @@ namespace Tiger.Business.Stocks
         /// </summary>
         public int TotalVolume { get; set; }
 
+        /// <summary>
+        /// 出库单明细
+        /// </summary>
+        public virtual ICollection<ShipmentDetail> ShipmentDetails { get; set; }
+
 
     }
 }

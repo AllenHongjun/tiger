@@ -48,5 +48,7 @@ namespace Tiger.Stock
         public Guid WarehouseId { get; set; }
 
         public Guid? TenantId { get; set; }
+
+        public virtual ICollection<BomDetail> BomDetails { get; set; }
     }
 }

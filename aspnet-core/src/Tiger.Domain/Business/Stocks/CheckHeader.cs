@@ -57,5 +57,7 @@ namespace Tiger.Stock
 
 
         public Guid? TenantId { get; set; }
+
+        public virtual ICollection<CheckDetail> CheckDetails { get; set; } 
     }
 }

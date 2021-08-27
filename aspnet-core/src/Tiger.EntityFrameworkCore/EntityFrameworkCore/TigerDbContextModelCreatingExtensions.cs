@@ -10,6 +10,8 @@ using Tiger.Orders;
 using TigerAdmin.Books;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Tiger.Stock;
+using Tiger.Business.Stocks;
 
 namespace Tiger.EntityFrameworkCore
 {   
@@ -288,6 +290,31 @@ namespace Tiger.EntityFrameworkCore
             });
             #endregion
 
+            #region 仓储模块
+            builder.Entity<Inventory>(b => { 
+                b.ToTable(TigerConsts.DbTableStockPrefix + "Inventory");
+            });
+            builder.Entity<InventoryHistory>().ToTable(TigerConsts.DbTableStockPrefix + "InventoryHistory");
+
+            builder.Entity<BomDetail>().ToTable(TigerConsts.DbTableStockPrefix + "BomDetail");
+            builder.Entity<BomHeader>().ToTable(TigerConsts.DbTableStockPrefix + "BomHeader");
+
+            builder.Entity<CheckDetail>().ToTable(TigerConsts.DbTableStockPrefix + "CheckDetail");
+            builder.Entity<CheckHeader>().ToTable(TigerConsts.DbTableStockPrefix + "CheckHeader");
+
+            builder.Entity<ReceiptDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ReceiptDetail");
+            builder.Entity<ReceiptHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ReceiptHeader");
+
+            builder.Entity<ReverseDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ReverseDetail");
+            builder.Entity<ReverseHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ReverseHeader");
+
+            builder.Entity<ShipmentDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ShipmentDetail");
+            builder.Entity<ShipmentHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ShipmentHeader");
+
+            builder.Entity<TransferDetail>().ToTable(TigerConsts.DbTableStockPrefix + "TransferDetail");
+            builder.Entity<TransferHeader>().ToTable(TigerConsts.DbTableStockPrefix + "TransferHeader");
+
+            #endregion
 
             #region 营销
 
@@ -308,7 +335,6 @@ namespace Tiger.EntityFrameworkCore
 
 
             #endregion
-
 
 
             #region 会员模块
