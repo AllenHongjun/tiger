@@ -204,6 +204,8 @@ namespace Tiger.Basic
 
         public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
 
+        public virtual ICollection<Sku> Skus { get; set; }
+
 
 
 

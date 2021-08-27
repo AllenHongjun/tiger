@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -18,9 +19,7 @@ namespace Tiger.Basic
     /// </summary>
     public class Sku: AuditedAggregateRoot<Guid>
     {
-        public int ProductId { get; set; }
-
-        public virtual Product Product { get; set; }
+        
 
         /// <summary>
         /// SKU编码
@@ -72,5 +71,10 @@ namespace Tiger.Basic
         /// 锁定库存
         /// </summary>
         public int LockStock { get; set; } = 0;
+
+        public Guid ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
     }
 }

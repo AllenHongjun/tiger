@@ -52,6 +52,8 @@ namespace Tiger.Basic
 
         public Guid WarehouseId { get; set; }
 
+        public virtual Warehouse Warehouse { get; set; }
+
         public Guid? TenantId { get; set; }
 
 

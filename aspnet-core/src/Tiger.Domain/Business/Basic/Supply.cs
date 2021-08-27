@@ -62,7 +62,7 @@ namespace Tiger.Basic
         public int Status { get; set; }
 
 
-        public Guid? WarehouseCode { get; set; }
+        public Guid? WarehouseId { get; set; }
 
 
         public Guid? TenantId { get; set; }

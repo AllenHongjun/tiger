@@ -96,6 +96,12 @@ namespace Tiger.EntityFrameworkCore
                 .HasForeignKey(t => t.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+                // 配置外键 禁用级联删除
+                b.HasMany(t => t.Skus)
+                .WithOne(t => t.Product)
+                .HasForeignKey(t => t.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             });
 
 
@@ -136,9 +142,40 @@ namespace Tiger.EntityFrameworkCore
                     .IsRequired();
                 //.HasMaxLength(AuthorConsts.MaxNameLength);
 
+                b.HasOne(x => x.Product)
+                .WithMany(x => x.Skus)
+                .OnDelete(DeleteBehavior.Restrict);
+
                 b.HasIndex(x => x.SkuCode);
 
             });
+
+            // 店铺表
+            builder.Entity<Store>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Stores",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
+            });
+
+            // 供应商
+            builder.Entity<Supply>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Supplies",
+                    TigerConsts.DbSchema);
+
+                b.ConfigureByConvention();
+            });
+
+            // 仓库
+            builder.Entity<Warehouse>(b => {
+                b.ToTable(TigerConsts.DbTableStockPrefix + "Warehouses");
+                b.ConfigureByConvention();
+            });
+
+
+
 
             // 产品属性类型表
             builder.Entity<ProductAttributeType>(b =>
@@ -220,6 +257,9 @@ namespace Tiger.EntityFrameworkCore
 
                 b.ConfigureByConvention();
             });
+
+            
+
             #endregion
 
             #region 订单模块
@@ -291,28 +331,28 @@ namespace Tiger.EntityFrameworkCore
             #endregion
 
             #region 仓储模块
-            builder.Entity<Inventory>(b => { 
-                b.ToTable(TigerConsts.DbTableStockPrefix + "Inventory");
-            });
-            builder.Entity<InventoryHistory>().ToTable(TigerConsts.DbTableStockPrefix + "InventoryHistory");
+            //builder.Entity<Inventory>(b => { 
+            //    b.ToTable(TigerConsts.DbTableStockPrefix + "Inventory");
+            //});
+            //builder.Entity<InventoryHistory>().ToTable(TigerConsts.DbTableStockPrefix + "InventoryHistory");
 
-            builder.Entity<BomDetail>().ToTable(TigerConsts.DbTableStockPrefix + "BomDetail");
-            builder.Entity<BomHeader>().ToTable(TigerConsts.DbTableStockPrefix + "BomHeader");
+            //builder.Entity<BomDetail>().ToTable(TigerConsts.DbTableStockPrefix + "BomDetail");
+            //builder.Entity<BomHeader>().ToTable(TigerConsts.DbTableStockPrefix + "BomHeader");
 
-            builder.Entity<CheckDetail>().ToTable(TigerConsts.DbTableStockPrefix + "CheckDetail");
-            builder.Entity<CheckHeader>().ToTable(TigerConsts.DbTableStockPrefix + "CheckHeader");
+            //builder.Entity<CheckDetail>().ToTable(TigerConsts.DbTableStockPrefix + "CheckDetail");
+            //builder.Entity<CheckHeader>().ToTable(TigerConsts.DbTableStockPrefix + "CheckHeader");
 
-            builder.Entity<ReceiptDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ReceiptDetail");
-            builder.Entity<ReceiptHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ReceiptHeader");
+            //builder.Entity<ReceiptDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ReceiptDetail");
+            //builder.Entity<ReceiptHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ReceiptHeader");
 
-            builder.Entity<ReverseDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ReverseDetail");
-            builder.Entity<ReverseHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ReverseHeader");
+            //builder.Entity<ReverseDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ReverseDetail");
+            //builder.Entity<ReverseHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ReverseHeader");
 
-            builder.Entity<ShipmentDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ShipmentDetail");
-            builder.Entity<ShipmentHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ShipmentHeader");
+            //builder.Entity<ShipmentDetail>().ToTable(TigerConsts.DbTableStockPrefix + "ShipmentDetail");
+            //builder.Entity<ShipmentHeader>().ToTable(TigerConsts.DbTableStockPrefix + "ShipmentHeader");
 
-            builder.Entity<TransferDetail>().ToTable(TigerConsts.DbTableStockPrefix + "TransferDetail");
-            builder.Entity<TransferHeader>().ToTable(TigerConsts.DbTableStockPrefix + "TransferHeader");
+            //builder.Entity<TransferDetail>().ToTable(TigerConsts.DbTableStockPrefix + "TransferDetail");
+            //builder.Entity<TransferHeader>().ToTable(TigerConsts.DbTableStockPrefix + "TransferHeader");
 
             #endregion
 
