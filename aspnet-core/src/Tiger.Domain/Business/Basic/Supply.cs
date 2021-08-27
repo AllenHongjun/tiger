@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 类    名：Supply   
  * 作    者：花生了什么树       
  * 创建时间：2021/8/11 13:23:55       
@@ -29,6 +29,8 @@ namespace Tiger.Basic
         /// </summary>
         public string AttentionTo { get; set; }
 
+        public string Phone { get; set; }
+
         /// <summary>
         /// 邮编
         /// </summary>
@@ -54,7 +56,7 @@ namespace Tiger.Basic
         /// </summary>
         public string Address { get; set; }
 
-        public string Phone { get; set; }
+        
 
         /// <summary>
         /// 0->禁用; 1->启用
@@ -66,5 +68,37 @@ namespace Tiger.Basic
 
 
         public Guid? TenantId { get; set; }
+
+        protected Supply()
+        {
+        }
+
+        public Supply(
+            Guid id,
+            string name,
+            string attentionTo,
+            string phone,
+            string postCode,
+            string province,
+            string city,
+            string reginon,
+            string address,
+            int status,
+            Guid? warehouseId,
+            Guid? tenantId
+        ) : base(id)
+        {
+            Name = name;
+            AttentionTo = attentionTo;
+            Phone = phone;
+            PostCode = postCode;
+            Province = province;
+            City = city;
+            Reginon = reginon;
+            Address = address;
+            Status = status;
+            WarehouseId = warehouseId;
+            TenantId = tenantId;
+        }
     }
 }

@@ -53,6 +53,9 @@ namespace Tiger
             CreateMap<Warehouse, WarehouseDto>();
             CreateMap<WarehouseCreateDto, Warehouse>();
             CreateMap<WarehouseUpdateDto, Warehouse>();
+
+            CreateMap<Supply, SupplyDto>();
+            CreateMap<CreateUpdateSupplyDto, Supply>();
             #endregion
 
             #region Markting
