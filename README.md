@@ -60,7 +60,7 @@
 | [Asp.Net core](docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-5.0) | 3.1.10  | MVC框架                     |                                                              |
 | [IDentityServer4](github.com/IdentityServer/IdentityServer4) |         | 认证和授权框架              |                                                              |
 | [EntityFreamwork core](https://docs.microsoft.com/en-us/ef/core/) | 3.0     | ORM框架                     |                                                              |
-| [ABP Freamwork](docs.abp.io/en/abp/3.2)                      | 3.2.1   | 基于Asp.Net coreweb应用框架 | [live-demo](https://commercial-demo.abp.io/identity/organization-units) |
+| [ABP Freamwork](https://docs.abp.io/en/abp/3.2)              | 3.2.1   | 基于Asp.Net coreweb应用框架 | [live-demo](https://commercial-demo.abp.io/identity/organization-units) |
 | [AutoFac](https://autofac.org/)                              |         | 依赖注入容器                |                                                              |
 | [Swagger-UI](github.com/domaindrivendev/Swashbuckle.AspNetCore) | 5.0.0   | 自动生成API文档             |                                                              |
 | [Elasticsearch](https://www.elastic.co/)                     | 7.6.2   | 分词搜索引擎                |                                                              |

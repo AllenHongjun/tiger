@@ -440,6 +440,32 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention();
             });
 
+            // To Do List: 积分
+
+            // 会员等级
+            builder.Entity<MemberLevel>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberLevel",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            // 会员登录日志
+            builder.Entity<MemberLoginLog>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberLoginLog",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            // 会员统计信息
+            builder.Entity<MemberStatisticInfo>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberStatisticInfo",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
             // 会员收货地址
             builder.Entity<MemberReceiveAddress>(b =>
             {
