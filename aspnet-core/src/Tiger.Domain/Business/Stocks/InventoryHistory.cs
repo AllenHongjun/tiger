@@ -11,13 +11,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Basic;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Stock
 {   
     /// <summary>
     /// 库存变动历史记录
     /// </summary>
-    public class InventoryHistory
+    public class InventoryHistory : FullAuditedAggregateRoot<Guid>, ISoftDelete,IMultiTenant
     {
         public string ProductName { get; set; }
 
@@ -84,7 +87,6 @@ namespace Tiger.Stock
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 
-
-        
+        public Guid? TenantId { get; set; }
     }
 }

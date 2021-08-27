@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Migrations
 {
     [DbContext(typeof(TigerMigrationsDbContext))]
-    partial class TigerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210827074610_Stock")]
+    partial class Stock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2891,7 +2893,7 @@ namespace Tiger.Migrations
                     b.Property<string>("ProductSn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ReverseHeaderId")
+                    b.Property<Guid?>("ReverseDetailId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ReverseOrderId")
@@ -2911,7 +2913,7 @@ namespace Tiger.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ReverseHeaderId");
+                    b.HasIndex("ReverseDetailId");
 
                     b.HasIndex("WarehouseId");
 
@@ -3174,7 +3176,12 @@ namespace Tiger.Migrations
                         .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("TransferHeaderId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TransferHeaderId");
 
                     b.ToTable("StockTransferHeader");
                 });
@@ -5243,9 +5250,9 @@ namespace Tiger.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tiger.Stock.ReverseHeader", null)
+                    b.HasOne("Tiger.Stock.ReverseDetail", null)
                         .WithMany("ReverseDetails")
-                        .HasForeignKey("ReverseHeaderId");
+                        .HasForeignKey("ReverseDetailId");
 
                     b.HasOne("Tiger.Basic.Warehouse", "Warehouse")
                         .WithMany()
@@ -5261,7 +5268,7 @@ namespace Tiger.Migrations
                         .IsRequired();
 
                     b.HasOne("Tiger.Stock.TransferHeader", "TransferHeader")
-                        .WithMany("TransferDetails")
+                        .WithMany()
                         .HasForeignKey("TransferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -5269,6 +5276,13 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Basic.Warehouse", "Warehouse")
                         .WithMany()
                         .HasForeignKey("WarehouseId");
+                });
+
+            modelBuilder.Entity("Tiger.Stock.TransferHeader", b =>
+                {
+                    b.HasOne("Tiger.Stock.TransferHeader", null)
+                        .WithMany("TransferHeaders")
+                        .HasForeignKey("TransferHeaderId");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
