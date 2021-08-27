@@ -8,7 +8,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -65,7 +67,13 @@ namespace Tiger.Stock
 
         public Guid WarehouseId { get; set; }
 
+        [ForeignKey("WarehouseId")]
+        public virtual Warehouse Warehouse { get; set; }
+
+        [ForeignKey("ProductId")]
         public Guid ProductId { get; set; }
+
+        public virtual Product Product { get; set; }
 
         //public Guid SkuId { get; set; }
 

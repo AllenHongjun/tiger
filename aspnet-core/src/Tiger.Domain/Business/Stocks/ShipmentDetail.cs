@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -68,11 +70,18 @@ namespace Tiger.Business.Stocks
         public int CanceledQty { get; set; }
 
 
+        [ForeignKey("WarehouseId")]
+        public virtual Warehouse Warehouse { get; set; }
+        
         public Guid ProductId { get; set; }
 
-        public Guid WarehouseId { get; set; }
-
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
+        
         public Guid ShipmentId { get; set; }
+
+        [ForeignKey("ShipmentId")]
+        public virtual ShipmentHeader ShipmentHeader { get; set; }
 
 
         public Guid? TenantId { get; set; }

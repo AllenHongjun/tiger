@@ -8,7 +8,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -20,6 +22,10 @@ namespace Tiger.Stock
     /// </summary>
     public class TransferDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
+        /// <summary>
+        /// 调拨单号
+        /// </summary>
+        public string TransferCode { get; set; }
 
         public string ProductSn { get; set; }
 
@@ -55,19 +61,19 @@ namespace Tiger.Stock
         /// </summary>
         public string ProcessStamp { get; set; }
 
-        /// <summary>
-        /// 目标仓库
-        /// </summary>
-        public Guid ToWarehouseId { get; set; }
+        [ForeignKey("WarehouseId")]
+        public virtual Warehouse Warehouse { get; set; }
 
+        [ForeignKey("ProductId")]
         public Guid ProductId { get; set; }
 
-        /// <summary>
-        /// 调拨单号
-        /// </summary>
-        public string TransferCode { get; set; }
+        public virtual Product Product { get; set; }
+        
 
         public Guid TransferId { get; set; }
+
+        [ForeignKey("TransferId")]
+        public virtual TransferHeader TransferHeader { get; set; }
 
 
         public Guid? TenantId { get; set; }

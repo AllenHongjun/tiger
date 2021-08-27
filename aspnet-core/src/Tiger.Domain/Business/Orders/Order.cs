@@ -16,7 +16,7 @@ using Tiger.Orders;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp;
 using Volo.Abp.MultiTenancy;
-using Tiger.Business.Users;
+using Tiger.Business.Members;
 using Tiger.Marketing;
 
 namespace Tiger.Business.Orders

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Tiger.Business.Users
+namespace Tiger.Business.Members
 {
     public class Member:FullAuditedAggregateRoot<Guid>
     {

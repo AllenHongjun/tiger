@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Business.Users
+namespace Tiger.Business.Members
 {
-    class MemberTask
+    class MemberTag
     {
     }
 }

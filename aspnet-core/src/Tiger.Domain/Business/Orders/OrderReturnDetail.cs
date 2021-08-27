@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Basic;
 using Tiger.Business.Orders;
-using Tiger.Business.Users;
+using Tiger.Business.Members;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Orders

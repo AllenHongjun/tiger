@@ -8,7 +8,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -21,17 +23,23 @@ namespace Tiger.Stock
     public class ReverseDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
 
-
-        public Guid ProductId { get; set; }
-
         public string ProductSn { get; set; }
 
         public string ProductName { get; set; }
 
 
-
-
         public string WarehouseCode { get; set; }
+
+
+        [ForeignKey("WarehouseId")]
+        public virtual Warehouse Warehouse { get; set; }
+
+
+        public Guid ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
+
 
         /// <summary>
         /// 拆套单id

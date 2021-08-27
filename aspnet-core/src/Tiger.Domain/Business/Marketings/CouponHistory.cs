@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Tiger.Business.Users;
+using Tiger.Business.Members;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Marketing

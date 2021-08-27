@@ -8,7 +8,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -19,10 +21,7 @@ namespace Tiger.Stock
     /// </summary>
     public class ReceiptDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {   
-        /// <summary>
-        /// 入库单Id
-        /// </summary>
-        public Guid ReceiptId { get; set; }
+        
 
         /// <summary>
         /// 入库单号
@@ -75,6 +74,22 @@ namespace Tiger.Stock
         /// 数量单位
         /// </summary>
         public string QuantityUm { get; set; }
+
+        [ForeignKey("WarehouseId")]
+        public virtual Warehouse Warehouse { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Guid ProductId { get; set; }
+
+        public virtual Product Product { get; set; }
+
+        /// <summary>
+        /// 入库单Id
+        /// </summary>
+        public Guid ReceiptHeaderId { get; set; }
+
+        [ForeignKey("ReceiptHeaderId")]
+        public virtual ReceiptHeader ReceiptHeader { get; set; }
 
 
 

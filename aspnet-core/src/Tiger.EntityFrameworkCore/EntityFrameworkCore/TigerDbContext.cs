@@ -5,7 +5,7 @@ using Tiger.Business;
 using Tiger.Business.Basic;
 using Tiger.Business.Demo;
 using Tiger.Business.Orders;
-using Tiger.Business.Users;
+using Tiger.Business.Members;
 using Tiger.Marketing;
 using Tiger.Orders;
 using Tiger.Users;

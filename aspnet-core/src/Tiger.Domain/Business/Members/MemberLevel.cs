@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 
-namespace Tiger.Business.Users
+namespace Tiger.Business.Members
 {
     public class MemberLevel:Entity<Guid>
     {
