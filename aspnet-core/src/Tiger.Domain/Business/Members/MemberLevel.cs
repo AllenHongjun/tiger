@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Business.Members
 {
-    public class MemberLevel:Entity<Guid>
+    public class MemberLevel:Entity<Guid>, IMultiTenant
     {
         public string Name { get; set; }
 
@@ -58,5 +59,7 @@ namespace Tiger.Business.Members
         /// 备注
         /// </summary>
         public int Note { get; set; }
+
+        public Guid? TenantId { get; set; }
     }
 }

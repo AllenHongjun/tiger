@@ -21,6 +21,9 @@
     <Compile Remove="Business\Basic\Shop.cs" />
     <Compile Remove="Business\Demo\Order.cs" />
     <Compile Remove="Business\Demo\OrderLine.cs" />
+    <Compile Remove="Business\Members\MemberTag.cs" />
+    <Compile Remove="Business\Members\MemberTagRelation.cs" />
+    <Compile Remove="Business\Members\MemberTask.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
     <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />

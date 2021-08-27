@@ -129,8 +129,16 @@ namespace Tiger.EntityFrameworkCore
 
         #endregion
 
-        #region User
+        #region Member
         public DbSet<Member> Members { get; set; }
+
+        public DbSet<MemberLevel> MemberLevels { get; set; }
+
+        public DbSet<MemberLoginLog> MemberLoginLogs { get; set; }
+
+        public DbSet<MemberReceiveAddress> MemberReceiveAddresses { get; set; }
+
+        public DbSet<MemberStatisticInfo> MemberStatisticInfos { get; set; }
 
 
 

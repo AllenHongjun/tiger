@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Business.Members
 {   
     /// <summary>
     /// 用户信息统计表
     /// </summary>
-    public class MemberStatisticInfo : FullAuditedAggregateRoot<Guid>
+    public class MemberStatisticInfo : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         /// <summary>
         /// 累计消费金额
@@ -58,5 +60,12 @@ namespace Tiger.Business.Members
         public int InviteFriendCount { get; set; }
 
         public DateTime RecentOrderTime { get; set; }
+
+        public Guid MemberId { get; set; }
+
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; set; }
+
+        public Guid? TenantId { get; set; }
     }
 }

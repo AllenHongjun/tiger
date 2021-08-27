@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Business.Members
 {
     /// <summary>
     /// 用户配送地址
     /// </summary>
-    public class MemberReceiveAddress:FullAuditedAggregateRoot<Guid>
+    public class MemberReceiveAddress:FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
-        public Guid MemberId { get; set; }
+        
 
         public string Name { get; set; }
 
@@ -43,5 +45,12 @@ namespace Tiger.Business.Members
         /// 经度
         /// </summary>
         public string Lon { get; set; }
+
+        public Guid MemberId { get; set; }
+
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; set; }
+
+        public Guid? TenantId { get; set; }
     }
 }

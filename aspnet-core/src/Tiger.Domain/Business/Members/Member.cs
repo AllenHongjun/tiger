@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Business.Members
 {
-    public class Member:FullAuditedAggregateRoot<Guid>
+    public class Member:FullAuditedAggregateRoot<Guid>, IMultiTenant, ISoftDelete
     {
-        public Guid MemberLevelId { get; set; }
+       
 
         public string UserName { get; set; }
 
@@ -63,6 +66,16 @@ namespace Tiger.Business.Members
         /// </summary>
         public int HistoryIntegration { get; set; }
 
+        public Guid MemberLevelId { get; set; }
+        
+        [ForeignKey("MemberLevelId")]
+        public virtual MemberLevel MemberLevel { get; set; }
 
+        public virtual ICollection<MemberLoginLog> MemberLoginLog { get; set; }
+
+        public virtual ICollection<MemberReceiveAddress> MemberReceiveAddresses { get; set; }
+
+
+        public Guid? TenantId { get; set; }
     }
 }
