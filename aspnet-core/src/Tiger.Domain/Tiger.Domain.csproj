@@ -24,10 +24,10 @@
     <Compile Remove="Business\Members\MemberTag.cs" />
     <Compile Remove="Business\Members\MemberTagRelation.cs" />
     <Compile Remove="Business\Members\MemberTask.cs" />
-    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
-    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
-    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />
-    <Compile Remove="Utility\DownLoadUpLoadFilesHelper\UpLoadFiles.cs" />
+    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
+    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
+    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />
+    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\UpLoadFiles.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,11 +58,19 @@
 
   <ItemGroup>
     <Folder Include="Business\Finances\" />
-    <Folder Include="Security\" />
+    <Folder Include="CoreModule\Security\" />
     <Folder Include="Business\Stat\" />
-    <Folder Include="Event\" />
+    <Folder Include="CoreModule\Emailing\" />
+    <Folder Include="CoreModule\Theming\" />
+    <Folder Include="CoreModule\Serialization\" />
+    <Folder Include="CoreModule\Validation\" />
+    <Folder Include="CoreModule\MongoDB\" />
+    <Folder Include="CoreModule\RabbitMq\" />
+    <Folder Include="CoreModule\ElasticSearch\" />
+    <Folder Include="CoreModule\ApiGateWay\" />
+    <Folder Include="CoreModule\Event\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Utility\DownLoadUpLoadFilesHelper\" />
+    <Folder Include="CoreModule\Utility\DownLoadUpLoadFilesHelper\" />
   </ItemGroup>
 
 </Project>
