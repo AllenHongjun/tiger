@@ -42,6 +42,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddDefaultRepositories(includeAllEntities: true);
                 options.AddRepository<Warehouse, WarehouseRepository>();
                 options.AddRepository<Supply, SupplyRepository>();
+                options.AddRepository<Store, StoreRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>
