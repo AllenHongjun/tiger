@@ -37,6 +37,31 @@ namespace Tiger.Purchase
         /// </summary>
         public int Status { get; set; }
 
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Note { get; set; }
+
+        /// <summary>
+        /// 总金额
+        /// </summary>
+        public decimal TotalAmount { get; set; }
+
+        /// <summary>
+        /// 总数量
+        /// </summary>
+        //public int TotalQty { get; set; }
+
+        ///审核人
+        public string AuditedBy { get; set; }
+
+
+        /// <summary>
+        /// 采购员
+        /// </summary>
+        public string PurchseBy { get; set; }
+
+
         public Guid WarehouseId { get; set; }
 
         public Guid SupplyId { get; set; }
