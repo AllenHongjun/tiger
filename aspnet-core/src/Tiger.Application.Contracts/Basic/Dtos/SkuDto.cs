@@ -26,6 +26,6 @@ namespace Tiger.Basic.Dtos
 
         public Guid ProductId { get; set; }
 
-        public Product Product { get; set; }
+        //public Product Product { get; set; }
     }
 }

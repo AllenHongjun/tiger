@@ -1,3 +1,4 @@
+using Tiger.Marketing;
 using Tiger.Basic;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -44,6 +45,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Supply, SupplyRepository>();
                 options.AddRepository<Store, StoreRepository>();
                 options.AddRepository<Sku, SkuRepository>();
+                options.AddRepository<FlashPromotion, FlashPromotionRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>
