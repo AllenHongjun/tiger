@@ -553,6 +553,16 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<FlashPromotionSession>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "FlashPromotionSessions", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }

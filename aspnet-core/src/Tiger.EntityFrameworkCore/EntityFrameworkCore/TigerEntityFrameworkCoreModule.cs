@@ -46,6 +46,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Store, StoreRepository>();
                 options.AddRepository<Sku, SkuRepository>();
                 options.AddRepository<FlashPromotion, FlashPromotionRepository>();
+                options.AddRepository<FlashPromotionSession, FlashPromotionSessionRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

@@ -56,5 +56,13 @@ namespace Tiger.Permissions
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
         }
+
+        public class FlashPromotionSession
+        {
+            public const string Default = GroupName + ".FlashPromotionSession";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
     }
 }

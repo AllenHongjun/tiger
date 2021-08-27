@@ -20,15 +20,18 @@ namespace Tiger.Marketing
     /// </summary>
     public class FlashPromotionSession:AuditedAggregateRoot<Guid>
     {
+        /// <summary>
+        /// 时间段名称
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 开始时间
+        /// 每日开始时间
         /// </summary>
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// 结束时间
+        /// 每日结束时间
         /// </summary>
         public DateTime EndTime { get; set; }
 
