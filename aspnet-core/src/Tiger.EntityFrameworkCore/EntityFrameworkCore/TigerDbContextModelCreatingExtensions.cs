@@ -12,6 +12,7 @@ using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Tiger.Stock;
 using Tiger.Business.Stocks;
+using Tiger.Business.Marketings;
 
 namespace Tiger.EntityFrameworkCore
 {   
@@ -412,7 +413,7 @@ namespace Tiger.EntityFrameworkCore
 
             #region 营销
 
-            // 会员
+            // 优惠券
             builder.Entity<Coupon>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Coupons",
@@ -420,9 +421,64 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention();
             });
 
+            // 优惠券使用记录
             builder.Entity<CouponHistory>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "CouponHistories",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.HasOne(x => x.Order).WithOne(x => x.CouponHistory).OnDelete(DeleteBehavior.Restrict);
+            });
+
+            //优惠券关联分类
+            builder.Entity<CouponCategoryRelation>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "CouponCategoryRelations",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            //优惠券关联产品
+            builder.Entity<CouponProductRelation>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "CouponProductRelations",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            //限时购
+            builder.Entity<FlashPromotion>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "FlashPromotions",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            //限时购场次活动
+            builder.Entity<FlashPromotionSession>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "FlashPromotionSessions",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
+
+            //限时购活动关联的商品
+            builder.Entity<FlashPromotionProductRelation>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "FlashPromotionProductRelations",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.HasOne(x => x.FlashPromotionSession)
+                .WithMany(x => x.FlashPromotionProductRelations)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            //限时购通知记录 TODO: 可以改成一个通用的通知 签到通知 。积分提醒通知  降价通知等等 
+            builder.Entity<FlashPromotionLog>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "FlashPromotionLogs",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
             });

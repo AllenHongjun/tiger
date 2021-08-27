@@ -21,6 +21,11 @@
     <Compile Remove="Business\Basic\Shop.cs" />
     <Compile Remove="Business\Demo\Order.cs" />
     <Compile Remove="Business\Demo\OrderLine.cs" />
+    <Compile Remove="Business\Marketings\HomeAdvertise.cs" />
+    <Compile Remove="Business\Marketings\HomeBrand.cs" />
+    <Compile Remove="Business\Marketings\HomeNewProduct.cs" />
+    <Compile Remove="Business\Marketings\HomeRecommendProduct.cs" />
+    <Compile Remove="Business\Marketings\HomeRecommendSubject.cs" />
     <Compile Remove="Business\Members\MemberTag.cs" />
     <Compile Remove="Business\Members\MemberTagRelation.cs" />
     <Compile Remove="Business\Members\MemberTask.cs" />

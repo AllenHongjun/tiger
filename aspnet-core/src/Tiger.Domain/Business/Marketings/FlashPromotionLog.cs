@@ -8,7 +8,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
+using Tiger.Business.Members;
 using Volo.Abp.Domain.Entities;
 
 namespace Tiger.Marketing
@@ -20,10 +23,6 @@ namespace Tiger.Marketing
     /// </summary>
     public class FlashPromotionLog:Entity<Guid>
     {
-        public Guid MemberId { get; set; }
-
-        public Guid ProductId { get; set; }
-
         /// <summary>
         /// 订阅人手机号
         /// </summary>
@@ -43,5 +42,13 @@ namespace Tiger.Marketing
         /// 发送时间
         /// </summary>
         public DateTime Sendtime { get; set; }
+
+        public Guid MemberId { get; set; }
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; set; } 
+
+        public Guid ProductId { get; set; }
+        [ForeignKey("ProductId")]
+        public virtual Product Product { get; set; }
     }
 }

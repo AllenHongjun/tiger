@@ -14,6 +14,10 @@
     <Compile Remove="Migrations\20210827070705_BasicEntity.Designer.cs" />
     <Compile Remove="Migrations\20210827071751_BasicEntity1.cs" />
     <Compile Remove="Migrations\20210827071751_BasicEntity1.Designer.cs" />
+    <Compile Remove="Migrations\20210827132637_Coupons.cs" />
+    <Compile Remove="Migrations\20210827132637_Coupons.Designer.cs" />
+    <Compile Remove="Migrations\20210827133704_FlashPromotion.cs" />
+    <Compile Remove="Migrations\20210827133704_FlashPromotion.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

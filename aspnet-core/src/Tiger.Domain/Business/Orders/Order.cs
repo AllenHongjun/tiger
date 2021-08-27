@@ -210,10 +210,10 @@ namespace Tiger.Business.Orders
         [ForeignKey("MemberId")]
         public virtual Member Member { get; set; }
 
-        public Guid CouponId { get; set; }
+        public Guid CouponHistoryId { get; set; }
 
-        [ForeignKey("CouponId")]
-        public virtual Coupon Coupon { get; set; }
+        [ForeignKey("CouponHistoryId")]
+        public virtual CouponHistory CouponHistory { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
 

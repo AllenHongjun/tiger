@@ -8,7 +8,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Business.Marketings;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Marketing
@@ -40,7 +42,10 @@ namespace Tiger.Marketing
         /// </summary>
         public Guid FlashPromotionId { get; set; }
 
+        [ForeignKey("FlashPromotionId")]
         public virtual FlashPromotion FlashPromotion { get; set; }
+
+        public virtual ICollection<FlashPromotionProductRelation> FlashPromotionProductRelations { get; set; }
 
         
     }

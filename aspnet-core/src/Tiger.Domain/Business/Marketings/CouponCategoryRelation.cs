@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Basic;
 using Volo.Abp.Domain.Entities;
@@ -21,10 +22,12 @@ namespace Tiger.Marketing
     {
         public Guid CouponId { get; set; }
 
+        [ForeignKey("CouponId")]
         public virtual Coupon Coupon { get; set; }
 
         public Guid CategoryId { get; set; }
 
+        [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
         public string CategoryName { get; set; }

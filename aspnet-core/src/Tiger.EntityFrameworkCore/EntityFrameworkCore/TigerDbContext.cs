@@ -16,6 +16,7 @@ using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
 using Tiger.Stock;
 using Tiger.Business.Stocks;
+using Tiger.Business.Marketings;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -126,6 +127,19 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<CouponHistory> CouponHistories { get; set; }
 
         public DbSet<CouponProductRelation> CouponProductRelations { get; set; }
+
+        public DbSet<CouponCategoryRelation> CouponCategoryRelations { get; set; }
+
+        public DbSet<FlashPromotion> FlashPromotions { get; set; }
+
+        public DbSet<FlashPromotionSession> FlashPromotionSessions { get; set; }
+
+        public DbSet<FlashPromotionLog> FlashPromotionLogs { get; set; }
+
+        public DbSet<FlashPromotionProductRelation> FlashPromotionProductRelations { get; set; }
+
+        
+
 
         #endregion
 

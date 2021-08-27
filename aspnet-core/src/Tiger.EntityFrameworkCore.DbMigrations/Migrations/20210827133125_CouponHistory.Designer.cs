@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Migrations
 {
     [DbContext(typeof(TigerMigrationsDbContext))]
-    partial class TigerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210827133125_CouponHistory")]
+    partial class CouponHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1081,41 +1083,6 @@ namespace Tiger.Migrations
                     b.ToTable("AppAuthors");
                 });
 
-            modelBuilder.Entity("Tiger.Business.Marketings.FlashPromotionProductRelation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("FlashPromotionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FlashPromotionSessionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PrductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Sort")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlashPromotionId");
-
-                    b.HasIndex("FlashPromotionSessionId");
-
-                    b.HasIndex("PrductId");
-
-                    b.ToTable("AppFlashPromotionProductRelations");
-                });
-
             modelBuilder.Entity("Tiger.Business.Members.Member", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2087,169 +2054,6 @@ namespace Tiger.Migrations
                         .IsUnique();
 
                     b.ToTable("AppCouponHistories");
-                });
-
-            modelBuilder.Entity("Tiger.Marketing.CouponProductRelation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CouponId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductSn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CouponId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("AppCouponProductRelations");
-                });
-
-            modelBuilder.Entity("Tiger.Marketing.FlashPromotion", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppFlashPromotions");
-                });
-
-            modelBuilder.Entity("Tiger.Marketing.FlashPromotionLog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MemberId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MemberPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Sendtime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("SubscribeTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("AppFlashPromotionLogs");
-                });
-
-            modelBuilder.Entity("Tiger.Marketing.FlashPromotionSession", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FlashPromotionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlashPromotionId");
-
-                    b.ToTable("AppFlashPromotionSessions");
                 });
 
             modelBuilder.Entity("Tiger.Orders.CartItem", b =>
@@ -5510,27 +5314,6 @@ namespace Tiger.Migrations
                         .HasForeignKey("ProductTagId1");
                 });
 
-            modelBuilder.Entity("Tiger.Business.Marketings.FlashPromotionProductRelation", b =>
-                {
-                    b.HasOne("Tiger.Marketing.FlashPromotion", "FlashPromotion")
-                        .WithMany()
-                        .HasForeignKey("FlashPromotionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Marketing.FlashPromotionSession", "FlashPromotionSession")
-                        .WithMany("FlashPromotionProductRelations")
-                        .HasForeignKey("FlashPromotionSessionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Basic.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("PrductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Tiger.Business.Members.Member", b =>
                 {
                     b.HasOne("Tiger.Business.Members.MemberLevel", "MemberLevel")
@@ -5628,45 +5411,6 @@ namespace Tiger.Migrations
                         .WithOne("CouponHistory")
                         .HasForeignKey("Tiger.Marketing.CouponHistory", "OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Tiger.Marketing.CouponProductRelation", b =>
-                {
-                    b.HasOne("Tiger.Marketing.Coupon", "Coupon")
-                        .WithMany()
-                        .HasForeignKey("CouponId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Basic.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Tiger.Marketing.FlashPromotionLog", b =>
-                {
-                    b.HasOne("Tiger.Business.Members.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Basic.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Tiger.Marketing.FlashPromotionSession", b =>
-                {
-                    b.HasOne("Tiger.Marketing.FlashPromotion", "FlashPromotion")
-                        .WithMany("FlashPromotionSessions")
-                        .HasForeignKey("FlashPromotionId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

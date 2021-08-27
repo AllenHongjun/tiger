@@ -10,13 +10,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Marketing
 {   
     /// <summary>
     /// 优惠券表
     /// </summary>
-    public class Coupon: AuditedAggregateRoot<Guid>
+    public class Coupon: AuditedAggregateRoot<Guid>, IMultiTenant
     {
         /// <summary>
         /// 优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
@@ -93,6 +94,8 @@ namespace Tiger.Marketing
         /// 可以领取的会员类型 0->无限制
         /// </summary>
         public int MemberLevel { get; set; }
+
+        public Guid? TenantId { get; set; }
 
     }
 }
