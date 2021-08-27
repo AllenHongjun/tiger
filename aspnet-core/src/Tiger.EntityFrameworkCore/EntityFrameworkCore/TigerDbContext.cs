@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Tiger.Basic;
 using Tiger.Books;
 using Tiger.Business;

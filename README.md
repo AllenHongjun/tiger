@@ -28,6 +28,10 @@
 | Snipaste      | 屏幕截图工具        | https://www.snipaste.com/                             |
 | Postman       | API接口调试工具     | https://www.postman.com/                              |
 | Typora        | Markdown编辑器      | https://typora.io/                                    |
+| ABP CLI       | 代码生成工具        | https://github.com/EasyAbp/AbpHelper.GUI              |
+|               |                     |                                                       |
+|               |                     |                                                       |
+|               |                     |                                                       |
 
 
 

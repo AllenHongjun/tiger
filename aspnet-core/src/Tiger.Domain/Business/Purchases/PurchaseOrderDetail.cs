@@ -8,7 +8,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -22,8 +24,6 @@ namespace Tiger.Purchase
     {
 
         public string ProductSn { get; set; }
-
-        public Guid ProductId { get; set; }
 
         /// <summary>
         /// 单位
@@ -44,6 +44,30 @@ namespace Tiger.Purchase
         /// 备注
         /// </summary>
         public string Note { get; set; }
+
+        /// <summary>
+        /// 总数量
+        /// </summary>
+        public int TotalQty { get; set; }
+
+        /// <summary>
+        /// 未收数量
+        /// </summary>
+        public int OpenQty { get; set; }
+
+        /// <summary>
+        /// 处理标记
+        /// </summary>
+        public string ProcessStamp { get; set; }
+
+
+        [ForeignKey("WarehouseId")]
+        public virtual Warehouse Warehouse { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Guid ProductId { get; set; }
+
+        public virtual Product Product { get; set; }
 
         public Guid? TenantId { get; set; }
     }

@@ -35,6 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Basic\Stores\" />
+    <Folder Include="Basic\Skus\" />
+    <Folder Include="Basic\Supplies\" />
+    <Folder Include="Basic\Warehouse\" />
     <Folder Include="Finance\" />
     <Folder Include="Purchase\" />
     <Folder Include="Security\" />

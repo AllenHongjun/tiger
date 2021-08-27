@@ -22,6 +22,8 @@ namespace Tiger.Purchase
 
         public Guid? TenantId { get; set; }
 
+        public string WarehouseCode { get; set; }
+
         /// <summary>
         /// 单号
         /// </summary>

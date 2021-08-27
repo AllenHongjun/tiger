@@ -20,6 +20,11 @@ namespace Tiger.Marketing
     /// </summary>
     public class CouponProductRelation:Entity<Guid>
     {
+
+        public string ProductName { get; set; }
+
+        public string ProductSn { get; set; }
+
         public Guid CouponId { get; set; }
 
         [ForeignKey("CouponId")]
@@ -29,9 +34,5 @@ namespace Tiger.Marketing
 
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
-
-        public string ProductName { get; set; }
-
-        public string ProductSn { get; set; }
     }
 }

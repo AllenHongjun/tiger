@@ -1,4 +1,4 @@
-﻿namespace Tiger.Permissions
+namespace Tiger.Permissions
 {
     public static class TigerPermissions
     {
@@ -16,5 +16,13 @@
         }
 
         // 权限使用。权限直接定义在这个类当中。 使用的权限只要继承ABP提供的类就可以了。
+
+        public class Warehouse
+        {
+            public const string Default = GroupName + ".Warehouse";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
     }
 }

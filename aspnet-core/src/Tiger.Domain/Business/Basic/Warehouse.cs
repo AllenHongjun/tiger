@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -17,6 +18,7 @@ namespace Tiger.Basic
     /// <summary>
     /// 仓库
     /// </summary>
+    [Table("AppWarehouses")]
     public class Warehouse : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         

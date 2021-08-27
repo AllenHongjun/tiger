@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Tiger.Basic;
 using Tiger.Books;
 using Tiger.Business;
@@ -532,6 +532,16 @@ namespace Tiger.EntityFrameworkCore
             #endregion
 
 
+
+
+            builder.Entity<Warehouse>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Warehouses", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }
