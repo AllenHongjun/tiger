@@ -9,11 +9,78 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Stock
 {
-    public class CheckDetail
+    /// <summary>
+    /// 盘点单明细
+    /// </summary>
+    public class CheckDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
 
+
+
+        public string ProductSn { get; set; }
+
+        public string ProductName { get; set; }
+
+        /// <summary>
+        /// 库存状态
+        /// </summary>
+        public int InventorySts { get; set; }
+
+        /// <summary>
+        /// 系统数量
+        /// </summary>
+        public int SystemQty { get; set; }
+
+        /// <summary>
+        /// 上次实盘数量
+        /// </summary>
+        public int LastCheckQty { get; set; }
+
+        /// <summary>
+        /// 实盘数量
+        /// </summary>
+        public int CheckedQty { get; set; }
+
+        /// <summary>
+        /// 盘点创建人
+        /// </summary>
+        public DateTime CheckedBy { get; set; }
+
+        /// <summary>
+        /// 盘点日期
+        /// </summary>
+        public DateTime CheckedAt { get; set; }
+
+        /// <summary>
+        /// 处理标记
+        /// </summary>
+        public string ProcessStamp { get; set; }
+
+        /// <summary>
+        /// 调整数量
+        /// </summary>
+        public int AdjustQty { get; set; }
+
+        /// <summary>
+        /// 批次号
+        /// </summary>
+        public string Batch { get; set; }
+
+
+        public Guid ProductId { get; set; }
+
+        public Guid WarehouseId { get; set; }
+
+        public Guid? TenantId { get; set; }
+
+        public Guid CheckHeaderId { get; set; }
+
+        public virtual CheckHeader CheckHeader { get; set; }
     }
 }

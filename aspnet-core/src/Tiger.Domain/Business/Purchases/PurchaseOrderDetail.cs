@@ -12,7 +12,8 @@ using System.Text;
 
 namespace Tiger.Purchase
 {
-    class PurchaseOrderDetail
+    public class PurchaseOrderDetail
     {
+
     }
 }
