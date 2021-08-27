@@ -533,6 +533,16 @@ namespace Tiger.EntityFrameworkCore
 
 
             
+
+
+            builder.Entity<Sku>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Skus", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }

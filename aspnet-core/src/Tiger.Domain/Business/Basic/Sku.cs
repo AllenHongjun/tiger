@@ -19,7 +19,6 @@ namespace Tiger.Basic
     /// </summary>
     public class Sku: AuditedAggregateRoot<Guid>
     {
-        
 
         /// <summary>
         /// SKU编码
@@ -45,12 +44,6 @@ namespace Tiger.Basic
         /// [{"key":"颜色","value":"银色"},{"key":"容量","value":"128G"}]
         /// </summary>
         public string SPData { get; set; }
-
-        public string SP1 { get; set; }
-
-        public string SP2 { get; set; }
-
-        public string SP3 { get; set; }
 
         /// <summary>
         /// 销量

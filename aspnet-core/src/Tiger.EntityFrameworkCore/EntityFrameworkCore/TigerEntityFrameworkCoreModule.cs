@@ -43,6 +43,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Warehouse, WarehouseRepository>();
                 options.AddRepository<Supply, SupplyRepository>();
                 options.AddRepository<Store, StoreRepository>();
+                options.AddRepository<Sku, SkuRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>
