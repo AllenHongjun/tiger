@@ -1,11 +1,13 @@
 using System;
 using Tiger.Permissions;
 using Tiger.Stock.Dtos;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Stock
 {
+    [RemoteService(false)]
     public class CheckDetailAppService : CrudAppService<CheckDetail, CheckDetailDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateCheckDetailDto, CreateUpdateCheckDetailDto>,
         ICheckDetailAppService
     {

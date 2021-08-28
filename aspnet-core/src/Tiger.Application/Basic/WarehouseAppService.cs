@@ -3,9 +3,11 @@ using Tiger.Permissions;
 using Tiger.Basic.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Basic
 {
+    [RemoteService(false)]
     public class WarehouseAppService : CrudAppService<Warehouse, WarehouseDto, Guid, PagedAndSortedResultRequestDto, WarehouseCreateDto, WarehouseUpdateDto>,
         IWarehouseAppService
     {

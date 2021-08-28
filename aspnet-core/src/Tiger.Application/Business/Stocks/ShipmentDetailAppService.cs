@@ -3,9 +3,11 @@ using Tiger.Permissions;
 using Tiger.Business.Stocks.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Business.Stocks
 {
+    [RemoteService(false)]
     public class ShipmentDetailAppService : CrudAppService<ShipmentDetail, ShipmentDetailDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateShipmentDetailDto, CreateUpdateShipmentDetailDto>,
         IShipmentDetailAppService
     {

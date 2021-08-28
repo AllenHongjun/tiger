@@ -3,9 +3,11 @@ using Tiger.Permissions;
 using Tiger.Business.Members.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Business.Members
 {
+    [RemoteService(false)]
     public class MemberAppService : CrudAppService<Member, MemberDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateMemberDto, CreateUpdateMemberDto>,
         IMemberAppService
     {
