@@ -17,13 +17,15 @@ using Volo.Abp.Domain.Entities.Auditing;
 namespace Tiger.Stock
 {
     /// <summary>
-    /// 库存表
+    /// 实时库存表
     /// </summary>
     public class Inventory: FullAuditedAggregateRoot<Guid>, ISoftDelete
     {
         
 
         public string ProductName { get; set; }
+
+        public string ProductSn { get; set; }
 
         /// <summary>
         /// 在库数量
@@ -65,6 +67,8 @@ namespace Tiger.Stock
         /// </summary>
         public int CsQty { get; set; }
 
+        public Guid SkuId { get; set; }
+
         public Guid WarehouseId { get; set; }
 
         [ForeignKey("WarehouseId")]
@@ -75,7 +79,7 @@ namespace Tiger.Stock
 
         public virtual Product Product { get; set; }
 
-        //public Guid SkuId { get; set; }
+        
 
 
     }

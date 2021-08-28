@@ -20,7 +20,10 @@ namespace Tiger.Marketing
     /// 限时购通知记录表
     /// 
     /// 存储用户限时购预约记录, 当有限时购场次未开始时 用户可以预约操作。当场次开始时候，系统会提醒
+    /// 
+    /// 这个通知改造 需要建立一个通用的表 这个废弃
     /// </summary>
+    [Obsolete("这个通知不够通用")]
     public class FlashPromotionLog:Entity<Guid>
     {
         /// <summary>

@@ -1,3 +1,4 @@
+using Tiger.Stock;
 using Tiger.Marketing;
 using Tiger.Basic;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,6 +48,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Sku, SkuRepository>();
                 options.AddRepository<FlashPromotion, FlashPromotionRepository>();
                 options.AddRepository<FlashPromotionSession, FlashPromotionSessionRepository>();
+                options.AddRepository<Inventory, InventoryRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

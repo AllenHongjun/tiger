@@ -563,6 +563,16 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<Inventory>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Inventories", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }

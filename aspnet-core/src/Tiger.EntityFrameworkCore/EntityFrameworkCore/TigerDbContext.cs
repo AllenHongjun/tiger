@@ -163,6 +163,7 @@ namespace Tiger.EntityFrameworkCore
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside TigerDbContextModelCreatingExtensions.ConfigureTiger
          */
+        public DbSet<Inventory> Inventories { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)
