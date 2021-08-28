@@ -20,6 +20,7 @@ namespace Tiger.Stock
     /// <summary>
     /// 调拨单明细
     /// </summary>
+    [Table("StockTransferDetail")]
     public class TransferDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
         /// <summary>

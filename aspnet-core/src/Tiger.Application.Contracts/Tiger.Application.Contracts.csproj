@@ -37,8 +37,7 @@
   <ItemGroup>
     <Folder Include="Business\Finances\" />
     <Folder Include="Business\Purchases\" />
-    <Folder Include="Security\" />
-    <Folder Include="Stat\" />
+    <Folder Include="Business\Stat\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />
     <Folder Include="Volo\Abp\CmsKit\" />

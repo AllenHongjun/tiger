@@ -11,11 +11,11 @@ namespace Tiger.Stock
     public class InventoryAppService : CrudAppService<Inventory, InventoryDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateInventoryDto, CreateUpdateInventoryDto>,
         IInventoryAppService
     {
-        protected override string GetPolicyName { get; set; } = TigerPermissions.Inventory.Default;
-        protected override string GetListPolicyName { get; set; } = TigerPermissions.Inventory.Default;
-        protected override string CreatePolicyName { get; set; } = TigerPermissions.Inventory.Create;
-        protected override string UpdatePolicyName { get; set; } = TigerPermissions.Inventory.Update;
-        protected override string DeletePolicyName { get; set; } = TigerPermissions.Inventory.Delete;
+        //protected override string GetPolicyName { get; set; } = TigerPermissions.Inventory.Default;
+        //protected override string GetListPolicyName { get; set; } = TigerPermissions.Inventory.Default;
+        //protected override string CreatePolicyName { get; set; } = TigerPermissions.Inventory.Create;
+        //protected override string UpdatePolicyName { get; set; } = TigerPermissions.Inventory.Update;
+        //protected override string DeletePolicyName { get; set; } = TigerPermissions.Inventory.Delete;
 
         private readonly IInventoryRepository _repository;
         

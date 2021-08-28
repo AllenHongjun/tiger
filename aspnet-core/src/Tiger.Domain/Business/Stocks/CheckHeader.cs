@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -18,6 +19,7 @@ namespace Tiger.Stock
     /// <summary>
     /// 盘点单头
     /// </summary>
+    [Table("StockCheckHeader")]
     public class CheckHeader : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
         /// <summary>

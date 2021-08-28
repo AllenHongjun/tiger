@@ -74,6 +74,22 @@ namespace Tiger
             CreateMap<CreateUpdateStoreDto, Store>();
             #endregion
 
+            #region Markting
+            CreateMap<Coupon, CouponDto>();
+            CreateMap<CreateUpdateCouponDto, Coupon>();
+
+            CreateMap<CouponHistory, CouponHistoryDto>();
+            CreateMap<CreateUpdateCouponHistoryDto, CouponHistory>();
+
+            CreateMap<FlashPromotion, FlashPromotionDto>();
+            CreateMap<CreateUpdateFlashPromotionDto, FlashPromotion>();
+
+            CreateMap<FlashPromotionSession, FlashPromotionSessionDto>();
+            CreateMap<CreateUpdateFlashPromotionSessionDto, FlashPromotionSession>();
+
+
+            #endregion
+
             #region Members
 
             CreateMap<Member, MemberDto>();
@@ -138,21 +154,7 @@ namespace Tiger
 
             #endregion
 
-            #region Markting
-            CreateMap<Coupon, CouponDto>();
-            CreateMap<CreateUpdateCouponDto, Coupon>();
-
-            CreateMap<CouponHistory, CouponHistoryDto>();
-            CreateMap<CreateUpdateCouponHistoryDto, CouponHistory>();
-
-            CreateMap<FlashPromotion, FlashPromotionDto>();
-            CreateMap<CreateUpdateFlashPromotionDto, FlashPromotion>();
-
-            CreateMap<FlashPromotionSession, FlashPromotionSessionDto>();
-            CreateMap<CreateUpdateFlashPromotionSessionDto, FlashPromotionSession>();
-
-
-            #endregion
+            
 
 
 

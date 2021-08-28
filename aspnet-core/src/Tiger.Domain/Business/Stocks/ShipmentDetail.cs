@@ -12,6 +12,7 @@ namespace Tiger.Business.Stocks
     /// <summary>
     /// 出库单明细
     /// </summary>
+    [Table("StockShipmentDetail")]
     public class ShipmentDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
 

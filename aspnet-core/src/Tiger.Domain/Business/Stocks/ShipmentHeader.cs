@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -9,6 +10,7 @@ namespace Tiger.Business.Stocks
     /// <summary>
     /// 出库单头
     /// </summary>
+    [Table("StockShipmentHeader")]
     public class ShipmentHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public Guid? TenantId { get; set; }

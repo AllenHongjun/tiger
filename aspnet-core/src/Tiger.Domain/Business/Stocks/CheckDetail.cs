@@ -20,6 +20,7 @@ namespace Tiger.Stock
     /// <summary>
     /// 盘点单明细
     /// </summary>
+    [Table("StockCheckDetail")]
     public class CheckDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
 

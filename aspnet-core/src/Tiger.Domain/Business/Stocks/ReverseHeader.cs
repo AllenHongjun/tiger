@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -18,6 +19,7 @@ namespace Tiger.Stock
     /// <summary>
     /// 拆套单(组装拆卸单)
     /// </summary>
+    [Table("StockReverseHeader")]
     public class ReverseHeader : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
 

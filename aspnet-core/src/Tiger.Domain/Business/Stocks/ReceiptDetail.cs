@@ -19,6 +19,7 @@ namespace Tiger.Stock
     /// <summary>
     /// 入库单明细
     /// </summary>
+    [Table("StockReceiptDetail")]
     public class ReceiptDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {   
         

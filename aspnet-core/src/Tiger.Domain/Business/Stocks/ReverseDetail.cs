@@ -20,6 +20,7 @@ namespace Tiger.Stock
     /// <summary>
     /// 拆套单明细(组装拆卸单)
     /// </summary>
+    [Table("StockReverseDetail")]
     public class ReverseDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
 

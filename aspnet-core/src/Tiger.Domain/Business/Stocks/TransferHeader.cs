@@ -8,16 +8,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Stock
-{   
+{
     /// <summary>
     /// 调拨(移库)单
     /// </summary>
+    [Table("StockTransferHeader")]
     public class TransferHeader : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
         /// <summary>
