@@ -91,6 +91,9 @@ namespace Tiger.Permissions
 
             #endregion
 
+            #region 采购
+
+            #endregion
 
             #region 订单
             // 订单管理权限
@@ -127,6 +130,24 @@ namespace Tiger.Permissions
                OrderPermissions.OrderSetting.Delete, L("Permission:OrderSetting.Delete"));
             #endregion
 
+            #region 仓库
+            //// 营销权限
+            //var marketingGroup = context.AddGroup(MarketingPermissions.GroupName);
+
+
+            //// 优惠券
+            //var couponPermission = marketingGroup.AddPermission(
+            //        MarketingPermissions.Coupon.Default, L("Permission:Coupon"));
+            //couponPermission.AddChild(
+            //   MarketingPermissions.Coupon.Create, L("Permission:Coupon.Create"));
+            //couponPermission.AddChild(
+            //   MarketingPermissions.Coupon.Update, L("Permission:Coupon.Update"));
+            //couponPermission.AddChild(
+            //   MarketingPermissions.Coupon.Delete, L("Permission:Coupon.Delete"));
+
+
+            #endregion
+
             #region 营销
 
             // 营销权限
@@ -156,6 +177,8 @@ namespace Tiger.Permissions
 
 
             #endregion
+
+
 
 
 

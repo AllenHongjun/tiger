@@ -8,10 +8,23 @@ using Tiger.Basic.ProductAttributeTpyes;
 using Tiger.Basic.Products;
 using Tiger.Books;
 using Tiger.Business.Demo;
+using Tiger.Business.Members;
+using Tiger.Business.Members.Dtos;
+using Tiger.Business.Stocks;
+using Tiger.Business.Stocks.Dtos;
 using Tiger.Marketing;
+using Tiger.Marketing.Dtos;
 using Tiger.Marketings.CouponHistorys;
 using Tiger.Marketings.Coupons;
+using Tiger.Orders;
+using Tiger.Orders.CartItems;
+using Tiger.Orders.OrderItems;
+using Tiger.Orders.OrderOperateHistorys;
+using Tiger.Orders.Orders;
+using Tiger.Orders.OrderSettings;
 using Tiger.SecurityLogs;
+using Tiger.Stock;
+using Tiger.Stock.Dtos;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Identity;
 using Volo.Abp.SecurityLog;
@@ -61,12 +74,84 @@ namespace Tiger
             CreateMap<CreateUpdateStoreDto, Store>();
             #endregion
 
+            #region Members
+
+            CreateMap<Member, MemberDto>();
+            CreateMap<CreateUpdateMemberDto, Member>();
+
+            CreateMap<MemberLevel, MemberLevelDto>();
+            CreateMap<CreateUpdateMemberLevelDto, MemberLevel>();
+
+            CreateMap<MemberLoginLog, MemberLoginLogDto>();
+            CreateMap<CreateUpdateMemberLoginLogDto, MemberLoginLog>();
+
+            CreateMap<MemberReceiveAddress, MemberReceiveAddressDto>();
+            CreateMap<CreateUpdateMemberReceiveAddressDto, MemberReceiveAddress>();
+
+            CreateMap<MemberStatisticInfo, MemberStatisticInfoDto>();
+            CreateMap<CreateUpdateMemberStatisticInfoDto, MemberStatisticInfo>();
+            #endregion
+
+            #region Orders
+
+            CreateMap<CartItem, CartItemDto>();
+            CreateMap<CreateUpdateCartItemDto, CartItem>();
+
+            CreateMap<Business.Orders.Order, OrderDto>();
+            CreateMap<CreateUpdateOrderDto, Business.Orders.Order>();
+
+            CreateMap<OrderItem, OrderItemDto>();
+            CreateMap<CreateUpdateOrderItemDto, OrderItem>();
+
+            CreateMap<OrderOperateHistory, OrderOperationHistoryDto>();
+            CreateMap<CreateUpdateOrderOperationHistoryDto, OrderOperateHistory>();
+
+            CreateMap<OrderSetting, OrderSettingDto>();
+            CreateMap<CreateUpdateOrderSettingDto, OrderSetting>();
+            #endregion
+
+            #region Stocks
+
+            CreateMap<Inventory, InventoryDto>();
+            CreateMap<CreateUpdateInventoryDto, Inventory>();
+
+            CreateMap<InventoryHistory, InventoryHistoryDto>();
+            CreateMap<CreateUpdateInventoryHistoryDto, InventoryHistory>();
+
+            CreateMap<CheckHeader, CheckHeaderDto>();
+            CreateMap<CreateUpdateCheckHeaderDto, CheckHeader>();
+
+            CreateMap<CheckDetail, CheckDetailDto>();
+            CreateMap<CreateUpdateCheckDetailDto, CheckDetail>();
+
+            CreateMap<ReceiptHeader, ReceiptHeaderDto>();
+            CreateMap<CreateUpdateReceiptHeaderDto, ReceiptHeader>();
+
+            CreateMap<ReverseDetail, ReverseDetailDto>();
+            CreateMap<CreateUpdateReverseDetailDto, ReverseDetail>();
+
+            CreateMap<ShipmentHeader, ShipmentHeaderDto>();
+            CreateMap<CreateUpdateShipmentHeaderDto, ShipmentHeader>();
+
+            CreateMap<TransferHeader, TransferHeaderDto>();
+            CreateMap<CreateUpdateTransferHeaderDto, TransferHeader>();
+
+            #endregion
+
             #region Markting
             CreateMap<Coupon, CouponDto>();
             CreateMap<CreateUpdateCouponDto, Coupon>();
 
             CreateMap<CouponHistory, CouponHistoryDto>();
-            CreateMap<CreateUpdateCouponHistoryDto, CouponHistory>(); 
+            CreateMap<CreateUpdateCouponHistoryDto, CouponHistory>();
+
+            CreateMap<FlashPromotion, FlashPromotionDto>();
+            CreateMap<CreateUpdateFlashPromotionDto, FlashPromotion>();
+
+            CreateMap<FlashPromotionSession, FlashPromotionSessionDto>();
+            CreateMap<CreateUpdateFlashPromotionSessionDto, FlashPromotionSession>();
+
+
             #endregion
 
 
