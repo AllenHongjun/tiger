@@ -18,6 +18,38 @@ namespace Tiger.Basic.Products
             public const string ManagePermissions = Default + ".ManagePermissions";
         }
 
+        public class Warehouse
+        {
+            public const string Default = GroupName + ".Warehouse";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
+
+        public class Supply
+        {
+            public const string Default = GroupName + ".Supply";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
+
+        public class Store
+        {
+            public const string Default = GroupName + ".Store";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
+
+        public class Sku
+        {
+            public const string Default = GroupName + ".Sku";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
+
         public static class ProductAttribute
         {
             public const string Default = GroupName + ".ProductAttributes";

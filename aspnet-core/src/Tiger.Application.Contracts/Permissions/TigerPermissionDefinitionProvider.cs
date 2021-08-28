@@ -14,28 +14,28 @@ namespace Tiger.Permissions
         public override void Define(IPermissionDefinitionContext context)
         {
             //Define your own permissions here.
-            
+
 
             // 添加 demo 作者权限
             var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName);
             var authorsPermission = bookStoreGroup.AddPermission(
                     BookStorePermissions.Authors.Default, L("Permission:Authors"));
-                                    authorsPermission.AddChild(
-                                        BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
+            authorsPermission.AddChild(
+                BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
 
-                                    authorsPermission.AddChild(
-                                        BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
+            authorsPermission.AddChild(
+                BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
 
-                                    authorsPermission.AddChild(
-                                        BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
+            authorsPermission.AddChild(
+                BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
 
             #region 基础
 
-            // 产品管理权限
+
             var basicGroup = context.AddGroup(BasicPermissions.GroupName);
 
 
-
+            // 产品管理权限
             var productsPermission = basicGroup.AddPermission(
                     BasicPermissions.Product.Default, L("Permission:Product"));
             productsPermission.AddChild(
@@ -44,6 +44,47 @@ namespace Tiger.Permissions
                BasicPermissions.Product.Update, L("Permission:Product.Update"));
             productsPermission.AddChild(
                BasicPermissions.Product.Delete, L("Permission:Product.Delete"));
+
+            // 仓库管理权限
+            var warehousePermission = basicGroup.AddPermission(
+                    BasicPermissions.Warehouse.Default, L("Permission:Warehouse"));
+            warehousePermission.AddChild(
+               BasicPermissions.Warehouse.Create, L("Permission:Warehouse.Create"));
+            warehousePermission.AddChild(
+               BasicPermissions.Warehouse.Update, L("Permission:Warehouse.Update"));
+            warehousePermission.AddChild(
+               BasicPermissions.Warehouse.Delete, L("Permission:Warehouse.Delete"));
+
+            //供应商管理权限
+            var supplyPermission = basicGroup.AddPermission(
+                    BasicPermissions.Supply.Default, L("Permission:Supply"));
+            supplyPermission.AddChild(
+               BasicPermissions.Supply.Create, L("Permission:Supply.Create"));
+            supplyPermission.AddChild(
+               BasicPermissions.Supply.Update, L("Permission:Supply.Update"));
+            supplyPermission.AddChild(
+               BasicPermissions.Supply.Delete, L("Permission:Supply.Delete"));
+
+            //店铺管理权限
+            var storePermission = basicGroup.AddPermission(
+                    BasicPermissions.Store.Default, L("Permission:Store"));
+            storePermission.AddChild(
+               BasicPermissions.Store.Create, L("Permission:Store.Create"));
+            storePermission.AddChild(
+               BasicPermissions.Store.Update, L("Permission:Store.Update"));
+            storePermission.AddChild(
+               BasicPermissions.Store.Delete, L("Permission:Store.Delete"));
+
+            //SKU管理权限
+            var skuPermission = basicGroup.AddPermission(
+                    BasicPermissions.Sku.Default, L("Permission:Sku"));
+            skuPermission.AddChild(
+               BasicPermissions.Sku.Create, L("Permission:Sku.Create"));
+            skuPermission.AddChild(
+               BasicPermissions.Sku.Update, L("Permission:Sku.Update"));
+            skuPermission.AddChild(
+               BasicPermissions.Sku.Delete, L("Permission:Sku.Delete"));
+
 
             // 分类管理权限
             var categorysPermission = basicGroup.AddPermission(

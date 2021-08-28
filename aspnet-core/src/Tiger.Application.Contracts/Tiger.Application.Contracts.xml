@@ -4,6 +4,202 @@
         <name>Tiger.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.ShowStatus">
+            <summary>
+            显示状态 0->不显示 1->显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CategoryDto.Keyword">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Level">
+            <summary>
+            级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.ShowStatus">
+            <summary>
+            显示状态 0->不显示 1->显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Keyword">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.GetCategoryListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Categorys.GetCategoryListDto.ParentId">
+            <summary>
+            父级分类id
+            </summary>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetAllListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
+            <summary>
+            获取分类列表树
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetDetailsAsync(System.Guid)">
+            <summary>
+            获取分类明细树
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetChildrenAsync(System.Guid)">
+            <summary>
+            根据父级id查找子分类
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CommentDto.Pics">
+            <summary>
+            上传图片以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CommentDto.ProductAttribute">
+            <summary>
+            购买时产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.Pics">
+            <summary>
+            上传图片以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.ProductAttribute">
+            <summary>
+            购买时产品属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.GetCommentListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Comments.GetCommentListDto.ShowStatus">
+            <summary>
+            显示状态 0 不显示; 1 显示;
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SelectType">
+            <summary>
+            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputType">
+            <summary>
+            属性录入方式：0->手工录入；1->从列表中选取
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputList">
+            <summary>
+            可选值列表，以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Sort">
+            <summary>
+            排序字段：最高的可以单独上传图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SearchType">
+            <summary>
+            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.RelatedStatus">
+            <summary>
+            '相同属性产品是否关联；0->不关联；1->关联',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.HandAddStatus">
+            <summary>
+            '是否支持手动新增；0->不支持；1->支持',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Type">
+            <summary>
+            '属性的类型；0->规格；1->参数',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.GetProductAttributeListDto.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SelectType">
+            <summary>
+            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputType">
+            <summary>
+            属性录入方式：0->手工录入；1->从列表中选取
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputList">
+            <summary>
+            可选值列表，以逗号隔开
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Sort">
+            <summary>
+            排序字段：最高的可以单独上传图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SearchType">
+            <summary>
+            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.RelatedStatus">
+            <summary>
+            '相同属性产品是否关联；0->不关联；1->关联',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.HandAddStatus">
+            <summary>
+            '是否支持手动新增；0->不支持；1->支持',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Type">
+            <summary>
+            '属性的类型；0->规格；1->参数',
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.CreateUpdateProductAttributeTypeDto.Name">
+            <summary>
+            类型名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.AttributeCount">
+            <summary>
+            属性数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.ParamCount">
+            <summary>
+            参数数量
+            </summary>
+        </member>
+        <member name="T:Tiger.Basic.ProductAttributeTpyes.IProductAttributeTypeAppService">
+            <summary>
+            产品属性
+            </summary>
+        </member>
         <member name="P:Tiger.Basic.Products.CreateUpdateProductDto.ProductAttributeTypeId">
             <summary>
             商品属性类型id
@@ -292,202 +488,6 @@
         <member name="P:Tiger.Basic.Products.ProductDto.CategoryName">
             <summary>
             分类名字
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.CategoryDto.Level">
-            <summary>
-            级别
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.CategoryDto.ShowStatus">
-            <summary>
-            显示状态 0->不显示 1->显示
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.CategoryDto.Keyword">
-            <summary>
-            关键字
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Level">
-            <summary>
-            级别
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.ShowStatus">
-            <summary>
-            显示状态 0->不显示 1->显示
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.CreateUpdateCategoryDto.Keyword">
-            <summary>
-            关键字
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.GetCategoryListDto.Filter">
-            <summary>
-            查询关键字
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Categorys.GetCategoryListDto.ParentId">
-            <summary>
-            父级分类id
-            </summary>
-        </member>
-        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetAllListAsync(Tiger.Basic.Categorys.GetCategoryListDto)">
-            <summary>
-            获取分类列表树
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetDetailsAsync(System.Guid)">
-            <summary>
-            获取分类明细树
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Basic.Categorys.ICategoryAppService.GetChildrenAsync(System.Guid)">
-            <summary>
-            根据父级id查找子分类
-            </summary>
-            <param name="parentId"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Tiger.Basic.Comments.CommentDto.Pics">
-            <summary>
-            上传图片以逗号隔开
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Comments.CommentDto.ProductAttribute">
-            <summary>
-            购买时产品属性
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.Pics">
-            <summary>
-            上传图片以逗号隔开
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Comments.CreateUpdateCommentDto.ProductAttribute">
-            <summary>
-            购买时产品属性
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Comments.GetCommentListDto.Filter">
-            <summary>
-            查询关键字
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.Comments.GetCommentListDto.ShowStatus">
-            <summary>
-            显示状态 0 不显示; 1 显示;
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SelectType">
-            <summary>
-            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputType">
-            <summary>
-            属性录入方式：0->手工录入；1->从列表中选取
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.InputList">
-            <summary>
-            可选值列表，以逗号隔开
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Sort">
-            <summary>
-            排序字段：最高的可以单独上传图片
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.SearchType">
-            <summary>
-            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.RelatedStatus">
-            <summary>
-            '相同属性产品是否关联；0->不关联；1->关联',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.HandAddStatus">
-            <summary>
-            '是否支持手动新增；0->不支持；1->支持',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto.Type">
-            <summary>
-            '属性的类型；0->规格；1->参数',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.GetProductAttributeListDto.Filter">
-            <summary>
-            查询关键字
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SelectType">
-            <summary>
-            属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputType">
-            <summary>
-            属性录入方式：0->手工录入；1->从列表中选取
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.InputList">
-            <summary>
-            可选值列表，以逗号隔开
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Sort">
-            <summary>
-            排序字段：最高的可以单独上传图片
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.SearchType">
-            <summary>
-            检索类型；0->不需要进行检索；1->关键字检索；2->范围检索',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.RelatedStatus">
-            <summary>
-            '相同属性产品是否关联；0->不关联；1->关联',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.HandAddStatus">
-            <summary>
-            '是否支持手动新增；0->不支持；1->支持',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributes.ProductAttributeDto.Type">
-            <summary>
-            '属性的类型；0->规格；1->参数',
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributeTpyes.CreateUpdateProductAttributeTypeDto.Name">
-            <summary>
-            类型名称
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.AttributeCount">
-            <summary>
-            属性数量
-            </summary>
-        </member>
-        <member name="P:Tiger.Basic.ProductAttributeTpyes.ProductAttributeTypeDto.ParamCount">
-            <summary>
-            参数数量
-            </summary>
-        </member>
-        <member name="T:Tiger.Basic.ProductAttributeTpyes.IProductAttributeTypeAppService">
-            <summary>
-            产品属性
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->
