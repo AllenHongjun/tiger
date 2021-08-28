@@ -14,7 +14,17 @@ namespace Tiger.Basic.Products
             CreateUpdateProductDto, //Used for paging/sorting
             CreateUpdateProductDto> //Used to create/update 
     {
+        // TODO: Load state from previously suspended application
 
+        // TODO: 显示隐藏
+
+        // TODO: 上架下架
+
+        // TODO: 商品审核
+
+        // TODO: 批量操作 批量审核 批量删除
+
+        // TODO: 导入 导出 
     }
-    
+
 }

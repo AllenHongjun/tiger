@@ -65,16 +65,16 @@ export const constantRoutes = [
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [{
       path: 'dashboard',
-      name: '仪表盘',
+      name: '首页',
       component: () => import('@/views/dashboard/index1'),
-      meta: { title: '仪表盘', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }
 
     ]
   },
 
   {
-    path: '/product',
+    path: '/basic',
     name: '产品',
     meta: { title: '基础资料', icon: 'el-icon-bangzhu' },
     // 你可以选择不同的layout组件
@@ -85,18 +85,19 @@ export const constantRoutes = [
       {
         path: 'product/list',
         name: 'ProductList',
-        component: () => import('@/views/product/product/list'),
+        component: () => import('@/views/basic/product/list'),
         meta: { title: '商品', icon: 'el-icon-discover' }
       },
-      // {
-      //   path: 'product/create',
-      //   component: () => import('@/views/product/product/create'),
-      //   name: 'CreateProduct',
-      //   meta: { title: '添加产品', icon: 'theme' }
-      // },
+      {
+        path: 'product/create',
+        component: () => import('@/views/basic/product/create'),
+        name: 'CreateProduct',
+        meta: { title: '添加产品', icon: 'theme' },
+        hidden: true
+      },
       {
         path: 'product/edit/:id(\\d+)',
-        component: () => import('@/views/product/product/edit'),
+        component: () => import('@/views/basic/product/edit'),
         name: 'EditProduct',
         meta: { title: '编辑产品', noCache: true, activeMenu: '/example/list' },
         hidden: true
@@ -104,32 +105,32 @@ export const constantRoutes = [
       {
         path: 'category/list',
         name: '分类',
-        component: () => import('@/views/product/category/list'),
+        component: () => import('@/views/basic/category/list'),
         meta: { title: '分类', icon: 'form' }
-      },
-      {
-        path: 'product-attribute-type/list',
-        name: '属性类型',
-        component: () => import('@/views/product/product-attribute-type/list'),
-        meta: { title: '属性类型', icon: 'qq' },
-        children: [
-          {
-            path: '/product-attribute/list',
-            name: '属性',
-            component: () => import('@/views/product/product-attribute/list'),
-            meta: { title: '属性', icon: 'search' },
-            hidden: true
-          }
-        ]
-
-      },
-
-      {
-        path: 'comment/list',
-        name: '产品评论',
-        component: () => import('@/views/product/comment/list'),
-        meta: { title: '评论', icon: 'eye-open' }
       }
+      // {
+      //   path: 'product-attribute-type/list',
+      //   name: '属性类型',
+      //   component: () => import('@/views/basic/product-attribute-type/list'),
+      //   meta: { title: '属性类型', icon: 'qq' },
+      //   children: [
+      //     {
+      //       path: '/product-attribute/list',
+      //       name: '属性',
+      //       component: () => import('@/views/basic/product-attribute/list'),
+      //       meta: { title: '属性', icon: 'search' },
+      //       hidden: true
+      //     }
+      //   ]
+
+      // },
+
+      // {
+      //   path: 'comment/list',
+      //   name: '产品评论',
+      //   component: () => import('@/views/basic/comment/list'),
+      //   meta: { title: '评论', icon: 'eye-open' }
+      // }
     ]
   },
   {

@@ -101,9 +101,9 @@ export default {
     background-color: #fff;
     margin: auto;
     box-shadow: none!important;
-    /deep/ .pan-info {
-      box-shadow: none!important;
-    }
+    // /deep/ .pan-info {
+    //   box-shadow: none!important;
+    // }
   }
   .progress-item {
     margin-bottom: 10px;

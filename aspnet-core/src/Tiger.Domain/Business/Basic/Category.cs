@@ -46,7 +46,7 @@ namespace Tiger.Basic
         public Guid? TenantId { get; set; }
 
         [CanBeNull]
-        public Guid ParentId { get; set; }
+        public Guid? ParentId { get; set; }
        
         [ForeignKey("ParentId")]
         public virtual Category Parent { get; set; }

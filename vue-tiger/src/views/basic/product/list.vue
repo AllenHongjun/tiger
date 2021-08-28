@@ -14,7 +14,7 @@
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
         搜素
       </el-button>
-      <router-link :to="'/product/product/create'">
+      <router-link :to="'/basic/product/create'">
         <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit">
           添加
         </el-button>
@@ -95,7 +95,7 @@
         <template slot-scope="scope">
 
           <el-button type="primary" size="small" plain icon="el-icon-edit">
-            <router-link :to="'/product/product/edit/'+scope.row.id">
+            <router-link :to="'/basic/product/edit/'+scope.row.id">
               编辑
             </router-link>
           </el-button>

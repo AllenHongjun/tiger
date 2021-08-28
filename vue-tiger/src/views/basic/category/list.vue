@@ -171,31 +171,35 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="类型" prop="type">
-          <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-          </el-select>
+
+        <el-form-item label="父级分类" prop="">
+          <el-cascader :props="temp.parentId" />
         </el-form-item>
-        <el-form-item label="父级分类" prop="title">
-          <el-cascader :props="listQuery.props" />
+
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="temp.name" />
         </el-form-item>
-        <el-form-item label="时间" prop="timestamp">
-          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
+
+        <el-form-item label="描述" prop="name">
+          <el-input v-model="temp.description" />
         </el-form-item>
-        <el-form-item label="标题" prop="title">
-          <el-input v-model="temp.title" />
+
+        <el-form-item label="级别" prop="level">
+          <el-input v-model="temp.level" />
         </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
-          </el-select>
+
+        <el-form-item label="排序" prop="sort">
+          <el-input v-model="temp.sort" />
         </el-form-item>
-        <el-form-item label="重要性">
-          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />
+
+        <el-form-item label="显示状态">
+          <el-switch
+            v-model="temp.showStatus"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+          />
         </el-form-item>
-        <el-form-item label="点评">
-          <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -239,6 +243,7 @@
 
 <script>
 import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory } from '@/api/basic/category'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -318,13 +323,22 @@ export default {
       show: true,
       temp: {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
+        // importance: 1,
+        // remark: '',
+        // timestamp: new Date(),
+        // title: '',
+        // type: '',
+        // status: 'published',
 
-        status: 'published'
+        parentId: null,
+        name: '',
+        level: 1,
+        showStatus: 1,
+        sort: 0,
+        icon: '',
+        keyword: '',
+        description: ''
+
       },
       searchDivVisible: false,
       dialogFormVisible: false,
@@ -392,12 +406,14 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        status: 'published',
-        type: ''
+        parentId: null,
+        name: '',
+        level: 1,
+        showStatus: 1,
+        sort: 0,
+        icon: '',
+        keyword: '',
+        description: ''
       }
     },
     handleCreate() {
@@ -411,9 +427,10 @@ export default {
     createData() {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
+          // this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
+          // this.temp.author = 'vue-element-admin'
+          this.temp.showStatus = 1
+          createCategory(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
