@@ -18,7 +18,7 @@ namespace Tiger.Controllers.Admin.ShipmentHeaders
     [Area("Basics")]
     [ControllerName("ShipmentHeader")]
     [Route("api/basic/shipmentHeader")]
-    [ApiExplorerSettings(GroupName = "admin-basic")]
+    [ApiExplorerSettings(GroupName = "admin-erp")]
     public class ShipmentHeaderController : TigerController, IShipmentHeaderAppService
     {
         protected readonly IShipmentHeaderAppService _shipmentHeaderAppService;

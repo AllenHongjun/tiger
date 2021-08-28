@@ -180,7 +180,7 @@ namespace Tiger
 
                     options.SwaggerDoc("admin", new OpenApiInfo
                     {
-                        Version = "v2",
+                        Version = "v1",
                         Title = "Tiger admin接口",
                         Description = "Tiger admin接口",
 
@@ -203,26 +203,14 @@ namespace Tiger
                         Version = "v1",
                         Title = "Tiger Basic接口",
                         Description = "Tiger 后台 Basic接口",
-
-                        //API 服务条款的 URL。 必须采用 URL 格式。
-                        //TermsOfService = new Uri("https://example.com/terms"),
-                        Contact = new OpenApiContact
-                        {
-                            Name = "hongjy",
-                            Email = "hongjy1991@gmail.com",
-                            Url = new Uri("https://www.hongjy.cn/"),
-                        },
-                        License = new OpenApiLicense
-                        {
-                            Name = "Use under LICX",
-                        }
                     });
 
-                    //options.SwaggerDoc("auth", new OpenApiInfo { Title = "TinyErpAuth", Version = "auth" });
-                    //options.SwaggerDoc("gp", new OpenApiInfo { Title = "登录模块", Version = "GP" });
-                    //options.SwaggerDoc("mom", new OpenApiInfo { Title = "业务模块", Version = "YW" });
-                    //options.SwaggerDoc("dm", new OpenApiInfo { Title = "其他模块", Version = "QT" });
-
+                    options.SwaggerDoc("admin-erp", new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "进销存",
+                        Description = "采购库存相关接口",
+                    });
 
 
 
@@ -390,6 +378,7 @@ namespace Tiger
                 //options.InjectStylesheet("/swagger-ui/custom.css");
 
                 options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
+                options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
                 options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
                 options.SwaggerEndpoint("/swagger/api/swagger.json", "API-");
                 

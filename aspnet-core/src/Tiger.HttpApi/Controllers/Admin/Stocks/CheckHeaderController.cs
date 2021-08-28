@@ -16,7 +16,7 @@ namespace Tiger.Controllers.Admin.CheckHeaders
     [Area("Basics")]
     [ControllerName("CheckHeader")]
     [Route("api/basic/checkHeader")]
-    [ApiExplorerSettings(GroupName = "admin-basic")]
+    [ApiExplorerSettings(GroupName = "admin-erp")]
     public class CheckHeaderController : TigerController, ICheckHeaderAppService
     {
         protected readonly ICheckHeaderAppService _checkHeaderAppService;

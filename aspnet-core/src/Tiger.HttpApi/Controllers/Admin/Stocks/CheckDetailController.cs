@@ -16,7 +16,7 @@ namespace Tiger.Controllers.Admin.CheckDetails
     [Area("Basics")]
     [ControllerName("CheckDetail")]
     [Route("api/basic/checkDetail")]
-    [ApiExplorerSettings(GroupName = "admin-basic")]
+    [ApiExplorerSettings(GroupName = "admin-erp")]
     public class CheckDetailController : TigerController, ICheckDetailAppService
     {
         protected readonly ICheckDetailAppService _checkDetailAppService;

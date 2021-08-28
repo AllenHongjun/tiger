@@ -16,7 +16,7 @@ namespace Tiger.Controllers.Admin.Inventorys
     [Area("Basics")]
     [ControllerName("Inventory")]
     [Route("api/basic/inventory")]
-    [ApiExplorerSettings(GroupName = "admin-basic")]
+    [ApiExplorerSettings(GroupName = "admin-erp")]
     public class InventoryController : TigerController, IInventoryAppService
     {
         protected readonly IInventoryAppService _inventoryAppService;

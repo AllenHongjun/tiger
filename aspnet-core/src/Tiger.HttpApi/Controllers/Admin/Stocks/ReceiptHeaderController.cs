@@ -1,29 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Tiger.Business.Members;
+using Tiger.Business.Members.Dtos;
+using Tiger.Business.Stocks;
+using Tiger.Business.Stocks.Dtos;
 using Tiger.Stock;
 using Tiger.Stock.Dtos;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Controllers.Admin.InventoryHistorys
+namespace Tiger.Controllers.Admin.ReceiptHeaders
 {
     /// <summary>
-    /// 实时库存
+    /// 出库单
     /// </summary>
 
-    [RemoteService(Name = "InventoryHistory")]
+    [RemoteService(Name = "ReceiptHeader")]
     [Area("Basics")]
-    [ControllerName("InventoryHistory")]
-    [Route("api/basic/inventoryHistory")]
+    [ControllerName("ReceiptHeader")]
+    [Route("api/basic/receiptHeader")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
-    public class InventoryHistoryController : TigerController, IInventoryHistoryAppService
+    public class ReceiptHeaderController : TigerController, IReceiptHeaderAppService
     {
-        protected readonly IInventoryHistoryAppService _inventoryHistoryAppService;
+        protected readonly IReceiptHeaderAppService _receiptHeaderAppService;
 
-        public InventoryHistoryController(IInventoryHistoryAppService inventoryHistoryAppService)
+        public ReceiptHeaderController(IReceiptHeaderAppService receiptHeaderAppService)
         {
-            _inventoryHistoryAppService = inventoryHistoryAppService;
+            _receiptHeaderAppService = receiptHeaderAppService;
         }
 
         /// <summary>
@@ -32,9 +36,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public Task<InventoryHistoryDto> CreateAsync(CreateUpdateInventoryHistoryDto input)
+        public Task<ReceiptHeaderDto> CreateAsync(CreateUpdateReceiptHeaderDto input)
         {
-            return _inventoryHistoryAppService.CreateAsync(input);
+            return _receiptHeaderAppService.CreateAsync(input);
         }
 
         /// <summary>
@@ -46,7 +50,7 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         [Route("{id}")]
         public Task DeleteAsync(Guid id)
         {
-            return _inventoryHistoryAppService.DeleteAsync(id);
+            return _receiptHeaderAppService.DeleteAsync(id);
         }
 
         /// <summary>
@@ -56,9 +60,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public Task<InventoryHistoryDto> GetAsync(Guid id)
+        public Task<ReceiptHeaderDto> GetAsync(Guid id)
         {
-            return _inventoryHistoryAppService.GetAsync(id);
+            return _receiptHeaderAppService.GetAsync(id);
         }
 
         /// <summary>
@@ -68,9 +72,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        public Task<PagedResultDto<InventoryHistoryDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public Task<PagedResultDto<ReceiptHeaderDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            return _inventoryHistoryAppService.GetListAsync(input);
+            return _receiptHeaderAppService.GetListAsync(input);
         }
 
         /// <summary>
@@ -81,9 +85,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        public Task<InventoryHistoryDto> UpdateAsync(Guid id, CreateUpdateInventoryHistoryDto input)
+        public Task<ReceiptHeaderDto> UpdateAsync(Guid id, CreateUpdateReceiptHeaderDto input)
         {
-            return _inventoryHistoryAppService.UpdateAsync(id, input);
+            return _receiptHeaderAppService.UpdateAsync(id, input);
         }
 
 

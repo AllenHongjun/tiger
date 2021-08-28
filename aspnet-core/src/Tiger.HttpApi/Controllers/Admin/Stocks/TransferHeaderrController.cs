@@ -1,29 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Tiger.Business.Members;
+using Tiger.Business.Members.Dtos;
+using Tiger.Business.Stocks;
+using Tiger.Business.Stocks.Dtos;
 using Tiger.Stock;
 using Tiger.Stock.Dtos;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Controllers.Admin.InventoryHistorys
+namespace Tiger.Controllers.Admin.TransferHeaders
 {
     /// <summary>
-    /// 实时库存
+    /// 出库单
     /// </summary>
 
-    [RemoteService(Name = "InventoryHistory")]
+    [RemoteService(Name = "TransferHeader")]
     [Area("Basics")]
-    [ControllerName("InventoryHistory")]
-    [Route("api/basic/inventoryHistory")]
+    [ControllerName("TransferHeader")]
+    [Route("api/basic/transferHeader")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
-    public class InventoryHistoryController : TigerController, IInventoryHistoryAppService
+    public class TransferHeaderController : TigerController, ITransferHeaderAppService
     {
-        protected readonly IInventoryHistoryAppService _inventoryHistoryAppService;
+        protected readonly ITransferHeaderAppService _transferHeaderAppService;
 
-        public InventoryHistoryController(IInventoryHistoryAppService inventoryHistoryAppService)
+        public TransferHeaderController(ITransferHeaderAppService transferHeaderAppService)
         {
-            _inventoryHistoryAppService = inventoryHistoryAppService;
+            _transferHeaderAppService = transferHeaderAppService;
         }
 
         /// <summary>
@@ -32,9 +36,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public Task<InventoryHistoryDto> CreateAsync(CreateUpdateInventoryHistoryDto input)
+        public Task<TransferHeaderDto> CreateAsync(CreateUpdateTransferHeaderDto input)
         {
-            return _inventoryHistoryAppService.CreateAsync(input);
+            return _transferHeaderAppService.CreateAsync(input);
         }
 
         /// <summary>
@@ -46,7 +50,7 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         [Route("{id}")]
         public Task DeleteAsync(Guid id)
         {
-            return _inventoryHistoryAppService.DeleteAsync(id);
+            return _transferHeaderAppService.DeleteAsync(id);
         }
 
         /// <summary>
@@ -56,9 +60,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public Task<InventoryHistoryDto> GetAsync(Guid id)
+        public Task<TransferHeaderDto> GetAsync(Guid id)
         {
-            return _inventoryHistoryAppService.GetAsync(id);
+            return _transferHeaderAppService.GetAsync(id);
         }
 
         /// <summary>
@@ -68,9 +72,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        public Task<PagedResultDto<InventoryHistoryDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public Task<PagedResultDto<TransferHeaderDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            return _inventoryHistoryAppService.GetListAsync(input);
+            return _transferHeaderAppService.GetListAsync(input);
         }
 
         /// <summary>
@@ -81,9 +85,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        public Task<InventoryHistoryDto> UpdateAsync(Guid id, CreateUpdateInventoryHistoryDto input)
+        public Task<TransferHeaderDto> UpdateAsync(Guid id, CreateUpdateTransferHeaderDto input)
         {
-            return _inventoryHistoryAppService.UpdateAsync(id, input);
+            return _transferHeaderAppService.UpdateAsync(id, input);
         }
 
 

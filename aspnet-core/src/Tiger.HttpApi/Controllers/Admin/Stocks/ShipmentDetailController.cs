@@ -16,7 +16,7 @@ namespace Tiger.Controllers.Admin.ShipmentDetails
     [Area("Basics")]
     [ControllerName("ShipmentDetail")]
     [Route("api/basic/shipmentDetail")]
-    [ApiExplorerSettings(GroupName = "admin-basic")]
+    [ApiExplorerSettings(GroupName = "admin-erp")]
     public class ShipmentDetailController : TigerController, IShipmentDetailAppService
     {
         protected readonly IShipmentDetailAppService _shipmentDetailAppService;
