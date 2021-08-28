@@ -3,9 +3,11 @@ using Tiger.Permissions;
 using Tiger.Marketing.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Marketing
 {
+    [RemoteService(false)]
     public class FlashPromotionSessionAppService : CrudAppService<FlashPromotionSession, FlashPromotionSessionDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateFlashPromotionSessionDto, CreateUpdateFlashPromotionSessionDto>,
         IFlashPromotionSessionAppService
     {

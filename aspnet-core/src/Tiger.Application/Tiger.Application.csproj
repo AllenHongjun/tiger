@@ -49,11 +49,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Finance\" />
-    <Folder Include="Purchase\" />
-    <Folder Include="Security\" />
-    <Folder Include="Stat\" />
-    <Folder Include="Stock\" />
+    <Folder Include="Business\Finance\" />
+    <Folder Include="Business\Purchase\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />
     <Folder Include="Volo\Abp\IdentityServer\" />
