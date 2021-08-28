@@ -1,3 +1,4 @@
+using Tiger.Business.Members;
 using Tiger.Business.Stocks;
 using Tiger.Stock;
 using Tiger.Marketing;
@@ -59,6 +60,11 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<ShipmentDetail, ShipmentDetailRepository>();
                 options.AddRepository<TransferHeader, TransferHeaderRepository>();
                 options.AddRepository<TransferDetail, TransferDetailRepository>();
+                options.AddRepository<Member, MemberRepository>();
+                options.AddRepository<MemberLevel, MemberLevelRepository>();
+                options.AddRepository<MemberLoginLog, MemberLoginLogRepository>();
+                options.AddRepository<MemberReceiveAddress, MemberReceiveAddressRepository>();
+                options.AddRepository<MemberStatisticInfo, MemberStatisticInfoRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

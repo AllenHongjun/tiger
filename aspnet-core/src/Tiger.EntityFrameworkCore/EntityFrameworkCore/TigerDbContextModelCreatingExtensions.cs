@@ -663,6 +663,56 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<Member>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Members", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<MemberLevel>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberLevels", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<MemberLoginLog>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberLoginLogs", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<MemberReceiveAddress>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberReceiveAddresses", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<MemberStatisticInfo>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "MemberStatisticInfos", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }
