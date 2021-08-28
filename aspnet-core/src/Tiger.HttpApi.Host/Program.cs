@@ -14,37 +14,19 @@ namespace Tiger
         public static int Main(string[] args)
         {
 
-            //var Logger = LogManager.GetLogger(typeof(Program));
-
-
-            //try
-            //{
-            //    Logger.Info("Starting Tiger.HttpApi.Host.");
-            //    CreateHostBuilder(args).Build().Run();
-            //    return 0;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logger.Error("Host terminated unexpectedly!", ex);
-            //    return 1;
-            //}
-            //finally
-            //{
-            //    Logger.Error("程序结束运行");
-            //}
-
-
-
-
+            string logFileName = DateTime.Now.ToString("yyyy-MM-dd");
+            logFileName = "Logs/" + logFileName + "-logs.txt";
             Log.Logger = new LoggerConfiguration()
 #if DEBUG
                 .MinimumLevel.Debug()
 #else
                 .MinimumLevel.Information()
 #endif
+
+
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.Async(c => c.File("Logs/logs.txt"))
+                .WriteTo.Async(c => c.File(logFileName))
 #if DEBUG
                 .WriteTo.Async(c => c.Console())
 #endif

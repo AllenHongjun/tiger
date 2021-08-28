@@ -251,13 +251,13 @@ paket-files/
 .idea/
 *.sln.iml
 
-# TigerAdmin
-src/TigerAdmin.Web/Logs/*
-src/TigerAdmin.Web.Host/Logs/*
-src/TigerAdmin.IdentityServer/Logs/*
-src/TigerAdmin.HttpApi.Host/Logs/*
-src/TigerAdmin.HttpApi.Host/Logs/*
-src/TigerAdmin.DbMigrator/Logs/*
+# Tiger
+aspnet-core/src/Tiger.Web/Logs/*
+aspnet-core/src/Tiger.Web.Host/Logs/*
+aspnet-core/src/Tiger.IdentityServer/Logs/*
+aspnet-core/src/Tiger.HttpApi.Host/Logs/*
+aspnet-core/src/Tiger.HttpApi.Host/Logs/*
+aspnet-core/src/Tiger.DbMigrator/Logs/*
 
 vue-tiger/dist/*
 

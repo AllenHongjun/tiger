@@ -172,19 +172,49 @@ namespace Tiger.Permissions
             #endregion
 
             #region 仓库
-            //// 营销权限
-            //var marketingGroup = context.AddGroup(MarketingPermissions.GroupName);
+            // 仓储权限
+            var stockGroup = context.AddGroup(StockPermissions.GroupName);
 
 
-            //// 优惠券
-            //var couponPermission = marketingGroup.AddPermission(
-            //        MarketingPermissions.Coupon.Default, L("Permission:Coupon"));
-            //couponPermission.AddChild(
-            //   MarketingPermissions.Coupon.Create, L("Permission:Coupon.Create"));
-            //couponPermission.AddChild(
-            //   MarketingPermissions.Coupon.Update, L("Permission:Coupon.Update"));
-            //couponPermission.AddChild(
-            //   MarketingPermissions.Coupon.Delete, L("Permission:Coupon.Delete"));
+            // 库存管理权限
+            var inventoryPermission = stockGroup.AddPermission(
+                    StockPermissions.Inventory.Default, L("Permission:Inventory"));
+            inventoryPermission.AddChild(
+               StockPermissions.Inventory.Create, L("Permission:Inventory.Create"));
+            inventoryPermission.AddChild(
+               StockPermissions.Inventory.Update, L("Permission:Inventory.Update"));
+            inventoryPermission.AddChild(
+               StockPermissions.Inventory.Delete, L("Permission:Inventory.Delete"));
+
+            // 库存记录管理权限
+            var inventoryHistoryPermission = stockGroup.AddPermission(
+                    StockPermissions.InventoryHistory.Default, L("Permission:InventoryHistory"));
+            inventoryHistoryPermission.AddChild(
+               StockPermissions.InventoryHistory.Create, L("Permission:InventoryHistory.Create"));
+            inventoryHistoryPermission.AddChild(
+               StockPermissions.InventoryHistory.Update, L("Permission:InventoryHistory.Update"));
+            inventoryHistoryPermission.AddChild(
+               StockPermissions.InventoryHistory.Delete, L("Permission:InventoryHistory.Delete"));
+
+            // 盘点单管理权限
+            var checkHeaderPermission = stockGroup.AddPermission(
+                    StockPermissions.CheckHeader.Default, L("Permission:CheckHeader"));
+            checkHeaderPermission.AddChild(
+               StockPermissions.CheckHeader.Create, L("Permission:CheckHeader.Create"));
+            checkHeaderPermission.AddChild(
+               StockPermissions.CheckHeader.Update, L("Permission:CheckHeader.Update"));
+            checkHeaderPermission.AddChild(
+               StockPermissions.CheckHeader.Delete, L("Permission:CheckHeader.Delete"));
+
+            // 盘点单明细管理权限
+            var checkDetailPermission = stockGroup.AddPermission(
+                    StockPermissions.CheckDetail.Default, L("Permission:CheckDetail"));
+            checkDetailPermission.AddChild(
+               StockPermissions.CheckDetail.Create, L("Permission:CheckDetail.Create"));
+            checkDetailPermission.AddChild(
+               StockPermissions.CheckDetail.Update, L("Permission:CheckDetail.Update"));
+            checkDetailPermission.AddChild(
+               StockPermissions.CheckDetail.Delete, L("Permission:CheckDetail.Delete"));
 
 
             #endregion

@@ -108,7 +108,7 @@
 
 [volcore快速业务开发框架](http://www.volcore.xyz/#/login)
 
-[crmeb商城](https://pro.crmeb.net/admin/home/)
+[crmeb商城](https://www.crmeb.com/)
 
 [进销存项目](https://a.mxyun.com/)
 

@@ -171,7 +171,7 @@ namespace Tiger.EntityFrameworkCore
 
             // 仓库
             builder.Entity<Warehouse>(b => {
-                b.ToTable(TigerConsts.DbTableStockPrefix + "Warehouses");
+                b.ToTable(TigerConsts.DbTablePrefix + "Warehouses");
                 b.ConfigureByConvention();
             });
 
