@@ -573,6 +573,96 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<InventoryHistory>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "InventoryHistories", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<CheckHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "CheckHeaders", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<CheckDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "CheckDetails", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<ReceiptHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ReceiptHeaders", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<ReverseDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ReverseDetails", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<ShipmentHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ShipmentHeaders", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<ShipmentDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ShipmentDetails", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<TransferHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TransferHeaders", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<TransferDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TransferDetails", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }

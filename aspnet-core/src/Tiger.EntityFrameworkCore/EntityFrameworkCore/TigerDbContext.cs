@@ -164,6 +164,7 @@ namespace Tiger.EntityFrameworkCore
          * Also map them inside TigerDbContextModelCreatingExtensions.ConfigureTiger
          */
         public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<ShipmentHeader> ShipmentHeaders { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

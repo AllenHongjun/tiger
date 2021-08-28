@@ -1,3 +1,4 @@
+using Tiger.Business.Stocks;
 using Tiger.Stock;
 using Tiger.Marketing;
 using Tiger.Basic;
@@ -49,6 +50,15 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<FlashPromotion, FlashPromotionRepository>();
                 options.AddRepository<FlashPromotionSession, FlashPromotionSessionRepository>();
                 options.AddRepository<Inventory, InventoryRepository>();
+                options.AddRepository<InventoryHistory, InventoryHistoryRepository>();
+                options.AddRepository<CheckHeader, CheckHeaderRepository>();
+                options.AddRepository<CheckDetail, CheckDetailRepository>();
+                options.AddRepository<ReceiptHeader, ReceiptHeaderRepository>();
+                options.AddRepository<ReverseDetail, ReverseDetailRepository>();
+                options.AddRepository<ShipmentHeader, ShipmentHeaderRepository>();
+                options.AddRepository<ShipmentDetail, ShipmentDetailRepository>();
+                options.AddRepository<TransferHeader, TransferHeaderRepository>();
+                options.AddRepository<TransferDetail, TransferDetailRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>
