@@ -31,7 +31,7 @@ namespace Tiger.Basic.Categorys
         public int ShowStatus { get; set; }
 
         [Required(ErrorMessage = "请输入排序值")]
-        [Range(1, 9999, ErrorMessage = "排序最大值 9999")]
+        [Range(1, 9999, ErrorMessage = "排序范围1-9999")]
         public int Sort { get; set; }
 
         public string Icon { get; set; }

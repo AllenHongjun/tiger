@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.Filter" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
       <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
-      <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
+      <!-- <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
         <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
-      <el-cascader :props="listQuery.props" />
+      <el-cascader :props="listQuery.props" /> -->
       <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
@@ -96,16 +96,16 @@
 
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
       <el-table-column align="center" type="selection" width="55" />
-      <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
+      <!-- <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column min-width="300px" label="名称">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.title }}</span>
+            <span>{{ row.name }}</span>
           </router-link>
         </template>
       </el-table-column>
@@ -119,13 +119,13 @@
       <el-table-column width="120px" align="center" label="图标">
         <template slot-scope="scope">
           <!-- <span>{{ scope.row.image_uri }}</span> -->
-          <span><img :src="scope.row.image_uri" width="100px"></span>
+          <span><img :src="scope.row.icon" width="100px"></span>
         </template>
       </el-table-column>
 
       <el-table-column width="120px" align="center" label="排序">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.sort }}</span>
         </template>
       </el-table-column>
 
@@ -135,18 +135,18 @@
             {{ row.status }}
           </el-tag> -->
           <el-switch
-            v-model="show"
+            v-model="row.showStatus"
             active-color="#13ce66"
             inactive-color="#ff4949"
           />
         </template>
       </el-table-column>
 
-      <el-table-column width="180px" align="center" label="时间" sortable>
+      <!-- <el-table-column width="180px" align="center" label="时间" sortable>
         <template slot-scope="scope">
           <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- <el-table-column width="100px" label="重要性">
         <template slot-scope="scope">
@@ -242,7 +242,6 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory } from '@/api/basic/category'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
@@ -292,11 +291,10 @@ export default {
       listQuery: {
         page: 1,
         limit: 15,
-        importance: undefined,
-        // status: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id',
+        // SkipCount: 0,
+        Filter: '',
+        // Sorting: 'name desc',
+        // sort: '+id',
         props: {
           lazy: true,
           lazyLoad(node, resolve) {
@@ -323,18 +321,11 @@ export default {
       show: true,
       temp: {
         id: undefined,
-        // importance: 1,
-        // remark: '',
-        // timestamp: new Date(),
-        // title: '',
-        // type: '',
-        // status: 'published',
-
         parentId: null,
         name: '',
         level: 1,
         showStatus: 1,
-        sort: 0,
+        sort: 1,
         icon: '',
         keyword: '',
         description: ''
@@ -344,8 +335,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: 'Edit',
-        create: 'Create'
+        update: '更新',
+        create: '创建'
       },
       searchDivVisibilty: false,
       searchFilterDialogVisible: false,
@@ -366,9 +357,9 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+      getCategories(this.listQuery).then(response => {
+        this.list = response.items
+        this.total = response.totalCount
         this.listLoading = false
       })
     },
@@ -410,7 +401,7 @@ export default {
         name: '',
         level: 1,
         showStatus: 1,
-        sort: 0,
+        sort: 1,
         icon: '',
         keyword: '',
         description: ''
@@ -420,6 +411,7 @@ export default {
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
+      this.temp.showStatus = this.temp.showStatus === 1
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -429,7 +421,8 @@ export default {
         if (valid) {
           // this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           // this.temp.author = 'vue-element-admin'
-          this.temp.showStatus = 1
+          this.temp.showStatus = this.temp.showStatus === true ? 1 : 0
+
           createCategory(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
@@ -448,6 +441,7 @@ export default {
       this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
+      this.temp.showStatus = row.showStatus === 1
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -456,8 +450,10 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
+          console.log('tempData', tempData)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
+          tempData.showStatus = tempData.showStatus === true ? 1 : 0
+          updateCategory(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
@@ -477,15 +473,30 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
-      console.log(row)
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
+        .then(() => {
+          deleteCategory(row.id)
+            .then((response) => {
+              const index = this.list.findIndex((v) => v.id === row.id)
+              this.list.splice(index, 1)
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success',
+                duration: 2000
+              })
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     handleFetchPv(pv) {
       fetchPv(pv).then(response => {

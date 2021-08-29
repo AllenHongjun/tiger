@@ -34,7 +34,7 @@ export function updateCategory(payload) {
 
 export function deleteCategory(id) {
   return request({
-    url: `/api/identity/category/${id}`,
+    url: `/api/basic/category/${id}`,
     method: 'delete'
   })
 }
