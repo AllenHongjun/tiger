@@ -110,9 +110,21 @@ export const constantRoutes = [
       },
       {
         path: 'warehouse/list',
-        name: 'warehouse',
+        name: 'Warehouse',
         component: () => import('@/views/basic/warehouse/list'),
         meta: { title: '仓库', icon: 'eye-open' }
+      },
+      {
+        path: 'supply/list',
+        name: 'Supply',
+        component: () => import('@/views/basic/supply/list'),
+        meta: { title: '供应商', icon: 'bug' }
+      },
+      {
+        path: 'store/list',
+        name: 'Store',
+        component: () => import('@/views/basic/store/list'),
+        meta: { title: '店铺', icon: 'search' }
       }
       // {
       //   path: 'product-attribute-type/list',

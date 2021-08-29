@@ -106,28 +106,21 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="120px" align="center" label="编码">
+      <el-table-column width="120px" align="center" label="联系人">
         <template slot-scope="scope">
-          <span>{{ scope.row.code }}</span>
+          <span>{{ scope.row.attentionTo }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column width="120px" align="center" label="合并一列">
-        <template slot-scope="scope">
-          <span>{{ scope.row.title }}</span>
-          <span>{{ scope.row.author }}</span>
-          <span><img :src="scope.row.image_uri" width="100px"></span>
-        </template>
-      </el-table-column> -->
 
-      <el-table-column width="120px" align="center" label="地址">
+      <el-table-column width="320px" align="center" label="地址">
         <template slot-scope="scope">
-          <span>{{ scope.row.address }}</span>
+          <span>{{ scope.row.province }}-{{ scope.row.city }}-{{ scope.row.reginon }}-{{ scope.row.address }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="120px" align="center" label="联系人手机">
         <template slot-scope="scope">
-          <span>{{ scope.row.mobile }}</span>
+          <span>{{ scope.row.phone }}</span>
         </template>
       </el-table-column>
 
@@ -168,21 +161,25 @@
           <el-input v-model="temp.name" />
         </el-form-item>
 
-        <el-form-item label="编码" prop="code">
-          <el-input v-model="temp.code" />
+        <el-form-item label="联系人" prop="attentionTo">
+          <el-input v-model="temp.attentionTo" />
+        </el-form-item>
+
+        <el-form-item label="联系人手机" prop="phone">
+          <el-input v-model="temp.phone" />
+        </el-form-item>
+
+        <el-form-item label="邮编" prop="postCode">
+          <el-input v-model="temp.postCode" />
         </el-form-item>
 
         <el-form-item label="地址" prop="address">
           <el-input v-model="temp.address" />
         </el-form-item>
 
-        <el-form-item label="邮编" prop="posttalCode">
-          <el-input v-model="temp.posttalCode" />
-        </el-form-item>
-
-        <el-form-item label="联系人手机" prop="mobile">
-          <el-input v-model="temp.mobile" />
-        </el-form-item>
+        <!-- <el-form-item label="关联仓库" prop="mobile">
+          <el-input v-model="temp.warehouseId" />
+        </el-form-item> -->
 
         <!-- <el-form-item label="显示状态">
           <el-switch
@@ -223,7 +220,7 @@
 
 <script>
 
-import { getWarehouses, getWarehouseById, createWarehouse, updateWarehouse, deleteWarehouse } from '@/api/basic/warehouse'
+import { getSupplies, getSupplyById, createSupply, updateSupply, deleteSupply } from '@/api/basic/supply'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -233,11 +230,6 @@ const calendarTypeOptions = [
   { key: 'show', display_name: '显示' },
   { key: 'hidden', display_name: '隐藏' }
 ]
-
-// const showCategoryTypeOptions = [
-//   { key: 'show', display_name: '显示' },
-//   { key: 'hidden', display_name: '隐藏' }
-// ]
 
 // arr to obj, such as { CN : "China", US : "USA" }
 const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
@@ -277,25 +269,22 @@ export default {
       },
       temp: {
         id: undefined,
-        code: '',
         name: '',
-        status: 0,
-        type: 0,
-        lat: 0,
-        lng: 0,
-        address: '',
-        district: '',
-        city: '',
+        attentionTo: '',
+        phone: '',
+        postCode: '',
         province: '',
-        posttalCode: '',
-        mobile: '',
-        orgId: null
+        city: '',
+        reginon: '',
+        address: '',
+        status: 0,
+        warehouseId: null
 
       },
       rules: {
-        name: [{ required: true, message: '请输入仓库名称', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
         code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
-        mobile: [{
+        phone: [{
           required: true,
           pattern: /^1[3-9]\d{9}$/, // 可以写正则表达式呦呦呦
           message: '请输入中国大陆的手机号码',
@@ -333,7 +322,7 @@ export default {
 
     getList() {
       this.listLoading = true
-      getWarehouses(this.listQuery).then(response => {
+      getSupplies(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
@@ -373,19 +362,16 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        code: '',
         name: '',
-        status: 0,
-        type: 0,
-        lat: 0,
-        lng: 0,
-        address: '',
-        district: '',
-        city: '',
+        attentionTo: '',
+        phone: '',
+        postCode: '',
         province: '',
-        posttalCode: '',
-        mobile: '',
-        orgId: null
+        city: '',
+        reginon: '',
+        address: '',
+        status: 0,
+        warehouseId: null
       }
     },
     handleCreate() {
@@ -404,7 +390,7 @@ export default {
           // this.temp.author = 'vue-element-admin'
           this.temp.showStatus = this.temp.showStatus === true ? 1 : 0
 
-          createWarehouse(this.temp).then(() => {
+          createSupply(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -432,7 +418,7 @@ export default {
           const tempData = Object.assign({}, this.temp)
 
           tempData.showStatus = tempData.showStatus === true ? 1 : 0
-          updateWarehouse(tempData).then(() => {
+          updateSupply(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
@@ -458,7 +444,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          deleteWarehouse(row.id)
+          deleteSupply(row.id)
             .then((response) => {
               const index = this.list.findIndex((v) => v.id === row.id)
               this.list.splice(index, 1)
