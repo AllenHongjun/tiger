@@ -38,3 +38,11 @@ export function deleteCategory(id) {
     method: 'delete'
   })
 }
+
+export function getCategoryTree(payload) {
+  return request({
+    url: `/api/basic/category/all`,
+    method: 'get',
+    data: payload
+  })
+}

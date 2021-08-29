@@ -2,9 +2,12 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="listQuery.Filter" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
+
+      <category-cascader />
+
+      <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select> -->
+      </el-select>
       <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
@@ -173,7 +176,7 @@
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
 
         <el-form-item label="父级分类" prop="">
-          <el-cascader :props="temp.parentId" />
+          <category-cascader ref="CategoryCascader" :parent-id="temp.parentId" @handleCheckChange="handleCheckChange" />
         </el-form-item>
 
         <el-form-item label="名称" prop="name">
@@ -242,11 +245,13 @@
 </template>
 
 <script>
-import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory } from '@/api/basic/category'
+import { getCategories, getCategoryById, createCategory, updateCategory, deleteCategory, getCategoryTree } from '@/api/basic/category'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import CategoryTree from '../components/category-tree'
+import CategoryCascader from '../components/category-cascader'
 
 const calendarTypeOptions = [
   { key: 'show', display_name: '显示' },
@@ -268,7 +273,7 @@ let id = 0
 
 export default {
   name: 'CategoryList',
-  components: { Pagination, UploadExcelComponent },
+  components: { Pagination, UploadExcelComponent, CategoryTree, CategoryCascader },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -407,6 +412,13 @@ export default {
         description: ''
       }
     },
+    handleCheckChange(categoryId) {
+      // singleChecked
+      console.log('handleCheckChange', categoryId)
+      if (categoryId) {
+        this.temp.parentId = categoryId
+      }
+    },
     handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'
@@ -438,7 +450,14 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
+      // this.temp.timestamp = new Date(this.temp.timestamp)
+      console.log('updataData', this.temp.parentId)
+
+      console.log('this.$refs.CategoryCascader', this.$refs)
+      if (this.$refs.CategoryCascader) {
+        this.$refs.CategoryCascader.value = this.temp.parentId
+      }
+      //
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.temp.showStatus = row.showStatus === 1
@@ -451,7 +470,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           console.log('tempData', tempData)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           tempData.showStatus = tempData.showStatus === true ? 1 : 0
           updateCategory(tempData).then(() => {
             for (const v of this.list) {

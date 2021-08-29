@@ -1,15 +1,15 @@
 <template>
   <div class="app-container" style="padding:0 20px;">
-    <div class="filter-container">
+    <!-- <div class="filter-container">
       <el-input
         v-model="filterText"
         placeholder="查询组织"
       />
-    </div>
+    </div> -->
     <el-tree
-      ref="orgTree"
-      :data="orgTreeData"
-      :props="orgTreeProps"
+      ref="categoryTree"
+      :data="categoryTreeData"
+      :props="categoryTreeProps"
       :filter-node-method="filterOrg"
       :expand-on-click-node="false"
       :show-checkbox="showCheckbox"
@@ -25,27 +25,27 @@
 
 <script>
 import {
-  getOrganizationsAllWithDetails
-} from '@/api/identity/organization'
+  getCategoryTree
+} from '@/api/basic/category'
 import { Tree } from 'element-ui'
 export default {
-  name: 'OrgTree',
+  name: 'CategoryTree',
   mixins: [Tree],
   props: {
     supportSingleChecked: {
       type: Boolean,
       default: false
     },
-    orgTreeNodeClick: {
+    categoryTreeNodeClick: {
       type: Function,
       default: () => {}
     }
   },
   data() {
     return {
-      orgTreeData: null,
-      orgTreeProps: {
-        label: 'displayName',
+      categoryTreeData: null,
+      categoryTreeProps: {
+        label: 'name',
         children: 'children',
         disabled: '',
         isLeaf: 'isLeaf'
@@ -60,21 +60,21 @@ export default {
   watch: {
     filterText(val) {
       this.treeQuery.filter = val
-      this.$refs.orgTree.filter(val)
+      this.$refs.categoryTree.filter(val)
     }
   },
   created() {
-    this.getOrgs()
+    this.getCategories()
   },
   methods: {
-    getOrgs() {
-      getOrganizationsAllWithDetails(this.treeQuery).then(response => {
-        console.log('orgTreeData', response.items)
-        this.orgTreeData = response.items
+    getCategories() {
+      getCategoryTree(this.treeQuery).then(response => {
+        this.categoryTreeData = response
+        console.log('categoryTreeData', this.categoryTreeData)
       })
     },
     handleOrgClick(data) {
-      this.orgTreeNodeClick(data)
+      this.categoryTreeNodeClick(data)
     },
     filterOrg(value, data) {
       if (!value) return true
@@ -86,17 +86,17 @@ export default {
       if (this.supportSingleChecked) {
         if (checked) {
           console.log(data, checked, indeterminate)
-          keys = this.$refs.orgTree.getCheckedKeys()
+          keys = this.$refs.categoryTree.getCheckedKeys()
           if (keys.length > 1) {
-            this.$refs.orgTree.setCheckedKeys([])
-            this.$refs.orgTree.setChecked(data, true)
-            keys = this.$refs.orgTree.getCheckedKeys()
+            this.$refs.categoryTree.setCheckedKeys([])
+            this.$refs.categoryTree.setChecked(data, true)
+            keys = this.$refs.categoryTree.getCheckedKeys()
           }
           console.log('单个-keys:', keys)
           this.$emit('handleCheckChange', data, keys)
         }
       } else {
-        keys = this.$refs.orgTree.getCheckedKeys()
+        keys = this.$refs.categoryTree.getCheckedKeys()
         console.log('多个-keys:', keys)
         this.$emit('handleCheckChange', data, keys)
       }
