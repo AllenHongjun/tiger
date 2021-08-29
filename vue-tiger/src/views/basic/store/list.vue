@@ -127,7 +127,7 @@
 
       <el-table-column width="120px" align="center" label="联系人手机">
         <template slot-scope="scope">
-          <span>{{ scope.row.mobile }}</span>
+          <span>{{ scope.row.phone }}</span>
         </template>
       </el-table-column>
 
@@ -176,12 +176,8 @@
           <el-input v-model="temp.address" />
         </el-form-item>
 
-        <el-form-item label="邮编" prop="posttalCode">
-          <el-input v-model="temp.posttalCode" />
-        </el-form-item>
-
-        <el-form-item label="联系人手机" prop="mobile">
-          <el-input v-model="temp.mobile" />
+        <el-form-item label="联系人手机" prop="phone">
+          <el-input v-model="temp.phone" />
         </el-form-item>
 
         <!-- <el-form-item label="显示状态">
@@ -223,7 +219,7 @@
 
 <script>
 
-import { getWarehouses, getWarehouseById, createWarehouse, updateWarehouse, deleteWarehouse } from '@/api/basic/warehouse'
+import { getStores, getStoreById, createStore, updateStore, deleteStore } from '@/api/basic/store'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -248,7 +244,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 // const id = 0
 
 export default {
-  name: 'WarehouseList',
+  name: 'StoreList',
   components: { Pagination, UploadExcelComponent },
   directives: { waves },
   filters: {
@@ -279,26 +275,21 @@ export default {
         id: undefined,
         code: '',
         name: '',
-        status: 0,
-        type: 0,
-        lat: 0,
-        lng: 0,
         address: '',
-        district: '',
-        city: '',
-        province: '',
-        posttalCode: '',
-        mobile: '',
-        orgId: null
-
+        phone: '',
+        status: 0,
+        apolygons: '',
+        lat: '',
+        lng: '',
+        warehouseId: null
       },
       rules: {
         name: [{ required: true, message: '请输入仓库名称', trigger: 'blur' }],
         code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
-        mobile: [{
+        phone: [{
           required: true,
           pattern: /^1[3-9]\d{9}$/, // 可以写正则表达式呦呦呦
-          message: '请输入中国大陆的手机号码',
+          message: '请输入正确的手机号码',
           trigger: 'blur'
         }]
       },
@@ -333,7 +324,7 @@ export default {
 
     getList() {
       this.listLoading = true
-      getWarehouses(this.listQuery).then(response => {
+      getStores(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
@@ -375,17 +366,13 @@ export default {
         id: undefined,
         code: '',
         name: '',
-        status: 0,
-        type: 0,
-        lat: 0,
-        lng: 0,
         address: '',
-        district: '',
-        city: '',
-        province: '',
-        posttalCode: '',
-        mobile: '',
-        orgId: null
+        phone: '',
+        status: 0,
+        apolygons: '',
+        lat: '',
+        lng: '',
+        warehouseId: null
       }
     },
     handleCreate() {
@@ -404,7 +391,7 @@ export default {
           // this.temp.author = 'vue-element-admin'
           this.temp.showStatus = this.temp.showStatus === true ? 1 : 0
 
-          createWarehouse(this.temp).then(() => {
+          createStore(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -430,9 +417,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-
-          tempData.showStatus = tempData.showStatus === true ? 1 : 0
-          updateWarehouse(tempData).then(() => {
+          updateStore(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
@@ -458,7 +443,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          deleteWarehouse(row.id)
+          deleteStore(row.id)
             .then((response) => {
               const index = this.list.findIndex((v) => v.id === row.id)
               this.list.splice(index, 1)

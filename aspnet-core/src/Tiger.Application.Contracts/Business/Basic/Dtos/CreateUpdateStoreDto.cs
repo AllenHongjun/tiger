@@ -21,7 +21,7 @@ namespace Tiger.Basic.Dtos
 
         public string Lng { get; set; }
 
-        public Guid WarehouseId { get; set; }
+        public Guid? WarehouseId { get; set; }
 
         //public Warehouse Warehouse { get; set; }
 

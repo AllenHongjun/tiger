@@ -240,7 +240,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 // const id = 0
 
 export default {
-  name: 'WarehouseList',
+  name: 'SupplyList',
   components: { Pagination, UploadExcelComponent },
   directives: { waves },
   filters: {
@@ -287,7 +287,7 @@ export default {
         phone: [{
           required: true,
           pattern: /^1[3-9]\d{9}$/, // 可以写正则表达式呦呦呦
-          message: '请输入中国大陆的手机号码',
+          message: '请输入正确的手机号码',
           trigger: 'blur'
         }]
       },

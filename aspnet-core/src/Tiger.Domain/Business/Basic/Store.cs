@@ -50,7 +50,7 @@ namespace Tiger.Basic
         /// </summary>
         public string Lng { get; set; }
 
-        public Guid WarehouseId { get; set; }
+        public Guid? WarehouseId { get; set; }
 
         public virtual Warehouse Warehouse { get; set; }
 

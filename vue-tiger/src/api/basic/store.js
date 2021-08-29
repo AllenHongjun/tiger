@@ -1,40 +1,40 @@
 import request from '@/utils/request'
 import { transformAbpListQuery } from '@/utils/abp'
 
-export function getWarehouses(query) {
+export function getStores(query) {
   return request({
-    url: '/api/basic/warehouse',
+    url: '/api/basic/store',
     method: 'get',
     params: transformAbpListQuery(query)
   })
 }
 
-export function getWarehouseById(id) {
+export function getStoreById(id) {
   return request({
-    url: `/api/basic/warehouse/${id}`,
+    url: `/api/basic/store/${id}`,
     method: 'get'
   })
 }
 
-export function createWarehouse(payload) {
+export function createStore(payload) {
   return request({
-    url: '/api/basic/warehouse',
+    url: '/api/basic/store',
     method: 'post',
     data: payload
   })
 }
 
-export function updateWarehouse(payload) {
+export function updateStore(payload) {
   return request({
-    url: `/api/basic/warehouse/${payload.id}`,
+    url: `/api/basic/store/${payload.id}`,
     method: 'put',
     data: payload
   })
 }
 
-export function deleteWarehouse(id) {
+export function deleteStore(id) {
   return request({
-    url: `/api/basic/warehouse/${id}`,
+    url: `/api/basic/store/${id}`,
     method: 'delete'
   })
 }
