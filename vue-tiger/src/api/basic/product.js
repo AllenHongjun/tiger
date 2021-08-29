@@ -1,40 +1,40 @@
 import request from '@/utils/request'
 import { transformAbpListQuery } from '@/utils/abp'
 
-export function getRoles(query) {
+export function getProducts(query) {
   return request({
-    url: '/api/identity/roles',
+    url: '/api/basic/product',
     method: 'get',
     params: transformAbpListQuery(query)
   })
 }
 
-export function getRoleById(id) {
+export function getProductById(id) {
   return request({
-    url: `/api/identity/roles/${id}`,
+    url: `/api/basic/product/${id}`,
     method: 'get'
   })
 }
 
-export function createRole(payload) {
+export function createProduct(payload) {
   return request({
-    url: '/api/identity/roles',
+    url: '/api/basic/product',
     method: 'post',
     data: payload
   })
 }
 
-export function updateRole(payload) {
+export function updateProduct(payload) {
   return request({
-    url: `/api/identity/roles/${payload.id}`,
+    url: `/api/basic/product/${payload.id}`,
     method: 'put',
     data: payload
   })
 }
 
-export function deleteRole(id) {
+export function deleteProduct(id) {
   return request({
-    url: `/api/identity/roles/${id}`,
+    url: `/api/basic/product/${id}`,
     method: 'delete'
   })
 }

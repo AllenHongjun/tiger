@@ -27,55 +27,74 @@
     </div>
 
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
-      <el-table-column align="center" label="商品ID" width="80">
+      <!-- <el-table-column align="center" label="商品ID" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
+        </template>
+      </el-table-column> -->
+
+      <el-table-column min-width="220px" label="商品名称">
+        <template slot-scope="{row}">
+          <router-link :to="'/example/edit/'+row.id" class="link-type">
+            <span>{{ row.name }}</span>
+          </router-link>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="80px" label="商品货号">
+        <template slot-scope="{row}">
+          <span>{{ row.productSn }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="120px" align="center" label="图片">
         <template slot-scope="scope">
-          <span><img :src="scope.row.image_uri" width="40px"></span>
+          <span><img :src="scope.row.picture" width="40px"></span>
         </template>
       </el-table-column>
 
-      <el-table-column min-width="300px" label="商品名称">
+      <el-table-column min-width="80px" label="商品原价">
         <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.title }}</span>
-          </router-link>
+          <span>{{ row.oriPrice }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column min-width="100px" label="商品售价">
+      <el-table-column min-width="80px" label="商品售价">
         <template slot-scope="{row}">
-          <span>{{ row.forecast }}</span>
+          <span>{{ row.price }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="80px" label="商品采购价">
+        <template slot-scope="{row}">
+          <span>{{ row.purchasePrice }}</span>
         </template>
       </el-table-column>
 
       <el-table-column min-width="100px" label="销量">
         <template slot-scope="{row}">
-          <span>{{ row.pageviews }}</span>
+          <span>{{ row.sale }}</span>
         </template>
       </el-table-column>
 
       <el-table-column min-width="100px" label="库存">
         <template slot-scope="{row}">
-          <span>{{ row.pageviews }}</span>
+          <span>{{ row.stock }}</span>
         </template>
       </el-table-column>
 
       <el-table-column min-width="100px" label="排序">
         <template slot-scope="{row}">
-          <span>{{ row.pageviews }}</span>
+          <span>{{ row.sort }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="180px" align="center" label="时间">
         <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ scope.row.creationTime | formatDate }}</span>
         </template>
       </el-table-column>
+      <!--
 
       <el-table-column width="100px" label="重要性">
         <template slot-scope="scope">
@@ -89,18 +108,18 @@
             {{ row.status }}
           </el-tag>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column align="center" label="操作" width="280">
         <template slot-scope="scope">
 
-          <el-button type="primary" size="small" plain icon="el-icon-edit">
-            <router-link :to="'/basic/product/edit/'+scope.row.id">
+          <router-link :to="'/basic/product/edit/'+scope.row.id" style="margin-right:15px;">
+            <el-button type="primary" size="small" icon="el-icon-edit">
               编辑
-            </router-link>
-          </el-button>
+            </el-button>
+          </router-link>
 
-          <el-button type="primary" size="small" plain icon="el-icon-edit">
+          <el-button type="primary" size="small" icon="el-icon-edit" @click="handleDelete(scope.row)">
             删除
           </el-button>
 
@@ -113,7 +132,7 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { getProducts, deleteProduct } from '@/api/basic/product'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -132,7 +151,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ArticleList',
+  name: 'ProductList',
   components: { Pagination },
   directives: { waves },
   filters: {
@@ -197,9 +216,9 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+      getProducts(this.listQuery).then(response => {
+        this.list = response.items
+        this.total = response.totalCount
         this.listLoading = false
       })
     },
@@ -299,14 +318,30 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
-        type: 'success',
-        duration: 2000
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
+        .then(() => {
+          deleteProduct(row.id)
+            .then((response) => {
+              const index = this.list.findIndex((v) => v.id === row.id)
+              this.list.splice(index, 1)
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success',
+                duration: 2000
+              })
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     handleFetchPv(pv) {
       fetchPv(pv).then(response => {

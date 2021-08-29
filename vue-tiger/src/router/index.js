@@ -96,7 +96,7 @@ export const constantRoutes = [
         hidden: true
       },
       {
-        path: 'product/edit/:id(\\d+)',
+        path: 'product/edit/:id',
         component: () => import('@/views/basic/product/edit'),
         name: 'EditProduct',
         meta: { title: '编辑产品', noCache: true, activeMenu: '/example/list' },

@@ -9,22 +9,27 @@
             <el-tab-pane label="商品信息" name="1">
 
               <el-form-item label="商品标题:" label-width="120px">
-                <el-input class="form-input" placeholder="请输入商品标题" />
+                <el-input v-model="postForm.name" class="form-input" placeholder="请输入商品标题" />
               </el-form-item>
+
+              <el-form-item label="商品货号:" label-width="120px">
+                <el-input v-model="postForm.productSn" class="form-input" placeholder="请输入商品货号" />
+              </el-form-item>
+
               <el-form-item label="单位:" label-width="120px">
-                <el-input class="form-input" placeholder="请输入订单" />
+                <el-input v-model="postForm.unit" class="form-input" placeholder="请输入订单" />
               </el-form-item>
 
               <el-form-item label="商品简介:" style="margin-bottom: 40px;" label-width="120px">
-                <el-input v-model="postForm.content_short" :rows="3" type="textarea" class="form-input" placeholder="请输入商品简介" />
-                <!-- <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span> -->
+                <el-input v-model="postForm.detailTitle" :rows="3" type="textarea" class="form-input" placeholder="请输入商品简介" />
+
               </el-form-item>
 
-              <el-form-item label="商品封面图:" label-width="120px" prop="image_uri" style="margin-bottom: 30px;">
-                <Upload v-model="postForm.image_uri" />
+              <el-form-item label="商品封面图:" label-width="120px" prop="picture" style="margin-bottom: 30px;">
+                <Upload v-model="postForm.picture" />
               </el-form-item>
 
-              <el-form-item label="用户标签:" label-width="120px">
+              <!-- <el-form-item label="用户标签:" label-width="120px">
                 <el-select v-model="userTagValue" placeholder="请选择">
                   <el-option
                     v-for="item in userTagOptions"
@@ -33,7 +38,7 @@
                     :value="item.value"
                   />
                 </el-select>
-              </el-form-item>
+              </el-form-item> -->
 
               <el-form-item label="" label-width="120px">
                 <el-button type="primary" @click="nextStep">
@@ -44,13 +49,9 @@
             </el-tab-pane>
 
             <el-tab-pane label="商品详情" name="2">
-              <el-form-item label="商品明细" label-width="120px" prop="content" style="margin-bottom: 30px;">
-                <Tinymce ref="editor" v-model="postForm.content" :height="400" />
+              <el-form-item label="商品明细" label-width="120px" prop="detailDesc" style="margin-bottom: 30px;">
+                <Tinymce ref="editor" v-model="postForm.detailDesc" :height="400" />
               </el-form-item>
-
-              <!-- <el-form-item label="虚拟销量" label-width="120px" prop="image_uri" style="margin-bottom: 30px;">
-                <Upload v-model="postForm.image_uri" />
-              </el-form-item> -->
 
               <el-form-item label="" label-width="120px">
                 <el-button type="primary" @click="preStep">
@@ -64,24 +65,24 @@
 
             <el-tab-pane label="其他设置" name="3">
               <el-row>
-                <el-col :span="8">
+                <!-- <el-col :span="8">
                   <el-form-item label="虚拟销量" label-width="120px" class="postInfo-container-item">
                     <el-input />
                   </el-form-item>
-                </el-col>
+                </el-col> -->
                 <el-col :span="8">
                   <el-form-item label="额外赠送积分" label-width="120px" class="postInfo-container-item">
-                    <el-input />
+                    <el-input v-model="postForm.giftIntegration" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="排序" label-width="120px" class="postInfo-container-item">
-                    <el-input />
+                    <el-input v-model="postForm.sort" />
                   </el-form-item>
                 </el-col>
               </el-row>
 
-              <el-row>
+              <!-- <el-row>
                 <el-col :span="8">
                   <el-form-item label="商品状态" label-width="120px" class="postInfo-container-item">
                     <el-radio v-model="postForm.productStatus" label="1">上架</el-radio>
@@ -100,9 +101,9 @@
                     <el-radio v-model="postForm.promotion" label="2">关闭</el-radio>
                   </el-form-item>
                 </el-col>
-              </el-row>
+              </el-row> -->
 
-              <el-row>
+              <!-- <el-row>
                 <el-col :span="8">
                   <el-form-item label="精品推荐" label-width="120px" class="postInfo-container-item">
                     <el-radio v-model="postForm.recommend" label="1">上架</el-radio>
@@ -116,17 +117,17 @@
                   </el-form-item>
                 </el-col>
 
-              </el-row>
+              </el-row> -->
 
-              <el-form-item label="商品口令:" label-width="120px">
+              <!-- <el-form-item label="商品口令:" label-width="120px">
                 <el-input class="form-input" placeholder="请输入订单" />
-              </el-form-item>
+              </el-form-item> -->
 
               <el-form-item label="" label-width="120px">
                 <el-button type="primary" @click="preStep">
                   上一步
                 </el-button>
-                <el-button type="primary">
+                <el-button type="primary" @click="submitForm">
                   保存
                 </el-button>
               </el-form-item>
@@ -149,6 +150,7 @@ import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
 import Warning from './Warning'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
+import { getProductById, createProduct, updateProduct } from '@/api/basic/product'
 
 const defaultForm = {
   status: 'draft',
@@ -166,7 +168,42 @@ const defaultForm = {
   selling: '1',
   promotion: '1',
   recommend: '1',
-  new: '1'
+  new: '1',
+
+  productCategoryId: '621bd6d7-2998-0cc0-7972-39fea13173cd',
+  productAttributeTypeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+  name: '',
+  productSn: '',
+  publishStatus: 0,
+  newStatus: 0,
+  recommandStatus: 0,
+  verifyStatus: 0,
+  sort: 0,
+  sale: 0,
+  note: '',
+  picture: '',
+  albumPics: '',
+  detailTitle: '',
+  subTitle: '',
+  unit: '',
+  keywords: '',
+  detailDesc: '',
+  price: 0,
+  oriPrice: 0,
+  purchasePrice: 0,
+  promotionPrice: 0,
+  giftGrowth: 0,
+  giftIntegration: 0,
+  stock: 0,
+  lowStock: 0,
+  weight: 0,
+  previewStatus: 0,
+  promotionType: 0,
+  promotionStartTime: '2021-08-29T03:52:34.314Z',
+  promotionEndTime: '2021-08-29T03:52:34.314Z',
+  promotionPerLimit: 0,
+  categoryName: 'string',
+  id: undefined
 
 }
 
@@ -272,18 +309,20 @@ export default {
   },
   methods: {
     fetchData(id) {
-      fetchArticle(id).then(response => {
-        this.postForm = response.data
+      getProductById(id).then(response => {
+        this.postForm = response
+
+        console.log('this.postForm', this.postForm)
 
         // just for test
-        this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.content_short += `   Article Id:${this.postForm.id}`
+        // this.postForm.title += `   Article Id:${this.postForm.id}`
+        // this.postForm.content_short += `   Article Id:${this.postForm.id}`
 
         // set tagsview title
-        this.setTagsViewTitle()
+        // this.setTagsViewTitle()
 
         // set page title
-        this.setPageTitle()
+        // this.setPageTitle()
       }).catch(err => {
         console.log(err)
       })
@@ -316,12 +355,40 @@ export default {
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$notify({
-            title: '成功',
-            message: '发布文章成功',
-            type: 'success',
-            duration: 2000
-          })
+
+          if (this.isEdit) {
+            const tempData = Object.assign({}, this.temp)
+            console.log('this.postForm', this.postForm)
+
+            updateProduct(this.postForm).then((res) => {
+              console.log('edit-product-res', res)
+              // for (const v of this.list) {
+              //   if (v.id === this.temp.id) {
+              //     const index = this.list.indexOf(v)
+              //     this.list.splice(index, 1, this.temp)
+              //     break
+              //   }
+              // }
+              this.$notify({
+                title: '成功',
+                message: '修改成功',
+                type: 'success',
+                duration: 2000
+              })
+            })
+          } else {
+            createProduct(this.postForm).then(() => {
+            // this.list.unshift(this.postForm)
+            // this.dialogFormVisible = false
+              this.$notify({
+                title: '成功',
+                message: '发布文章成功',
+                type: 'success',
+                duration: 2000
+              })
+            })
+          }
+
           this.postForm.status = 'published'
           this.loading = false
         } else {
