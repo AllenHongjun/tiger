@@ -3,11 +3,11 @@
     <div class="filter-container">
       <el-input v-model="listQuery.Filter" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
 
-      <category-cascader />
+      <!-- <category-cascader /> -->
 
-      <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
+      <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
+      </el-select> -->
       <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
@@ -23,7 +23,7 @@
         <el-button v-waves class="filter-item" size="mini" type="primary" icon="el-icon-search" @click="handleFilter">
           搜索
         </el-button>
-        <el-button size="mini" type="primary" icon="el-icon-arrow-down" @click="handleSearch" />
+        <!-- <el-button size="mini" type="primary" icon="el-icon-arrow-down" @click="handleSearch" /> -->
       </el-button-group>
 
       <el-button class="filter-item" size="mini" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
@@ -49,6 +49,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+
       <div v-show="searchDivVisibilty" class="search-container">
         <el-form ref="searchForm" :model="listQuery" label-width="80px">
           <el-row>
@@ -95,9 +96,10 @@
           </el-form-item>
         </el-form>
       </div>
+
     </div>
 
-    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+    <el-table v-loading="listLoading" row-key="id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
       <el-table-column align="center" type="selection" width="55" />
       <!-- <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
         <template slot-scope="scope">
@@ -107,9 +109,7 @@
 
       <el-table-column min-width="300px" label="名称">
         <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.name }}</span>
-          </router-link>
+          <span>{{ row.name }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column width="120px" align="center" label="合并一列">
@@ -121,7 +121,6 @@
       </el-table-column> -->
       <el-table-column width="120px" align="center" label="图标">
         <template slot-scope="scope">
-          <!-- <span>{{ scope.row.image_uri }}</span> -->
           <span><img :src="scope.row.icon" width="100px"></span>
         </template>
       </el-table-column>
@@ -134,14 +133,14 @@
 
       <el-table-column class-name="status-col" label="状态" width="110">
         <template slot-scope="{row}">
-          <!-- <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
-          </el-tag> -->
-          <el-switch
+          <el-tag :type="row.showStatus | statusFilter">
+            {{ row.showStatus == 1 ? "显示" : "隐藏" }}
+          </el-tag>
+          <!-- <el-switch
             v-model="row.showStatus"
             active-color="#13ce66"
             inactive-color="#ff4949"
-          />
+          /> -->
         </template>
       </el-table-column>
 
@@ -162,7 +161,7 @@
           <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
             编辑
           </el-button>
-          <el-button type="danger" size="mini" icon="el-icon-edit" @click="handleDelete(scope.row)">
+          <el-button type="danger" size="mini" icon="el-icon-delete" @click="handleDelete(scope.row)">
             删除
           </el-button>
         </template>
@@ -170,7 +169,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+    <!-- <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" /> -->
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
@@ -263,12 +262,6 @@ const showCategoryTypeOptions = [
   { key: 'hidden', display_name: '隐藏' }
 ]
 
-// arr to obj, such as { CN : "China", US : "USA" }
-const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-  acc[cur.key] = cur.display_name
-  return acc
-}, {})
-
 let id = 0
 
 export default {
@@ -278,24 +271,22 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
+        1: 'success',
+        0: 'info',
         deleted: 'danger'
       }
       return statusMap[status]
-    },
-    typeFilter(type) {
-      return calendarTypeKeyValue[type]
     }
+
   },
   data() {
     return {
-      list: null,
+      list: [],
       total: 0,
       listLoading: true,
       listQuery: {
         page: 1,
-        limit: 15,
+        limit: 1000,
         // SkipCount: 0,
         Filter: '',
         // Sorting: 'name desc',
@@ -362,9 +353,9 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      getCategories(this.listQuery).then(response => {
-        this.list = response.items
-        this.total = response.totalCount
+      getCategoryTree(this.listQuery).then(response => {
+        this.list = response
+        // this.total = response.totalCount
         this.listLoading = false
       })
     },
@@ -415,15 +406,16 @@ export default {
     handleCheckChange(categoryId) {
       // singleChecked
       console.log('handleCheckChange', categoryId)
-      if (categoryId) {
-        this.temp.parentId = categoryId
-      }
+      this.temp.parentId = categoryId
     },
     handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.temp.showStatus = this.temp.showStatus === 1
+      if (this.$refs.CategoryCascader) {
+        this.$refs.CategoryCascader.value = this.temp.parentId
+      }
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -436,7 +428,7 @@ export default {
           this.temp.showStatus = this.temp.showStatus === true ? 1 : 0
 
           createCategory(this.temp).then(() => {
-            this.list.unshift(this.temp)
+            // this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -444,6 +436,8 @@ export default {
               type: 'success',
               duration: 2000
             })
+
+            this.handleFilter()
           })
         }
       })
@@ -457,7 +451,7 @@ export default {
       if (this.$refs.CategoryCascader) {
         this.$refs.CategoryCascader.value = this.temp.parentId
       }
-      //
+
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.temp.showStatus = row.showStatus === 1
@@ -473,13 +467,13 @@ export default {
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           tempData.showStatus = tempData.showStatus === true ? 1 : 0
           updateCategory(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
+            // for (const v of this.list) {
+            //   if (v.id === this.temp.id) {
+            //     const index = this.list.indexOf(v)
+            //     this.list.splice(index, 1, this.temp)
+            //     break
+            //   }
+            // }
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -487,6 +481,8 @@ export default {
               type: 'success',
               duration: 2000
             })
+
+            this.handleFilter()
           })
         }
       })
@@ -517,12 +513,12 @@ export default {
           console.log(err)
         })
     },
-    handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
-    },
+    // handleFetchPv(pv) {
+    //   fetchPv(pv).then(response => {
+    //     this.pvData = response.data.pvData
+    //     this.dialogPvVisible = true
+    //   })
+    // },
     handleSearch() {
       this.searchDivVisibilty = !this.searchDivVisibilty
       console.log('handleSearch', this.searchDivVisibilty)

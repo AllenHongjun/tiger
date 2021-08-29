@@ -4,6 +4,7 @@
     <el-cascader
       ref="categoryCascader"
       v-model="value"
+      clearable
       :options="categoryTreeData"
       :props="categoryTreeProps"
       @change="checkChange"
@@ -49,12 +50,7 @@ export default {
 
     }
   },
-  watch: {
-    filterText(val) {
-      this.treeQuery.filter = val
-      this.$refs.categoryTree.filter(val)
-    }
-  },
+
   created() {
     this.getCategories()
     console.log('parentId', this.parentId)
@@ -77,9 +73,13 @@ export default {
     },
     checkChange() {
       // console.log('this.parentId', this.props.parentId)
-      console.log('parentId', this.parentId)
-      var value = this.$refs.categoryCascader.getCheckedNodes()[0].value
-      this.$emit('handleCheckChange', value)
+
+      var parentId = null
+      if (this.$refs.categoryCascader.getCheckedNodes()[0]) {
+        parentId = this.$refs.categoryCascader.getCheckedNodes()[0].value
+      }
+      console.log('parentId', parentId)
+      this.$emit('handleCheckChange', parentId)
     }
 
   }
