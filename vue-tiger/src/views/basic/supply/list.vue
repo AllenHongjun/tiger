@@ -98,6 +98,12 @@
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
       <el-table-column align="center" type="selection" width="55" />
 
+      <!-- <el-table-column v-show="false" width="120px" align="center" label="Id">
+        <template slot-scope="scope">
+          <span>{{ scope.row.id }}</span>
+        </template>
+      </el-table-column> -->
+
       <el-table-column min-width="300px" label="名称">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
@@ -177,9 +183,17 @@
           <el-input v-model="temp.address" />
         </el-form-item>
 
-        <!-- <el-form-item label="关联仓库" prop="mobile">
-          <el-input v-model="temp.warehouseId" />
-        </el-form-item> -->
+        <el-form-item label="关联仓库" prop="mobile">
+          <!-- <el-input v-model="temp.warehouseId" /> -->
+          <el-select v-model="temp.warehouseId" filterable placeholder="请选择">
+            <el-option
+              v-for="item in wareHouseOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
 
         <!-- <el-form-item label="显示状态">
           <el-switch
@@ -220,7 +234,8 @@
 
 <script>
 
-import { getSupplies, getSupplyById, createSupply, updateSupply, deleteSupply } from '@/api/basic/supply'
+import { getSupplies, createSupply, updateSupply, deleteSupply } from '@/api/basic/supply'
+import { getWarehouses } from '@/api/basic/warehouse'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -298,6 +313,7 @@ export default {
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       show: true,
+      wareHouseOptions: [],
 
       searchDivVisible: false,
       dialogFormVisible: false,
@@ -317,6 +333,7 @@ export default {
   },
   created() {
     this.getList()
+    this.getWarehouseList()
   },
   methods: {
 
@@ -326,6 +343,25 @@ export default {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
+      })
+    },
+    getWarehouseList() {
+      var query = {
+        page: 1,
+        limit: 100
+      }
+      getWarehouses(query).then((response) => {
+        var obj = response.items
+        console.log('obj', obj)
+        var tempArr = []
+        if (obj.length > 0) {
+          var arr = Object.keys(obj).forEach(function(key) {
+            // console.log('key', key, 'obj', obj)
+            tempArr.push({ value: obj[key].id, label: obj[key].name })
+          })
+        }
+
+        this.wareHouseOptions = tempArr
       })
     },
     handleFilter() {
@@ -376,6 +412,7 @@ export default {
     },
     handleCreate() {
       this.resetTemp()
+
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.temp.showStatus = this.temp.showStatus === 1
@@ -390,7 +427,9 @@ export default {
           // this.temp.author = 'vue-element-admin'
           this.temp.showStatus = this.temp.showStatus === true ? 1 : 0
 
-          createSupply(this.temp).then(() => {
+          createSupply(this.temp).then((res) => {
+            console.log('res', res)
+            this.temp.id = res.id
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -405,7 +444,6 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -416,8 +454,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-
-          tempData.showStatus = tempData.showStatus === true ? 1 : 0
+          // console.log('tempData', tempData)
           updateSupply(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
