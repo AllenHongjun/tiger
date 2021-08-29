@@ -29,6 +29,6 @@ namespace Tiger.Basic.Dtos
 
         public string Mobile { get; set; }
 
-        public Guid OrgId { get; set; }
+        public Guid? OrgId { get; set; }
     }
 }

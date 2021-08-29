@@ -107,6 +107,12 @@ export const constantRoutes = [
         name: '分类',
         component: () => import('@/views/basic/category/list'),
         meta: { title: '分类', icon: 'form' }
+      },
+      {
+        path: 'warehouse/list',
+        name: 'warehouse',
+        component: () => import('@/views/basic/warehouse/list'),
+        meta: { title: '仓库', icon: 'eye-open' }
       }
       // {
       //   path: 'product-attribute-type/list',

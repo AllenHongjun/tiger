@@ -78,7 +78,7 @@ namespace Tiger.Basic
         /// <summary>
         /// 组织id
         /// </summary>
-        public Guid OrgId { get; set; }
+        public Guid? OrgId { get; set; }
 
 
 
