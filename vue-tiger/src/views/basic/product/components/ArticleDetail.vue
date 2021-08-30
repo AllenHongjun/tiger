@@ -376,10 +376,10 @@ export default {
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
-
+          // process.env.VUE_IMG_URL
+          console.log('this.postForm', this.postForm)
           if (this.isEdit) {
             const tempData = Object.assign({}, this.temp)
-            console.log('this.postForm', this.postForm)
 
             updateProduct(this.postForm).then((res) => {
               console.log('edit-product-res', res)

@@ -35,7 +35,7 @@
 
       <el-table-column width="120px" align="center" label="图片">
         <template slot-scope="scope">
-          <span><img :src="scope.row.picture" width="40px"></span>
+          <span><img :src="Url.photoPrefix + scope.row.picture" width="40px"></span>
         </template>
       </el-table-column>
 
@@ -135,6 +135,7 @@
 import { getProducts, deleteProduct } from '@/api/basic/product'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
+import { Url } from '@/utils/abp'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 const calendarTypeOptions = [
@@ -180,6 +181,7 @@ export default {
         type: undefined,
         sort: '+id'
       },
+      Url,
       importanceOptions: [1, 2, 3],
       calendarTypeOptions,
       sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }],

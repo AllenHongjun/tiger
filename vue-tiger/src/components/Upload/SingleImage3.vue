@@ -35,6 +35,7 @@
 
 <script>
 import { getToken } from '@/api/qiniu'
+import { Url } from '@/utils/abp'
 
 export default {
   name: 'SingleImageUpload3',
@@ -47,12 +48,13 @@ export default {
   data() {
     return {
       tempUrl: '',
-      dataObj: { token: '', key: '' }
+      dataObj: { token: '', key: '' },
+      Url
     }
   },
   computed: {
     imageUrl() {
-      return this.value
+      return this.Url.photoPrefix + this.value
     }
   },
   methods: {
@@ -63,8 +65,10 @@ export default {
       this.$emit('input', val)
     },
     handleImageSuccess(file) {
-      console.log(file)
-      this.emitInput('https://blogimg.hongjy.cn/' + file.blobName)
+      console.log(process.env.NODE_ENV)
+      console.log(process.env)
+      console.log(process.env.VUE_APP_BASE_IMG_URL + file.blobName)
+      this.emitInput(file.blobName)
     },
     beforeUpload() {
       const _self = this

@@ -8,6 +8,19 @@ const baseListQuery = {
   filter: undefined
 }
 
+var photoPrefix = ''
+if (process.env.NODE_ENV === 'production') {
+  photoPrefix = 'https://blogimg.hongjy.cn/123'
+} else {
+  photoPrefix = 'https://blogimg.hongjy.cn/'
+}
+
+export const Url = {
+  photoPrefix: photoPrefix,
+  filePrefix: '',
+  downloadPrefix: ''
+}
+
 export const httpCode = [
   {
     label: 200,
