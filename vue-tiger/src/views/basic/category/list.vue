@@ -100,7 +100,7 @@
     </div>
 
     <el-table v-loading="listLoading" row-key="id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
-      <el-table-column align="center" type="selection" width="55" />
+      <el-table-column align="center" width="55" />
       <!-- <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
@@ -175,7 +175,7 @@
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
 
         <el-form-item label="父级分类" prop="">
-          <category-cascader ref="CategoryCascader" :parent-id="temp.parentId" @handleCheckChange="handleCheckChange" />
+          <category-cascader ref="CategoryCascader" @handleCheckChange="handleCheckChange" />
         </el-form-item>
 
         <el-form-item label="名称" prop="name">
@@ -257,10 +257,10 @@ const calendarTypeOptions = [
   { key: 'hidden', display_name: '隐藏' }
 ]
 
-const showCategoryTypeOptions = [
-  { key: 'show', display_name: '显示' },
-  { key: 'hidden', display_name: '隐藏' }
-]
+// const showCategoryTypeOptions = [
+//   { key: 'show', display_name: '显示' },
+//   { key: 'hidden', display_name: '隐藏' }
+// ]
 
 let id = 0
 
@@ -445,17 +445,17 @@ export default {
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
       // this.temp.timestamp = new Date(this.temp.timestamp)
-      console.log('updataData', this.temp.parentId)
-
-      console.log('this.$refs.CategoryCascader', this.$refs)
-      if (this.$refs.CategoryCascader) {
-        this.$refs.CategoryCascader.value = this.temp.parentId
-      }
+      // console.log('updataData', this.temp.parentId)
+      // console.log('this.$refs', this.$refs)
 
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.temp.showStatus = row.showStatus === 1
+
+      // nextTick方法防止调用this.$refs为空
       this.$nextTick(() => {
+        // 修改子组件的中的值
+        this.$refs.CategoryCascader.value = this.temp.parentId
         this.$refs['dataForm'].clearValidate()
       })
     },

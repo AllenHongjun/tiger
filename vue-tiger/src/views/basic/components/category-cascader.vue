@@ -53,22 +53,22 @@ export default {
 
   created() {
     this.getCategories()
-    console.log('parentId', this.parentId)
+    // console.log('parentId', this.parentId)
     // this.value = this.parentId
   },
   methods: {
     getCategories() {
       getCategoryTree(this.treeQuery).then(response => {
         this.categoryTreeData = response
-        console.log('categoryTreeData', this.categoryTreeData)
+        // console.log('categoryTreeData', this.categoryTreeData)
       })
     },
     handleChange(value) {
       console.log(value)
     },
     handleCategoryClick(value) {
-      console.log('node-value', value)
-      console.log('parentId', this.parentId)
+      // console.log('node-value', value)
+      // console.log('parentId', this.parentId)
       this.categoryCascaderNodeClick(value)
     },
     checkChange() {

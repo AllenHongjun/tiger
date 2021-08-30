@@ -16,7 +16,13 @@
     - 通过从重新加载
   - [【VUE-01】报错信息“Cannot read property ‘reduce‘ of null”](https://blog.csdn.net/m0_37374307/article/details/103970728)
     - list 数据 默认值为null  会报错。
-  - 清楚调试的数据。清楚没有必要的打印的数据
+  - 清除调试的数据。清楚没有必要的打印的数据
+  - 父子组件使用的问题
+    - [vue中ref的使用（this.$refs获取为空）](https://blog.csdn.net/dwf_H/article/details/79837861)
+    - [[vue父组件如何修改子组件的值，不是通过props传值](https://segmentfault.com/q/1010000019212890)](https://segmentfault.com/q/1010000019212890)
+      - 修改子组件的值
+    - [vue.nextTick()方法的使用详解（简单明了）](https://blog.csdn.net/zhouzuoluo/article/details/84752280)
+      - 比如ref 对象无法读取到组件的值的时候。可以这么使用。
 
 ### 0812 to do list
 
