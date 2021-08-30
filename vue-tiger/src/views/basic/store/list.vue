@@ -164,6 +164,18 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="center" label-width="120px" style="width: 400px; margin-left:50px;">
 
+        <el-form-item label="关联仓库" prop="mobile">
+          <!-- <el-input v-model="temp.warehouseId" /> -->
+          <el-select v-model="temp.warehouseId" filterable placeholder="请选择">
+            <el-option
+              v-for="item in wareHouseOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+
         <el-form-item label="名称" prop="name">
           <el-input v-model="temp.name" />
         </el-form-item>
@@ -220,6 +232,7 @@
 <script>
 
 import { getStores, getStoreById, createStore, updateStore, deleteStore } from '@/api/basic/store'
+import { getWarehouses } from '@/api/basic/warehouse'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -293,6 +306,7 @@ export default {
           trigger: 'blur'
         }]
       },
+      wareHouseOptions: [],
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
       calendarTypeOptions,
@@ -319,6 +333,7 @@ export default {
   },
   created() {
     this.getList()
+    this.getWarehouseList()
   },
   methods: {
 
@@ -328,6 +343,25 @@ export default {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
+      })
+    },
+    getWarehouseList() {
+      var query = {
+        page: 1,
+        limit: 100
+      }
+      getWarehouses(query).then((response) => {
+        var obj = response.items
+        console.log('obj', obj)
+        var tempArr = []
+        if (obj.length > 0) {
+          var arr = Object.keys(obj).forEach(function(key) {
+            // console.log('key', key, 'obj', obj)
+            tempArr.push({ value: obj[key].id, label: obj[key].name })
+          })
+        }
+
+        this.wareHouseOptions = tempArr
       })
     },
     handleFilter() {

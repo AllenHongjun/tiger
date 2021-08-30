@@ -7,7 +7,7 @@
       :on-success="handleImageSuccess"
       class="image-uploader"
       drag
-      action="https://localhost:44306/api/app/basic/qiniuBlobSave"
+      :action="Url.baseUrl + 'api/app/basic/qiniuBlobSave'"
     >
       <i class="el-icon-upload" />
       <div class="el-upload__text">
@@ -15,7 +15,7 @@
       </div>
     </el-upload>
     <div class="image-preview image-app-preview">
-      <div v-show="imageUrl.length>1" class="image-preview-wrapper">
+      <div v-show="imageUrl.length > Url.photoPrefix.length" class="image-preview-wrapper">
         <img :src="imageUrl">
         <div class="image-preview-action">
           <i class="el-icon-delete" @click="rmImage" />
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="image-preview">
-      <div v-show="imageUrl.length>1" class="image-preview-wrapper">
+      <div v-show="imageUrl.length>Url.photoPrefix.length" class="image-preview-wrapper">
         <img :src="imageUrl">
         <div class="image-preview-action">
           <i class="el-icon-delete" @click="rmImage" />
@@ -54,6 +54,9 @@ export default {
   },
   computed: {
     imageUrl() {
+      console.log('this.value', this.value)
+      console.log('Url.photoPrefix.length', Url.photoPrefix.length)
+      console.log('imageUrl.length', (this.Url.photoPrefix + this.value).length)
       return this.Url.photoPrefix + this.value
     }
   },

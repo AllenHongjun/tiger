@@ -7,6 +7,9 @@
         <div class="postInfo-container">
           <el-tabs v-model="activeName" @tab-click="tabClick">
             <el-tab-pane label="商品信息" name="1">
+              <el-form-item label="分类" prop="" label-width="120px">
+                <category-cascader ref="CategoryCascader" @handleCheckChange="handleCheckChange" />
+              </el-form-item>
 
               <el-form-item label="商品标题:" label-width="120px" prop="name">
                 <el-input v-model="postForm.name" class="form-input" placeholder="请输入商品标题" />
@@ -179,10 +182,11 @@ import { searchUser } from '@/api/remote-search'
 import Warning from './Warning'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
 import { getProductById, createProduct, updateProduct } from '@/api/basic/product'
+import CategoryCascader from '@/views/basic/components/category-cascader'
 
 const defaultForm = {
   id: undefined,
-  productCategoryId: '621bd6d7-2998-0cc0-7972-39fea13173cd',
+  productCategoryId: '',
   productAttributeTypeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
   name: '',
   productSn: '',
@@ -220,7 +224,7 @@ const defaultForm = {
 
 export default {
   name: 'ArticleDetail',
-  components: { Tinymce, MDinput, Upload, Sticky, Warning, CommentDropdown, PlatformDropdown, SourceUrlDropdown },
+  components: { Tinymce, MDinput, Upload, Sticky, Warning, CommentDropdown, PlatformDropdown, SourceUrlDropdown, CategoryCascader },
   props: {
     isEdit: {
       type: Boolean,
@@ -229,7 +233,7 @@ export default {
   },
   data() {
     const validateRequire = (rule, value, callback) => {
-      console.log(rule)
+      // console.log(rule)
       if (value === '') {
         this.$message({
           message: rule.field + '为必传项',
@@ -342,11 +346,20 @@ export default {
     fetchData(id) {
       getProductById(id).then(response => {
         this.postForm = response
-
-        console.log('this.postForm', this.postForm)
+        // 设置分类组件的值
+        this.$nextTick(() => {
+          // console.log('this.postForm.productCategoryId', this.postForm.productCategoryId)
+          this.$refs.CategoryCascader.value = this.postForm.productCategoryId
+        })
+        // console.log('this.postForm', this.postForm)
       }).catch(err => {
         console.log(err)
       })
+    },
+    handleCheckChange(categoryId) {
+      // singleChecked
+      // console.log('handleCheckChange', categoryId)
+      this.postForm.productCategoryId = categoryId
     },
     tabClick(tab, event) {
       console.log(tab, event)
@@ -359,7 +372,7 @@ export default {
     nextStep() {
       let num = Number(this.activeName)
       num < this.tabs.length && num++
-      console.log('num', num, 'tab-length', this.tabs.length)
+      // console.log('num', num, 'tab-length', this.tabs.length)
       this.activeName = num.toString()
     },
     setTagsViewTitle() {
@@ -372,17 +385,17 @@ export default {
       document.title = `${title} - ${this.postForm.id}`
     },
     submitForm() {
-      console.log(this.postForm)
+      // console.log(this.postForm)
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
           // process.env.VUE_IMG_URL
-          console.log('this.postForm', this.postForm)
+          // console.log('this.postForm', this.postForm)
           if (this.isEdit) {
             const tempData = Object.assign({}, this.temp)
 
             updateProduct(this.postForm).then((res) => {
-              console.log('edit-product-res', res)
+              // console.log('edit-product-res', res)
               // for (const v of this.list) {
               //   if (v.id === this.temp.id) {
               //     const index = this.list.indexOf(v)

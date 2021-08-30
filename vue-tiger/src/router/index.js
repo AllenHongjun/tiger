@@ -92,14 +92,14 @@ export const constantRoutes = [
         path: 'product/create',
         component: () => import('@/views/basic/product/create'),
         name: 'CreateProduct',
-        meta: { title: '添加产品', icon: 'theme' },
+        meta: { title: '添加产品', icon: 'theme', noCache: true, activeMenu: '/basic/product/list' },
         hidden: true
       },
       {
         path: 'product/edit/:id',
         component: () => import('@/views/basic/product/edit'),
         name: 'EditProduct',
-        meta: { title: '编辑产品', noCache: true, activeMenu: '/example/list' },
+        meta: { title: '编辑产品', noCache: true, activeMenu: '/basic/product/list' },
         hidden: true
       },
       {

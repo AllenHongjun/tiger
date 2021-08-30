@@ -2,16 +2,20 @@ import store from '@/store'
 import router, { resetRouter } from '@/router'
 
 var photoPrefix = ''
+var baseUrl = ''
 if (process.env.NODE_ENV === 'production') {
-  photoPrefix = 'https://blogimg.hongjy.cn/123'
+  photoPrefix = 'http://tiger.hongjy.cn/'
+  baseUrl = 'https://localhost:44306/'
 } else {
   photoPrefix = 'https://blogimg.hongjy.cn/'
+  baseUrl = 'https://localhost:44306/'
 }
 
 export const Url = {
   photoPrefix: photoPrefix,
   filePrefix: '',
-  downloadPrefix: ''
+  downloadPrefix: '',
+  baseUrl: baseUrl
 }
 
 const baseListQuery = {
