@@ -1,13 +1,6 @@
 import store from '@/store'
 import router, { resetRouter } from '@/router'
 
-const baseListQuery = {
-  page: 1,
-  limit: 10,
-  sort: undefined,
-  filter: undefined
-}
-
 var photoPrefix = ''
 if (process.env.NODE_ENV === 'production') {
   photoPrefix = 'https://blogimg.hongjy.cn/123'
@@ -19,6 +12,13 @@ export const Url = {
   photoPrefix: photoPrefix,
   filePrefix: '',
   downloadPrefix: ''
+}
+
+const baseListQuery = {
+  page: 1,
+  limit: 10,
+  sort: undefined,
+  filter: undefined
 }
 
 export const httpCode = [

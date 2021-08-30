@@ -276,8 +276,8 @@ export default {
         ],
         detailDesc: [
           { validator: validateRequire },
-          { required: true, message: '请输入商品详情', trigger: 'blur' },
-          { min: 3, max: 300, message: '长度在 3 到 300 个字符', trigger: 'blur' }
+          { required: true, message: '请输入商品详情', trigger: 'blur' }
+          // { min: 3, max: 300, message: '长度在 3 到 300 个字符', trigger: 'blur' }
         ],
         productSn: [
           { validator: validateRequire },
