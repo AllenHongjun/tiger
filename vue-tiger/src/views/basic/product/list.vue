@@ -26,16 +26,22 @@
 
     </div>
 
-    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
+    <el-table v-loading="listLoading" :data="list" :stripe="true" :border="false" fit highlight-current-row style="width: 100%">
       <!-- <el-table-column align="center" label="商品ID" width="80">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column> -->
 
+      <el-table-column width="120px" align="center" label="图片">
+        <template slot-scope="scope">
+          <span><img :src="scope.row.picture" width="40px"></span>
+        </template>
+      </el-table-column>
+
       <el-table-column min-width="220px" label="商品名称">
         <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
+          <router-link :to="'/basic/product/edit/'+row.id" class="link-type">
             <span>{{ row.name }}</span>
           </router-link>
         </template>
@@ -44,12 +50,6 @@
       <el-table-column min-width="80px" label="商品货号">
         <template slot-scope="{row}">
           <span>{{ row.productSn }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="120px" align="center" label="图片">
-        <template slot-scope="scope">
-          <span><img :src="scope.row.picture" width="40px"></span>
         </template>
       </el-table-column>
 
@@ -119,7 +119,7 @@
             </el-button>
           </router-link>
 
-          <el-button type="primary" size="small" icon="el-icon-edit" @click="handleDelete(scope.row)">
+          <el-button type="danger" size="small" icon="el-icon-edit" @click="handleDelete(scope.row)">
             删除
           </el-button>
 
@@ -271,16 +271,16 @@ export default {
         if (valid) {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
-            this.list.unshift(this.temp)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
-              type: 'success',
-              duration: 2000
-            })
-          })
+          // createArticle(this.temp).then(() => {
+          //   this.list.unshift(this.temp)
+          //   this.dialogFormVisible = false
+          //   this.$notify({
+          //     title: 'Success',
+          //     message: 'Created Successfully',
+          //     type: 'success',
+          //     duration: 2000
+          //   })
+          // })
         }
       })
     },
@@ -298,22 +298,22 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
-            for (const v of this.list) {
-              if (v.id === this.temp.id) {
-                const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
-                break
-              }
-            }
-            this.dialogFormVisible = false
-            this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
-              type: 'success',
-              duration: 2000
-            })
-          })
+          // updateArticle(tempData).then(() => {
+          //   for (const v of this.list) {
+          //     if (v.id === this.temp.id) {
+          //       const index = this.list.indexOf(v)
+          //       this.list.splice(index, 1, this.temp)
+          //       break
+          //     }
+          //   }
+          //   this.dialogFormVisible = false
+          //   this.$notify({
+          //     title: 'Success',
+          //     message: 'Update Successfully',
+          //     type: 'success',
+          //     duration: 2000
+          //   })
+          // })
         }
       })
     },
@@ -344,10 +344,10 @@ export default {
         })
     },
     handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
+      // fetchPv(pv).then(response => {
+      //   this.pvData = response.data.pvData
+      //   this.dialogPvVisible = true
+      // })
     },
     handleDownload() {
       this.downloadLoading = true

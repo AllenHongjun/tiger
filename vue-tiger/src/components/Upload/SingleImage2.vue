@@ -7,7 +7,7 @@
       :on-success="handleImageSuccess"
       class="image-uploader"
       drag
-      action="https://httpbin.org/post"
+      action="https://localhost:44306/api/app/basic/qiniuBlobSave"
     >
       <i class="el-icon-upload" />
       <div class="el-upload__text">
@@ -55,6 +55,7 @@ export default {
       this.$emit('input', val)
     },
     handleImageSuccess() {
+      console.log(this.tempUrl)
       this.emitInput(this.tempUrl)
     },
     beforeUpload() {

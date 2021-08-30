@@ -8,22 +8,92 @@
           <el-tabs v-model="activeName" @tab-click="tabClick">
             <el-tab-pane label="商品信息" name="1">
 
-              <el-form-item label="商品标题:" label-width="120px">
+              <el-form-item label="商品标题:" label-width="120px" prop="name">
                 <el-input v-model="postForm.name" class="form-input" placeholder="请输入商品标题" />
               </el-form-item>
 
-              <el-form-item label="商品货号:" label-width="120px">
-                <el-input v-model="postForm.productSn" class="form-input" placeholder="请输入商品货号" />
+              <el-form-item label="商品副标题:" label-width="120px" prop="subTitle">
+                <el-input v-model="postForm.subTitle" class="form-input" placeholder="请输入商品副标题" />
               </el-form-item>
 
-              <el-form-item label="单位:" label-width="120px">
-                <el-input v-model="postForm.unit" class="form-input" placeholder="请输入订单" />
-              </el-form-item>
-
-              <el-form-item label="商品简介:" style="margin-bottom: 40px;" label-width="120px">
+              <el-form-item label="商品简介:" style="margin-bottom: 40px;" label-width="120px" prop="detailTitle">
                 <el-input v-model="postForm.detailTitle" :rows="3" type="textarea" class="form-input" placeholder="请输入商品简介" />
-
               </el-form-item>
+
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="商品货号:" label-width="120px" prop="productSn">
+                    <el-input v-model="postForm.productSn" class="form-input" placeholder="请输入商品货号" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="单位:" label-width="120px">
+                    <el-input v-model="postForm.unit" class="form-input" placeholder="请输入订单" />
+                  </el-form-item>
+                </el-col>
+                <!-- <el-col :span="8">
+                  <el-form-item label="采购价" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.purchasePrice" />
+                  </el-form-item>
+                </el-col> -->
+              </el-row>
+
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="原价" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.oriPrice" type="number" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="销售价" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.price" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="采购价" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.purchasePrice" />
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="库存" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.stock" type="number" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="预警库存" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.lowStock" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="重量" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.weight" />
+                  </el-form-item>
+                </el-col>
+              </el-row>
+
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item label="发布" label-width="120px" class="postInfo-container-item">
+                    <el-radio v-model="postForm.publishStatus" :label="1">开启</el-radio>
+                    <el-radio v-model="postForm.publishStatus" :label="0">关闭</el-radio>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="新品" label-width="120px" class="postInfo-container-item">
+                    <el-radio v-model="postForm.newStatus" :label="1">是</el-radio>
+                    <el-radio v-model="postForm.newStatus" :label="0">否</el-radio>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="推荐" label-width="120px" class="postInfo-container-item">
+                    <el-radio v-model="postForm.recommandStatus" :label="1">开启</el-radio>
+                    <el-radio v-model="postForm.recommandStatus" :label="0">关闭</el-radio>
+                  </el-form-item>
+                </el-col>
+              </el-row>
 
               <el-form-item label="商品封面图:" label-width="120px" prop="picture" style="margin-bottom: 30px;">
                 <Upload v-model="postForm.picture" />
@@ -50,7 +120,7 @@
 
             <el-tab-pane label="商品详情" name="2">
               <el-form-item label="商品明细" label-width="120px" prop="detailDesc" style="margin-bottom: 30px;">
-                <Tinymce ref="editor" v-model="postForm.detailDesc" :height="400" />
+                <Tinymce ref="editor" v-model="postForm.detailDesc" :height="600" />
               </el-form-item>
 
               <el-form-item label="" label-width="120px">
@@ -65,13 +135,13 @@
 
             <el-tab-pane label="其他设置" name="3">
               <el-row>
-                <!-- <el-col :span="8">
-                  <el-form-item label="虚拟销量" label-width="120px" class="postInfo-container-item">
-                    <el-input />
-                  </el-form-item>
-                </el-col> -->
                 <el-col :span="8">
-                  <el-form-item label="额外赠送积分" label-width="120px" class="postInfo-container-item">
+                  <el-form-item label="成长值" label-width="120px" class="postInfo-container-item">
+                    <el-input v-model="postForm.giftGrowth" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="赠送积分" label-width="120px" class="postInfo-container-item">
                     <el-input v-model="postForm.giftIntegration" />
                   </el-form-item>
                 </el-col>
@@ -81,47 +151,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
-              <!-- <el-row>
-                <el-col :span="8">
-                  <el-form-item label="商品状态" label-width="120px" class="postInfo-container-item">
-                    <el-radio v-model="postForm.productStatus" label="1">上架</el-radio>
-                    <el-radio v-model="postForm.productStatus" label="2">下架</el-radio>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="热卖单品" label-width="120px" class="postInfo-container-item">
-                    <el-radio v-model="postForm.selling" label="1">开启</el-radio>
-                    <el-radio v-model="postForm.selling" label="2">关闭</el-radio>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="促销单品" label-width="120px" class="postInfo-container-item">
-                    <el-radio v-model="postForm.promotion" label="1">开启</el-radio>
-                    <el-radio v-model="postForm.promotion" label="2">关闭</el-radio>
-                  </el-form-item>
-                </el-col>
-              </el-row> -->
-
-              <!-- <el-row>
-                <el-col :span="8">
-                  <el-form-item label="精品推荐" label-width="120px" class="postInfo-container-item">
-                    <el-radio v-model="postForm.recommend" label="1">上架</el-radio>
-                    <el-radio v-model="postForm.recommend" label="2">下架</el-radio>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="首发新品" label-width="120px" class="postInfo-container-item">
-                    <el-radio v-model="postForm.new" label="1">开启</el-radio>
-                    <el-radio v-model="postForm.new" label="2">关闭</el-radio>
-                  </el-form-item>
-                </el-col>
-
-              </el-row> -->
-
-              <!-- <el-form-item label="商品口令:" label-width="120px">
-                <el-input class="form-input" placeholder="请输入订单" />
-              </el-form-item> -->
 
               <el-form-item label="" label-width="120px">
                 <el-button type="primary" @click="preStep">
@@ -146,30 +175,13 @@ import Upload from '@/components/Upload/SingleImage3'
 import MDinput from '@/components/MDinput'
 import Sticky from '@/components/Sticky' // 粘性header组件
 import { validURL } from '@/utils/validate'
-import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
 import Warning from './Warning'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
 import { getProductById, createProduct, updateProduct } from '@/api/basic/product'
 
 const defaultForm = {
-  status: 'draft',
-  title: '', // 商品标题
-  content: '', // 商品详情
-  content_short: '', // 文章摘要
-  source_uri: '', // 文章外链
-  image_uri: '', // 文章图片
-  display_time: undefined, // 前台展示时间
   id: undefined,
-  platforms: ['a-platform'],
-  comment_disabled: false,
-  importance: 0,
-  productStatus: '1',
-  selling: '1',
-  promotion: '1',
-  recommend: '1',
-  new: '1',
-
   productCategoryId: '621bd6d7-2998-0cc0-7972-39fea13173cd',
   productAttributeTypeId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
   name: '',
@@ -202,8 +214,7 @@ const defaultForm = {
   promotionStartTime: '2021-08-29T03:52:34.314Z',
   promotionEndTime: '2021-08-29T03:52:34.314Z',
   promotionPerLimit: 0,
-  categoryName: 'string',
-  id: undefined
+  categoryName: 'string'
 
 }
 
@@ -218,6 +229,7 @@ export default {
   },
   data() {
     const validateRequire = (rule, value, callback) => {
+      console.log(rule)
       if (value === '') {
         this.$message({
           message: rule.field + '为必传项',
@@ -250,9 +262,28 @@ export default {
       loading: false,
       userListOptions: [],
       rules: {
-        image_uri: [{ validator: validateRequire }],
-        title: [{ validator: validateRequire }],
-        content: [{ validator: validateRequire }],
+        // image_uri: [{ validator: validateRequire }],
+        name: [
+          { required: true, message: '请输入商品标题', trigger: 'blur' },
+          { min: 3, max: 300, message: '长度在 3 到 300 个字符', trigger: 'blur' },
+          { validator: validateRequire }
+        ],
+        subTitle: [{ validator: validateRequire }],
+        detailTitle: [
+          { required: true, message: '请输入商品详情标题', trigger: 'blur' },
+          { min: 3, max: 300, message: '长度在 3 到 300 个字符', trigger: 'blur' },
+          { validator: validateRequire }
+        ],
+        detailDesc: [
+          { validator: validateRequire },
+          { required: true, message: '请输入商品详情', trigger: 'blur' },
+          { min: 3, max: 300, message: '长度在 3 到 300 个字符', trigger: 'blur' }
+        ],
+        productSn: [
+          { validator: validateRequire },
+          { required: true, message: '请输入商品货号', trigger: 'blur' },
+          { min: 3, max: 300, message: '长度在 3 到 300 个字符', trigger: 'blur' }
+        ],
         source_uri: [{ validator: validateSourceUri, trigger: 'blur' }]
       },
       tempRoute: {},
@@ -313,16 +344,6 @@ export default {
         this.postForm = response
 
         console.log('this.postForm', this.postForm)
-
-        // just for test
-        // this.postForm.title += `   Article Id:${this.postForm.id}`
-        // this.postForm.content_short += `   Article Id:${this.postForm.id}`
-
-        // set tagsview title
-        // this.setTagsViewTitle()
-
-        // set page title
-        // this.setPageTitle()
       }).catch(err => {
         console.log(err)
       })

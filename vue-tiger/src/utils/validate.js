@@ -6,7 +6,7 @@
  * @param {string} path
  * @returns {Boolean}
  */
- export function isExternal(path) {
+export function isExternal(path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
@@ -14,11 +14,9 @@
  * @param {string} path
  * @returns {Boolean}
  */
- export function validUsername(name) {
+export function validUsername(name) {
   return true
 }
-
-
 
 /**
  * @param {string} url
@@ -69,7 +67,7 @@ export function validEmail(email) {
  * @param {string} phone
  * @returns {Boolean}
  */
- export function validPhone(phone) {
+export function validPhone(phone) {
   const reg = /^1[3|4|5|7|8|9][0-9]{9}$/
   return reg.test(phone)
 }

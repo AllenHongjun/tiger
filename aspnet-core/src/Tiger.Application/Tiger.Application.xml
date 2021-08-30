@@ -96,6 +96,13 @@
             
             </summary>
         </member>
+        <member name="M:Tiger.Business.Basic.BasicAppService.QiniuBlobSaveAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            七牛文件上传保存图片
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Basic.CategoryAppService">
             <summary>
             产品分类
