@@ -18,13 +18,14 @@ namespace Tiger
             logFileName = "Logs/" + logFileName + "-logs.txt";
             Log.Logger = new LoggerConfiguration()
 #if DEBUG
-                .MinimumLevel.Debug()
+                //.MinimumLevel.Debug()
+                .MinimumLevel.Error()
 #else
                 .MinimumLevel.Information()
 #endif
 
 
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
                 .Enrich.FromLogContext()
                 .WriteTo.Async(c => c.File(logFileName))
 #if DEBUG

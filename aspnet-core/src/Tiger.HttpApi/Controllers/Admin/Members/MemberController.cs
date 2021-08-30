@@ -61,29 +61,29 @@ namespace Tiger.Controllers.Admin.Members
             return _memberAppService.GetAsync(id);
         }
 
-        /// <summary>
-        /// 获取列表
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("all")]
-        public Task<PagedResultDto<MemberDto>> GetListAsync(PagedAndSortedResultRequestDto input)
-        {
-            throw new NotImplementedException();
-        }
-
         ///// <summary>
         ///// 获取列表
         ///// </summary>
         ///// <param name="input"></param>
         ///// <returns></returns>
         //[HttpGet]
-        ////[Route("all")]
-        //public Task<PagedResultDto<MemberDto>> GetListAsync(GetMemberListDto input)
+        //[Route("all")]
+        //public Task<PagedResultDto<MemberDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         //{
-        //    return _memberAppService.GetListAsync(input);
+        //    throw new NotImplementedException();
         //}
+
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        //[Route("all")]
+        public Task<PagedResultDto<MemberDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        {
+            return _memberAppService.GetListAsync(input);
+        }
 
         /// <summary>
         /// 修改

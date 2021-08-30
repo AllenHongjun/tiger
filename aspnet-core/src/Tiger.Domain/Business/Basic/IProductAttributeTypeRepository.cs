@@ -7,7 +7,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Business.Basic
 {
-    public interface IProductAttributeTpyeRepository
+    public interface IProductAttributeTypeRepository
         : IRepository<ProductAttributeType, Guid>
     {
         //Task<List<ProductAttributeTpye>> GetListAsync(

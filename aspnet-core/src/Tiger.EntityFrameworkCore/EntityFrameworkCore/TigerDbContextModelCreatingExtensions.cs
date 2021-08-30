@@ -192,19 +192,6 @@ namespace Tiger.EntityFrameworkCore
 
             });
 
-            // 产品属性类型表
-            builder.Entity<ProductAttributeType>(b =>
-            {
-                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributeTypes",
-                    TigerConsts.DbSchema);
-
-                b.ConfigureByConvention();
-
-                b.Property(x => x.Name)
-                    .IsRequired();
-                b.HasIndex(x => x.Name);
-
-            });
 
             // 产品属性表
             builder.Entity<ProductAttribute>(b =>

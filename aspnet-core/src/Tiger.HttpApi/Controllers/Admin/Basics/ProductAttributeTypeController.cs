@@ -24,9 +24,9 @@ namespace Tiger.Controllers.Admin.Basics
     {
         private readonly IProductAttributeTypeAppService _productAttributeTypeAppService;
 
-        public ProductAttributeTypeController(IProductAttributeTypeAppService productAppService)
+        public ProductAttributeTypeController(IProductAttributeTypeAppService productAttributeTypeAppService)
         {
-            _productAttributeTypeAppService = productAppService;
+            _productAttributeTypeAppService = productAttributeTypeAppService;
         }
 
         /// <summary>

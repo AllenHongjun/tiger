@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Basic.ProductAttributeTpyes;
+using Tiger.Business.Basic;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -22,8 +23,10 @@ namespace Tiger.Basic
             CreateUpdateProductAttributeTypeDto>, //Used to create/update
         IProductAttributeTypeAppService
     {
-        public ProductAttributeTpyeAppService(IRepository<ProductAttributeType, Guid> repository) : base(repository)
+        private readonly IProductAttributeTypeRepository _productAttributeTpyeRepository;
+        public ProductAttributeTpyeAppService(IProductAttributeTypeRepository productAttributeTpyeRepository) : base(productAttributeTpyeRepository)
         {
+            _productAttributeTpyeRepository = productAttributeTpyeRepository;
         }
     }
 }
