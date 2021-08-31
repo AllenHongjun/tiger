@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Business.Marketings
 {
-    public interface ICounponRepository : IRepository<Coupon, Guid>
+    public interface ICouponRepository : IRepository<Coupon, Guid>
     {
     }
 }

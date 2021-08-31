@@ -191,7 +191,7 @@
           <el-input v-model="temp.name" />
         </el-form-item>
 
-        <el-form-item label="属性类别" prop="name">
+        <el-form-item label="属性类别" prop="productAttributeTypeId">
           <el-select v-model="temp.productAttributeTypeId" placeholder="请选择">
             <el-option
               v-for="item in productAttributeTypeOptions"
@@ -360,7 +360,7 @@ export default {
         relatedStatus: 0,
         handAddStatus: 0,
         type: 0,
-        productAttributeTypeId: '7794CB0A-0A4C-1473-810F-39FEAC3FBF64'
+        productAttributeTypeId: null
       },
       searchDivVisible: false,
       dialogFormVisible: false,
@@ -377,7 +377,8 @@ export default {
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
         timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-        title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入属性名称', trigger: 'blur' }],
+        productAttributeTypeId: [{ required: true, message: '请选择属性类别', trigger: 'blur' }]
       },
       downloadLoading: false
     }
@@ -402,14 +403,14 @@ export default {
       }
       getProductAttributeTypes(listQuery).then(response => {
         var obj = response.items
-        console.log('obj', obj)
+        // console.log('obj', obj)
         var tempArr = []
         if (obj.length > 0) {
           Object.keys(obj).forEach(function(key) {
             tempArr.push({ value: obj[key].id, label: obj[key].name })
           })
         }
-        console.log('tempArr', tempArr)
+        // console.log('tempArr', tempArr)
         this.productAttributeTypeOptions = tempArr
       })
     },
@@ -441,7 +442,7 @@ export default {
       this.handleFilter()
     },
     resetSearchForm(formName) {
-      console.log('formName', formName)
+      // console.log('formName', formName)
       this.$refs[formName].resetFields()
     },
     resetTemp() {
@@ -457,7 +458,7 @@ export default {
         relatedStatus: 0,
         handAddStatus: 0,
         type: 0,
-        productAttributeTypeId: '7794CB0A-0A4C-1473-810F-39FEAC3FBF64'
+        productAttributeTypeId: null
       }
     },
     handleCreate() {
@@ -547,11 +548,11 @@ export default {
 
     handleSearch() {
       this.searchDivVisibilty = !this.searchDivVisibilty
-      console.log('handleSearch', this.searchDivVisibilty)
+      // console.log('handleSearch', this.searchDivVisibilty)
     },
     handleImport() {
       this.importExcelDialogVisible = true
-      console.log('导入数据')
+      // console.log('导入数据')
     },
     beforeUpload(file) {
       const isLt10M = file.size / 1024 / 1024 < 10

@@ -14,7 +14,7 @@ namespace Tiger.Marketings
 {
     public class CouponRepository
         : EfCoreRepository<TigerDbContext, Coupon, Guid>,
-            ICounponRepository
+            ICouponRepository
     {
         public CouponRepository(IDbContextProvider<TigerDbContext> dbContextProvider) : base(dbContextProvider)
         {

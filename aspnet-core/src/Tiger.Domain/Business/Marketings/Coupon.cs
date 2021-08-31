@@ -20,14 +20,14 @@ namespace Tiger.Marketing
     public class Coupon: AuditedAggregateRoot<Guid>, IMultiTenant
     {
         /// <summary>
-        /// 优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
+        /// 优惠券类型 0 全场券； 1 会员赠券； 2 购物券； 3 注册赠券；
         /// </summary>
         public int Type { get; set; }
 
         public string Name { get; set; }
 
         /// <summary>
-        /// 使用平台 0 全部 1 移动 2 PC
+        /// 使用平台 0 全部； 1 移动； 2 PC
         /// </summary>
         public int Platform { get; set; }
 
@@ -37,7 +37,7 @@ namespace Tiger.Marketing
         public int Count { get; set; }
 
         /// <summary>
-        /// 金额
+        /// 优惠券面值
         /// </summary>
         public decimal Amount { get; set; }
 
@@ -56,7 +56,7 @@ namespace Tiger.Marketing
         public DateTime EndTime { get; set; }
 
         /// <summary>
-        /// 使用类型 0 全场通用 ； 1 指定分类  2 指定商品
+        /// 使用类型 0 全场通用 ； 1 指定分类；  2 指定商品
         /// </summary>
         public int UseType { get; set; }
 

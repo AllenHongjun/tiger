@@ -32,8 +32,8 @@ namespace Tiger.Module.Marketings
             CreateUpdateCouponDto>, //Used to create/update
         ICouponAppService
     {
-        private readonly ICounponRepository _counponRepository;
-        public CouponAppService(ICounponRepository counponRepository) : base(counponRepository)
+        private readonly ICouponRepository _counponRepository;
+        public CouponAppService(ICouponRepository counponRepository) : base(counponRepository)
         {
             _counponRepository = counponRepository;
         }

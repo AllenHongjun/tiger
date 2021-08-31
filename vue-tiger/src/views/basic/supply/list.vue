@@ -294,7 +294,6 @@ export default {
         address: '',
         status: 0,
         warehouseId: null
-
       },
       rules: {
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
