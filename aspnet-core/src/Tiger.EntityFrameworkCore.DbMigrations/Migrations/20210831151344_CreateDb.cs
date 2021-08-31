@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Tiger.Migrations
 {
-    public partial class init : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -288,7 +288,7 @@ namespace Tiger.Migrations
                     ExtraProperties = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
                     TenantId = table.Column<Guid>(nullable: true),
-                    ParentId = table.Column<Guid>(nullable: false),
+                    ParentId = table.Column<Guid>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Level = table.Column<int>(maxLength: 10, nullable: false),
                     ProductCount = table.Column<int>(nullable: false),
@@ -336,7 +336,8 @@ namespace Tiger.Migrations
                     ReceiveCount = table.Column<int>(nullable: false),
                     EnableTime = table.Column<DateTime>(nullable: false),
                     Code = table.Column<string>(nullable: true),
-                    MemberLevel = table.Column<int>(nullable: false)
+                    MemberLevel = table.Column<int>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -344,7 +345,7 @@ namespace Tiger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppMemberReceiveAddresses",
+                name: "AppFlashPromotions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -354,60 +355,37 @@ namespace Tiger.Migrations
                     CreatorId = table.Column<Guid>(nullable: true),
                     LastModificationTime = table.Column<DateTime>(nullable: true),
                     LastModifierId = table.Column<Guid>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
-                    DeleterId = table.Column<Guid>(nullable: true),
-                    DeletionTime = table.Column<DateTime>(nullable: true),
-                    MemberId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    DefaultStatus = table.Column<int>(nullable: false),
-                    PostCode = table.Column<string>(nullable: true),
-                    Province = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Reginon = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    Lat = table.Column<string>(nullable: true),
-                    Lon = table.Column<string>(nullable: true)
+                    Title = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppMemberReceiveAddresses", x => x.Id);
+                    table.PrimaryKey("PK_AppFlashPromotions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppMembers",
+                name: "AppMemberLevel",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    ExtraProperties = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    CreatorId = table.Column<Guid>(nullable: true),
-                    LastModificationTime = table.Column<DateTime>(nullable: true),
-                    LastModifierId = table.Column<Guid>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
-                    DeleterId = table.Column<Guid>(nullable: true),
-                    DeletionTime = table.Column<DateTime>(nullable: true),
-                    MemberLevelId = table.Column<Guid>(nullable: false),
-                    UserName = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    NickName = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    Icon = table.Column<string>(nullable: true),
-                    Gender = table.Column<int>(nullable: false),
-                    BirthDay = table.Column<DateTime>(nullable: false),
-                    City = table.Column<string>(nullable: true),
-                    Job = table.Column<string>(nullable: true),
-                    SourceType = table.Column<int>(nullable: false),
-                    Integration = table.Column<int>(nullable: false),
-                    Growth = table.Column<int>(nullable: false),
-                    LuckeyCount = table.Column<int>(nullable: false),
-                    HistoryIntegration = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    GrowthPoint = table.Column<int>(nullable: false),
+                    FreeFreightPoint = table.Column<decimal>(nullable: false),
+                    CommentGrowthPoint = table.Column<int>(nullable: false),
+                    PriviledgeFreeFreight = table.Column<int>(nullable: false),
+                    PriviledgeSignIn = table.Column<int>(nullable: false),
+                    PrivilegeComment = table.Column<int>(nullable: false),
+                    PrivilegePromotin = table.Column<int>(nullable: false),
+                    PrivilegeMemberPrice = table.Column<int>(nullable: false),
+                    PrivilegeBirthDay = table.Column<int>(nullable: false),
+                    Note = table.Column<int>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppMembers", x => x.Id);
+                    table.PrimaryKey("PK_AppMemberLevel", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -439,7 +417,7 @@ namespace Tiger.Migrations
                     LastModificationTime = table.Column<DateTime>(nullable: true),
                     LastModifierId = table.Column<Guid>(nullable: true),
                     TenantId = table.Column<Guid>(nullable: true),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: false),
                     AttributeCount = table.Column<int>(nullable: false),
                     ParamCount = table.Column<int>(nullable: false)
                 },
@@ -449,7 +427,7 @@ namespace Tiger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppSkus",
+                name: "AppSupplies",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -459,22 +437,58 @@ namespace Tiger.Migrations
                     CreatorId = table.Column<Guid>(nullable: true),
                     LastModificationTime = table.Column<DateTime>(nullable: true),
                     LastModifierId = table.Column<Guid>(nullable: true),
-                    ProductId = table.Column<int>(nullable: false),
-                    SkuCode = table.Column<string>(nullable: true),
-                    Price = table.Column<decimal>(nullable: false),
-                    Stock = table.Column<decimal>(nullable: false),
-                    LowStock = table.Column<decimal>(nullable: false),
-                    SP1 = table.Column<string>(nullable: true),
-                    SP2 = table.Column<string>(nullable: true),
-                    SP3 = table.Column<string>(nullable: true),
-                    Sale = table.Column<int>(nullable: false),
-                    Image = table.Column<string>(nullable: true),
-                    PromotionPrice = table.Column<decimal>(nullable: false),
-                    LockStock = table.Column<int>(nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    AttentionTo = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    PostCode = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Reginon = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    WarehouseId = table.Column<Guid>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppSkus", x => x.Id);
+                    table.PrimaryKey("PK_AppSupplies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppWarehouses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    Lat = table.Column<double>(nullable: false),
+                    Lng = table.Column<double>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    District = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    PosttalCode = table.Column<string>(nullable: true),
+                    Mobile = table.Column<string>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true),
+                    OrgId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppWarehouses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -639,6 +653,188 @@ namespace Tiger.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductTag", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockBomHeader",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    QuantityUnit = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProcessStamp = table.Column<string>(nullable: true),
+                    WarehouseCode = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockBomHeader", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockCheckHeader",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    WarehouseCode = table.Column<string>(nullable: true),
+                    CheckType = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    Note = table.Column<string>(nullable: true),
+                    CloseBy = table.Column<string>(nullable: true),
+                    CloseAt = table.Column<DateTime>(nullable: false),
+                    ProcessStamp = table.Column<string>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockCheckHeader", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockReceiptHeader",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    ReceiptType = table.Column<int>(nullable: false),
+                    PurchaseOrderId = table.Column<Guid>(nullable: true),
+                    ArriveDatetime = table.Column<DateTime>(nullable: false),
+                    CloseAt = table.Column<DateTime>(nullable: false),
+                    TotalQty = table.Column<int>(nullable: false),
+                    TotalCases = table.Column<int>(nullable: false),
+                    TotalWeight = table.Column<decimal>(nullable: false),
+                    TotalVolume = table.Column<decimal>(nullable: false),
+                    Note = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockReceiptHeader", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockReverseHeader",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    ProductName = table.Column<string>(nullable: true),
+                    InventorySts = table.Column<int>(nullable: false),
+                    TotalQty = table.Column<int>(nullable: false),
+                    OpenQty = table.Column<int>(nullable: false),
+                    BuildQty = table.Column<int>(nullable: false),
+                    QuantityUnit = table.Column<string>(nullable: true),
+                    ReleaseAt = table.Column<DateTime>(nullable: false),
+                    CompleteAt = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    WarehouseCode = table.Column<Guid>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockReverseHeader", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockShipmentHeader",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true),
+                    WarehouseCode = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    ShipmentType = table.Column<int>(nullable: false),
+                    ShipDateTime = table.Column<DateTime>(nullable: false),
+                    DeliveryDate = table.Column<DateTime>(nullable: false),
+                    Note = table.Column<string>(nullable: true),
+                    TotalQty = table.Column<int>(nullable: false),
+                    TotalWeight = table.Column<int>(nullable: false),
+                    TotalVolume = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockShipmentHeader", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockTransferHeader",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    BeginTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    CloasAt = table.Column<DateTime>(nullable: false),
+                    CloseBy = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(nullable: true),
+                    TotalQty = table.Column<int>(nullable: false),
+                    TotalWeight = table.Column<int>(nullable: false),
+                    TotalVolume = table.Column<int>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockTransferHeader", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -909,7 +1105,34 @@ namespace Tiger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppCouponHistories",
+                name: "AppCouponCategoryRelations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CouponId = table.Column<Guid>(nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: false),
+                    CategoryName = table.Column<string>(nullable: true),
+                    ParentCategoryName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppCouponCategoryRelations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppCouponCategoryRelations_AppCategorys_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "AppCategorys",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppCouponCategoryRelations_AppCoupons_CouponId",
+                        column: x => x.CouponId,
+                        principalTable: "AppCoupons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppFlashPromotionSessions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -919,35 +1142,25 @@ namespace Tiger.Migrations
                     CreatorId = table.Column<Guid>(nullable: true),
                     LastModificationTime = table.Column<DateTime>(nullable: true),
                     LastModifierId = table.Column<Guid>(nullable: true),
-                    CouponId = table.Column<Guid>(nullable: false),
-                    MemberId = table.Column<Guid>(nullable: false),
-                    CouponCode = table.Column<string>(nullable: true),
-                    MemberNickName = table.Column<string>(nullable: true),
-                    GetType = table.Column<int>(nullable: false),
-                    UseStatus = table.Column<int>(nullable: false),
-                    UseTime = table.Column<DateTime>(nullable: false),
-                    OrderId = table.Column<Guid>(nullable: false),
-                    OrderSn = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    FlashPromotionId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppCouponHistories", x => x.Id);
+                    table.PrimaryKey("PK_AppFlashPromotionSessions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppCouponHistories_AppCoupons_CouponId",
-                        column: x => x.CouponId,
-                        principalTable: "AppCoupons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AppCouponHistories_AppMembers_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "AppMembers",
+                        name: "FK_AppFlashPromotionSessions_AppFlashPromotions_FlashPromotionId",
+                        column: x => x.FlashPromotionId,
+                        principalTable: "AppFlashPromotions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppOrders",
+                name: "AppMembers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -960,60 +1173,31 @@ namespace Tiger.Migrations
                     IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
-                    TenantId = table.Column<Guid>(nullable: true),
-                    OrderSn = table.Column<string>(nullable: true),
-                    TotalAmount = table.Column<decimal>(nullable: false),
-                    PayAmount = table.Column<decimal>(nullable: false),
-                    FreightAmount = table.Column<decimal>(nullable: false),
-                    PromotionAmount = table.Column<decimal>(nullable: false),
-                    IntegrationAmount = table.Column<decimal>(nullable: false),
-                    CouponAmount = table.Column<decimal>(nullable: false),
-                    DiscountAmount = table.Column<decimal>(nullable: false),
-                    PayType = table.Column<int>(nullable: false),
-                    SourceType = table.Column<int>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    NickName = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false),
-                    OrderType = table.Column<int>(nullable: false),
-                    DeliveryCompany = table.Column<string>(nullable: true),
-                    DeliverySn = table.Column<string>(nullable: true),
-                    AutoConfirmDay = table.Column<int>(nullable: false),
+                    Icon = table.Column<string>(nullable: true),
+                    Gender = table.Column<int>(nullable: false),
+                    BirthDay = table.Column<DateTime>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    Job = table.Column<string>(nullable: true),
+                    SourceType = table.Column<int>(nullable: false),
                     Integration = table.Column<int>(nullable: false),
                     Growth = table.Column<int>(nullable: false),
-                    PromotionInfo = table.Column<int>(nullable: false),
-                    BillType = table.Column<int>(nullable: false),
-                    BillHeader = table.Column<string>(nullable: true),
-                    BillContent = table.Column<string>(nullable: true),
-                    BillReceiverPhone = table.Column<string>(nullable: true),
-                    BillReceiverEmail = table.Column<string>(nullable: true),
-                    ReceiverName = table.Column<string>(nullable: true),
-                    ReceiverPhone = table.Column<string>(nullable: true),
-                    ReceiverPostCode = table.Column<string>(nullable: true),
-                    ReceiverProvince = table.Column<string>(nullable: true),
-                    ReceiverCity = table.Column<string>(nullable: true),
-                    ReceiverRegion = table.Column<string>(nullable: true),
-                    ReceiverDetailAddress = table.Column<string>(nullable: true),
-                    Note = table.Column<string>(nullable: true),
-                    ConfirmStatus = table.Column<int>(nullable: false),
-                    UseIntegration = table.Column<int>(nullable: false),
-                    PaymentTime = table.Column<DateTime>(nullable: false),
-                    DeliveryTime = table.Column<DateTime>(nullable: false),
-                    ReceiveTime = table.Column<DateTime>(nullable: false),
-                    CommentTime = table.Column<DateTime>(nullable: false),
-                    MemberId = table.Column<Guid>(nullable: false),
-                    CouponId = table.Column<Guid>(nullable: false)
+                    LuckeyCount = table.Column<int>(nullable: false),
+                    HistoryIntegration = table.Column<int>(nullable: false),
+                    MemberLevelId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppOrders", x => x.Id);
+                    table.PrimaryKey("PK_AppMembers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppOrders_AppCoupons_CouponId",
-                        column: x => x.CouponId,
-                        principalTable: "AppCoupons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AppOrders_AppMembers_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "AppMembers",
+                        name: "FK_AppMembers_AppMemberLevel_MemberLevelId",
+                        column: x => x.MemberLevelId,
+                        principalTable: "AppMemberLevel",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1031,7 +1215,6 @@ namespace Tiger.Migrations
                     LastModifierId = table.Column<Guid>(nullable: true),
                     TenantId = table.Column<Guid>(nullable: true),
                     Name = table.Column<string>(type: "varchar(200)", maxLength: 500, nullable: false),
-                    ProductAttributeTypeId = table.Column<Guid>(nullable: false),
                     SelectType = table.Column<int>(nullable: false),
                     InputType = table.Column<int>(nullable: false),
                     InputList = table.Column<string>(nullable: true),
@@ -1040,7 +1223,8 @@ namespace Tiger.Migrations
                     SearchType = table.Column<int>(nullable: false),
                     HandAddStatus = table.Column<int>(nullable: false),
                     Type = table.Column<int>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false)
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    ProductAttributeTypeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1051,6 +1235,42 @@ namespace Tiger.Migrations
                         principalTable: "AppProductAttributeTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppStores",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    Apolygons = table.Column<string>(nullable: true),
+                    Lat = table.Column<string>(nullable: true),
+                    Lng = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppStores", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppStores_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1324,6 +1544,248 @@ namespace Tiger.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppMemberLoginLog",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    IP = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    LoginType = table.Column<int>(nullable: false),
+                    Province = table.Column<string>(nullable: true),
+                    MemberId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppMemberLoginLog", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppMemberLoginLog_AppMembers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AppMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppMemberReceiveAddresses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    DefaultStatus = table.Column<int>(nullable: false),
+                    PostCode = table.Column<string>(nullable: true),
+                    Province = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Reginon = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    Lat = table.Column<string>(nullable: true),
+                    Lon = table.Column<string>(nullable: true),
+                    MemberId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppMemberReceiveAddresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppMemberReceiveAddresses_AppMembers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AppMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppMemberStatisticInfo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    TotalAmount = table.Column<decimal>(nullable: false),
+                    OrderCount = table.Column<int>(nullable: false),
+                    CouponCount = table.Column<int>(nullable: false),
+                    CommentCount = table.Column<int>(nullable: false),
+                    ReturnOrderCount = table.Column<int>(nullable: false),
+                    LoginCount = table.Column<int>(nullable: false),
+                    AttentCount = table.Column<int>(nullable: false),
+                    FanCount = table.Column<int>(nullable: false),
+                    CollectProductCount = table.Column<int>(nullable: false),
+                    CollectSubjectCount = table.Column<int>(nullable: false),
+                    CollectTopicCount = table.Column<int>(nullable: false),
+                    CollectCommentCount = table.Column<int>(nullable: false),
+                    InviteFriendCount = table.Column<int>(nullable: false),
+                    RecentOrderTime = table.Column<DateTime>(nullable: false),
+                    MemberId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppMemberStatisticInfo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppMemberStatisticInfo_AppMembers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AppMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppOrders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true),
+                    OrderSn = table.Column<string>(nullable: true),
+                    TotalAmount = table.Column<decimal>(nullable: false),
+                    PayAmount = table.Column<decimal>(nullable: false),
+                    FreightAmount = table.Column<decimal>(nullable: false),
+                    PromotionAmount = table.Column<decimal>(nullable: false),
+                    IntegrationAmount = table.Column<decimal>(nullable: false),
+                    CouponAmount = table.Column<decimal>(nullable: false),
+                    DiscountAmount = table.Column<decimal>(nullable: false),
+                    PayType = table.Column<int>(nullable: false),
+                    SourceType = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    OrderType = table.Column<int>(nullable: false),
+                    DeliveryCompany = table.Column<string>(nullable: true),
+                    DeliverySn = table.Column<string>(nullable: true),
+                    AutoConfirmDay = table.Column<int>(nullable: false),
+                    Integration = table.Column<int>(nullable: false),
+                    Growth = table.Column<int>(nullable: false),
+                    PromotionInfo = table.Column<int>(nullable: false),
+                    BillType = table.Column<int>(nullable: false),
+                    BillHeader = table.Column<string>(nullable: true),
+                    BillContent = table.Column<string>(nullable: true),
+                    BillReceiverPhone = table.Column<string>(nullable: true),
+                    BillReceiverEmail = table.Column<string>(nullable: true),
+                    ReceiverName = table.Column<string>(nullable: true),
+                    ReceiverPhone = table.Column<string>(nullable: true),
+                    ReceiverPostCode = table.Column<string>(nullable: true),
+                    ReceiverProvince = table.Column<string>(nullable: true),
+                    ReceiverCity = table.Column<string>(nullable: true),
+                    ReceiverRegion = table.Column<string>(nullable: true),
+                    ReceiverDetailAddress = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(nullable: true),
+                    ConfirmStatus = table.Column<int>(nullable: false),
+                    UseIntegration = table.Column<int>(nullable: false),
+                    PaymentTime = table.Column<DateTime>(nullable: false),
+                    DeliveryTime = table.Column<DateTime>(nullable: false),
+                    ReceiveTime = table.Column<DateTime>(nullable: false),
+                    CommentTime = table.Column<DateTime>(nullable: false),
+                    MemberId = table.Column<Guid>(nullable: false),
+                    CouponHistoryId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppOrders_AppMembers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AppMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IdentityServerApiScopeClaims",
+                columns: table => new
+                {
+                    Type = table.Column<string>(maxLength: 200, nullable: false),
+                    ApiResourceId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 200, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityServerApiScopeClaims", x => new { x.ApiResourceId, x.Name, x.Type });
+                    table.ForeignKey(
+                        name: "FK_IdentityServerApiScopeClaims_IdentityServerApiScopes_ApiResourceId_Name",
+                        columns: x => new { x.ApiResourceId, x.Name },
+                        principalTable: "IdentityServerApiScopes",
+                        principalColumns: new[] { "ApiResourceId", "Name" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppCouponHistories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    CouponCode = table.Column<string>(nullable: true),
+                    MemberNickName = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    UseStatus = table.Column<int>(nullable: false),
+                    UseTime = table.Column<DateTime>(nullable: false),
+                    OrderSn = table.Column<string>(nullable: true),
+                    CouponId = table.Column<Guid>(nullable: false),
+                    MemberId = table.Column<Guid>(nullable: false),
+                    OrderId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppCouponHistories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppCouponHistories_AppCoupons_CouponId",
+                        column: x => x.CouponId,
+                        principalTable: "AppCoupons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppCouponHistories_AppMembers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AppMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppCouponHistories_AppOrders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "AppOrders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppOrderOperateHistorys",
                 columns: table => new
                 {
@@ -1429,83 +1891,6 @@ namespace Tiger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityServerApiScopeClaims",
-                columns: table => new
-                {
-                    Type = table.Column<string>(maxLength: 200, nullable: false),
-                    ApiResourceId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 200, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityServerApiScopeClaims", x => new { x.ApiResourceId, x.Name, x.Type });
-                    table.ForeignKey(
-                        name: "FK_IdentityServerApiScopeClaims_IdentityServerApiScopes_ApiResourceId_Name",
-                        columns: x => new { x.ApiResourceId, x.Name },
-                        principalTable: "IdentityServerApiScopes",
-                        principalColumns: new[] { "ApiResourceId", "Name" },
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppCartItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    ExtraProperties = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    CreatorId = table.Column<Guid>(nullable: true),
-                    LastModificationTime = table.Column<DateTime>(nullable: true),
-                    LastModifierId = table.Column<Guid>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
-                    DeleterId = table.Column<Guid>(nullable: true),
-                    DeletionTime = table.Column<DateTime>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    ProductPic = table.Column<string>(nullable: true),
-                    ProductName = table.Column<string>(nullable: true),
-                    ProductSubTitle = table.Column<string>(nullable: true),
-                    SkuCode = table.Column<string>(nullable: true),
-                    MemberNickName = table.Column<string>(nullable: true),
-                    Brand = table.Column<string>(nullable: true),
-                    ProductSn = table.Column<string>(nullable: true),
-                    ProductAttr = table.Column<string>(nullable: true),
-                    SkuId = table.Column<Guid>(nullable: false),
-                    ProductId = table.Column<Guid>(nullable: false),
-                    MemberId = table.Column<Guid>(nullable: false),
-                    CategoryId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppCartItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AppCartItems_AppCategorys_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "AppCategorys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AppCartItems_AppMembers_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "AppMembers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AppCartItems_AppProducts_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "AppProducts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AppCartItems_AppSkus_SkuId",
-                        column: x => x.SkuId,
-                        principalTable: "AppSkus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AppComments",
                 columns: table => new
                 {
@@ -1545,60 +1930,92 @@ namespace Tiger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppOrderItems",
+                name: "AppCouponProductRelations",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    ExtraProperties = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
-                    CreationTime = table.Column<DateTime>(nullable: false),
-                    CreatorId = table.Column<Guid>(nullable: true),
-                    LastModificationTime = table.Column<DateTime>(nullable: true),
-                    LastModifierId = table.Column<Guid>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
-                    DeleterId = table.Column<Guid>(nullable: true),
-                    DeletionTime = table.Column<DateTime>(nullable: true),
-                    TenantId = table.Column<Guid>(nullable: true),
-                    OrderSn = table.Column<string>(nullable: true),
-                    ProductPic = table.Column<string>(nullable: true),
                     ProductName = table.Column<string>(nullable: true),
-                    ProductBrand = table.Column<string>(nullable: true),
                     ProductSn = table.Column<string>(nullable: true),
-                    ProductPrice = table.Column<decimal>(nullable: false),
-                    ProductQuantity = table.Column<int>(nullable: false),
-                    ProductSkuCode = table.Column<string>(nullable: true),
-                    ProductCategoryId = table.Column<int>(nullable: false),
-                    PromotionName = table.Column<string>(nullable: true),
-                    PromotionAmount = table.Column<decimal>(nullable: false),
-                    CouponAmount = table.Column<decimal>(nullable: false),
-                    IntegrationAmount = table.Column<decimal>(nullable: false),
-                    RealAmount = table.Column<decimal>(nullable: false),
-                    GiftIntegration = table.Column<decimal>(nullable: false),
-                    GiftGrowth = table.Column<decimal>(nullable: false),
-                    ProductAttr = table.Column<string>(nullable: true),
-                    SkuId = table.Column<Guid>(nullable: false),
-                    OrderId = table.Column<Guid>(nullable: false),
+                    CouponId = table.Column<Guid>(nullable: false),
                     ProductId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppOrderItems", x => x.Id);
+                    table.PrimaryKey("PK_AppCouponProductRelations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppOrderItems_AppOrders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "AppOrders",
+                        name: "FK_AppCouponProductRelations_AppCoupons_CouponId",
+                        column: x => x.CouponId,
+                        principalTable: "AppCoupons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AppOrderItems_AppProducts_ProductId",
+                        name: "FK_AppCouponProductRelations_AppProducts_ProductId",
                         column: x => x.ProductId,
                         principalTable: "AppProducts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppFlashPromotionLogs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    MemberPhone = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    SubscribeTime = table.Column<DateTime>(nullable: false),
+                    Sendtime = table.Column<DateTime>(nullable: false),
+                    MemberId = table.Column<Guid>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppFlashPromotionLogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppOrderItems_AppSkus_SkuId",
-                        column: x => x.SkuId,
-                        principalTable: "AppSkus",
+                        name: "FK_AppFlashPromotionLogs_AppMembers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AppMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppFlashPromotionLogs_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppFlashPromotionProductRelations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    Count = table.Column<int>(nullable: false),
+                    Sort = table.Column<int>(nullable: false),
+                    FlashPromotionId = table.Column<Guid>(nullable: false),
+                    FlashPromotionSessionId = table.Column<Guid>(nullable: false),
+                    PrductId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppFlashPromotionProductRelations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppFlashPromotionProductRelations_AppFlashPromotions_FlashPromotionId",
+                        column: x => x.FlashPromotionId,
+                        principalTable: "AppFlashPromotions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppFlashPromotionProductRelations_AppFlashPromotionSessions_FlashPromotionSessionId",
+                        column: x => x.FlashPromotionSessionId,
+                        principalTable: "AppFlashPromotionSessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppFlashPromotionProductRelations_AppProducts_PrductId",
+                        column: x => x.PrductId,
+                        principalTable: "AppProducts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1657,6 +2074,438 @@ namespace Tiger.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppSkus",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    SkuCode = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    Stock = table.Column<decimal>(nullable: false),
+                    LowStock = table.Column<decimal>(nullable: false),
+                    SPData = table.Column<string>(nullable: true),
+                    Sale = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    PromotionPrice = table.Column<decimal>(nullable: false),
+                    LockStock = table.Column<int>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppSkus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppSkus_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockBomDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    WarehouseCode = table.Column<string>(nullable: true),
+                    BuildSequence = table.Column<int>(nullable: false),
+                    BuildLevel = table.Column<int>(nullable: false),
+                    QtyNeededPerItem = table.Column<int>(nullable: false),
+                    QuantityUnit = table.Column<string>(nullable: true),
+                    AllocationRule = table.Column<string>(nullable: true),
+                    ProcessStamp = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    BomHeaderId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockBomDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockBomDetail_StockBomHeader_BomHeaderId",
+                        column: x => x.BomHeaderId,
+                        principalTable: "StockBomHeader",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockBomDetail_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockBomDetail_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockCheckDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    InventorySts = table.Column<int>(nullable: false),
+                    SystemQty = table.Column<int>(nullable: false),
+                    LastCheckQty = table.Column<int>(nullable: false),
+                    CheckedQty = table.Column<int>(nullable: false),
+                    CheckedBy = table.Column<DateTime>(nullable: false),
+                    CheckedAt = table.Column<DateTime>(nullable: false),
+                    ProcessStamp = table.Column<string>(nullable: true),
+                    AdjustQty = table.Column<int>(nullable: false),
+                    Batch = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    CheckHeaderId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockCheckDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockCheckDetail_StockCheckHeader_CheckHeaderId",
+                        column: x => x.CheckHeaderId,
+                        principalTable: "StockCheckHeader",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockCheckDetail_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockCheckDetail_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockInventory",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    OnHandQty = table.Column<int>(nullable: false),
+                    LockedQty = table.Column<int>(nullable: false),
+                    FrozenQty = table.Column<int>(nullable: false),
+                    InventoryStatus = table.Column<int>(nullable: false),
+                    AttributeData = table.Column<string>(nullable: true),
+                    CsQty = table.Column<int>(nullable: false),
+                    SkuId = table.Column<Guid>(nullable: false),
+                    WarehouseId = table.Column<Guid>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockInventory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockInventory_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockInventory_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockInventoryHistory",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    OnHandQty = table.Column<int>(nullable: false),
+                    TransitQty = table.Column<int>(nullable: false),
+                    AllocateQty = table.Column<int>(nullable: false),
+                    LockedQty = table.Column<int>(nullable: false),
+                    FrozenQty = table.Column<int>(nullable: false),
+                    InventoryStatus = table.Column<int>(nullable: false),
+                    AttributeData = table.Column<string>(nullable: true),
+                    Batch = table.Column<string>(nullable: true),
+                    ManufactureDate = table.Column<DateTime>(nullable: false),
+                    ExpirationDate = table.Column<DateTime>(nullable: false),
+                    AgingDate = table.Column<DateTime>(nullable: false),
+                    CsQty = table.Column<int>(nullable: false),
+                    WarehouseId = table.Column<Guid>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockInventoryHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockInventoryHistory_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockInventoryHistory_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockReceiptDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ReceiptCode = table.Column<string>(nullable: true),
+                    WarehouseCode = table.Column<string>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    Batch = table.Column<string>(nullable: true),
+                    ManufactureDate = table.Column<DateTime>(nullable: false),
+                    AgingDate = table.Column<DateTime>(nullable: false),
+                    TotalQty = table.Column<int>(nullable: false),
+                    OpenQty = table.Column<int>(nullable: false),
+                    ProcessStamp = table.Column<string>(nullable: true),
+                    QuantityUm = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    ReceiptHeaderId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockReceiptDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockReceiptDetail_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockReceiptDetail_StockReceiptHeader_ReceiptHeaderId",
+                        column: x => x.ReceiptHeaderId,
+                        principalTable: "StockReceiptHeader",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockReceiptDetail_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockReverseDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    WarehouseCode = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    ReverseOrderId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true),
+                    ReverseHeaderId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockReverseDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockReverseDetail_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockReverseDetail_StockReverseHeader_ReverseHeaderId",
+                        column: x => x.ReverseHeaderId,
+                        principalTable: "StockReverseHeader",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StockReverseDetail_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockShipmentDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ShipQty = table.Column<int>(nullable: false),
+                    RequestQty = table.Column<int>(nullable: false),
+                    Batch = table.Column<string>(nullable: true),
+                    AgingDate = table.Column<DateTime>(nullable: false),
+                    InventorySts = table.Column<int>(nullable: false),
+                    TotalWeight = table.Column<decimal>(nullable: false),
+                    TotalVolume = table.Column<decimal>(nullable: false),
+                    ProcessStamp = table.Column<string>(nullable: true),
+                    QuantityUm = table.Column<string>(nullable: true),
+                    CanceledQty = table.Column<int>(nullable: false),
+                    WarehouseId = table.Column<Guid>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    ShipmentId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockShipmentDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockShipmentDetail_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockShipmentDetail_StockShipmentHeader_ShipmentId",
+                        column: x => x.ShipmentId,
+                        principalTable: "StockShipmentHeader",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockShipmentDetail_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StockTransferDetail",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    TransferCode = table.Column<string>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    FromWarehouseId = table.Column<Guid>(nullable: false),
+                    TotalQty = table.Column<int>(nullable: false),
+                    QuantityUnit = table.Column<string>(nullable: true),
+                    InventorySts = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    ProcessStamp = table.Column<string>(nullable: true),
+                    WarehouseId = table.Column<Guid>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    TransferId = table.Column<Guid>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockTransferDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockTransferDetail_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockTransferDetail_StockTransferHeader_TransferId",
+                        column: x => x.TransferId,
+                        principalTable: "StockTransferHeader",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StockTransferDetail_AppWarehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "AppWarehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppCommentReplys",
                 columns: table => new
                 {
@@ -1683,6 +2532,123 @@ namespace Tiger.Migrations
                         name: "FK_AppCommentReplys_AppComments_CommentId",
                         column: x => x.CommentId,
                         principalTable: "AppComments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppCartItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false),
+                    ProductPic = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductSubTitle = table.Column<string>(nullable: true),
+                    SkuCode = table.Column<string>(nullable: true),
+                    MemberNickName = table.Column<string>(nullable: true),
+                    Brand = table.Column<string>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductAttr = table.Column<string>(nullable: true),
+                    SkuId = table.Column<Guid>(nullable: true),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    MemberId = table.Column<Guid>(nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppCartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppCartItems_AppCategorys_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "AppCategorys",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppCartItems_AppMembers_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "AppMembers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppCartItems_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppCartItems_AppSkus_SkuId",
+                        column: x => x.SkuId,
+                        principalTable: "AppSkus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppOrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true),
+                    OrderSn = table.Column<string>(nullable: true),
+                    ProductPic = table.Column<string>(nullable: true),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductBrand = table.Column<string>(nullable: true),
+                    ProductSn = table.Column<string>(nullable: true),
+                    ProductPrice = table.Column<decimal>(nullable: false),
+                    ProductQuantity = table.Column<int>(nullable: false),
+                    ProductSkuCode = table.Column<string>(nullable: true),
+                    ProductCategoryId = table.Column<Guid>(nullable: false),
+                    PromotionName = table.Column<string>(nullable: true),
+                    PromotionAmount = table.Column<decimal>(nullable: false),
+                    CouponAmount = table.Column<decimal>(nullable: false),
+                    IntegrationAmount = table.Column<decimal>(nullable: false),
+                    RealAmount = table.Column<decimal>(nullable: false),
+                    GiftIntegration = table.Column<decimal>(nullable: false),
+                    GiftGrowth = table.Column<decimal>(nullable: false),
+                    ProductAttr = table.Column<string>(nullable: true),
+                    SkuId = table.Column<Guid>(nullable: false),
+                    OrderId = table.Column<Guid>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppOrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppOrderItems_AppOrders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "AppOrders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppOrderItems_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppOrderItems_AppSkus_SkuId",
+                        column: x => x.SkuId,
+                        principalTable: "AppSkus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1883,6 +2849,16 @@ namespace Tiger.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppCouponCategoryRelations_CategoryId",
+                table: "AppCouponCategoryRelations",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppCouponCategoryRelations_CouponId",
+                table: "AppCouponCategoryRelations",
+                column: "CouponId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppCouponHistories_CouponId",
                 table: "AppCouponHistories",
                 column: "CouponId");
@@ -1890,6 +2866,72 @@ namespace Tiger.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AppCouponHistories_MemberId",
                 table: "AppCouponHistories",
+                column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppCouponHistories_OrderId",
+                table: "AppCouponHistories",
+                column: "OrderId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppCouponProductRelations_CouponId",
+                table: "AppCouponProductRelations",
+                column: "CouponId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppCouponProductRelations_ProductId",
+                table: "AppCouponProductRelations",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFlashPromotionLogs_MemberId",
+                table: "AppFlashPromotionLogs",
+                column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFlashPromotionLogs_ProductId",
+                table: "AppFlashPromotionLogs",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFlashPromotionProductRelations_FlashPromotionId",
+                table: "AppFlashPromotionProductRelations",
+                column: "FlashPromotionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFlashPromotionProductRelations_FlashPromotionSessionId",
+                table: "AppFlashPromotionProductRelations",
+                column: "FlashPromotionSessionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFlashPromotionProductRelations_PrductId",
+                table: "AppFlashPromotionProductRelations",
+                column: "PrductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFlashPromotionSessions_FlashPromotionId",
+                table: "AppFlashPromotionSessions",
+                column: "FlashPromotionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppMemberLoginLog_MemberId",
+                table: "AppMemberLoginLog",
+                column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppMemberReceiveAddresses_MemberId",
+                table: "AppMemberReceiveAddresses",
+                column: "MemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppMembers_MemberLevelId",
+                table: "AppMembers",
+                column: "MemberLevelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppMemberStatisticInfo_MemberId",
+                table: "AppMemberStatisticInfo",
                 column: "MemberId");
 
             migrationBuilder.CreateIndex(
@@ -1911,11 +2953,6 @@ namespace Tiger.Migrations
                 name: "IX_AppOrderOperateHistorys_OrderId1",
                 table: "AppOrderOperateHistorys",
                 column: "OrderId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppOrders_CouponId",
-                table: "AppOrders",
-                column: "CouponId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppOrders_MemberId",
@@ -1978,9 +3015,19 @@ namespace Tiger.Migrations
                 column: "ProductTagId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppSkus_ProductId",
+                table: "AppSkus",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppSkus_SkuCode",
                 table: "AppSkus",
                 column: "SkuCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppStores_WarehouseId",
+                table: "AppStores",
+                column: "WarehouseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IdentityServerClients_ClientId",
@@ -2013,6 +3060,116 @@ namespace Tiger.Migrations
                 name: "IX_IdentityServerPersistedGrants_SubjectId_ClientId_Type",
                 table: "IdentityServerPersistedGrants",
                 columns: new[] { "SubjectId", "ClientId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockBomDetail_BomHeaderId",
+                table: "StockBomDetail",
+                column: "BomHeaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockBomDetail_ProductId",
+                table: "StockBomDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockBomDetail_WarehouseId",
+                table: "StockBomDetail",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockCheckDetail_CheckHeaderId",
+                table: "StockCheckDetail",
+                column: "CheckHeaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockCheckDetail_ProductId",
+                table: "StockCheckDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockCheckDetail_WarehouseId",
+                table: "StockCheckDetail",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockInventory_ProductId",
+                table: "StockInventory",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockInventory_WarehouseId",
+                table: "StockInventory",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockInventoryHistory_ProductId",
+                table: "StockInventoryHistory",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockInventoryHistory_WarehouseId",
+                table: "StockInventoryHistory",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockReceiptDetail_ProductId",
+                table: "StockReceiptDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockReceiptDetail_ReceiptHeaderId",
+                table: "StockReceiptDetail",
+                column: "ReceiptHeaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockReceiptDetail_WarehouseId",
+                table: "StockReceiptDetail",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockReverseDetail_ProductId",
+                table: "StockReverseDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockReverseDetail_ReverseHeaderId",
+                table: "StockReverseDetail",
+                column: "ReverseHeaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockReverseDetail_WarehouseId",
+                table: "StockReverseDetail",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockShipmentDetail_ProductId",
+                table: "StockShipmentDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockShipmentDetail_ShipmentId",
+                table: "StockShipmentDetail",
+                column: "ShipmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockShipmentDetail_WarehouseId",
+                table: "StockShipmentDetail",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockTransferDetail_ProductId",
+                table: "StockTransferDetail",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockTransferDetail_TransferId",
+                table: "StockTransferDetail",
+                column: "TransferId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StockTransferDetail_WarehouseId",
+                table: "StockTransferDetail",
+                column: "WarehouseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -2075,10 +3232,28 @@ namespace Tiger.Migrations
                 name: "AppCommentReplys");
 
             migrationBuilder.DropTable(
+                name: "AppCouponCategoryRelations");
+
+            migrationBuilder.DropTable(
                 name: "AppCouponHistories");
 
             migrationBuilder.DropTable(
+                name: "AppCouponProductRelations");
+
+            migrationBuilder.DropTable(
+                name: "AppFlashPromotionLogs");
+
+            migrationBuilder.DropTable(
+                name: "AppFlashPromotionProductRelations");
+
+            migrationBuilder.DropTable(
+                name: "AppMemberLoginLog");
+
+            migrationBuilder.DropTable(
                 name: "AppMemberReceiveAddresses");
+
+            migrationBuilder.DropTable(
+                name: "AppMemberStatisticInfo");
 
             migrationBuilder.DropTable(
                 name: "AppOrderItems");
@@ -2094,6 +3269,12 @@ namespace Tiger.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppProductTagRelation");
+
+            migrationBuilder.DropTable(
+                name: "AppStores");
+
+            migrationBuilder.DropTable(
+                name: "AppSupplies");
 
             migrationBuilder.DropTable(
                 name: "IdentityServerApiClaims");
@@ -2141,6 +3322,30 @@ namespace Tiger.Migrations
                 name: "IdentityServerPersistedGrants");
 
             migrationBuilder.DropTable(
+                name: "StockBomDetail");
+
+            migrationBuilder.DropTable(
+                name: "StockCheckDetail");
+
+            migrationBuilder.DropTable(
+                name: "StockInventory");
+
+            migrationBuilder.DropTable(
+                name: "StockInventoryHistory");
+
+            migrationBuilder.DropTable(
+                name: "StockReceiptDetail");
+
+            migrationBuilder.DropTable(
+                name: "StockReverseDetail");
+
+            migrationBuilder.DropTable(
+                name: "StockShipmentDetail");
+
+            migrationBuilder.DropTable(
+                name: "StockTransferDetail");
+
+            migrationBuilder.DropTable(
                 name: "AbpEntityChanges");
 
             migrationBuilder.DropTable(
@@ -2162,6 +3367,12 @@ namespace Tiger.Migrations
                 name: "AppComments");
 
             migrationBuilder.DropTable(
+                name: "AppCoupons");
+
+            migrationBuilder.DropTable(
+                name: "AppFlashPromotionSessions");
+
+            migrationBuilder.DropTable(
                 name: "AppSkus");
 
             migrationBuilder.DropTable(
@@ -2177,7 +3388,31 @@ namespace Tiger.Migrations
                 name: "IdentityServerIdentityResources");
 
             migrationBuilder.DropTable(
+                name: "StockBomHeader");
+
+            migrationBuilder.DropTable(
+                name: "StockCheckHeader");
+
+            migrationBuilder.DropTable(
+                name: "StockReceiptHeader");
+
+            migrationBuilder.DropTable(
+                name: "StockReverseHeader");
+
+            migrationBuilder.DropTable(
+                name: "StockShipmentHeader");
+
+            migrationBuilder.DropTable(
+                name: "StockTransferHeader");
+
+            migrationBuilder.DropTable(
+                name: "AppWarehouses");
+
+            migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
+
+            migrationBuilder.DropTable(
+                name: "AppFlashPromotions");
 
             migrationBuilder.DropTable(
                 name: "AppProducts");
@@ -2198,10 +3433,10 @@ namespace Tiger.Migrations
                 name: "ProductTag");
 
             migrationBuilder.DropTable(
-                name: "AppCoupons");
+                name: "AppMembers");
 
             migrationBuilder.DropTable(
-                name: "AppMembers");
+                name: "AppMemberLevel");
         }
     }
 }

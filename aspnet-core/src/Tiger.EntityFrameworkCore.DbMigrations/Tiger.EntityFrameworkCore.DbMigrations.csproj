@@ -8,19 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20210827065637_Inventory.cs" />
-    <Compile Remove="Migrations\20210827065637_Inventory.Designer.cs" />
-    <Compile Remove="Migrations\20210827070705_BasicEntity.cs" />
-    <Compile Remove="Migrations\20210827070705_BasicEntity.Designer.cs" />
-    <Compile Remove="Migrations\20210827071751_BasicEntity1.cs" />
-    <Compile Remove="Migrations\20210827071751_BasicEntity1.Designer.cs" />
-    <Compile Remove="Migrations\20210827132637_Coupons.cs" />
-    <Compile Remove="Migrations\20210827132637_Coupons.Designer.cs" />
-    <Compile Remove="Migrations\20210827133704_FlashPromotion.cs" />
-    <Compile Remove="Migrations\20210827133704_FlashPromotion.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Tiger.EntityFrameworkCore\Tiger.EntityFrameworkCore.csproj" />
   </ItemGroup>
 

@@ -57,7 +57,7 @@ namespace Tiger.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ParentId")
+                    b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ProductCount")
@@ -529,7 +529,8 @@ namespace Tiger.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<int>("ParamCount")
                         .HasColumnType("int");
@@ -714,7 +715,7 @@ namespace Tiger.Migrations
                         .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("WarehouseId")
+                    b.Property<Guid?>("WarehouseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -879,7 +880,7 @@ namespace Tiger.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OrgId")
+                    b.Property<Guid?>("OrgId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PosttalCode")
@@ -900,7 +901,7 @@ namespace Tiger.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StockWarehouses");
+                    b.ToTable("AppWarehouses");
                 });
 
             modelBuilder.Entity("Tiger.Books.Book", b =>
@@ -2328,7 +2329,7 @@ namespace Tiger.Migrations
                     b.Property<string>("SkuCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SkuId")
+                    b.Property<Guid?>("SkuId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -2414,8 +2415,8 @@ namespace Tiger.Migrations
                     b.Property<string>("ProductBrand")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductCategoryId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductCategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -5414,8 +5415,7 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Basic.Category", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Tiger.Basic.Comment", b =>
@@ -5490,9 +5490,7 @@ namespace Tiger.Migrations
                 {
                     b.HasOne("Tiger.Basic.Warehouse", "Warehouse")
                         .WithMany()
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WarehouseId");
                 });
 
             modelBuilder.Entity("Tiger.Books.Book", b =>
@@ -5701,9 +5699,7 @@ namespace Tiger.Migrations
 
                     b.HasOne("Tiger.Basic.Sku", "Sku")
                         .WithMany()
-                        .HasForeignKey("SkuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SkuId");
                 });
 
             modelBuilder.Entity("Tiger.Orders.OrderItem", b =>
