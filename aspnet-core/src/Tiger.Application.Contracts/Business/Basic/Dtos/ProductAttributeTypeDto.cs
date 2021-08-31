@@ -5,7 +5,8 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Basic.ProductAttributeTypes
 {
-    public class ProductAttributeTypeDto:EntityDto<Guid>
+    [Serializable]
+    public class ProductAttributeTypeDto: FullAuditedEntityDto<Guid>
     {
         //public Guid? TenantId { get; set; }
 

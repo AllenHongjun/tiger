@@ -125,23 +125,22 @@ export const constantRoutes = [
         name: 'Store',
         component: () => import('@/views/basic/store/list'),
         meta: { title: '店铺', icon: 'search' }
+      },
+      {
+        path: 'product-attribute-type/list',
+        name: '规格',
+        component: () => import('@/views/basic/product-attribute-type/list'),
+        meta: { title: '规格', icon: 'qq' },
+        children: [
+        ]
+      },
+      {
+        path: '/basic/product-attribute/list',
+        name: '规格属性',
+        component: () => import('@/views/basic/product-attribute/list'),
+        meta: { title: '规格属性', icon: 'search', activeMenu: '/basic/product-attribute-type/list' },
+        hidden: true
       }
-      // {
-      //   path: 'product-attribute-type/list',
-      //   name: '属性类型',
-      //   component: () => import('@/views/basic/product-attribute-type/list'),
-      //   meta: { title: '属性类型', icon: 'qq' },
-      //   children: [
-      //     {
-      //       path: '/product-attribute/list',
-      //       name: '属性',
-      //       component: () => import('@/views/basic/product-attribute/list'),
-      //       meta: { title: '属性', icon: 'search' },
-      //       hidden: true
-      //     }
-      //   ]
-
-      // },
 
       // {
       //   path: 'comment/list',

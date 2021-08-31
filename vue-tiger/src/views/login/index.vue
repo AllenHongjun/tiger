@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">TIGER 管理后台</h3>
+        <h3 class="title">TIGER</h3>
       </div>
 
       <el-form-item prop="username">
@@ -12,13 +12,13 @@
         </span>
         <el-input
           v-model="tenant"
-          placeholder="未选择租户"
+          placeholder="未选择商户"
           name="tenent"
           type="text"
           tabindex="1"
           auto-complete="on"
         />
-        <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
+        <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换商户</el-button>
       </el-form-item>
 
       <el-form-item prop="username">

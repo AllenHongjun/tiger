@@ -2,34 +2,17 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="listQuery.Filter" placeholder="请输入名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select> -->
-      <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
-      </el-select> -->
-      <!-- <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-      </el-select>
-      <el-cascader :props="listQuery.props" /> -->
-      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select> -->
 
       <el-button-group>
         <el-button v-waves class="filter-item" size="mini" type="primary" icon="el-icon-search" @click="handleFilter">
           搜索
         </el-button>
-        <!-- <el-button size="mini" type="primary" icon="el-icon-arrow-down" @click="handleSearch" /> -->
+
       </el-button-group>
 
       <el-button class="filter-item" size="mini" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         添加
       </el-button>
-
-      <!-- <el-button v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleImport">
-        导入
-      </el-button> -->
 
       <!-- <el-dropdown>
         <el-button size="mini">
@@ -47,52 +30,6 @@
         </el-dropdown-menu>
       </el-dropdown> -->
 
-      <div v-show="searchDivVisibilty" class="search-container">
-        <el-form ref="searchForm" :model="listQuery" label-width="80px">
-          <el-row>
-            <el-col :span="6">
-              <el-form-item v-model="listQuery.title" label="名称" placeholder="请输入名称" label-width="120px" class="postInfo-container-item">
-                <el-input v-model="listQuery.title" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="重要性" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="listQuery.importance" placeholder="重要性" clearable style="width: 90px" class="filter-item">
-                  <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-                </el-select>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="6">
-              <el-form-item label="类型" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="listQuery.type" placeholder="类型" clearable class="filter-item" style="width: 130px">
-                  <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="排序" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-                  <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-                </el-select>
-              </el-form-item>
-            </el-col>
-
-          </el-row>
-
-          <el-form-item label="" label-width="120px">
-            <el-button type="primary" @click="handleFilter">
-              搜索
-            </el-button>
-            <el-button type="primary" @click="resetSearchForm('searchForm')">
-              重置
-            </el-button>
-            <el-button type="primary" @click="handleSearch">
-              关闭
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </div>
     </div>
 
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
@@ -229,24 +166,6 @@ import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
-const calendarTypeOptions = [
-  { key: 'show', display_name: '显示' },
-  { key: 'hidden', display_name: '隐藏' }
-]
-
-// const showCategoryTypeOptions = [
-//   { key: 'show', display_name: '显示' },
-//   { key: 'hidden', display_name: '隐藏' }
-// ]
-
-// arr to obj, such as { CN : "China", US : "USA" }
-const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-  acc[cur.key] = cur.display_name
-  return acc
-}, {})
-
-// const id = 0
-
 export default {
   name: 'WarehouseList',
   components: { Pagination, UploadExcelComponent },
@@ -259,16 +178,15 @@ export default {
         deleted: 'danger'
       }
       return statusMap[status]
-    },
-    typeFilter(type) {
-      return calendarTypeKeyValue[type]
     }
+
   },
   data() {
     return {
       list: null,
       total: 0,
       listLoading: true,
+      sortOptions: [{ label: '升序', key: '+id' }, { label: '降序', key: '-id' }],
       listQuery: {
         page: 1,
         limit: 10,
@@ -302,15 +220,7 @@ export default {
           trigger: 'blur'
         }]
       },
-      importanceOptions: [1, 2, 3],
-      // statusOptions: [true, false],
-      calendarTypeOptions,
-      sortOptions: [{ label: '升序', key: '+id' }, { label: '降序', key: '-id' }],
-      statusOptions: ['published', 'draft', 'deleted'],
-      showReviewer: false,
-      show: true,
 
-      searchDivVisible: false,
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
@@ -318,10 +228,7 @@ export default {
         create: '编辑'
       },
       searchDivVisibilty: false,
-      searchFilterDialogVisible: false,
       importExcelDialogVisible: false,
-      dialogPvVisible: false,
-      pvData: [],
       downloadLoading: false
 
     }
@@ -477,12 +384,7 @@ export default {
           console.log(err)
         })
     },
-    handleFetchPv(pv) {
-      // fetchPv(pv).then(response => {
-      //   this.pvData = response.data.pvData
-      //   this.dialogPvVisible = true
-      // })
-    },
+
     handleSearch() {
       this.searchDivVisibilty = !this.searchDivVisibilty
       console.log('handleSearch', this.searchDivVisibilty)
