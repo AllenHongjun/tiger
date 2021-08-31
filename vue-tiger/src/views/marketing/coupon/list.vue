@@ -117,9 +117,11 @@
 
       <el-table-column class-name="status-col" label="类型" width="110">
         <template slot-scope="{row}">
-          <el-tag :type="row.type | statusFilter">
+          <!-- <el-tag :type="row.type | couponTypeFilter">
             {{ row.type }}
-          </el-tag>
+          </el-tag> -->
+
+          <el-tag>{{ row.type | couponTypeFilter }}</el-tag>
         </template>
       </el-table-column>
 
@@ -129,13 +131,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col" label="领取方式" width="110">
+      <!-- <el-table-column class-name="status-col" label="领取方式" width="110">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
             {{ row.status }}
           </el-tag>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column width="260px" align="center" label="领取时间" sortable>
         <template slot-scope="scope">
@@ -157,50 +159,14 @@
         </template>
       </el-table-column>
 
-      <!-- <el-table-column class-name="status-col" label="启用" width="110">
-        <template slot-scope="{row}">
-
-          <el-switch
-            v-model="show"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-          />
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column width="120px" align="center" label="图标">
-        <template slot-scope="scope">
-          <span>{{ scope.row.image_uri }}</span>
-          <span><img :src="scope.row.image_uri" width="100px"></span>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column width="120px" align="center" label="排序">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column width="180px" align="center" label="时间" sortable>
-        <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column width="100px" label="重要性">
-        <template slot-scope="scope">
-          <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon" />
-        </template>
-      </el-table-column> -->
-
       <el-table-column align="center" label="操作" width="300">
         <template slot-scope="scope">
-          <el-button type="info" size="mini" @click="handleUpdate(scope.row)">
+          <el-button type="info" size="mini" @click="handleHistory(scope.row)">
             领取记录
           </el-button>
 
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">
-            复制
+            编辑
           </el-button>
           <el-button type="danger" size="mini" @click="handleDelete(scope.row)">
             删除
@@ -214,32 +180,54 @@
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="类型" prop="type">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="margin-left:50px;">
+        <el-form-item label="优惠券类型">
           <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+            <el-option v-for="item in couponTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
           </el-select>
         </el-form-item>
-        <el-form-item label="父级分类" prop="title">
-          <el-cascader :props="listQuery.props" />
+
+        <el-form-item label="标题" prop="name">
+          <el-input v-model="temp.name" />
         </el-form-item>
-        <el-form-item label="时间" prop="timestamp">
-          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
+
+        <el-form-item label="兑换码" prop="code">
+          <el-input v-model="temp.code" />
         </el-form-item>
-        <el-form-item label="标题" prop="title">
-          <el-input v-model="temp.title" />
+
+        <el-form-item label="总发行量" prop="count">
+          <el-input v-model="temp.count" type="number" />
         </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
-          </el-select>
+
+        <el-form-item label="面额" prop="amount">
+          <el-input v-model="temp.amount" type="number">
+            <template slot="append">元</template>
+          </el-input>
         </el-form-item>
-        <el-form-item label="重要性">
-          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />
+
+        <el-form-item label="每人限领取" prop="perLimit">
+          <el-input v-model="temp.perLimit" type="number">
+            <template slot="append">张</template>
+          </el-input>
         </el-form-item>
-        <el-form-item label="点评">
-          <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
+
+        <el-form-item label="使用门槛" prop="minPoint">
+          <el-input v-model="temp.minPoint">
+            <template slot="prepend">满</template>
+            <template slot="append">元可用</template>
+          </el-input>
         </el-form-item>
+
+        <el-form-item label="有效期" prop="startTime">
+          <el-date-picker v-model="temp.startTime" type="datetime" placeholder="选择日期" />
+          至
+          <el-date-picker v-model="temp.endTime" type="datetime" placeholder="选择日期" />
+        </el-form-item>
+
+        <el-form-item label="备注" prop="note">
+          <el-input v-model="temp.note" type="textarea" :rows="3" placeholder="请输入备注内容" />
+        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -247,18 +235,6 @@
         </el-button>
         <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
           确认
-        </el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 搜索过滤 -->
-    <el-dialog title="搜索条件" :visible.sync="searchFilterDialogVisible" width="80%">
-      <!-- <el-divider /> -->
-      <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
-      <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importExcelDialogVisible = false">
-          关闭
         </el-button>
       </div>
     </el-dialog>
@@ -290,23 +266,24 @@ import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
+const couponTypeOptions = [
+  { key: 0, display_name: '全场券' },
+  { key: 1, display_name: '会员赠券' },
+  { key: 2, display_name: '购物券' },
+  { key: 3, display_name: '注册赠券' }
+]
+
+// 根据key js 从数组找查找对应的值
+const couponTypeKeyValue = couponTypeOptions.reduce((acc, cur) => {
+  console.log('acc[cur.key]', acc[cur.key], 'cur.display_name', cur.display_name)
+  acc[cur.key] = cur.display_name
+  return acc
+}, {})
+
 const calendarTypeOptions = [
   { key: 'show', display_name: '显示' },
   { key: 'hidden', display_name: '隐藏' }
 ]
-
-const couponTypeOptions = [
-  { key: 1, display_name: '全场券' },
-  { key: 2, display_name: '会员赠券' },
-  { key: 3, display_name: '购物券' },
-  { key: 4, display_name: '注册赠券' }
-]
-
-// const showCategoryTypeOptions = [
-//   { key: 'show', display_name: '显示' },
-//   { key: 'hidden', display_name: '隐藏' }
-// ]
-
 // arr to obj, such as { CN : "China", US : "USA" }
 const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
@@ -328,6 +305,9 @@ export default {
     },
     typeFilter(type) {
       return calendarTypeKeyValue[type]
+    },
+    couponTypeFilter(type) {
+      return couponTypeKeyValue[type]
     }
   },
   data() {
@@ -345,11 +325,10 @@ export default {
 
       },
       importanceOptions: [1, 2, 3],
-      // statusOptions: [true, false],
-      couponTypeOptions,
       calendarTypeOptions,
       sortOptions: [{ label: '升序', key: '+id' }, { label: '降序', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
+      couponTypeOptions,
       showReviewer: false,
       show: true,
       temp: {
@@ -364,7 +343,7 @@ export default {
         endTime: '',
         useType: 0,
         note: '',
-        enableTime: '',
+        // enableTime: '',
         code: '',
         memberLevel: 0
       },
@@ -383,7 +362,8 @@ export default {
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
         timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-        title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+        startTime: [{ required: true, message: '请选择有效期', trigger: 'change' }],
+        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
       },
       downloadLoading: false
     }
@@ -482,6 +462,15 @@ export default {
       this.dialogFormVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
+      })
+    },
+    handleHistory(row) {
+      // TODO:
+      this.$notify({
+        title: '成功',
+        message: '开发中...',
+        type: 'success',
+        duration: 2000
       })
     },
     updateData() {

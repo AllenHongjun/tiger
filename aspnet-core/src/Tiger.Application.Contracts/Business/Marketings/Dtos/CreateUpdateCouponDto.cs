@@ -48,7 +48,7 @@ namespace Tiger.Marketings.Coupons
 
         public int ReceiveCount { get; set; }
 
-        public DateTime EnableTime { get; set; }
+        //public DateTime EnableTime { get; set; }
 
         public string Code { get; set; }
 

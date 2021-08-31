@@ -139,13 +139,7 @@
           <span>{{ row.inputList }}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column width="120px" align="center" label="合并一列">
-        <template slot-scope="scope">
-          <span>{{ scope.row.title }}</span>
-          <span>{{ scope.row.author }}</span>
-          <span><img :src="scope.row.image_uri" width="100px"></span>
-        </template>
-      </el-table-column> -->
+
       <!-- <el-table-column width="120px" align="center" label="图标">
         <template slot-scope="scope">
           <span><img :src="scope.row.image_uri" width="100px"></span>
@@ -247,18 +241,6 @@
         </el-button>
         <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
           确认
-        </el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 搜索过滤 -->
-    <el-dialog title="搜索条件" :visible.sync="searchFilterDialogVisible" width="80%">
-      <!-- <el-divider /> -->
-      <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
-      <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importExcelDialogVisible = false">
-          关闭
         </el-button>
       </div>
     </el-dialog>
