@@ -34,10 +34,7 @@ namespace Tiger.Basic
         [Required]
         public string Name { get; set; }
 
-        public Guid ProductAttributeTypeId { get; set; }
-
-        [ForeignKey("ProductAttributeTypeId")]
-        public ProductAttributeType ProductAttributeType { get; set; }
+        
 
         /// <summary>
         /// 属性选择类型：0->唯一；1->单选；2->多选；对应属性和参数意义不同；
@@ -83,6 +80,11 @@ namespace Tiger.Basic
         /// </summary>
         public int Type { get; set; }
         public bool IsDeleted { get ; set ; }
+
+        public Guid ProductAttributeTypeId { get; set; }
+
+        [ForeignKey("ProductAttributeTypeId")]
+        public ProductAttributeType ProductAttributeType { get; set; }
 
         public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
 

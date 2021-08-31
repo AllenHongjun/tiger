@@ -51,5 +51,7 @@ namespace Tiger.Basic.ProductAttributes
         /// '属性的类型；0->规格；1->参数',
         /// </summary>
         public int Type { get; set; }
+
+        public Guid ProductAttributeTypeId { get; set; }
     }
 }
