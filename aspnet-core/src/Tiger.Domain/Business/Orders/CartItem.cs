@@ -65,7 +65,7 @@ namespace Tiger.Orders
 
         
 
-        public Guid SkuId { get; set; }
+        public Guid? SkuId { get; set; }
 
         public virtual Sku Sku { get; set; }
         

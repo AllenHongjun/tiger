@@ -706,6 +706,15 @@
             货号
             </summary>
         </member>
+        <member name="M:Tiger.Orders.CartItems.ICartItemAppService.AddToCartItem(System.Guid,System.Guid,System.Guid)">
+            <summary>
+            商品添加购物车
+            </summary>
+            <param name="productId">商品id</param>
+            <param name="SkuId">Skuid</param>
+            <param name="MemberId">会员id</param>
+            <returns></returns>
+        </member>
         <member name="P:Tiger.Orders.Orders.CreateUpdateOrderDto.TotalAmount">
             <summary>
             订单总金额

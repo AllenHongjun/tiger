@@ -36,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\WebApp\" />
     <Folder Include="Module\BasicData\" />
     <Folder Include="Module\Books\" />
     <Folder Include="Module\Finance\" />

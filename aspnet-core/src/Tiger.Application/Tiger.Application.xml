@@ -365,6 +365,15 @@
             ICartItemAppService 注意实现接口的中 泛型的类型必须一致
             </summary>
         </member>
+        <member name="M:Tiger.Orders.CartItemAppService.AddToCartItem(System.Guid,System.Guid,System.Guid)">
+            <summary>
+            商品添加购物车
+            </summary>
+            <param name="productId">商品id</param>
+            <param name="SkuId">SkuIdid</param>
+            <param name="MemberId">会员id</param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)
