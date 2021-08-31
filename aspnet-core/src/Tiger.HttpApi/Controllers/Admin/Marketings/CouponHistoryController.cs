@@ -18,7 +18,7 @@ namespace Tiger.Controllers.Admin.Basics
     [RemoteService(Name = "admin-basic")]
     [Area("Marketings")]
     [ControllerName("CouponHistory")]
-    [Route("api/basic/couponHistory")]
+    [Route("api/marketing/couponHistory")]
     [ApiExplorerSettings(GroupName = "admin-basic")]
     public class CouponHistoryController : TigerController, ICouponHistoryAppService
     {

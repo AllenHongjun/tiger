@@ -94,31 +94,38 @@
       </div>
     </div>
 
-    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+    <el-table v-loading="listLoading" :data="list" fit highlight-current-row style="width: 100%" @sort-change="sortChange">
       <el-table-column align="center" type="selection" width="55" />
-      <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
+
+      <!-- <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column min-width="120" label="名称">
         <template slot-scope="{row}">
-          <span>{{ row.title }}</span>
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column min-width="80" label="兑换码">
+        <template slot-scope="{row}">
+          <span>{{ row.code }}</span>
         </template>
       </el-table-column>
 
       <el-table-column class-name="status-col" label="类型" width="110">
         <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
+          <el-tag :type="row.type | statusFilter">
+            {{ row.type }}
           </el-tag>
         </template>
       </el-table-column>
 
       <el-table-column width="80px" align="center" label="面值">
         <template slot-scope="scope">
-          <span>{{ scope.row.forecast }}</span>
+          <span>{{ scope.row.amount }}</span>
         </template>
       </el-table-column>
 
@@ -132,25 +139,25 @@
 
       <el-table-column width="260px" align="center" label="领取时间" sortable>
         <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span> -
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ scope.row.startTime | formatDate("yyyy-MM-DD") }}</span> -
+          <span>{{ scope.row.endTime | formatDate("yyyy-MM-DD") }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="120px" align="center" label="使用时间" sortable>
+      <!-- <el-table-column width="120px" align="center" label="使用时间" sortable>
         <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ scope.row.timestamp | formatDate }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column min-width="80" width="120px" label="发布数量">
         <template slot-scope="{row}">
-          <span style="color:red;">发布: {{ row.forecast }}</span> <br>
-          <span>剩余: {{ row.forecast }}</span>
+          <span style="color:red;">发布: {{ row.count }}</span> <br>
+          <span>剩余: {{ row.count - row.useCount }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column class-name="status-col" label="启用" width="110">
+      <!-- <el-table-column class-name="status-col" label="启用" width="110">
         <template slot-scope="{row}">
 
           <el-switch
@@ -159,7 +166,7 @@
             inactive-color="#ff4949"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- <el-table-column width="120px" align="center" label="图标">
         <template slot-scope="scope">
@@ -275,7 +282,9 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+
+import { getCoupons, createCoupon, updateCoupon, deleteCoupon } from '@/api/marketing/coupon'
+
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -284,6 +293,13 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 const calendarTypeOptions = [
   { key: 'show', display_name: '显示' },
   { key: 'hidden', display_name: '隐藏' }
+]
+
+const couponTypeOptions = [
+  { key: 1, display_name: '全场券' },
+  { key: 2, display_name: '会员赠券' },
+  { key: 3, display_name: '购物券' },
+  { key: 4, display_name: '注册赠券' }
 ]
 
 // const showCategoryTypeOptions = [
@@ -296,8 +312,6 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
   return acc
 }, {})
-
-let id = 0
 
 export default {
   name: 'CategoryList',
@@ -327,27 +341,12 @@ export default {
         importance: undefined,
         // status: undefined,
         title: undefined,
-        type: undefined,
-        sort: '+id',
-        props: {
-          lazy: true,
-          lazyLoad(node, resolve) {
-            const { level } = node
-            setTimeout(() => {
-              const nodes = Array.from({ length: level + 1 })
-                .map(item => ({
-                  value: ++id,
-                  label: `选项${id}`,
-                  leaf: level >= 2
-                }))
-              // 通过调用resolve将子节点数据返回，通知组件数据加载完成
-              resolve(nodes)
-            }, 1000)
-          }
-        }
+        type: undefined
+
       },
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
+      couponTypeOptions,
       calendarTypeOptions,
       sortOptions: [{ label: '升序', key: '+id' }, { label: '降序', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
@@ -355,13 +354,19 @@ export default {
       show: true,
       temp: {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
-
-        status: 'published'
+        type: 0,
+        name: '',
+        platform: 0,
+        amount: 0,
+        perLimit: 0,
+        minPoint: 0,
+        startTime: '',
+        endTime: '',
+        useType: 0,
+        note: '',
+        enableTime: '',
+        code: '',
+        memberLevel: 0
       },
       searchDivVisible: false,
       dialogFormVisible: false,
@@ -389,9 +394,9 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+      getCoupons(this.listQuery).then(response => {
+        this.list = response.items
+        this.total = response.totalCount
         this.listLoading = false
       })
     },
@@ -429,12 +434,19 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        status: 'published',
-        type: ''
+        type: 0,
+        name: '',
+        platform: 0,
+        amount: 0,
+        perLimit: 0,
+        minPoint: 0,
+        startTime: '',
+        endTime: '',
+        useType: 0,
+        note: '',
+        enableTime: '',
+        code: '',
+        memberLevel: 0
       }
     },
     handleCreate() {
@@ -450,7 +462,7 @@ export default {
         if (valid) {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
+          createCoupon(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -477,7 +489,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
+          updateCoupon(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
@@ -497,21 +509,30 @@ export default {
       })
     },
     handleDelete(row) {
-      this.$notify({
-        title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
-      console.log(row)
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
-    },
-    handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
+        .then(() => {
+          deleteCoupon(row.id)
+            .then((response) => {
+              const index = this.list.findIndex((v) => v.id === row.id)
+              this.list.splice(index, 1)
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success',
+                duration: 2000
+              })
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     handleSearch() {
       this.searchDivVisibilty = !this.searchDivVisibilty

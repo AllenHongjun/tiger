@@ -19,7 +19,7 @@ namespace Tiger.Controllers.Admin.Basics
     [RemoteService(Name = "admin-basic")]
     [Area("Marketings")]
     [ControllerName("FlashPromotion")]
-    [Route("api/basic/flashPromotion")]
+    [Route("api/marketing/flashPromotion")]
     [ApiExplorerSettings(GroupName = "admin-basic")]
     public class FlashPromotionController : TigerController, IFlashPromotionAppService
     {
