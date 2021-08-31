@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Tiger.Basic.ProductAttributeTpyes
+namespace Tiger.Basic.ProductAttributeTypes
 {
     public class CreateUpdateProductAttributeTypeDto
     {

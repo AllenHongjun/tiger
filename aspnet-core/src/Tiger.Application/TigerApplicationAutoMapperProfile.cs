@@ -4,7 +4,7 @@ using Tiger.Basic.Categorys;
 using Tiger.Basic.Comments;
 using Tiger.Basic.Dtos;
 using Tiger.Basic.ProductAttributes;
-using Tiger.Basic.ProductAttributeTpyes;
+using Tiger.Basic.ProductAttributeTypes;
 using Tiger.Basic.Products;
 using Tiger.Books;
 using Tiger.Business.Demo;

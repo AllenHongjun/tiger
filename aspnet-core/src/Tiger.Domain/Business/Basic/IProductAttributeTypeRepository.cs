@@ -10,11 +10,6 @@ namespace Tiger.Business.Basic
     public interface IProductAttributeTypeRepository
         : IRepository<ProductAttributeType, Guid>
     {
-        //Task<List<ProductAttributeTpye>> GetListAsync(
-        //    int skipCount,
-        //    int maxResultCount,
-        //    string sorting,
-        //    string filter = null
-        //);
+      
     }
 }

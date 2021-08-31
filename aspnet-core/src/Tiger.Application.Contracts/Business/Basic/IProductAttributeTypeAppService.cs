@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Services;
 
-namespace Tiger.Basic.ProductAttributeTpyes
+namespace Tiger.Basic.ProductAttributeTypes
 {
     /// <summary>
     /// 产品属性

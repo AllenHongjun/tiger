@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Tiger.Basic.ProductAttributeTpyes;
-
-using Tiger.Basic.Products;
+using Tiger.Basic.ProductAttributeTypes;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
@@ -22,7 +18,7 @@ namespace Tiger.Controllers.Admin.Basics
     [ApiExplorerSettings(GroupName = "admin-basic")]
     public class ProductAttributeTypeController : TigerController, IProductAttributeTypeAppService
     {
-        private readonly IProductAttributeTypeAppService _productAttributeTypeAppService;
+        protected readonly IProductAttributeTypeAppService _productAttributeTypeAppService;
 
         public ProductAttributeTypeController(IProductAttributeTypeAppService productAttributeTypeAppService)
         {

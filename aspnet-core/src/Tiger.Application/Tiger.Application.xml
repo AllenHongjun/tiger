@@ -163,7 +163,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="T:Tiger.Basic.ProductAttributeTpyeAppService">
+        <member name="T:Tiger.Basic.ProductAttributeTypeAppService">
             <summary>
             商品属性分类
             </summary>

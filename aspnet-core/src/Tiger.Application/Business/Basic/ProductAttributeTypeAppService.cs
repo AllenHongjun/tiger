@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tiger.Basic.ProductAttributeTpyes;
+using Tiger.Basic.ProductAttributeTypes;
 using Tiger.Business.Basic;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -13,7 +13,7 @@ namespace Tiger.Basic
     /// 商品属性分类
     /// </summary>
     [RemoteService(false)]
-    public class ProductAttributeTpyeAppService
+    public class ProductAttributeTypeAppService
         : CrudAppService<
             ProductAttributeType, //The  entity
             ProductAttributeTypeDto,
@@ -24,7 +24,7 @@ namespace Tiger.Basic
         IProductAttributeTypeAppService
     {
         private readonly IProductAttributeTypeRepository _productAttributeTpyeRepository;
-        public ProductAttributeTpyeAppService(IProductAttributeTypeRepository productAttributeTpyeRepository) : base(productAttributeTpyeRepository)
+        public ProductAttributeTypeAppService(IProductAttributeTypeRepository productAttributeTpyeRepository) : base(productAttributeTpyeRepository)
         {
             _productAttributeTpyeRepository = productAttributeTpyeRepository;
         }
