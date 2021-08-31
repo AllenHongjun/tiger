@@ -27,6 +27,13 @@ namespace Tiger.Business.Orders
     [Table("Order")]
     public class Order : FullAuditedAggregateRoot<Guid>,ISoftDelete,IMultiTenant
     {
+        public Order()
+        {
+            OrderItems = new HashSet<OrderItem>();
+        }
+
+        
+
         public Guid? TenantId { get; set; }
         
         /// <summary>

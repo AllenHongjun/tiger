@@ -54,7 +54,7 @@ namespace Tiger.Orders
         /// </summary>
         public string ProductSkuCode { get; set; }
 
-        public int ProductCategoryId { get; set; }
+        public Guid ProductCategoryId { get; set; }
 
         /// <summary>
         /// 商品促销名称

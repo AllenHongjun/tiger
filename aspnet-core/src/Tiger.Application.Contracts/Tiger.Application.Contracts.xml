@@ -1055,6 +1055,13 @@
             评价时间
             </summary>
         </member>
+        <member name="M:Tiger.Orders.Orders.IOrderAppService.CreateOrder(Tiger.Business.Orders.Dtos.CreateOrderDto)">
+            <summary>
+            生成订单
+            </summary>
+            <param name="createOrderDto"></param>
+            <returns></returns>
+        </member>
         <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
             <summary>
             修改用户信息

@@ -1175,6 +1175,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Controllers.WebApp.OrderController.CreateOrder(Tiger.Business.Orders.Dtos.CreateOrderDto)">
+            <summary>
+            生成订单
+            </summary>
+            <param name="createOrderDto"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserController">
             <summary>
             用户管理

@@ -8,7 +8,7 @@ namespace Tiger.Orders.Orders
     public class OrderDto:FullAuditedEntityDto<Guid>
     {
         public Guid? TenantId { get; set; }
-        public int MemberId { get; set; }
+        public Guid MemberId { get; set; }
 
         public int CouponId { get; set; }
 

@@ -20,7 +20,7 @@ namespace Tiger.Controllers.Admin.Basics
     [ControllerName("Order")]
     [Route("api/basic/order")]
     [ApiExplorerSettings(GroupName = "admin-basic")]
-    public class OrderController : TigerController, IOrderAppService
+    public class OrderController : TigerController
     {
         protected readonly IOrderAppService _orderAppService;
 
@@ -37,6 +37,7 @@ namespace Tiger.Controllers.Admin.Basics
         [HttpPost]
         public Task<OrderDto> CreateAsync(CreateUpdateOrderDto input)
         {
+            
             return _orderAppService.CreateAsync(input);
         }
 

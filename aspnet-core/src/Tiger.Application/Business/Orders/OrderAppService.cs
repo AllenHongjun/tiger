@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Tiger.Orders.Orders;
-using Tiger.Business;
+using System.Linq;
+using System.Threading.Tasks;
 using Tiger.Business.Orders;
-using Volo.Abp.Domain.Repositories;
+using Tiger.Business.Orders.Dtos;
+using Tiger.Orders.Orders;
 using Volo.Abp;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Guids;
 
 namespace Tiger.Orders
 {
@@ -22,8 +23,39 @@ namespace Tiger.Orders
             CreateUpdateOrderDto>, //Used to create/update
         IOrderAppService 
     {
-        public OrderAppService(IRepository<Business.Orders.Order, Guid> repository) : base(repository)
+        protected readonly IOrderRepository _orderRepository;
+        protected readonly IRepository<CartItem, Guid> _cartIteamRepository;
+        public OrderAppService(
+            IOrderRepository repository,
+            IRepository<CartItem, Guid> cartIteamRepository
+
+            ) : base(repository)
         {
+            _orderRepository = repository;
+            _cartIteamRepository = cartIteamRepository;
+        }
+
+        /// <summary>
+        /// 生成订单
+        /// </summary>
+        /// <param name="createOrderDto"></param>
+        /// <returns></returns>
+        public async Task<OrderDto> CreateOrder(CreateOrderDto createOrderDto)
+        {
+            List<CartItem> cartItems =  _cartIteamRepository.Where(x => x.MemberId == createOrderDto.memberId).ToList();
+            if (cartItems == null)
+            {
+                throw new Exception("请先将商品加入购物车");
+            }
+
+            var order = await _orderRepository.CreateOrder(createOrderDto.memberId, createOrderDto.sourceType, createOrderDto.orderType, createOrderDto.useIntegration);
+
+            //TODO: 生成订单成功 清空购物车
+             
+            //await _cartIteamRepository.DeleteAsync(x => cartItems.Any(c => c.Id == x.Id));
+
+            var orderDto = ObjectMapper.Map<Business.Orders.Order, OrderDto>(order);
+            return orderDto;
         }
     }
 }

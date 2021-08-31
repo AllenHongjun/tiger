@@ -374,6 +374,13 @@
             <param name="MemberId">会员id</param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Orders.OrderAppService.CreateOrder(Tiger.Business.Orders.Dtos.CreateOrderDto)">
+            <summary>
+            生成订单
+            </summary>
+            <param name="createOrderDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)
