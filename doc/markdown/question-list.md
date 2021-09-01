@@ -1,4 +1,17 @@
-- ```
+### EF core 领域驱动模型开发方式
+
+- 不要使用外键 数据库关联模型的查询使用 join 关联查询 写在EF core这一层里面
+- 创建 对象的时候 不要使用一个空的构造函数。。使用一个带参数的构造函数来赋值创建对象。。
+- new 一个对象的时候。都是通过带删除的构造函数。
+
+
+- Manager 这个类的作用。。可以放置一些 IRepository 的组合 在一起 处理。
+
+- Service 里面 不要放数据库 查询相关的操作
+
+- 
+
+- - ```
   the instance of entity type 'OrderItem' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
   System.InvalidOperationException: The instance of entity type 'OrderItem' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
      at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.ThrowIdentityConflict(InternalEntityEntry entry)
@@ -9,6 +22,9 @@
      at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
      at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey)
      at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintAction(EntityEntryGraphNode`1 node)
+    ```
+  ```
+  
   ```
 
 

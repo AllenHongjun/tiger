@@ -25,14 +25,17 @@ namespace Tiger.Orders
     {
         protected readonly IOrderRepository _orderRepository;
         protected readonly IRepository<CartItem, Guid> _cartIteamRepository;
+        protected readonly OrderManager _orderManager;
         public OrderAppService(
             IOrderRepository repository,
-            IRepository<CartItem, Guid> cartIteamRepository
+            IRepository<CartItem, Guid> cartIteamRepository,
+            OrderManager orderManager
 
             ) : base(repository)
         {
             _orderRepository = repository;
             _cartIteamRepository = cartIteamRepository;
+            _orderManager = orderManager;
         }
 
         /// <summary>
@@ -48,10 +51,12 @@ namespace Tiger.Orders
                 throw new Exception("请先将商品加入购物车");
             }
 
-            var order = await _orderRepository.CreateOrder(createOrderDto.memberId, createOrderDto.sourceType, createOrderDto.orderType, createOrderDto.useIntegration);
+            var order = await _orderManager.CreateOrder(createOrderDto.memberId, createOrderDto.sourceType, createOrderDto.orderType, createOrderDto.useIntegration);
+
+            await CurrentUnitOfWork.SaveChangesAsync();
 
             //TODO: 生成订单成功 清空购物车
-             
+
             //await _cartIteamRepository.DeleteAsync(x => cartItems.Any(c => c.Id == x.Id));
 
             var orderDto = ObjectMapper.Map<Business.Orders.Order, OrderDto>(order);

@@ -8,7 +8,7 @@ namespace Tiger.Controllers
      */
     public abstract class TigerController : AbpController
     {   
-        public Guid MemberId = Guid.Parse("3C932116-67C1-97EE-B497-39FE9F94F024");
+        public Guid MemberId = Guid.Parse("ebd06de4-f535-bebb-87d1-39feb3daea6c");
 
         public Guid SkuId = Guid.NewGuid();
 

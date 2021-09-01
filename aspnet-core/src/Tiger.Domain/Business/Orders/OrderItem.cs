@@ -104,10 +104,10 @@ namespace Tiger.Orders
         /// <summary>
         /// 商品sku编号
         /// </summary>
-        public Guid SkuId { get; set; }
+        //public Guid SkuId { get; set; }
 
-        [ForeignKey("SkuId")]
-        public virtual Sku Sku { get; set; }
+        //[ForeignKey("SkuId")]
+        //public virtual Sku Sku { get; set; }
 
         public Guid OrderId { get; set; }
 

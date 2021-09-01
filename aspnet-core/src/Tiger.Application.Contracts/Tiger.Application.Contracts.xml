@@ -1062,6 +1062,144 @@
             <param name="createOrderDto"></param>
             <returns></returns>
         </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.ProductPrice">
+            <summary>
+            商品销售价格
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.ProductQuantity">
+            <summary>
+            购买数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.ProductSkuCode">
+            <summary>
+            商品sku条码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.PromotionName">
+            <summary>
+            商品促销名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.PromotionAmount">
+            <summary>
+            促销金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.CouponAmount">
+            <summary>
+            优惠券金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.IntegrationAmount">
+            <summary>
+            积分金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.RealAmount">
+            <summary>
+            实付金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.GiftIntegration">
+            <summary>
+            商品赠送积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.GiftGrowth">
+            <summary>
+            商品赠送成长值
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.ProductAttr">
+            <summary>
+            商品销售属性
+            </summary>
+            <remarks>
+            '商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}]',
+            
+            </remarks>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.CreateUpdateOrderItemDto.SkuId">
+            <summary>
+            商品sku编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.OrderSn">
+            <summary>
+            订单编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.ProductPrice">
+            <summary>
+            商品销售价格
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.ProductQuantity">
+            <summary>
+            购买数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.ProductSkuCode">
+            <summary>
+            商品sku条码
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.PromotionName">
+            <summary>
+            商品促销名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.PromotionAmount">
+            <summary>
+            促销金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.CouponAmount">
+            <summary>
+            优惠券金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.IntegrationAmount">
+            <summary>
+            积分金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.RealAmount">
+            <summary>
+            实付金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.GiftIntegration">
+            <summary>
+            商品赠送积分
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.GiftGrowth">
+            <summary>
+            商品赠送成长值
+            </summary>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.ProductAttr">
+            <summary>
+            商品销售属性
+            </summary>
+            <remarks>
+            '商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}]',
+            
+            </remarks>
+        </member>
+        <member name="P:Tiger.Orders.OrderItems.OrderItemDto.SkuId">
+            <summary>
+            商品sku编号
+            </summary>
+        </member>
         <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
             <summary>
             修改用户信息

@@ -1,37 +1,29 @@
-﻿/**
- * 类    名：BookRepository   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/16 14:13:25       
- * 说    明: 
- * 
- */
-
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tiger.Books;
-using Tiger.Business.Demo;
-using Tiger.Business.Orders;
-using Tiger.EntityFrameworkCore;
 using Tiger.Orders;
-using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.Domain.Services;
 
-namespace Tiger.Demo
-{   
-    /// <summary>
-    /// 书籍仓储层的实现
-    /// </summary>
-    public class OrderRepository : EfCoreRepository<TigerDbContext, Order, Guid>, IOrderRepository
+namespace Tiger.Business.Orders
+{
+    public class OrderManager: DomainService
     {
-        public OrderRepository(IDbContextProvider<TigerDbContext> dbContextProvider)
-            : base(dbContextProvider)
-        {
-        }
+        protected IOrderRepository _orderRepository;
+        protected IOrderItemRepository _orderItemRepository;
+        protected ICartItemRepository _cartItemsRepository;
+        public OrderManager(
+            IOrderRepository orderRepository, 
+            IOrderItemRepository orderItemRepository,
+            ICartItemRepository cartItemsRepository
 
+            )
+        {
+            _orderRepository = orderRepository;
+            _orderItemRepository = orderItemRepository;
+            _cartItemsRepository = cartItemsRepository;
+        }
 
 
         /// <summary>
@@ -39,31 +31,15 @@ namespace Tiger.Demo
         /// </summary>
         /// <param name="createOrderDto"></param>
         /// <returns></returns>
-        public async Task<Order> CreateOrder(Guid memberId, int sourceType, int orderType, int useIntegration)
+        public virtual async Task<Order> CreateOrder(Guid memberId, int sourceType, int orderType, int useIntegration)
         {
-            List<CartItem> cartItems = DbContext.Set<CartItem>().Where(x => x.MemberId == memberId).ToList();
+            List<CartItem> cartItems = _cartItemsRepository.Where(x => x.MemberId == memberId).ToList();
             if (cartItems == null)
             {
                 throw new Exception("请先将商品加入购物车");
             }
 
 
-            //// 
-            //var local = DbContext.Set<OrderItem>()
-            //    .Local
-            //    .FirstOrDefault(entry => entry.Id.Equals(entryId));
-
-            //// check if local is not null 
-            //if (local != null)
-            //{
-            //    // detach
-            //    DbContext.Entry(local).State = EntityState.Detached;
-            //}
-            //// set Modified flag in your entry
-            //DbContext.Entry(entryToUpdate).State = EntityState.Modified;
-
-            //// save 
-            //DbContext.SaveChanges();
 
             Order order = new Order();
 
@@ -84,7 +60,7 @@ namespace Tiger.Demo
             //DbContext.Entry(order).State = EntityState.Detached;
 
             //List<OrderItem> orderItems = new List<OrderItem>();
-            
+
             foreach (var cartItem in cartItems)
             {
                 OrderItem orderItem = new OrderItem();
@@ -108,38 +84,18 @@ namespace Tiger.Demo
                 //orderItem.OrderId = order.Id;
                 orderItem.ProductId = cartItem.ProductId;
                 //orderItems.Add(orderItem);
+                order.OrderItems.Add(orderItem);
+                //await _orderItemRepository.InsertAsync(orderItem);
 
-
-                //order.OrderItems.Add(orderItem);
-                //await DbContext.Set<OrderItem>().AddAsync(orderItem);
-                //await InsertAsync(orderItem);
-
-                //DbContext.Entry(orderItem).State = EntityState.Detached;
             }
 
+            await _orderRepository.InsertAsync(order);
 
-
-            //DbContext.Entry(order).State = EntityState.Detached;
-            //DbContext.Set<OrderItem>().AsNoTracking();
-
-            await InsertAsync(order);
-
-            //await DbContext.SaveChangesAsync();
-
-
-            //TODO: 生成订单成功 清空购物车
-
-            //await _cartIteamRepository.DeleteAsync(x => cartItems.Any(c => c.Id == x.Id));
+            
 
             return order;
         }
 
-        //public async Task DeleteBooksByType(BookType type)
-        //{   
-        //    // 直接指向sql 语句的代码
-        //    await DbContext.Database.ExecuteSqlRawAsync(
-        //        $"DELETE FROM Books WHERE Type = {(int)type}"
-        //    );
-        //}
+
     }
 }

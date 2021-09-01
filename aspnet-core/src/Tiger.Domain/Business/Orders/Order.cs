@@ -18,6 +18,7 @@ using Volo.Abp;
 using Volo.Abp.MultiTenancy;
 using Tiger.Business.Members;
 using Tiger.Marketing;
+using System.Collections.ObjectModel;
 
 namespace Tiger.Business.Orders
 {   
@@ -29,7 +30,7 @@ namespace Tiger.Business.Orders
     {
         public Order()
         {
-            OrderItems = new HashSet<OrderItem>();
+            OrderItems = new Collection<OrderItem>();
         }
 
         

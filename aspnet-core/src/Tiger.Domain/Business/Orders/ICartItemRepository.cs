@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Orders;
+using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Business.Orders
 {
-    interface ICartItemRepository
+    public interface ICartItemRepository : IRepository<CartItem, Guid>
     {
     }
 }

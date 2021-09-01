@@ -10,7 +10,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Order
 {
-    [RemoteService(false)]
+    //[RemoteService(false)]
     public class OrderItemAppService :
         CrudAppService<
             OrderItem,
