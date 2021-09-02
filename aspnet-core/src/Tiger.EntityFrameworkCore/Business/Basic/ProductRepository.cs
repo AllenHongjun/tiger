@@ -36,5 +36,12 @@ namespace Tiger.Basic
                 .Take(maxResultCount)
                 .ToListAsync();
         }
+
+        public async Task<Product> FindByNameAsync(string name)
+        {
+            return await DbSet.FirstOrDefaultAsync(product => product.Name.Contains(name));
+        }
+
+        
     }
 }

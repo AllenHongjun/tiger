@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Basic;
+using Tiger.Business.Orders;
 using Tiger.Orders.CartItems;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -29,9 +30,9 @@ namespace Tiger.Orders
         ICartItemAppService
     {
         IRepository<Product, Guid> _productRepository;
-        IRepository<CartItem, Guid> _cartItemRepository;
+        ICartItemRepository _cartItemRepository;
 
-        public CartItemAppService(IRepository<CartItem, Guid> repository,
+        public CartItemAppService(ICartItemRepository repository,
             IRepository<Product, Guid> productRepository
             ) : base(repository)
         {
@@ -47,33 +48,10 @@ namespace Tiger.Orders
         /// <param name="SkuId">SkuIdid</param>
         /// <param name="MemberId">会员id</param>
         /// <returns></returns>
-        public async Task<CartItemDto>  AddToCartItem(Guid productId, Guid SkuId, Guid MemberId)
+        public async Task<CartItemDto>  AddToCartItem(Guid productId, Guid skuId, Guid memberId)
         {
-            Product product = await _productRepository.GetAsync(productId);
-            CartItem cartItem = _cartItemRepository.Where(x => x.MemberId == MemberId && x.ProductId == productId).FirstOrDefault();
-            if (cartItem == null)
-            {
-                cartItem = new CartItem();
-                cartItem.Quantity += 1;
-                cartItem.Price = product.Price;
-                cartItem.ProductPic = product.Picture;
-                cartItem.ProductName = product.Name;
-                cartItem.ProductSubTitle = product.SubTitle;
-                cartItem.ProductSn = product.ProductSn;
 
-                cartItem.ProductId = productId;
-                cartItem.CategoryId = product.ProductCategoryId;
-
-                //cartItem.SkuId = Guid.NewGuid();
-                cartItem.MemberId = MemberId; 
-
-                cartItem = await _cartItemRepository.InsertAsync(cartItem);
-            }
-            else
-            {
-                cartItem.Quantity += 1;
-                cartItem = await _cartItemRepository.UpdateAsync(cartItem);
-            }
+            CartItem cartItem = await _cartItemRepository.AddToCartItem(productId, skuId, memberId);
 
             return ObjectMapper.Map<CartItem, CartItemDto>(cartItem);
 

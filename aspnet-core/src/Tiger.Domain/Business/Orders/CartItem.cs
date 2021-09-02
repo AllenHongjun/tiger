@@ -21,7 +21,41 @@ namespace Tiger.Orders
     /// </summary>
     public class CartItem:FullAuditedAggregateRoot<Guid>
     {
-        
+        protected CartItem()
+        {
+        }
+
+        public CartItem(
+            decimal price,
+            //string productPic,
+            string productName,
+            //string productSubTitle, 
+            string skuCode, 
+            //string memberNickName, 
+            //string brand, 
+            string productSn, 
+            string productAttr, 
+            Guid? skuId, 
+            Guid productId, 
+            Guid memberId, 
+            Guid categoryId
+            )
+        {
+            Price = price;
+            //ProductPic = productPic;
+            ProductName = productName;
+            //ProductSubTitle = productSubTitle;
+            SkuCode = skuCode;
+            //MemberNickName = memberNickName;
+            //Brand = brand;
+            ProductSn = productSn;
+            ProductAttr = productAttr;
+            SkuId = skuId;
+            ProductId = productId;
+            MemberId = memberId;
+            CategoryId = categoryId;
+        }
+
 
         /// <summary>
         /// 购买数量
