@@ -16,6 +16,8 @@
         <el-option v-for="item in payTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
 
+      <el-date-picker v-model="queryDateTime" value-format="yyyy-MM-dd hh:mm:ss" type="datetimerange" :picker-options="pickerOptions" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" align="right" size="mini" />
+
       <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
@@ -106,7 +108,7 @@
       </div>
     </div>
 
-    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+    <el-table v-loading="listLoading" :data="list" fit highlight-current-row style="width: 100%" @sort-change="sortChange">
       <el-table-column align="center" type="selection" width="55" />
 
       <!-- <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
@@ -145,15 +147,21 @@
         </template>
       </el-table-column>
 
-      <el-table-column min-width="100px" label="支付金额">
+      <el-table-column min-width="40px" label="支付金额">
         <template slot-scope="{row}">
           <span>{{ row.payAmount }}</span>
         </template>
       </el-table-column>
 
+      <el-table-column width="180px" align="center" label="下单时间" sortable>
+        <template slot-scope="scope">
+          <span>{{ scope.row.creationTime | formatDate }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column width="180px" align="center" label="付款时间" sortable>
         <template slot-scope="scope">
-          <span>{{ scope.row.paymentTime | formatDate }}</span>
+          <span>{{ scope.row.paymentTime == null ? "未付款" : (scope.row.paymentTime | formatDate) }}</span>
         </template>
       </el-table-column>
 
@@ -355,6 +363,7 @@ export default {
       list: null,
       total: 0,
       listLoading: true,
+      queryDateTime: undefined,
       listQuery: {
         page: 1,
         limit: 10,
@@ -362,11 +371,44 @@ export default {
         status: undefined,
         payType: undefined,
         sourceType: undefined,
-        receiverName: undefined
+        receiverName: undefined,
+        dateStart: undefined,
+        dateEnd: undefined
       },
       orderTypeOptions,
       orderStatusOptions,
       payTypeOptions,
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          }
+        ]
+      },
       // statusOptions: [true, false],
       sortOptions: [{ label: '升序', key: '+id' }, { label: '降序', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
@@ -441,6 +483,10 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
+      if (this.queryDateTime) {
+        this.listQuery.dateStart = this.queryDateTime[0]
+        this.listQuery.dateEnd = this.queryDateTime[1]
+      }
       getOrders(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount

@@ -52,7 +52,9 @@ namespace Tiger.Demo
             string filter ,
             int? status,
             int? paytype,
-            int? sourceType
+            int? sourceType,
+            DateTime? dateStart,
+            DateTime? dateEnd
             )
         {
             return await DbSet
@@ -65,6 +67,8 @@ namespace Tiger.Demo
                 .WhereIf(status.HasValue, order => order.Status == status)
                 .WhereIf(paytype.HasValue, order => order.PayType == paytype)
                 .WhereIf(sourceType.HasValue, order => order.SourceType == sourceType)
+                .WhereIf(dateStart.HasValue, order => order.CreationTime >= dateStart)
+                .WhereIf(dateEnd.HasValue, order => order.CreationTime <= dateEnd)
                 .OrderByDescending(sorting => sorting.CreationTime)
                 .Skip(skipCount)
                 .Take(maxResultCount)

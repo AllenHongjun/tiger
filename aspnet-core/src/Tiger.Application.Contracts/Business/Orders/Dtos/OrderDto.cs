@@ -170,18 +170,18 @@ namespace Tiger.Orders.Orders
         /// <summary>
         /// 支付时间
         /// </summary>
-        public DateTime PaymentTime { get; set; }
+        public DateTime? PaymentTime { get; set; }
         /// <summary>
         /// 发货时间
         /// </summary>
-        public DateTime DeliveryTime { get; set; }
+        public DateTime? DeliveryTime { get; set; }
         /// <summary>
         /// 确认收货时间
         /// </summary>
-        public DateTime ReceiveTime { get; set; }
+        public DateTime? ReceiveTime { get; set; }
         /// <summary>
         /// 评价时间
         /// </summary>
-        public DateTime CommentTime { get; set; }
+        public DateTime? CommentTime { get; set; }
     }
 }

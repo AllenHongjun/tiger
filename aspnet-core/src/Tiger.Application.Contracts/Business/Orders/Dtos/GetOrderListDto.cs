@@ -36,5 +36,9 @@ namespace Tiger.Orders.Orders
         /// 收货人姓名
         /// </summary>
         public string ReceiverName { get; set; }
+
+        public DateTime? DateStart { get; set; }
+
+        public DateTime? DateEnd { get; set; }
     }
 }

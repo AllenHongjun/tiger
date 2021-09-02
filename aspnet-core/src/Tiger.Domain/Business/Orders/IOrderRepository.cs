@@ -27,7 +27,9 @@ namespace Tiger.Business.Orders
             string filter,
             int? status,
             int? paytype,
-            int? sourceType
+            int? sourceType,
+            DateTime? dateStart,
+            DateTime? dateEnd
             );
 
         Task<int> TotalCount(

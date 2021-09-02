@@ -3,6 +3,7 @@
     <div class="filter-container" style="margin-bottom: 20px">
 
       <el-date-picker v-model="queryDateTime" value-format="yyyy-MM-dd hh:mm:ss" type="datetimerange" :picker-options="pickerOptions" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" align="right" size="mini" />
+
       <el-input v-model="listQuery.userName" placeholder="用户名" style="width: 150px" class="filter-item" size="mini" />
       <el-input v-model="listQuery.url" placeholder="URL过滤" style="width: 150px" class="filter-item" size="mini" />
       <el-select v-model="listQuery.httpMethod" placeholder="HTTP方法" clearable style="width: 110px" class="filter-item" size="mini">

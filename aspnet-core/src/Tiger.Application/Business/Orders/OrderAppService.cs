@@ -51,7 +51,7 @@ namespace Tiger.Orders
         {
             await CheckGetListPolicyAsync();
 
-            var query = await _orderRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting, input.Filter, input.Status, input.PayType, input.SourceType);
+            var query = await _orderRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting, input.Filter, input.Status, input.PayType, input.SourceType, input.DateStart, input.DateEnd);
 
             var orderDtos = ObjectMapper.Map<List<Business.Orders.Order>, List<OrderDto>>(query);
 
