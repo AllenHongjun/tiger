@@ -39,7 +39,12 @@ namespace Tiger.Demo
         /// </summary>
         /// <param name="createOrderDto"></param>
         /// <returns></returns>
-        public async Task<Order> CreateOrder(Guid memberId, int sourceType, int orderType, int useIntegration)
+        public async Task<Order> CreateOrder(
+            Guid memberId, 
+            int sourceType, 
+            int orderType, 
+            int useIntegration
+            )
         {
             List<CartItem> cartItems = DbContext.Set<CartItem>().Where(x => x.MemberId == memberId).ToList();
             if (cartItems == null)
@@ -47,26 +52,7 @@ namespace Tiger.Demo
                 throw new Exception("请先将商品加入购物车");
             }
 
-
-            //// 
-            //var local = DbContext.Set<OrderItem>()
-            //    .Local
-            //    .FirstOrDefault(entry => entry.Id.Equals(entryId));
-
-            //// check if local is not null 
-            //if (local != null)
-            //{
-            //    // detach
-            //    DbContext.Entry(local).State = EntityState.Detached;
-            //}
-            //// set Modified flag in your entry
-            //DbContext.Entry(entryToUpdate).State = EntityState.Modified;
-
-            //// save 
-            //DbContext.SaveChanges();
-
             Order order = new Order();
-
             order.OrderSn = Guid.NewGuid().ToString();
             order.TotalAmount = cartItems.Sum(x => x.Price);
             order.PayAmount = cartItems.Sum(x => x.Price);
@@ -81,14 +67,10 @@ namespace Tiger.Demo
             order.ConfirmStatus = 0;
             order.UseIntegration = useIntegration;
             order.MemberId = memberId;
-            //DbContext.Entry(order).State = EntityState.Detached;
-
-            //List<OrderItem> orderItems = new List<OrderItem>();
             
             foreach (var cartItem in cartItems)
             {
                 OrderItem orderItem = new OrderItem();
-                //orderItem.Id = SequentialGuidGenerator.Instance.Create();
                 orderItem.OrderSn = order.OrderSn;
                 orderItem.ProductPic = cartItem.ProductPic;
                 orderItem.ProductName = cartItem.ProductName;
@@ -107,25 +89,14 @@ namespace Tiger.Demo
                 //orderItem.SkuId = ;
                 //orderItem.OrderId = order.Id;
                 orderItem.ProductId = cartItem.ProductId;
-                //orderItems.Add(orderItem);
 
-
-                //order.OrderItems.Add(orderItem);
-                //await DbContext.Set<OrderItem>().AddAsync(orderItem);
-                //await InsertAsync(orderItem);
+                order.OrderItems.Add(orderItem);
 
                 //DbContext.Entry(orderItem).State = EntityState.Detached;
             }
 
-
-
-            //DbContext.Entry(order).State = EntityState.Detached;
-            //DbContext.Set<OrderItem>().AsNoTracking();
-
-            await InsertAsync(order);
-
-            //await DbContext.SaveChangesAsync();
-
+            await DbSet.AddAsync(order);
+            await DbContext.SaveChangesAsync();
 
             //TODO: 生成订单成功 清空购物车
 
