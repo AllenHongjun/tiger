@@ -25,16 +25,16 @@ namespace Tiger.Business.Orders
             int maxResultCount,
             string sorting,
             string filter,
-            int status,
-            int paytype,
-            int sourceType
+            int? status,
+            int? paytype,
+            int? sourceType
             );
 
         Task<int> TotalCount(
             string filter,
-            int status,
-            int paytype,
-            int sourceType
+            int? status,
+            int? paytype,
+            int? sourceType
             );
 
         /// <summary>

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Tiger.Books;
 using Tiger.Business.Demo;
 using Tiger.Business.Orders;
+using Tiger.Domain.CoreModule.Utilities;
 using Tiger.EntityFrameworkCore;
 using Tiger.Orders;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
@@ -49,9 +50,9 @@ namespace Tiger.Demo
             int maxResultCount,
             string sorting,
             string filter ,
-            int status,
-            int paytype,
-            int sourceType
+            int? status,
+            int? paytype,
+            int? sourceType
             )
         {
             return await DbSet
@@ -61,9 +62,9 @@ namespace Tiger.Demo
                     || order.ReceiverName.Contains(filter)
                  )
                 
-                .Where( order => order.Status == status)
-                .Where( order => order.PayType == paytype)
-                .Where( order => order.SourceType == sourceType)
+                .WhereIf(status.HasValue, order => order.Status == status)
+                .WhereIf(paytype.HasValue, order => order.PayType == paytype)
+                .WhereIf(sourceType.HasValue, order => order.SourceType == sourceType)
                 .OrderByDescending(sorting => sorting.CreationTime)
                 .Skip(skipCount)
                 .Take(maxResultCount)
@@ -72,9 +73,9 @@ namespace Tiger.Demo
 
         public async Task<int> TotalCount(
             string filter,
-            int status,
-            int paytype,
-            int sourceType
+            int? status,
+            int? paytype,
+            int? sourceType
             )
         {
             return await DbSet
@@ -84,9 +85,9 @@ namespace Tiger.Demo
                     || order.ReceiverName.Contains(filter)
                  )
 
-                .Where(order => order.Status == status)
-                .Where(order => order.PayType == paytype)
-                .Where(order => order.SourceType == sourceType)
+                .WhereIf(status.HasValue, order => order.Status == status)
+                .WhereIf(paytype.HasValue, order => order.PayType == paytype)
+                .WhereIf(sourceType.HasValue, order => order.SourceType == sourceType)
                 .CountAsync();
         }
 
@@ -111,7 +112,7 @@ namespace Tiger.Demo
             }
 
             Order order = new Order();
-            order.OrderSn = Guid.NewGuid().ToString();
+            order.OrderSn = Utility.CreateOrderID("PT");
             order.TotalAmount = cartItems.Sum(x => x.Price);
             order.PayAmount = cartItems.Sum(x => x.Price);
             order.FreightAmount = 0;

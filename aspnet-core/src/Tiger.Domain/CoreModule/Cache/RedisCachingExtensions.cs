@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Tiger.Utility;
+using Tiger.Utilities;
 using Volo.Abp.Caching;
 
 namespace Tiger.Cache

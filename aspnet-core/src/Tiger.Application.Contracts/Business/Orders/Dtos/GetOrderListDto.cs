@@ -20,17 +20,17 @@ namespace Tiger.Orders.Orders
         /// <summary>
         /// 订单状态：0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单
         /// </summary>
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         /// <summary>
         /// 支付方式：0->未支付；1->支付宝；2->微信
         /// </summary>
-        public int PayType { get; set; }
+        public int? PayType { get; set; }
 
         /// <summary>
         /// 订单来源：0->PC订单；1->app订单
         /// </summary>
-        public int SourceType { get; set; }
+        public int? SourceType { get; set; }
 
         /// <summary>
         /// 收货人姓名

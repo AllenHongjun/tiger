@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Identity;
 
-namespace Tiger.Utility.DownLoadUpLoadFilesHelper
+namespace Tiger.Utilities.DownLoadUpLoadFilesHelper
 {
 
     [RemoteService(Name = "Upload")]

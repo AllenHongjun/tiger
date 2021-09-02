@@ -12,7 +12,10 @@
         <el-option v-for="item in orderStatusOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
 
-      <el-cascader :props="listQuery.props" />
+      <el-select v-model="listQuery.payType" placeholder="支付方式" clearable class="filter-item" style="width: 130px">
+        <el-option v-for="item in payTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+      </el-select>
+
       <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
@@ -24,9 +27,9 @@
         <el-button size="mini" type="primary" icon="el-icon-arrow-down" @click="handleSearch" />
       </el-button-group>
 
-      <el-button class="filter-item" size="mini" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
+      <!-- <el-button class="filter-item" size="mini" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
         添加
-      </el-button>
+      </el-button> -->
 
       <el-button v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleImport">
         导入
@@ -40,7 +43,15 @@
           <el-dropdown-item>
             <el-link icon="el-icon-edit">审核</el-link>
           </el-dropdown-item>
-          <el-dropdown-item><el-link icon="el-icon-delete">删除</el-link></el-dropdown-item>
+          <el-dropdown-item>
+            <el-link icon="el-icon-delete">删除</el-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-link icon="el-icon-edit">发货</el-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-link icon="el-icon-edit">关闭</el-link>
+          </el-dropdown-item>
           <el-dropdown-item>
             <el-link v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleDownload">导出
             </el-link>
@@ -120,13 +131,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column min-width="180px" label="商品信息">
+      <!-- <el-table-column min-width="180px" label="商品信息">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
             <span>{{ row.title }}</span>
           </router-link>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column min-width="100px" label="用户">
         <template slot-scope="{row}">

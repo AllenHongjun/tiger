@@ -29,10 +29,10 @@
     <Compile Remove="Business\Members\MemberTag.cs" />
     <Compile Remove="Business\Members\MemberTagRelation.cs" />
     <Compile Remove="Business\Members\MemberTask.cs" />
-    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
-    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\FileDown.cs" />
-    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\FileUp.cs" />
-    <Compile Remove="CoreModule\Utility\DownLoadUpLoadFilesHelper\UpLoadFiles.cs" />
+    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
+    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\FileDown.cs" />
+    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\FileUp.cs" />
+    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\UpLoadFiles.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,7 +75,7 @@
     <Folder Include="CoreModule\ApiGateWay\" />
     <Folder Include="CoreModule\Event\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="CoreModule\Utility\DownLoadUpLoadFilesHelper\" />
+    <Folder Include="CoreModule\Utilities\DownLoadUpLoadFilesHelper\" />
   </ItemGroup>
 
 </Project>

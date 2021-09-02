@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Tiger.Utility
+namespace Tiger.Utilities
 {
     /// <summary>
     /// Json帮助类

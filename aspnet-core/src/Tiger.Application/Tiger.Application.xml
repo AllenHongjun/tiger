@@ -388,7 +388,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
+        <member name="M:Tiger.Utilities.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)
             </summary>
