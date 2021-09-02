@@ -56,7 +56,7 @@ namespace Tiger.Orders
             var orderDtos = ObjectMapper.Map<List<Business.Orders.Order>, List<OrderDto>>(query);
 
             //Get the total count with another query
-            var totalCount = await _orderRepository.TotalCount(input.Filter, input.Status, input.PayType, input.SourceType);
+            var totalCount = await _orderRepository.GetCountAsync(input.Filter, input.Status, input.PayType, input.SourceType);
 
             return new PagedResultDto<OrderDto>(
                 totalCount,

@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Basic.Categorys;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Basic.Products
 {
     public class ProductDto : AuditedEntityDto<Guid>
     {
-        public Guid ProductCategoryId { get; set; }
-
-        //public virtual Category Category { get; set; }
-        /// <summary>
-        /// 商品属性类型id
-        /// </summary>
-        public Guid ProductAttributeTypeId { get; set; }
+        
 
         public String Name { get; set; }
 
@@ -166,5 +161,14 @@ namespace Tiger.Basic.Products
         /// 分类名字
         /// </summary>
         public string CategoryName { get; set; }
+
+
+        public Guid ProductCategoryId { get; set; }
+
+        public CategoryDto Category { get; set; }
+        /// <summary>
+        /// 商品属性类型id
+        /// </summary>
+        public Guid ProductAttributeTypeId { get; set; }
     }
 }

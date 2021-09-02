@@ -141,9 +141,9 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column min-width="100px" label="用户">
+      <el-table-column min-width="100px" label="用户昵称">
         <template slot-scope="{row}">
-          <span>{{ row.memberId }}</span>
+          <span>{{ row.memberNickName }}</span>
         </template>
       </el-table-column>
 

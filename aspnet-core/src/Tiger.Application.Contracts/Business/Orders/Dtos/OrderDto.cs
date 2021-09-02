@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Orders.OrderItems;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Orders.Orders
 {
     public class OrderDto:FullAuditedEntityDto<Guid>
     {
-        public Guid? TenantId { get; set; }
-        public Guid MemberId { get; set; }
-
-        public int CouponId { get; set; }
+        
 
         /// <summary>
         /// 订单编码
@@ -183,5 +181,14 @@ namespace Tiger.Orders.Orders
         /// 评价时间
         /// </summary>
         public DateTime? CommentTime { get; set; }
+
+        public Guid? TenantId { get; set; }
+        public Guid MemberId { get; set; }
+
+        public string MemberNickName { get; set; }
+
+        public int CouponId { get; set; }
+
+        public List<OrderItemDto> OrderItems { get; set; }
     }
 }

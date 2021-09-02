@@ -26,6 +26,7 @@ using Tiger.SecurityLogs;
 using Tiger.Stock;
 using Tiger.Stock.Dtos;
 using Volo.Abp.AuditLogging;
+using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity;
 using Volo.Abp.SecurityLog;
 
@@ -113,13 +114,24 @@ namespace Tiger
             CreateMap<CartItem, CartItemDto>();
             CreateMap<CreateUpdateCartItemDto, CartItem>();
 
-            CreateMap<Business.Orders.Order, OrderDto>();
+            CreateMap<Business.Orders.Order, OrderDto>()
+                .ForMember(x => x.ReceiverRegion, map => map.Ignore())
+                .ForMember(dest => dest.MemberNickName, opt => opt.MapFrom(src => src.Member.NickName));
             CreateMap<CreateUpdateOrderDto, Business.Orders.Order>();
 
             CreateMap<OrderItem, OrderItemDto>();
             CreateMap<CreateUpdateOrderItemDto, OrderItem>();
 
-            CreateMap<OrderOperateHistory, OrderOperationHistoryDto>();
+            CreateMap<OrderOperateHistory, OrderOperationHistoryDto>()
+                // 忽略审计属性
+                .IgnoreAuditedObjectProperties()
+                // 忽略其他属性
+                .ForMember(x => x.CreationTime, map => map.Ignore())
+
+                // 忽略其他属性
+                .Ignore(x => x.CreationTime);
+            
+            ;
             CreateMap<CreateUpdateOrderOperationHistoryDto, OrderOperateHistory>();
 
             CreateMap<OrderSetting, OrderSettingDto>();

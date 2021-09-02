@@ -360,11 +360,6 @@
             审核状态：0->未审核；1->审核通过
             </summary>
         </member>
-        <member name="P:Tiger.Basic.Products.ProductDto.ProductAttributeTypeId">
-            <summary>
-            商品属性类型id
-            </summary>
-        </member>
         <member name="P:Tiger.Basic.Products.ProductDto.ProductSn">
             <summary>
             货号
@@ -488,6 +483,11 @@
         <member name="P:Tiger.Basic.Products.ProductDto.CategoryName">
             <summary>
             分类名字
+            </summary>
+        </member>
+        <member name="P:Tiger.Basic.Products.ProductDto.ProductAttributeTypeId">
+            <summary>
+            商品属性类型id
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->

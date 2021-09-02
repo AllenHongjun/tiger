@@ -32,7 +32,7 @@ namespace Tiger.Business.Orders
             DateTime? dateEnd
             );
 
-        Task<int> TotalCount(
+        Task<int> GetCountAsync(
             string filter,
             int? status,
             int? paytype,

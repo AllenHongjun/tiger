@@ -57,7 +57,9 @@ namespace Tiger.Demo
             DateTime? dateEnd
             )
         {
-            return await DbSet
+            return await DbSet.AsNoTracking()
+                .Include(x => x.OrderItems)
+                .Include(x => x.Member)
                 .WhereIf(
                     !filter.IsNullOrWhiteSpace(),
                     order => order.OrderSn.Contains(filter)
@@ -75,13 +77,14 @@ namespace Tiger.Demo
                 .ToListAsync();
         }
 
-        public async Task<int> TotalCount(
+        public async Task<int> GetCountAsync(
             string filter,
             int? status,
             int? paytype,
             int? sourceType
             )
         {
+            
             return await DbSet
                 .WhereIf(
                     !filter.IsNullOrWhiteSpace(),
