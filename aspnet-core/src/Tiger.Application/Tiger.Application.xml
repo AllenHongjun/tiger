@@ -374,11 +374,18 @@
             <param name="MemberId">会员id</param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Orders.OrderAppService.GetListAsync(Tiger.Orders.Orders.GetOrderListDto)">
+            <summary>
+            分页查询书籍的数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Orders.OrderAppService.CreateOrder(Tiger.Business.Orders.Dtos.CreateOrderDto)">
             <summary>
             生成订单
             </summary>
-            <param name="createOrderDto"></param>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Utility.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">

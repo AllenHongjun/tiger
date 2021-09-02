@@ -285,13 +285,13 @@ export const constantRoutes = [
       {
         path: 'member-level/list',
         component: () => import('@/views/member/member-level/list'),
-        name: 'CouponHistory',
+        name: 'MemberLevel',
         meta: { title: '会员等级', icon: 'star' }
       },
       {
         path: 'member-statistic/list',
         component: () => import('@/views/member/member-statistic/list'),
-        name: 'CouponHistory',
+        name: 'MemberStatistic',
         meta: { title: '会员统计', icon: 'tab' }
       }
 

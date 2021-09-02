@@ -33,6 +33,64 @@ namespace Tiger.Demo
         }
 
 
+        /// <summary>
+        /// 查询订单列表
+        /// </summary>
+        /// <param name="skipCount"></param>
+        /// <param name="maxResultCount"></param>
+        /// <param name="sorting"></param>
+        /// <param name="filter"></param>
+        /// <param name="status"></param>
+        /// <param name="paytype"></param>
+        /// <param name="sourceType"></param>
+        /// <returns></returns>
+        public async Task<List<Order>> GetListAsync(
+            int skipCount,
+            int maxResultCount,
+            string sorting,
+            string filter ,
+            int status,
+            int paytype,
+            int sourceType
+            )
+        {
+            return await DbSet
+                .WhereIf(
+                    !filter.IsNullOrWhiteSpace(),
+                    order => order.OrderSn.Contains(filter)
+                    || order.ReceiverName.Contains(filter)
+                 )
+                
+                .Where( order => order.Status == status)
+                .Where( order => order.PayType == paytype)
+                .Where( order => order.SourceType == sourceType)
+                .OrderByDescending(sorting => sorting.CreationTime)
+                .Skip(skipCount)
+                .Take(maxResultCount)
+                .ToListAsync();
+        }
+
+        public async Task<int> TotalCount(
+            string filter,
+            int status,
+            int paytype,
+            int sourceType
+            )
+        {
+            return await DbSet
+                .WhereIf(
+                    !filter.IsNullOrWhiteSpace(),
+                    order => order.OrderSn.Contains(filter)
+                    || order.ReceiverName.Contains(filter)
+                 )
+
+                .Where(order => order.Status == status)
+                .Where(order => order.PayType == paytype)
+                .Where(order => order.SourceType == sourceType)
+                .CountAsync();
+        }
+
+
 
         /// <summary>
         /// 生成订单

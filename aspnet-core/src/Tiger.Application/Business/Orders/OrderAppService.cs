@@ -6,9 +6,11 @@ using Tiger.Business.Orders;
 using Tiger.Business.Orders.Dtos;
 using Tiger.Orders.Orders;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
+using Volo.Abp.ObjectMapping;
 
 namespace Tiger.Orders
 {
@@ -38,24 +40,49 @@ namespace Tiger.Orders
             _orderManager = orderManager;
         }
 
+
+        /// <summary>
+        /// 分页查询书籍的数据
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<PagedResultDto<OrderDto>>
+            GetListAsync(GetOrderListDto input)
+        {
+            await CheckGetListPolicyAsync();
+
+            var query = await _orderRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting, input.Filter, input.Status, input.PayType, input.SourceType);
+
+            var orderDtos = ObjectMapper.Map<List<Business.Orders.Order>, List<OrderDto>>(query);
+
+            //Get the total count with another query
+            var totalCount = await _orderRepository.TotalCount(input.Filter, input.Status, input.PayType, input.SourceType);
+
+            return new PagedResultDto<OrderDto>(
+                totalCount,
+                orderDtos
+            );
+        }
+
+
         /// <summary>
         /// 生成订单
         /// </summary>
-        /// <param name="createOrderDto"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<OrderDto> CreateOrder(CreateOrderDto createOrderDto)
+        public async Task<OrderDto> CreateOrder(CreateOrderDto input)
         {
-            List<CartItem> cartItems =  _cartIteamRepository.Where(x => x.MemberId == createOrderDto.memberId).ToList();
+            List<CartItem> cartItems =  _cartIteamRepository.Where(x => x.MemberId == input.memberId).ToList();
             if (cartItems == null)
             {
                 throw new Exception("请先将商品加入购物车");
             }
 
             var order = await _orderRepository.CreateOrder(
-                createOrderDto.memberId, 
-                createOrderDto.sourceType, 
-                createOrderDto.orderType, 
-                createOrderDto.useIntegration);
+                input.memberId, 
+                input.sourceType, 
+                input.orderType, 
+                input.useIntegration);
 
             //await CurrentUnitOfWork.SaveChangesAsync();
 

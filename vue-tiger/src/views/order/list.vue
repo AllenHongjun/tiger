@@ -1,16 +1,17 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.filter" placeholder="请输入查询关键字" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
       <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
-      <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+      <el-select v-model="listQuery.status" placeholder="状态" clearable class="filter-item" style="width: 130px">
+        <el-option v-for="item in orderStatusOptions" :key="item.key" :label="item.display_name" :value="item.key" />
       </el-select>
+
       <el-cascader :props="listQuery.props" />
       <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
@@ -54,18 +55,18 @@
                 <el-input v-model="listQuery.title" />
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item label="重要性" label-width="120px" class="postInfo-container-item">
                 <el-select v-model="listQuery.importance" placeholder="重要性" clearable style="width: 90px" class="filter-item">
                   <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
                 </el-select>
               </el-form-item>
-            </el-col>
+            </el-col> -->
 
             <el-col :span="6">
               <el-form-item label="类型" label-width="120px" class="postInfo-container-item">
                 <el-select v-model="listQuery.type" placeholder="类型" clearable class="filter-item" style="width: 130px">
-                  <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+                  <el-option v-for="item in orderTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -96,16 +97,17 @@
 
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
       <el-table-column align="center" type="selection" width="55" />
-      <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
+
+      <!-- <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
         <template slot-scope="scope">
           <span>{{ scope.row.id }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column min-width="180px" label="订单号">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.title }}</span>
+            <span>{{ row.orderSn }}</span>
           </router-link>
         </template>
       </el-table-column>
@@ -113,7 +115,7 @@
       <el-table-column class-name="status-col" label="订单类型" width="110">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
+            {{ row.status | orderTypeFilter }}
           </el-tag>
         </template>
       </el-table-column>
@@ -128,26 +130,26 @@
 
       <el-table-column min-width="100px" label="用户">
         <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
+          <span>{{ row.memberId }}</span>
         </template>
       </el-table-column>
 
       <el-table-column min-width="100px" label="支付金额">
         <template slot-scope="{row}">
-          <span>{{ row.forecast }}</span>
+          <span>{{ row.payAmount }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="180px" align="center" label="付款时间" sortable>
         <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ scope.row.paymentTime | formatDate }}</span>
         </template>
       </el-table-column>
 
       <el-table-column class-name="status-col" label="支付方式" width="110">
         <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
+          <el-tag :type="row.payType | statusFilter">
+            {{ row.payType | payTypeFilter }}
           </el-tag>
         </template>
       </el-table-column>
@@ -155,7 +157,7 @@
       <el-table-column class-name="status-col" label="订单状态" width="110">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
+            {{ row.status | orderStatusFilter }}
           </el-tag>
         </template>
       </el-table-column>
@@ -166,33 +168,6 @@
           <span><img :src="scope.row.image_uri" width="100px"></span>
         </template>
       </el-table-column> -->
-      <!-- <el-table-column width="120px" align="center" label="图标">
-        <template slot-scope="scope">
-          <span><img :src="scope.row.image_uri" width="100px"></span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="120px" align="center" label="排序">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column class-name="status-col" label="状态" width="110">
-        <template>
-          <el-switch
-            v-model="show"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-          />
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column width="100px" label="重要性">
-        <template slot-scope="scope">
-          <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon" />
-        </template>
-      </el-table-column> -->
 
       <el-table-column align="center" label="操作" width="180">
         <template slot-scope="scope">
@@ -200,7 +175,7 @@
             详情
           </el-button> -->
 
-          <el-dropdown trigger="click" size="mini" @command="handleCommand">
+          <el-dropdown trigger="click" size="mini">
             <el-button type="primary" size="small">
               操作<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
@@ -224,7 +199,7 @@
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
         <el-form-item label="类型" prop="type">
           <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+            <el-option v-for="item in orderTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
           </el-select>
         </el-form-item>
         <el-form-item label="父级分类" prop="title">
@@ -289,16 +264,50 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+// import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
+import { getOrders, getOrderById, createOrder, updateOrder, deleteOrder } from '@/api/order/order'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
-const calendarTypeOptions = [
-  { key: 'show', display_name: '显示' },
-  { key: 'hidden', display_name: '隐藏' }
+// 订单类型
+const orderTypeOptions = [
+  { key: '0', display_name: '普通订单' },
+  { key: '1', display_name: '秒杀订单' }
 ]
+
+const orderTypeKeyValue = orderTypeOptions.reduce((acc, cur) => {
+  acc[cur.key] = cur.display_name
+  return acc
+}, {})
+
+// 支付方式
+const payTypeOptions = [
+  { key: '0', display_name: '未支付' },
+  { key: '1', display_name: '支付宝' },
+  { key: '2', display_name: '微信' }
+]
+
+const payTypeKeyValue = payTypeOptions.reduce((acc, cur) => {
+  acc[cur.key] = cur.display_name
+  return acc
+}, {})
+
+// 订单类型
+const orderStatusOptions = [
+  { key: '0', display_name: '待付款' },
+  { key: '1', display_name: '待发货' },
+  { key: '2', display_name: '已发货' },
+  { key: '3', display_name: '已完成' },
+  { key: '4', display_name: '已关闭' },
+  { key: '5', display_name: '无效订单' }
+]
+
+const orderStatusKeyValue = orderStatusOptions.reduce((acc, cur) => {
+  acc[cur.key] = cur.display_name
+  return acc
+}, {})
 
 // const showCategoryTypeOptions = [
 //   { key: 'show', display_name: '显示' },
@@ -306,15 +315,9 @@ const calendarTypeOptions = [
 // ]
 
 // arr to obj, such as { CN : "China", US : "USA" }
-const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-  acc[cur.key] = cur.display_name
-  return acc
-}, {})
-
-let id = 0
 
 export default {
-  name: 'CategoryList',
+  name: 'OrderList',
   components: { Pagination, UploadExcelComponent },
   directives: { waves },
   filters: {
@@ -326,8 +329,14 @@ export default {
       }
       return statusMap[status]
     },
-    typeFilter(type) {
-      return calendarTypeKeyValue[type]
+    orderTypeFilter(type) {
+      return orderTypeKeyValue[type]
+    },
+    payTypeFilter(type) {
+      return payTypeKeyValue[type]
+    },
+    orderStatusFilter(type) {
+      return orderStatusKeyValue[type]
     }
   },
   data() {
@@ -338,44 +347,62 @@ export default {
       listQuery: {
         page: 1,
         limit: 10,
-        importance: undefined,
-        // status: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id',
-        props: {
-          lazy: true,
-          lazyLoad(node, resolve) {
-            const { level } = node
-            setTimeout(() => {
-              const nodes = Array.from({ length: level + 1 })
-                .map(item => ({
-                  value: ++id,
-                  label: `选项${id}`,
-                  leaf: level >= 2
-                }))
-              // 通过调用resolve将子节点数据返回，通知组件数据加载完成
-              resolve(nodes)
-            }, 1000)
-          }
-        }
+        filter: undefined,
+        status: undefined,
+        payType: undefined,
+        sourceType: undefined,
+        receiverName: undefined
       },
-      importanceOptions: [1, 2, 3],
+      orderTypeOptions,
+      orderStatusOptions,
+      payTypeOptions,
       // statusOptions: [true, false],
-      calendarTypeOptions,
       sortOptions: [{ label: '升序', key: '+id' }, { label: '降序', key: '-id' }],
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       show: true,
       temp: {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
-
-        status: 'published'
+        tenantId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        memberId: 0,
+        couponId: 0,
+        orderSn: 'string',
+        totalAmount: 0,
+        payAmount: 0,
+        freightAmount: 0,
+        promotionAmount: 0,
+        integrationAmount: 0,
+        couponAmount: 0,
+        discountAmount: 0,
+        payType: 0,
+        sourceType: 0,
+        status: 0,
+        orderType: 0,
+        deliveryCompany: 'string',
+        deliverySn: 'string',
+        autoConfirmDay: 0,
+        integration: 0,
+        growth: 0,
+        promotionInfo: 0,
+        billType: 0,
+        billHeader: 'string',
+        billContent: 'string',
+        billReceiverPhone: 'string',
+        billReceiverEmail: 'string',
+        receiverName: 'string',
+        receiverPhone: 'string',
+        receiverPostCode: 'string',
+        receiverProvince: 'string',
+        receiverCity: 'string',
+        receiverRegion: 'string',
+        receiverDetailAddress: 'string',
+        note: 'string',
+        confirmStatus: 0,
+        useIntegration: 0,
+        paymentTime: '2021-09-02T06:45:47.811Z',
+        deliveryTime: '2021-09-02T06:45:47.811Z',
+        receiveTime: '2021-09-02T06:45:47.811Z',
+        commentTime: '2021-09-02T06:45:47.811Z'
       },
       searchDivVisible: false,
       dialogFormVisible: false,
@@ -403,9 +430,9 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.total = response.data.total
+      getOrders(this.listQuery).then(response => {
+        this.list = response.items
+        this.total = response.totalCount
         this.listLoading = false
       })
     },
@@ -464,7 +491,7 @@ export default {
         if (valid) {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
+          createOrder(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -491,7 +518,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
+          updateOrder(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
@@ -521,12 +548,12 @@ export default {
       const index = this.list.indexOf(row)
       this.list.splice(index, 1)
     },
-    handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
-    },
+    // handleFetchPv(pv) {
+    //   fetchPv(pv).then(response => {
+    //     this.pvData = response.data.pvData
+    //     this.dialogPvVisible = true
+    //   })
+    // },
     handleSearch() {
       this.searchDivVisibilty = !this.searchDivVisibilty
       console.log('handleSearch', this.searchDivVisibilty)
