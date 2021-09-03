@@ -49,7 +49,8 @@ namespace Tiger
             CreateMap<Author, AuthorDto>();
 
             #region Basic
-            CreateMap<Basic.Product, ProductDto>();
+            CreateMap<Basic.Product, ProductDto>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom( src => src.Category.Name));
             CreateMap<CreateUpdateProductDto, Basic.Product>();
 
             CreateMap<ProductAttributeType, ProductAttributeTypeDto>();

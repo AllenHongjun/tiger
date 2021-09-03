@@ -33,6 +33,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Tiger
 {
@@ -115,7 +116,12 @@ namespace Tiger
 
 
 
-            context.Services.AddAuthentication()
+            context.Services.AddAuthentication(options =>
+                {
+                    //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                })
                 .AddJwtBearer(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
@@ -127,11 +133,16 @@ namespace Tiger
                         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                     };
                 })
+
+            // 自己添加的配置
                 .AddOpenIdConnect("oidc", "Tiger IdentityServer", options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                     options.SignOutScheme = IdentityServerConstants.SignoutScheme;
                     options.SaveTokens = true;
+
+                    // 线上没有https 开发模式需要设置false 不然无法运行
+                    options.RequireHttpsMetadata = false;
 
                     options.Authority = configuration["AuthServer:Authority"];
                     options.ClientId = "interactive.confidential";

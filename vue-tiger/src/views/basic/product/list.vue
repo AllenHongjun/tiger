@@ -39,6 +39,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column width="80px" label="分类名称">
+        <template slot-scope="{row}">
+          <span>{{ row.categoryName }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column min-width="220px" label="商品名称">
         <template slot-scope="{row}">
           <router-link :to="'/basic/product/edit/'+row.id" class="link-type">
