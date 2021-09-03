@@ -25,7 +25,7 @@ namespace Tiger.Business.Members.Dtos
 
         public int PrivilegeBirthDay { get; set; }
 
-        public int Note { get; set; }
+        public string Note { get; set; }
 
     }
 }

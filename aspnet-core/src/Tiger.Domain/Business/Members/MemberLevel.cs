@@ -58,7 +58,7 @@ namespace Tiger.Business.Members
         /// <summary>
         /// 备注
         /// </summary>
-        public int Note { get; set; }
+        public string Note { get; set; }
 
         public Guid? TenantId { get; set; }
     }

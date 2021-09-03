@@ -492,26 +492,24 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
+      }).then(() => {
+        deleteCategory(row.id)
+          .then((response) => {
+            const index = this.list.findIndex((v) => v.id === row.id)
+            this.list.splice(index, 1)
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }).catch((err) => {
+        console.log(err)
       })
-        .then(() => {
-          deleteCategory(row.id)
-            .then((response) => {
-              const index = this.list.findIndex((v) => v.id === row.id)
-              this.list.splice(index, 1)
-              this.$notify({
-                title: '成功',
-                message: '删除成功',
-                type: 'success',
-                duration: 2000
-              })
-            })
-            .catch((err) => {
-              console.log(err)
-            })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     },
     // handleFetchPv(pv) {
     //   fetchPv(pv).then(response => {
