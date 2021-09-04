@@ -2,15 +2,15 @@
   <div class="app-container">
     <el-row style="margin-bottom:5px;">
       <el-button icon="el-icon-search">查询</el-button>
-      <el-button icon="el-icon-set-up">切换</el-button>
-      <el-button type="info" icon="el-icon-refresh" plain>刷新</el-button>
-      <el-button type="info" icon="el-icon-printer" plain>打印</el-button>
-      <el-button type="primary" icon="el-icon-plus" plain>添加</el-button>
-      <el-button type="primary" icon="el-icon-edit" plain>编辑</el-button>
-      <el-button type="danger" icon="el-icon-delete" plain>删除</el-button>
-      <el-button type="warning" icon="el-icon-check" plain>审核</el-button>
+      <el-button icon="el-icon-set-up" @click="swithBillContainer">切换</el-button>
+      <el-button type="info" icon="el-icon-refresh">刷新</el-button>
+      <el-button type="info" icon="el-icon-printer">打印</el-button>
+      <el-button type="primary" icon="el-icon-plus">添加</el-button>
+      <el-button type="primary" icon="el-icon-edit">编辑</el-button>
+      <el-button type="danger" icon="el-icon-delete">删除</el-button>
+      <el-button type="warning" icon="el-icon-check">审核</el-button>
       <el-dropdown trigger="click" style="margin:0 5px;">
-        <el-button type="success" icon="el-icon-document-copy" plain>
+        <el-button type="success" icon="el-icon-document-copy">
           生单<i class="el-icon-arrow-down el-icon--right" />
         </el-button>
 
@@ -23,13 +23,26 @@
           <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成出库单 </el-link></el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button type="danger" icon="el-icon-delete" plain>作废</el-button>
-      <el-button type="info" icon="el-icon-message" plain>到货/入库</el-button>
+      <el-button type="danger" icon="el-icon-delete">作废</el-button>
+      <el-button type="info" icon="el-icon-message">到货/入库</el-button>
 
-      <el-button type="warning" icon="el-icon-edit-outline" plain>批处理</el-button>
-      <!-- <el-button type="info" icon="el-icon-more" plain>更多</el-button> -->
       <el-dropdown trigger="click" style="margin:0 5px;">
-        <el-button type="info" icon="el-icon-more" plain>
+        <el-button type="warning" icon="el-icon-edit-outline">
+          批处理<i class="el-icon-arrow-down el-icon--right" />
+        </el-button>
+
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item icon="el-icon-printer" divided>批量打印</el-dropdown-item>
+          <!-- <el-divider /> -->
+          <el-dropdown-item icon="el-icon-delete" divided>批量删除</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-check" divided @click="handleUpdate(scope.row)">批量审核</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-check" divided disabled>批量修改备注</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-message" divided>批量到货</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-close" divided>批量订单关闭</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown trigger="click" style="margin:0 5px;">
+        <el-button type="info" icon="el-icon-more">
           更多<i class="el-icon-arrow-down el-icon--right" />
         </el-button>
 
@@ -37,14 +50,78 @@
           <el-dropdown-item icon="el-icon-plus" divided>复制新增</el-dropdown-item>
           <!-- <el-divider /> -->
           <el-dropdown-item icon="el-icon-circle-plus" divided>草稿新增</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-circle-plus-outline" divided @click="handleUpdate(scope.row)">标记已付</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-check" divided disabled>修改备注</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-circle-check" divided>导出excel</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-edit" divided @click="handleUpdate(scope.row)">标记已付</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-edit" divided disabled>修改备注</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-document" divided>导出excel</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-row>
 
-    <div class="order-container">
+    <div v-show="billContainerVisibilty" class="bill-container">
+      <div class="filter-container">
+        <el-input v-model="listQuery.title" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
+        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
+      </el-select> -->
+        <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
+        <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
+      </el-select> -->
+        <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
+          <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+        </el-select>
+        <el-cascader :props="listQuery.props" />
+        <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
+        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
+      </el-select> -->
+
+        <div v-show="searchDivVisibilty" class="search-container">
+          <el-form ref="searchForm" :model="listQuery" label-width="80px">
+            <el-row>
+              <el-col :span="6">
+                <el-form-item v-model="listQuery.title" label="名称" placeholder="请输入名称" label-width="120px" class="postInfo-container-item">
+                  <el-input v-model="listQuery.title" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="重要性" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="listQuery.importance" placeholder="重要性" clearable style="width: 90px" class="filter-item">
+                    <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="6">
+                <el-form-item label="类型" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="listQuery.type" placeholder="类型" clearable class="filter-item" style="width: 130px">
+                    <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6">
+                <el-form-item label="排序" label-width="120px" class="postInfo-container-item">
+                  <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
+                    <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+
+            </el-row>
+
+            <el-form-item label="" label-width="120px">
+              <el-button type="primary" @click="handleFilter">
+                搜索
+              </el-button>
+              <el-button type="primary" @click="resetSearchForm('searchForm')">
+                重置
+              </el-button>
+              <el-button type="primary" @click="handleSearch">
+                关闭
+              </el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+
       <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
         <el-table-column align="center" type="selection" width="55" />
         <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
@@ -237,102 +314,8 @@
       </el-dialog>
     </div>
 
-    <div class="detail-container">
+    <div v-show="!billContainerVisibilty" class="bill-detail-container">
       detail
-    </div>
-
-    <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select> -->
-      <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
-      </el-select> -->
-      <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-      </el-select>
-      <el-cascader :props="listQuery.props" />
-      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select> -->
-
-      <el-button-group>
-        <el-button v-waves class="filter-item" size="mini" type="primary" icon="el-icon-search" @click="handleFilter">
-          搜索
-        </el-button>
-        <el-button size="mini" type="primary" icon="el-icon-arrow-down" @click="handleSearch" />
-      </el-button-group>
-
-      <el-button class="filter-item" size="mini" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        添加
-      </el-button>
-
-      <el-button v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleImport">
-        导入
-      </el-button>
-
-      <el-dropdown>
-        <el-button size="mini">
-          批量操作<i class="el-icon-arrow-down el-icon--right" />
-        </el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <el-link icon="el-icon-edit">审核</el-link>
-          </el-dropdown-item>
-          <el-dropdown-item><el-link icon="el-icon-delete">删除</el-link></el-dropdown-item>
-          <el-dropdown-item>
-            <el-link v-waves :loading="downloadLoading" class="filter-item" size="mini" icon="el-icon-download" @click="handleDownload">导出
-            </el-link>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <div v-show="searchDivVisibilty" class="search-container">
-        <el-form ref="searchForm" :model="listQuery" label-width="80px">
-          <el-row>
-            <el-col :span="6">
-              <el-form-item v-model="listQuery.title" label="名称" placeholder="请输入名称" label-width="120px" class="postInfo-container-item">
-                <el-input v-model="listQuery.title" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="重要性" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="listQuery.importance" placeholder="重要性" clearable style="width: 90px" class="filter-item">
-                  <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-                </el-select>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="6">
-              <el-form-item label="类型" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="listQuery.type" placeholder="类型" clearable class="filter-item" style="width: 130px">
-                  <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="排序" label-width="120px" class="postInfo-container-item">
-                <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-                  <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-                </el-select>
-              </el-form-item>
-            </el-col>
-
-          </el-row>
-
-          <el-form-item label="" label-width="120px">
-            <el-button type="primary" @click="handleFilter">
-              搜索
-            </el-button>
-            <el-button type="primary" @click="resetSearchForm('searchForm')">
-              重置
-            </el-button>
-            <el-button type="primary" @click="handleSearch">
-              关闭
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </div>
     </div>
 
   </div>
@@ -427,7 +410,7 @@ export default {
 
         status: 'published'
       },
-      searchDivVisible: false,
+
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
@@ -435,6 +418,7 @@ export default {
         create: 'Create'
       },
       searchDivVisibilty: false,
+      billContainerVisibilty: true,
       searchFilterDialogVisible: false,
       importExcelDialogVisible: false,
       dialogPvVisible: false,
@@ -581,6 +565,9 @@ export default {
       this.searchDivVisibilty = !this.searchDivVisibilty
       console.log('handleSearch', this.searchDivVisibilty)
     },
+    swithBillContainer() {
+      this.billContainerVisibilty = !this.billContainerVisibilty
+    },
     handleImport() {
       this.importExcelDialogVisible = true
       console.log('导入数据')
@@ -644,7 +631,7 @@ export default {
   top: 10px;
 }
 .filter-container{
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   position:relative;
 
 }
@@ -661,5 +648,10 @@ export default {
   display:block;
 }
 
+.bill-detail-container{
+  width:100%;
+  min-height:800px;
+  background-color:aquamarine;
+}
 </style>
 
