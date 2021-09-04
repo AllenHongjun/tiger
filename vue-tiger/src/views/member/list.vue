@@ -186,7 +186,7 @@
 
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" top="5vh">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="120px" style=" margin-left:50px;">
 
         <el-form-item label="用户名" prop="userName">

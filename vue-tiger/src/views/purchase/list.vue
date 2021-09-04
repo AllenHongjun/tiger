@@ -1,5 +1,246 @@
 <template>
   <div class="app-container">
+    <el-row style="margin-bottom:5px;">
+      <el-button icon="el-icon-search">查询</el-button>
+      <el-button icon="el-icon-set-up">切换</el-button>
+      <el-button type="info" icon="el-icon-refresh" plain>刷新</el-button>
+      <el-button type="info" icon="el-icon-printer" plain>打印</el-button>
+      <el-button type="primary" icon="el-icon-plus" plain>添加</el-button>
+      <el-button type="primary" icon="el-icon-edit" plain>编辑</el-button>
+      <el-button type="danger" icon="el-icon-delete" plain>删除</el-button>
+      <el-button type="warning" icon="el-icon-check" plain>审核</el-button>
+      <el-dropdown trigger="click" style="margin:0 5px;">
+        <el-button type="success" icon="el-icon-document-copy" plain>
+          生单<i class="el-icon-arrow-down el-icon--right" />
+        </el-button>
+
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <el-link><i class="el-icon-document el-icon--left" />生成退货单 </el-link>
+          </el-dropdown-item>
+          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成调拨单 </el-link></el-dropdown-item>
+          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成入库单 </el-link></el-dropdown-item>
+          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成出库单 </el-link></el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-button type="danger" icon="el-icon-delete" plain>作废</el-button>
+      <el-button type="info" icon="el-icon-message" plain>到货/入库</el-button>
+
+      <el-button type="warning" icon="el-icon-edit-outline" plain>批处理</el-button>
+      <!-- <el-button type="info" icon="el-icon-more" plain>更多</el-button> -->
+      <el-dropdown trigger="click" style="margin:0 5px;">
+        <el-button type="info" icon="el-icon-more" plain>
+          更多<i class="el-icon-arrow-down el-icon--right" />
+        </el-button>
+
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item icon="el-icon-plus" divided>复制新增</el-dropdown-item>
+          <!-- <el-divider /> -->
+          <el-dropdown-item icon="el-icon-circle-plus" divided>草稿新增</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-circle-plus-outline" divided @click="handleUpdate(scope.row)">标记已付</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-check" divided disabled>修改备注</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-circle-check" divided>导出excel</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </el-row>
+
+    <div class="order-container">
+      <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+        <el-table-column align="center" type="selection" width="55" />
+        <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
+          <template slot-scope="scope">
+            <span>{{ scope.row.id }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column min-width="180px" label="订单号">
+          <template slot-scope="{row}">
+            <router-link :to="'/example/edit/'+row.id" class="link-type">
+              <span>{{ row.title }}</span>
+            </router-link>
+          </template>
+        </el-table-column>
+
+        <el-table-column class-name="status-col" label="订单类型" width="110">
+          <template slot-scope="{row}">
+            <el-tag :type="row.status | statusFilter">
+              {{ row.status }}
+            </el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column min-width="180px" label="商品信息">
+          <template slot-scope="{row}">
+            <router-link :to="'/example/edit/'+row.id" class="link-type">
+              <span>{{ row.title }}</span>
+            </router-link>
+          </template>
+        </el-table-column>
+
+        <el-table-column min-width="100px" label="用户">
+          <template slot-scope="{row}">
+            <span>{{ row.author }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column min-width="100px" label="支付金额">
+          <template slot-scope="{row}">
+            <span>{{ row.forecast }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column width="180px" align="center" label="付款时间" sortable>
+          <template slot-scope="scope">
+            <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column class-name="status-col" label="支付方式" width="110">
+          <template slot-scope="{row}">
+            <el-tag :type="row.status | statusFilter">
+              {{ row.status }}
+            </el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column class-name="status-col" label="订单状态" width="110">
+          <template slot-scope="{row}">
+            <el-tag :type="row.status | statusFilter">
+              {{ row.status }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <!-- <el-table-column width="120px" align="center" label="合并一列">
+        <template slot-scope="scope">
+          <span>{{ scope.row.title }}</span>
+          <span>{{ scope.row.author }}</span>
+          <span><img :src="scope.row.image_uri" width="100px"></span>
+        </template>
+      </el-table-column> -->
+        <!-- <el-table-column width="120px" align="center" label="图标">
+        <template slot-scope="scope">
+          <span><img :src="scope.row.image_uri" width="100px"></span>
+        </template>
+      </el-table-column>
+
+      <el-table-column width="120px" align="center" label="排序">
+        <template slot-scope="scope">
+          <span>{{ scope.row.author }}</span>
+        </template>
+      </el-table-column> -->
+
+        <!-- <el-table-column class-name="status-col" label="状态" width="110">
+        <template>
+          <el-switch
+            v-model="show"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+          />
+        </template>
+      </el-table-column> -->
+
+        <!-- <el-table-column width="100px" label="重要性">
+        <template slot-scope="scope">
+          <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon" />
+        </template>
+      </el-table-column> -->
+
+        <el-table-column align="center" label="操作" width="180">
+          <template slot-scope="scope">
+            <!-- <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
+            详情
+          </el-button> -->
+
+            <el-dropdown trigger="click" size="mini">
+              <el-button type="primary" size="small">
+                操作<i class="el-icon-arrow-down el-icon--right" />
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>订单详情</el-dropdown-item>
+                <el-dropdown-item>订单记录</el-dropdown-item>
+                <el-dropdown-item>
+                  小票打印
+                </el-dropdown-item>
+                <el-dropdown-item>订单备注</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </template>
+
+        </el-table-column>
+      </el-table>
+
+      <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+
+      <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+        <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
+          <el-form-item label="类型" prop="type">
+            <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
+              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="父级分类" prop="title">
+            <el-cascader :props="listQuery.props" />
+          </el-form-item>
+          <el-form-item label="时间" prop="timestamp">
+            <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
+          </el-form-item>
+          <el-form-item label="标题" prop="title">
+            <el-input v-model="temp.title" />
+          </el-form-item>
+          <el-form-item label="状态">
+            <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
+              <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="重要性">
+            <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />
+          </el-form-item>
+          <el-form-item label="点评">
+            <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">
+            取消
+          </el-button>
+          <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
+            确认
+          </el-button>
+        </div>
+      </el-dialog>
+
+      <!-- 搜索过滤 -->
+      <el-dialog title="搜索条件" :visible.sync="searchFilterDialogVisible" width="80%">
+        <!-- <el-divider /> -->
+        <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+        <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="importExcelDialogVisible = false">
+            关闭
+          </el-button>
+        </div>
+      </el-dialog>
+
+      <!-- 导入excel -->
+      <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
+        <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
+          下载模板
+        </el-button>
+        <el-divider />
+        <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+        <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="importExcelDialogVisible = false">
+            关闭
+          </el-button>
+        </div>
+      </el-dialog>
+    </div>
+
+    <div class="detail-container">
+      detail
+    </div>
+
     <div class="filter-container">
       <el-input v-model="listQuery.title" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
@@ -93,197 +334,6 @@
         </el-form>
       </div>
     </div>
-
-    <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
-      <el-table-column align="center" type="selection" width="55" />
-      <el-table-column align="center" label="ID" width="80" prop="id" sortable="custom">
-        <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="180px" label="订单号">
-        <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.title }}</span>
-          </router-link>
-        </template>
-      </el-table-column>
-
-      <el-table-column class-name="status-col" label="订单类型" width="110">
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
-          </el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="180px" label="商品信息">
-        <template slot-scope="{row}">
-          <router-link :to="'/example/edit/'+row.id" class="link-type">
-            <span>{{ row.title }}</span>
-          </router-link>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="100px" label="用户">
-        <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column min-width="100px" label="支付金额">
-        <template slot-scope="{row}">
-          <span>{{ row.forecast }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="180px" align="center" label="付款时间" sortable>
-        <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column class-name="status-col" label="支付方式" width="110">
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
-          </el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column class-name="status-col" label="订单状态" width="110">
-        <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <!-- <el-table-column width="120px" align="center" label="合并一列">
-        <template slot-scope="scope">
-          <span>{{ scope.row.title }}</span>
-          <span>{{ scope.row.author }}</span>
-          <span><img :src="scope.row.image_uri" width="100px"></span>
-        </template>
-      </el-table-column> -->
-      <!-- <el-table-column width="120px" align="center" label="图标">
-        <template slot-scope="scope">
-          <span><img :src="scope.row.image_uri" width="100px"></span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="120px" align="center" label="排序">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column class-name="status-col" label="状态" width="110">
-        <template>
-          <el-switch
-            v-model="show"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-          />
-        </template>
-      </el-table-column> -->
-
-      <!-- <el-table-column width="100px" label="重要性">
-        <template slot-scope="scope">
-          <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon" />
-        </template>
-      </el-table-column> -->
-
-      <el-table-column align="center" label="操作" width="180">
-        <template slot-scope="scope">
-          <!-- <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
-            详情
-          </el-button> -->
-
-          <el-dropdown trigger="click" size="mini" @command="handleCommand">
-            <el-button type="primary" size="small">
-              操作<i class="el-icon-arrow-down el-icon--right" />
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>订单详情</el-dropdown-item>
-              <el-dropdown-item>订单记录</el-dropdown-item>
-              <el-dropdown-item>
-                小票打印
-              </el-dropdown-item>
-              <el-dropdown-item>订单备注</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </template>
-
-      </el-table-column>
-    </el-table>
-
-    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="类型" prop="type">
-          <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="父级分类" prop="title">
-          <el-cascader :props="listQuery.props" />
-        </el-form-item>
-        <el-form-item label="时间" prop="timestamp">
-          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
-        </el-form-item>
-        <el-form-item label="标题" prop="title">
-          <el-input v-model="temp.title" />
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
-            <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="重要性">
-          <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />
-        </el-form-item>
-        <el-form-item label="点评">
-          <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          取消
-        </el-button>
-        <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-          确认
-        </el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 搜索过滤 -->
-    <el-dialog title="搜索条件" :visible.sync="searchFilterDialogVisible" width="80%">
-      <!-- <el-divider /> -->
-      <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
-      <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importExcelDialogVisible = false">
-          关闭
-        </el-button>
-      </div>
-    </el-dialog>
-
-    <!-- 导入excel -->
-    <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
-      <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
-        下载模板
-      </el-button>
-      <el-divider />
-      <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
-      <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importExcelDialogVisible = false">
-          关闭
-        </el-button>
-      </div>
-    </el-dialog>
 
   </div>
 </template>
