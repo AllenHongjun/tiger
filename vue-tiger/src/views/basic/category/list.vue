@@ -248,7 +248,7 @@ import { getCategories, getCategoryById, createCategory, updateCategory, deleteC
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+// import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import CategoryTree from '../components/category-tree'
 import CategoryCascader from '../components/category-cascader'
 
@@ -266,7 +266,7 @@ let id = 0
 
 export default {
   name: 'CategoryList',
-  components: { Pagination, UploadExcelComponent, CategoryTree, CategoryCascader },
+  components: { UploadExcelComponent, CategoryTree, CategoryCascader },
   directives: { waves },
   filters: {
     statusFilter(status) {

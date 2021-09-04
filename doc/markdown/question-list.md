@@ -1,7 +1,7 @@
 -   
 - [vue element-ui列表中el-switch 开关,使用0和1](https://blog.csdn.net/qq_35430000/article/details/99760226)
 - 新添加的数据。无法立即更新因为tempdata 的id数据错误。需要根据返回的数据重新赋值id
-- 
+- 图片上传组件。没有图片的值。也会绑定图片。 bug
 - 订单管理数据查询
   - 如何管理查询来筛选数据
   - auto mapper 如何关联显示 关联表的字段。

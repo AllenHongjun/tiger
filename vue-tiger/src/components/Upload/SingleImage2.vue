@@ -7,15 +7,15 @@
       :on-success="handleImageSuccess"
       class="image-uploader"
       drag
-      action="https://localhost:44306/api/app/basic/qiniuBlobSave"
+      :action="Url.baseUrl + 'api/app/basic/qiniuBlobSave'"
     >
       <i class="el-icon-upload" />
       <div class="el-upload__text">
         Drag或<em>点击上传</em>
       </div>
     </el-upload>
-    <div v-show="imageUrl.length>0" class="image-preview">
-      <div v-show="imageUrl.length>1" class="image-preview-wrapper">
+    <div v-show="imageUrl.length > Url.photoPrefix.length" class="image-preview">
+      <div v-show="imageUrl.length > Url.photoPrefix.length" class="image-preview-wrapper">
         <img :src="imageUrl">
         <div class="image-preview-action">
           <i class="el-icon-delete" @click="rmImage" />
@@ -27,6 +27,7 @@
 
 <script>
 import { getToken } from '@/api/qiniu'
+import { Url } from '@/utils/abp'
 
 export default {
   name: 'SingleImageUpload2',
@@ -39,12 +40,13 @@ export default {
   data() {
     return {
       tempUrl: '',
-      dataObj: { token: '', key: '' }
+      dataObj: { token: '', key: '' },
+      Url
     }
   },
   computed: {
     imageUrl() {
-      return this.value
+      return this.Url.photoPrefix + this.value
     }
   },
   methods: {
@@ -54,9 +56,10 @@ export default {
     emitInput(val) {
       this.$emit('input', val)
     },
-    handleImageSuccess() {
+    handleImageSuccess(file) {
       console.log(this.tempUrl)
-      this.emitInput(this.tempUrl)
+      this.emitInput(file.blobName)
+      // this.emitInput(this.tempUrl)
     },
     beforeUpload() {
       const _self = this
