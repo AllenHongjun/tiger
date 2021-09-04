@@ -1,13 +1,13 @@
 <template>
   <div class="app-container">
-    <el-row style="margin-bottom:5px;">
+    <el-row v-show="operatorButtonsVisibilty" style="margin-bottom:5px;">
       <el-button @click="setCurrent(list[0])">选中第二行</el-button>
       <el-button @click="setCurrent()">取消选择</el-button>
       <el-button icon="el-icon-search">查询</el-button>
       <el-button icon="el-icon-set-up" @click="swithBillContainer">切换</el-button>
-      <el-button type="info" icon="el-icon-refresh">刷新</el-button>
+      <el-button type="info" icon="el-icon-refresh" @click="handleRefresh">刷新</el-button>
       <el-button type="info" icon="el-icon-printer">打印</el-button>
-      <el-button type="primary" icon="el-icon-plus">添加</el-button>
+      <el-button type="primary" icon="el-icon-plus" @click="handleCreate">添加</el-button>
       <el-button type="primary" icon="el-icon-edit" @click="handleUpdate">编辑</el-button>
       <el-button type="danger" icon="el-icon-delete">删除</el-button>
       <el-button type="warning" icon="el-icon-check">审核</el-button>
@@ -59,11 +59,12 @@
       </el-dropdown>
     </el-row>
 
-    <el-row style="margin-bottom:5px;">
-      <el-button icon="el-icon-search">保存</el-button>
+    <el-row v-show="!operatorButtonsVisibilty" style="margin-bottom:5px;">
+      <el-button type="primary" icon="el-icon-search" @click="detailFormStatus==='create'?createData():updateData()">保存</el-button>
       <el-button icon="el-icon-set-up" @click="swithBillContainer">存为草稿</el-button>
       <el-button type="info" icon="el-icon-refresh">导入明细</el-button>
-      <el-button type="info" icon="el-icon-refresh">取消</el-button>
+      <el-button icon="el-icon-refresh" @click="onCancel">取消</el-button>
+
     </el-row>
 
     <div v-show="billContainerVisibilty" class="bill-container">
@@ -132,7 +133,8 @@
       </div>
 
       <el-table ref="billTable" v-loading="listLoading" :data="list" fit highlight-current-row style="width: 100%" @sort-change="sortChange" @current-change="handleCurrentChange">
-        <!-- <el-table-column align="center" type="selection" width="55" /> -->
+
+        <el-table-column align="center" type="selection" width="55" />
 
         <el-table-column min-width="180px" label="单号">
           <template slot-scope="{row}">
@@ -190,7 +192,7 @@
 
       <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-      <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-dialog :title="textMap[detailFormStatus]" :visible.sync="dialogFormVisible">
         <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
           <el-form-item label="类型" prop="type">
             <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
@@ -222,7 +224,7 @@
           <el-button @click="dialogFormVisible = false">
             取消
           </el-button>
-          <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
+          <el-button type="primary" @click="detailFormStatus==='create'?createData():updateData()">
             确认
           </el-button>
         </div>
@@ -246,8 +248,9 @@
 
     <div v-show="!billContainerVisibilty" class="bill-detail-container">
 
-      <el-form ref="ruleUserForm" :rules="rules" :model="temp" label-width="120px">
-
+      <el-form ref="detailForm" :rules="rules" :model="temp" label-width="120px">
+        {{ detailFormStatus }}
+        <el-divider content-position="left">少年包青天</el-divider>
         <el-row>
           <el-col :span="6">
             <el-form-item label="创建日期" prop="username">
@@ -320,7 +323,25 @@
         <el-table v-loading="listLoading" :data="temp.receiptDetails" fit highlight-current-row style="width: 100%" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
-          <el-table-column min-width="180px" label="单号">
+          <el-table-column align="center" label="操作" width="150px">
+            <template slot-scope="{row}">
+              <el-button-group>
+                <el-button type="success" icon="el-icon-plus" circle @click="handleCreateDetail(row)" />
+                <!-- <el-button type="success" icon="el-icon-plus" @click="confirmEdit(row)" /> -->
+                <el-button type="danger" icon="el-icon-delete" circle @click="handleDeleteDetail(row)" />
+                <el-button v-if="row.edit" type="success" icon="el-icon-check" circle @click="confirmEdit(row)" />
+                <el-button
+                  v-else
+                  type="primary"
+                  icon="el-icon-edit"
+                  circle
+                  @click="row.edit=!row.edit"
+                />
+              </el-button-group>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="160px" label="单号">
             <template slot-scope="{row}">
               <router-link :to="'/example/edit/'+row.id" class="link-type">
                 <span>{{ row.receiptCode }}</span>
@@ -328,67 +349,91 @@
             </template>
           </el-table-column>
 
-          <el-table-column width="120px" align="center" label="货号" sortable>
-            <template slot-scope="scope">
-              <span>{{ scope.row.productSn }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="120px" align="center" label="商品名称" sortable>
-            <template slot-scope="scope">
-              <span>{{ scope.row.productName }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="120px" align="center" label="批次" sortable>
-            <template slot-scope="scope">
-              <span>{{ scope.row.batch }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column min-width="100px" label="总数量">
+          <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
-              <span>{{ row.totalQty }}</span>
+              <span>{{ row.productSn }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column min-width="100px" label="未收数量">
+          <el-table-column min-width="180px" label="商品名称">
             <template slot-scope="{row}">
-              <span>{{ row.openQty }}</span>
+              <template v-if="row.edit">
+                <el-input v-model="row.productName" class="edit-input" />
+              </template>
+              <span v-else>{{ row.productName }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="160px" label="批次" sortable>
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-input v-model="row.batch" class="edit-input" />
+              </template>
+              <span v-else>{{ row.batch }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="80px" label="总数量">
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-input v-model="row.totalQty" class="edit-input" />
+              </template>
+              <span v-else>{{ row.totalQty }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="80px" label="未收数量">
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-input v-model="row.openQty" class="edit-input" />
+              </template>
+              <span v-else>{{ row.openQty }}</span>
             </template>
           </el-table-column>
 
           <el-table-column min-width="100px" label="处理标记">
             <template slot-scope="{row}">
-              <span>{{ row.processStamp }}</span>
+              <template v-if="row.edit">
+                <el-input v-model="row.processStamp" class="edit-input" />
+              </template>
+              <span v-else>{{ row.processStamp }}</span>
             </template>
           </el-table-column>
 
           <el-table-column min-width="100px" label="单位">
             <template slot-scope="{row}">
-              <span>{{ row.quantityUm }}</span>
+              <template v-if="row.edit">
+                <el-input v-model="row.quantityUm" class="edit-input" />
+              </template>
+              <span v-else>{{ row.quantityUm }}</span>
             </template>
           </el-table-column>
 
           <el-table-column width="180px" align="center" label="生产日期" sortable>
             <template slot-scope="scope">
-              <span>{{ scope.row.manufactureDate | formatDate }}</span>
+              <template v-if="scope.row.edit">
+                <el-input v-model="scope.row.manufactureDate" class="edit-input" />
+              </template>
+              <span v-else>{{ scope.row.manufactureDate | formatDate }}</span>
             </template>
           </el-table-column>
 
           <el-table-column width="180px" align="center" label="入库日期" sortable>
             <template slot-scope="scope">
-              <span>{{ scope.row.agingDate | formatDate }}</span>
+              <template v-if="scope.row.edit">
+                <el-input v-model="scope.row.agingDate" class="edit-input" />
+              </template>
+              <span v-else>{{ scope.row.agingDate | formatDate }}</span>
             </template>
           </el-table-column>
 
         </el-table>
 
-        <!-- <el-form-item>
+          <!-- <el-form-item>
           <el-button type="primary" @click="onSubmit('ruleUserForm')">提交</el-button>
           <el-button @click="onCancel">取消</el-button>
         </el-form-item> -->
-      </el-form>
+        </el-divider></el-form>
 
     </div>
 
@@ -451,6 +496,9 @@ export default {
       },
       currentRow: null,
       billContainerVisibilty: true,
+      operatorButtonsVisibilty: true,
+      detailFormStatus: '',
+
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
       calendarTypeOptions,
@@ -464,8 +512,8 @@ export default {
         code: '',
         receiptType: 0,
         purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        arriveDatetime: '',
-        closeAt: '',
+        // arriveDatetime: '',
+        // closeAt: '',
         totalQty: 0,
         totalCases: 0,
         totalWeight: 0,
@@ -476,7 +524,7 @@ export default {
       },
 
       dialogFormVisible: false,
-      dialogStatus: '',
+
       textMap: {
         update: 'Edit',
         create: 'Create'
@@ -514,6 +562,10 @@ export default {
       this.searchDivVisibilty = false
       this.listQuery.page = 1
       this.getList()
+    },
+    handleRefresh() {
+      this.list = null
+      this.handleFilter()
     },
     setCurrent(row) {
       console.log('row', row)
@@ -563,8 +615,8 @@ export default {
         code: '',
         receiptType: 0,
         purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        arriveDatetime: '',
-        closeAt: '',
+        // arriveDatetime: '',
+        // closeAt: '',
         totalQty: 0,
         totalCases: 0,
         totalWeight: 0,
@@ -574,22 +626,42 @@ export default {
         receiptDetails: null
       }
     },
+    handleSearch() {
+      this.searchDivVisibilty = !this.searchDivVisibilty
+      console.log('handleSearch', this.searchDivVisibilty)
+    },
+    swithBillContainer() {
+      this.billContainerVisibilty = !this.billContainerVisibilty
+      this.getDetail(this.currentRow.id)
+      // this.$refs['detailForm'] = 'readonly'
+    },
+    handleSave() {
+      var isUpdate = this.detailFormStatus === 'update'
+      if (isUpdate) {
+        this.createData()
+      } else {
+        this.updateData()
+      }
+    },
+    onCancel() {
+      this.billContainerVisibilty = this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
+    },
     handleCreate() {
       this.resetTemp()
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
+      this.detailFormStatus = 'create'
+      this.billContainerVisibilty = this.operatorButtonsVisibilty = false
       this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
+        this.$refs['detailForm'].clearValidate()
       })
     },
     createData() {
-      this.$refs['dataForm'].validate((valid) => {
+      this.$refs['detailForm'].validate((valid) => {
         if (valid) {
-          this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
+          // this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
+          // this.temp.author = 'vue-element-admin'
+          createReceiptHeader(this.temp).then(() => {
             this.list.unshift(this.temp)
-            this.dialogFormVisible = false
+            this.billContainerVisibilty = this.this.operatorButtonsVisibilty = true
             this.$notify({
               title: '成功',
               message: '创建成功',
@@ -600,38 +672,52 @@ export default {
         }
       })
     },
-    handleUpdate() {
-      console.log('currentRow', this.currentRow.id)
-
-      getReceiptHeaderById(this.currentRow.id).then((res) => {
+    getDetail(id) {
+      // if (this.temp.receiptDetails !== null) {
+      //   return
+      // }
+      getReceiptHeaderById(id).then((res) => {
         console.log('getReceiptHeaderById', res)
         this.temp = Object.assign({}, this.currentRow) // copy obj
-        this.temp.receiptDetails = res.receiptDetails // copy obj
-        console.log('temp', this.temp)
-        this.billContainerVisibilty = false
-      })
 
-      // this.temp.timestamp = new Date(this.temp.timestamp)
-      // this.dialogStatus = 'update'
-      // this.dialogFormVisible = true
-      // this.$nextTick(() => {
-      //   this.$refs['dataForm'].clearValidate()
-      // })
+        const items = res.receiptDetails
+        this.temp.receiptDetails = items.map(v => {
+          this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
+          v.originalTitle = v.title //  will be used when user click the cancel botton
+          return v
+        })
+        // this.temp.receiptDetails = res.receiptDetails // copy obj
+        console.log('temp', this.temp)
+      })
+    },
+
+    handleUpdate() {
+      console.log('currentRow', this.currentRow.id)
+      // 避免点击按钮重复请求
+
+      this.getDetail(this.currentRow.id)
+
+      this.billContainerVisibilty = this.operatorButtonsVisibilty = false
+      this.detailFormStatus = 'update'
+
+      this.$nextTick(() => {
+        this.$refs['detailForm'].clearValidate()
+      })
     },
     updateData() {
-      this.$refs['dataForm'].validate((valid) => {
+      this.$refs['detailForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
+          updateReceiptHeader(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
-                this.list.splice(index, 1, this.temp)
+                this.list.splice(index, 1, null)
                 break
               }
             }
-            this.dialogFormVisible = false
+            this.billContainerVisibilty = this.operatorButtonsVisibilty = true
             this.$notify({
               title: '成功',
               message: '修改成功',
@@ -659,13 +745,25 @@ export default {
         this.dialogPvVisible = true
       })
     },
-    handleSearch() {
-      this.searchDivVisibilty = !this.searchDivVisibilty
-      console.log('handleSearch', this.searchDivVisibilty)
+    handleCreateDetail(row) {
+      // this.temp.receiptDetails
+      const index = this.temp.receiptDetails.indexOf(row)
+      // 拼接函数(索引位置, 要删除元素的数量, 元素)
+      this.temp.receiptDetails.splice(index + 1, 0, this.temp)
     },
-    swithBillContainer() {
-      this.billContainerVisibilty = !this.billContainerVisibilty
+    handleDeleteDetail(row) {
+      const index = this.temp.receiptDetails.indexOf(row)
+      this.temp.receiptDetails.splice(index, 1)
     },
+    confirmEdit(row) {
+      row.edit = false
+      row.originalTitle = row.title
+      this.$message({
+        message: 'The title has been edited',
+        type: 'success'
+      })
+    },
+
     handleImport() {
       this.importExcelDialogVisible = true
       console.log('导入数据')
@@ -721,7 +819,7 @@ export default {
 
 <style scoped>
 .edit-input {
-  padding-right: 100px;
+  /* padding-right: 100px; */
 }
 .cancel-btn {
   position: absolute;
@@ -749,7 +847,7 @@ export default {
 .bill-detail-container{
   /* border: 1px solid rgb(197, 204, 202); */
   width:100%;
-  min-height:800px;
+  min-height:620px;
   /* background-color:aquamarine; */
 }
 </style>
