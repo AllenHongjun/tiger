@@ -219,18 +219,6 @@
         </div>
       </el-dialog>
 
-      <!-- 搜索过滤 -->
-      <el-dialog title="搜索条件" :visible.sync="searchFilterDialogVisible" width="80%">
-        <!-- <el-divider /> -->
-        <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
-        <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="importExcelDialogVisible = false">
-            关闭
-          </el-button>
-        </div>
-      </el-dialog>
-
       <!-- 导入excel -->
       <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
         <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
@@ -319,6 +307,63 @@
         <el-form-item label="年龄" prop="age">
           <el-input v-model.number="userForm.age" />
         </el-form-item> -->
+
+        <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+          <el-table-column align="center" type="selection" width="55" />
+
+          <el-table-column min-width="180px" label="单号">
+            <template slot-scope="{row}">
+              <router-link :to="'/example/edit/'+row.id" class="link-type">
+                <span>{{ row.code }}</span>
+              </router-link>
+            </template>
+          </el-table-column>
+
+          <el-table-column class-name="status-col" label="类型" width="110">
+            <template slot-scope="{row}">
+              <el-tag :type="row.receiptType | statusFilter">
+                {{ row.receiptType }}
+              </el-tag>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="180px" align="center" label="单据日期" sortable>
+            <template slot-scope="scope">
+              <span>{{ scope.row.creationTime | formatDate }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="180px" align="center" label="到货时间" sortable>
+            <template slot-scope="scope">
+              <span>{{ scope.row.arriveDatetime | formatDate }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="100px" label="总数量">
+            <template slot-scope="{row}">
+              <span>{{ row.totalQty }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="100px" label="总重量">
+            <template slot-scope="{row}">
+              <span>{{ row.totalWeight }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="100px" label="总体积">
+            <template slot-scope="{row}">
+              <span>{{ row.totalVolume }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="100px" label="备注">
+            <template slot-scope="{row}">
+              <span>{{ row.note }}</span>
+            </template>
+          </el-table-column>
+
+        </el-table>
 
         <el-form-item>
           <el-button type="primary" @click="onSubmit('ruleUserForm')">提交</el-button>
