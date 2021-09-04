@@ -156,6 +156,9 @@ namespace Tiger
             CreateMap<ReceiptHeader, ReceiptHeaderDto>();
             CreateMap<CreateUpdateReceiptHeaderDto, ReceiptHeader>();
 
+            CreateMap<ReceiptDetail, ReceiptDetailDto>();
+            CreateMap<CreateUpdateReceiptDetailDto, ReceiptDetail>();
+
             CreateMap<ReverseDetail, ReverseDetailDto>();
             CreateMap<CreateUpdateReverseDetailDto, ReverseDetail>();
 

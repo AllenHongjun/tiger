@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Tiger.Business.Stocks.Dtos;
 
 namespace Tiger.Stock.Dtos
 {
@@ -28,7 +29,7 @@ namespace Tiger.Stock.Dtos
 
         public Guid WarehouseId { get; set; }
 
-        //public ICollection<CreateUpdateReceiptDetailDto> ReceiptDetails { get; set; }
+        public ICollection<CreateUpdateReceiptDetailDto> ReceiptDetails { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Stock.Dtos;
 using Volo.Abp;
@@ -22,6 +23,13 @@ namespace Tiger.Stock
         public ReceiptHeaderAppService(IReceiptHeaderRepository repository) : base(repository)
         {
             _repository = repository;
+        }
+
+
+        public override async Task<ReceiptHeaderDto> GetAsync(Guid id)
+        {
+            var query = await _repository.GetAsync(id);
+            return ObjectMapper.Map<ReceiptHeader, ReceiptHeaderDto>(query); 
         }
     }
 }

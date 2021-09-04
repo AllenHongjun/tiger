@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Tiger.Business.Stocks.Dtos;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Stock.Dtos
@@ -27,6 +29,8 @@ namespace Tiger.Stock.Dtos
         public string Note { get; set; }
 
         public Guid WarehouseId { get; set; }
+
+        public ICollection<ReceiptDetailDto> ReceiptDetails { get; set; }
 
     }
 }

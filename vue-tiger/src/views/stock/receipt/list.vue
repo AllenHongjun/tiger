@@ -1,12 +1,14 @@
 <template>
   <div class="app-container">
     <el-row style="margin-bottom:5px;">
+      <el-button @click="setCurrent(list[0])">选中第二行</el-button>
+      <el-button @click="setCurrent()">取消选择</el-button>
       <el-button icon="el-icon-search">查询</el-button>
       <el-button icon="el-icon-set-up" @click="swithBillContainer">切换</el-button>
       <el-button type="info" icon="el-icon-refresh">刷新</el-button>
       <el-button type="info" icon="el-icon-printer">打印</el-button>
       <el-button type="primary" icon="el-icon-plus">添加</el-button>
-      <el-button type="primary" icon="el-icon-edit">编辑</el-button>
+      <el-button type="primary" icon="el-icon-edit" @click="handleUpdate">编辑</el-button>
       <el-button type="danger" icon="el-icon-delete">删除</el-button>
       <el-button type="warning" icon="el-icon-check">审核</el-button>
       <el-dropdown trigger="click" style="margin:0 5px;">
@@ -55,6 +57,13 @@
           <el-dropdown-item icon="el-icon-document" divided>导出excel</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+    </el-row>
+
+    <el-row style="margin-bottom:5px;">
+      <el-button icon="el-icon-search">保存</el-button>
+      <el-button icon="el-icon-set-up" @click="swithBillContainer">存为草稿</el-button>
+      <el-button type="info" icon="el-icon-refresh">导入明细</el-button>
+      <el-button type="info" icon="el-icon-refresh">取消</el-button>
     </el-row>
 
     <div v-show="billContainerVisibilty" class="bill-container">
@@ -122,8 +131,8 @@
         </div>
       </div>
 
-      <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
-        <el-table-column align="center" type="selection" width="55" />
+      <el-table ref="billTable" v-loading="listLoading" :data="list" fit highlight-current-row style="width: 100%" @sort-change="sortChange" @current-change="handleCurrentChange">
+        <!-- <el-table-column align="center" type="selection" width="55" /> -->
 
         <el-table-column min-width="180px" label="单号">
           <template slot-scope="{row}">
@@ -308,34 +317,32 @@
           <el-input v-model.number="userForm.age" />
         </el-form-item> -->
 
-        <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+        <el-table v-loading="listLoading" :data="temp.receiptDetails" fit highlight-current-row style="width: 100%" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
           <el-table-column min-width="180px" label="单号">
             <template slot-scope="{row}">
               <router-link :to="'/example/edit/'+row.id" class="link-type">
-                <span>{{ row.code }}</span>
+                <span>{{ row.receiptCode }}</span>
               </router-link>
             </template>
           </el-table-column>
 
-          <el-table-column class-name="status-col" label="类型" width="110">
-            <template slot-scope="{row}">
-              <el-tag :type="row.receiptType | statusFilter">
-                {{ row.receiptType }}
-              </el-tag>
+          <el-table-column width="120px" align="center" label="货号" sortable>
+            <template slot-scope="scope">
+              <span>{{ scope.row.productSn }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column width="180px" align="center" label="单据日期" sortable>
+          <el-table-column width="120px" align="center" label="商品名称" sortable>
             <template slot-scope="scope">
-              <span>{{ scope.row.creationTime | formatDate }}</span>
+              <span>{{ scope.row.productName }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column width="180px" align="center" label="到货时间" sortable>
+          <el-table-column width="120px" align="center" label="批次" sortable>
             <template slot-scope="scope">
-              <span>{{ scope.row.arriveDatetime | formatDate }}</span>
+              <span>{{ scope.row.batch }}</span>
             </template>
           </el-table-column>
 
@@ -345,30 +352,42 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="100px" label="总重量">
+          <el-table-column min-width="100px" label="未收数量">
             <template slot-scope="{row}">
-              <span>{{ row.totalWeight }}</span>
+              <span>{{ row.openQty }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column min-width="100px" label="总体积">
+          <el-table-column min-width="100px" label="处理标记">
             <template slot-scope="{row}">
-              <span>{{ row.totalVolume }}</span>
+              <span>{{ row.processStamp }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column min-width="100px" label="备注">
+          <el-table-column min-width="100px" label="单位">
             <template slot-scope="{row}">
-              <span>{{ row.note }}</span>
+              <span>{{ row.quantityUm }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="180px" align="center" label="生产日期" sortable>
+            <template slot-scope="scope">
+              <span>{{ scope.row.manufactureDate | formatDate }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="180px" align="center" label="入库日期" sortable>
+            <template slot-scope="scope">
+              <span>{{ scope.row.agingDate | formatDate }}</span>
             </template>
           </el-table-column>
 
         </el-table>
 
-        <el-form-item>
+        <!-- <el-form-item>
           <el-button type="primary" @click="onSubmit('ruleUserForm')">提交</el-button>
-          <!-- <el-button @click="onCancel">取消</el-button> -->
-        </el-form-item>
+          <el-button @click="onCancel">取消</el-button>
+        </el-form-item> -->
       </el-form>
 
     </div>
@@ -400,8 +419,6 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
   return acc
 }, {})
 
-const id = 0
-
 export default {
   name: 'CategoryList',
   components: { Pagination, UploadExcelComponent },
@@ -432,6 +449,8 @@ export default {
         // sort: '+id'
 
       },
+      currentRow: null,
+      billContainerVisibilty: true,
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
       calendarTypeOptions,
@@ -452,7 +471,8 @@ export default {
         totalWeight: 0,
         totalVolume: 0,
         note: '',
-        warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+        warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        receiptDetails: null
       },
 
       dialogFormVisible: false,
@@ -462,7 +482,7 @@ export default {
         create: 'Create'
       },
       searchDivVisibilty: false,
-      billContainerVisibilty: true,
+
       searchFilterDialogVisible: false,
       importExcelDialogVisible: false,
       dialogPvVisible: false,
@@ -485,6 +505,9 @@ export default {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
+
+        // 默认选中首行
+        this.setCurrent(this.list[0])
       })
     },
     handleFilter() {
@@ -492,6 +515,21 @@ export default {
       this.listQuery.page = 1
       this.getList()
     },
+    setCurrent(row) {
+      console.log('row', row)
+      this.$nextTick(() => {
+        // this.$refs.multipleTable.toggleRowSelection(row, true)
+        this.$refs.billTable.setCurrentRow(row)
+      })
+    },
+    handleCurrentChange(val) {
+      this.currentRow = val
+    },
+    getSelection() {
+      const _selectData = this.$refs.billTable.selection
+      console.log(_selectData)
+    },
+
     handleModifyStatus(row, status) {
       this.$message({
         message: '操作成功',
@@ -521,12 +559,19 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        status: 'published',
-        type: ''
+        creationTime: '',
+        code: '',
+        receiptType: 0,
+        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        arriveDatetime: '',
+        closeAt: '',
+        totalQty: 0,
+        totalCases: 0,
+        totalWeight: 0,
+        totalVolume: 0,
+        note: '',
+        warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        receiptDetails: null
       }
     },
     handleCreate() {
@@ -555,14 +600,23 @@ export default {
         }
       })
     },
-    handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
-      this.temp.timestamp = new Date(this.temp.timestamp)
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
+    handleUpdate() {
+      console.log('currentRow', this.currentRow.id)
+
+      getReceiptHeaderById(this.currentRow.id).then((res) => {
+        console.log('getReceiptHeaderById', res)
+        this.temp = Object.assign({}, this.currentRow) // copy obj
+        this.temp.receiptDetails = res.receiptDetails // copy obj
+        console.log('temp', this.temp)
+        this.billContainerVisibilty = false
       })
+
+      // this.temp.timestamp = new Date(this.temp.timestamp)
+      // this.dialogStatus = 'update'
+      // this.dialogFormVisible = true
+      // this.$nextTick(() => {
+      //   this.$refs['dataForm'].clearValidate()
+      // })
     },
     updateData() {
       this.$refs['dataForm'].validate((valid) => {

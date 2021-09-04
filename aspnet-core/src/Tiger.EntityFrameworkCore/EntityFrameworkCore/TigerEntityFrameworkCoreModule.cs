@@ -65,6 +65,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<MemberLoginLog, MemberLoginLogRepository>();
                 options.AddRepository<MemberReceiveAddress, MemberReceiveAddressRepository>();
                 options.AddRepository<MemberStatisticInfo, MemberStatisticInfoRepository>();
+                options.AddRepository<ReceiptDetail, ReceiptDetailRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

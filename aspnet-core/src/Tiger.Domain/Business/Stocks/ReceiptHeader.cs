@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Business.Stocks;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -79,6 +80,7 @@ namespace Tiger.Stock
 
         public Guid? TenantId { get; set; }
 
-        public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
+
+        public ICollection<ReceiptDetail> ReceiptDetails { get; set; }
     }
 }

@@ -38,5 +38,13 @@ namespace Tiger.Permissions
         
 
         
+
+        public class ReceiptDetail
+        {
+            public const string Default = GroupName + ".ReceiptDetail";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
     }
 }
