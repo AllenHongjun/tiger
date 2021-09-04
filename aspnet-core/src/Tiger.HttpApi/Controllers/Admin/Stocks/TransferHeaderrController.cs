@@ -17,9 +17,9 @@ namespace Tiger.Controllers.Admin.TransferHeaders
     /// </summary>
 
     [RemoteService(Name = "TransferHeader")]
-    [Area("Basics")]
+    [Area("Stocks")]
     [ControllerName("TransferHeader")]
-    [Route("api/basic/transferHeader")]
+    [Route("api/stock/transferHeader")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
     public class TransferHeaderController : TigerController, ITransferHeaderAppService
     {

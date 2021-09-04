@@ -15,9 +15,9 @@ namespace Tiger.Controllers.Admin.ShipmentHeaders
     /// </summary>
 
     [RemoteService(Name = "ShipmentHeader")]
-    [Area("Basics")]
+    [Area("Stocks")]
     [ControllerName("ShipmentHeader")]
-    [Route("api/basic/shipmentHeader")]
+    [Route("api/stock/shipmentHeader")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
     public class ShipmentHeaderController : TigerController, IShipmentHeaderAppService
     {

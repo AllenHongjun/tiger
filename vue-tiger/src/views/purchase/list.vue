@@ -222,28 +222,6 @@
         </template>
       </el-table-column> -->
 
-        <el-table-column align="center" label="操作" width="180">
-          <template slot-scope="scope">
-            <!-- <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
-            详情
-          </el-button> -->
-
-            <el-dropdown trigger="click" size="mini">
-              <el-button type="primary" size="small">
-                操作<i class="el-icon-arrow-down el-icon--right" />
-              </el-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>订单详情</el-dropdown-item>
-                <el-dropdown-item>订单记录</el-dropdown-item>
-                <el-dropdown-item>
-                  小票打印
-                </el-dropdown-item>
-                <el-dropdown-item>订单备注</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </template>
-
-        </el-table-column>
       </el-table>
 
       <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />

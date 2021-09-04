@@ -17,9 +17,9 @@ namespace Tiger.Controllers.Admin.TransferDetails
     /// </summary>
 
     [RemoteService(Name = "TransferDetail")]
-    [Area("Basics")]
+    [Area("Stocks")]
     [ControllerName("TransferDetail")]
-    [Route("api/basic/transferDetail")]
+    [Route("api/stock/transferDetail")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
     public class TransferDetailController : TigerController, ITransferDetailAppService
     {

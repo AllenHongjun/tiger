@@ -19,7 +19,7 @@ namespace Tiger.Controllers.Admin.ReceiptHeaders
     [RemoteService(Name = "ReceiptHeader")]
     [Area("Basics")]
     [ControllerName("ReceiptHeader")]
-    [Route("api/basic/receiptHeader")]
+    [Route("api/stock/receiptHeader")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
     public class ReceiptHeaderController : TigerController, IReceiptHeaderAppService
     {

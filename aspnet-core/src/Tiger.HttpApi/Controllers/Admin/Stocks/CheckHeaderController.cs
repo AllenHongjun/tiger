@@ -13,9 +13,9 @@ namespace Tiger.Controllers.Admin.CheckHeaders
     /// </summary>
 
     [RemoteService(Name = "CheckHeader")]
-    [Area("Basics")]
+    [Area("Stocks")]
     [ControllerName("CheckHeader")]
-    [Route("api/basic/checkHeader")]
+    [Route("api/stock/checkHeader")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
     public class CheckHeaderController : TigerController, ICheckHeaderAppService
     {

@@ -13,9 +13,9 @@ namespace Tiger.Controllers.Admin.CheckDetails
     /// </summary>
 
     [RemoteService(Name = "CheckDetail")]
-    [Area("Basics")]
+    [Area("Stocks")]
     [ControllerName("CheckDetail")]
-    [Route("api/basic/checkDetail")]
+    [Route("api/stock/checkDetail")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
     public class CheckDetailController : TigerController, ICheckDetailAppService
     {

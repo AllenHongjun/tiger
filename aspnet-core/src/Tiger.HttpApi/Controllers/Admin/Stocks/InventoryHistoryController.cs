@@ -13,9 +13,9 @@ namespace Tiger.Controllers.Admin.InventoryHistorys
     /// </summary>
 
     [RemoteService(Name = "InventoryHistory")]
-    [Area("Basics")]
+    [Area("Stocks")]
     [ControllerName("InventoryHistory")]
-    [Route("api/basic/inventoryHistory")]
+    [Route("api/stock/inventoryHistory")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
     public class InventoryHistoryController : TigerController, IInventoryHistoryAppService
     {
