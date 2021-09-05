@@ -6,6 +6,7 @@
 - vue table 设置默认选中
   - [element-ui table 设置默认选中](https://juejin.cn/post/6896362450996690951)
   - [table-选中当前行的数据](https://www.jianshu.com/p/6f7429a7ed0d)
+- 连表插入数据的时候 guid 不会关联生成。
 - **入库单据功能开发**
   - 添加单据的时候。关联入库单明细。
   - 写代码 按照框架规范要求去写。。

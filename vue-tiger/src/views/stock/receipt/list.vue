@@ -8,7 +8,7 @@
       <el-button type="info" icon="el-icon-printer">打印</el-button>
       <el-button type="primary" icon="el-icon-plus" @click="handleCreate">添加</el-button>
       <el-button type="primary" icon="el-icon-edit" @click="handleUpdate">编辑</el-button>
-      <el-button type="danger" icon="el-icon-delete">删除</el-button>
+      <el-button type="danger" icon="el-icon-delete" @click="handleDelete">删除</el-button>
       <el-button type="warning" icon="el-icon-check">审核</el-button>
       <el-dropdown trigger="click" style="margin:0 5px;">
         <el-button type="success" icon="el-icon-document-copy">
@@ -137,9 +137,7 @@
 
         <el-table-column min-width="180px" label="单号">
           <template slot-scope="{row}">
-            <router-link :to="'/example/edit/'+row.id" class="link-type">
-              <span>{{ row.code }}</span>
-            </router-link>
+            <span class="link-type" @click="swithBillContainer">{{ row.code }}</span>
           </template>
         </el-table-column>
 
@@ -278,7 +276,7 @@
                 <el-button type="success" icon="el-icon-plus" circle @click="handleCreateDetail(row)" />
                 <!-- <el-button type="success" icon="el-icon-plus" @click="confirmEdit(row)" /> -->
                 <el-button type="danger" icon="el-icon-delete" circle @click="handleDeleteDetail(row)" />
-                <el-button v-if="row.edit" type="success" icon="el-icon-check" circle @click="confirmEdit(row)" />
+                <el-button v-if="row.edit" type="success" icon="el-icon-check" circle @click="confirmEditDetail(row)" />
                 <el-button
                   v-else
                   type="primary"
@@ -362,7 +360,7 @@
           <el-table-column width="180px" align="center" label="生产日期" sortable>
             <template slot-scope="scope">
               <template v-if="scope.row.edit">
-                <el-input v-model="scope.row.manufactureDate" class="edit-input" />
+                <el-date-picker v-model="scope.row.manufactureDate" type="date" placeholder="生产日期" style="width: 100%;" />
               </template>
               <span v-else>{{ scope.row.manufactureDate | formatDate }}</span>
             </template>
@@ -370,10 +368,8 @@
 
           <el-table-column width="180px" align="center" label="入库日期" sortable>
             <template slot-scope="scope">
-              <template v-if="scope.row.edit">
-                <el-input v-model="scope.row.agingDate" class="edit-input" />
-              </template>
-              <span v-else>{{ scope.row.agingDate | formatDate }}</span>
+
+              <span>{{ scope.row.agingDate | formatDate }}</span>
             </template>
           </el-table-column>
 
@@ -547,10 +543,28 @@ export default {
             processStamp: '',
             quantityUm: '',
             productId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            receiptHeaderId: ''
+            // receiptHeaderId: '',
+            edit: false
             // id: ""
           }
         ]
+      },
+      tempDetail: {
+        receiptCode: '',
+        warehouseCode: '',
+        productSn: '',
+        productName: '',
+        batch: '',
+        manufactureDate: '2021-09-04T11:07:50.660Z',
+        agingDate: '2021-09-04T11:07:50.660Z',
+        totalQty: 0,
+        openQty: 0,
+        processStamp: '',
+        quantityUm: '',
+        productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
+        // receiptHeaderId: '',
+        edit: false
+        // id: ""
       },
 
       dialogFormVisible: false,
@@ -667,10 +681,31 @@ export default {
             processStamp: '',
             quantityUm: '',
             productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-            receiptHeaderId: ''
+            receiptHeaderId: '',
+            edit: false
             // id: ""
           }
         ]
+      }
+    },
+    resetTempDetail() {
+      this.tempDetail = {
+        receiptCode: '',
+        warehouseCode: '',
+        productSn: '',
+        productName: '',
+        batch: '',
+        manufactureDate: '2021-09-04T11:07:50.660Z',
+        agingDate: '2021-09-04T11:07:50.660Z',
+        totalQty: 0,
+        openQty: 0,
+        processStamp: '',
+        quantityUm: '',
+        productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
+        // receiptHeaderId: '',
+        edit: false
+        // id: ""
+
       }
     },
     handleSearch() {
@@ -730,7 +765,7 @@ export default {
         const items = res.receiptDetails
         this.temp.receiptDetails = items.map(v => {
           this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
-          v.originalTitle = v.title //  will be used when user click the cancel botton
+          // v.originalTitle = v.title //  will be used when user click the cancel botton
           return v
         })
         // this.temp.receiptDetails = res.receiptDetails // copy obj
@@ -775,16 +810,28 @@ export default {
         }
       })
     },
-    handleDelete(row) {
-      this.$notify({
-        title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
+    handleDelete() {
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteReceiptHeader(this.currentRow.id)
+          .then((response) => {
+            const index = this.list.findIndex((v) => v.id === this.currentRow.id)
+            this.list.splice(index, 1)
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            })
+          }).catch((err) => {
+            console.log(err)
+          })
+      }).catch((err) => {
+        console.log(err)
       })
-      console.log(row)
-      const index = this.list.indexOf(row)
-      this.list.splice(index, 1)
     },
     handleFetchPv(pv) {
       fetchPv(pv).then(response => {
@@ -796,17 +843,21 @@ export default {
       // this.temp.receiptDetails
       const index = this.temp.receiptDetails.indexOf(row)
       // 拼接函数(索引位置, 要删除元素的数量, 元素)
-      this.temp.receiptDetails.splice(index + 1, 0, this.temp)
+      // this.temp.receiptDetails.unshift(this.temp.receiptDetails[0])
+      console.log('this.temp.receiptDetails[0]', this.temp.receiptDetails[0])
+      console.log('this.temp.receiptDetails', this.temp.receiptDetails)
+      this.resetTempDetail()
+      this.temp.receiptDetails.splice(index, 0, this.tempDetail)
     },
     handleDeleteDetail(row) {
       const index = this.temp.receiptDetails.indexOf(row)
       this.temp.receiptDetails.splice(index, 1)
     },
-    confirmEdit(row) {
+    confirmEditDetail(row) {
       row.edit = false
-      row.originalTitle = row.title
+      // row.originalTitle = row.title
       this.$message({
-        message: 'The title has been edited',
+        message: '当前行已修改',
         type: 'success'
       })
     },

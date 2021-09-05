@@ -29,6 +29,11 @@ namespace Tiger.Stock
         public override async Task<ReceiptHeaderDto> CreateAsync(CreateUpdateReceiptHeaderDto input)
         {
             input.Code = Utility.CreateOrderID("CGRK");
+            foreach (var item in input.ReceiptDetails)
+            {
+                item.Id = GuidGenerator.Create();
+            }
+            
             return await base.CreateAsync(input);
         }
 
