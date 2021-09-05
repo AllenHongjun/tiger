@@ -29,7 +29,7 @@ namespace Tiger.Stock
         public string Code { get; set; }
 
         /// <summary>
-        /// 入库单类型
+        /// 入库单类型 0->其他入库 1->采购入库 2->退货入库 3-> 盘盈入库 
         /// </summary>
         public int ReceiptType { get; set; }
 

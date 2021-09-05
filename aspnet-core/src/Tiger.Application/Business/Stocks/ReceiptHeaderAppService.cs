@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Tiger.Domain.CoreModule.Utilities;
 using Tiger.Permissions;
 using Tiger.Stock.Dtos;
 using Volo.Abp;
@@ -23,6 +24,12 @@ namespace Tiger.Stock
         public ReceiptHeaderAppService(IReceiptHeaderRepository repository) : base(repository)
         {
             _repository = repository;
+        }
+
+        public override async Task<ReceiptHeaderDto> CreateAsync(CreateUpdateReceiptHeaderDto input)
+        {
+            input.Code = Utility.CreateOrderID("CGRK");
+            return await base.CreateAsync(input);
         }
 
 

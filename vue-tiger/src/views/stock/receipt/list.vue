@@ -1,8 +1,7 @@
 <template>
   <div class="app-container">
     <el-row v-show="operatorButtonsVisibilty" style="margin-bottom:5px;">
-      <el-button @click="setCurrent(list[0])">选中第二行</el-button>
-      <el-button @click="setCurrent()">取消选择</el-button>
+
       <el-button icon="el-icon-search">查询</el-button>
       <el-button icon="el-icon-set-up" @click="swithBillContainer">切换</el-button>
       <el-button type="info" icon="el-icon-refresh" @click="handleRefresh">刷新</el-button>
@@ -147,7 +146,7 @@
         <el-table-column class-name="status-col" label="类型" width="110">
           <template slot-scope="{row}">
             <el-tag :type="row.receiptType | statusFilter">
-              {{ row.receiptType }}
+              {{ row.receiptType | receiptTypeFilter }}
             </el-tag>
           </template>
         </el-table-column>
@@ -192,44 +191,6 @@
 
       <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-      <el-dialog :title="textMap[detailFormStatus]" :visible.sync="dialogFormVisible">
-        <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="120px" style="width: 400px; margin-left:50px;">
-          <el-form-item label="类型" prop="type">
-            <el-select v-model="temp.type" class="filter-item" placeholder="Please select">
-              <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="父级分类" prop="title">
-            <el-cascader :props="listQuery.props" />
-          </el-form-item>
-          <el-form-item label="时间" prop="timestamp">
-            <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
-          </el-form-item>
-          <el-form-item label="标题" prop="title">
-            <el-input v-model="temp.title" />
-          </el-form-item>
-          <el-form-item label="状态">
-            <el-select v-model="temp.status" class="filter-item" placeholder="Please select">
-              <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
-            </el-select>
-          </el-form-item>
-          <el-form-item label="重要性">
-            <el-rate v-model="temp.importance" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :max="3" style="margin-top:8px;" />
-          </el-form-item>
-          <el-form-item label="点评">
-            <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">
-            取消
-          </el-button>
-          <el-button type="primary" @click="detailFormStatus==='create'?createData():updateData()">
-            确认
-          </el-button>
-        </div>
-      </el-dialog>
-
       <!-- 导入excel -->
       <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
         <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
@@ -251,74 +212,62 @@
       <el-form ref="detailForm" :rules="rules" :model="temp" label-width="120px">
         {{ detailFormStatus }}
         <el-divider content-position="left">少年包青天</el-divider>
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="创建日期" prop="username">
-              <el-date-picker v-model="temp.creationTime" type="date" placeholder="创建日期" style="width: 100%;" />
-            </el-form-item>
 
-          </el-col>
+        <el-row>
+
           <el-col :span="6">
-            <el-form-item label="单号" prop="username">
-              <el-input v-model="temp.code" />
-            </el-form-item></el-col>
+            <el-form-item label="单号" prop="code">
+              <el-input v-model="temp.code" placeholder="自动生成" :readonly="true" />
+            </el-form-item>
+          </el-col>
           <el-col :span="6">
             <el-form-item label="入库仓库" prop="username">
               <el-input v-model="temp.warehouseId" />
-            </el-form-item></el-col>
+
+            </el-form-item>
+          </el-col>
           <el-col :span="6">
-            <el-form-item label="类型" prop="username">
-              <el-input v-model="temp.receiptType" />
-            </el-form-item></el-col>
+            <el-form-item label="类型" prop="receiptType">
+              <el-select v-model="temp.receiptType" class="filter-item" placeholder="请选择">
+                <el-option v-for="item in receiptTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
         </el-row>
 
-        <!-- <el-form-item label="用户名" prop="username">
-          <el-input v-model="userForm.username" />
-        </el-form-item>
-
-        <el-form-item label="手机号" prop="phone">
-          <el-input v-model="userForm.phone" />
-        </el-form-item>
-
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="userForm.email" />
-        </el-form-item>
-
-        <el-form-item label="旧密码" prop="oldPassword">
-          <el-input v-model="userForm.oldPassword" show-password />
-        </el-form-item>
-
-        <el-form-item label="新密码" prop="password">
-          <el-input v-model="userForm.password" show-password />
-        </el-form-item>
-
-        <el-form-item label="确认密码" prop="comfirmPwd">
-          <el-input v-model="userForm.comfirmPwd" show-password />
-        </el-form-item>
-
-        <el-form-item label="地址" prop="address">
-          <el-input v-model="userForm.address" />
-        </el-form-item>
-
-        <el-form-item label="生日" prop="birthday">
-          <el-col :span="11">
-            <el-date-picker v-model="userForm.birthday" type="date" placeholder="日期" style="width: 100%;" />
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="总数量">
+              <span>{{ temp.totalQty }}</span>
+            </el-form-item>
           </el-col>
-        </el-form-item>
+          <el-col :span="6">
+            <el-form-item label="总重量" prop="username">
+              <span>{{ temp.totalWeight }}</span>
 
-        <el-form-item label="性别" prop="sex">
-          <el-radio-group v-model="userForm.sex">
-            <el-radio label="男" />
-            <el-radio label="女" />
-          </el-radio-group>
-        </el-form-item>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="总体积" prop="receiptType">
+              <span>{{ temp.totalVolume }}</span>
+            </el-form-item>
+          </el-col>
 
-        <el-form-item label="城市" prop="city">
-          <el-input v-model="userForm.city" />
-        </el-form-item>
-        <el-form-item label="年龄" prop="age">
-          <el-input v-model.number="userForm.age" />
-        </el-form-item> -->
+          <el-col :span="6">
+            <el-form-item label="总箱数" prop="username">
+              <span>{{ temp.totalCases }}</span>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="备注">
+              <el-input v-model="temp.note" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请输入" />
+            </el-form-item>
+          </el-col>
+        </el-row>
 
         <el-table v-loading="listLoading" :data="temp.receiptDetails" fit highlight-current-row style="width: 100%" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
@@ -341,13 +290,14 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="160px" label="单号">
+          <!-- <el-table-column min-width="160px" label="单号">
             <template slot-scope="{row}">
-              <router-link :to="'/example/edit/'+row.id" class="link-type">
-                <span>{{ row.receiptCode }}</span>
-              </router-link>
+              <template v-if="row.edit">
+                <el-input v-model="row.receiptCode" class="edit-input" placeholder="自动生成" readonly />
+              </template>
+              <span v-else>{{ row.receiptCode }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
           <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
@@ -429,11 +379,59 @@
 
         </el-table>
 
-          <!-- <el-form-item>
+        <!-- <el-form-item>
           <el-button type="primary" @click="onSubmit('ruleUserForm')">提交</el-button>
           <el-button @click="onCancel">取消</el-button>
         </el-form-item> -->
-        </el-divider></el-form>
+        <el-divider />
+
+        <el-collapse accordion>
+          <el-collapse-item title="更多信息" name="1">
+            <el-row>
+              <el-col :span="6">
+                <el-form-item label="创建人">
+                  <el-input v-model="temp.creatorId" :readonly="true" />
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="6">
+                <el-form-item label="创建时间" prop="creationTime">
+                  <el-date-picker v-model="temp.creationTime" type="date" placeholder="创建日期" style="width: 100%;" :readonly="true" />
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="6">
+                <el-form-item label="删除人">
+                  <el-input v-model="temp.deleterId" :readonly="true" />
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="6">
+                <el-form-item label="删除时间" prop="deletionTime">
+                  <el-date-picker v-model="temp.deletionTime" type="date" placeholder="删除时间" style="width: 100%;" :readonly="true" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="6">
+                <el-form-item label="修改人">
+                  <el-input v-model="temp.lastModifierId" :readonly="true" />
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="6">
+                <el-form-item label="修改时间" prop="lastModificationTime">
+                  <el-date-picker v-model="temp.lastModificationTime" type="date" placeholder="修改时间" style="width: 100%;" :readonly="true" />
+                </el-form-item>
+              </el-col>
+
+            </el-row>
+          </el-collapse-item>
+
+        </el-collapse>
+
+      </el-form>
 
     </div>
 
@@ -448,18 +446,29 @@ import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
-const calendarTypeOptions = [
-  { key: 'show', display_name: '显示' },
-  { key: 'hidden', display_name: '隐藏' }
-]
-
 // const showCategoryTypeOptions = [
 //   { key: 'show', display_name: '显示' },
 //   { key: 'hidden', display_name: '隐藏' }
 // ]
 
 // arr to obj, such as { CN : "China", US : "USA" }
+const calendarTypeOptions = [
+  { key: 'show', display_name: '显示' },
+  { key: 'hidden', display_name: '隐藏' }
+]
 const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
+  acc[cur.key] = cur.display_name
+  return acc
+}, {})
+
+const receiptTypeOptions = [
+  { key: 0, display_name: '其他入库' },
+  { key: 1, display_name: '采购入库' },
+  { key: 2, display_name: '退货入库' },
+  { key: 3, display_name: '盘盈入库' }
+  // { key: 4, display_name: '其他入库' }
+]
+const receiptTypeKeyValue = receiptTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
   return acc
 }, {})
@@ -479,6 +488,9 @@ export default {
     },
     typeFilter(type) {
       return calendarTypeKeyValue[type]
+    },
+    receiptTypeFilter(type) {
+      return receiptTypeKeyValue[type]
     }
   },
   data() {
@@ -498,6 +510,7 @@ export default {
       billContainerVisibilty: true,
       operatorButtonsVisibilty: true,
       detailFormStatus: '',
+      receiptTypeOptions,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -520,7 +533,24 @@ export default {
         totalVolume: 0,
         note: '',
         warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        receiptDetails: null
+        receiptDetails: [
+          {
+            receiptCode: '',
+            warehouseCode: '',
+            productSn: '',
+            productName: '',
+            batch: '',
+            manufactureDate: '2021-09-04T11:07:50.660Z',
+            agingDate: '2021-09-04T11:07:50.660Z',
+            totalQty: 0,
+            openQty: 0,
+            processStamp: '',
+            quantityUm: '',
+            productId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            receiptHeaderId: ''
+            // id: ""
+          }
+        ]
       },
 
       dialogFormVisible: false,
@@ -623,7 +653,24 @@ export default {
         totalVolume: 0,
         note: '',
         warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        receiptDetails: null
+        receiptDetails: [
+          {
+            receiptCode: '',
+            warehouseCode: '',
+            productSn: '',
+            productName: '',
+            batch: '',
+            manufactureDate: '2021-09-04T11:07:50.660Z',
+            agingDate: '2021-09-04T11:07:50.660Z',
+            totalQty: 0,
+            openQty: 0,
+            processStamp: '',
+            quantityUm: '',
+            productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
+            receiptHeaderId: ''
+            // id: ""
+          }
+        ]
       }
     },
     handleSearch() {
@@ -661,7 +708,7 @@ export default {
           // this.temp.author = 'vue-element-admin'
           createReceiptHeader(this.temp).then(() => {
             this.list.unshift(this.temp)
-            this.billContainerVisibilty = this.this.operatorButtonsVisibilty = true
+            this.billContainerVisibilty = this.operatorButtonsVisibilty = true
             this.$notify({
               title: '成功',
               message: '创建成功',
