@@ -32,7 +32,7 @@ namespace Tiger.Controllers.WebApp
         [HttpPost]
         public async Task<OrderDto> CreateOrder(CreateOrderDto createOrderDto)
         {
-            createOrderDto.memberId = MemberId;
+            //createOrderDto.memberId = MemberId;
             return await _orderAppService.CreateOrder(createOrderDto);
         }
     }

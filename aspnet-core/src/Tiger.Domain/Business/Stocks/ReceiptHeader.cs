@@ -80,7 +80,6 @@ namespace Tiger.Stock
 
         public Guid? TenantId { get; set; }
 
-
-        public ICollection<ReceiptDetail> ReceiptDetails { get; set; }
+        public virtual ICollection<ReceiptDetail> ReceiptDetails { get; set; }
     }
 }

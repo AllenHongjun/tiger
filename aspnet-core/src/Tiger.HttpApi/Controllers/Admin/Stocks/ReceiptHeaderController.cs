@@ -21,7 +21,7 @@ namespace Tiger.Controllers.Admin.ReceiptHeaders
     [ControllerName("ReceiptHeader")]
     [Route("api/stock/receiptHeader")]
     [ApiExplorerSettings(GroupName = "admin-erp")]
-    public class ReceiptHeaderController : TigerController, IReceiptHeaderAppService
+    public class ReceiptHeaderController : TigerController
     {
         protected readonly IReceiptHeaderAppService _receiptHeaderAppService;
 

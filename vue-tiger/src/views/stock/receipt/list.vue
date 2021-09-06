@@ -562,7 +562,7 @@ export default {
         processStamp: '',
         quantityUm: '',
         productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        // receiptHeaderId: '',
+        receiptHeaderId: '',
         edit: false
         // id: ""
       },
@@ -702,7 +702,7 @@ export default {
         processStamp: '',
         quantityUm: '',
         productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        // receiptHeaderId: '',
+        receiptHeaderId: '',
         edit: false
         // id: ""
 
@@ -790,12 +790,12 @@ export default {
       this.$refs['detailForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateReceiptHeader(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
-                this.list.splice(index, 1, null)
+                this.list.splice(index, 1, this.temp)
                 break
               }
             }

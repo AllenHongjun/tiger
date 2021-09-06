@@ -30,9 +30,9 @@ namespace Tiger.Controllers.WebApp
         /// <returns></returns>
         [Route("{productId}")]
         [HttpPost]
-        public async Task<CartItemDto> AddToCartItem(Guid productId)
+        public async Task<CartItemDto> AddToCartItem(Guid productId, Guid memberId)
         {
-            return await  _cartItemAppService.AddToCartItem(productId, SkuId, MemberId);
+            return await  _cartItemAppService.AddToCartItem(productId, SkuId, memberId);
         }
 
         /// <summary>

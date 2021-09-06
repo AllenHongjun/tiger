@@ -1132,7 +1132,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Controllers.WebApp.CartItemController.AddToCartItem(System.Guid)">
+        <member name="M:Tiger.Controllers.WebApp.CartItemController.AddToCartItem(System.Guid,System.Guid)">
             <summary>
             商品添加购物车
             </summary>

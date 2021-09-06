@@ -97,48 +97,48 @@ namespace Tiger.Business.Stocks
 
         public Guid? TenantId { get; set; }
 
-        protected ReceiptDetail()
-        {
-        }
+        //public ReceiptDetail()
+        //{
+        //}
 
-        public ReceiptDetail(
-            Guid id,
-            string receiptCode,
-            string warehouseCode,
-            string productSn,
-            string productName,
-            string batch,
-            DateTime manufactureDate,
-            DateTime agingDate,
-            int totalQty,
-            int openQty,
-            string processStamp,
-            string quantityUm,
-            Warehouse warehouse,
-            Guid productId,
-            Product product,
-            Guid receiptHeaderId,
-            ReceiptHeader receiptHeader,
-            Guid? tenantId
-        ) : base(id)
-        {
-            ReceiptCode = receiptCode;
-            WarehouseCode = warehouseCode;
-            ProductSn = productSn;
-            ProductName = productName;
-            Batch = batch;
-            ManufactureDate = manufactureDate;
-            AgingDate = agingDate;
-            TotalQty = totalQty;
-            OpenQty = openQty;
-            ProcessStamp = processStamp;
-            QuantityUm = quantityUm;
-            Warehouse = warehouse;
-            ProductId = productId;
-            Product = product;
-            ReceiptHeaderId = receiptHeaderId;
-            ReceiptHeader = receiptHeader;
-            TenantId = tenantId;
-        }
+        //public ReceiptDetail(
+        //    Guid id,
+        //    string receiptCode,
+        //    string warehouseCode,
+        //    string productSn,
+        //    string productName,
+        //    string batch,
+        //    DateTime manufactureDate,
+        //    DateTime agingDate,
+        //    int totalQty,
+        //    int openQty,
+        //    string processStamp,
+        //    string quantityUm,
+        //    Warehouse warehouse,
+        //    Guid productId,
+        //    Product product,
+        //    Guid receiptHeaderId,
+        //    ReceiptHeader receiptHeader,
+        //    Guid? tenantId
+        //) : base(id)
+        //{
+        //    ReceiptCode = receiptCode;
+        //    WarehouseCode = warehouseCode;
+        //    ProductSn = productSn;
+        //    ProductName = productName;
+        //    Batch = batch;
+        //    ManufactureDate = manufactureDate;
+        //    AgingDate = agingDate;
+        //    TotalQty = totalQty;
+        //    OpenQty = openQty;
+        //    ProcessStamp = processStamp;
+        //    QuantityUm = quantityUm;
+        //    Warehouse = warehouse;
+        //    ProductId = productId;
+        //    Product = product;
+        //    ReceiptHeaderId = receiptHeaderId;
+        //    ReceiptHeader = receiptHeader;
+        //    TenantId = tenantId;
+        //}
     }
 }

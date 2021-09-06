@@ -1,20 +1,13 @@
 using System;
 using System.ComponentModel;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Business.Stocks.Dtos
 {
     [Serializable]
-    public class CreateUpdateReceiptDetailDto:EntityDto<Guid>
-    {
-        //public CreateUpdateReceiptDetailDto()
-        //{
-        //    Id = Guid.NewGuid();
-        //}
-
-
+    public class UpdateReceiptDetailDto 
+    {   
         //public Guid? Id { get; set; }
 
         public string ReceiptCode { get; set; }
@@ -47,7 +40,7 @@ namespace Tiger.Business.Stocks.Dtos
 
         //public Product Product { get; set; }
 
-        public Guid? ReceiptHeaderId { get; set; }
+        //public Guid? ReceiptHeaderId { get; set; }
 
         //public ReceiptHeader ReceiptHeader { get; set; }
 
