@@ -1,9 +1,10 @@
 using System;
+using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Stock.Dtos
 {
     [Serializable]
-    public class CreateUpdateCheckDetailDto
+    public class CreateUpdateCheckDetailDto:EntityDto<Guid>
     {
         public string ProductSn { get; set; }
 

@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tiger.Stock.Dtos
 {
     [Serializable]
     public class CreateUpdateCheckHeaderDto
-    {
+    {   
+        public string Code { get; set; }
         public string WarehouseCode { get; set; }
 
         public int CheckType { get; set; }
@@ -18,6 +20,8 @@ namespace Tiger.Stock.Dtos
         public DateTime CloseAt { get; set; }
 
         public string ProcessStamp { get; set; }
+
+        public virtual ICollection<CreateUpdateCheckDetailDto> CheckDetails { get; set; }
 
     }
 }
