@@ -158,8 +158,8 @@
 
         <el-table-column class-name="status-col" label="类型" width="110">
           <template slot-scope="{row}">
-            <el-tag :type="row.receiptType | statusFilter">
-              {{ row.receiptType | receiptTypeFilter }}
+            <el-tag :type="row.transferType | statusFilter">
+              {{ row.transferType | transferTypeFilter }}
             </el-tag>
           </template>
         </el-table-column>
@@ -225,9 +225,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="类型" prop="receiptType">
-              <el-select v-model="temp.receiptType" class="filter-item" placeholder="请选择">
-                <el-option v-for="item in receiptTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
+            <el-form-item label="类型" prop="transferType">
+              <el-select v-model="temp.transferType" class="filter-item" placeholder="请选择">
+                <el-option v-for="item in transferTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -247,7 +247,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="总体积" prop="receiptType">
+            <el-form-item label="总体积" prop="transferType">
               <span>{{ temp.totalVolume }}</span>
             </el-form-item>
           </el-col>
@@ -267,7 +267,7 @@
           </el-col>
         </el-row>
         <el-divider />
-        <el-table v-loading="listLoading" :data="temp.receiptDetails" fit highlight-current-row style="width: 100%" :show-summary="true" @sort-change="sortChange">
+        <el-table v-loading="listLoading" :data="temp.transferDetails" fit highlight-current-row style="width: 100%" :show-summary="true" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
           <el-table-column align="center" label="操作" width="150px">
@@ -421,7 +421,7 @@
 </template>
 
 <script>
-import { getReceiptHeaders, getReceiptHeaderById, createReceiptHeader, updateReceiptHeader, deleteReceiptHeader } from '@/api/stock/receipt-header'
+import { getTransferHeaders, getTransferHeaderById, createTransferHeader, updateTransferHeader, deleteTransferHeader } from '@/api/stock/transfer-header'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -437,20 +437,20 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
   return acc
 }, {})
 
-const receiptTypeOptions = [
+const transferTypeOptions = [
   { key: 0, display_name: '其他入库' },
   { key: 1, display_name: '采购入库' },
   { key: 2, display_name: '退货入库' },
   { key: 3, display_name: '盘盈入库' }
 ]
-const receiptTypeKeyValue = receiptTypeOptions.reduce((acc, cur) => {
+const transferTypeKeyValue = transferTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
   return acc
 }, {})
 
 export default {
   // 入库单
-  name: 'ReceiptHeaderList',
+  name: 'TransferHeaderList',
   components: { Pagination, UploadExcelComponent },
   directives: { waves },
   filters: {
@@ -465,8 +465,8 @@ export default {
     typeFilter(type) {
       return calendarTypeKeyValue[type]
     },
-    receiptTypeFilter(type) {
-      return receiptTypeKeyValue[type]
+    transferTypeFilter(type) {
+      return transferTypeKeyValue[type]
     }
   },
   data() {
@@ -486,7 +486,7 @@ export default {
       billContainerVisibilty: true,
       operatorButtonsVisibilty: true,
       detailFormStatus: '',
-      receiptTypeOptions,
+      transferTypeOptions,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -509,54 +509,49 @@ export default {
 
       temp: {
         id: undefined,
-        creationTime: '',
         code: '',
-        receiptType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
-        // closeAt: '',
+        beginTime: '2021-09-07T15:15:56.966Z',
+        endTime: '2021-09-07T15:15:56.966Z',
+        cloasAt: '2021-09-07T15:15:56.966Z',
+        closeBy: '',
+        note: '',
         totalQty: 0,
-        totalCases: 0,
         totalWeight: 0,
         totalVolume: 0,
-        note: '',
-        warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        receiptDetails: [
+        transferDetails: [
           {
-            receiptCode: '',
-            warehouseCode: '',
+            transferCode: '',
             productSn: '',
             productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
+            fromWarehouseId: '3229FF9F-2D7D-7250-E3E8-39FEC7E1FFF1',
             totalQty: 0,
-            openQty: 0,
+            quantityUnit: '',
+            inventorySts: 0,
+            status: 0,
             processStamp: '',
-            quantityUm: '',
-            productId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            // receiptHeaderId: '',
-            edit: false
-            // id: ""
+            transferId: undefined,
+
+            productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
+            edit: false,
+            id: undefined
           }
         ]
       },
       tempDetail: {
-        receiptCode: '',
-        warehouseCode: '',
+        transferCode: '',
         productSn: '',
         productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
+        fromWarehouseId: '3229FF9F-2D7D-7250-E3E8-39FEC7E1FFF1',
         totalQty: 0,
-        openQty: 0,
+        quantityUnit: '',
+        inventorySts: 0,
+        status: 0,
         processStamp: '',
-        quantityUm: '',
+        transferId: undefined,
+
         productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        receiptHeaderId: '',
-        edit: false
-        // id: ""
+        edit: false,
+        id: undefined
       },
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
@@ -572,7 +567,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      getReceiptHeaders(this.listQuery).then(response => {
+      getTransferHeaders(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
@@ -624,56 +619,51 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        creationTime: '',
         code: '',
-        receiptType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
-        // closeAt: '',
+        beginTime: '2021-09-07T15:15:56.966Z',
+        endTime: '2021-09-07T15:15:56.966Z',
+        cloasAt: '2021-09-07T15:15:56.966Z',
+        closeBy: '',
+        note: '',
         totalQty: 0,
-        totalCases: 0,
         totalWeight: 0,
         totalVolume: 0,
-        note: '',
-        warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        receiptDetails: [
+        transferDetails: [
           {
-            receiptCode: '',
-            warehouseCode: '',
+            transferCode: '',
             productSn: '',
             productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
+            fromWarehouseId: '3229FF9F-2D7D-7250-E3E8-39FEC7E1FFF1',
             totalQty: 0,
-            openQty: 0,
+            quantityUnit: '',
+            inventorySts: 0,
+            status: 0,
             processStamp: '',
-            quantityUm: '',
+            transferId: undefined,
+
             productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-            receiptHeaderId: '',
-            edit: false
-            // id: ""
+            edit: false,
+            id: undefined
           }
         ]
       }
     },
     resetTempDetail() {
       this.tempDetail = {
-        receiptCode: '',
-        warehouseCode: '',
+        transferCode: '',
         productSn: '',
         productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
+        fromWarehouseId: '3229FF9F-2D7D-7250-E3E8-39FEC7E1FFF1',
         totalQty: 0,
-        openQty: 0,
+        quantityUnit: '',
+        inventorySts: 0,
+        status: 0,
         processStamp: '',
-        quantityUm: '',
+        transferId: undefined,
+
         productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        receiptHeaderId: '',
-        edit: false
-        // id: ""
+        edit: false,
+        id: undefined
 
       }
     },
@@ -714,7 +704,7 @@ export default {
         if (valid) {
           // this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           // this.temp.author = 'vue-element-admin'
-          createReceiptHeader(this.temp).then((res) => {
+          createTransferHeader(this.temp).then((res) => {
             // 添加成功后列表数据操作
             this.temp.code = res.code
             this.temp.creationTime = res.creationTime
@@ -734,20 +724,20 @@ export default {
       })
     },
     getDetail(id) {
-      // if (this.temp.receiptDetails !== null) {
+      // if (this.temp.transferDetails !== null) {
       //   return
       // }
-      getReceiptHeaderById(id).then((res) => {
-        console.log('getReceiptHeaderById', res)
+      getTransferHeaderById(id).then((res) => {
+        console.log('getTransferHeaderById', res)
         this.temp = Object.assign({}, this.currentRow) // copy obj
 
-        const items = res.receiptDetails
-        this.temp.receiptDetails = items.map(v => {
+        const items = res.transferDetails
+        this.temp.transferDetails = items.map(v => {
           this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
           // v.originalTitle = v.title //  will be used when user click the cancel botton
           return v
         })
-        // this.temp.receiptDetails = res.receiptDetails // copy obj
+        // this.temp.transferDetails = res.transferDetails // copy obj
         console.log('temp', this.temp)
       })
     },
@@ -769,7 +759,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateReceiptHeader(tempData).then(() => {
+          updateTransferHeader(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
@@ -796,7 +786,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteReceiptHeader(this.currentRow.id)
+        deleteTransferHeader(this.currentRow.id)
           .then((response) => {
             const index = this.list.findIndex((v) => v.id === this.currentRow.id)
             this.list.splice(index, 1)
@@ -825,19 +815,19 @@ export default {
     },
     // 添加明细
     handleCreateDetail(row) {
-      // this.temp.receiptDetails
-      const index = this.temp.receiptDetails.indexOf(row)
+      // this.temp.transferDetails
+      const index = this.temp.transferDetails.indexOf(row)
       // 拼接函数(索引位置, 要删除元素的数量, 元素)
-      // this.temp.receiptDetails.unshift(this.temp.receiptDetails[0])
-      console.log('this.temp.receiptDetails[0]', this.temp.receiptDetails[0])
-      console.log('this.temp.receiptDetails', this.temp.receiptDetails)
+      // this.temp.transferDetails.unshift(this.temp.transferDetails[0])
+      console.log('this.temp.transferDetails[0]', this.temp.transferDetails[0])
+      console.log('this.temp.transferDetails', this.temp.transferDetails)
       this.resetTempDetail()
-      this.temp.receiptDetails.splice(index, 0, this.tempDetail)
+      this.temp.transferDetails.splice(index, 0, this.tempDetail)
     },
     // 删除明细
     handleDeleteDetail(row) {
-      const index = this.temp.receiptDetails.indexOf(row)
-      this.temp.receiptDetails.splice(index, 1)
+      const index = this.temp.transferDetails.indexOf(row)
+      this.temp.transferDetails.splice(index, 1)
     },
     //
     confirmEditDetail(row) {
@@ -889,7 +879,7 @@ export default {
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['商品名称', '批次', '总数量', '未收数量', '标记', '单位']
         const filterVal = ['productName', 'batch', 'totalQty', 'openQty', 'processStamp', 'quantityUm']
-        const data = this.formatJson(filterVal, this.temp.receiptDetails)
+        const data = this.formatJson(filterVal, this.temp.transferDetails)
         excel.export_json_to_excel({
           header: tHeader,
           data,
@@ -904,7 +894,7 @@ export default {
         type: 'success'
       })
       console.log(results)
-      this.temp.receiptDetails = results
+      this.temp.transferDetails = results
       // this.tableHeader = header
     },
 
