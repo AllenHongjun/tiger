@@ -743,6 +743,8 @@ export default {
           // this.temp.author = 'vue-element-admin'
           createReceiptHeader(this.temp).then(() => {
             this.list.unshift(this.temp)
+            this.setCurrent(this.list[0])
+
             this.billContainerVisibilty = this.operatorButtonsVisibilty = true
             this.$notify({
               title: '成功',
@@ -796,10 +798,12 @@ export default {
               if (v.id === this.temp.id) {
                 const index = this.list.indexOf(v)
                 this.list.splice(index, 1, this.temp)
+                this.setCurrent(this.list[index])
                 break
               }
             }
             this.billContainerVisibilty = this.operatorButtonsVisibilty = true
+
             this.$notify({
               title: '成功',
               message: '修改成功',
