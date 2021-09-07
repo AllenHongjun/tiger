@@ -24,7 +24,7 @@ namespace Tiger.Business.Stocks.Dtos
 
         public int TotalVolume { get; set; }
 
-        public ICollection<ShipmentDetailDto> ShipmentDetails { get; set; }
+        public ICollection<CreateUpdateShipmentDetailDto> ShipmentDetails { get; set; }
 
     }
 }

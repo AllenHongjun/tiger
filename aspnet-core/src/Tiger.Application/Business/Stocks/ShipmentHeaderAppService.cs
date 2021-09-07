@@ -6,6 +6,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp;
 using System.Threading.Tasks;
 using Tiger.Domain.CoreModule.Utilities;
+using System.Linq;
 
 namespace Tiger.Business.Stocks
 {   
@@ -38,6 +39,7 @@ namespace Tiger.Business.Stocks
         public override async Task<ShipmentHeaderDto> GetAsync(Guid id)
         {
             var query = await _repository.GetAsync(id);
+            
             return ObjectMapper.Map<ShipmentHeader, ShipmentHeaderDto>(query);
         }
 

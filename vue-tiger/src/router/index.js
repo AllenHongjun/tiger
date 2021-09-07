@@ -274,7 +274,7 @@ export const constantRoutes = [
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [
       {
-        path: 'inventory/list',
+        path: 'inventory4/list',
         name: 'InventoryStatList',
         component: () => import('@/views/stock/inventory/list'),
         meta: { title: '采购统计', icon: 'table' },
@@ -300,13 +300,13 @@ export const constantRoutes = [
         ]
       },
       {
-        path: 'inventory/list',
+        path: 'inventory5/list',
         name: 'OrderStatList4',
         component: () => import('@/views/stock/inventory/list'),
         meta: { title: '销售统计', icon: 'table' }
       },
       {
-        path: 'inventory/list',
+        path: 'inventory6/list',
         name: 'OrderStatList5',
         component: () => import('@/views/stock/inventory/list'),
         meta: { title: '库存统计', icon: 'table' }

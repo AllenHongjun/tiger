@@ -165,6 +165,9 @@ namespace Tiger
             CreateMap<ShipmentHeader, ShipmentHeaderDto>();
             CreateMap<CreateUpdateShipmentHeaderDto, ShipmentHeader>();
 
+            CreateMap<ShipmentDetail, ShipmentDetailDto>();
+            CreateMap<CreateUpdateShipmentDetailDto, ShipmentDetail>();
+
             CreateMap<TransferHeader, TransferHeaderDto>();
             CreateMap<CreateUpdateTransferHeaderDto, TransferHeader>();
 

@@ -31,12 +31,17 @@ namespace Tiger.Business.Stocks
         public int RequestQty { get; set; }
 
         /// <summary>
+        /// 以取消数量
+        /// </summary>
+        public int CanceledQty { get; set; }
+
+        /// <summary>
         /// 批次号
         /// </summary>
         public string Batch { get; set; }
 
         /// <summary>
-        /// 入库日期
+        /// 出库日期
         /// </summary>
         public DateTime AgingDate { get; set; }
 
@@ -65,10 +70,7 @@ namespace Tiger.Business.Stocks
         /// </summary>
         public string QuantityUm { get; set; }
 
-        /// <summary>
-        /// 以取消数量
-        /// </summary>
-        public int CanceledQty { get; set; }
+        
 
 
         [ForeignKey("WarehouseId")]

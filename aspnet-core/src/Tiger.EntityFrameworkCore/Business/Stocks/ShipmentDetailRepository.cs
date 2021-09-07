@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -9,6 +10,11 @@ namespace Tiger.Business.Stocks
     {
         public ShipmentDetailRepository(IDbContextProvider<TigerDbContext> dbContextProvider) : base(dbContextProvider)
         {
+        }
+
+        public Task<ShipmentHeader> GetAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

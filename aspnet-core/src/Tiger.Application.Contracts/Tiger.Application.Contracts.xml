@@ -531,6 +531,106 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.ShipQty">
+            <summary>
+            发货数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.RequestQty">
+            <summary>
+            请求数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.Batch">
+            <summary>
+            批次号
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.AgingDate">
+            <summary>
+            入库日期
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.InventorySts">
+            <summary>
+            库存状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.TotalWeight">
+            <summary>
+            总重量
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.TotalVolume">
+            <summary>
+            总体积
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.ProcessStamp">
+            <summary>
+            处理标记
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.QuantityUm">
+            <summary>
+            数量单位
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.CreateUpdateShipmentDetailDto.CanceledQty">
+            <summary>
+            以取消数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.ShipQty">
+            <summary>
+            发货数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.RequestQty">
+            <summary>
+            请求数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.Batch">
+            <summary>
+            批次号
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.AgingDate">
+            <summary>
+            入库日期
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.InventorySts">
+            <summary>
+            库存状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.TotalWeight">
+            <summary>
+            总重量
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.TotalVolume">
+            <summary>
+            总体积
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.ProcessStamp">
+            <summary>
+            处理标记
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.QuantityUm">
+            <summary>
+            数量单位
+            </summary>
+        </member>
+        <member name="P:Tiger.Business.Stocks.Dtos.ShipmentDetailDto.CanceledQty">
+            <summary>
+            以取消数量
+            </summary>
+        </member>
         <member name="P:Tiger.Marketings.Coupons.CouponDto.Type">
             <summary>
             优惠券类型 0 全场赠券； 1 会员赠券； 2 购物赠券； 3 注册赠券；
