@@ -150,6 +150,7 @@ export const constantRoutes = [
       // }
     ]
   },
+  // 采购
   {
     path: '/purchase',
     name: 'Purchase',
@@ -181,6 +182,7 @@ export const constantRoutes = [
 
     ]
   },
+  // 订单
   {
     path: '/order',
     name: 'order',
@@ -212,6 +214,7 @@ export const constantRoutes = [
 
     ]
   },
+  // 仓库
   {
     path: '/stock',
     name: 'Stock',
@@ -234,9 +237,9 @@ export const constantRoutes = [
         meta: { title: '入库单', icon: 'international' }
       },
       {
-        path: 'out-of-stock/list',
-        component: () => import('@/views/stock/out-of-stock/list'),
-        name: 'out-of-stockList',
+        path: 'shipment/list',
+        component: () => import('@/views/stock/shipment/list'),
+        name: 'shipmentList',
         meta: { title: '出库单', icon: 'lock' }
       },
       {
@@ -258,15 +261,90 @@ export const constantRoutes = [
         meta: { title: '拆套单', icon: 'skill' }
       }
 
+    ]
+  },
+  // 统计
+  {
+    path: '/stat',
+    name: 'Stat',
+    meta: { title: '统计', icon: 'international' },
+    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'inventory/list',
+        name: 'InventoryStatList',
+        component: () => import('@/views/stock/inventory/list'),
+        meta: { title: '采购统计', icon: 'table' },
+        children: [
+          {
+            path: 'inventory1/list',
+            name: 'InventoryStatList1',
+            component: () => import('@/views/stock/inventory/list'),
+            meta: { title: '采购明细统计', icon: 'table' }
+          },
+          {
+            path: 'inventory2/list',
+            name: 'OrderStatList2',
+            component: () => import('@/views/stock/inventory/list'),
+            meta: { title: '收货明细', icon: 'table' }
+          },
+          {
+            path: 'inventory3/list',
+            name: 'OrderStatList3',
+            component: () => import('@/views/stock/inventory/list'),
+            meta: { title: '进货汇总统计', icon: 'table' }
+          }
+        ]
+      },
+      {
+        path: 'inventory/list',
+        name: 'OrderStatList4',
+        component: () => import('@/views/stock/inventory/list'),
+        meta: { title: '销售统计', icon: 'table' }
+      },
+      {
+        path: 'inventory/list',
+        name: 'OrderStatList5',
+        component: () => import('@/views/stock/inventory/list'),
+        meta: { title: '库存统计', icon: 'table' }
+      }
       // {
-      //   path: 'order-setting/list',
-      //   name: 'OrderSetting',
-      //   component: () => import('@/views/order/order-setting/list'),
-      //   meta: { title: '订单设置', icon: 'form' }
+      //   path: 'receipt/list',
+      //   component: () => import('@/views/stock/receipt/list'),
+      //   name: 'ReceiptList',
+      //   meta: { title: '入库单', icon: 'international' }
+      // },
+      // {
+      //   path: 'shipment/list',
+      //   component: () => import('@/views/stock/shipment/list'),
+      //   name: 'shipmentList',
+      //   meta: { title: '出库单', icon: 'lock' }
+      // },
+      // {
+      //   path: 'check/list',
+      //   component: () => import('@/views/stock/check/list'),
+      //   name: 'CheckList',
+      //   meta: { title: '盘点单', icon: 'message' }
+      // },
+      // {
+      //   path: 'transfer/list',
+      //   component: () => import('@/views/stock/transfer/list'),
+      //   name: 'TransferList',
+      //   meta: { title: '调拨单', icon: 'money' }
+      // },
+      // {
+      //   path: 'reverse/list',
+      //   component: () => import('@/views/stock/reverse/list'),
+      //   name: 'ReverseList',
+      //   meta: { title: '拆套单', icon: 'skill' }
       // }
 
     ]
   },
+  // 会员
   {
     path: '/member',
     name: 'Member',

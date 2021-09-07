@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tiger.Business.Stocks.Dtos
 {
@@ -22,6 +23,8 @@ namespace Tiger.Business.Stocks.Dtos
         public int TotalWeight { get; set; }
 
         public int TotalVolume { get; set; }
+
+        public ICollection<ShipmentDetailDto> ShipmentDetails { get; set; }
 
     }
 }
