@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Tiger.Business.Stocks;
 using Tiger.Domain.CoreModule.Utilities;
@@ -40,6 +41,9 @@ namespace Tiger.Stock
             {
                 item.Id = GuidGenerator.Create();
             }
+
+            input.TotalQty = input.ReceiptDetails.Sum(x => x.TotalQty);
+            //input.TotalWeight = input.ReceiptDetails.Sum(x => x.TotalQty);
             return await base.CreateAsync(input);
         }
 

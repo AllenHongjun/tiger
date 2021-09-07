@@ -209,10 +209,9 @@
 
       <el-form ref="detailForm" :rules="rules" :model="temp" label-width="120px">
         {{ detailFormStatus }}
-        <el-divider content-position="left">少年包青天</el-divider>
+        <el-divider content-position="left">单据明细</el-divider>
 
         <el-row>
-
           <el-col :span="6">
             <el-form-item label="单号" prop="code">
               <el-input v-model="temp.code" placeholder="自动生成" :readonly="true" />
@@ -266,7 +265,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-
+        <el-divider />
         <el-table v-loading="listLoading" :data="temp.receiptDetails" fit highlight-current-row style="width: 100%" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
@@ -287,15 +286,6 @@
               </el-button-group>
             </template>
           </el-table-column>
-
-          <!-- <el-table-column min-width="160px" label="单号">
-            <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.receiptCode" class="edit-input" placeholder="自动生成" readonly />
-              </template>
-              <span v-else>{{ row.receiptCode }}</span>
-            </template>
-          </el-table-column> -->
 
           <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
@@ -375,10 +365,6 @@
 
         </el-table>
 
-        <!-- <el-form-item>
-          <el-button type="primary" @click="onSubmit('ruleUserForm')">提交</el-button>
-          <el-button @click="onCancel">取消</el-button>
-        </el-form-item> -->
         <el-divider />
 
         <el-collapse accordion>
@@ -435,17 +421,11 @@
 </template>
 
 <script>
-import { fetchList, fetchPv, createArticle, updateArticle } from '@/api/article'
 import { getReceiptHeaders, getReceiptHeaderById, createReceiptHeader, updateReceiptHeader, deleteReceiptHeader } from '@/api/stock/receipt-header'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-
-// const showCategoryTypeOptions = [
-//   { key: 'show', display_name: '显示' },
-//   { key: 'hidden', display_name: '隐藏' }
-// ]
 
 // arr to obj, such as { CN : "China", US : "USA" }
 const calendarTypeOptions = [
@@ -462,7 +442,6 @@ const receiptTypeOptions = [
   { key: 1, display_name: '采购入库' },
   { key: 2, display_name: '退货入库' },
   { key: 3, display_name: '盘盈入库' }
-  // { key: 4, display_name: '其他入库' }
 ]
 const receiptTypeKeyValue = receiptTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
@@ -470,7 +449,8 @@ const receiptTypeKeyValue = receiptTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'CategoryList',
+  // 入库单
+  name: 'ReceiptHeaderList',
   components: { Pagination, UploadExcelComponent },
   directives: { waves },
   filters: {
@@ -515,6 +495,18 @@ export default {
       statusOptions: ['published', 'draft', 'deleted'],
       showReviewer: false,
       show: true,
+      dialogFormVisible: false,
+      textMap: {
+        update: 'Edit',
+        create: 'Create'
+      },
+      searchDivVisibilty: false,
+      searchFilterDialogVisible: false,
+      importExcelDialogVisible: false,
+      dialogPvVisible: false,
+      pvData: [],
+      downloadLoading: false,
+
       temp: {
         id: undefined,
         creationTime: '',
@@ -566,25 +558,12 @@ export default {
         edit: false
         // id: ""
       },
-
-      dialogFormVisible: false,
-
-      textMap: {
-        update: 'Edit',
-        create: 'Create'
-      },
-      searchDivVisibilty: false,
-
-      searchFilterDialogVisible: false,
-      importExcelDialogVisible: false,
-      dialogPvVisible: false,
-      pvData: [],
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
         timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
         title: [{ required: true, message: 'title is required', trigger: 'blur' }]
-      },
-      downloadLoading: false
+      }
+
     }
   },
   created() {
@@ -607,10 +586,12 @@ export default {
       this.listQuery.page = 1
       this.getList()
     },
+    // 刷新
     handleRefresh() {
       this.list = null
       this.handleFilter()
     },
+    // 选中当前
     setCurrent(row) {
       console.log('row', row)
       this.$nextTick(() => {
@@ -620,18 +601,6 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentRow = val
-    },
-    getSelection() {
-      const _selectData = this.$refs.billTable.selection
-      console.log(_selectData)
-    },
-
-    handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作成功',
-        type: 'success'
-      })
-      row.status = status
     },
     // 排序
     sortChange(data) {
@@ -708,15 +677,18 @@ export default {
 
       }
     },
+    // 搜索
     handleSearch() {
       this.searchDivVisibilty = !this.searchDivVisibilty
       console.log('handleSearch', this.searchDivVisibilty)
     },
+    // 切换
     swithBillContainer() {
       this.billContainerVisibilty = !this.billContainerVisibilty
       this.getDetail(this.currentRow.id)
       // this.$refs['detailForm'] = 'readonly'
     },
+    // 保存
     handleSave() {
       var isUpdate = this.detailFormStatus === 'update'
       if (isUpdate) {
@@ -725,6 +697,7 @@ export default {
         this.updateData()
       }
     },
+    // 取消
     onCancel() {
       this.billContainerVisibilty = this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
     },
@@ -741,7 +714,11 @@ export default {
         if (valid) {
           // this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           // this.temp.author = 'vue-element-admin'
-          createReceiptHeader(this.temp).then(() => {
+          createReceiptHeader(this.temp).then((res) => {
+            // 添加成功后列表数据操作
+            this.temp.code = res.code
+            this.temp.creationTime = res.creationTime
+            this.temp.id = res.id
             this.list.unshift(this.temp)
             this.setCurrent(this.list[0])
 
@@ -774,7 +751,6 @@ export default {
         console.log('temp', this.temp)
       })
     },
-
     handleUpdate() {
       console.log('currentRow', this.currentRow.id)
       // 避免点击按钮重复请求
@@ -837,12 +813,7 @@ export default {
         console.log(err)
       })
     },
-    handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
-    },
+    // 添加明细
     handleCreateDetail(row) {
       // this.temp.receiptDetails
       const index = this.temp.receiptDetails.indexOf(row)
@@ -853,10 +824,12 @@ export default {
       this.resetTempDetail()
       this.temp.receiptDetails.splice(index, 0, this.tempDetail)
     },
+    // 删除明细
     handleDeleteDetail(row) {
       const index = this.temp.receiptDetails.indexOf(row)
       this.temp.receiptDetails.splice(index, 1)
     },
+    //
     confirmEditDetail(row) {
       row.edit = false
       // row.originalTitle = row.title
@@ -865,7 +838,7 @@ export default {
         type: 'success'
       })
     },
-
+    // 导入
     handleImport() {
       this.importExcelDialogVisible = true
       console.log('导入数据')
@@ -891,6 +864,7 @@ export default {
       // this.tableData = results
       // this.tableHeader = header
     },
+    // 导出
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
@@ -920,9 +894,6 @@ export default {
 </script>
 
 <style scoped>
-.edit-input {
-  /* padding-right: 100px; */
-}
 .cancel-btn {
   position: absolute;
   right: 15px;
@@ -940,17 +911,14 @@ export default {
   left:0px;
   top:40px;
   width:100%;
-  /* height:500px; */
   background-color:rgb(255, 255, 255);
   z-index:99;
   display:block;
 }
 
 .bill-detail-container{
-  /* border: 1px solid rgb(197, 204, 202); */
   width:100%;
   min-height:620px;
-  /* background-color:aquamarine; */
 }
 </style>
 
