@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
+using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Stock.Dtos
 {
     [Serializable]
-    public class CreateUpdateTransferHeaderDto
+    public class CreateUpdateTransferHeaderDto : EntityDto<Guid>
     {
         public string Code { get; set; }
 
@@ -22,6 +24,8 @@ namespace Tiger.Stock.Dtos
         public int TotalWeight { get; set; }
 
         public int TotalVolume { get; set; }
+
+        public ICollection<CreateUpdateTransferDetailDto> TransferDetails { get; set; }
 
     }
 }

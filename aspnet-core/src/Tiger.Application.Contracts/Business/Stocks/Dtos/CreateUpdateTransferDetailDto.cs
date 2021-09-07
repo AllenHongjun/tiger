@@ -1,9 +1,10 @@
 using System;
+using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Stock.Dtos
 {
     [Serializable]
-    public class CreateUpdateTransferDetailDto
+    public class CreateUpdateTransferDetailDto:EntityDto<Guid>
     {
         public string TransferCode { get; set; }
 
