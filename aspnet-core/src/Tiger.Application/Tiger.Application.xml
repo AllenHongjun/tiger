@@ -103,6 +103,11 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Business.Stocks.ShipmentHeaderAppService">
+            <summary>
+            入库单
+            </summary>
+        </member>
         <member name="T:Tiger.Basic.CategoryAppService">
             <summary>
             产品分类
@@ -387,6 +392,11 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.Stock.ReceiptHeaderAppService">
+            <summary>
+            入库单
+            </summary>
         </member>
         <member name="M:Tiger.Utilities.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>

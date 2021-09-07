@@ -6,7 +6,10 @@ using Volo.Abp.Application.Services;
 using Volo.Abp;
 
 namespace Tiger.Business.Stocks
-{
+{   
+    /// <summary>
+    /// Èë¿âµ¥
+    /// </summary>
     [RemoteService(false)]
     public class ShipmentHeaderAppService : CrudAppService<ShipmentHeader, ShipmentHeaderDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateShipmentHeaderDto, CreateUpdateShipmentHeaderDto>,
         IShipmentHeaderAppService

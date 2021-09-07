@@ -13,6 +13,9 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Stock
 {
+    /// <summary>
+    /// Èë¿âµ¥
+    /// </summary>
     [RemoteService(false)]
     public class ReceiptHeaderAppService : CrudAppService<ReceiptHeader, ReceiptHeaderDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateReceiptHeaderDto, CreateUpdateReceiptHeaderDto>,
         IReceiptHeaderAppService

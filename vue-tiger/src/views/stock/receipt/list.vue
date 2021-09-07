@@ -42,7 +42,7 @@
           <el-dropdown-item icon="el-icon-close" divided>批量订单关闭</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-dropdown trigger="click" style="margin:0 5px;">
+      <el-dropdown trigger="click" style="margin:0 5px;" @command="handleCommand">
         <el-button type="info" icon="el-icon-more">
           更多<i class="el-icon-arrow-down el-icon--right" />
         </el-button>
@@ -53,7 +53,7 @@
           <el-dropdown-item icon="el-icon-circle-plus" divided>草稿新增</el-dropdown-item>
           <el-dropdown-item icon="el-icon-edit" divided @click="handleUpdate(scope.row)">标记已付</el-dropdown-item>
           <el-dropdown-item icon="el-icon-edit" divided disabled>修改备注</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-document" divided>导出excel</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-document" divided command="handleExport">导出excel</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-row>
@@ -61,10 +61,25 @@
     <el-row v-show="!operatorButtonsVisibilty" style="margin-bottom:5px;">
       <el-button type="primary" icon="el-icon-search" @click="detailFormStatus==='create'?createData():updateData()">保存</el-button>
       <el-button icon="el-icon-set-up" @click="swithBillContainer">存为草稿</el-button>
-      <el-button type="info" icon="el-icon-refresh">导入明细</el-button>
+      <el-button type="info" icon="el-icon-refresh" @click="handleImport">导入明细</el-button>
       <el-button icon="el-icon-refresh" @click="onCancel">取消</el-button>
 
     </el-row>
+
+    <!-- 导入excel -->
+    <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
+      <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
+        下载模板
+      </el-button>
+      <el-divider />
+      <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+      <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="importExcelDialogVisible = false">
+          关闭
+        </el-button>
+      </div>
+    </el-dialog>
 
     <div v-show="billContainerVisibilty" class="bill-container">
       <div class="filter-container">
@@ -189,20 +204,6 @@
 
       <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-      <!-- 导入excel -->
-      <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
-        <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
-          下载模板
-        </el-button>
-        <el-divider />
-        <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
-        <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="importExcelDialogVisible = false">
-            关闭
-          </el-button>
-        </div>
-      </el-dialog>
     </div>
 
     <div v-show="!billContainerVisibilty" class="bill-detail-container">
@@ -266,7 +267,7 @@
           </el-col>
         </el-row>
         <el-divider />
-        <el-table v-loading="listLoading" :data="temp.receiptDetails" fit highlight-current-row style="width: 100%" @sort-change="sortChange">
+        <el-table v-loading="listLoading" :data="temp.receiptDetails" fit highlight-current-row style="width: 100%" :show-summary="true" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
           <el-table-column align="center" label="操作" width="150px">
@@ -370,45 +371,44 @@
         <el-collapse accordion>
           <el-collapse-item title="更多信息" name="1">
             <el-row>
-              <el-col :span="6">
+              <el-col :span="4">
                 <el-form-item label="创建人">
                   <el-input v-model="temp.creatorId" :readonly="true" />
                 </el-form-item>
               </el-col>
 
-              <el-col :span="6">
+              <el-col :span="4">
                 <el-form-item label="创建时间" prop="creationTime">
                   <el-date-picker v-model="temp.creationTime" type="date" placeholder="创建日期" style="width: 100%;" :readonly="true" />
                 </el-form-item>
               </el-col>
 
-              <el-col :span="6">
+              <el-col :span="4">
                 <el-form-item label="删除人">
                   <el-input v-model="temp.deleterId" :readonly="true" />
                 </el-form-item>
               </el-col>
 
-              <el-col :span="6">
+              <el-col :span="4">
                 <el-form-item label="删除时间" prop="deletionTime">
                   <el-date-picker v-model="temp.deletionTime" type="date" placeholder="删除时间" style="width: 100%;" :readonly="true" />
                 </el-form-item>
               </el-col>
-            </el-row>
 
-            <el-row>
-              <el-col :span="6">
+              <el-col :span="4">
                 <el-form-item label="修改人">
                   <el-input v-model="temp.lastModifierId" :readonly="true" />
                 </el-form-item>
               </el-col>
 
-              <el-col :span="6">
+              <el-col :span="4">
                 <el-form-item label="修改时间" prop="lastModificationTime">
                   <el-date-picker v-model="temp.lastModificationTime" type="date" placeholder="修改时间" style="width: 100%;" :readonly="true" />
                 </el-form-item>
               </el-col>
-
             </el-row>
+
+            <el-row />
           </el-collapse-item>
 
         </el-collapse>
@@ -813,6 +813,16 @@ export default {
         console.log(err)
       })
     },
+    handleCommand(command) {
+      switch (command) {
+        case 'handleExport':
+          this.handleExport()
+          break
+        default:
+          break
+      }
+      this.$message('click on item ' + command)
+    },
     // 添加明细
     handleCreateDetail(row) {
       // this.temp.receiptDetails
@@ -838,6 +848,21 @@ export default {
         type: 'success'
       })
     },
+    // 导出模板
+    handleDownload() {
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
+        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        const data = this.formatJson(filterVal, this.list)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: '商品列表' + (new Date()).toLocaleDateString()
+        })
+        this.downloadLoading = false
+      })
+    },
     // 导入
     handleImport() {
       this.importExcelDialogVisible = true
@@ -856,29 +881,33 @@ export default {
       })
       return false
     },
+    // 导出Excel
+    handleExport() {
+      console.log('handleExport')
+      this.getDetail(this.currentRow.id)
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['商品名称', '批次', '总数量', '未收数量', '标记', '单位']
+        const filterVal = ['productName', 'batch', 'totalQty', 'openQty', 'processStamp', 'quantityUm']
+        const data = this.formatJson(filterVal, this.temp.receiptDetails)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: '入库单明细-' + (new Date()).toLocaleDateString()
+        })
+        this.downloadLoading = false
+      })
+    },
     handleSuccess({ results, header }) {
       this.$message({
         message: '文件上传成功',
         type: 'success'
       })
-      // this.tableData = results
+      console.log(results)
+      this.temp.receiptDetails = results
       // this.tableHeader = header
     },
-    // 导出
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
-        const data = this.formatJson(filterVal, this.list)
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: '商品列表' + (new Date()).toLocaleDateString()
-        })
-        this.downloadLoading = false
-      })
-    },
+
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
         if (j === 'timestamp') {
