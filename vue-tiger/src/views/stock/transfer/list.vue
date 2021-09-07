@@ -218,12 +218,12 @@
               <el-input v-model="temp.code" placeholder="自动生成" :readonly="true" />
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="入库仓库" prop="username">
+          <!-- <el-col :span="6">
+            <el-form-item label="源仓库" prop="username">
               <el-input v-model="temp.warehouseId" />
 
             </el-form-item>
-          </el-col>
+          </el-col> -->
           <el-col :span="6">
             <el-form-item label="类型" prop="transferType">
               <el-select v-model="temp.transferType" class="filter-item" placeholder="请选择">
@@ -234,7 +234,7 @@
 
         </el-row>
 
-        <el-row>
+        <!-- <el-row>
           <el-col :span="6">
             <el-form-item label="总数量">
               <span>{{ temp.totalQty }}</span>
@@ -257,7 +257,7 @@
               <span>{{ temp.totalCases }}</span>
             </el-form-item>
           </el-col>
-        </el-row>
+        </el-row> -->
 
         <el-row>
           <el-col :span="6">
@@ -321,15 +321,6 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="未收数量">
-            <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.openQty" class="edit-input" />
-              </template>
-              <span v-else>{{ row.openQty }}</span>
-            </template>
-          </el-table-column>
-
           <el-table-column min-width="100px" label="处理标记">
             <template slot-scope="{row}">
               <template v-if="row.edit">
@@ -345,22 +336,6 @@
                 <el-input v-model="row.quantityUm" class="edit-input" />
               </template>
               <span v-else>{{ row.quantityUm }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="180px" align="center" label="生产日期" sortable>
-            <template slot-scope="scope">
-              <template v-if="scope.row.edit">
-                <el-date-picker v-model="scope.row.manufactureDate" type="date" placeholder="生产日期" style="width: 100%;" />
-              </template>
-              <span v-else>{{ scope.row.manufactureDate | formatDate }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="180px" align="center" label="入库日期" sortable>
-            <template slot-scope="scope">
-
-              <span>{{ scope.row.agingDate | formatDate }}</span>
             </template>
           </el-table-column>
 

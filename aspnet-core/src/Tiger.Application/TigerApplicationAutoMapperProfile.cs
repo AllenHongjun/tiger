@@ -171,9 +171,12 @@ namespace Tiger
             CreateMap<TransferHeader, TransferHeaderDto>();
             CreateMap<CreateUpdateTransferHeaderDto, TransferHeader>();
 
+            CreateMap<TransferDetail, TransferDetailDto>();
+            CreateMap<CreateUpdateTransferDetailDto, TransferDetail>();
+
             #endregion
 
-            
+
 
 
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Stock.Dtos
@@ -23,6 +24,8 @@ namespace Tiger.Stock.Dtos
         public int TotalWeight { get; set; }
 
         public int TotalVolume { get; set; }
+
+        public ICollection<TransferDetailDto> TransferDetails { get; set; }
 
     }
 }
