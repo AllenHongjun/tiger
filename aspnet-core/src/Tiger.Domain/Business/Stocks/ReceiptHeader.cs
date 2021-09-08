@@ -55,11 +55,6 @@ namespace Tiger.Stock
         public int TotalQty { get; set; }
 
         /// <summary>
-        /// 总箱数
-        /// </summary>
-        public int TotalCases { get; set; }
-
-        /// <summary>
         /// 总重量
         /// </summary>
         public decimal TotalWeight { get; set; }
@@ -68,6 +63,11 @@ namespace Tiger.Stock
         /// 总体积
         /// </summary>
         public decimal TotalVolume { get; set; }
+
+        /// <summary>
+        /// 总箱数
+        /// </summary>
+        public int TotalCases { get; set; }
 
         /// <summary>
         /// 备注

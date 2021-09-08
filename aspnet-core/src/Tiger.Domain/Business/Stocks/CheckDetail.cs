@@ -21,11 +21,13 @@ namespace Tiger.Stock
     /// 盘点单明细
     /// </summary>
     [Table("StockCheckDetail")]
-    public class CheckDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
+    public class CheckDetail : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
 
 
-
+        /// <summary>
+        /// 商品货号
+        /// </summary>
         public string ProductSn { get; set; }
 
         public string ProductName { get; set; }
@@ -51,6 +53,11 @@ namespace Tiger.Stock
         public int CheckedQty { get; set; }
 
         /// <summary>
+        /// 调整数量
+        /// </summary>
+        public int AdjustQty { get; set; }
+
+        /// <summary>
         /// 盘点创建人
         /// </summary>
         public DateTime CheckedBy { get; set; }
@@ -65,10 +72,7 @@ namespace Tiger.Stock
         /// </summary>
         public string ProcessStamp { get; set; }
 
-        /// <summary>
-        /// 调整数量
-        /// </summary>
-        public int AdjustQty { get; set; }
+        
 
         /// <summary>
         /// 批次号

@@ -28,12 +28,12 @@ namespace Tiger.Stock
         public string WarehouseCode { get; set; }
 
         /// <summary>
-        /// 盘点类型
+        /// 盘点类型 0->定期盘点; 1->重点盘点;  2->循环盘点
         /// </summary>
         public int CheckType { get; set; }
 
         /// <summary>
-        /// 盘点状态
+        /// 盘点状态 0-> 未开始; 1-> 盘点中; 2-> 已完成; 3-> 已关闭
         /// </summary>
         public int Status { get; set; }
 
@@ -56,6 +56,26 @@ namespace Tiger.Stock
         /// 处理标记
         /// </summary>
         public string ProcessStamp { get; set; }
+
+
+
+
+        /// <summary>
+        /// 盘点日期
+        /// </summary>
+        public DateTime CheckDate { get; set; }
+
+        /// <summary>
+        /// 单号
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
+        /// 盘点仓库
+        /// </summary>
+        public Guid WarehouseId { get; set; }
+
+
 
 
         public Guid? TenantId { get; set; }

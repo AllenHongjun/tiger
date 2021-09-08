@@ -30,8 +30,7 @@ namespace Tiger.Basic
 
         public Guid ProductCategoryId { get; set; }
 
-        [ForeignKey("ProductCategoryId")]
-        public virtual Category Category { get; set; }
+        
         /// <summary>
         /// 商品属性类型id
         /// </summary>
@@ -194,9 +193,12 @@ namespace Tiger.Basic
         //[NotMapped]
         //public virtual ICollection<ProductTag> ProductTags { get; set; }
 
-        
+
 
         //public virtual ICollection<Order> Orders { get; set; }
+
+        [ForeignKey("ProductCategoryId")]
+        public virtual Category Category { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 

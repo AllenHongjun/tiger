@@ -43,6 +43,11 @@ namespace Tiger.Business.Stocks
         public string ProductName { get; set; }
 
         /// <summary>
+        /// 数量单位
+        /// </summary>
+        public string QuantityUm { get; set; }
+
+        /// <summary>
         /// 批次
         /// </summary>
         public string Batch { get; set; }
@@ -58,9 +63,11 @@ namespace Tiger.Business.Stocks
         public DateTime AgingDate { get; set; }
 
         /// <summary>
-        /// 总数量
+        /// 入库数量
         /// </summary>
         public int TotalQty { get; set; }
+
+        
 
         /// <summary>
         /// 未收数量
@@ -72,10 +79,20 @@ namespace Tiger.Business.Stocks
         /// </summary>
         public string ProcessStamp { get; set; }
 
+
+
+
         /// <summary>
-        /// 数量单位
+        /// 单价
         /// </summary>
-        public string QuantityUm { get; set; }
+        public decimal UnitPrice { get; set; }
+
+        /// <summary>
+        /// 总金额
+        /// </summary>
+        public decimal TotalAmount { get; set; }
+
+
 
         [ForeignKey("WarehouseId")]
         public virtual Warehouse Warehouse { get; set; }
