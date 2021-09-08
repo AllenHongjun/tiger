@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Stock.Dtos
@@ -19,6 +20,8 @@ namespace Tiger.Stock.Dtos
         public DateTime CloseAt { get; set; }
 
         public string ProcessStamp { get; set; }
+
+        public ICollection<CheckDetailDto> CheckDetails { get; set; }
 
     }
 }

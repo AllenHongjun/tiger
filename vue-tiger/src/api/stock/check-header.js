@@ -1,40 +1,40 @@
 import request from '@/utils/request'
 import { transformAbpListQuery } from '@/utils/abp'
 
-export function getReceiptHeaders(query) {
+export function getCheckHeaders(query) {
   return request({
-    url: '/api/stock/receiptHeader/all',
+    url: '/api/stock/checkHeader/all',
     method: 'get',
     params: transformAbpListQuery(query)
   })
 }
 
-export function getReceiptHeaderById(id) {
+export function getCheckHeaderById(id) {
   return request({
-    url: `/api/stock/receiptHeader/${id}`,
+    url: `/api/stock/checkHeader/${id}`,
     method: 'get'
   })
 }
 
-export function createReceiptHeader(payload) {
+export function createCheckHeader(payload) {
   return request({
-    url: '/api/stock/receiptHeader',
+    url: '/api/stock/checkHeader',
     method: 'post',
     data: payload
   })
 }
 
-export function updateReceiptHeader(payload) {
+export function updateCheckHeader(payload) {
   return request({
-    url: `/api/stock/receiptHeader/${payload.id}`,
+    url: `/api/stock/checkHeader/${payload.id}`,
     method: 'put',
     data: payload
   })
 }
 
-export function deleteReceiptHeader(id) {
+export function deleteCheckHeader(id) {
   return request({
-    url: `/api/stock/receiptHeader/${id}`,
+    url: `/api/stock/checkHeader/${id}`,
     method: 'delete'
   })
 }

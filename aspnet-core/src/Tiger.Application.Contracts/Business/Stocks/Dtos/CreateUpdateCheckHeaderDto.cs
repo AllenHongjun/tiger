@@ -21,7 +21,7 @@ namespace Tiger.Stock.Dtos
 
         public string ProcessStamp { get; set; }
 
-        public virtual ICollection<CreateUpdateCheckDetailDto> CheckDetails { get; set; }
+        public ICollection<CreateUpdateCheckDetailDto> CheckDetails { get; set; }
 
     }
 }
