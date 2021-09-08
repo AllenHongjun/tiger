@@ -10,6 +10,10 @@ using Tiger.Books;
 using Tiger.Business.Demo;
 using Tiger.Business.Members;
 using Tiger.Business.Members.Dtos;
+using Tiger.Business.Orders;
+using Tiger.Business.Orders.Dtos;
+using Tiger.Business.Purchases;
+using Tiger.Business.Purchases.Dtos;
 using Tiger.Business.Stocks;
 using Tiger.Business.Stocks.Dtos;
 using Tiger.Marketing;
@@ -110,6 +114,15 @@ namespace Tiger
             CreateMap<CreateUpdateMemberStatisticInfoDto, MemberStatisticInfo>();
             #endregion
 
+            #region Purchase
+            CreateMap<PurchaseHeader, PurchaseHeaderDto>();
+            CreateMap<CreateUpdatePurchaseHeaderDto, PurchaseHeader>();
+
+            CreateMap<PurchaseDetail, PurchaseDetailDto>();
+            CreateMap<CreateUpdatePurchaseDetailDto, PurchaseDetail>();
+
+            #endregion
+
             #region Orders
 
             CreateMap<CartItem, CartItemDto>();
@@ -122,6 +135,15 @@ namespace Tiger
 
             CreateMap<OrderItem, OrderItemDto>();
             CreateMap<CreateUpdateOrderItemDto, OrderItem>();
+
+            CreateMap<OrderReturnHeader, OrderReturnHeaderDto>();
+            CreateMap<CreateUpdateOrderReturnHeaderDto, OrderReturnHeader>();
+
+            CreateMap<OrderReturnDetail, OrderReturnDetailDto>();
+            CreateMap<CreateUpdateOrderReturnDetailDto, OrderReturnDetail>();
+
+
+
 
             CreateMap<OrderOperateHistory, OrderOperationHistoryDto>()
                 // 忽略审计属性

@@ -4,7 +4,7 @@ using Volo.Abp.Application.Dtos;
 namespace Tiger.Business.Orders.Dtos
 {
     [Serializable]
-    public class OrderReturnDetailDto : FullAuditedEntityDto<Guid>
+    public class OrderReturnDetailDto : EntityDto<Guid>
     {
         public string OrderSn { get; set; }
 

@@ -1,9 +1,10 @@
 using System;
+using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Business.Orders.Dtos
 {
     [Serializable]
-    public class CreateUpdateOrderReturnDetailDto
+    public class CreateUpdateOrderReturnDetailDto : EntityDto<Guid>
     {
         public string OrderSn { get; set; }
 

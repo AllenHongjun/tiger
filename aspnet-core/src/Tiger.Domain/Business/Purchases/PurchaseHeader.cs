@@ -70,7 +70,7 @@ namespace Tiger.Business.Purchases
 
         public Guid SupplyId { get; set; }
 
-        public virtual ICollection<PurchaseDetail> PurchaseOrderDetails { get; set; }
+        public virtual ICollection<PurchaseDetail> PurchaseDetails { get; set; }
 
 
 
@@ -92,7 +92,7 @@ namespace Tiger.Business.Purchases
             string note,
             Guid warehouseId,
             Guid supplyId,
-            ICollection<PurchaseDetail> purchaseOrderDetails
+            ICollection<PurchaseDetail> purchaseDetails
         ) : base(id)
         {
             TenantId = tenantId;
@@ -107,7 +107,7 @@ namespace Tiger.Business.Purchases
             Note = note;
             WarehouseId = warehouseId;
             SupplyId = supplyId;
-            PurchaseOrderDetails = purchaseOrderDetails;
+            PurchaseDetails = purchaseDetails;
         }
     }
 }

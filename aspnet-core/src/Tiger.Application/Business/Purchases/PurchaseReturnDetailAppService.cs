@@ -21,5 +21,7 @@ namespace Tiger.Business.Purchases
         {
             _repository = repository;
         }
+
+        
     }
 }

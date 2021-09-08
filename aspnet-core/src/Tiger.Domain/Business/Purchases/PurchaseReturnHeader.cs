@@ -68,7 +68,7 @@ namespace Tiger.Business.Purchases
 
         public Guid? TenantId { get; set; }
 
-        public virtual ICollection<PurchaseReturnDetail> OrderReturnDetails { get; set; }
+        public virtual ICollection<PurchaseReturnDetail> PurchaseReturnDetails { get; set; }
 
         protected PurchaseReturnHeader()
         {
@@ -89,7 +89,7 @@ namespace Tiger.Business.Purchases
             Guid? storeId,
             Guid warehouseId,
             Guid? tenantId,
-            ICollection<PurchaseReturnDetail> orderReturnDetails
+            ICollection<PurchaseReturnDetail> purchaseReturnDetails
         ) : base(id)
         {
             Code = code;
@@ -105,7 +105,7 @@ namespace Tiger.Business.Purchases
             StoreId = storeId;
             WarehouseId = warehouseId;
             TenantId = tenantId;
-            OrderReturnDetails = orderReturnDetails;
+            PurchaseReturnDetails = purchaseReturnDetails;
         }
     }
 }
