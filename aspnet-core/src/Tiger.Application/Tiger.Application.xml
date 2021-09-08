@@ -173,6 +173,12 @@
             商品属性分类
             </summary>
         </member>
+        <member name="M:Tiger.Basic.WarehouseAppService.GetAllAsync">
+            <summary>
+            获取所有仓库
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Books.AuthorAppService">
             <summary>
             实现 author 的服务层

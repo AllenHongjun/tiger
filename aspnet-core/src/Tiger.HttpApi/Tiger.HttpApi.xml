@@ -386,6 +386,12 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.WarehouseController.GetAllAsync">
+            <summary>
+            获取所有仓库
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Controllers.Admin.Basics.WarehouseController.UpdateAsync(System.Guid,Tiger.Basic.Dtos.WarehouseUpdateDto)">
             <summary>
             修改

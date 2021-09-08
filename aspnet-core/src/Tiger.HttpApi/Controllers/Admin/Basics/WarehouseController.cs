@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiger.Basic;
 using Tiger.Basic.Dtos;
@@ -71,6 +72,17 @@ namespace Tiger.Controllers.Admin.Basics
         public Task<PagedResultDto<WarehouseDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
             return _warehouseAppService.GetListAsync(input);
+        }
+
+        /// <summary>
+        /// 获取所有仓库
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public Task<List<WarehouseDto>> GetAllAsync()
+        {
+            return _warehouseAppService.GetAllAsync();
         }
 
         /// <summary>

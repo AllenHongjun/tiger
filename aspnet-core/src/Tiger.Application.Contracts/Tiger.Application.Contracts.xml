@@ -490,6 +490,12 @@
             商品属性类型id
             </summary>
         </member>
+        <member name="M:Tiger.Basic.IWarehouseAppService.GetAllAsync">
+            <summary>
+            获取所有仓库
+            </summary>
+            <returns></returns>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Books.AuthorDto" -->
         <member name="T:Tiger.Books.BookDto">
             <summary>
