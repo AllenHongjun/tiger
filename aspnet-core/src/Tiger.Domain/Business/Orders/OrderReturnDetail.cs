@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 类    名：OrderReturnApply   
  * 作    者：花生了什么树       
  * 创建时间：2021/8/11 13:31:01       
@@ -131,5 +131,67 @@ namespace Tiger.Business.Orders
         public Guid MemberId { get; set; }
 
         public virtual Member Member { get; set; }
+
+        protected OrderReturnDetail()
+        {
+        }
+
+        public OrderReturnDetail(
+            Guid id,
+            string orderSn,
+            decimal returnAmount,
+            string returnName,
+            string returnPhone,
+            int status,
+            DateTime handleTime,
+            string productPic,
+            string productName,
+            string productAttr,
+            string productQuantity,
+            string productPrice,
+            string productRealPrice,
+            string reason,
+            string description,
+            string proofPics,
+            string handleNote,
+            string handleMan,
+            string receiveMan,
+            string receiveTime,
+            string receiveNote,
+            Guid receiveAddressId,
+            MemberReceiveAddress memberReceiveAddress,
+            Guid productId,
+            Product product,
+            Guid memberId,
+            Member member
+        ) : base(id)
+        {
+            OrderSn = orderSn;
+            ReturnAmount = returnAmount;
+            ReturnName = returnName;
+            ReturnPhone = returnPhone;
+            Status = status;
+            HandleTime = handleTime;
+            ProductPic = productPic;
+            ProductName = productName;
+            ProductAttr = productAttr;
+            ProductQuantity = productQuantity;
+            ProductPrice = productPrice;
+            ProductRealPrice = productRealPrice;
+            Reason = reason;
+            Description = description;
+            ProofPics = proofPics;
+            HandleNote = handleNote;
+            HandleMan = handleMan;
+            ReceiveMan = receiveMan;
+            ReceiveTime = receiveTime;
+            ReceiveNote = receiveNote;
+            ReceiveAddressId = receiveAddressId;
+            MemberReceiveAddress = memberReceiveAddress;
+            ProductId = productId;
+            Product = product;
+            MemberId = memberId;
+            Member = member;
+        }
     }
 }

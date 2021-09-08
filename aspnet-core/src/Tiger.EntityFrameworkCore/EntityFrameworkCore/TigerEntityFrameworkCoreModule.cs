@@ -1,3 +1,4 @@
+using Tiger.Business.Orders;
 using Tiger.Business.Purchases;
 using Tiger.Business.Members;
 using Tiger.Business.Stocks;
@@ -71,6 +72,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<PurchaseReturnDetail, PurchaseReturnDetailRepository>();
                 options.AddRepository<PurchaseReturnHeader, PurchaseReturnHeaderRepository>();
                 options.AddRepository<PurchaseDetail, PurchaseDetailRepository>();
+                options.AddRepository<OrderReturnDetail, OrderReturnDetailRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

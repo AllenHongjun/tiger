@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
+using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Business.Orders
 {
-    interface IOrderReturnDetailRepository
+    public interface IOrderReturnDetailRepository : IRepository<OrderReturnDetail, Guid>
     {
     }
 }
