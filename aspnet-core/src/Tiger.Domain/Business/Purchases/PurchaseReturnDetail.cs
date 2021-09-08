@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -61,5 +61,37 @@ namespace Tiger.Business.Purchases
         public virtual Product Product { get; set; }
 
         public Guid? TenantId { get; set; }
+
+        protected PurchaseReturnDetail()
+        {
+        }
+
+        public PurchaseReturnDetail(
+            Guid id,
+            string productSn,
+            string unit,
+            decimal purchasePrice,
+            int totalQty,
+            int openQty,
+            string processStamp,
+            string note,
+            Warehouse warehouse,
+            Guid productId,
+            Product product,
+            Guid? tenantId
+        ) : base(id)
+        {
+            ProductSn = productSn;
+            Unit = unit;
+            PurchasePrice = purchasePrice;
+            TotalQty = totalQty;
+            OpenQty = openQty;
+            ProcessStamp = processStamp;
+            Note = note;
+            Warehouse = warehouse;
+            ProductId = productId;
+            Product = product;
+            TenantId = tenantId;
+        }
     }
 }

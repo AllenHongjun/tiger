@@ -68,6 +68,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<MemberStatisticInfo, MemberStatisticInfoRepository>();
                 options.AddRepository<ReceiptDetail, ReceiptDetailRepository>();
                 options.AddRepository<PurchaseHeader, PurchaseHeaderRepository>();
+                options.AddRepository<PurchaseReturnDetail, PurchaseReturnDetailRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>
