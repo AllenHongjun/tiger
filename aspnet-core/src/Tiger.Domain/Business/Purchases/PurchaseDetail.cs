@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 类    名：PurchaseOrderDetail   
  * 作    者：花生了什么树       
  * 创建时间：2021/8/11 15:03:49       
@@ -70,5 +70,39 @@ namespace Tiger.Business.Purchases
         public virtual Product Product { get; set; }
 
         public Guid? TenantId { get; set; }
+
+        protected PurchaseDetail()
+        {
+        }
+
+        public PurchaseDetail(
+            Guid id,
+            string productSn,
+            string unit,
+            int qty,
+            decimal purchasePrice,
+            string note,
+            int totalQty,
+            int openQty,
+            string processStamp,
+            Warehouse warehouse,
+            Guid productId,
+            Product product,
+            Guid? tenantId
+        ) : base(id)
+        {
+            ProductSn = productSn;
+            Unit = unit;
+            Qty = qty;
+            PurchasePrice = purchasePrice;
+            Note = note;
+            TotalQty = totalQty;
+            OpenQty = openQty;
+            ProcessStamp = processStamp;
+            Warehouse = warehouse;
+            ProductId = productId;
+            Product = product;
+            TenantId = tenantId;
+        }
     }
 }
