@@ -17,6 +17,7 @@ using Volo.Abp.Users.EntityFrameworkCore;
 using Tiger.Stock;
 using Tiger.Business.Stocks;
 using Tiger.Business.Marketings;
+using Tiger.Business.Purchases;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -165,6 +166,7 @@ namespace Tiger.EntityFrameworkCore
          */
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<ShipmentHeader> ShipmentHeaders { get; set; }
+        public DbSet<PurchaseHeader> PurchaseHeaders { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

@@ -1,3 +1,4 @@
+using Tiger.Business.Purchases;
 using Tiger.Business.Members;
 using Tiger.Business.Stocks;
 using Tiger.Stock;
@@ -66,6 +67,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<MemberReceiveAddress, MemberReceiveAddressRepository>();
                 options.AddRepository<MemberStatisticInfo, MemberStatisticInfoRepository>();
                 options.AddRepository<ReceiptDetail, ReceiptDetailRepository>();
+                options.AddRepository<PurchaseHeader, PurchaseHeaderRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

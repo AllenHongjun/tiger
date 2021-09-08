@@ -15,7 +15,7 @@ using Tiger.Business.Orders;
 using Tiger.Business.Members;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Tiger.Orders
+namespace Tiger.Business.Orders
 {   
     /// <summary>
     /// 退款单明细

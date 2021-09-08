@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 类    名：PurchaseOrderHeader   
  * 作    者：花生了什么树       
  * 创建时间：2021/8/11 15:02:54       
@@ -73,5 +73,41 @@ namespace Tiger.Business.Purchases
         public virtual ICollection<PurchaseDetail> PurchaseOrderDetails { get; set; }
 
 
+
+        protected PurchaseHeader()
+        {
+        }
+
+        public PurchaseHeader(
+            Guid id,
+            Guid? tenantId,
+            string warehouseCode,
+            string code,
+            decimal purchasePrice,
+            int status,
+            decimal totalAmount,
+            int totalQty,
+            string auditedBy,
+            string purchaseBy,
+            string note,
+            Guid warehouseId,
+            Guid supplyId,
+            ICollection<PurchaseDetail> purchaseOrderDetails
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            WarehouseCode = warehouseCode;
+            Code = code;
+            PurchasePrice = purchasePrice;
+            Status = status;
+            TotalAmount = totalAmount;
+            TotalQty = totalQty;
+            AuditedBy = auditedBy;
+            PurchaseBy = purchaseBy;
+            Note = note;
+            WarehouseId = warehouseId;
+            SupplyId = supplyId;
+            PurchaseOrderDetails = purchaseOrderDetails;
+        }
     }
 }
