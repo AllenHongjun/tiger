@@ -12,7 +12,8 @@ namespace Tiger.Controllers.Admin.ShipmentDetails
     /// 产品分类
     /// </summary>
 
-    [RemoteService(Name = "ShipmentDetail")]
+    //[RemoteService(Name = "ShipmentDetail")]
+    [RemoteService(false)]
     [Area("Stocks")]
     [ControllerName("ShipmentDetail")]
     [Route("api/stock/shipmentDetail")]

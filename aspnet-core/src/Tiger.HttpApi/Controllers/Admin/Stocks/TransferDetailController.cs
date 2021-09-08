@@ -16,7 +16,8 @@ namespace Tiger.Controllers.Admin.TransferDetails
     /// 出库单
     /// </summary>
 
-    [RemoteService(Name = "TransferDetail")]
+    //[RemoteService(Name = "TransferDetail")]
+    [RemoteService(false)]
     [Area("Stocks")]
     [ControllerName("TransferDetail")]
     [Route("api/stock/transferDetail")]
