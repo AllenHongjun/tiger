@@ -47,14 +47,11 @@ namespace Tiger.Business.Orders.Dtos
 
         public Guid ReceiveAddressId { get; set; }
 
-        public MemberReceiveAddress MemberReceiveAddress { get; set; }
 
         public Guid ProductId { get; set; }
 
-        public Product Product { get; set; }
 
         public Guid MemberId { get; set; }
 
-        public Member Member { get; set; }
     }
 }

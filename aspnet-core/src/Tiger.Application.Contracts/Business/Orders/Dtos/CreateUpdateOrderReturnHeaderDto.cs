@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Tiger.Business.Orders.Dtos
 {
@@ -29,6 +30,6 @@ namespace Tiger.Business.Orders.Dtos
 
         public Guid WarehouseId { get; set; }
 
-        public ICollection<OrderReturnDetail> OrderReturnDetails { get; set; }
+        public ICollection<CreateUpdateOrderReturnDetailDto> OrderReturnDetails { get; set; }
     }
 }

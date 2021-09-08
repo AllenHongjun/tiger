@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Business.Purchases.Dtos
@@ -30,6 +31,6 @@ namespace Tiger.Business.Purchases.Dtos
 
         public Guid WarehouseId { get; set; }
 
-        public ICollection<PurchaseReturnDetail> OrderReturnDetails { get; set; }
+        public ICollection<PurchaseReturnDetailDto> OrderReturnDetails { get; set; }
     }
 }

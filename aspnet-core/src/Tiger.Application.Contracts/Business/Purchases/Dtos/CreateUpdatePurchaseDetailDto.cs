@@ -21,11 +21,9 @@ namespace Tiger.Business.Purchases.Dtos
 
         public string ProcessStamp { get; set; }
 
-        public Warehouse Warehouse { get; set; }
 
         public Guid ProductId { get; set; }
 
-        public Product Product { get; set; }
 
     }
 }
