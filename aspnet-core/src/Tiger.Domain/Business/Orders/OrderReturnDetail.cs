@@ -115,10 +115,10 @@ namespace Tiger.Orders
 
 
 
-        public Guid? OrderId { get; set; }
+        //public Guid? OrderId { get; set; }
 
-        [ForeignKey("OrderId")]
-        public virtual Order Order { get; set; }
+        //[ForeignKey("OrderId")]
+        //public virtual Order Order { get; set; }
 
         public Guid ReceiveAddressId { get; set; }
 

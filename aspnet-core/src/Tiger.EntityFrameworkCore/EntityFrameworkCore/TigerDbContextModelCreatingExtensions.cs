@@ -13,6 +13,7 @@ using Volo.Abp.EntityFrameworkCore.Modeling;
 using Tiger.Stock;
 using Tiger.Business.Stocks;
 using Tiger.Business.Marketings;
+using Tiger.Business.Purchases;
 
 namespace Tiger.EntityFrameworkCore
 {   
@@ -246,9 +247,44 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention();
             });
 
-            
+
 
             #endregion
+
+            #region 采购模块
+            //采购单
+            builder.Entity<PurchaseHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "PurchaseHeader");
+
+                b.ConfigureByConvention();
+            });
+
+            //采购单明细
+            builder.Entity<PurchaseDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "PurchaseDetail");
+
+                b.ConfigureByConvention();
+            });
+
+            //采购退款单
+            builder.Entity<PurchaseReturnHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "PurchaseReturnHeader");
+
+                b.ConfigureByConvention();
+            });
+
+            //采购退款单明细
+            builder.Entity<PurchaseReturnDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "PurchaseReturnDetail");
+
+                b.ConfigureByConvention();
+            });
+            #endregion
+
 
             #region 订单模块
 
@@ -287,19 +323,22 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention();
             });
 
-            //订单退款明细
-            //builder.Entity<OrderReturnDetail>(b =>
-            //{
-            //    b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnDetails",
-            //        TigerConsts.DbSchema);
-            //    b.ConfigureByConvention();
+            //订单退款单
+            builder.Entity<OrderReturnHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnHeader",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+            });
 
-            //    b.HasOne(t => t.Order)
-            //    .WithMany(t => t.OrderReturnDetails)
-            //    .HasForeignKey(t => t.OrderId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            ////订单退款明细
+            builder.Entity<OrderReturnDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnDetails",
+                    TigerConsts.DbSchema);
+                b.ConfigureByConvention();
 
-            //});
+            });
 
             //订单操作历史记录
             builder.Entity<OrderOperateHistory>(b =>

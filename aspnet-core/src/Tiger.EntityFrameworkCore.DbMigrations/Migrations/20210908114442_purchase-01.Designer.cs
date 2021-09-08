@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Migrations
 {
     [DbContext(typeof(TigerMigrationsDbContext))]
-    partial class TigerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210908114442_purchase-01")]
+    partial class purchase01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1699,97 +1701,6 @@ namespace Tiger.Migrations
                     b.ToTable("AppOrders");
                 });
 
-            modelBuilder.Entity("Tiger.Business.Orders.OrderReturnHeader", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CloseAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CompleteTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnName("DeleterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnName("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OrderReturnType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("StoreId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnName("TenantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TotalCases")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalQty")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalVolume")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalWeight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("WarehouseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppOrderReturnHeader");
-                });
-
             modelBuilder.Entity("Tiger.Business.Purchases.PurchaseDetail", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3091,140 +3002,6 @@ namespace Tiger.Migrations
                     b.HasIndex("OrderId1");
 
                     b.ToTable("AppOrderOperateHistorys");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderReturnDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnName("DeleterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnName("DeletionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnName("ExtraProperties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HandleMan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HandleNote")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("HandleTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MemberId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("MemberReceiveAddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("OrderReturnHeaderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("OrderSn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductAttr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductPic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductPrice")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductQuantity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductRealPrice")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProofPics")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Reason")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ReceiveAddressId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ReceiveMan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiveNote")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiveTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ReturnAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ReturnName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReturnPhone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
-
-                    b.HasIndex("MemberReceiveAddressId");
-
-                    b.HasIndex("OrderReturnHeaderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("AppOrderReturnDetails");
                 });
 
             modelBuilder.Entity("Tiger.Orders.OrderSetting", b =>
@@ -6374,29 +6151,6 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Business.Orders.Order", "Order")
                         .WithMany("OrderOperateHistories")
                         .HasForeignKey("OrderId1");
-                });
-
-            modelBuilder.Entity("Tiger.Orders.OrderReturnDetail", b =>
-                {
-                    b.HasOne("Tiger.Business.Members.Member", "Member")
-                        .WithMany()
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Business.Members.MemberReceiveAddress", "MemberReceiveAddress")
-                        .WithMany()
-                        .HasForeignKey("MemberReceiveAddressId");
-
-                    b.HasOne("Tiger.Business.Orders.OrderReturnHeader", null)
-                        .WithMany("OrderReturnDetails")
-                        .HasForeignKey("OrderReturnHeaderId");
-
-                    b.HasOne("Tiger.Basic.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tiger.Stock.BomDetail", b =>
