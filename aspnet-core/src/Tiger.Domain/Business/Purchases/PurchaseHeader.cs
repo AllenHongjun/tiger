@@ -52,7 +52,7 @@ namespace Tiger.Business.Purchases
         /// <summary>
         /// 总数量
         /// </summary>
-        //public int TotalQty { get; set; }
+        public int TotalQty { get; set; }
 
         ///审核人
         public string AuditedBy { get; set; }
