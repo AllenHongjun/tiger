@@ -24,13 +24,20 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Demo
 {   
     /// <summary>
-    /// 书籍仓储层的实现
+    /// 订单仓储层的实现
     /// </summary>
     public class OrderRepository : EfCoreRepository<TigerDbContext, Order, Guid>, IOrderRepository
     {
         public OrderRepository(IDbContextProvider<TigerDbContext> dbContextProvider)
             : base(dbContextProvider)
         {
+        }
+
+        public async Task<Order> GetAsync(Guid id)
+        {
+            return await DbSet.AsNoTracking()
+                .Include(x => x.OrderItems)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
 

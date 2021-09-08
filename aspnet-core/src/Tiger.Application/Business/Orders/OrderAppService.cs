@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tiger.Business.Orders;
 using Tiger.Business.Orders.Dtos;
+using Tiger.Domain.CoreModule.Utilities;
 using Tiger.Orders.Orders;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -26,16 +27,19 @@ namespace Tiger.Orders
         IOrderAppService 
     {
         protected readonly IOrderRepository _orderRepository;
+        protected readonly IOrderItemRepository _orderItemRepository;
         protected readonly IRepository<CartItem, Guid> _cartIteamRepository;
         protected readonly OrderManager _orderManager;
         public OrderAppService(
             IOrderRepository repository,
+            IOrderItemRepository orderItemRepository,
             IRepository<CartItem, Guid> cartIteamRepository,
             OrderManager orderManager
 
             ) : base(repository)
         {
             _orderRepository = repository;
+            _orderItemRepository = orderItemRepository;
             _cartIteamRepository = cartIteamRepository;
             _orderManager = orderManager;
         }
@@ -90,6 +94,52 @@ namespace Tiger.Orders
 
             var orderDto = ObjectMapper.Map<Business.Orders.Order, OrderDto>(order);
             return orderDto;
+        }
+
+
+        public override async Task<OrderDto> CreateAsync(CreateUpdateOrderDto input)
+        {
+            input.OrderSn = Utility.CreateOrderID("CGRK");
+            foreach (var item in input.OrderItems)
+            {
+                item.Id = GuidGenerator.Create();
+            }
+
+            //input.TotalQty = input.OrderItems.Sum(x => x.TotalQty);
+            //input.TotalWeight = input.OrderItems.Sum(x => x.TotalQty);
+            return await base.CreateAsync(input);
+        }
+
+        public override async Task<OrderDto> UpdateAsync(Guid id, CreateUpdateOrderDto input)
+        {
+            await DeleteDetail(id);
+            foreach (var item in input.OrderItems)
+            {
+                item.Id = GuidGenerator.Create();
+            }
+            return await base.UpdateAsync(id, input);
+        }
+
+
+        public override async Task DeleteAsync(Guid id)
+        {
+            await DeleteDetail(id);
+            await base.DeleteAsync(id);
+        }
+
+        private async Task DeleteDetail(Guid id)
+        {
+            var Order = await _orderRepository.GetAsync(id);
+            foreach (var receiptDetail in Order.OrderItems)
+            {
+                await _orderItemRepository.DeleteAsync(receiptDetail.Id, true);
+            }
+        }
+
+        public override async Task<OrderDto> GetAsync(Guid id)
+        {
+            var query = await _orderRepository.GetAsync(id);
+            return ObjectMapper.Map<Business.Orders.Order, OrderDto>(query);
         }
     }
 }

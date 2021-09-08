@@ -190,5 +190,7 @@ namespace Tiger.Orders.Orders
         public int CouponId { get; set; }
 
         public List<OrderItemDto> OrderItems { get; set; }
+
+        public ICollection<OrderItemDto> orderItems { get; set; }
     }
 }

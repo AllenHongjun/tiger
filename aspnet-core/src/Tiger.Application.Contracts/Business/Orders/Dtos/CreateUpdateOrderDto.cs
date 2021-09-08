@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Orders.OrderItems;
 
 namespace Tiger.Orders.Orders
 {
@@ -182,6 +183,8 @@ namespace Tiger.Orders.Orders
         /// 评价时间
         /// </summary>
         public DateTime? CommentTime { get; set; }
+
+        public ICollection<CreateUpdateOrderItemDto> OrderItems { get; set; }
 
 
         

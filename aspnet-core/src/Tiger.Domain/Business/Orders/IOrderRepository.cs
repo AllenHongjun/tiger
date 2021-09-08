@@ -9,6 +9,8 @@ namespace Tiger.Business.Orders
     public interface IOrderRepository : IRepository<Order, Guid>
     {
 
+        Task<Order> GetAsync(Guid id);
+
         /// <summary>
         /// 查询订单列表
         /// </summary>
