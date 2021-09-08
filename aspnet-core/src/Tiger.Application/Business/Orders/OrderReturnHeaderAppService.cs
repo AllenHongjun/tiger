@@ -6,17 +6,19 @@ using Volo.Abp.Application.Services;
 using System.Threading.Tasks;
 using Tiger.Domain.CoreModule.Utilities;
 using System.Linq;
+using Volo.Abp;
 
 namespace Tiger.Business.Orders
 {
+    [RemoteService(false)]
     public class OrderReturnHeaderAppService : CrudAppService<OrderReturnHeader, OrderReturnHeaderDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateOrderReturnHeaderDto, CreateUpdateOrderReturnHeaderDto>,
         IOrderReturnHeaderAppService
     {
-        protected override string GetPolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Default;
-        protected override string GetListPolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Default;
-        protected override string CreatePolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Create;
-        protected override string UpdatePolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Update;
-        protected override string DeletePolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Delete;
+        //protected override string GetPolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Default;
+        //protected override string GetListPolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Default;
+        //protected override string CreatePolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Create;
+        //protected override string UpdatePolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Update;
+        //protected override string DeletePolicyName { get; set; } = TigerPermissions.OrderReturnHeader.Delete;
 
         private readonly IOrderReturnHeaderRepository _repository;
         private readonly IOrderReturnDetailRepository _orderReturnDetailRepository;

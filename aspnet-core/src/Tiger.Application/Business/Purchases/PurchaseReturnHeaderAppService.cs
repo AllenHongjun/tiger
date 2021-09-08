@@ -6,17 +6,19 @@ using Volo.Abp.Application.Services;
 using System.Threading.Tasks;
 using System.Linq;
 using Tiger.Domain.CoreModule.Utilities;
+using Volo.Abp;
 
 namespace Tiger.Business.Purchases
 {
+    [RemoteService(false)]
     public class PurchaseReturnHeaderAppService : CrudAppService<PurchaseReturnHeader, PurchaseReturnHeaderDto, Guid, PagedAndSortedResultRequestDto, CreateUpdatePurchaseReturnHeaderDto, CreateUpdatePurchaseReturnHeaderDto>,
         IPurchaseReturnHeaderAppService
     {
-        protected override string GetPolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Default;
-        protected override string GetListPolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Default;
-        protected override string CreatePolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Create;
-        protected override string UpdatePolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Update;
-        protected override string DeletePolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Delete;
+        //protected override string GetPolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Default;
+        //protected override string GetListPolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Default;
+        //protected override string CreatePolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Create;
+        //protected override string UpdatePolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Update;
+        //protected override string DeletePolicyName { get; set; } = TigerPermissions.PurchaseReturnHeader.Delete;
 
         private readonly IPurchaseReturnHeaderRepository _repository;
         private readonly IPurchaseReturnDetailRepository _purchaseReturnDetailRepository;

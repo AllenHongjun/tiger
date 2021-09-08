@@ -3,9 +3,11 @@ using Tiger.Permissions;
 using Tiger.Business.Orders.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Business.Orders
 {
+    [RemoteService(false)]
     public class OrderReturnDetailAppService : CrudAppService<OrderReturnDetail, OrderReturnDetailDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateOrderReturnDetailDto, CreateUpdateOrderReturnDetailDto>,
         IOrderReturnDetailAppService
     {

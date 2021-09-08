@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Orders;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -10,6 +11,7 @@ namespace Tiger.Business.Orders
     /// <summary>
     /// 销售退款单
     /// </summary>
+    [Table("AppOrderReturnHeader")]
     public class OrderReturnHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
 
