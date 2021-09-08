@@ -168,6 +168,7 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<ShipmentHeader> ShipmentHeaders { get; set; }
         public DbSet<PurchaseHeader> PurchaseHeaders { get; set; }
         public DbSet<PurchaseReturnDetail> PurchaseReturnDetails { get; set; }
+        public DbSet<PurchaseReturnHeader> PurchaseReturnHeaders { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

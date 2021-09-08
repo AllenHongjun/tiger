@@ -62,5 +62,13 @@ namespace Tiger.Permissions
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
         }
+
+        public class PurchaseReturnHeader
+        {
+            public const string Default = GroupName + ".PurchaseReturnHeader";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -69,5 +69,43 @@ namespace Tiger.Business.Purchases
         public Guid? TenantId { get; set; }
 
         public virtual ICollection<PurchaseReturnDetail> OrderReturnDetails { get; set; }
+
+        protected PurchaseReturnHeader()
+        {
+        }
+
+        public PurchaseReturnHeader(
+            Guid id,
+            string code,
+            int orderReturnType,
+            int status,
+            DateTime completeTime,
+            DateTime closeAt,
+            int totalQty,
+            decimal totalWeight,
+            decimal totalVolume,
+            int totalCases,
+            string note,
+            Guid? storeId,
+            Guid warehouseId,
+            Guid? tenantId,
+            ICollection<PurchaseReturnDetail> orderReturnDetails
+        ) : base(id)
+        {
+            Code = code;
+            OrderReturnType = orderReturnType;
+            Status = status;
+            CompleteTime = completeTime;
+            CloseAt = closeAt;
+            TotalQty = totalQty;
+            TotalWeight = totalWeight;
+            TotalVolume = totalVolume;
+            TotalCases = totalCases;
+            Note = note;
+            StoreId = storeId;
+            WarehouseId = warehouseId;
+            TenantId = tenantId;
+            OrderReturnDetails = orderReturnDetails;
+        }
     }
 }
