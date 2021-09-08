@@ -605,6 +605,16 @@ namespace Tiger.EntityFrameworkCore
 
 
             
+
+
+            builder.Entity<OrderReturnHeader>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnHeaders", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }

@@ -73,6 +73,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<PurchaseReturnHeader, PurchaseReturnHeaderRepository>();
                 options.AddRepository<PurchaseDetail, PurchaseDetailRepository>();
                 options.AddRepository<OrderReturnDetail, OrderReturnDetailRepository>();
+                options.AddRepository<OrderReturnHeader, OrderReturnHeaderRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

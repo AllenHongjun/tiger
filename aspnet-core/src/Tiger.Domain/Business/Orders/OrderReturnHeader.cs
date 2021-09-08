@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Orders;
@@ -73,5 +73,43 @@ namespace Tiger.Business.Orders
 
         public virtual ICollection<OrderReturnDetail> OrderReturnDetails { get; set; }
 
+
+        protected OrderReturnHeader()
+        {
+        }
+
+        public OrderReturnHeader(
+            Guid id,
+            string code,
+            int orderReturnType,
+            int status,
+            DateTime completeTime,
+            DateTime closeAt,
+            int totalQty,
+            decimal totalWeight,
+            decimal totalVolume,
+            int totalCases,
+            string note,
+            Guid? storeId,
+            Guid warehouseId,
+            Guid? tenantId,
+            ICollection<OrderReturnDetail> orderReturnDetails
+        ) : base(id)
+        {
+            Code = code;
+            OrderReturnType = orderReturnType;
+            Status = status;
+            CompleteTime = completeTime;
+            CloseAt = closeAt;
+            TotalQty = totalQty;
+            TotalWeight = totalWeight;
+            TotalVolume = totalVolume;
+            TotalCases = totalCases;
+            Note = note;
+            StoreId = storeId;
+            WarehouseId = warehouseId;
+            TenantId = tenantId;
+            OrderReturnDetails = orderReturnDetails;
+        }
     }
 }
