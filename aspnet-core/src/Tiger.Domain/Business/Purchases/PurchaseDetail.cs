@@ -15,12 +15,12 @@ using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Tiger.Purchase
+namespace Tiger.Business.Purchases
 {
     /// <summary>
     /// 采购单明细
     /// </summary>
-    public class PurchaseOrderDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
+    public class PurchaseDetail : FullAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
 
         public string ProductSn { get; set; }

@@ -12,12 +12,12 @@ using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Tiger.Purchase
+namespace Tiger.Business.Purchases
 {
     /// <summary>
     /// 采购进货单
     /// </summary>
-    public class PurchaseOrderHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public class PurchaseHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {   
 
         public Guid? TenantId { get; set; }
@@ -67,6 +67,8 @@ namespace Tiger.Purchase
         public Guid WarehouseId { get; set; }
 
         public Guid SupplyId { get; set; }
+
+        public virtual ICollection<PurchaseDetail> PurchaseOrderDetails { get; set; }
 
 
     }
