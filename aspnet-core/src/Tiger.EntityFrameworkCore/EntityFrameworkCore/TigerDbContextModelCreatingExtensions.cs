@@ -107,17 +107,19 @@ namespace Tiger.EntityFrameworkCore
             });
 
 
-            // 产品分类
+            // 产品分类 设置字段长度 是否为空 默认值 部分数据库注释
             builder.Entity<Category>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Categorys",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
-                b.Property(x => x.Name)
-                    .IsRequired();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(256).HasComment("分类名称");
                 b.Property(x => x.Level).IsRequired().HasMaxLength(10)
                     .HasColumnName(nameof(Category.Level));
                 b.Property(x => x.Keyword).HasDefaultValue(false);
+                b.Property(x => x.Icon).IsRequired(false).HasMaxLength(512).HasComment("图标地址");
+                b.Property(x => x.Keyword).HasMaxLength(256);
+                b.Property(x => x.Description).HasMaxLength(512);
 
                 b.HasMany(t => t.Children)
                 .WithOne(t => t.Parent)
@@ -159,6 +161,14 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).IsRequired(true).HasMaxLength(64);
+                b.Property(x => x.Name).IsRequired(true).HasMaxLength(64);
+                b.Property(x => x.Address).HasMaxLength(256);
+                b.Property(x => x.Phone).HasMaxLength(16);
+                b.Property(x => x.Apolygons).HasMaxLength(128);
+                b.Property(x => x.Lng).HasMaxLength(128);
+                b.Property(x => x.Lat).HasMaxLength(128);
             });
 
             // 供应商
@@ -168,12 +178,32 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).IsRequired(true).HasMaxLength(64);
+                b.Property(x => x.Name).IsRequired(true).HasMaxLength(64);
+                b.Property(x => x.AttentionTo).HasMaxLength(64);
+                b.Property(x => x.Phone).HasMaxLength(16);
+                b.Property(x => x.PostCode).HasMaxLength(16);
+                b.Property(x => x.Province).HasMaxLength(16);
+                b.Property(x => x.City).HasMaxLength(16);
+                b.Property(x => x.Reginon).HasMaxLength(16);
+                b.Property(x => x.Address).HasMaxLength(256);
+
             });
 
             // 仓库
             builder.Entity<Warehouse>(b => {
                 b.ToTable(TigerConsts.DbTablePrefix + "Warehouses");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).IsRequired(true).HasMaxLength(64);
+                b.Property(x => x.Name).IsRequired(true).HasMaxLength(64);
+                b.Property(x => x.Mobile).HasMaxLength(16);
+                b.Property(x => x.PosttalCode).HasMaxLength(16);
+                b.Property(x => x.Province).HasMaxLength(16);
+                b.Property(x => x.City).HasMaxLength(16);
+                b.Property(x => x.District).HasMaxLength(16);
+                b.Property(x => x.Address).HasMaxLength(256);
             });
 
 
@@ -187,8 +217,7 @@ namespace Tiger.EntityFrameworkCore
 
                 b.ConfigureByConvention();
 
-                b.Property(x => x.Name)
-                    .IsRequired();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(128);
                 b.HasIndex(x => x.Name);
 
             });
@@ -201,9 +230,10 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+                b.Property(x => x.InputList).HasMaxLength(512);
 
-                b.Property(x => x.Name)
-                    .IsRequired();
+
                 b.HasIndex(x => x.Name);
 
             });
@@ -215,6 +245,8 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Value).HasMaxLength(512);
 
             });
 
@@ -258,6 +290,13 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "PurchaseHeader");
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).IsRequired(true).HasMaxLength(64);
+                b.Property(x => x.WarehouseCode).HasMaxLength(64);
+                b.Property(x => x.AuditedBy).HasMaxLength(16);
+                b.Property(x => x.PurchaseBy).HasMaxLength(16);
+                b.Property(x => x.Note).HasMaxLength(512);
+
             });
 
             //采购单明细
@@ -266,6 +305,10 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "PurchaseDetail");
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.ProductSn).HasMaxLength(64);
+                b.Property(x => x.Unit).HasMaxLength(16);
+                b.Property(x => x.Note).HasMaxLength(512);
             });
 
             //采购退款单

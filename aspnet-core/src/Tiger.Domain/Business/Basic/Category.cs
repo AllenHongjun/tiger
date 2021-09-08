@@ -48,10 +48,7 @@ namespace Tiger.Basic
         [CanBeNull]
         public Guid? ParentId { get; set; }
        
-        [ForeignKey("ParentId")]
-        public virtual Category Parent { get; set; }
-
-        public virtual List<Category> Children { get; set; }
+        
 
         public string Name { get; set; }
 
@@ -82,6 +79,11 @@ namespace Tiger.Basic
 
         public virtual ICollection<Product> Products { get; set; }
 
-        
+        [ForeignKey("ParentId")]
+        public virtual Category Parent { get; set; }
+
+        public virtual List<Category> Children { get; set; }
+
+
     }
 }

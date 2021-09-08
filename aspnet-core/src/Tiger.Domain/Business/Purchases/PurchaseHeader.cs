@@ -39,10 +39,7 @@ namespace Tiger.Business.Purchases
         /// </summary>
         public int Status { get; set; }
 
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public string Note { get; set; }
+        
 
         /// <summary>
         /// 总金额
@@ -61,7 +58,12 @@ namespace Tiger.Business.Purchases
         /// <summary>
         /// 采购员
         /// </summary>
-        public string PurchseBy { get; set; }
+        public string PurchaseBy { get; set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Note { get; set; }
 
 
         public Guid WarehouseId { get; set; }

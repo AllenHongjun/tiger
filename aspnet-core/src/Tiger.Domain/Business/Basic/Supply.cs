@@ -18,7 +18,12 @@ namespace Tiger.Basic
     /// 供应商
     /// </summary>
     public class Supply : FullAuditedAggregateRoot<Guid>, IMultiTenant
-    {
+    {   
+        /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code { get; set; }
+
         /// <summary>
         /// 名称
         /// </summary>
