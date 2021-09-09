@@ -29,6 +29,8 @@ namespace Tiger.Business.Purchases.Dtos
 
         public Guid SupplyId { get; set; }
 
-        public ICollection<PurchaseDetailDto> PurchaseOrderDetails { get; set; }
+        public string CreateBy { get; set; }
+
+        public ICollection<PurchaseDetailDto> PurchaseDetails { get; set; }
     }
 }

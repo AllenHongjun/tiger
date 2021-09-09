@@ -13,7 +13,7 @@ namespace Tiger.Business.Purchases
             }
 
             return queryable
-                // .Include(x => x.xxx) // TODO: AbpHelper generated
+                 .Include(x => x.PurchaseDetails) // TODO: AbpHelper generated
                 ;
         }
     }
