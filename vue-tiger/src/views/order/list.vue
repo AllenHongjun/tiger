@@ -685,7 +685,11 @@ export default {
     // 切换
     swithBillContainer() {
       this.billContainerVisibilty = !this.billContainerVisibilty
-      this.getDetail(this.currentRow.id)
+      if (!this.billContainerVisibilty) {
+        // console.log('swithBillContainer', this.billContainerVisibilty)
+        this.getDetail(this.currentRow.id)
+      }
+
       // this.$refs['detailForm'] = 'readonly'
     },
     // 保存

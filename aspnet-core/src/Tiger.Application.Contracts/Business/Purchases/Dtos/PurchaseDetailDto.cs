@@ -1,4 +1,5 @@
 using System;
+using Tiger.Basic.Products;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Business.Purchases.Dtos
@@ -24,6 +25,8 @@ namespace Tiger.Business.Purchases.Dtos
 
 
         public Guid ProductId { get; set; }
+
+        public ProductDto Product { get; set; }
 
 
     }

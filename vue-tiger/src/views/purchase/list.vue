@@ -220,13 +220,13 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="入库仓库" prop="username">
-              <el-input v-model="temp.warehouseId" />
+              <el-input v-model="temp.warehouseId" :readonly="readonly" />
 
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="类型" prop="purchaseType">
-              <el-select v-model="temp.purchaseType" class="filter-item" placeholder="请选择">
+              <el-select v-model="temp.purchaseType" class="filter-item" placeholder="请选择" :readonly="readonly">
                 <el-option v-for="item in purchaseTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
               </el-select>
             </el-form-item>
@@ -262,7 +262,7 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="备注">
-              <el-input v-model="temp.note" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请输入" />
+              <el-input v-model="temp.note" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请输入" :readonly="readonly" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -270,7 +270,7 @@
         <el-table v-loading="listLoading" :data="temp.purchaseDetails" fit highlight-current-row style="width: 100%" :show-summary="true" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
-          <el-table-column align="center" label="操作" width="150px">
+          <el-table-column v-if="!readonly" align="center" label="操作" width="150px">
             <template slot-scope="{row}">
               <el-button-group>
                 <el-button type="success" icon="el-icon-plus" circle @click="handleCreateDetail(row)" />
@@ -487,6 +487,7 @@ export default {
       operatorButtonsVisibilty: true,
       detailFormStatus: '',
       purchaseTypeOptions,
+      readonly: true,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -685,8 +686,10 @@ export default {
     // 切换
     swithBillContainer() {
       this.billContainerVisibilty = !this.billContainerVisibilty
-      this.getDetail(this.currentRow.id)
-      // this.$refs['detailForm'] = 'readonly'
+      if (!this.billContainerVisibilty) {
+        // console.log('swithBillContainer', this.billContainerVisibilty)
+        this.getDetail(this.currentRow.id)
+      }
     },
     // 保存
     handleSave() {
@@ -700,11 +703,14 @@ export default {
     // 取消
     onCancel() {
       this.billContainerVisibilty = this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
+      this.readonly = true
     },
     handleCreate() {
       this.resetTemp()
+      this.readonly = false
       this.detailFormStatus = 'create'
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
+      // this.tempDetail = this.temp.purchaseDetails;
       this.$nextTick(() => {
         this.$refs['detailForm'].clearValidate()
       })
@@ -756,6 +762,7 @@ export default {
       // 避免点击按钮重复请求
 
       this.getDetail(this.currentRow.id)
+      this.readonly = false
 
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
       this.detailFormStatus = 'update'
