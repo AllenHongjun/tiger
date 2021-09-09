@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using Tiger.Basic;
+using Tiger.Business.Members;
 using Tiger.Marketing;
 using Tiger.Orders;
 using Volo.Abp;
@@ -211,8 +212,8 @@ namespace Tiger.Business.Orders
 
         public Guid MemberId { get; set; }
 
-        //[ForeignKey("MemberId")]
-        //public virtual Member Member { get; set; }
+        [ForeignKey("MemberId")]
+        public virtual Member Member { get; set; }
 
         public Guid CouponHistoryId { get; set; }
 
