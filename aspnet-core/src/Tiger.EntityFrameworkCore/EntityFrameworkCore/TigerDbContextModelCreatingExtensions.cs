@@ -14,6 +14,7 @@ using Tiger.Stock;
 using Tiger.Business.Stocks;
 using Tiger.Business.Marketings;
 using Tiger.Business.Purchases;
+using Volo.Abp.Identity;
 
 namespace Tiger.EntityFrameworkCore
 {   
@@ -290,6 +291,8 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "PurchaseHeader");
 
                 b.ConfigureByConvention();
+                //b.ConfigureFullAuditedAggregateRoot();
+                //b.Property(x => x.CreatorId).HasColumnType("");
 
                 b.Property(x => x.Code).IsRequired(true).HasMaxLength(64);
                 b.Property(x => x.WarehouseCode).HasMaxLength(64);

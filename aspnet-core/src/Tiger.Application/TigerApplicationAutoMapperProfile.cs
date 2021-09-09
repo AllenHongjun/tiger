@@ -116,6 +116,7 @@ namespace Tiger
 
             #region Purchase
             CreateMap<PurchaseHeader, PurchaseHeaderDto>();
+                //.ForMember(dest => dest.CreateBy, opt => opt.MapFrom(src => src.Creator.Name));
             CreateMap<CreateUpdatePurchaseHeaderDto, PurchaseHeader>();
 
             CreateMap<PurchaseDetail, PurchaseDetailDto>();
