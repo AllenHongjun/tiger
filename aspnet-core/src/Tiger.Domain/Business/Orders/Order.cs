@@ -8,20 +8,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using Tiger.Basic;
-using Tiger;
-using Tiger.Orders;
-using Volo.Abp.Domain.Entities.Auditing;
-using Volo.Abp;
-using Volo.Abp.MultiTenancy;
-using Tiger.Business.Members;
-using Tiger.Marketing;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using Tiger.Basic;
+using Tiger.Marketing;
+using Tiger.Orders;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Business.Orders
-{   
+{
     /// <summary>
     /// 订单表
     /// </summary>
@@ -214,8 +211,8 @@ namespace Tiger.Business.Orders
 
         public Guid MemberId { get; set; }
 
-        [ForeignKey("MemberId")]
-        public virtual Member Member { get; set; }
+        //[ForeignKey("MemberId")]
+        //public virtual Member Member { get; set; }
 
         public Guid CouponHistoryId { get; set; }
 

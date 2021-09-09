@@ -11,7 +11,7 @@ namespace Tiger.Business.Orders
     /// <summary>
     /// 销售退款单
     /// </summary>
-    [Table("AppOrderReturnHeader")]
+    //[Table("AppOrderReturnHeader")]
     public class OrderReturnHeader : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
 

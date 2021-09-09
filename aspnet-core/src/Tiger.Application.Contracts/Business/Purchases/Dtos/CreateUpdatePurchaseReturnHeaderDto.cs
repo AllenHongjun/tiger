@@ -30,6 +30,6 @@ namespace Tiger.Business.Purchases.Dtos
 
         public Guid WarehouseId { get; set; }
 
-        public ICollection<PurchaseReturnDetailDto> PurchaseReturnDetails { get; set; }
+        public ICollection<CreateUpdatePurchaseReturnDetailDto> PurchaseReturnDetails { get; set; }
     }
 }

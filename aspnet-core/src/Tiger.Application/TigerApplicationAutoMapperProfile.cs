@@ -121,6 +121,12 @@ namespace Tiger
             CreateMap<PurchaseDetail, PurchaseDetailDto>();
             CreateMap<CreateUpdatePurchaseDetailDto, PurchaseDetail>();
 
+            CreateMap<PurchaseReturnHeader, PurchaseReturnHeaderDto>();
+            CreateMap<CreateUpdatePurchaseReturnHeaderDto, PurchaseReturnHeader>();
+
+            CreateMap<PurchaseReturnDetail, PurchaseReturnDetailDto>();
+            CreateMap<CreateUpdatePurchaseReturnDetailDto, PurchaseReturnDetail>();
+
             #endregion
 
             #region Orders

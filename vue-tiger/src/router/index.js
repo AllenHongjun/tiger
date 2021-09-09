@@ -164,13 +164,13 @@ export const constantRoutes = [
         path: 'list',
         name: 'PurchaseList',
         component: () => import('@/views/purchase/list'),
-        meta: { title: '进货单', icon: '404' }
+        meta: { title: '采购单', icon: '404' }
       },
       {
-        path: 'purchase-order-return-apply/list',
-        component: () => import('@/views/order/order-return-apply/list'),
+        path: 'purchase-return/list',
+        component: () => import('@/views/purchase/purchase-return/list'),
         name: 'PurchaseOrderReturnApply',
-        meta: { title: '采购退货', icon: 'bug' }
+        meta: { title: '采购退货单', icon: 'bug' }
       }
 
       // {
@@ -344,97 +344,99 @@ export const constantRoutes = [
 
     ]
   },
-  // 会员
-  {
-    path: '/member',
-    name: 'Member',
-    meta: { title: '会员', icon: 'size' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    redirect: '/dashboard',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'member/list',
-        name: 'MemberList',
-        component: () => import('@/views/member/list'),
-        meta: { title: '会员列表', icon: 'skill' }
-      },
-      {
-        path: 'member-level/list',
-        component: () => import('@/views/member/member-level/list'),
-        name: 'MemberLevel',
-        meta: { title: '会员等级', icon: 'star' }
-      },
-      {
-        path: 'member-statistic/list',
-        component: () => import('@/views/member/member-statistic/list'),
-        name: 'MemberStatistic',
-        meta: { title: '会员统计', icon: 'tab' }
-      }
+  // // 会员
+  // {
+  //   path: '/member',
+  //   name: 'Member',
+  //   meta: { title: '会员', icon: 'size' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: 'member/list',
+  //       name: 'MemberList',
+  //       component: () => import('@/views/member/list'),
+  //       meta: { title: '会员列表', icon: 'skill' }
+  //     },
+  //     {
+  //       path: 'member-level/list',
+  //       component: () => import('@/views/member/member-level/list'),
+  //       name: 'MemberLevel',
+  //       meta: { title: '会员等级', icon: 'star' }
+  //     },
+  //     {
+  //       path: 'member-statistic/list',
+  //       component: () => import('@/views/member/member-statistic/list'),
+  //       name: 'MemberStatistic',
+  //       meta: { title: '会员统计', icon: 'tab' }
+  //     }
 
-      // {
-      //   path: 'order-setting/list',
-      //   name: 'OrderSetting',
-      //   component: () => import('@/views/order/order-setting/list'),
-      //   meta: { title: '订单设置', icon: 'form' }
-      // }
-      // {
-      //   path: 'attribute/list',
-      //   name: '产品规格',
-      //   component: () => import('@/views/product/attribute/list'),
-      //   meta: { title: '规格', icon: 'eye' }
-      // },
-      // {
-      //   path: 'comment/list',
-      //   name: '产品评论',
-      //   component: () => import('@/views/product/comment/list'),
-      //   meta: { title: '评论', icon: 'eye-open' }
-      // }
-    ]
-  },
-  {
-    path: '/marketing',
-    name: 'marketing',
-    meta: { title: '营销', icon: 'email' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    redirect: '/dashboard',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'coupon/list',
-        name: 'CouponList',
-        component: () => import('@/views/marketing/coupon/list'),
-        meta: { title: '优惠券', icon: 'education' }
-      },
-      {
-        path: 'coupon-history/list',
-        component: () => import('@/views/marketing/coupon-history/list'),
-        name: 'CouponHistory',
-        meta: { title: '会员领取记录', icon: 'shopping' }
-      }
+  //     // {
+  //     //   path: 'order-setting/list',
+  //     //   name: 'OrderSetting',
+  //     //   component: () => import('@/views/order/order-setting/list'),
+  //     //   meta: { title: '订单设置', icon: 'form' }
+  //     // }
+  //     // {
+  //     //   path: 'attribute/list',
+  //     //   name: '产品规格',
+  //     //   component: () => import('@/views/product/attribute/list'),
+  //     //   meta: { title: '规格', icon: 'eye' }
+  //     // },
+  //     // {
+  //     //   path: 'comment/list',
+  //     //   name: '产品评论',
+  //     //   component: () => import('@/views/product/comment/list'),
+  //     //   meta: { title: '评论', icon: 'eye-open' }
+  //     // }
+  //   ]
+  // },
 
-      // {
-      //   path: 'order-setting/list',
-      //   name: 'OrderSetting',
-      //   component: () => import('@/views/order/order-setting/list'),
-      //   meta: { title: '订单设置', icon: 'form' }
-      // }
-      // {
-      //   path: 'attribute/list',
-      //   name: '产品规格',
-      //   component: () => import('@/views/product/attribute/list'),
-      //   meta: { title: '规格', icon: 'eye' }
-      // },
-      // {
-      //   path: 'comment/list',
-      //   name: '产品评论',
-      //   component: () => import('@/views/product/comment/list'),
-      //   meta: { title: '评论', icon: 'eye-open' }
-      // }
-    ]
-  },
+  // // 营销
+  // {
+  //   path: '/marketing',
+  //   name: 'marketing',
+  //   meta: { title: '营销', icon: 'email' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: 'coupon/list',
+  //       name: 'CouponList',
+  //       component: () => import('@/views/marketing/coupon/list'),
+  //       meta: { title: '优惠券', icon: 'education' }
+  //     },
+  //     {
+  //       path: 'coupon-history/list',
+  //       component: () => import('@/views/marketing/coupon-history/list'),
+  //       name: 'CouponHistory',
+  //       meta: { title: '会员领取记录', icon: 'shopping' }
+  //     }
+
+  //     // {
+  //     //   path: 'order-setting/list',
+  //     //   name: 'OrderSetting',
+  //     //   component: () => import('@/views/order/order-setting/list'),
+  //     //   meta: { title: '订单设置', icon: 'form' }
+  //     // }
+  //     // {
+  //     //   path: 'attribute/list',
+  //     //   name: '产品规格',
+  //     //   component: () => import('@/views/product/attribute/list'),
+  //     //   meta: { title: '规格', icon: 'eye' }
+  //     // },
+  //     // {
+  //     //   path: 'comment/list',
+  //     //   name: '产品评论',
+  //     //   component: () => import('@/views/product/comment/list'),
+  //     //   meta: { title: '评论', icon: 'eye-open' }
+  //     // }
+  //   ]
+  // },
 
   // // 图表
   // {

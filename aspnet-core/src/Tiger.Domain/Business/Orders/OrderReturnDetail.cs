@@ -128,9 +128,9 @@ namespace Tiger.Business.Orders
 
         public virtual Product Product { get; set; }
 
-        public Guid MemberId { get; set; }
+        public Guid? MemberId { get; set; }
 
-        public virtual Member Member { get; set; }
+        //public virtual Member Member { get; set; }
 
         protected OrderReturnDetail()
         {
@@ -162,8 +162,8 @@ namespace Tiger.Business.Orders
             MemberReceiveAddress memberReceiveAddress,
             Guid productId,
             Product product,
-            Guid memberId,
-            Member member
+            Guid memberId
+            //Member member
         ) : base(id)
         {
             OrderSn = orderSn;
@@ -191,7 +191,7 @@ namespace Tiger.Business.Orders
             ProductId = productId;
             Product = product;
             MemberId = memberId;
-            Member = member;
+            //Member = member;
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Migrations
 {
     [DbContext(typeof(TigerMigrationsDbContext))]
-    partial class TigerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210909011934_order-return-headers")]
+    partial class orderreturnheaders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1798,7 +1800,7 @@ namespace Tiger.Migrations
                         .HasColumnName("LastModifierId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MemberId")
+                    b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("MemberReceiveAddressId")
@@ -1862,6 +1864,8 @@ namespace Tiger.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MemberId");
 
                     b.HasIndex("MemberReceiveAddressId");
 
@@ -6232,6 +6236,12 @@ namespace Tiger.Migrations
 
             modelBuilder.Entity("Tiger.Business.Orders.OrderReturnDetail", b =>
                 {
+                    b.HasOne("Tiger.Business.Members.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Tiger.Business.Members.MemberReceiveAddress", "MemberReceiveAddress")
                         .WithMany()
                         .HasForeignKey("MemberReceiveAddressId");
