@@ -71,6 +71,11 @@ namespace Tiger.Business.Purchases
 
         public Guid? TenantId { get; set; }
 
+        public Guid PurchaseHeaderId { get; set; }
+
+        [ForeignKey("PurchaseHeaderId")]
+        public virtual PurchaseHeader PurchaseHeader { get; set; }
+
         protected PurchaseDetail()
         {
         }
