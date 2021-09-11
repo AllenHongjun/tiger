@@ -1061,8 +1061,8 @@ export default {
         message: '文件上传成功',
         type: 'success'
       })
-      console.log('results', results)
-      console.log('header', header)
+      // console.log('results', results)
+      // console.log('header', header)
 
       // this.temp.purchaseDetails
       // const index = this.temp.purchaseDetails.indexOf(row)
@@ -1073,18 +1073,23 @@ export default {
       // console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
       // this.resetTempDetail()
 
-      var tempDetail = Object.assign({}, this.tempDetail)
+      // var tempDetail = Object.assign({}, this.tempDetail)
+      // var tempDetail = {}
       results.forEach(v => {
         index++
-        console.log('v["单位"]', v['单位'], '-----v', v)
-        tempDetail.unit = v['单位']
-        tempDetail.productSn = v['货号']
-        tempDetail.product.name = v['商品名称']
-        tempDetail.totalQty = v['数量']
-        console.log('tempDetail', tempDetail)
-        console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
+        // console.log('v["单位"]', v['单位'], '-----v', v)
+        // 导入数据的对象每次都要重置  原因？？
+        this.resetTempDetail()
+        this.tempDetail.unit = v['单位']
+        this.tempDetail.productSn = v['货号']
+        this.tempDetail.product.name = v['商品名称']
+        this.tempDetail.totalQty = v['数量']
+        // console.log('this.tempDetail.product.name', this.tempDetail.product.name)
+        // console.log('this.tempDetail.productSn', this.tempDetail.productSn)
+        // console.log('this.tempDetail', this.tempDetail)
+        // console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
         // this.temp.purchaseDetails.push(tempDetail)
-        this.temp.purchaseDetails.splice(index + 1, 0, tempDetail)
+        this.temp.purchaseDetails.splice(index + 1, 0, this.tempDetail)
       })
 
       // this.temp.purchaseDetails = results
