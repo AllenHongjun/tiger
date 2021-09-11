@@ -66,21 +66,6 @@
 
     </el-row>
 
-    <!-- 导入excel -->
-    <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
-      <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
-        下载模板
-      </el-button>
-      <el-divider />
-      <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
-      <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="importExcelDialogVisible = false">
-          关闭
-        </el-button>
-      </div>
-    </el-dialog>
-
     <div v-show="billContainerVisibilty" class="bill-container">
       <div class="filter-container">
         <el-input v-model="listQuery.title" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
@@ -239,7 +224,7 @@
 
           <el-col :span="6">
             <el-form-item label="供应商" prop="username">
-              <el-input v-model="temp.supplyId" :readonly="readonly" />
+              <el-input v-model="temp.supplyName" :disabled="readonly" suffix-icon="el-icon-search" @click.native="showSupplyDialog()" />
 
             </el-form-item>
           </el-col>
@@ -454,6 +439,23 @@
 
     </div>
 
+    <GetSupplies :visible="selectSupplyDialogVisible" @selectSupply="selectSupply" @closeGetSupplies="closeGetSupplies" />
+
+    <!-- 导入excel -->
+    <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
+      <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
+        下载模板
+      </el-button>
+      <el-divider />
+      <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+      <el-row style="margin-top:10px;">只能上传Excel文件,文件大小不能超过10M</el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="importExcelDialogVisible = false">
+          关闭
+        </el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -464,6 +466,7 @@ import { getAllWarehouses } from '@/api/basic/warehouse'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
+import GetSupplies from '@/components/GetData/GetSupplies.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 // arr to obj, such as { CN : "China", US : "USA" }
@@ -490,7 +493,7 @@ const purchaseTypeKeyValue = purchaseTypeOptions.reduce((acc, cur) => {
 export default {
   // 入库单
   name: 'PurchaseHeaderList',
-  components: { Pagination, UploadExcelComponent },
+  components: { Pagination, UploadExcelComponent, GetSupplies },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -528,6 +531,8 @@ export default {
       purchaseTypeOptions,
       readonly: true,
       wareHouseOptions: [],
+      importExcelDialogVisible: false,
+      selectSupplyDialogVisible: false,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -543,7 +548,7 @@ export default {
       },
       searchDivVisibilty: false,
       searchFilterDialogVisible: false,
-      importExcelDialogVisible: false,
+
       dialogPvVisible: false,
       pvData: [],
       downloadLoading: false,
@@ -561,6 +566,7 @@ export default {
         note: '',
         warehouseId: undefined,
         supplyId: '',
+        supplyName: '',
         purchaseDetails: [
 
         ]
@@ -599,10 +605,6 @@ export default {
   },
   methods: {
     getWarehouseList() {
-      var query = {
-        page: 1,
-        limit: 100
-      }
       getAllWarehouses().then((response) => {
         var obj = response
         console.log('obj', obj)
@@ -671,18 +673,18 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        creationTime: '',
+        warehouseCode: '',
         code: '',
-        purchaseType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
-        // closeAt: '',
+        purchasePrice: 0,
+        status: 0,
+        totalAmount: 0,
         totalQty: 0,
-        totalCases: 0,
-        totalWeight: 0,
-        totalVolume: 0,
+        auditedBy: '',
+        purchaseBy: '',
         note: '',
         warehouseId: undefined,
+        supplyId: '',
+        supplyName: '',
         purchaseDetails: [
 
         ]
@@ -864,6 +866,18 @@ export default {
           break
       }
       this.$message('click on item ' + command)
+    },
+    showSupplyDialog() {
+      console.log('获取供应商')
+      this.selectSupplyDialogVisible = !this.readonly
+    },
+    selectSupply(val) {
+      console.log('val', val)
+      this.temp.supplyId = val.id
+      this.temp.supplyName = val.name
+    },
+    closeGetSupplies() {
+      this.selectSupplyDialogVisible = false
     },
     // 添加明细
     handleCreateDetail(row) {
