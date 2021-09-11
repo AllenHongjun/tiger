@@ -141,25 +141,25 @@
           </template>
         </el-table-column>
 
-        <el-table-column class-name="status-col" label="类型" width="110">
+        <!-- <el-table-column class-name="status-col" label="类型" width="110">
           <template slot-scope="{row}">
             <el-tag :type="row.purchaseType | statusFilter">
               {{ row.purchaseType | purchaseTypeFilter }}
             </el-tag>
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
-        <el-table-column width="180px" align="center" label="单据日期" sortable>
+        <el-table-column width="180px" align="center" label="创建日期" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.creationTime | formatDate }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column width="180px" align="center" label="到货时间" sortable>
+        <!-- <el-table-column width="180px" align="center" label="到货时间" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.arriveDatetime | formatDate }}</span>
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
         <el-table-column min-width="100px" label="总数量">
           <template slot-scope="{row}">
@@ -167,17 +167,17 @@
           </template>
         </el-table-column>
 
-        <el-table-column min-width="100px" label="总重量">
+        <el-table-column min-width="100px" label="总金额">
           <template slot-scope="{row}">
-            <span>{{ row.totalWeight }}</span>
+            <span>{{ row.totalAmount }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column min-width="100px" label="总体积">
+        <!-- <el-table-column min-width="100px" label="总体积">
           <template slot-scope="{row}">
             <span>{{ row.totalVolume }}</span>
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
         <el-table-column min-width="100px" label="备注">
           <template slot-scope="{row}">
@@ -224,7 +224,7 @@
 
           <el-col :span="6">
             <el-form-item label="供应商" prop="username">
-              <el-input v-model="temp.supplyName" :disabled="readonly" suffix-icon="el-icon-search" @click.native="showSupplyDialog()" />
+              <el-input v-model="temp.supplyName" :disabled="readonly" suffix-icon="el-icon-search" @click.native="selectSupplyDialogVisible = !readonly" />
 
             </el-form-item>
           </el-col>
@@ -296,7 +296,7 @@
           <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
               <template v-if="row.edit">
-                <el-input v-model="row.productSn" class="edit-input" />
+                <el-input v-model="row.productSn" class="edit-input" suffix-icon="el-icon-search" @click.native="selectProductDialogVisible = true" />
               </template>
               <span v-else>{{ row.productSn }}</span>
             </template>
@@ -439,7 +439,9 @@
 
     </div>
 
-    <GetSupplies :visible="selectSupplyDialogVisible" @selectSupply="selectSupply" @closeGetSupplies="closeGetSupplies" />
+    <GetSupplies :visible="selectSupplyDialogVisible" @selectSupply="selectSupply" @closeGetSupplies="selectSupplyDialogVisible = false" />
+
+    <GetProducts :visible="selectProductDialogVisible" @selectProduct="selectProducts" @closeGetProducts="selectProductDialogVisible = false" />
 
     <!-- 导入excel -->
     <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
@@ -467,6 +469,7 @@ import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import GetSupplies from '@/components/GetData/GetSupplies.vue'
+import GetProducts from '@/components/GetData/GetProducts.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 // arr to obj, such as { CN : "China", US : "USA" }
@@ -493,7 +496,7 @@ const purchaseTypeKeyValue = purchaseTypeOptions.reduce((acc, cur) => {
 export default {
   // 入库单
   name: 'PurchaseHeaderList',
-  components: { Pagination, UploadExcelComponent, GetSupplies },
+  components: { Pagination, UploadExcelComponent, GetSupplies, GetProducts },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -533,6 +536,7 @@ export default {
       wareHouseOptions: [],
       importExcelDialogVisible: false,
       selectSupplyDialogVisible: false,
+      selectProductDialogVisible: false,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -736,7 +740,8 @@ export default {
     },
     // 取消
     onCancel() {
-      this.billContainerVisibilty = this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
+      // this.billContainerVisibilty =
+      this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
       this.readonly = true
     },
     handleCreate() {
@@ -867,19 +872,43 @@ export default {
       }
       this.$message('click on item ' + command)
     },
-    showSupplyDialog() {
-      console.log('获取供应商')
-      this.selectSupplyDialogVisible = !this.readonly
-    },
+
     selectSupply(val) {
       console.log('val', val)
       this.temp.supplyId = val.id
       this.temp.supplyName = val.name
     },
-    closeGetSupplies() {
-      this.selectSupplyDialogVisible = false
+
+    selectProducts(rows) {
+      console.log('rows', rows)
+      var index = this.temp.purchaseDetails.length
+      // const index = this.temp.purchaseDetails.indexOf(row)
+      rows.forEach(row => {
+        // this.$refs.productTable.toggleRowSelection(row)
+        var tempDetail = {
+          productSn: row.productSn,
+          unit: row.unit,
+          processStamp: '',
+          productId: row.id,
+          product: {
+            name: row.name,
+            productSn: row.productSn,
+            unit: row.name,
+            categoryName: row.categoryName
+          },
+          id: undefined,
+          edit: false
+
+        }
+
+        index++
+        this.temp.purchaseDetails.splice(index, 0, tempDetail)
+      })
+      // this.temp.supplyId = val.id
+      // this.temp.supplyName = val.name
     },
-    // 添加明细
+
+    // // 添加明细
     handleCreateDetail(row) {
       // this.temp.purchaseDetails
       const index = this.temp.purchaseDetails.indexOf(row)
@@ -888,7 +917,7 @@ export default {
       console.log('this.temp.purchaseDetails[0]', this.temp.purchaseDetails[0])
       console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
       this.resetTempDetail()
-      this.temp.purchaseDetails.splice(index, 0, this.tempDetail)
+      this.temp.purchaseDetails.splice(index + 1, 0, this.tempDetail)
     },
     // 删除明细
     handleDeleteDetail(row) {
