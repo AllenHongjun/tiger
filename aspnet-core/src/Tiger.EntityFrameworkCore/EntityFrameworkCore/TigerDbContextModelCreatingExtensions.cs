@@ -233,8 +233,6 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(128);
                 b.Property(x => x.InputList).HasMaxLength(512);
-
-
                 b.HasIndex(x => x.Name);
 
             });
@@ -312,6 +310,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(x => x.ProductSn).HasMaxLength(64);
                 b.Property(x => x.Unit).HasMaxLength(16);
                 b.Property(x => x.Note).HasMaxLength(512);
+                b.Property(x => x.ProcessStamp).HasMaxLength(16);
             });
 
             //采购退款单
@@ -320,6 +319,9 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "PurchaseReturnHeader");
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).HasMaxLength(32).IsRequired(true);
+                b.Property(x => x.Note).HasMaxLength(512);
             });
 
             //采购退款单明细
@@ -328,6 +330,11 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "PurchaseReturnDetail");
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.ProductSn).HasMaxLength(64);
+                b.Property(x => x.Unit).HasMaxLength(16);
+                b.Property(x => x.Note).HasMaxLength(512);
+                b.Property(x => x.ProcessStamp).HasMaxLength(16);
             });
             #endregion
 
@@ -375,6 +382,9 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnHeaders",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).HasMaxLength(32);
+                b.Property(x => x.Note).HasMaxLength(512);
             });
 
             ////订单退款明细
@@ -383,6 +393,27 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnDetails",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
+
+                b.Property(x => x.OrderSn).IsRequired(true).HasMaxLength(32);
+                b.Property(x => x.ReturnName).HasMaxLength(16);
+                b.Property(x => x.ReturnPhone).HasMaxLength(16);
+                b.Property(x => x.ProductPic).HasMaxLength(512);
+                b.Property(x => x.ProductName).HasMaxLength(128);
+                b.Property(x => x.ProductAttr).HasMaxLength(512);
+                b.Property(x => x.Reason).HasMaxLength(512);
+                b.Property(x => x.Description).HasMaxLength(512);
+                b.Property(x => x.ProofPics).HasMaxLength(512);
+                b.Property(x => x.HandleNote).HasMaxLength(512);
+                b.Property(x => x.HandleMan).HasMaxLength(16);
+                b.Property(x => x.ReceiveMan).HasMaxLength(16);
+                b.Property(x => x.ReceiveNote).HasMaxLength(512);
+
+
+
+                //b.Property(x => x.ProductSn).HasMaxLength(64);
+                //b.Property(x => x.Unit).HasMaxLength(16);
+                //b.Property(x => x.Note).HasMaxLength(512);
+                //b.Property(x => x.ProcessStamp).HasMaxLength(16);
 
             });
 
@@ -437,15 +468,29 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention();
             });
 
-            builder.Entity<ReceiptDetail>(b =>
-            {
-                b.ToTable(TigerConsts.DbTableStockPrefix + "ReceiptDetail");
-                b.ConfigureByConvention();
-            });
+            
             builder.Entity<ReceiptHeader>(b =>
             {
                 b.ToTable(TigerConsts.DbTableStockPrefix + "ReceiptHeader");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).HasMaxLength(32).IsRequired(true);
+                b.Property(x => x.Note).HasMaxLength(512);
+
+            });
+
+            builder.Entity<ReceiptDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTableStockPrefix + "ReceiptDetail");
+                b.ConfigureByConvention();
+
+                b.Property(x => x.ReceiptCode).HasMaxLength(32);
+                b.Property(x => x.WarehouseCode).HasMaxLength(32);
+                b.Property(x => x.ProductSn).HasMaxLength(32);
+                b.Property(x => x.ProductName).HasMaxLength(32);
+                b.Property(x => x.Unit).HasMaxLength(16);
+                b.Property(x => x.Batch).HasMaxLength(32);
+                b.Property(x => x.ProcessStamp).HasMaxLength(128);
             });
 
             builder.Entity<ReverseDetail>(b =>
@@ -470,18 +515,23 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention();
             });
 
-            builder.Entity<TransferDetail>(b =>
-            {
-                b.ToTable(TigerConsts.DbTableStockPrefix + "TransferDetail");
-                b.ConfigureByConvention();
-            });
+            
             builder.Entity<TransferHeader>(b =>
             {
                 b.ToTable(TigerConsts.DbTableStockPrefix + "TransferHeader");
                 b.ConfigureByConvention();
             });
 
+            builder.Entity<TransferDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTableStockPrefix + "TransferDetail");
+                b.ConfigureByConvention();
+            });
+
             #endregion
+
+
+
 
             #region 营销
 
@@ -558,7 +608,6 @@ namespace Tiger.EntityFrameworkCore
 
             #endregion
 
-
             #region 会员模块
             // 会员
             builder.Entity<Member>(b =>
@@ -610,14 +659,7 @@ namespace Tiger.EntityFrameworkCore
             
 
 
-            builder.Entity<OrderReturnHeader>(b =>
-            {
-                b.ToTable(TigerConsts.DbTablePrefix + "OrderReturnHeaders", TigerConsts.DbSchema);
-                b.ConfigureByConvention(); 
-                
-
-                /* Configure more properties here */
-            });
+            
         }
     }
 }

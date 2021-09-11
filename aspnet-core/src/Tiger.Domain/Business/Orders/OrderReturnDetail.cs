@@ -63,14 +63,14 @@ namespace Tiger.Business.Orders
         /// <summary>
         /// 退货数量
         /// </summary>
-        public string ProductQuantity { get; set; }
+        public decimal ProductQuantity { get; set; }
 
         /// <summary>
         /// 商品单价
         /// </summary>
-        public string ProductPrice { get; set; }
+        public decimal ProductPrice { get; set; }
 
-        public string ProductRealPrice { get; set; }
+        public decimal ProductRealPrice { get; set; }
 
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Tiger.Business.Orders
         /// <summary>
         /// 收货时间
         /// </summary>
-        public string ReceiveTime { get; set; }
+        public DateTime? ReceiveTime { get; set; }
 
         /// <summary>
         /// 收货备注
@@ -147,16 +147,16 @@ namespace Tiger.Business.Orders
             string productPic,
             string productName,
             string productAttr,
-            string productQuantity,
-            string productPrice,
-            string productRealPrice,
+            decimal productQuantity,
+            decimal productPrice,
+            decimal productRealPrice,
             string reason,
             string description,
             string proofPics,
             string handleNote,
             string handleMan,
             string receiveMan,
-            string receiveTime,
+            DateTime receiveTime,
             string receiveNote,
             Guid receiveAddressId,
             MemberReceiveAddress memberReceiveAddress,

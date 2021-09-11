@@ -45,7 +45,7 @@ namespace Tiger.Business.Stocks
         /// <summary>
         /// 数量单位
         /// </summary>
-        public string QuantityUm { get; set; }
+        public string Unit { get; set; }
 
         /// <summary>
         /// 批次
@@ -74,10 +74,7 @@ namespace Tiger.Business.Stocks
         /// </summary>
         public int OpenQty { get; set; }
 
-        /// <summary>
-        /// 处理标记
-        /// </summary>
-        public string ProcessStamp { get; set; }
+        
 
 
 
@@ -91,6 +88,11 @@ namespace Tiger.Business.Stocks
         /// 总金额
         /// </summary>
         public decimal TotalAmount { get; set; }
+
+        /// <summary>
+        /// 处理标记
+        /// </summary>
+        public string ProcessStamp { get; set; }
 
 
 
