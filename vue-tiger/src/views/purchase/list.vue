@@ -484,6 +484,7 @@
 <script>
 import { getPurchaseHeaders, getPurchaseHeaderById, createPurchaseHeader, updatePurchaseHeader, deletePurchaseHeader } from '@/api/purchase/purchase-header'
 import { getAllWarehouses } from '@/api/basic/warehouse'
+import moment from 'moment/moment'
 
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
@@ -1004,14 +1005,16 @@ export default {
     // 导出模板
     handleDownload() {
       this.downloadLoading = true
+      console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
-        const data = this.formatJson(filterVal, this.list)
+        const tHeader = ['货号', '分类', '商品名称', '单位', '数量', '处理标记']
+        const filterVal = ['productSn', 'product.categoryName', 'product.name', 'unit', 'totalQty', 'processStamp']
+        //  this.temp.purchaseDetails
+        const data = this.formatJson(filterVal, [])
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: '商品列表' + (new Date()).toLocaleDateString()
+          filename: '采购单模板-' + (moment(new Date()).format('YYYYMMDD-HHmmss'))
         })
         this.downloadLoading = false
       })
@@ -1036,35 +1039,66 @@ export default {
     },
     // 导出Excel
     handleExport() {
-      console.log('handleExport')
+      // console.log('handleExport')
       this.getDetail(this.currentRow.id)
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['商品名称', '批次', '总数量', '未收数量', '标记', '单位']
-        const filterVal = ['productName', 'batch', 'totalQty', 'openQty', 'processStamp', 'quantityUm']
+        const tHeader = ['货号', '分类', '商品名称', '单位', '数量', '处理标记']
+        const filterVal = ['productSn', 'product.categoryName', 'product.name', 'product.unit', 'totalQty', 'processStamp']
         const data = this.formatJson(filterVal, this.temp.purchaseDetails)
+        // console.log('data', data)
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: '入库单明细-' + (new Date()).toLocaleDateString()
+          filename: '采购单明细-' + (moment(new Date()).format('YYYYMMDD-HHmmss'))
         })
         this.downloadLoading = false
       })
     },
+    // 导出Excel 成功处理
     handleSuccess({ results, header }) {
       this.$message({
         message: '文件上传成功',
         type: 'success'
       })
-      console.log(results)
-      this.temp.purchaseDetails = results
+      console.log('results', results)
+      console.log('header', header)
+
+      // this.temp.purchaseDetails
+      // const index = this.temp.purchaseDetails.indexOf(row)
+      var index = 0
+      // 拼接函数(索引位置, 要删除元素的数量, 元素)
+      // this.temp.purchaseDetails.unshift(this.temp.purchaseDetails[0])
+      // console.log('this.temp.purchaseDetails[0]', this.temp.purchaseDetails[0])
+      // console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
+      // this.resetTempDetail()
+
+      var tempDetail = Object.assign({}, this.tempDetail)
+      results.forEach(v => {
+        index++
+        console.log('v["单位"]', v['单位'], '-----v', v)
+        tempDetail.unit = v['单位']
+        tempDetail.productSn = v['货号']
+        tempDetail.product.name = v['商品名称']
+        tempDetail.totalQty = v['数量']
+        console.log('tempDetail', tempDetail)
+        console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
+        // this.temp.purchaseDetails.push(tempDetail)
+        this.temp.purchaseDetails.splice(index + 1, 0, tempDetail)
+      })
+
+      // this.temp.purchaseDetails = results
       // this.tableHeader = header
     },
 
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
+        // console.log('v', v)
         if (j === 'timestamp') {
           return parseTime(v[j])
+        } else if (j.indexOf('product.') !== -1) {
+          j = j.replace(/product./, '')
+          return v.product[j]
         } else {
           return v[j]
         }

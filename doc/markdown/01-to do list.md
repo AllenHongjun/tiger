@@ -11,9 +11,13 @@
 ### 0908
 
 - 完成订单 采购 基本的单据功能开发。
+- [js时间对象格式化](caibaojian.com/javascript-date-format.html)
+- [excel导入对象数据](blog.csdn.net/qq_36410795/article/details/89403550)
 - 分页选中供应商组件开发 
   - [选中供应商](blog.csdn.net/github_35549695/article/details/82770044)
 - [vue-print页面打印功能](https://segmentfault.com/a/1190000021913990)
+  - [Lodop预览打印功能，如果想要直接打印需要改为LODOP.PRIN](https://www.cnblogs.com/william-xu/p/11867891.html)
+  - [vue-print页面打印功能](https://blog.csdn.net/peiyongwei/article/details/82460709)
 
 ### 0828
 
