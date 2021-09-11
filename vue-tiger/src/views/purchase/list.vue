@@ -219,18 +219,38 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="入库仓库" prop="username">
+            <!-- <el-form-item label="入库仓库" prop="username">
               <el-input v-model="temp.warehouseId" :readonly="readonly" />
+
+            </el-form-item> -->
+
+            <el-form-item label="入库仓库" prop="warehouseId">
+              <!-- <el-input v-model="temp.warehouseId" /> -->
+              <el-select v-model="temp.warehouseId" filterable placeholder="请选择" :disabled="readonly" :clearable="true">
+                <el-option
+                  v-for="item in wareHouseOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="6">
+            <el-form-item label="供应商" prop="username">
+              <el-input v-model="temp.supplyId" :readonly="readonly" />
 
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+
+          <!-- <el-col :span="6">
             <el-form-item label="类型" prop="purchaseType">
               <el-select v-model="temp.purchaseType" class="filter-item" placeholder="请选择" :readonly="readonly">
                 <el-option v-for="item in purchaseTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
               </el-select>
             </el-form-item>
-          </el-col>
+          </el-col> -->
 
         </el-row>
 
@@ -241,12 +261,12 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="总重量" prop="username">
-              <span>{{ temp.totalWeight }}</span>
+            <el-form-item label="总金额" prop="username">
+              <span>{{ temp.totalAmount }}</span>
 
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <!-- <el-col :span="6">
             <el-form-item label="总体积" prop="purchaseType">
               <span>{{ temp.totalVolume }}</span>
             </el-form-item>
@@ -256,7 +276,7 @@
             <el-form-item label="总箱数" prop="username">
               <span>{{ temp.totalCases }}</span>
             </el-form-item>
-          </el-col>
+          </el-col> -->
         </el-row>
 
         <el-row>
@@ -290,16 +310,34 @@
 
           <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
-              <span>{{ row.productSn }}</span>
+              <template v-if="row.edit">
+                <el-input v-model="row.productSn" class="edit-input" />
+              </template>
+              <span v-else>{{ row.productSn }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="100px" label="分类">
+            <template slot-scope="{row}">
+              <span>{{ row.product.categoryName }}</span>
             </template>
           </el-table-column>
 
           <el-table-column min-width="180px" label="商品名称">
             <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.productName" class="edit-input" />
-              </template>
-              <span v-else>{{ row.productName }}</span>
+              <span>{{ row.product.name }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="80px" label="规格">
+            <template slot-scope="{row}">
+              <span>{{ row.product.categoryName }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="80px" label="单位">
+            <template slot-scope="{row}">
+              <span>{{ row.product.unit }}</span>
             </template>
           </el-table-column>
 
@@ -312,7 +350,16 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="总数量">
+          <el-table-column min-width="80px" label="单价">
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-input v-model="row.purchasePrice" class="edit-input" />
+              </template>
+              <span v-else>{{ row.purchasePrice }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="80px" label="数量">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.totalQty" class="edit-input" />
@@ -339,16 +386,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="100px" label="单位">
-            <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.quantityUm" class="edit-input" />
-              </template>
-              <span v-else>{{ row.quantityUm }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="180px" align="center" label="生产日期" sortable>
+          <!-- <el-table-column width="180px" align="center" label="生产日期" sortable>
             <template slot-scope="scope">
               <template v-if="scope.row.edit">
                 <el-date-picker v-model="scope.row.manufactureDate" type="date" placeholder="生产日期" style="width: 100%;" />
@@ -359,10 +397,9 @@
 
           <el-table-column width="180px" align="center" label="入库日期" sortable>
             <template slot-scope="scope">
-
               <span>{{ scope.row.agingDate | formatDate }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
         </el-table>
 
@@ -422,6 +459,8 @@
 
 <script>
 import { getPurchaseHeaders, getPurchaseHeaderById, createPurchaseHeader, updatePurchaseHeader, deletePurchaseHeader } from '@/api/purchase/purchase-header'
+import { getAllWarehouses } from '@/api/basic/warehouse'
+
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
@@ -488,6 +527,7 @@ export default {
       detailFormStatus: '',
       purchaseTypeOptions,
       readonly: true,
+      wareHouseOptions: [],
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -510,67 +550,73 @@ export default {
 
       temp: {
         id: undefined,
-        creationTime: '',
+        warehouseCode: '',
         code: '',
-        purchaseType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
-        // closeAt: '',
+        purchasePrice: 0,
+        status: 0,
+        totalAmount: 0,
         totalQty: 0,
-        totalCases: 0,
-        totalWeight: 0,
-        totalVolume: 0,
+        auditedBy: '',
+        purchaseBy: '',
         note: '',
-        warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        warehouseId: undefined,
+        supplyId: '',
         purchaseDetails: [
-          {
-            receiptCode: '',
-            warehouseCode: '',
-            productSn: '',
-            productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
-            totalQty: 0,
-            openQty: 0,
-            processStamp: '',
-            quantityUm: '',
-            productId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            // purchaseHeaderId: '',
-            edit: false
-            // id: ""
-          }
+
         ]
       },
       tempDetail: {
-        receiptCode: '',
-        warehouseCode: '',
         productSn: '',
-        productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
+        unit: '',
+        qty: 0,
+        purchasePrice: 0,
+        note: '',
         totalQty: 0,
         openQty: 0,
         processStamp: '',
-        quantityUm: '',
         productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        purchaseHeaderId: '',
+        product: {
+          name: '',
+          productSn: '',
+          unit: '',
+          categoryName: ''
+        },
+        id: undefined,
         edit: false
         // id: ""
       },
       rules: {
-        type: [{ required: true, message: 'type is required', trigger: 'change' }],
+        warehouseId: [{ required: true, message: '请选择仓库', trigger: 'change' }],
         timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-        title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+        name: [{ required: true, message: 'title is required', trigger: 'blur' }]
       }
 
     }
   },
   created() {
     this.getList()
+    this.getWarehouseList()
   },
   methods: {
+    getWarehouseList() {
+      var query = {
+        page: 1,
+        limit: 100
+      }
+      getAllWarehouses().then((response) => {
+        var obj = response
+        console.log('obj', obj)
+        var tempArr = []
+        if (obj.length > 0) {
+          Object.keys(obj).forEach(function(key) {
+            // console.log('key', key, 'obj', obj)
+            tempArr.push({ value: obj[key].id, label: obj[key].name })
+          })
+        }
+
+        this.wareHouseOptions = tempArr
+      })
+    },
     getList() {
       this.listLoading = true
       getPurchaseHeaders(this.listQuery).then(response => {
@@ -636,45 +682,31 @@ export default {
         totalWeight: 0,
         totalVolume: 0,
         note: '',
-        warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        warehouseId: undefined,
         purchaseDetails: [
-          {
-            receiptCode: '',
-            warehouseCode: '',
-            productSn: '',
-            productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
-            totalQty: 0,
-            openQty: 0,
-            processStamp: '',
-            quantityUm: '',
-            productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-            purchaseHeaderId: '',
-            edit: false
-            // id: ""
-          }
+
         ]
       }
     },
     resetTempDetail() {
       this.tempDetail = {
-        receiptCode: '',
-        warehouseCode: '',
         productSn: '',
-        productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
+        unit: '',
+        qty: 0,
+        purchasePrice: 0,
+        note: '',
         totalQty: 0,
         openQty: 0,
         processStamp: '',
-        quantityUm: '',
         productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        purchaseHeaderId: '',
+        product: {
+          name: '',
+          productSn: '',
+          unit: '',
+          categoryName: ''
+        },
+        id: undefined,
         edit: false
-        // id: ""
 
       }
     },
@@ -710,6 +742,7 @@ export default {
       this.readonly = false
       this.detailFormStatus = 'create'
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
+      this.temp.purchaseDetails.splice(0, 0, this.tempDetail)
       // this.tempDetail = this.temp.purchaseDetails;
       this.$nextTick(() => {
         this.$refs['detailForm'].clearValidate()
@@ -729,6 +762,7 @@ export default {
             this.setCurrent(this.list[0])
 
             this.billContainerVisibilty = this.operatorButtonsVisibilty = true
+            this.readonly = true
             this.$notify({
               title: '成功',
               message: '创建成功',
@@ -786,6 +820,7 @@ export default {
               }
             }
             this.billContainerVisibilty = this.operatorButtonsVisibilty = true
+            this.readonly = true
 
             this.$notify({
               title: '成功',

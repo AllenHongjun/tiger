@@ -167,6 +167,10 @@
           <el-input v-model="temp.name" />
         </el-form-item>
 
+        <el-form-item label="编码" prop="code">
+          <el-input v-model="temp.code" />
+        </el-form-item>
+
         <el-form-item label="联系人" prop="attentionTo">
           <el-input v-model="temp.attentionTo" />
         </el-form-item>
@@ -285,6 +289,7 @@ export default {
       temp: {
         id: undefined,
         name: '',
+        code: '',
         attentionTo: '',
         phone: '',
         postCode: '',
@@ -398,6 +403,7 @@ export default {
       this.temp = {
         id: undefined,
         name: '',
+        code: '',
         attentionTo: '',
         phone: '',
         postCode: '',

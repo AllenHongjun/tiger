@@ -38,3 +38,11 @@ export function deleteWarehouse(id) {
     method: 'delete'
   })
 }
+
+export function getAllWarehouses() {
+  return request({
+    url: '/api/basic/warehouse/all',
+    method: 'get'
+    // params: transformAbpListQuery()
+  })
+}

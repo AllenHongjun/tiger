@@ -8,6 +8,8 @@ namespace Tiger.Basic.Dtos
     {
         public string Name { get; set; }
 
+        public string Code { get; set; }
+
         public string AttentionTo { get; set; }
 
         public string Phone { get; set; }
