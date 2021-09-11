@@ -13,6 +13,7 @@
 - 完成订单 采购 基本的单据功能开发。
 - 分页选中供应商组件开发 
   - [选中供应商](blog.csdn.net/github_35549695/article/details/82770044)
+- [vue-print页面打印功能](https://segmentfault.com/a/1190000021913990)
 
 ### 0828
 

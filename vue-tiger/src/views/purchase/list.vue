@@ -10,21 +10,27 @@
       <el-button type="primary" icon="el-icon-edit" @click="handleUpdate">编辑</el-button>
       <el-button type="danger" icon="el-icon-delete" @click="handleDelete">删除</el-button>
       <el-button type="warning" icon="el-icon-check">审核</el-button>
-      <el-dropdown trigger="click" style="margin:0 5px;">
+      <el-dropdown trigger="click" style="margin:0 5px;" @command="handleOnDev">
         <el-button type="success" icon="el-icon-document-copy">
           生单<i class="el-icon-arrow-down el-icon--right" />
         </el-button>
 
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
+          <el-dropdown-item @click="handleOnDev">
             <el-link><i class="el-icon-document el-icon--left" />生成退货单 </el-link>
           </el-dropdown-item>
-          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成调拨单 </el-link></el-dropdown-item>
-          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成入库单 </el-link></el-dropdown-item>
-          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成出库单 </el-link></el-dropdown-item>
+          <el-dropdown-item @click="handleOnDev">
+            <el-link><i class="el-icon-document el-icon--left" />生成调拨单 </el-link>
+          </el-dropdown-item>
+          <el-dropdown-item @click="handleOnDev">
+            <el-link><i class="el-icon-document el-icon--left" />生成入库单 </el-link>
+          </el-dropdown-item>
+          <el-dropdown-item @click="handleOnDev">
+            <el-link><i class="el-icon-document el-icon--left" />生成出库单 </el-link>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button type="danger" icon="el-icon-delete">作废</el-button>
+      <!-- <el-button type="danger" icon="el-icon-delete">作废</el-button> -->
       <el-button type="info" icon="el-icon-message">到货/入库</el-button>
 
       <el-dropdown trigger="click" style="margin:0 5px;">
@@ -48,11 +54,11 @@
         </el-button>
 
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item icon="el-icon-plus" divided>复制新增</el-dropdown-item>
+          <!-- <el-dropdown-item icon="el-icon-plus" divided>复制新增</el-dropdown-item> -->
           <!-- <el-divider /> -->
-          <el-dropdown-item icon="el-icon-circle-plus" divided>草稿新增</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-edit" divided @click="handleUpdate(scope.row)">标记已付</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-edit" divided disabled>修改备注</el-dropdown-item>
+          <!-- <el-dropdown-item icon="el-icon-circle-plus" divided>草稿新增</el-dropdown-item> -->
+          <!-- <el-dropdown-item icon="el-icon-edit" divided @click="handleUpdate(scope.row)">标记已付</el-dropdown-item> -->
+          <!-- <el-dropdown-item icon="el-icon-edit" divided disabled>修改备注</el-dropdown-item> -->
           <el-dropdown-item icon="el-icon-document" divided command="handleExport">导出excel</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -653,6 +659,7 @@ export default {
       })
     },
     handleCurrentChange(val) {
+      console.log('this.currentRow-val', val)
       this.currentRow = val
     },
     // 排序
@@ -816,7 +823,7 @@ export default {
       this.$refs['detailForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
+
           updatePurchaseHeader(tempData).then(() => {
             for (const v of this.list) {
               if (v.id === this.temp.id) {
@@ -1001,6 +1008,12 @@ export default {
           return v[j]
         }
       }))
+    },
+    handleOnDev() {
+      this.$message({
+        message: '开发中。。。',
+        type: 'success'
+      })
     }
 
   }
