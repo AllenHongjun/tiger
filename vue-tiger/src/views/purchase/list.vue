@@ -143,7 +143,7 @@
 
         <el-table-column min-width="180px" label="单号">
           <template slot-scope="{row}">
-            <span class="link-type" @click="swithBillContainer">{{ row.code }}</span>
+            <span class="link-type" @click="swithBillContainer(row.id)">{{ row.code }}</span>
           </template>
         </el-table-column>
 
@@ -753,11 +753,12 @@ export default {
       console.log('handleSearch', this.searchDivVisibilty)
     },
     // 切换
-    swithBillContainer() {
+    swithBillContainer(id) {
       this.billContainerVisibilty = !this.billContainerVisibilty
       if (!this.billContainerVisibilty) {
         // console.log('swithBillContainer', this.billContainerVisibilty)
-        this.getDetail(this.currentRow.id)
+        // id ??
+        this.getDetail(id ?? this.currentRow.id)
       }
     },
     // 保存

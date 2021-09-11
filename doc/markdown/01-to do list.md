@@ -11,8 +11,10 @@
 ### 0908
 
 - 完成订单 采购 基本的单据功能开发。
+- 优化 直接点击code 单号 获取不到 row.id  需要选中单条才可以
 - [js时间对象格式化](caibaojian.com/javascript-date-format.html)
 - [excel导入对象数据](blog.csdn.net/qq_36410795/article/details/89403550)
+  - [excel导入数据](https://blog.csdn.net/qq_36410795/article/details/89403550)
 - 分页选中供应商组件开发 
   - [选中供应商](blog.csdn.net/github_35549695/article/details/82770044)
 - [vue-print页面打印功能](https://segmentfault.com/a/1190000021913990)
