@@ -362,6 +362,20 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
 
+                b.Property(x => x.Code).HasMaxLength(32).IsRequired(true);
+                b.Property(x => x.DeliveryCompany).HasMaxLength(128);
+                b.Property(x => x.DeliverySn).HasMaxLength(32);
+                b.Property(x => x.BillHeader).HasMaxLength(32);
+                b.Property(x => x.BillContent).HasMaxLength(512);
+                b.Property(x => x.BillReceiverPhone).HasMaxLength(16);
+                b.Property(x => x.BillReceiverEmail).HasMaxLength(32);
+
+                b.Property(x => x.ReceiverName).HasMaxLength(32);
+                b.Property(x => x.ReceiverPhone).HasMaxLength(16);
+                b.Property(x => x.ReceiverPostCode).HasMaxLength(16);
+                b.Property(x => x.Note).HasMaxLength(512);
+
+
                 //b.HasMany(t => t.OrderReturnDetails)
                 //.WithOne(t => t.Order)
                 //.HasForeignKey(t => t.OrderId)
@@ -374,6 +388,14 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "OrderItems",
                     TigerConsts.DbSchema);
                 b.ConfigureByConvention();
+
+                b.Property(x => x.OrderCode).HasMaxLength(32);
+                b.Property(x => x.ProductPic).HasMaxLength(512);
+                b.Property(x => x.ProductName).HasMaxLength(128);
+                b.Property(x => x.ProductSn).HasMaxLength(32);
+                b.Property(x => x.ProductSkuCode).HasMaxLength(32);
+                b.Property(x => x.PromotionAmount).HasMaxLength(32);
+                b.Property(x => x.ProductAttr).HasMaxLength(512);
             });
 
             //订单退款单
@@ -440,6 +462,10 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTableStockPrefix + "Inventory");
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.ProductName).HasMaxLength(128);
+                b.Property(x => x.ProductSn).HasMaxLength(32);
+                b.Property(x => x.AttributeData).HasMaxLength(512);
             });
             builder.Entity<InventoryHistory>(b =>
             {
@@ -447,6 +473,10 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTableStockPrefix + "InventoryHistory");
 
                 b.ConfigureByConvention();
+
+                b.Property(x => x.ProductName).HasMaxLength(128);
+                b.Property(x => x.AttributeData).HasMaxLength(512);
+                b.Property(x => x.Batch).HasMaxLength(32);
             });
 
             builder.Entity<BomDetail>(b => {
@@ -462,10 +492,26 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTableStockPrefix + "CheckDetail");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.ProductSn).HasMaxLength(32).IsRequired(true);
+                b.Property(x => x.ProductName).HasMaxLength(128);
+                b.Property(x => x.Batch).HasMaxLength(32);
+                b.Property(x => x.ProcessStamp).HasMaxLength(32);
+                
             });
             builder.Entity<CheckHeader>(b => { 
                 b.ToTable(TigerConsts.DbTableStockPrefix + "CheckHeader");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.WarehouseCode).HasMaxLength(32);
+
+                b.Property(x => x.Code).HasMaxLength(32);
+
+                b.Property(x => x.Note).HasMaxLength(512);
+
+                b.Property(x => x.CloseBy).HasMaxLength(16);
+
+                b.Property(x => x.ProcessStamp).HasMaxLength(32);
             });
 
             
@@ -508,11 +554,21 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTableStockPrefix + "ShipmentDetail");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.ProductName).HasMaxLength(128);
+                b.Property(x => x.ProductSn).HasMaxLength(32);
+                b.Property(x => x.Batch).HasMaxLength(32);
+                b.Property(x => x.ProcessStamp).HasMaxLength(32);
+                b.Property(x => x.Unit).HasMaxLength(16);
             });
             builder.Entity<ShipmentHeader>(b =>
             {
                 b.ToTable(TigerConsts.DbTableStockPrefix + "ShipmentHeader");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.WarehouseCode).HasMaxLength(32);
+                b.Property(x => x.Code).HasMaxLength(32);
+                b.Property(x => x.Note).HasMaxLength(512);
             });
 
             
@@ -520,12 +576,22 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTableStockPrefix + "TransferHeader");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.Code).HasMaxLength(32);
+                b.Property(x => x.CloseBy).HasMaxLength(16);
+                b.Property(x => x.Note).HasMaxLength(512);
             });
 
             builder.Entity<TransferDetail>(b =>
             {
                 b.ToTable(TigerConsts.DbTableStockPrefix + "TransferDetail");
                 b.ConfigureByConvention();
+
+                b.Property(x => x.TransferCode).HasMaxLength(32);
+                b.Property(x => x.ProductSn).HasMaxLength(32);
+                b.Property(x => x.ProductName).HasMaxLength(128);
+                b.Property(x => x.Unit).HasMaxLength(16);
+                b.Property(x => x.ProcessStamp).HasMaxLength(32);
             });
 
             #endregion

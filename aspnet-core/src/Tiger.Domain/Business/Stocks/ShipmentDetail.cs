@@ -68,7 +68,7 @@ namespace Tiger.Business.Stocks
         /// <summary>
         /// 数量单位
         /// </summary>
-        public string QuantityUm { get; set; }
+        public string Unit { get; set; }
 
         
 

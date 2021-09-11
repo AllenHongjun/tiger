@@ -60,17 +60,17 @@ namespace Tiger.Stock
         /// <summary>
         /// 生产日期
         /// </summary>
-        public DateTime ManufactureDate { get; set; }
+        public DateTime? ManufactureDate { get; set; }
 
         /// <summary>
         /// 失效日期
         /// </summary>
-        public DateTime ExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
 
         /// <summary>
         /// 变动日期
         /// </summary>
-        public DateTime AgingDate { get; set; }
+        public DateTime? AgingDate { get; set; }
 
         /// <summary>
         /// 箱换算数量

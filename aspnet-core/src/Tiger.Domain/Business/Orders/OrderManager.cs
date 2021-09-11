@@ -43,7 +43,7 @@ namespace Tiger.Business.Orders
 
             Order order = new Order();
 
-            order.OrderSn = Guid.NewGuid().ToString();
+            order.Code = Guid.NewGuid().ToString();
             order.TotalAmount = cartItems.Sum(x => x.Price);
             order.PayAmount = cartItems.Sum(x => x.Price);
             order.FreightAmount = 0;
@@ -65,7 +65,7 @@ namespace Tiger.Business.Orders
             {
                 OrderItem orderItem = new OrderItem();
                 //orderItem.Id = SequentialGuidGenerator.Instance.Create();
-                orderItem.OrderSn = order.OrderSn;
+                orderItem.OrderCode = order.Code;
                 orderItem.ProductPic = cartItem.ProductPic;
                 orderItem.ProductName = cartItem.ProductName;
                 orderItem.ProductSn = cartItem.ProductSn;

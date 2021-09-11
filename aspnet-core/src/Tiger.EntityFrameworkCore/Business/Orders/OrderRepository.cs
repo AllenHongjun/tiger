@@ -69,7 +69,7 @@ namespace Tiger.Demo
                 .Include(x => x.Member)
                 .WhereIf(
                     !filter.IsNullOrWhiteSpace(),
-                    order => order.OrderSn.Contains(filter)
+                    order => order.Code.Contains(filter)
                     || order.ReceiverName.Contains(filter)
                  )
                 
@@ -95,7 +95,7 @@ namespace Tiger.Demo
             return await DbSet
                 .WhereIf(
                     !filter.IsNullOrWhiteSpace(),
-                    order => order.OrderSn.Contains(filter)
+                    order => order.Code.Contains(filter)
                     || order.ReceiverName.Contains(filter)
                  )
 
@@ -126,7 +126,7 @@ namespace Tiger.Demo
             }
 
             Order order = new Order();
-            order.OrderSn = Utility.CreateOrderID("PT");
+            order.Code = Utility.CreateOrderID("PT");
             order.TotalAmount = cartItems.Sum(x => x.Price);
             order.PayAmount = cartItems.Sum(x => x.Price);
             order.FreightAmount = 0;
@@ -144,7 +144,7 @@ namespace Tiger.Demo
             foreach (var cartItem in cartItems)
             {
                 OrderItem orderItem = new OrderItem();
-                orderItem.OrderSn = order.OrderSn;
+                orderItem.OrderCode = order.Code;
                 orderItem.ProductPic = cartItem.ProductPic;
                 orderItem.ProductName = cartItem.ProductName;
                 orderItem.ProductSn = cartItem.ProductSn;

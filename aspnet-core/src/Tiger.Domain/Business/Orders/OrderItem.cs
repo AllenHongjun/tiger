@@ -29,13 +29,13 @@ namespace Tiger.Orders
         /// <summary>
         /// 订单编码
         /// </summary>
-        public string OrderSn { get; set; }
+        public string OrderCode { get; set; }
 
         public string ProductPic { get; set; }
 
         public string ProductName { get; set; }
 
-        public String ProductBrand { get; set; }
+        //public String ProductBrand { get; set; }
 
         public string ProductSn { get; set; }
 

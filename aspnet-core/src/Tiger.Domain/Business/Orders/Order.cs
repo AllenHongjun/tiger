@@ -38,7 +38,7 @@ namespace Tiger.Business.Orders
         /// <summary>
         /// 订单号
         /// </summary>
-        public string OrderSn { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// 订单总金额
@@ -165,16 +165,16 @@ namespace Tiger.Business.Orders
         /// 收货人邮编
         /// </summary>
         public string ReceiverPostCode { get; set; }
-        /// <summary>
-        /// 省份/直辖市
-        /// </summary>
-        public string ReceiverProvince { get; set; }
+        ///// <summary>
+        ///// 省份/直辖市
+        ///// </summary>
+        //public string ReceiverProvince { get; set; }
 
-        public string ReceiverCity { get; set; }
+        //public string ReceiverCity { get; set; }
 
-        public string ReceiverRegion { get; set; }
+        //public string ReceiverRegion { get; set; }
 
-        public string ReceiverDetailAddress { get; set; }
+        //public string ReceiverDetailAddress { get; set; }
 
 
 

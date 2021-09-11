@@ -45,7 +45,7 @@ namespace Tiger.Stock
         /// <summary>
         /// 单位
         /// </summary>
-        public string QuantityUnit { get; set; }
+        public string Unit { get; set; }
 
         /// <summary>
         /// 库存状态

@@ -28,6 +28,11 @@ namespace Tiger.Stock
         public string WarehouseCode { get; set; }
 
         /// <summary>
+        /// 单号
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
         /// 盘点类型 0->定期盘点; 1->重点盘点;  2->循环盘点
         /// </summary>
         public int CheckType { get; set; }
@@ -65,10 +70,7 @@ namespace Tiger.Stock
         /// </summary>
         public DateTime CheckDate { get; set; }
 
-        /// <summary>
-        /// 单号
-        /// </summary>
-        public string Code { get; set; }
+        
 
         /// <summary>
         /// 盘点仓库

@@ -33,6 +33,11 @@ namespace Tiger.Stock
         public string ProductName { get; set; }
 
         /// <summary>
+        /// 批次号
+        /// </summary>
+        public string Batch { get; set; }
+
+        /// <summary>
         /// 库存状态
         /// </summary>
         public int InventorySts { get; set; }
@@ -74,10 +79,7 @@ namespace Tiger.Stock
 
         
 
-        /// <summary>
-        /// 批次号
-        /// </summary>
-        public string Batch { get; set; }
+        
 
 
         public Guid WarehouseId { get; set; }
