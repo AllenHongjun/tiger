@@ -9,7 +9,7 @@
       <el-button type="primary" icon="el-icon-plus" @click="handleCreate">添加</el-button>
       <el-button type="primary" icon="el-icon-edit" @click="handleUpdate">编辑</el-button>
       <el-button type="danger" icon="el-icon-delete" @click="handleDelete">删除</el-button>
-      <el-button type="warning" icon="el-icon-check">审核</el-button>
+      <el-button type="warning" icon="el-icon-check" @click="handleAudited()">审核</el-button>
       <el-dropdown trigger="click" style="margin:0 5px;" @command="handleOnDev">
         <el-button type="success" icon="el-icon-document-copy">
           生单<i class="el-icon-arrow-down el-icon--right" />
@@ -33,19 +33,19 @@
       <!-- <el-button type="danger" icon="el-icon-delete">作废</el-button> -->
       <el-button type="info" icon="el-icon-message">到货/入库</el-button>
 
-      <el-dropdown trigger="click" style="margin:0 5px;">
+      <el-dropdown trigger="click" style="margin:0 5px;" @command="handleBatch">
         <el-button type="warning" icon="el-icon-edit-outline">
           批处理<i class="el-icon-arrow-down el-icon--right" />
         </el-button>
 
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item icon="el-icon-printer" divided>批量打印</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-printer" divided command="batchPrint">批量打印</el-dropdown-item>
           <!-- <el-divider /> -->
-          <el-dropdown-item icon="el-icon-delete" divided>批量删除</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-check" divided @click="handleUpdate(scope.row)">批量审核</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-delete" divided command="batchDelete">批量删除</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-check" divided command="batchAudit">批量审核</el-dropdown-item>
           <el-dropdown-item icon="el-icon-check" divided disabled>批量修改备注</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-message" divided>批量到货</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-close" divided>批量订单关闭</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-message" divided command="batchArrive">批量到货</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-close" divided command="batchClose">批量订单关闭</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-dropdown trigger="click" style="margin:0 5px;" @command="handleCommand">
@@ -198,9 +198,23 @@
     </div>
 
     <div v-show="!billContainerVisibilty" class="bill-detail-container">
-
+      <el-divider content-position="left" />
       <el-form ref="detailForm" :rules="rules" :model="temp" label-width="120px">
-        {{ detailFormStatus }}
+        <!-- {{ detailFormStatus }} -->
+        <!-- <el-tag>进货</el-tag>
+        <el-tag type="success">进货</el-tag>
+        <el-tag type="info">打印</el-tag>
+        <el-tag type="warning">审核</el-tag>
+        <el-tag type="warning">待审</el-tag>
+        <el-tag type="danger">删除</el-tag> -->
+        <el-tag
+          v-for="item in purchaseStatus"
+          :key="item.label"
+          :type="item.type"
+          effect="plain"
+        >
+          {{ item.label }}
+        </el-tag>
         <el-divider content-position="left">单据明细</el-divider>
 
         <el-row>
@@ -499,6 +513,14 @@ const purchaseTypeKeyValue = purchaseTypeOptions.reduce((acc, cur) => {
   return acc
 }, {})
 
+const purchaseStatus = [
+  { type: '', label: '进货' },
+  { type: 'success', label: '打印' },
+  // { key: 'audited', type: 'info', label: '审核' },
+  { key: 'waitAudited', type: 'danger', label: '待审' },
+  { type: 'warning', label: '删除' }
+]
+
 export default {
   // 入库单
   name: 'PurchaseHeaderList',
@@ -543,6 +565,7 @@ export default {
       importExcelDialogVisible: false,
       selectSupplyDialogVisible: false,
       selectProductDialogVisible: false,
+      purchaseStatus,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -869,6 +892,44 @@ export default {
         console.log(err)
       })
     },
+
+    handleAudited() {
+      console.log('audit')
+      var obj = { key: 'audited', type: 'info', label: '审核' }
+      for (const v of this.purchaseStatus) {
+        if (v.key === 'waitAudited') {
+          console.log('v.key', v.key)
+          const index = this.purchaseStatus.indexOf(v)
+          this.purchaseStatus.splice(index, 1, obj)
+          break
+        }
+      }
+    },
+    handleBatch(command) {
+      var selection = this.$refs.billTable.selection
+      this.billContainerVisibilty = true
+      if (selection.length === 0) {
+        this.$message({
+          message: '请选中要处理的数据',
+          type: 'success'
+        })
+        return
+      }
+      console.log('selection', selection)
+      switch (command) {
+        case 'batchDelete':
+          this.batchDelete()
+          break
+        default:
+          break
+      }
+    },
+    batchDelete() {
+      this.$message({
+        message: '批量删除成功',
+        type: 'success'
+      })
+    },
     handleCommand(command) {
       switch (command) {
         case 'handleExport':
@@ -931,7 +992,7 @@ export default {
       const index = this.temp.purchaseDetails.indexOf(row)
       this.temp.purchaseDetails.splice(index, 1)
     },
-    //
+    // 确认编辑明细
     confirmEditDetail(row) {
       row.edit = false
       // row.originalTitle = row.title
