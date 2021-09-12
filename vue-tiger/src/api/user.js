@@ -34,7 +34,6 @@ export function getApplicationConfiguration(name) {
   })
 }
 
-
 export function getInfo() {
   return request({
     url: '/api/identity/my-profile',
@@ -47,7 +46,7 @@ export function getUserList(params) {
   return request({
     url: '/api/identity/users',
     method: 'get',
-    params:transformAbpListQuery(params)
+    params: transformAbpListQuery(params)
   })
 }
 
@@ -66,7 +65,7 @@ export function createUser(payload) {
   })
 }
 
-export function updateUser(id,payload) {
+export function updateUser(id, payload) {
   return request({
     url: `/api/identity/users/${id}`,
     method: 'put',
@@ -83,7 +82,7 @@ export function createUserToOrg(payload) {
   })
 }
 
-//修改用户关联组织机构
+// 修改用户关联组织机构
 export function updateUserToOrg(payload) {
   return request({
     url: `/api/identity/users/${payload.id}/update-to-organizations`,
@@ -91,7 +90,6 @@ export function updateUserToOrg(payload) {
     data: payload
   })
 }
-
 
 export function deleteUser(id) {
   return request({
@@ -118,7 +116,6 @@ export function setUserInfo(data) {
   })
 }
 
-
 export function changePassword(payload) {
   return request({
     url: `/api/identity/my-profile/change-password`,
@@ -127,14 +124,11 @@ export function changePassword(payload) {
   })
 }
 
-
-
-
 // 获取用户所有可用的角色
 export function getAssignableRoles() {
   return request({
     url: '/api/identity/users/assignable-roles',
-    method: 'get',
+    method: 'get'
   })
 }
 
@@ -142,7 +136,7 @@ export function getAssignableRoles() {
 export function getUserRoles(id) {
   return request({
     url: `/api/identity/users/${id}/roles`,
-    method: 'get',
+    method: 'get'
   })
 }
 
@@ -185,7 +179,6 @@ export function deleteRole(id) {
   })
 }
 
-
 // audit_log
 export function getAuditLogList(params) {
   return request({
@@ -213,7 +206,6 @@ export function updatePermissions(query, payload) {
   })
 }
 
-
 // tenant
 export function getTenantList(params) {
   return request({
@@ -238,7 +230,7 @@ export function createTenant(payload) {
   })
 }
 
-export function updateTenant(id,payload) {
+export function updateTenant(id, payload) {
   return request({
     url: `/api/multi-tenancy/tenants/${id}`,
     method: 'put',

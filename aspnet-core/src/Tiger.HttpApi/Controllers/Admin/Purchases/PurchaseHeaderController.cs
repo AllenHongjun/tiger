@@ -93,6 +93,43 @@ namespace Tiger.Controllers.Admin.PurchaseHeaders
         }
 
 
-        
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("batchDelete")]
+        public override Task BatchDeleteAsync(Guid[] ids)
+        {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 批量审核
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("batchAudit")]
+        public override Task BatchAuditAsync(Guid[] ids)
+        {
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// 批量关闭
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("batchClose")]
+        public override Task BatchCloseAsync(Guid[] ids)
+        {
+            return Task.CompletedTask;
+        }
+
+
+
     }
 }

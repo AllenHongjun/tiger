@@ -5,7 +5,7 @@
       <el-button icon="el-icon-search">查询</el-button>
       <el-button icon="el-icon-set-up" @click="swithBillContainer">切换</el-button>
       <el-button type="info" icon="el-icon-refresh" @click="handleRefresh">刷新</el-button>
-      <el-button type="info" icon="el-icon-printer">打印</el-button>
+      <el-button type="info" icon="el-icon-printer" @click="handlePrint">打印</el-button>
       <el-button type="primary" icon="el-icon-plus" @click="handleCreate">添加</el-button>
       <el-button type="primary" icon="el-icon-edit" @click="handleUpdate">编辑</el-button>
       <el-button type="danger" icon="el-icon-delete" @click="handleDelete">删除</el-button>
@@ -467,7 +467,7 @@
 </template>
 
 <script>
-import { getPurchaseHeaders, getPurchaseHeaderById, createPurchaseHeader, updatePurchaseHeader, deletePurchaseHeader } from '@/api/purchase/purchase-header'
+import { getPurchaseHeaders, getPurchaseHeaderById, createPurchaseHeader, updatePurchaseHeader, deletePurchaseHeader, batchDeletePurchaseHeader, batchAuditPurchaseHeader, batchClosePurchaseHeader } from '@/api/purchase/purchase-header'
 import { getAllWarehouses } from '@/api/basic/warehouse'
 import moment from 'moment/moment'
 
@@ -755,6 +755,9 @@ export default {
       this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
       this.readonly = true
     },
+    handlePrint() {
+      this.handleOnDev()
+    },
     handleCreate() {
       this.resetTemp()
 
@@ -880,6 +883,7 @@ export default {
         }
       }
     },
+    // 批量处理
     handleBatch(command) {
       var selection = this.$refs.billTable.selection
       this.billContainerVisibilty = true
@@ -891,17 +895,123 @@ export default {
         return
       }
       switch (command) {
+        case 'batchPrint':
+          this.batchPrint()
+          break
         case 'batchDelete':
           this.batchDelete()
+          break
+        case 'batchAudit':
+          this.batchAudit()
+          break
+        case 'batchClose':
+          this.batchClose()
           break
         default:
           break
       }
     },
+    getSelectIds() {
+      var rows = this.$refs.billTable.selection
+      var ids = []
+      rows.forEach(x => {
+        ids.push(x.id)
+      })
+      return { ids: ids }
+    },
+    // 批量打印
+    batchPrint() {
+      this.$notify({
+        title: '成功',
+        message: '开发中...',
+        type: 'success',
+        duration: 2000
+      })
+    },
+    // 批量删除
     batchDelete() {
-      this.$message({
-        message: '批量删除成功',
-        type: 'success'
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var request = this.getSelectIds()
+        batchDeletePurchaseHeader(request)
+          .then((response) => {
+            request.ids.forEach(x => {
+              var index = this.list.findIndex((v) => v.id === x)
+              this.list.splice(index, 1)
+            })
+
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            })
+          }).catch((err) => {
+            console.log(err)
+          })
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    // 批量审核
+    batchAudit() {
+      this.$confirm('此操作将审核数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var request = this.getSelectIds()
+        batchAuditPurchaseHeader(request)
+          .then((response) => {
+            // TODO: 找到对应的数据状态改为审核
+            // request.ids.forEach(x => {
+            //   var index = this.list.findIndex((v) => v.id === x)
+            //   this.list.splice(index, 1)
+            // })
+
+            this.$notify({
+              title: '成功',
+              message: '审核成功',
+              type: 'success',
+              duration: 2000
+            })
+          }).catch((err) => {
+            console.log(err)
+          })
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+    // 批量关闭
+    batchClose() {
+      this.$confirm('此操作将关闭订单, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        var request = this.getSelectIds()
+        batchClosePurchaseHeader(request)
+          .then((response) => {
+            // TODO: 找到对应的数据状态改为关闭
+            // request.ids.forEach(x => {
+            //   var index = this.list.findIndex((v) => v.id === x)
+            //   this.list.splice(index, 1)
+            // })
+
+            this.$notify({
+              title: '成功',
+              message: '关闭成功',
+              type: 'success',
+              duration: 2000
+            })
+          }).catch((err) => {
+            console.log(err)
+          })
+      }).catch((err) => {
+        console.log(err)
       })
     },
     handleCommand(command) {

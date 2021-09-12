@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import qs from 'qs'
 import { transformAbpListQuery } from '@/utils/abp'
 
 export function getPurchaseHeaders(query) {
@@ -38,3 +39,25 @@ export function deletePurchaseHeader(id) {
     method: 'delete'
   })
 }
+
+export function batchDeletePurchaseHeader(ids) {
+  return request({
+    url: `/api/purchase/purchaseHeader/batchDelete?${qs.stringify(ids, { indices: false })}`,
+    method: 'delete'
+  })
+}
+
+export function batchAuditPurchaseHeader(ids) {
+  return request({
+    url: `/api/purchase/purchaseHeader/batchAudit?${qs.stringify(ids, { indices: false })}`,
+    method: 'delete'
+  })
+}
+
+export function batchClosePurchaseHeader(ids) {
+  return request({
+    url: `/api/purchase/purchaseHeader/batchClose?${qs.stringify(ids, { indices: false })}`,
+    method: 'delete'
+  })
+}
+
