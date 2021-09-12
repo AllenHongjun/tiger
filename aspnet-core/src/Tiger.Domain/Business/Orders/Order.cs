@@ -28,7 +28,7 @@ namespace Tiger.Business.Orders
     {
         public Order()
         {
-            OrderItems = new Collection<OrderItem>();
+            //OrderItems = new Collection<OrderItem>();
         }
 
         
@@ -210,12 +210,12 @@ namespace Tiger.Business.Orders
         public DateTime? CommentTime { get; set; }
 
 
-        public Guid MemberId { get; set; }
+        public Guid? MemberId { get; set; }
 
         [ForeignKey("MemberId")]
         public virtual Member Member { get; set; }
 
-        public Guid CouponHistoryId { get; set; }
+        public Guid? CouponHistoryId { get; set; }
 
         [ForeignKey("CouponHistoryId")]
         public virtual CouponHistory CouponHistory { get; set; }

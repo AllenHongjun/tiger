@@ -99,7 +99,7 @@ namespace Tiger.Orders
 
         public override async Task<OrderDto> CreateAsync(CreateUpdateOrderDto input)
         {
-            input.OrderSn = Utility.CreateOrderID("CGRK");
+            input.Code = Utility.CreateOrderID("CGRK");
             foreach (var item in input.OrderItems)
             {
                 item.Id = GuidGenerator.Create();
@@ -138,7 +138,12 @@ namespace Tiger.Orders
 
         public override async Task<OrderDto> GetAsync(Guid id)
         {
-            var query = await _orderRepository.GetAsync(id);
+            var query = await _orderRepository.GetAsync(id,false);
+            var details = _orderItemRepository.WithDetails(x => x.Product).Where(x => x.OrderId == id);
+            foreach (var detail in details)
+            {
+                query.OrderItems.Add(detail);
+            }
             return ObjectMapper.Map<Business.Orders.Order, OrderDto>(query);
         }
     }

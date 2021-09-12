@@ -1006,7 +1006,7 @@
             收货人姓名
             </summary>
         </member>
-        <member name="P:Tiger.Orders.Orders.OrderDto.OrderSn">
+        <member name="P:Tiger.Orders.Orders.OrderDto.Code">
             <summary>
             订单编码
             </summary>

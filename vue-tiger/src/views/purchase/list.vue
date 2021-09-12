@@ -757,9 +757,10 @@ export default {
     },
     handleCreate() {
       this.resetTemp()
-      this.readonly = false
+
       this.detailFormStatus = 'create'
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
+      this.readonly = false
       this.temp.purchaseDetails.splice(0, 0, this.tempDetail)
       // this.tempDetail = this.temp.purchaseDetails;
       this.$nextTick(() => {
@@ -914,16 +915,19 @@ export default {
       this.$message('click on item ' + command)
     },
 
+    // 选择供应商
     selectSupply(val) {
       this.temp.supplyId = val.id
       this.temp.supplyName = val.name
     },
+    // 点击搜索商品按钮
     searchProduct(row) {
       this.selectProductDialogVisible = true
 
       this.detailIndex = this.temp.purchaseDetails.indexOf(row)
       console.log('this.detailIndex', this.detailIndex)
     },
+    // 选中商品
     selectProducts(rows) {
       var index = this.detailIndex
       var i = 0

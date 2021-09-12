@@ -19,9 +19,15 @@
           <el-dropdown-item>
             <el-link><i class="el-icon-document el-icon--left" />生成退货单 </el-link>
           </el-dropdown-item>
-          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成调拨单 </el-link></el-dropdown-item>
-          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成入库单 </el-link></el-dropdown-item>
-          <el-dropdown-item><el-link><i class="el-icon-document el-icon--left" />生成出库单 </el-link></el-dropdown-item>
+          <el-dropdown-item>
+            <el-link><i class="el-icon-document el-icon--left" />生成调拨单 </el-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-link><i class="el-icon-document el-icon--left" />生成入库单 </el-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-link><i class="el-icon-document el-icon--left" />生成出库单 </el-link>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-button type="danger" icon="el-icon-delete">作废</el-button>
@@ -65,6 +71,8 @@
       <el-button icon="el-icon-refresh" @click="onCancel">取消</el-button>
 
     </el-row>
+
+    <GetProducts :visible="selectProductDialogVisible" @selectProduct="selectProducts" @closeGetProducts="selectProductDialogVisible = false" />
 
     <!-- 导入excel -->
     <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
@@ -150,13 +158,13 @@
 
         <el-table-column align="center" type="selection" width="55" />
 
-        <el-table-column min-width="180px" label="单号">
+        <el-table-column min-width="140px" label="单号">
           <template slot-scope="{row}">
-            <span class="link-type" @click="swithBillContainer">{{ row.code }}</span>
+            <span class="link-type" @click="swithBillContainer(row)">{{ row.code }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column class-name="status-col" label="类型" width="110">
+        <el-table-column class-name="status-col" label="类型" width="80">
           <template slot-scope="{row}">
             <el-tag :type="row.orderType | statusFilter">
               {{ row.orderType | orderTypeFilter }}
@@ -164,33 +172,33 @@
           </template>
         </el-table-column>
 
-        <el-table-column width="180px" align="center" label="单据日期" sortable>
+        <el-table-column width="180px" align="center" label="创建日期" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.creationTime | formatDate }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column width="180px" align="center" label="到货时间" sortable>
+        <el-table-column width="180px" align="center" label="付款时间" sortable>
           <template slot-scope="scope">
-            <span>{{ scope.row.arriveDatetime | formatDate }}</span>
+            <span>{{ scope.row.paymentTime == null ? '未付款' : (scope.row.paymentTime| formatDate) }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column min-width="100px" label="总数量">
+        <el-table-column min-width="80" label="订单金额">
           <template slot-scope="{row}">
-            <span>{{ row.totalQty }}</span>
+            <span>{{ row.totalAmount }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column min-width="100px" label="总重量">
+        <el-table-column min-width="80" label="实付金额">
           <template slot-scope="{row}">
-            <span>{{ row.totalWeight }}</span>
+            <span>{{ row.payAmount }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column min-width="100px" label="总体积">
+        <el-table-column min-width="120px" label="收货人">
           <template slot-scope="{row}">
-            <span>{{ row.totalVolume }}</span>
+            <span>{{ row.receiverName }}</span>
           </template>
         </el-table-column>
 
@@ -215,18 +223,18 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="单号" prop="code">
-              <el-input v-model="temp.code" placeholder="自动生成" :readonly="true" />
+              <el-input v-model="temp.code" placeholder="自动生成" :disabled="true" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="入库仓库" prop="username">
+            <el-form-item label="出库仓库" prop="warehouseId">
               <el-input v-model="temp.warehouseId" />
-
             </el-form-item>
           </el-col>
+
           <el-col :span="6">
             <el-form-item label="类型" prop="orderType">
-              <el-select v-model="temp.orderType" class="filter-item" placeholder="请选择">
+              <el-select v-model="temp.orderType" class="filter-item" placeholder="请选择" :disabled="readonly">
                 <el-option v-for="item in orderTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
               </el-select>
             </el-form-item>
@@ -236,25 +244,25 @@
 
         <el-row>
           <el-col :span="6">
-            <el-form-item label="总数量">
-              <span>{{ temp.totalQty }}</span>
+            <el-form-item label="订单金额">
+              <span>{{ temp.totalAmount }}</span>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="总重量" prop="username">
-              <span>{{ temp.totalWeight }}</span>
+            <el-form-item label="实付金额" prop="payAmount">
+              <span>{{ temp.payAmount }}</span>
 
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="总体积" prop="orderType">
-              <span>{{ temp.totalVolume }}</span>
+            <el-form-item label="收货人" prop="receiverName">
+              <span>{{ temp.receiverName }}</span>
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="总箱数" prop="username">
-              <span>{{ temp.totalCases }}</span>
+            <el-form-item label="收货人手机" prop="receiverPhone">
+              <span>{{ temp.receiverPhone }}</span>
             </el-form-item>
           </el-col>
         </el-row>
@@ -262,7 +270,7 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="备注">
-              <el-input v-model="temp.note" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请输入" />
+              <el-input v-model="temp.note" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="请输入" :readonly="readonly" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -270,63 +278,73 @@
         <el-table v-loading="listLoading" :data="temp.orderItems" fit highlight-current-row style="width: 100%" :show-summary="true" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
-          <el-table-column align="center" label="操作" width="150px">
+          <el-table-column v-if="!readonly" align="center" label="操作" width="150px">
             <template slot-scope="{row}">
               <el-button-group>
                 <el-button type="success" icon="el-icon-plus" circle @click="handleCreateDetail(row)" />
                 <!-- <el-button type="success" icon="el-icon-plus" @click="confirmEdit(row)" /> -->
                 <el-button type="danger" icon="el-icon-delete" circle @click="handleDeleteDetail(row)" />
                 <el-button v-if="row.edit" type="success" icon="el-icon-check" circle @click="confirmEditDetail(row)" />
-                <el-button
-                  v-else
-                  type="primary"
-                  icon="el-icon-edit"
-                  circle
-                  @click="row.edit=!row.edit"
-                />
+                <el-button v-else type="primary" icon="el-icon-edit" circle @click="row.edit=!row.edit" />
               </el-button-group>
             </template>
           </el-table-column>
 
           <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
-              <span>{{ row.productSn }}</span>
+              <template v-if="row.edit">
+                <el-input v-model="row.productSn" class="edit-input" suffix-icon="el-icon-search" @click.native="searchProduct(row)" />
+              </template>
+              <span v-else>{{ row.productSn }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column min-width="180px" label="商品名称">
+          <el-table-column width="80px" label="分类">
             <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.productName" class="edit-input" />
-              </template>
-              <span v-else>{{ row.productName }}</span>
+              <span>{{ row.product.categoryName }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column width="160px" label="批次" sortable>
+          <el-table-column min-width="120px" label="商品名称">
             <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.batch" class="edit-input" />
-              </template>
-              <span v-else>{{ row.batch }}</span>
+              <span>{{ row.product.name }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="总数量">
+          <el-table-column width="80px" label="规格">
             <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.totalQty" class="edit-input" />
-              </template>
-              <span v-else>{{ row.totalQty }}</span>
+              <span>{{ row.product.categoryName }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="未收数量">
+          <el-table-column min-width="80px" label="单位">
+            <template slot-scope="{row}">
+              <span>{{ row.product.unit }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column width="80px" label="单价" sortable>
+            <template slot-scope="{row}">
+
+              <span>{{ row.productPrice }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="80px" label="数量">
             <template slot-scope="{row}">
               <template v-if="row.edit">
-                <el-input v-model="row.openQty" class="edit-input" />
+                <el-input v-model="row.productQuantity" class="edit-input" />
               </template>
-              <span v-else>{{ row.openQty }}</span>
+              <span v-else>{{ row.productQuantity }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="80px" label="实付金额">
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-input v-model="row.realAmount" class="edit-input" />
+              </template>
+              <span v-else>{{ row.realAmount }}</span>
             </template>
           </el-table-column>
 
@@ -339,30 +357,21 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="100px" label="单位">
-            <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.quantityUm" class="edit-input" />
-              </template>
-              <span v-else>{{ row.quantityUm }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="180px" align="center" label="生产日期" sortable>
+          <!-- <el-table-column width="180px" align="center" label="生产日期" sortable>
             <template slot-scope="scope">
               <template v-if="scope.row.edit">
                 <el-date-picker v-model="scope.row.manufactureDate" type="date" placeholder="生产日期" style="width: 100%;" />
               </template>
               <span v-else>{{ scope.row.manufactureDate | formatDate }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
-          <el-table-column width="180px" align="center" label="入库日期" sortable>
+          <!-- <el-table-column width="180px" align="center" label="入库日期" sortable>
             <template slot-scope="scope">
 
               <span>{{ scope.row.agingDate | formatDate }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
 
         </el-table>
 
@@ -424,6 +433,8 @@
 import { getOrders, getOrderById, createOrder, updateOrder, deleteOrder } from '@/api/order/order'
 import waves from '@/directive/waves' // waves directive
 import { parseTime } from '@/utils'
+import GetSupplies from '@/components/GetData/GetSupplies.vue'
+import GetProducts from '@/components/GetData/GetProducts.vue'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
@@ -438,10 +449,10 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 const orderTypeOptions = [
-  { key: 0, display_name: '其他入库' },
-  { key: 1, display_name: '采购入库' },
-  { key: 2, display_name: '退货入库' },
-  { key: 3, display_name: '盘盈入库' }
+  { key: 0, display_name: '线上' },
+  { key: 1, display_name: '线下' },
+  { key: 2, display_name: '饿了么订单' },
+  { key: 3, display_name: '美团订单' }
 ]
 const orderTypeKeyValue = orderTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
@@ -451,7 +462,7 @@ const orderTypeKeyValue = orderTypeOptions.reduce((acc, cur) => {
 export default {
   // 入库单
   name: 'OrderList',
-  components: { Pagination, UploadExcelComponent },
+  components: { Pagination, UploadExcelComponent, GetSupplies, GetProducts },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -487,6 +498,13 @@ export default {
       operatorButtonsVisibilty: true,
       detailFormStatus: '',
       orderTypeOptions,
+      readonly: true,
+      wareHouseOptions: [],
+      importExcelDialogVisible: false,
+      selectSupplyDialogVisible: false,
+      selectProductDialogVisible: false,
+      // purchaseStatus,
+      detailIndex: 0,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -509,52 +527,61 @@ export default {
 
       temp: {
         id: undefined,
-        creationTime: '',
+        memberId: undefined,
+        couponId: undefined,
         code: '',
+        totalAmount: 0,
+        payAmount: 0,
+        freightAmount: 0,
+        promotionAmount: 0,
+        integrationAmount: 0,
+        couponAmount: 0,
+        discountAmount: 0,
+        payType: 0,
+        sourceType: 0,
+        status: 0,
         orderType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
-        // closeAt: '',
-        totalQty: 0,
-        totalCases: 0,
-        totalWeight: 0,
-        totalVolume: 0,
+        deliveryCompany: '',
+        deliverySn: '',
+        autoConfirmDay: 0,
+        integration: 0,
+        growth: 0,
+        promotionInfo: 0,
         note: '',
+        confirmStatus: 0,
+        useIntegration: 0,
         warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         orderItems: [
-          {
-            receiptCode: '',
-            warehouseCode: '',
-            productSn: '',
-            productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
-            totalQty: 0,
-            openQty: 0,
-            processStamp: '',
-            quantityUm: '',
-            productId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            // orderId: '',
-            edit: false
-            // id: ""
-          }
         ]
       },
       tempDetail: {
-        receiptCode: '',
-        warehouseCode: '',
-        productSn: '',
+        code: '',
+        productPic: '',
         productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
-        totalQty: 0,
-        openQty: 0,
-        processStamp: '',
-        quantityUm: '',
-        productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
+        productBrand: '',
+        productSn: '',
+        productPrice: 0,
+        productQuantity: 0,
+        productSkuCode: '',
+        promotionName: '',
+        promotionAmount: 0,
+        couponAmount: 0,
+        integrationAmount: 0,
+        realAmount: 0,
+        giftIntegration: 0,
+        giftGrowth: 0,
+        productAttr: '',
+        skuId: '',
         orderId: '',
+        productId: '',
+        product: {
+          name: '',
+          productSn: '',
+          unit: '',
+          categoryName: '',
+          id: undefined
+        },
+        id: undefined,
         edit: false
         // id: ""
       },
@@ -624,56 +651,65 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        creationTime: '',
+        memberId: undefined,
+        couponId: undefined,
         code: '',
+        totalAmount: 0,
+        payAmount: 0,
+        freightAmount: 0,
+        promotionAmount: 0,
+        integrationAmount: 0,
+        couponAmount: 0,
+        discountAmount: 0,
+        payType: 0,
+        sourceType: 0,
+        status: 0,
         orderType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
-        // closeAt: '',
-        totalQty: 0,
-        totalCases: 0,
-        totalWeight: 0,
-        totalVolume: 0,
+        deliveryCompany: '',
+        deliverySn: '',
+        autoConfirmDay: 0,
+        integration: 0,
+        growth: 0,
+        promotionInfo: 0,
         note: '',
+        confirmStatus: 0,
+        useIntegration: 0,
         warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         orderItems: [
-          {
-            receiptCode: '',
-            warehouseCode: '',
-            productSn: '',
-            productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
-            totalQty: 0,
-            openQty: 0,
-            processStamp: '',
-            quantityUm: '',
-            productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-            orderId: '',
-            edit: false
-            // id: ""
-          }
+
         ]
       }
     },
     resetTempDetail() {
       this.tempDetail = {
-        receiptCode: '',
-        warehouseCode: '',
-        productSn: '',
+        code: '',
+        productPic: '',
         productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
-        totalQty: 0,
-        openQty: 0,
-        processStamp: '',
-        quantityUm: '',
-        productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
+        productBrand: '',
+        productSn: '',
+        productPrice: 0,
+        productQuantity: 0,
+        productSkuCode: '',
+        promotionName: '',
+        promotionAmount: 0,
+        couponAmount: 0,
+        integrationAmount: 0,
+        realAmount: 0,
+        giftIntegration: 0,
+        giftGrowth: 0,
+        productAttr: '',
+        skuId: '',
         orderId: '',
+        productId: '',
+        product: {
+          name: '',
+          productSn: '',
+          unit: '',
+          categoryName: '',
+          id: undefined
+        },
+        id: undefined,
         edit: false
-        // id: ""
 
       }
     },
@@ -683,11 +719,11 @@ export default {
       console.log('handleSearch', this.searchDivVisibilty)
     },
     // 切换
-    swithBillContainer() {
+    swithBillContainer(row) {
       this.billContainerVisibilty = !this.billContainerVisibilty
       if (!this.billContainerVisibilty) {
         // console.log('swithBillContainer', this.billContainerVisibilty)
-        this.getDetail(this.currentRow.id)
+        this.getDetail(row.id ?? this.currentRow.id)
       }
 
       // this.$refs['detailForm'] = 'readonly'
@@ -704,11 +740,14 @@ export default {
     // 取消
     onCancel() {
       this.billContainerVisibilty = this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
+      this.readonly = true
     },
     handleCreate() {
       this.resetTemp()
       this.detailFormStatus = 'create'
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
+      this.readonly = false
+      this.temp.orderItems.splice(0, 0, this.tempDetail)
       this.$nextTick(() => {
         this.$refs['detailForm'].clearValidate()
       })
@@ -716,8 +755,6 @@ export default {
     createData() {
       this.$refs['detailForm'].validate((valid) => {
         if (valid) {
-          // this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          // this.temp.author = 'vue-element-admin'
           createOrder(this.temp).then((res) => {
             // 添加成功后列表数据操作
             this.temp.code = res.code
@@ -762,6 +799,7 @@ export default {
       this.getDetail(this.currentRow.id)
 
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
+      this.readonly = false
       this.detailFormStatus = 'update'
 
       this.$nextTick(() => {
@@ -827,16 +865,56 @@ export default {
       }
       this.$message('click on item ' + command)
     },
+    // 选择供应商
+    selectSupply(val) {
+      this.temp.supplyId = val.id
+      this.temp.supplyName = val.name
+    },
+    // 点击搜索商品按钮
+    searchProduct(row) {
+      this.selectProductDialogVisible = true
+
+      this.detailIndex = this.temp.orderItems.indexOf(row)
+      console.log('this.detailIndex', this.detailIndex)
+    },
+    // 选中商品
+    selectProducts(rows) {
+      var index = this.detailIndex
+      var i = 0
+      // const index = this.temp.orderItems.indexOf(row)
+      rows.forEach(row => {
+        // this.$refs.productTable.toggleRowSelection(row)
+        var tempDetail = {
+          productSn: row.productSn,
+          unit: row.unit,
+          processStamp: '',
+          productId: row.id,
+          product: {
+            id: row.id,
+            name: row.name,
+            productSn: row.productSn,
+            unit: row.unit,
+            categoryName: row.categoryName
+          },
+          id: undefined,
+          edit: true
+        }
+        // 将第一条数据替换。后面的数据增加
+        if (i === 0) {
+          this.temp.orderItems.splice(index, 1, tempDetail)
+        } else {
+          this.temp.orderItems.splice(index, 0, tempDetail)
+        }
+        i++
+        index++
+      })
+    },
     // 添加明细
     handleCreateDetail(row) {
       // this.temp.orderItems
       const index = this.temp.orderItems.indexOf(row)
-      // 拼接函数(索引位置, 要删除元素的数量, 元素)
-      // this.temp.orderItems.unshift(this.temp.orderItems[0])
-      console.log('this.temp.orderItems[0]', this.temp.orderItems[0])
-      console.log('this.temp.orderItems', this.temp.orderItems)
       this.resetTempDetail()
-      this.temp.orderItems.splice(index, 0, this.tempDetail)
+      this.temp.orderItems.splice(index + 1, 0, this.tempDetail)
     },
     // 删除明细
     handleDeleteDetail(row) {
@@ -932,26 +1010,25 @@ export default {
   right: 15px;
   top: 10px;
 }
-.filter-container{
+.filter-container {
   margin-bottom: 5px;
-  position:relative;
-
+  position: relative;
 }
-.search-container{
-  position:absolute;
-  border:rgb(230, 217, 217) solid 1px;
-  padding:30px 20px;
-  left:0px;
-  top:40px;
-  width:100%;
-  background-color:rgb(255, 255, 255);
-  z-index:99;
-  display:block;
+.search-container {
+  position: absolute;
+  border: rgb(230, 217, 217) solid 1px;
+  padding: 30px 20px;
+  left: 0px;
+  top: 40px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  z-index: 99;
+  display: block;
 }
 
-.bill-detail-container{
-  width:100%;
-  min-height:620px;
+.bill-detail-container {
+  width: 100%;
+  min-height: 620px;
 }
 </style>
 

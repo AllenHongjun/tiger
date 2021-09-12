@@ -8,11 +8,11 @@ namespace Tiger.Orders.Orders
     public class CreateUpdateOrderDto
     {
         public Guid? TenantId { get; set; }
-        public int MemberId { get; set; }
+        public Guid? MemberId { get; set; }
 
-        public int CouponId { get; set; }
+        //public Guid? CouponId { get; set; }
 
-        public string OrderSn { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// 订单总金额

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Migrations
 {
     [DbContext(typeof(TigerMigrationsDbContext))]
-    partial class TigerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210912060707_update-order-memberId")]
+    partial class updateordermemberId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1614,7 +1616,7 @@ namespace Tiger.Migrations
                     b.Property<decimal>("CouponAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("CouponHistoryId")
+                    b.Property<Guid>("CouponHistoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationTime")

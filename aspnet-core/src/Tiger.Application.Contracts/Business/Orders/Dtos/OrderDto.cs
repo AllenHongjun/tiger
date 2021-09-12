@@ -13,7 +13,7 @@ namespace Tiger.Orders.Orders
         /// <summary>
         /// 订单编码
         /// </summary>
-        public string OrderSn { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// 订单总金额
@@ -183,11 +183,11 @@ namespace Tiger.Orders.Orders
         public DateTime? CommentTime { get; set; }
 
         public Guid? TenantId { get; set; }
-        public Guid MemberId { get; set; }
+        public Guid? MemberId { get; set; }
 
         public string MemberNickName { get; set; }
 
-        public int CouponId { get; set; }
+        public Guid? CouponId { get; set; }
 
         public ICollection<OrderItemDto> OrderItems { get; set; }
 

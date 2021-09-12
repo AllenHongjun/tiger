@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Basic.Products;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Orders.OrderItems
@@ -94,5 +95,7 @@ namespace Tiger.Orders.OrderItems
 
 
         public Guid ProductId { get; set; }
+
+        public ProductDto product { get; set; }
     }
 }
