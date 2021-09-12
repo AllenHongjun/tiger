@@ -51,6 +51,8 @@ namespace Tiger.Business.Purchases
         /// </summary>
         public string Note { get; set; }
 
+        public Guid PurchaseReturnHeaderId { get; set; }
+
 
         [ForeignKey("WarehouseId")]
         public virtual Warehouse Warehouse { get; set; }

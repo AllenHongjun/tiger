@@ -66,6 +66,10 @@
 
     </el-row>
 
+    <GetSupplies :visible="selectSupplyDialogVisible" @selectSupply="selectSupply" @closeGetSupplies="selectSupplyDialogVisible = false" />
+
+    <GetProducts :visible="selectProductDialogVisible" @selectProduct="selectProducts" @closeGetProducts="selectProductDialogVisible = false" />
+
     <!-- 导入excel -->
     <el-dialog title="导入" :visible.sync="importExcelDialogVisible" width="650px">
       <el-button v-waves :loading="downloadLoading" size="mini" icon="el-icon-download" @click="handleDownload">
@@ -152,27 +156,27 @@
 
         <el-table-column min-width="180px" label="单号">
           <template slot-scope="{row}">
-            <span class="link-type" @click="swithBillContainer">{{ row.code }}</span>
+            <span class="link-type" @click="swithBillContainer(row.id)">{{ row.code }}</span>
           </template>
         </el-table-column>
 
         <el-table-column class-name="status-col" label="类型" width="110">
           <template slot-scope="{row}">
             <el-tag :type="row.purchaseReturnType | statusFilter">
-              {{ row.purchaseReturnType | purchaseReturnTypeFilter }}
+              {{ row.orderReturnType | purchaseReturnTypeFilter }}
             </el-tag>
           </template>
         </el-table-column>
 
-        <el-table-column width="180px" align="center" label="单据日期" sortable>
+        <el-table-column width="180px" align="center" label="创建日期" sortable>
           <template slot-scope="scope">
             <span>{{ scope.row.creationTime | formatDate }}</span>
           </template>
         </el-table-column>
 
-        <el-table-column width="180px" align="center" label="到货时间" sortable>
+        <el-table-column width="180px" align="center" label="完成时间" sortable>
           <template slot-scope="scope">
-            <span>{{ scope.row.arriveDatetime | formatDate }}</span>
+            <span>{{ scope.row.completeTime | formatDate }}</span>
           </template>
         </el-table-column>
 
@@ -226,7 +230,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="类型" prop="purchaseReturnType">
-              <el-select v-model="temp.purchaseReturnType" class="filter-item" placeholder="请选择">
+              <el-select v-model="temp.purchaseReturnType" class="filter-item" placeholder="请选择" :disabled="readonly">
                 <el-option v-for="item in purchaseReturnTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
               </el-select>
             </el-form-item>
@@ -270,7 +274,7 @@
         <el-table v-loading="listLoading" :data="temp.purchaseReturnDetails" fit highlight-current-row style="width: 100%" :show-summary="true" @sort-change="sortChange">
           <el-table-column align="center" type="selection" width="55" />
 
-          <el-table-column align="center" label="操作" width="150px">
+          <el-table-column v-if="!readonly" align="center" label="操作" width="150px">
             <template slot-scope="{row}">
               <el-button-group>
                 <el-button type="success" icon="el-icon-plus" circle @click="handleCreateDetail(row)" />
@@ -290,16 +294,24 @@
 
           <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
-              <span>{{ row.productSn }}</span>
+              <template v-if="row.edit">
+                <el-input v-model="row.productSn" class="edit-input" suffix-icon="el-icon-search" @click.native="searchProduct(row)" />
+              </template>
+              <span v-else>{{ row.productSn }}</span>
             </template>
           </el-table-column>
 
           <el-table-column min-width="180px" label="商品名称">
             <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.productName" class="edit-input" />
-              </template>
-              <span v-else>{{ row.productName }}</span>
+
+              <span>{{ row.product.name }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column min-width="100px" label="单位">
+            <template slot-scope="{row}">
+
+              <span>{{ row.product.unit }}</span>
             </template>
           </el-table-column>
 
@@ -321,14 +333,30 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="未收数量">
+          <!-- <el-table-column min-width="80px" label="未收数量">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.openQty" class="edit-input" />
               </template>
               <span v-else>{{ row.openQty }}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
+
+          <!-- <el-table-column width="180px" align="center" label="生产日期" sortable>
+            <template slot-scope="scope">
+              <template v-if="scope.row.edit">
+                <el-date-picker v-model="scope.row.manufactureDate" type="date" placeholder="生产日期" style="width: 100%;" />
+              </template>
+              <span v-else>{{ scope.row.manufactureDate | formatDate }}</span>
+            </template>
+          </el-table-column> -->
+
+          <!-- <el-table-column width="180px" align="center" label="入库日期" sortable>
+            <template slot-scope="scope">
+
+              <span>{{ scope.row.agingDate | formatDate }}</span>
+            </template>
+          </el-table-column> -->
 
           <el-table-column min-width="100px" label="处理标记">
             <template slot-scope="{row}">
@@ -336,31 +364,6 @@
                 <el-input v-model="row.processStamp" class="edit-input" />
               </template>
               <span v-else>{{ row.processStamp }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column min-width="100px" label="单位">
-            <template slot-scope="{row}">
-              <template v-if="row.edit">
-                <el-input v-model="row.quantityUm" class="edit-input" />
-              </template>
-              <span v-else>{{ row.quantityUm }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="180px" align="center" label="生产日期" sortable>
-            <template slot-scope="scope">
-              <template v-if="scope.row.edit">
-                <el-date-picker v-model="scope.row.manufactureDate" type="date" placeholder="生产日期" style="width: 100%;" />
-              </template>
-              <span v-else>{{ scope.row.manufactureDate | formatDate }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="180px" align="center" label="入库日期" sortable>
-            <template slot-scope="scope">
-
-              <span>{{ scope.row.agingDate | formatDate }}</span>
             </template>
           </el-table-column>
 
@@ -423,6 +426,8 @@
 <script>
 import { getPurchaseReturnHeaders, getPurchaseReturnHeaderById, createPurchaseReturnHeader, updatePurchaseReturnHeader, deletePurchaseReturnHeader } from '@/api/purchase/purchase-return-header'
 import waves from '@/directive/waves' // waves directive
+import GetSupplies from '@/components/GetData/GetSupplies.vue'
+import GetProducts from '@/components/GetData/GetProducts.vue'
 import { parseTime } from '@/utils'
 import UploadExcelComponent from '@/components/UploadExcel/index.vue'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -438,10 +443,10 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 const purchaseReturnTypeOptions = [
-  { key: 0, display_name: '其他入库' },
-  { key: 1, display_name: '采购入库' },
-  { key: 2, display_name: '退货入库' },
-  { key: 3, display_name: '盘盈入库' }
+  { key: 0, display_name: '部分退款' },
+  { key: 1, display_name: '全部退款' },
+  { key: 2, display_name: '部分退货' },
+  { key: 3, display_name: '全部退货' }
 ]
 const purchaseReturnTypeKeyValue = purchaseReturnTypeOptions.reduce((acc, cur) => {
   acc[cur.key] = cur.display_name
@@ -451,7 +456,7 @@ const purchaseReturnTypeKeyValue = purchaseReturnTypeOptions.reduce((acc, cur) =
 export default {
   // 入库单
   name: 'PurchaseReturnHeaderList',
-  components: { Pagination, UploadExcelComponent },
+  components: { Pagination, UploadExcelComponent, GetSupplies, GetProducts },
   directives: { waves },
   filters: {
     statusFilter(status) {
@@ -487,6 +492,11 @@ export default {
       operatorButtonsVisibilty: true,
       detailFormStatus: '',
       purchaseReturnTypeOptions,
+      readonly: true,
+      selectSupplyDialogVisible: false,
+      selectProductDialogVisible: false,
+      // purchaseReturnStatus,
+      detailIndex: 0,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -511,9 +521,10 @@ export default {
         id: undefined,
         creationTime: '',
         code: '',
-        purchaseReturnType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
+        orderReturnType: 0,
+        purchaseOrderId: '',
+        status: 0,
+        completeTime: undefined,
         // closeAt: '',
         totalQty: 0,
         totalCases: 0,
@@ -522,41 +533,29 @@ export default {
         note: '',
         warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         purchaseReturnDetails: [
-          {
-            receiptCode: '',
-            warehouseCode: '',
-            productSn: '',
-            productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
-            totalQty: 0,
-            openQty: 0,
-            processStamp: '',
-            quantityUm: '',
-            productId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            // purchaseReturnHeaderId: '',
-            edit: false
-            // id: ""
-          }
+
         ]
       },
       tempDetail: {
-        receiptCode: '',
-        warehouseCode: '',
         productSn: '',
-        productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
+        unit: '',
+        purchasePrice: 0,
         totalQty: 0,
         openQty: 0,
         processStamp: '',
-        quantityUm: '',
-        productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        purchaseReturnHeaderId: '',
-        edit: false
-        // id: ""
+        note: '',
+        // purchaseReturnHeaderId: '',
+        productId: '',
+        product: {
+          name: '',
+          productSn: '',
+          unit: '',
+          categoryName: '',
+          id: undefined
+        },
+
+        edit: true,
+        id: undefined
       },
       rules: {
         type: [{ required: true, message: 'type is required', trigger: 'change' }],
@@ -624,11 +623,12 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        creationTime: '',
+        // creationTime: '',
         code: '',
-        purchaseReturnType: 0,
-        purchaseOrderId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-        // arriveDatetime: '',
+        orderReturnType: 0,
+        purchaseOrderId: '',
+        status: 0,
+        completeTime: undefined,
         // closeAt: '',
         totalQty: 0,
         totalCases: 0,
@@ -637,43 +637,30 @@ export default {
         note: '',
         warehouseId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         purchaseReturnDetails: [
-          {
-            receiptCode: '',
-            warehouseCode: '',
-            productSn: '',
-            productName: '',
-            batch: '',
-            manufactureDate: '2021-09-04T11:07:50.660Z',
-            agingDate: '2021-09-04T11:07:50.660Z',
-            totalQty: 0,
-            openQty: 0,
-            processStamp: '',
-            quantityUm: '',
-            productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-            purchaseReturnHeaderId: '',
-            edit: false
-            // id: ""
-          }
+
         ]
       }
     },
     resetTempDetail() {
       this.tempDetail = {
-        receiptCode: '',
-        warehouseCode: '',
         productSn: '',
-        productName: '',
-        batch: '',
-        manufactureDate: '2021-09-04T11:07:50.660Z',
-        agingDate: '2021-09-04T11:07:50.660Z',
+        unit: '',
+        purchasePrice: 0,
         totalQty: 0,
         openQty: 0,
         processStamp: '',
-        quantityUm: '',
-        productId: '9CAC5265-21DC-C016-0374-39FEB4686D17',
-        purchaseReturnHeaderId: '',
-        edit: false
-        // id: ""
+        note: '',
+        productId: '',
+        product: {
+          name: '',
+          productSn: '',
+          unit: '',
+          categoryName: '',
+          id: undefined
+        },
+        // purchaseReturnHeaderId: '',
+        edit: true,
+        id: undefined
 
       }
     },
@@ -683,10 +670,12 @@ export default {
       console.log('handleSearch', this.searchDivVisibilty)
     },
     // 切换
-    swithBillContainer() {
+    swithBillContainer(id) {
       this.billContainerVisibilty = !this.billContainerVisibilty
-      this.getDetail(this.currentRow.id)
-      // this.$refs['detailForm'] = 'readonly'
+      if (!this.billContainerVisibilty) {
+        // id ??
+        this.getDetail(id ?? this.currentRow.id)
+      }
     },
     // 保存
     handleSave() {
@@ -700,11 +689,14 @@ export default {
     // 取消
     onCancel() {
       this.billContainerVisibilty = this.operatorButtonsVisibilty = !this.operatorButtonsVisibilty
+      this.readonly = true
     },
     handleCreate() {
       this.resetTemp()
+      this.readonly = false
       this.detailFormStatus = 'create'
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
+      this.temp.purchaseReturnDetails.splice(0, 0, this.tempDetail)
       this.$nextTick(() => {
         this.$refs['detailForm'].clearValidate()
       })
@@ -723,6 +715,7 @@ export default {
             this.setCurrent(this.list[0])
 
             this.billContainerVisibilty = this.operatorButtonsVisibilty = true
+            this.readonly = true
             this.$notify({
               title: '成功',
               message: '创建成功',
@@ -756,6 +749,7 @@ export default {
       // 避免点击按钮重复请求
 
       this.getDetail(this.currentRow.id)
+      this.readonly = false
 
       this.billContainerVisibilty = this.operatorButtonsVisibilty = false
       this.detailFormStatus = 'update'
@@ -779,6 +773,7 @@ export default {
               }
             }
             this.billContainerVisibilty = this.operatorButtonsVisibilty = true
+            this.readonly = false
 
             this.$notify({
               title: '成功',
@@ -823,6 +818,49 @@ export default {
       }
       this.$message('click on item ' + command)
     },
+
+    selectSupply(val) {
+      this.temp.supplyId = val.id
+      this.temp.supplyName = val.name
+    },
+    searchProduct(row) {
+      this.selectProductDialogVisible = true
+
+      this.detailIndex = this.temp.purchaseReturnDetails.indexOf(row)
+      console.log('this.detailIndex', this.detailIndex)
+    },
+    selectProducts(rows) {
+      var index = this.detailIndex
+      var i = 0
+      // const index = this.temp.purchaseDetails.indexOf(row)
+      rows.forEach(row => {
+        // this.$refs.productTable.toggleRowSelection(row)
+        var tempDetail = {
+          productSn: row.productSn,
+          unit: row.unit,
+          processStamp: '',
+          productId: row.id,
+          product: {
+            id: row.id,
+            name: row.name,
+            productSn: row.productSn,
+            unit: row.unit,
+            categoryName: row.categoryName
+          },
+          id: undefined,
+          edit: true
+        }
+        // 将第一条数据替换。后面的数据增加
+        if (i === 0) {
+          this.temp.purchaseReturnDetails.splice(index, 1, tempDetail)
+        } else {
+          this.temp.purchaseReturnDetails.splice(index, 0, tempDetail)
+        }
+        i++
+        index++
+      })
+    },
+
     // 添加明细
     handleCreateDetail(row) {
       // this.temp.purchaseReturnDetails

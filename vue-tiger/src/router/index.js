@@ -170,7 +170,7 @@ export const constantRoutes = [
         path: 'purchase-return/list',
         component: () => import('@/views/purchase/purchase-return/list'),
         name: 'PurchaseOrderReturnApply',
-        meta: { title: '采购退货单' }
+        meta: { title: '退货单' }
       }
 
       // {
@@ -196,13 +196,13 @@ export const constantRoutes = [
         path: 'order/list',
         name: 'OrderList',
         component: () => import('@/views/order/list'),
-        meta: { title: '订单列表' }
+        meta: { title: '销售单' }
       },
       {
         path: 'order-return-apply/list',
         component: () => import('@/views/order/order-return-apply/list'),
         name: 'OrderReturnApply',
-        meta: { title: '退款' }
+        meta: { title: '退款单' }
       },
 
       {
@@ -218,7 +218,7 @@ export const constantRoutes = [
   {
     path: '/stock',
     name: 'Stock',
-    meta: { title: '库存', icon: 'el-icon-house' },
+    meta: { title: '仓储', icon: 'el-icon-house' },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
@@ -231,34 +231,49 @@ export const constantRoutes = [
         meta: { title: '库存量' }
       },
       {
-        path: 'receipt/list',
-        component: () => import('@/views/stock/receipt/list'),
-        name: 'ReceiptList',
-        meta: { title: '入库单' }
+        path: 'inventory-history/list',
+        name: 'InventoryHistoryList',
+        component: () => import('@/views/stock/inventory-history/list'),
+        meta: { title: '出入库记录' }
       },
       {
-        path: 'shipment/list',
-        component: () => import('@/views/stock/shipment/list'),
-        name: 'shipmentList',
-        meta: { title: '出库单' }
-      },
-      {
-        path: 'check/list',
-        component: () => import('@/views/stock/check/list'),
-        name: 'CheckList',
-        meta: { title: '盘点单' }
-      },
-      {
-        path: 'transfer/list',
-        component: () => import('@/views/stock/transfer/list'),
-        name: 'TransferList',
-        meta: { title: '调拨单' }
-      },
-      {
-        path: 'reverse/list',
-        component: () => import('@/views/stock/reverse/list'),
-        name: 'ReverseList',
-        meta: { title: '拆套单' }
+        path: '/stockManage',
+        name: 'StockManage',
+        component: () => import('@/views/setting/identity/index'), // Parent router-view
+        meta: { title: '仓管单据' },
+        children: [
+
+          {
+            path: 'receipt/list',
+            component: () => import('@/views/stock/receipt/list'),
+            name: 'ReceiptList',
+            meta: { title: '入库单' }
+          },
+          {
+            path: 'shipment/list',
+            component: () => import('@/views/stock/shipment/list'),
+            name: 'shipmentList',
+            meta: { title: '出库单' }
+          },
+          {
+            path: 'check/list',
+            component: () => import('@/views/stock/check/list'),
+            name: 'CheckList',
+            meta: { title: '盘点单' }
+          },
+          {
+            path: 'transfer/list',
+            component: () => import('@/views/stock/transfer/list'),
+            name: 'TransferList',
+            meta: { title: '调拨单' }
+          },
+          {
+            path: 'reverse/list',
+            component: () => import('@/views/stock/reverse/list'),
+            name: 'ReverseList',
+            meta: { title: '拆套单' }
+          }
+        ]
       }
 
     ]
@@ -276,7 +291,7 @@ export const constantRoutes = [
       {
         path: 'inventory4/list',
         name: 'InventoryStatList',
-        component: () => import('@/views/stock/inventory/list'),
+        component: () => import('@/views/setting/identity/index'), // Parent router-view
         meta: { title: '采购统计' },
         children: [
           {

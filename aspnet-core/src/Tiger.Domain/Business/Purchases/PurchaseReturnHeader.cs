@@ -30,12 +30,12 @@ namespace Tiger.Business.Purchases
         /// <summary>
         /// 完成时间
         /// </summary>
-        public DateTime CompleteTime { get; set; }
+        public DateTime? CompleteTime { get; set; }
 
         /// <summary>
         /// 关闭时间
         /// </summary>
-        public DateTime CloseAt { get; set; }
+        public DateTime? CloseAt { get; set; }
 
         /// <summary>
         /// 总数量

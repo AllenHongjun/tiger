@@ -16,7 +16,7 @@
       </div>
 
       <el-table ref="supplyTable" v-loading="listLoading" :data="list" highlight-current-row style="width: 100%" @sort-change="sortChange" @current-change="handleCurrentChange">
-        <el-table-column align="center" type="selection" width="55" />
+        <!-- <el-table-column align="center" type="selection" width="55" /> -->
 
         <el-table-column min-width="300px" label="名称">
           <template slot-scope="{row}">

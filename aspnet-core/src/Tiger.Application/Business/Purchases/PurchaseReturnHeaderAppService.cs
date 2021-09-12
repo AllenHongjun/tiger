@@ -74,7 +74,12 @@ namespace Tiger.Business.Purchases
 
         public override async Task<PurchaseReturnHeaderDto> GetAsync(Guid id)
         {
-            var query = await _repository.GetAsync(id);
+            var query = await _repository.GetAsync(id,false);
+            var details = _purchaseReturnDetailRepository.WithDetails(x => x.Product).Where(x => x.PurchaseReturnHeaderId == id);
+            foreach (var detail in details)
+            {
+                query.PurchaseReturnDetails.Add(detail);
+            }
             return ObjectMapper.Map<PurchaseReturnHeader, PurchaseReturnHeaderDto>(query);
         }
     }

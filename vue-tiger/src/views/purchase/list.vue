@@ -316,7 +316,7 @@
           <el-table-column width="120px" label="货号" sortable>
             <template slot-scope="{row}">
               <template v-if="row.edit">
-                <el-input v-model="row.productSn" class="edit-input" suffix-icon="el-icon-search" @click.native="selectProductDialogVisible = true" />
+                <el-input v-model="row.productSn" class="edit-input" suffix-icon="el-icon-search" @click.native="searchProduct(row)" />
               </template>
               <span v-else>{{ row.productSn }}</span>
             </template>
@@ -390,21 +390,6 @@
               <span v-else>{{ row.processStamp }}</span>
             </template>
           </el-table-column>
-
-          <!-- <el-table-column width="180px" align="center" label="生产日期" sortable>
-            <template slot-scope="scope">
-              <template v-if="scope.row.edit">
-                <el-date-picker v-model="scope.row.manufactureDate" type="date" placeholder="生产日期" style="width: 100%;" />
-              </template>
-              <span v-else>{{ scope.row.manufactureDate | formatDate }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column width="180px" align="center" label="入库日期" sortable>
-            <template slot-scope="scope">
-              <span>{{ scope.row.agingDate | formatDate }}</span>
-            </template>
-          </el-table-column> -->
 
         </el-table>
 
@@ -567,6 +552,7 @@ export default {
       selectSupplyDialogVisible: false,
       selectProductDialogVisible: false,
       purchaseStatus,
+      detailIndex: 0,
 
       importanceOptions: [1, 2, 3],
       // statusOptions: [true, false],
@@ -619,7 +605,8 @@ export default {
           name: '',
           productSn: '',
           unit: '',
-          categoryName: ''
+          categoryName: '',
+          id: undefined
         },
         id: undefined,
         edit: false
@@ -641,11 +628,9 @@ export default {
     getWarehouseList() {
       getAllWarehouses().then((response) => {
         var obj = response
-        console.log('obj', obj)
         var tempArr = []
         if (obj.length > 0) {
           Object.keys(obj).forEach(function(key) {
-            // console.log('key', key, 'obj', obj)
             tempArr.push({ value: obj[key].id, label: obj[key].name })
           })
         }
@@ -676,14 +661,11 @@ export default {
     },
     // 选中当前
     setCurrent(row) {
-      console.log('row', row)
       this.$nextTick(() => {
-        // this.$refs.multipleTable.toggleRowSelection(row, true)
         this.$refs.billTable.setCurrentRow(row)
       })
     },
     handleCurrentChange(val) {
-      console.log('this.currentRow-val', val)
       this.currentRow = val
     },
     // 排序
@@ -702,7 +684,6 @@ export default {
       this.handleFilter()
     },
     resetSearchForm(formName) {
-      console.log('formName', formName)
       this.$refs[formName].resetFields()
     },
     resetTemp() {
@@ -750,13 +731,11 @@ export default {
     // 搜索
     handleSearch() {
       this.searchDivVisibilty = !this.searchDivVisibilty
-      console.log('handleSearch', this.searchDivVisibilty)
     },
     // 切换
     swithBillContainer(id) {
       this.billContainerVisibilty = !this.billContainerVisibilty
       if (!this.billContainerVisibilty) {
-        // console.log('swithBillContainer', this.billContainerVisibilty)
         // id ??
         this.getDetail(id ?? this.currentRow.id)
       }
@@ -817,21 +796,16 @@ export default {
       //   return
       // }
       getPurchaseHeaderById(id).then((res) => {
-        console.log('getPurchaseHeaderById', res)
         this.temp = Object.assign({}, this.currentRow) // copy obj
 
         const items = res.purchaseDetails
         this.temp.purchaseDetails = items.map(v => {
           this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
-          // v.originalTitle = v.title //  will be used when user click the cancel botton
           return v
         })
-        // this.temp.purchaseDetails = res.purchaseDetails // copy obj
-        console.log('temp', this.temp)
       })
     },
     handleUpdate() {
-      console.log('currentRow', this.currentRow.id)
       // 避免点击按钮重复请求
 
       this.getDetail(this.currentRow.id)
@@ -896,11 +870,9 @@ export default {
     },
 
     handleAudited() {
-      console.log('audit')
       var obj = { key: 'audited', type: 'info', label: '审核' }
       for (const v of this.purchaseStatus) {
         if (v.key === 'waitAudited') {
-          console.log('v.key', v.key)
           const index = this.purchaseStatus.indexOf(v)
           this.purchaseStatus.splice(index, 1, obj)
           break
@@ -917,7 +889,6 @@ export default {
         })
         return
       }
-      console.log('selection', selection)
       switch (command) {
         case 'batchDelete':
           this.batchDelete()
@@ -944,14 +915,18 @@ export default {
     },
 
     selectSupply(val) {
-      console.log('val', val)
       this.temp.supplyId = val.id
       this.temp.supplyName = val.name
     },
+    searchProduct(row) {
+      this.selectProductDialogVisible = true
 
+      this.detailIndex = this.temp.purchaseDetails.indexOf(row)
+      console.log('this.detailIndex', this.detailIndex)
+    },
     selectProducts(rows) {
-      console.log('rows', rows)
-      var index = this.temp.purchaseDetails.length
+      var index = this.detailIndex
+      var i = 0
       // const index = this.temp.purchaseDetails.indexOf(row)
       rows.forEach(row => {
         // this.$refs.productTable.toggleRowSelection(row)
@@ -961,21 +936,24 @@ export default {
           processStamp: '',
           productId: row.id,
           product: {
+            id: row.id,
             name: row.name,
             productSn: row.productSn,
-            unit: row.name,
+            unit: row.unit,
             categoryName: row.categoryName
           },
           id: undefined,
-          edit: false
-
+          edit: true
         }
-
+        // 将第一条数据替换。后面的数据增加
+        if (i === 0) {
+          this.temp.purchaseDetails.splice(index, 1, tempDetail)
+        } else {
+          this.temp.purchaseDetails.splice(index, 0, tempDetail)
+        }
+        i++
         index++
-        this.temp.purchaseDetails.splice(index, 0, tempDetail)
       })
-      // this.temp.supplyId = val.id
-      // this.temp.supplyName = val.name
     },
 
     // // 添加明细
@@ -983,9 +961,6 @@ export default {
       // this.temp.purchaseDetails
       const index = this.temp.purchaseDetails.indexOf(row)
       // 拼接函数(索引位置, 要删除元素的数量, 元素)
-      // this.temp.purchaseDetails.unshift(this.temp.purchaseDetails[0])
-      console.log('this.temp.purchaseDetails[0]', this.temp.purchaseDetails[0])
-      console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
       this.resetTempDetail()
       this.temp.purchaseDetails.splice(index + 1, 0, this.tempDetail)
     },
@@ -1006,7 +981,6 @@ export default {
     // 导出模板
     handleDownload() {
       this.downloadLoading = true
-      console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['货号', '分类', '商品名称', '单位', '数量', '处理标记']
         const filterVal = ['productSn', 'product.categoryName', 'product.name', 'unit', 'totalQty', 'processStamp']
@@ -1040,14 +1014,12 @@ export default {
     },
     // 导出Excel
     handleExport() {
-      // console.log('handleExport')
       this.getDetail(this.currentRow.id)
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['货号', '分类', '商品名称', '单位', '数量', '处理标记']
         const filterVal = ['productSn', 'product.categoryName', 'product.name', 'product.unit', 'totalQty', 'processStamp']
         const data = this.formatJson(filterVal, this.temp.purchaseDetails)
-        // console.log('data', data)
         excel.export_json_to_excel({
           header: tHeader,
           data,
@@ -1062,20 +1034,9 @@ export default {
         message: '文件上传成功',
         type: 'success'
       })
-      // console.log('results', results)
-      // console.log('header', header)
 
-      // this.temp.purchaseDetails
-      // const index = this.temp.purchaseDetails.indexOf(row)
       var index = 0
-      // 拼接函数(索引位置, 要删除元素的数量, 元素)
-      // this.temp.purchaseDetails.unshift(this.temp.purchaseDetails[0])
-      // console.log('this.temp.purchaseDetails[0]', this.temp.purchaseDetails[0])
-      // console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
-      // this.resetTempDetail()
 
-      // var tempDetail = Object.assign({}, this.tempDetail)
-      // var tempDetail = {}
       results.forEach(v => {
         index++
         // console.log('v["单位"]', v['单位'], '-----v', v)
@@ -1085,21 +1046,12 @@ export default {
         this.tempDetail.productSn = v['货号']
         this.tempDetail.product.name = v['商品名称']
         this.tempDetail.totalQty = v['数量']
-        // console.log('this.tempDetail.product.name', this.tempDetail.product.name)
-        // console.log('this.tempDetail.productSn', this.tempDetail.productSn)
-        // console.log('this.tempDetail', this.tempDetail)
-        // console.log('this.temp.purchaseDetails', this.temp.purchaseDetails)
-        // this.temp.purchaseDetails.push(tempDetail)
         this.temp.purchaseDetails.splice(index + 1, 0, this.tempDetail)
       })
-
-      // this.temp.purchaseDetails = results
-      // this.tableHeader = header
     },
 
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
-        // console.log('v', v)
         if (j === 'timestamp') {
           return parseTime(v[j])
         } else if (j.indexOf('product.') !== -1) {

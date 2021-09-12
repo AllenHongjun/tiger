@@ -13,9 +13,9 @@ namespace Tiger.Business.Purchases.Dtos
 
         public int Status { get; set; }
 
-        public DateTime CompleteTime { get; set; }
+        public DateTime? CompleteTime { get; set; }
 
-        public DateTime CloseAt { get; set; }
+        public DateTime? CloseAt { get; set; }
 
         public int TotalQty { get; set; }
 
@@ -31,6 +31,6 @@ namespace Tiger.Business.Purchases.Dtos
 
         public Guid WarehouseId { get; set; }
 
-        public ICollection<PurchaseReturnDetailDto> OrderReturnDetails { get; set; }
+        public ICollection<PurchaseReturnDetailDto> PurchaseReturnDetails { get; set; }
     }
 }
