@@ -695,7 +695,6 @@ export default {
             tempArr.push({ value: obj[key].id, label: obj[key].name })
           })
         }
-
         this.wareHouseOptions = tempArr
       })
     },
@@ -978,8 +977,17 @@ export default {
       }).then(() => {
         auditPurchaseHeader(this.currentRow.id)
           .then((response) => {
-            // const index = this.list.findIndex((v) => v.id === this.currentRow.id)
-            // this.list.splice(index, 1)
+            for (const v of this.list) {
+              if (v.id === this.currentRow.id) {
+                const index = this.list.indexOf(v)
+                // TODO: 优化修改为从通用数据中读取用户名
+                this.list[index].auditedBy = '某某人'
+                this.list.splice(index, 1, this.list[index])
+                this.setCurrent(this.list[index])
+                break
+              }
+            }
+
             this.$notify({
               title: '成功',
               message: '审核成功',
@@ -1076,11 +1084,15 @@ export default {
         var request = this.getSelectIds()
         batchAuditPurchaseHeader(request)
           .then((response) => {
-            // TODO: 找到对应的数据状态改为审核
-            // request.ids.forEach(x => {
-            //   var index = this.list.findIndex((v) => v.id === x)
-            //   this.list.splice(index, 1)
-            // })
+            // 找到对应的数据增加数据审核人
+            for (const v of this.list) {
+              if (request.ids.indexOf(v.id) !== -1) {
+                const index = this.list.indexOf(v)
+                // TODO: 优化修改为从通用数据中读取用户名
+                this.list[index].auditedBy = '某某人'
+                this.list.splice(index, 1, this.list[index])
+              }
+            }
 
             this.$notify({
               title: '成功',
@@ -1105,11 +1117,15 @@ export default {
         var request = this.getSelectIds()
         batchClosePurchaseHeader(request)
           .then((response) => {
-            // TODO: 找到对应的数据状态改为关闭
-            // request.ids.forEach(x => {
-            //   var index = this.list.findIndex((v) => v.id === x)
-            //   this.list.splice(index, 1)
-            // })
+            // 找到对应的数据增加数据审核人
+            for (const v of this.list) {
+              if (request.ids.indexOf(v.id) !== -1) {
+                const index = this.list.indexOf(v)
+                // TODO: 优化修改为从通用数据中读取用户名
+                this.list[index].closeBy = '某某人'
+                this.list.splice(index, 1, this.list[index])
+              }
+            }
 
             this.$notify({
               title: '成功',
@@ -1124,6 +1140,7 @@ export default {
         console.log(err)
       })
     },
+    // 更多操作
     handleCommand(command) {
       switch (command) {
         case 'handleExport':
