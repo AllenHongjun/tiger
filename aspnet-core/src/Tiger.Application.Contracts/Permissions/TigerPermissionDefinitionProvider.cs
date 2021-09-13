@@ -15,20 +15,6 @@ namespace Tiger.Permissions
         {
             //Define your own permissions here.
 
-
-            //// 添加 demo 作者权限
-            //var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName);
-            //var authorsPermission = bookStoreGroup.AddPermission(
-            //        BookStorePermissions.Authors.Default, L("Permission:Authors"));
-            //authorsPermission.AddChild(
-            //    BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
-
-            //authorsPermission.AddChild(
-            //    BookStorePermissions.Authors.Edit, L("Permission:Authors.Edit"));
-
-            //authorsPermission.AddChild(
-            //    BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
-
             #region 基础
 
 

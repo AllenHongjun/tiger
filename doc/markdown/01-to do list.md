@@ -14,13 +14,30 @@
     - [js判断数组是否包含某一个值](https://www.cnblogs.com/hepengqiang/p/9822118.html)
     - [Vue+elementUi给select选项值动态从后台获取，同时将选中值的id传给后台](https://blog.csdn.net/AdminGuan/article/details/103592109)
     - 需要请求后端接口获取的数据。需要在哪一步中进行。
+- **库存管理**
+  - **库存列表**
+  - **出入库记录**
+  - **单据完成。扣减和增加库存。增加记录。**
+  - 
+  - 
+- 门店商品信息 
 - **完善后端表单验证**
 - **完善数据库字段非空 大小设置**
   - 删除没有用的关系
 - **完善权限配置功能。**
+  - 分组权限配置中文名称
 - **开发统计模块功能。**
 - **完善基础资料模块功能**
   - sku 属性 关系
+  - 生成sku列表
+  - 进货出库。销售单品。是否需要管理商品的skuid
+    - **所有的单据都需要保存sku 商品的id 库存也保存的sdu 商品的id.. 不然不知道扣减的是什么库存。**
+  - [商品sku计算](https://blog.csdn.net/haibo1101/article/details/115397089)
+  - [基于element-ui实现的sku组件](https://github.com/torns/vue-sku-1)
+    - [pug语言使用。去掉了<符号](https://juejin.cn/post/6844904039923073038)
+  - [vue-sku功能](https://github.com/easeava/vue-sku)
+  - 门店商品信息。
+    - 连锁店铺。注意与多商户的区别。
 - **完善系统模块功能**
   - 登录 租户等。
 
@@ -96,9 +113,9 @@
 
   - **数据库字段需要定义清楚 是否为空 长度 默认值**
 - 整理必要的数据库字段。定义清楚。
-    
+  
 -  [Sql Server中的nvarchar(n)、varchar(n) 和Mysql中的char(n)、varchar(n)](https://www.cnblogs.com/sdadx/p/7908415.html)
-    
+   
 - **添加一个获取所有仓库列表的接口**
   
 - **提交表单的时候 。返回的错误信息。需要按照格式同一个弹出消息提示。统一处理。**
