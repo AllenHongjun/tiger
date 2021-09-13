@@ -168,10 +168,23 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Basic.ProductAttributeAppService.GetProductAttributeDtoByTypeId(System.Guid)">
+            <summary>
+            根据属性类型查询所有的属性和值 返回指定类型的规格属性
+            </summary>
+            <param name="productAttributeTypeId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Basic.ProductAttributeTypeAppService">
             <summary>
             商品属性分类
             </summary>
+        </member>
+        <member name="M:Tiger.Basic.ProductAttributeTypeAppService.GetAllAsync">
+            <summary>
+            获取所有规格（属性分类）
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Tiger.Basic.WarehouseAppService.GetAllAsync">
             <summary>

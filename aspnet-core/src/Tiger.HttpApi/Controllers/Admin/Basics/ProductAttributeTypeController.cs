@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiger.Basic.ProductAttributeTypes;
 using Volo.Abp;
@@ -69,6 +70,18 @@ namespace Tiger.Controllers.Admin.Basics
         public async Task<PagedResultDto<ProductAttributeTypeDto>> GetListAsync(GetProductAttributeTypeListDto input)
         {
             return await _productAttributeTypeAppService.GetListAsync(input);
+        }
+
+        /// <summary>
+        /// 获取所有列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public async Task<List<ProductAttributeTypeDto>> GetAllAsync()
+        {
+            return await _productAttributeTypeAppService.GetAllAsync();
         }
 
 

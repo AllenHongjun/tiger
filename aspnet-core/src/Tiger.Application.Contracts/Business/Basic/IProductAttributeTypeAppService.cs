@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Basic.ProductAttributeTypes
@@ -17,5 +18,10 @@ namespace Tiger.Basic.ProductAttributeTypes
             CreateUpdateProductAttributeTypeDto>
     {
 
+        /// <summary>
+        /// 获取所有规格（属性分类）
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<ProductAttributeTypeDto>> GetAllAsync();
     }
 }

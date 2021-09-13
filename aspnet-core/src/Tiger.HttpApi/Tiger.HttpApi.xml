@@ -140,6 +140,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeController.GetListByTypeAsync(System.Guid)">
+            <summary>
+            根据类型获取列表
+            </summary>
+            <param name="productAttributeTypeId">属性类型id</param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeController.UpdateAsync(System.Guid,Tiger.Basic.ProductAttributes.CreateUpdateProductAttributeDto)">
             <summary>
             更新
@@ -177,6 +184,13 @@
         <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.GetListAsync(Tiger.Basic.ProductAttributeTypes.GetProductAttributeTypeListDto)">
             <summary>
             获取列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.GetAllAsync">
+            <summary>
+            获取所有列表
             </summary>
             <param name="input"></param>
             <returns></returns>

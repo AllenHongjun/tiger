@@ -102,6 +102,26 @@
                 <Upload v-model="postForm.picture" />
               </el-form-item>
 
+              <el-form-item label="多规格:" label-width="120px" prop="picture" style="margin-bottom: 30px;">
+                <SkuForm
+                  :source-attribute="sourceAttribute"
+                  :attribute.sync="attribute"
+                  :sku.sync="sku"
+                  separator=","
+                  :theme="2"
+                />
+                <el-row type="flex" :gutter="20">
+                  <el-col>
+                    <el-divider content-position="left">attribute 数据</el-divider>
+                    <pre><code>{{ attribute }}</code></pre>
+                  </el-col>
+                  <el-col>
+                    <el-divider content-position="left">sku 数据</el-divider>
+                    <pre><code>{{ sku }}</code></pre>
+                  </el-col>
+                </el-row>
+              </el-form-item>
+
               <!-- <el-form-item label="用户标签:" label-width="120px">
                 <el-select v-model="userTagValue" placeholder="请选择">
                   <el-option
@@ -183,6 +203,7 @@ import Warning from './Warning'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
 import { getProductById, createProduct, updateProduct } from '@/api/basic/product'
 import CategoryCascader from '@/views/basic/components/category-cascader'
+import SkuForm from 'vue-sku-form'
 
 const defaultForm = {
   id: undefined,
@@ -224,7 +245,7 @@ const defaultForm = {
 
 export default {
   name: 'ArticleDetail',
-  components: { Tinymce, MDinput, Upload, Sticky, Warning, CommentDropdown, PlatformDropdown, SourceUrlDropdown, CategoryCascader },
+  components: { Tinymce, MDinput, Upload, Sticky, Warning, CommentDropdown, PlatformDropdown, SourceUrlDropdown, CategoryCascader, SkuForm },
   props: {
     isEdit: {
       type: Boolean,
@@ -309,7 +330,41 @@ export default {
           label: '北京烤鸭'
         }
       ],
-      userTagValue: ''
+      userTagValue: '',
+      sourceAttribute: [
+        {
+          name: '颜色',
+          item: ['黑', '金', '白']
+        },
+        {
+          name: '内存',
+          item: ['16G', '32G']
+        },
+        {
+          name: '尺寸',
+          item: ['3.7寸', '4.7寸', '6.3寸']
+        },
+        {
+          name: '像素',
+          item: ['1200万', '2000万', '4000万']
+        }
+      ],
+      structure: [
+        {
+          name: 'price',
+          type: 'input',
+          label: '价格',
+          required: true
+        },
+        {
+          name: 'stock',
+          type: 'input',
+          label: '库存',
+          required: true
+        }
+      ],
+      attribute: [],
+      sku: []
     }
   },
   computed: {

@@ -36,8 +36,15 @@
   - [基于element-ui实现的sku组件](https://github.com/torns/vue-sku-1)
     - [pug语言使用。去掉了<符号](https://juejin.cn/post/6844904039923073038)
   - [vue-sku功能](https://github.com/easeava/vue-sku)
+  - **[sku组件](https://hooray.github.io/vue-sku-form/guide/intro.html#props)**
+    - sku相关接口
+      - 获取所有的规格列表
+      - 根据规格id来获取属性列表
+      - 商品详情返回所有的产品所有的属性和绑定的属性
+      - 添加编辑商品的时候属性值和sku 值
   - 门店商品信息。
     - 连锁店铺。注意与多商户的区别。
+  - 
 - **完善系统模块功能**
   - 登录 租户等。
 

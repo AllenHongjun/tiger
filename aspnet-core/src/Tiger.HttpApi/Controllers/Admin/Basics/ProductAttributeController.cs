@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiger.Basic.ProductAttributes;
 using Tiger.Basic.Products;
+using Tiger.Business.Basic.Dtos;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
@@ -19,7 +20,7 @@ namespace Tiger.Controllers.Admin.Basics
     [ControllerName("ProductAttribute")]
     [Route("api/basic/productAttribute")]
     [ApiExplorerSettings(GroupName = "admin-basic")]
-    public class ProductAttributeController : TigerController, IProductAttributeAppService
+    public class ProductAttributeController : TigerController
     {
         private readonly IProductAttributeAppService _productAttributeAppService;
 
@@ -73,6 +74,20 @@ namespace Tiger.Controllers.Admin.Basics
         {
             return await _productAttributeAppService.GetListAsync(input);
         }
+
+        /// <summary>
+        /// 根据类型获取列表
+        /// </summary>
+        /// <param name="productAttributeTypeId">属性类型id</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getListByType")]
+        public  ProductAttributeResultDto[] GetListByTypeAsync(Guid productAttributeTypeId)
+        {
+            return  _productAttributeAppService.GetProductAttributeDtoByTypeId(productAttributeTypeId);
+        }
+
+
 
         /// <summary>
         /// 更新
