@@ -6,10 +6,7 @@
     "AbpAuditLogging": "审计日志",
     "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
 
-    "Permission:PermissionManagement": "权限管理",
-    "Permission:Create": "权限添加",
-    "Permission:Edit": "权限编辑",
-    "Permission:Delete": "权限删除",
+
 
 
     "Permission:Product": "产品",
@@ -18,6 +15,29 @@
     "Permission:Product.Delete": "删除",
     "Permission:Product.Create": "添加",
     "Permission:Product.Audit": "审核",
+
+    "Permission:Warehouse": "仓库",
+    "Permission:Warehouse.ManagePermissions": "仓库管理",
+    "Permission:Warehouse.Update": "编辑",
+    "Permission:Warehouse.Delete": "删除",
+    "Permission:Warehouse.Create": "添加",
+    "Permission:Warehouse.Audit": "审核",
+
+
+
+    "Permission:Supply": "供应商",
+    "Permission:Supply.ManagePermissions": "仓库管理",
+    "Permission:Supply.Update": "编辑",
+    "Permission:Supply.Delete": "删除",
+    "Permission:Supply.Create": "添加",
+    "Permission:Supply.Audit": "审核",
+
+    "Permission:Store": "店铺",
+    "Permission:Store.ManagePermissions": "仓库管理",
+    "Permission:Store.Update": "编辑",
+    "Permission:Store.Delete": "删除",
+    "Permission:Store.Create": "添加",
+    "Permission:Store.Audit": "审核",
 
     "Permission:Category": "分类",
     "Permission:Category.ManagePermissions": "分类管理",
@@ -48,6 +68,25 @@
     "Permission:Comments.Audit": "审核",
 
 
+
+
+    "Permission:Purchase": "采购单",
+    "Permission:Purchase.ManagePermissions": "采购单管理",
+    "Permission:Purchase.Update": "编辑",
+    "Permission:Purchase.Delete": "删除",
+    "Permission:Purchase.Create": "添加",
+    "Permission:Purchase.Audit": "审核",
+
+    "Permission:PurchaseReturn": "采购退款单",
+    "Permission:PurchaseReturn.ManagePermissions": "采购退款单管理",
+    "Permission:PurchaseReturn.Update": "编辑",
+    "Permission:PurchaseReturn.Delete": "删除",
+    "Permission:PurchaseReturn.Create": "添加",
+    "Permission:PurchaseReturn.Audit": "审核",
+
+
+
+
     "Permission:Order": "订单",
     "Permission:Order.ManagePermissions": "订单管理",
     "Permission:Order.Update": "编辑",
@@ -75,7 +114,61 @@
 
 
 
+    "Permission:Inventory": "库存",
+    "Permission:Inventory.ManagePermissions": "库存管理",
+    "Permission:Inventory.Update": "编辑",
+    "Permission:Inventory.Delete": "删除",
+    "Permission:Inventory.Create": "添加",
+    "Permission:Inventory.Audit": "审核",
 
+    "Permission:InventoryHistory": "出入库记录",
+    "Permission:InventoryHistory.ManagePermissions": "库存管理",
+    "Permission:InventoryHistory.Update": "编辑",
+    "Permission:InventoryHistory.Delete": "删除",
+    "Permission:InventoryHistory.Create": "添加",
+    "Permission:InventoryHistory.Audit": "审核",
+
+    "Permission:CheckHeader": "盘点单",
+    "Permission:CheckHeader.ManagePermissions": "盘点单管理",
+    "Permission:CheckHeader.Update": "编辑",
+    "Permission:CheckHeader.Delete": "删除",
+    "Permission:CheckHeader.Create": "添加",
+    "Permission:CheckHeader.Audit": "审核",
+
+    "Permission:ReceiptHeader": "入库单",
+    "Permission:ReceiptHeader.ManagePermissions": "入库单管理",
+    "Permission:ReceiptHeader.Update": "编辑",
+    "Permission:ReceiptHeader.Delete": "删除",
+    "Permission:ReceiptHeader.Create": "添加",
+    "Permission:ReceiptHeader.Audit": "审核",
+
+    "Permission:ShipmentHeader": "出库单",
+    "Permission:ShipmentHeader.ManagePermissions": "出库单管理",
+    "Permission:ShipmentHeader.Update": "编辑",
+    "Permission:ShipmentHeader.Delete": "删除",
+    "Permission:ShipmentHeader.Create": "添加",
+    "Permission:ShipmentHeader.Audit": "审核",
+
+    "Permission:TransferHeader": "调拨单",
+    "Permission:TransferHeader.ManagePermissions": "调拨单管理",
+    "Permission:TransferHeader.Update": "编辑",
+    "Permission:TransferHeader.Delete": "删除",
+    "Permission:TransferHeader.Create": "添加",
+    "Permission:TransferHeader.Audit": "审核",
+
+    "Permission:ReverseHeader": "拆套单",
+    "Permission:ReverseHeader.ManagePermissions": "拆套单管理",
+    "Permission:ReverseHeader.Update": "编辑",
+    "Permission:ReverseHeader.Delete": "删除",
+    "Permission:ReverseHeader.Create": "添加",
+    "Permission:ReverseHeader.Audit": "审核",
+
+
+
+
+
+
+    "Permission:System": "系统管理",
 
     "Permission:OrganitaionUnits": "组织管理",
     "Permission:OrganitaionUnits.Edit": "编辑",
@@ -87,6 +180,11 @@
     "Permission:AuditLog.Edit": "编辑",
     "Permission:AuditLog.Delete": "删除",
     "Permission:AuditLog.Create": "添加",
-    "Permission:AuditLog.Audit": "审核"
+    "Permission:AuditLog.Audit": "审核",
+
+    "Permission:PermissionManagement": "权限管理",
+    "Permission:Create": "权限添加",
+    "Permission:Edit": "权限编辑",
+    "Permission:Delete": "权限删除"
   }
 }
