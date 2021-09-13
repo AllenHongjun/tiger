@@ -21,6 +21,8 @@ namespace Tiger.Business.Purchases.Dtos
 
         public string AuditedBy { get; set; }
 
+        public string CloseBy { get; set; }
+
         public string PurchaseBy { get; set; }
 
         public string Note { get; set; }

@@ -141,9 +141,24 @@
 
         <el-table-column align="center" type="selection" width="55" />
 
+        <el-table-column mini-width="180px" align="center" label="标记" sortable>
+          <template slot-scope="scope">
+            <el-tag type="success">
+              {{ (scope.row.closeBy == '' || scope.row.closeBy == null) ? '未关闭' : '已关闭' }}
+            </el-tag>
+            <!-- <el-tag type="info">进货</el-tag> -->
+            <el-tag type="warning">
+              {{ (scope.row.auditedBy !== '' ? '已审' : '待审') }}
+            </el-tag>
+            <el-tag type="danger">
+              {{ (scope.row.deleterId == null ? '正常' : '删除') }}
+            </el-tag>
+          </template>
+        </el-table-column>
+
         <el-table-column min-width="180px" label="单号">
           <template slot-scope="{row}">
-            <span class="link-type" @click="swithBillContainer(row.id)">{{ row.code }}</span>
+            <span class="link-type" @click="showDetail(row.id)">{{ row.code }}</span>
           </template>
         </el-table-column>
 
@@ -200,20 +215,15 @@
     <div v-show="!billContainerVisibilty" class="bill-detail-container">
       <el-divider content-position="left" />
       <el-form ref="detailForm" :rules="rules" :model="temp" label-width="120px">
-        <!-- {{ detailFormStatus }} -->
-        <!-- <el-tag>进货</el-tag>
-        <el-tag type="success">进货</el-tag>
-        <el-tag type="info">打印</el-tag>
-        <el-tag type="warning">审核</el-tag>
-        <el-tag type="warning">待审</el-tag>
-        <el-tag type="danger">删除</el-tag> -->
-        <el-tag
-          v-for="item in purchaseStatus"
-          :key="item.label"
-          :type="item.type"
-          effect="plain"
-        >
-          {{ item.label }}
+
+        <el-tag type="success">
+          {{ ((temp.closeBy == '' || temp.closeBy == null) ? '未关闭' : '已关闭') }}
+        </el-tag>
+        <el-tag type="warning">
+          {{ (temp.auditedBy !== '' ? '已审' : '待审') }}
+        </el-tag>
+        <el-tag type="danger">
+          {{ (temp.deleterId == null ? '正常' : '删除') }}
         </el-tag>
         <el-divider content-position="left">单据明细</el-divider>
 
@@ -467,7 +477,7 @@
 </template>
 
 <script>
-import { getPurchaseHeaders, getPurchaseHeaderById, createPurchaseHeader, updatePurchaseHeader, deletePurchaseHeader, batchDeletePurchaseHeader, batchAuditPurchaseHeader, batchClosePurchaseHeader } from '@/api/purchase/purchase-header'
+import { getPurchaseHeaders, getPurchaseHeaderById, createPurchaseHeader, updatePurchaseHeader, deletePurchaseHeader, auditPurchaseHeader, batchDeletePurchaseHeader, batchAuditPurchaseHeader, batchClosePurchaseHeader } from '@/api/purchase/purchase-header'
 import { getAllWarehouses } from '@/api/basic/warehouse'
 import moment from 'moment/moment'
 
@@ -582,6 +592,7 @@ export default {
         totalAmount: 0,
         totalQty: 0,
         auditedBy: '',
+        closeBy: '',
         purchaseBy: '',
         note: '',
         warehouseId: undefined,
@@ -696,6 +707,7 @@ export default {
         totalAmount: 0,
         totalQty: 0,
         auditedBy: '',
+        closeBy: '',
         purchaseBy: '',
         note: '',
         warehouseId: undefined,
@@ -733,12 +745,18 @@ export default {
       this.searchDivVisibilty = !this.searchDivVisibilty
     },
     // 切换
-    swithBillContainer(id) {
+    swithBillContainer() {
       this.billContainerVisibilty = !this.billContainerVisibilty
       if (!this.billContainerVisibilty) {
         // id ??
-        this.getDetail(id ?? this.currentRow.id)
+        // console.log('swithBillContainer', id)
+        console.log('this.currentRow.id', this.currentRow.id)
+        this.getDetail(this.currentRow.id)
       }
+    },
+    showDetail(id) {
+      this.currentRow.id = id
+      this.swithBillContainer()
     },
     // 保存
     handleSave() {
@@ -872,16 +890,30 @@ export default {
         console.log(err)
       })
     },
-
+    // 审核单条数据
     handleAudited() {
-      var obj = { key: 'audited', type: 'info', label: '审核' }
-      for (const v of this.purchaseStatus) {
-        if (v.key === 'waitAudited') {
-          const index = this.purchaseStatus.indexOf(v)
-          this.purchaseStatus.splice(index, 1, obj)
-          break
-        }
-      }
+      // auditPurchaseHeader
+      this.$confirm('此操作将审核数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        auditPurchaseHeader(this.currentRow.id)
+          .then((response) => {
+            // const index = this.list.findIndex((v) => v.id === this.currentRow.id)
+            // this.list.splice(index, 1)
+            this.$notify({
+              title: '成功',
+              message: '审核成功',
+              type: 'success',
+              duration: 2000
+            })
+          }).catch((err) => {
+            console.log(err)
+          })
+      }).catch((err) => {
+        console.log(err)
+      })
     },
     // 批量处理
     handleBatch(command) {

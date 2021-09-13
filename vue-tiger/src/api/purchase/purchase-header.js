@@ -40,6 +40,13 @@ export function deletePurchaseHeader(id) {
   })
 }
 
+export function auditPurchaseHeader(id) {
+  return request({
+    url: `/api/purchase/purchaseHeader/audit/${id}`,
+    method: 'put'
+  })
+}
+
 export function batchDeletePurchaseHeader(ids) {
   return request({
     url: `/api/purchase/purchaseHeader/batchDelete?${qs.stringify(ids, { indices: false })}`,

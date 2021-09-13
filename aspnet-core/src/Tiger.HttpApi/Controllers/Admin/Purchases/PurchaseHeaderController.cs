@@ -92,6 +92,18 @@ namespace Tiger.Controllers.Admin.PurchaseHeaders
             return _purchaseHeaderAppService.UpdateAsync(id, input);
         }
 
+        /// <summary>
+        /// 审核
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("audit/{id}")]
+        public Task AuditAsync(Guid id)
+        {
+            return Task.CompletedTask;
+        }
+
 
         /// <summary>
         /// 批量删除

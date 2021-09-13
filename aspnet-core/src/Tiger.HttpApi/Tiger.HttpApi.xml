@@ -851,6 +851,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Controllers.Admin.PurchaseHeaders.PurchaseHeaderController.AuditAsync(System.Guid)">
+            <summary>
+            审核
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Controllers.Admin.PurchaseHeaders.PurchaseHeaderController.BatchDeleteAsync(System.Guid[])">
             <summary>
             批量删除
