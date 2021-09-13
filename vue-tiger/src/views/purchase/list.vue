@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row v-show="operatorButtonsVisibilty" style="margin-bottom:5px;">
 
-      <el-button icon="el-icon-search">查询</el-button>
+      <el-button icon="el-icon-search" @click="handleFilter">查询</el-button>
       <el-button icon="el-icon-set-up" @click="swithBillContainer">切换</el-button>
       <el-button type="info" icon="el-icon-refresh" @click="handleRefresh">刷新</el-button>
       <el-button type="info" icon="el-icon-printer" @click="handlePrint">打印</el-button>
@@ -74,17 +74,21 @@
 
     <div v-show="billContainerVisibilty" class="bill-container">
       <div class="filter-container">
-        <el-input v-model="listQuery.title" placeholder="请输入分类名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.title" placeholder="请输入单号" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+
+        <el-date-picker v-model="queryDateTime" value-format="yyyy-MM-dd hh:mm:ss" type="datetimerange" :picker-options="pickerOptions" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" align="right" size="mini" />
+
+        <el-select v-model="listQuery.status" placeholder="状态" clearable class="filter-item" style="width: 130px">
+          <el-option v-for="item in purchaseStatusOptions" :key="item.key" :label="item.label" :value="item.key" />
+        </el-select>
+        <!-- <el-cascader :props="listQuery.props" /> -->
         <!-- <el-select v-model="listQuery.importance" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
         <!-- <el-select v-model="listQuery.status" placeholder="条件" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in statusOptions" :key="item" :label="item" :value="item" />
       </el-select> -->
-        <el-select v-model="listQuery.type" placeholder="状态" clearable class="filter-item" style="width: 130px">
-          <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key" />
-        </el-select>
-        <el-cascader :props="listQuery.props" />
+
         <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
@@ -162,13 +166,13 @@
           </template>
         </el-table-column>
 
-        <!-- <el-table-column class-name="status-col" label="类型" width="110">
+        <el-table-column class-name="status-col" label="状态" width="110px">
           <template slot-scope="{row}">
-            <el-tag :type="row.purchaseType | statusFilter">
-              {{ row.purchaseType | purchaseTypeFilter }}
+            <el-tag :type="row.status | statusFilter">
+              {{ row.status | purchaseStatusFilter }}
             </el-tag>
           </template>
-        </el-table-column> -->
+        </el-table-column>
 
         <el-table-column width="180px" align="center" label="创建日期" sortable>
           <template slot-scope="scope">
@@ -509,13 +513,50 @@ const purchaseTypeKeyValue = purchaseTypeOptions.reduce((acc, cur) => {
   return acc
 }, {})
 
-const purchaseStatus = [
-  { type: '', label: '进货' },
-  { type: 'success', label: '打印' },
-  // { key: 'audited', type: 'info', label: '审核' },
-  { key: 'waitAudited', type: 'danger', label: '待审' },
-  { type: 'warning', label: '删除' }
+const purchaseStatusOptions = [
+  { key: '0', type: 'info', label: '已申请' },
+  { key: '1', type: 'success', label: '已审核' },
+  { key: '2', type: 'danger', label: '已发货' },
+  { key: '3', type: 'warning', label: '已完成' },
+  { key: '4', type: 'warning', label: '已关闭' }
 ]
+
+const purchaseStatusKeyValue = purchaseStatusOptions.reduce((acc, cur) => {
+  acc[cur.key] = cur.label
+  return acc
+}, {})
+
+const pickerOptions = {
+  shortcuts: [
+    {
+      text: '最近一周',
+      onClick(picker) {
+        const end = new Date()
+        const start = new Date()
+        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+        picker.$emit('pick', [start, end])
+      }
+    },
+    {
+      text: '最近一个月',
+      onClick(picker) {
+        const end = new Date()
+        const start = new Date()
+        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+        picker.$emit('pick', [start, end])
+      }
+    },
+    {
+      text: '最近三个月',
+      onClick(picker) {
+        const end = new Date()
+        const start = new Date()
+        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+        picker.$emit('pick', [start, end])
+      }
+    }
+  ]
+}
 
 export default {
   // 入库单
@@ -525,9 +566,11 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
+        0: 'warning',
+        1: 'info',
+        2: 'danger',
+        3: 'primary',
+        4: 'success'
       }
       return statusMap[status]
     },
@@ -536,6 +579,9 @@ export default {
     },
     purchaseTypeFilter(type) {
       return purchaseTypeKeyValue[type]
+    },
+    purchaseStatusFilter(type) {
+      return purchaseStatusKeyValue[type]
     }
   },
   data() {
@@ -543,14 +589,18 @@ export default {
       list: null,
       total: 0,
       listLoading: true,
+      queryDateTime: undefined,
       listQuery: {
         page: 1,
         limit: 10,
-        // status: undefined,
-        name: undefined
-        // sort: '+id'
+        keyword: undefined,
+        status: undefined,
+        startTime: undefined,
+        endTime: undefined,
+        sort: ''
 
       },
+      pickerOptions,
       currentRow: null,
       billContainerVisibilty: true,
       operatorButtonsVisibilty: true,
@@ -561,7 +611,7 @@ export default {
       importExcelDialogVisible: false,
       selectSupplyDialogVisible: false,
       selectProductDialogVisible: false,
-      purchaseStatus,
+      purchaseStatusOptions,
       detailIndex: 0,
 
       importanceOptions: [1, 2, 3],
@@ -651,6 +701,10 @@ export default {
     },
     getList() {
       this.listLoading = true
+      if (this.queryDateTime) {
+        this.listQuery.startTime = this.queryDateTime[0]
+        this.listQuery.endTime = this.queryDateTime[1]
+      }
       getPurchaseHeaders(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount

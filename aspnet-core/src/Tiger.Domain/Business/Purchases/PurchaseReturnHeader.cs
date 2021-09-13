@@ -22,7 +22,7 @@ namespace Tiger.Business.Purchases
         public int OrderReturnType { get; set; }
 
         /// <summary>
-        /// 状态 0->已申请; 1->已审核; 2-> 已退款; 3->已关闭
+        /// 状态 0->已申请; 1->已审核; 2->已发货; 3-> 已完成; 4->已关闭
         /// </summary>
         public int Status { get; set; }
 
