@@ -141,11 +141,11 @@
         </div>
       </div>
 
-      <el-table ref="billTable" v-loading="listLoading" :data="list" fit highlight-current-row style="width: 100%" @sort-change="sortChange" @current-change="handleCurrentChange">
+      <el-table ref="billTable" v-loading="listLoading" :data="list" fit highlight-current-row style="width: 100%" @sort-change="sortChangeBillTable" @current-change="handleCurrentChange">
 
         <el-table-column align="center" type="selection" width="55" />
 
-        <el-table-column mini-width="180px" align="center" label="标记" sortable>
+        <el-table-column mini-width="180px" align="center" label="标记">
           <template slot-scope="scope">
             <el-tag type="success">
               {{ (scope.row.closeBy == '' || scope.row.closeBy == null) ? '未关闭' : '已关闭' }}
@@ -160,7 +160,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column min-width="180px" label="单号">
+        <el-table-column min-width="180px" label="单号" sortable="custom" prop="id">
           <template slot-scope="{row}">
             <span class="link-type" @click="showDetail(row.id)">{{ row.code }}</span>
           </template>
@@ -174,7 +174,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column width="180px" align="center" label="创建日期" sortable>
+        <el-table-column width="180px" align="center" label="创建日期" sortable="custom" prop="creationTime">
           <template slot-scope="scope">
             <span>{{ scope.row.creationTime | formatDate }}</span>
           </template>
@@ -306,7 +306,7 @@
           </el-col>
         </el-row>
         <el-divider />
-        <el-table v-loading="listLoading" :data="temp.purchaseDetails" fit highlight-current-row style="width: 100%" :show-summary="true" @sort-change="sortChange">
+        <el-table v-loading="listLoading" :data="temp.purchaseDetails" fit highlight-current-row style="width: 100%" :show-summary="true">
           <el-table-column align="center" type="selection" width="55" />
 
           <el-table-column v-if="!readonly" align="center" label="操作" width="150px">
@@ -327,7 +327,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column width="120px" label="货号" sortable>
+          <el-table-column width="120px" label="货号">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.productSn" class="edit-input" suffix-icon="el-icon-search" @click.native="searchProduct(row)" />
@@ -369,7 +369,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="单价">
+          <el-table-column min-width="80px" label="单价" prop="purchasePrice" sortable>
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.purchasePrice" class="edit-input" />
@@ -378,7 +378,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="数量">
+          <el-table-column min-width="80px" label="数量" prop="totalQty" sortable>
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.totalQty" class="edit-input" />
@@ -387,7 +387,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column min-width="80px" label="未收数量">
+          <el-table-column min-width="80px" label="未收数量" prop="openQty" :sortable="true">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.openQty" class="edit-input" />
@@ -597,7 +597,7 @@ export default {
         status: undefined,
         startTime: undefined,
         endTime: undefined,
-        sort: ''
+        sorting: ''
 
       },
       pickerOptions,
@@ -733,21 +733,45 @@ export default {
     handleCurrentChange(val) {
       this.currentRow = val
     },
-    // 排序
-    sortChange(data) {
+    // 排序单据列表
+    sortChangeBillTable(data) {
       const { prop, order } = data
       if (prop === 'id') {
-        this.sortByID(order)
+        if (order === 'ascending') {
+          this.listQuery.sorting = 'id asc'
+        } else {
+          this.listQuery.sorting = 'id desc'
+        }
+        this.handleFilter()
+      } else if (prop === 'creationTime') {
+        if (order === 'ascending') {
+          this.listQuery.sorting = 'creationTime asc'
+        } else {
+          this.listQuery.sorting = 'creationTime desc'
+        }
+        this.handleFilter()
       }
     },
-    sortByID(order) {
-      if (order === 'ascending') {
-        this.listQuery.sort = '+id'
-      } else {
-        this.listQuery.sort = '-id'
+    // 排序明细
+    sortChangeDetailTable(data) {
+      const { prop, order } = data
+      if (prop === 'id') {
+        if (order === 'ascending') {
+          this.listQuery.sorting = 'id asc'
+        } else {
+          this.listQuery.sorting = 'id desc'
+        }
+        this.handleFilter()
+      } else if (prop === 'creationTime') {
+        if (order === 'ascending') {
+          this.listQuery.sorting = 'creationTime asc'
+        } else {
+          this.listQuery.sorting = 'creationTime desc'
+        }
+        this.handleFilter()
       }
-      this.handleFilter()
     },
+
     resetSearchForm(formName) {
       this.$refs[formName].resetFields()
     },
