@@ -36,6 +36,9 @@
   - [基于element-ui实现的sku组件](https://github.com/torns/vue-sku-1)
     - [pug语言使用。去掉了<符号](https://juejin.cn/post/6844904039923073038)
   - [vue-sku功能](https://github.com/easeava/vue-sku)
+  - 多对多关联
+    - 如果关联表没有多余的属性 就可以直接remove add来操作。 如果有的话就需要单独来添加。可以自己new 然后来关联添加
+    - join linq select出来的对象 可以点出它关联的对象的属性。 类型sql 的操作。略微有些不同。
   - **[sku组件](https://hooray.github.io/vue-sku-form/guide/intro.html#props)**
     - sku相关接口
       - 获取所有的规格列表

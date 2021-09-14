@@ -87,9 +87,9 @@ namespace Tiger.Basic
         [ForeignKey("ProductAttributeTypeId")]
         public ProductAttributeType ProductAttributeType { get; set; }
 
-        //public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
+        public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        //public virtual ICollection<Product> Products { get; set; }
 
         
     }

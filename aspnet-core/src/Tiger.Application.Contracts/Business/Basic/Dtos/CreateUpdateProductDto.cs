@@ -181,6 +181,8 @@ namespace Tiger.Basic.Products
 
         public ProductAttributeResultDto[] productAttributeResultDtos { get; set; }
 
+        public SkuItemDto[] SkuItemDtos { get; set; }
+
         //public List<ProductAttributeValueDto> ProductAttributeValues { get; set; }
 
         public List<ProductAttributeDto> ProductAttributes { get; set; }

@@ -105,6 +105,8 @@ namespace Tiger.EntityFrameworkCore
                 .HasForeignKey(t => t.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+                
+
             });
 
 
@@ -247,6 +249,10 @@ namespace Tiger.EntityFrameworkCore
 
                 b.Property(x => x.Value).HasMaxLength(512);
 
+                //间接多对多关系
+                b.HasOne(x => x.Product).WithMany(x => x.ProductAttributeValues).HasForeignKey(x => x.ProductId);
+                b.HasOne(x => x.ProductAttribute).WithMany(x => x.ProductAttributeValues).HasForeignKey(x => x.ProductAttributeId);
+
             });
 
             // 产品评论表
@@ -256,6 +262,8 @@ namespace Tiger.EntityFrameworkCore
                     TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
+
+                
 
             });
 

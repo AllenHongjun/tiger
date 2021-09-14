@@ -19,6 +19,19 @@ namespace Tiger.Basic
     /// </summary>
     public class Sku: AuditedAggregateRoot<Guid>
     {
+        public Sku(string skuCode, decimal price, decimal stock, string sPData, Guid productId)
+        {
+            SkuCode = skuCode;
+            Price = price;
+            Stock = stock;
+            SPData = sPData;
+            ProductId = productId;
+        }
+
+        protected Sku()
+        {
+
+        }
 
         /// <summary>
         /// SKU编码

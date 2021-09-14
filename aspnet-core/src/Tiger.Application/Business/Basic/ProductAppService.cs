@@ -126,12 +126,19 @@ namespace Tiger.Basic
                 var productAttributeValue = new ProductAttributeValue(GuidGenerator.Create(), product.Id,item.Id, value);
                 await _productAttributeValueRepository.InsertAsync(productAttributeValue, true);
             }
+
+            foreach (var item in input.SkuItemDtos)
+            {
+                var sku = new Sku(item.Code, item.Price, item.Stock, item.Sku, product.Id);
+                await _skuRepository.InsertAsync(sku, true);
+            }
             return product;
         }
 
         public override async Task<ProductDto> UpdateAsync(Guid id, CreateUpdateProductDto input)
         {
             var product = await base.UpdateAsync(id, input);
+            // 更新商品属性
             var productAttributeValues = _productAttributeValueRepository.Where(x => x.ProductId == id).ToList();
             foreach (var item in productAttributeValues)
             {
@@ -145,21 +152,54 @@ namespace Tiger.Basic
                 await _productAttributeValueRepository.InsertAsync(productAttributeValue, true);
             }
 
+            //更新商品sku
+            var skus = _skuRepository.Where(x => x.ProductId == id).ToList();
+            foreach (var item in skus)
+            {
+                await _skuRepository.DeleteAsync(item.Id, true);
+            }
+
+            foreach (var item in input.SkuItemDtos)
+            {
+                var sku = new Sku(item.Code, item.Price, item.Stock, item.Sku, product.Id);
+                await _skuRepository.InsertAsync(sku, true);
+            }
+
             return product;
         }
 
         public override async Task<ProductDto> GetAsync(Guid id)
         {
             var product = await base.GetAsync(id);
-            var productAttributeValues = _productAttributeValueRepository.Where(x => x.ProductId == id).ToList();
+            var productAttributeValues = _productAttributeValueRepository
+                .WithDetails(x => x.ProductAttribute)
+                .Where(x => x.ProductId == id)
+                .ToList();
+            List<ProductAttributeResultDto> productAttributeResultDtos = new List<ProductAttributeResultDto>();
             foreach (var item in productAttributeValues)
             {
                 ProductAttributeResultDto productAttributeResultDto = new ProductAttributeResultDto();
                 productAttributeResultDto.Id = item.Id;
                 productAttributeResultDto.Name = item.ProductAttribute.Name;
                 productAttributeResultDto.Item = item.Value.Split(',');
-                product.productAttributeResultDtos.AddFirst(productAttributeResultDto);
+                productAttributeResultDtos.AddIfNotContains(productAttributeResultDto);
             }
+            product.ProductAttributeResultDtos = productAttributeResultDtos.ToArray();
+
+            var skus = _skuRepository.Where(x => x.ProductId == id).ToList();
+            List<SkuItemDto> skuItemDtos = new List<SkuItemDto>();
+
+
+            foreach (var item in skus)
+            {
+                SkuItemDto skuItemDto = new SkuItemDto();
+                skuItemDto.Code = item.SkuCode;
+                skuItemDto.Price = item.Price;
+                skuItemDto.Stock = item.Stock;
+                skuItemDto.Sku = item.SPData;
+                skuItemDtos.AddIfNotContains(skuItemDto);
+            }
+            product.SkuItemDtos = skuItemDtos.ToArray();
             
             return product;
         }

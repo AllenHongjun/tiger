@@ -9,7 +9,12 @@ namespace Tiger.Basic.Products
 {
     public class ProductDto : AuditedEntityDto<Guid>
     {
-        
+        public ProductDto()
+        {
+            ProductAttributeResultDtos = new ProductAttributeResultDto[] { };
+
+            SkuItemDtos = new SkuItemDto[] { };
+        }
 
         public String Name { get; set; }
 
@@ -172,6 +177,8 @@ namespace Tiger.Basic.Products
         /// </summary>
         public Guid ProductAttributeTypeId { get; set; }
 
-        public ProductAttributeResultDto[] productAttributeResultDtos { get; set; }
+        public ProductAttributeResultDto[] ProductAttributeResultDtos { get; set; }
+
+        public SkuItemDto[] SkuItemDtos { get; set; }
     }
 }
