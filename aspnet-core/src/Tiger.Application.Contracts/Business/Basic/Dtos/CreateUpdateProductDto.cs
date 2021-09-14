@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Tiger.Basic.ProductAttributes;
+using Tiger.Business.Basic.Dtos;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Basic.Products
@@ -176,5 +178,11 @@ namespace Tiger.Basic.Products
         /// 分类名字
         /// </summary>
         public string CategoryName { get; set; }
+
+        public ProductAttributeResultDto[] productAttributeResultDtos { get; set; }
+
+        //public List<ProductAttributeValueDto> ProductAttributeValues { get; set; }
+
+        public List<ProductAttributeDto> ProductAttributes { get; set; }
     }
 }

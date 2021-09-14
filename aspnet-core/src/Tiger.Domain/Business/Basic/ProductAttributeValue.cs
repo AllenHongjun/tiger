@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 类    名：AttributeValue   
  * 作    者：花生了什么树       
  * 创建时间：2021/8/11 13:55:13       
@@ -10,9 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Basic;
 using Volo.Abp.Domain.Entities;
 
-namespace Tiger.Basic
+namespace Tiger.Business.Basic
 {   
     /// <summary>
     /// 属性值表(熟悉和商品关系表)
@@ -35,5 +36,25 @@ namespace Tiger.Basic
         /// 规格有多个时以逗号隔开
         /// </summary>
         public string Value { get; set; }
+
+        protected ProductAttributeValue()
+        {
+        }
+
+        public ProductAttributeValue(
+            Guid id,
+            Guid productId,
+            //Product product,
+            Guid productAttributeId,
+            //ProductAttribute productAttribute,
+            string value
+        ) : base(id)
+        {
+            ProductId = productId;
+            //Product = product;
+            ProductAttributeId = productAttributeId;
+            //ProductAttribute = productAttribute;
+            Value = value;
+        }
     }
 }

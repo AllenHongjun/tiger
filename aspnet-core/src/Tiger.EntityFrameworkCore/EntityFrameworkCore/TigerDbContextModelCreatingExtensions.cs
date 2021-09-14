@@ -726,6 +726,16 @@ namespace Tiger.EntityFrameworkCore
 
 
             
+
+
+            builder.Entity<ProductAttributeValue>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ProductAttributeValues", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+                
+
+                /* Configure more properties here */
+            });
         }
     }
 }

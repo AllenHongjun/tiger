@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using Tiger.Business.Basic;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -86,7 +87,9 @@ namespace Tiger.Basic
         [ForeignKey("ProductAttributeTypeId")]
         public ProductAttributeType ProductAttributeType { get; set; }
 
-        public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
+        //public virtual ICollection<ProductAttributeValue> ProductAttributeValues { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
 
         
     }

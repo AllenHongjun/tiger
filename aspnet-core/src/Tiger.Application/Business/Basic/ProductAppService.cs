@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiger.Basic.Products;
 using Tiger.Business.Basic;
+using Tiger.Business.Basic.Dtos;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -26,10 +27,18 @@ namespace Tiger.Basic
         IProductAppService 
     {
         private IProductRepository _productRepository;
-        public ProductAppService(IRepository<Product, Guid> repository, IProductRepository productRepository)
+        private readonly IRepository<ProductAttributeValue, Guid> _productAttributeValueRepository;
+        private readonly ISkuRepository _skuRepository;
+        public ProductAppService(
+            IRepository<Product, Guid> repository,
+            IRepository<ProductAttributeValue, Guid> productAttributeValueRepository,
+            ISkuRepository skuRepository,
+            IProductRepository productRepository)
             : base(repository)
         {
             _productRepository = productRepository;
+            _productAttributeValueRepository = productAttributeValueRepository;
+            _skuRepository = skuRepository;
         }
 
 
@@ -98,6 +107,62 @@ namespace Tiger.Basic
         ]
          
          */
+
+
+        public override async Task<ProductDto> CreateAsync(CreateUpdateProductDto input)
+        {
+            //var productAttributeResultDtos = input.productAttributeResultDtos;
+            //foreach (var item in productAttributeResultDtos)
+            //{
+            //    var productAttributeResultDto = new ProductAttributeValueDto();
+            //    productAttributeResultDto.Value = item.Item.ToString();
+            //    productAttributeResultDto.ProductAttributeId = new Guid();
+            //    input.ProductAttributeValues.Add(productAttributeResultDto);
+            //}
+            var product = await base.CreateAsync(input);
+            foreach (var item in input.productAttributeResultDtos)
+            {
+                var value = String.Join(',', item.Item);
+                var productAttributeValue = new ProductAttributeValue(GuidGenerator.Create(), product.Id,item.Id, value);
+                await _productAttributeValueRepository.InsertAsync(productAttributeValue, true);
+            }
+            return product;
+        }
+
+        public override async Task<ProductDto> UpdateAsync(Guid id, CreateUpdateProductDto input)
+        {
+            var product = await base.UpdateAsync(id, input);
+            var productAttributeValues = _productAttributeValueRepository.Where(x => x.ProductId == id).ToList();
+            foreach (var item in productAttributeValues)
+            {
+                await _productAttributeValueRepository.DeleteAsync(item.Id, true);
+            }
+
+            foreach (var item in input.productAttributeResultDtos)
+            {
+                var value = String.Join(',', item.Item);
+                var productAttributeValue = new ProductAttributeValue(GuidGenerator.Create(), product.Id, item.Id, value);
+                await _productAttributeValueRepository.InsertAsync(productAttributeValue, true);
+            }
+
+            return product;
+        }
+
+        public override async Task<ProductDto> GetAsync(Guid id)
+        {
+            var product = await base.GetAsync(id);
+            var productAttributeValues = _productAttributeValueRepository.Where(x => x.ProductId == id).ToList();
+            foreach (var item in productAttributeValues)
+            {
+                ProductAttributeResultDto productAttributeResultDto = new ProductAttributeResultDto();
+                productAttributeResultDto.Id = item.Id;
+                productAttributeResultDto.Name = item.ProductAttribute.Name;
+                productAttributeResultDto.Item = item.Value.Split(',');
+                product.productAttributeResultDtos.AddFirst(productAttributeResultDto);
+            }
+            
+            return product;
+        }
 
         // TODO: 返回和保存商品管理的sku值
 

@@ -94,5 +94,13 @@ namespace Tiger.Permissions
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
         }
+
+        public class ProductAttributeValue
+        {
+            public const string Default = GroupName + ".ProductAttributeValue";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
     }
 }

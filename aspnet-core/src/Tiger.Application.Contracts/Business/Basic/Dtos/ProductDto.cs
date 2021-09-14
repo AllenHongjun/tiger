@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Basic.Categorys;
+using Tiger.Business.Basic.Dtos;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Basic.Products
@@ -170,5 +171,7 @@ namespace Tiger.Basic.Products
         /// 商品属性类型id
         /// </summary>
         public Guid ProductAttributeTypeId { get; set; }
+
+        public ProductAttributeResultDto[] productAttributeResultDtos { get; set; }
     }
 }
