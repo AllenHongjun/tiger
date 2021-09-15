@@ -74,6 +74,7 @@ namespace Tiger.Basic
             foreach (var productAttribute in productAttributes)
             {
                 ProductAttributeResultDto productAttributeResultDto = new ProductAttributeResultDto();
+                productAttributeResultDto.Id = productAttribute.Id;
                 productAttributeResultDto.Name = productAttribute.Name;
                 productAttributeResultDto.Item = productAttribute.InputList.Split(',').ToArray();
                 productAttributeResults.Add(productAttributeResultDto);

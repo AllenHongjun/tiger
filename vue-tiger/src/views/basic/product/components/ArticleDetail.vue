@@ -103,7 +103,16 @@
               </el-form-item>
 
               <el-form-item label="多规格:" label-width="120px" prop="picture" style="margin-bottom: 30px;">
+                <el-select v-model="productAttributeTypeValue" filterable placeholder="请选择" @change="handleProductAttributeTypeChange">
+                  <el-option
+                    v-for="item in productAttributeTypeOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  />
+                </el-select>
                 <SkuForm
+                  ref="skuForm"
                   :source-attribute="sourceAttribute"
                   :attribute.sync="attribute"
                   :sku.sync="sku"
@@ -202,6 +211,8 @@ import { searchUser } from '@/api/remote-search'
 import Warning from './Warning'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
 import { getProductById, createProduct, updateProduct } from '@/api/basic/product'
+import { getProductAttributeTypeById, getAllProductAttributeTypes } from '@/api/basic/productAttributeType'
+import { getProductAttributeByTypeId } from '@/api/basic/productAttribute'
 import CategoryCascader from '@/views/basic/components/category-cascader'
 import SkuForm from 'vue-sku-form'
 
@@ -239,7 +250,23 @@ const defaultForm = {
   promotionStartTime: '2021-08-29T03:52:34.314Z',
   promotionEndTime: '2021-08-29T03:52:34.314Z',
   promotionPerLimit: 0,
-  categoryName: 'string'
+  categoryName: '',
+  productAttributeResultDtos: [
+    {
+      id: undefined,
+      name: '',
+      item: [
+      ]
+    }
+  ],
+  skuItemDtos: [
+    {
+      sku: '',
+      code: '',
+      price: 0,
+      stock: 0
+    }
+  ]
 
 }
 
@@ -331,29 +358,22 @@ export default {
         }
       ],
       userTagValue: '',
+      productAttributeTypeOptions: [],
+      productAttributeTypeValue: '',
       sourceAttribute: [
-        {
-          name: '颜色',
-          item: ['黑', '金', '白']
-        },
-        {
-          name: '内存',
-          item: ['16G', '32G']
-        },
-        {
-          name: '尺寸',
-          item: ['3.7寸', '4.7寸', '6.3寸']
-        },
-        {
-          name: '像素',
-          item: ['1200万', '2000万', '4000万']
-        }
+
       ],
       structure: [
+        {
+          name: 'originalprice',
+          type: 'input',
+          label: '原价'
+        },
         {
           name: 'price',
           type: 'input',
           label: '价格',
+
           required: true
         },
         {
@@ -396,6 +416,7 @@ export default {
     // Because if you enter this page and quickly switch tag, may be in the execution of the setTagsViewTitle function, this.$route is no longer pointing to the current page
     // https://github.com/PanJiaChen/vue-element-admin/issues/1221
     this.tempRoute = Object.assign({}, this.$route)
+    this.fetchProductAttributeType()
   },
   methods: {
     fetchData(id) {
@@ -411,10 +432,46 @@ export default {
         console.log(err)
       })
     },
+    fetchProductAttributeType() {
+      getAllProductAttributeTypes().then(response => {
+        var obj = response
+        console.log('obj', obj)
+        var tempArr = []
+        if (obj.length > 0) {
+          Object.keys(obj).forEach(function(key) {
+            // console.log('key', key, 'obj', obj)
+            tempArr.push({ value: obj[key].id, label: obj[key].name })
+          })
+        }
+
+        this.productAttributeTypeOptions = tempArr
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    fetchProductAttributeByTypeId(typeId) {
+      getProductAttributeByTypeId(typeId).then(response => {
+        console.log('response', response)
+
+        this.sourceAttribute = response
+
+        console.log('this.sourceAttribute', this.sourceAttribute)
+        // 切记，必须在 attribute、sku 数据都加载后再执行 init() 方法
+        this.$refs.skuForm.init()
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 切换分类
     handleCheckChange(categoryId) {
       // singleChecked
       // console.log('handleCheckChange', categoryId)
       this.postForm.productCategoryId = categoryId
+    },
+    // 切换规格类型
+    handleProductAttributeTypeChange(value) {
+      console.log(value)
+      this.fetchProductAttributeByTypeId(value)
     },
     tabClick(tab, event) {
       console.log(tab, event)
@@ -446,6 +503,19 @@ export default {
           this.loading = true
           // process.env.VUE_IMG_URL
           // console.log('this.postForm', this.postForm)
+          this.postForm.skuItemDtos = this.sku
+
+          // 因为组件不能设置 id属性 暂用这个方法重新给对象赋值id
+          for (var itemX in this.attribute) {
+            for (var itemY in this.sourceAttribute) {
+              if (this.attribute[itemX].name === this.sourceAttribute[itemY].name) {
+                this.attribute[itemX].id = this.sourceAttribute[itemY].id
+                continue
+              }
+            }
+          }
+
+          this.postForm.productAttributeResultDtos = this.attribute
           if (this.isEdit) {
             const tempData = Object.assign({}, this.temp)
 
@@ -508,6 +578,7 @@ export default {
         this.userListOptions = response.data.items.map(v => v.name)
       })
     }
+
   }
 }
 </script>

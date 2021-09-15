@@ -9,6 +9,14 @@ export function getProductAttributeTypes(query) {
   })
 }
 
+// 获取所有规格类型
+export function getAllProductAttributeTypes() {
+  return request({
+    url: '/api/basic/productAttributeType/all',
+    method: 'get'
+  })
+}
+
 export function getProductAttributeTypeById(id) {
   return request({
     url: `/api/basic/productAttributeType/${id}`,

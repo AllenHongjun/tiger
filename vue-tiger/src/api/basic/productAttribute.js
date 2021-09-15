@@ -16,6 +16,14 @@ export function getProductAttributeById(id) {
   })
 }
 
+// 根据规格类型id获取 属性
+export function getProductAttributeByTypeId(id) {
+  return request({
+    url: `/api/basic/productAttribute/getListByType?productAttributeTypeId=${id}`,
+    method: 'get'
+  })
+}
+
 export function createProductAttribute(payload) {
   return request({
     url: '/api/basic/productAttribute',
