@@ -17,9 +17,9 @@ namespace Tiger.Basic.Products
         /// </summary>
         public string ProductSn { get; set; }
 
-        /// <summary>
-        /// 品牌id
-        /// </summary>
+        ///// <summary>
+        ///// 品牌id
+        ///// </summary>
         //public int BrandId { get; set; }
 
         /// <summary>

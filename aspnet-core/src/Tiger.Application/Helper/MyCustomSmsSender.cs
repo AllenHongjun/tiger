@@ -9,9 +9,10 @@ namespace Tiger.Module.Helper
 {
     public class MyCustomSmsSender : ISmsSender, ITransientDependency
     {
-        public async Task SendAsync(SmsMessage smsMessage)
+        public Task SendAsync(SmsMessage smsMessage)
         {
             // Send sms
+            throw new NotImplementedException();
         }
     }
 }

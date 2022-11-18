@@ -22,9 +22,9 @@ namespace Tiger
             _bookRepository = bookRepository;
         }
 
-        public async Task SeedAsync(DataSeedContext context)
+        public Task SeedAsync(DataSeedContext context)
         {
-            
+            return Task.CompletedTask;
         }
     }
 }

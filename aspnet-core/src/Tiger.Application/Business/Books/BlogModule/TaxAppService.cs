@@ -31,7 +31,7 @@ namespace Tiger.Books.BlogModule
         private readonly ITaxCalculator _taxCalculator;
 
         //Microsoft依赖注入库不支持属性注入.但是,ABP可以与第三方DI提供商（例如Autofac）集成,以实现属性注入.例:
-        public ILogger<TaxAppService> Logger { get; set; }
+        public ILogger<TaxAppService> LoggerTest { get; set; }
 
         //构造方法注入  这是将服务注入类的最常用方法.例如
 
@@ -39,7 +39,7 @@ namespace Tiger.Books.BlogModule
         {
             _taxCalculator = taxCalculator;
 
-            Logger = NullLogger<TaxAppService>.Instance;
+            LoggerTest = NullLogger<TaxAppService>.Instance;
 
 
             // 释放/处理（Releasing/Disposing）服务

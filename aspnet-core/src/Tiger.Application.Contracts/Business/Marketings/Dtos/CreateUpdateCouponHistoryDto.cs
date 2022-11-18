@@ -20,7 +20,7 @@ namespace Tiger.Marketings.CouponHistorys
         /// <summary>
         /// 获取类型：0->后台赠送；1->主动获取
         /// </summary>
-        public int GetType { get; set; }
+        public new int GetType { get; set; }
 
         //public DateTime CreateTime { get; set; }
 

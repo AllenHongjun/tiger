@@ -45,9 +45,9 @@ namespace Tiger.Orders.CartItems
         /// </summary>
         public string ProductSn { get; set; }
 
-        /// <summary>
-        /// 商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}]
-        /// </summary>
+        ///// <summary>
+        ///// 商品销售属性:[{"key":"颜色","value":"颜色"},{"key":"容量","value":"4G"}]
+        ///// </summary>
         //public string ProductAttr { get; set; }
     }
 }

@@ -34,12 +34,12 @@ namespace Tiger.BlobDemo
         private readonly IBlobContainer<QiniuBlobContainer> _qiniuBlobContainer;
 
         public ProfileAppService(
-            //IBlobContainer<ProfilePictureContainer> blobContainer, 
+            IBlobContainer<ProfilePictureContainer> blobContainer,
             IBlobContainer<MyBlobContainer> myBlobContainer,
             IBlobContainer<QiniuBlobContainer> qiniuBlobContainer
             )
         {
-            //_blobContainer = blobContainer;
+            _blobContainer = blobContainer;
             _myBlobContainer = myBlobContainer;
             _qiniuBlobContainer = qiniuBlobContainer;
         }

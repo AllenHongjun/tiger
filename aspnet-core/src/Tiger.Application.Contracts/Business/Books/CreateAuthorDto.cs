@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：CreateAuthorDto   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/17 1:24:58       
- * 说    明: 
- * 
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;

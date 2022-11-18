@@ -78,7 +78,7 @@ namespace Tiger.SecurityLogs
             set;
         }
 
-        public DateTime CreationTime
+        public new DateTime CreationTime
         {
             get;
             set;

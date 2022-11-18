@@ -23,7 +23,7 @@ namespace Tiger.Marketing
     /// 
     /// 这个通知改造 需要建立一个通用的表 这个废弃
     /// </summary>
-    [Obsolete("这个通知不够通用")]
+    //[Obsolete("这个通知不够通用")]
     public class FlashPromotionLog:Entity<Guid>
     {
         /// <summary>

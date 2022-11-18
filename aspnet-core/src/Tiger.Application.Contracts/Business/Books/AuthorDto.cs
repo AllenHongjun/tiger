@@ -13,9 +13,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Books
 {
-    /// <summary>
-    /// EntityDto<T> simply has an Id property with the given generic argument. You could create an Id property yourself instead of inheriting the EntityDto<T>.
-    /// </summary>
+    
     public class AuthorDto : EntityDto<Guid>
     {
         public string Name { get; set; }
