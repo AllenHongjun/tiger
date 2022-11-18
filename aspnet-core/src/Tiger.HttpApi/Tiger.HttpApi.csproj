@@ -5,6 +5,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Tiger</RootNamespace>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -25,11 +25,19 @@ namespace Tiger.EntityFrameworkCore
              * to properly get the connection string of the current tenant in the
              * current scope.
              */
-
-            await _serviceProvider
+            try
+            {
+                await _serviceProvider
                 .GetRequiredService<TigerMigrationsDbContext>()
                 .Database
                 .MigrateAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
     }
 }

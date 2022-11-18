@@ -85,13 +85,13 @@ namespace Tiger
 
 
 
-            // 配置模块使用redis缓存
-            context.Services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = "127.0.0.1:6379,ConnectTimeout=15000,SyncTimeout=5000";
-                //options.InstanceName
-                //options.ConfigurationOptions
-            });
+            //// 配置模块使用redis缓存
+            //context.Services.AddStackExchangeRedisCache(options =>
+            //{
+            //    options.Configuration = "127.0.0.1:6379,ConnectTimeout=15000,SyncTimeout=5000";
+            //    //options.InstanceName
+            //    //options.ConfigurationOptions
+            //});
 
 
             

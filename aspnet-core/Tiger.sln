@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29020.237
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tiger.Domain", "src\Tiger.Domain\Tiger.Domain.csproj", "{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}"
 EndProject
@@ -49,7 +49,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{F8FD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C2D49CB9-615F-4EAC-98AE-0CAFF9504B83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "src\ConsoleApp\ConsoleApp.csproj", "{54A6A58C-6A12-49F5-9F83-591D9DE82F30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "src\ConsoleApp\ConsoleApp.csproj", "{54A6A58C-6A12-49F5-9F83-591D9DE82F30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiger.TaskWeb", "Tiger.TaskWeb\Tiger.TaskWeb.csproj", "{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -125,6 +127,10 @@ Global
 		{54A6A58C-6A12-49F5-9F83-591D9DE82F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54A6A58C-6A12-49F5-9F83-591D9DE82F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54A6A58C-6A12-49F5-9F83-591D9DE82F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +158,7 @@ Global
 		{F8FDD73B-305F-4C33-A1E8-3A91B3CD877A} = {6528BEF5-363A-48F8-B357-EEFD9DED7B2B}
 		{C2D49CB9-615F-4EAC-98AE-0CAFF9504B83} = {6528BEF5-363A-48F8-B357-EEFD9DED7B2B}
 		{54A6A58C-6A12-49F5-9F83-591D9DE82F30} = {241EC7C8-93AC-4754-8E3A-0C7E1938516A}
+		{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36} = {241EC7C8-93AC-4754-8E3A-0C7E1938516A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

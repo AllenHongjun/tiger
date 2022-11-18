@@ -190,6 +190,7 @@ export default {
 
             this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
             console.log('login')
+            // debugger
             this.loading = false
           }).catch(() => {
             console.log('login err')

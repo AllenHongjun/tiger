@@ -10,11 +10,11 @@ namespace Tiger.Volo.Abp.Account
     //[RemoteService(Name = AccountRemoteServiceConsts.RemoteServiceName)]
     //[Area("tiger_account")]
     //[Route("api/account")]
-    //public class TigerAccountController :AccountController 
+    //public class TigerAccountController : AccountController
     //{
     //    //protected IAccountAppService AccountAppService { get; }
 
-    //    public TigerAccountController(IAccountAppService accountAppService):base(accountAppService)
+    //    public TigerAccountController(IAccountAppService accountAppService) : base(accountAppService)
     //    {
     //        //AccountAppService = accountAppService;
     //    }

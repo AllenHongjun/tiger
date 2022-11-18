@@ -9,7 +9,15 @@
 
   <ItemGroup>
     <None Remove="appsettings.Development.json" />
-    <None Remove="appsettings.sample.json" />
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +34,6 @@
     <ProjectReference Include="..\Tiger.EntityFrameworkCore.DbMigrations\Tiger.EntityFrameworkCore.DbMigrations.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" appsettings-1_1json__JsonSchema="https://bitbucket.org/atlassianlabs/atlascode/raw/main/resources/schemas/pipelines-schema.json" /></VisualStudio></ProjectExtensions>
 
 </Project>
