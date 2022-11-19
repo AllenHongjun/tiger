@@ -9,10 +9,18 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Volo.Abp.AuditLogging
-{
+{   
+    /// <summary>
+    /// 系统日志
+    /// </summary>
     public interface IAuditLogAppService : IReadOnlyAppService<AuditLogDto, Guid, GetAuditLogDto>, IDeleteAppService<Guid>
     {
 
+        /// <summary>
+        /// 删除多条数据
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         Task DeleteManyAsync(params Guid[] ids);
 
 

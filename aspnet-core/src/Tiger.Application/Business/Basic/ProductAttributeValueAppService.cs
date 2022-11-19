@@ -3,9 +3,11 @@ using Tiger.Permissions;
 using Tiger.Business.Basic.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Business.Basic
 {
+    [RemoteService(false)]
     public class ProductAttributeValueAppService : CrudAppService<ProductAttributeValue, ProductAttributeValueDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateProductAttributeValueDto, CreateUpdateProductAttributeValueDto>,
         IProductAttributeValueAppService
     {

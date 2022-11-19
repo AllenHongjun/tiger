@@ -20,40 +20,40 @@ namespace Tiger.Controllers
         }
 
 
-        /// <summary>
-        /// 批量删除
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("batchDelete")]
-        public virtual Task BatchDeleteAsync(Guid[] ids)
-        {
-            return Task.CompletedTask;
-        }
+        ///// <summary>
+        ///// 批量删除
+        ///// </summary>
+        ///// <param name="ids"></param>
+        ///// <returns></returns>
+        //[HttpDelete]
+        //[Route("batchDelete")]
+        //public virtual Task BatchDeleteAsync(Guid[] ids)
+        //{
+        //    return Task.CompletedTask;
+        //}
 
-        /// <summary>
-        /// 批量审核
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("batchAudit")]
-        public virtual Task BatchAuditAsync(Guid[] ids)
-        {
-            return Task.CompletedTask;
-        }
+        ///// <summary>
+        ///// 批量审核
+        ///// </summary>
+        ///// <param name="ids"></param>
+        ///// <returns></returns>
+        //[HttpDelete]
+        //[Route("batchAudit")]
+        //public virtual Task BatchAuditAsync(Guid[] ids)
+        //{
+        //    return Task.CompletedTask;
+        //}
 
-        /// <summary>
-        /// 批量关闭
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        [Route("batchClose")]
-        public virtual Task BatchCloseAsync(Guid[] ids)
-        {
-            return Task.CompletedTask;
-        }
+        ///// <summary>
+        ///// 批量关闭
+        ///// </summary>
+        ///// <param name="ids"></param>
+        ///// <returns></returns>
+        //[HttpDelete]
+        //[Route("batchClose")]
+        //public virtual Task BatchCloseAsync(Guid[] ids)
+        //{
+        //    return Task.CompletedTask;
+        //}
     }
 }

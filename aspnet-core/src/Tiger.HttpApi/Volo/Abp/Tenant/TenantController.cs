@@ -9,78 +9,39 @@ using Volo.Abp;
 using Volo.Abp.TenantManagement;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using TigerAdmin.Volo.Abp.TenantManagement;
 
 namespace Tiger.Volo.Abp.Tenant
 {
-
-    [RemoteService(Name = "tenant")]
+    /// <summary>
+    /// 租户信息管理
+    /// </summary>
+    [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
     [Area("tenant")]
-    [ControllerName("AbpTenant")]
-    [Route("api/identity/tenants")]
-    [ApiExplorerSettings(GroupName = "admin-erp")]
-    public class TenantController : AbpController, ITenantAppService
+    [ControllerName("Tenant")]
+    [Route("api/multi-tenancy/tenants")]
+    [ApiExplorerSettings(GroupName = "admin")]
+    public class TenantController : AbpController, ITigerTenantAppService
     {   
-        private readonly ITenantAppService _tenantAppService;
+        private readonly ITigerTenantAppService _tenantAppService;
 
-        public TenantController(ITenantAppService tenantAppService)
+        public TenantController(ITigerTenantAppService tenantAppService)
         {
             _tenantAppService=tenantAppService;
         }
 
-        [HttpPost]
-        [Route("create")]
-        public async Task<TenantDto> CreateAsync(TenantCreateDto input)
-        {
-            return await _tenantAppService.CreateAsync(input);
-        }
 
-        [HttpPost]
-        [Route("create1")]
-        public Task DeleteAsync(Guid id)
+        /// <summary>
+        /// 通过id查询租户信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="includeDetails"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("findById/{id}")]
+        public TenantDto FindById(Guid id, bool includeDetails = true)
         {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        [Route("create2")]
-        public Task DeleteDefaultConnectionStringAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        [Route("create3")]
-        public Task<TenantDto> GetAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        [Route("create4")]
-        public Task<string> GetDefaultConnectionStringAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        [Route("create5")]
-        public Task<PagedResultDto<TenantDto>> GetListAsync(GetTenantsInput input)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        [Route("create6")]
-        public Task<TenantDto> UpdateAsync(Guid id, TenantUpdateDto input)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPost]
-        [Route("create7")]
-        public Task UpdateDefaultConnectionStringAsync(Guid id, string defaultConnectionString)
-        {
-            throw new NotImplementedException();
+            return _tenantAppService.FindById(id, includeDetails);
         }
     }
 }

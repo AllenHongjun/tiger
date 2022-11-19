@@ -20,7 +20,7 @@ namespace Tiger.Volo.Abp.TenantManagement
     /// 租户管理
     /// </summary>
     [RemoteService(false)]
-    [Dependency(ReplaceServices = false)]
+    [Dependency(ReplaceServices = true)]
     [ExposeServices(typeof(ITenantAppService),
         typeof(TenantAppService),
         typeof(ITenantAppService),
@@ -45,68 +45,17 @@ namespace Tiger.Volo.Abp.TenantManagement
 
         }
 
-        ///// <summary>
-        ///// 根据id获取租户信息
-        ///// </summary>
-        ///// <param name="id">租户id</param>
-        ///// <param name="includeDetails">includeDetails</param>
-        ///// <returns></returns>
-        //public virtual TenantDto GetById(Guid id, bool includeDetails = true)
-        //{
-        //    var tenant =  _tenantRepository.FindById(id, includeDetails);
-        //    return ObjectMapper.Map<Tenant, TenantDto>(tenant);
-        //}
-
-        ///// <summary>
-        ///// 根据name获取租户信息
-        ///// </summary>
-        ///// <param name="name"></param>
-        ///// <param name="includeDetails"></param>
-        ///// <returns></returns>
-        //public virtual async Task<TenantDto> FindByName(string name, bool includeDetails = true)
-        //{
-        //    var tenant = await _tenantRepository.FindByNameAsync(name, includeDetails);
-        //    return ObjectMapper.Map<Tenant, TenantDto>(tenant);
-        //}
-
-        ///// <summary>
-        ///// 分页获取租户列表
-        ///// </summary>
-        ///// <param name="input"></param>
-        ///// <returns></returns>
-        //public virtual async Task<PagedResultDto<TenantDto>> GetListAsync(GetTenantDto input)
-        //{
-        //    var count = await _tenantRepository.GetCountAsync();
-        //    var list = await _tenantRepository.GetPagedListAsync(input.SkipCount,input.MaxResultCount,input.Sorting);
-        //    return new PagedResultDto<TenantDto>(
-        //        count,
-        //        ObjectMapper.Map<List<Tenant>, List<TenantDto>>(list));
-        //}
-
-        ///// <summary>
-        ///// 创建租户
-        ///// </summary>
-        ///// <param name="name"></param>
-        ///// <returns></returns>
-        //public virtual async Task<TenantDto> CreateTenant(string name)
-        //{
-        //     var tenant =  await _tenantManager.CreateAsync(name);
-        //     await CurrentUnitOfWork.SaveChangesAsync();
-        //     return ObjectMapper.Map<Tenant, TenantDto>(tenant);
-        //}
-
-        ///// <summary>
-        ///// 修改租户名称
-        ///// </summary>
-        ///// <param name="id">租户id</param>
-        ///// <param name="name">租户名称</param>
-        ///// <returns></returns>
-        //public virtual async Task ChangeNameAsync(Guid id,string name)
-        //{
-        //    var tenant = await _tenantRepository.GetAsync(id);
-        //    await _tenantManager.ChangeNameAsync(tenant, name);
-        //    await CurrentUnitOfWork.SaveChangesAsync();
-        //}
+        /// <summary>
+        /// 根据id获取租户信息
+        /// </summary>
+        /// <param name="id">租户id</param>
+        /// <param name="includeDetails">includeDetails</param>
+        /// <returns></returns>
+        public virtual TenantDto FindById(Guid id, bool includeDetails = true)
+        {
+            var tenant = _tenantRepository.FindById(id, includeDetails);
+            return ObjectMapper.Map<Tenant, TenantDto>(tenant);
+        }
 
     }
 }

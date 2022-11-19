@@ -7,6 +7,7 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Identity;
+using Volo.Abp.PermissionManagement;
 
 namespace Tiger.Volo.Abp.Identity
 {
@@ -21,7 +22,8 @@ namespace Tiger.Volo.Abp.Identity
     {
         protected ITigerIdentityUserAppService _userAppService;
         private readonly IIdentityUserAppService _identityUserAppService;
-        
+        protected readonly IPermissionAppService _permissionAppService;
+
 
         public TigerIdentityUserController(ITigerIdentityUserAppService userAppService, IIdentityUserAppService identityUserAppService)
         {

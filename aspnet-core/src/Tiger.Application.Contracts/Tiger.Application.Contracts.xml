@@ -1323,6 +1323,14 @@
             修改用户信息
             </summary>
         </member>
+        <member name="M:TigerAdmin.Volo.Abp.TenantManagement.ITigerTenantAppService.FindById(System.Guid,System.Boolean)">
+            <summary>
+            根据id获取租户信息
+            </summary>
+            <param name="id">租户id</param>
+            <param name="includeDetails">includeDetails</param>
+            <returns></returns>
+        </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
             <summary>
             
@@ -1442,6 +1450,18 @@
             <summary>
             是否包含明细
             </summary>
+        </member>
+        <member name="T:Volo.Abp.AuditLogging.IAuditLogAppService">
+            <summary>
+            系统日志
+            </summary>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.IAuditLogAppService.DeleteManyAsync(System.Guid[])">
+            <summary>
+            删除多条数据
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
         </member>
         <member name="M:Volo.Abp.AuditLogging.IAuditLogAppService.GetAverageExecutionDurationPerDayAsync(System.DateTime,System.DateTime)">
             <summary>

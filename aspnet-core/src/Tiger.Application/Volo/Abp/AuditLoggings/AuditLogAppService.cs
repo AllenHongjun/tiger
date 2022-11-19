@@ -14,7 +14,7 @@ namespace Volo.Abp.AuditLogging
     /// 系统日志功能
     /// </summary>
     [RemoteService(false)]
-    //[Authorize(AuditLogPermissions.AuditLogs.Default)]
+    [Authorize(AuditLogPermissions.AuditLogs.Default)]
     public class AuditLogAppService : TigerAppService, IAuditLogAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }

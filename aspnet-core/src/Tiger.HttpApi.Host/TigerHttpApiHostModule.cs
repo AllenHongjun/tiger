@@ -196,8 +196,8 @@ namespace Tiger
                     options.SwaggerDoc("admin", new OpenApiInfo
                     {
                         Version = "v1",
-                        Title = "Tiger admin接口",
-                        Description = "Tiger admin接口",
+                        Title = "Tiger接口",
+                        Description = "Tiger接口",
 
                         //API 服务条款的 URL。 必须采用 URL 格式。
                         TermsOfService = new Uri("https://example.com/terms"),
@@ -392,13 +392,12 @@ namespace Tiger
                 // 配置自定义的样式
                 //options.InjectStylesheet("/swagger-ui/custom.css");
 
+                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
                 options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
                 options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
-                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
-                options.SwaggerEndpoint("/swagger/api/swagger.json", "API-");
+                options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");
                 
                 //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
-
                 //options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
                 //options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
                 //options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");

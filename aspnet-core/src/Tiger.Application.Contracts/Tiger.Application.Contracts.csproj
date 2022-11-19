@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Volo\Abp\TenantManagement\TenantDto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tiger.Domain.Shared\Tiger.Domain.Shared.csproj" />
   </ItemGroup>
 

@@ -15,10 +15,10 @@ namespace Tiger.Business.Common
 
         Task MarkAsync(TKey id);
 
-        Task BatchDelete(Guid[] guids);
+        //Task BatchDelete(Guid[] guids);
 
-        Task BatchAudit(Guid[] guids);
+        //Task BatchAudit(Guid[] guids);
 
-        Task BatchClose(Guid[] guids);
+        //Task BatchClose(Guid[] guids);
     }
 }

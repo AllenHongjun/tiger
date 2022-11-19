@@ -512,10 +512,32 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService">
+            <summary>
+            系统设置
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetAllAsync(System.String,System.String,System.Boolean)">
+            <summary>
+            获取设置列表
+            </summary>
+            <param name="providerName"></param>
+            <param name="providerKey"></param>
+            <param name="fallback"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.TenantManagement.TigerTenantManagement">
             <summary>
             租户管理
             </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.TenantManagement.TigerTenantManagement.FindById(System.Guid,System.Boolean)">
+            <summary>
+            根据id获取租户信息
+            </summary>
+            <param name="id">租户id</param>
+            <param name="includeDetails">includeDetails</param>
+            <returns></returns>
         </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogAppService">
             <summary>
