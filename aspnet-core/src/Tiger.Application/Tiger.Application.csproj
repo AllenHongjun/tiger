@@ -5,11 +5,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Tiger</RootNamespace>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\Tiger.Application\Tiger.Application.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\hongj\source\repos\tiger_admin-main\aspnet-core\src\Tiger.Application\Tiger.Application.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591;CS0436;CS1587;CS1572;</NoWarn>
   </PropertyGroup>
 

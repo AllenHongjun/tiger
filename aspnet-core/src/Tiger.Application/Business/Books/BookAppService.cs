@@ -340,7 +340,7 @@ namespace Tiger.Books
         /// <summary>
         /// 上传 文件,并返回相对url(不包含 host port wwwroot)
         /// </summary>
-        /// <param name="file"></param>
+        /// <param name="files"></param>
         /// <returns></returns>
         [Route("upload-files")]
         [HttpPost]

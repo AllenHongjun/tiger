@@ -70,5 +70,18 @@ namespace Volo.Abp.AuditLogging
         {
             return AuditLogAppService.GetListAsync(input);
         }
+
+        /// <summary>
+        /// 每日请求平均执行时间
+        /// </summary>
+        /// <param name="startDate">开始日期</param>
+        /// <param name="endDate">结束日期</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("average-execution-duration-per-day")]
+        public Task<Dictionary<DateTime, double>> GetAverageExecutionDurationPerDayAsync(DateTime startDate, DateTime endDate)
+        {
+            return AuditLogAppService.GetAverageExecutionDurationPerDayAsync(startDate, endDate);
+        }
     }
 }

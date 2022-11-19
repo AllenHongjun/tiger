@@ -301,7 +301,7 @@
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)
             </summary>
-            <param name="file"></param>
+            <param name="files"></param>
             <returns></returns>
         </member>
         <member name="T:Tiger.Books.BookAppService.UploadFileRequest">
@@ -394,8 +394,8 @@
             商品添加购物车
             </summary>
             <param name="productId">商品id</param>
-            <param name="SkuId">SkuIdid</param>
-            <param name="MemberId">会员id</param>
+            <param name="skuId">SkuIdid</param>
+            <param name="memberId">会员id</param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Orders.OrderAppService.GetListAsync(Tiger.Orders.Orders.GetOrderListDto)">
@@ -512,6 +512,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.TenantManagement.TigerTenantManagement">
+            <summary>
+            租户管理
+            </summary>
+        </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogAppService">
             <summary>
             系统日志功能
@@ -539,16 +544,24 @@
         </member>
         <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.DeleteAsync(System.Guid)">
             <summary>
-            删除一条
+            删除一条日志
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.DeleteManyAsync(System.Guid[])">
             <summary>
-            删除多条
+            删除多条日志
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetAverageExecutionDurationPerDayAsync(System.DateTime,System.DateTime)">
+            <summary>
+            每日请求平均执行时间
+            </summary>
+            <param name="startDate"></param>
+            <param name="endDate"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetAsync(System.Guid)">

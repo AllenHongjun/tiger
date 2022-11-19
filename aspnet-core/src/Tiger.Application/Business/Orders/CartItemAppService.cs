@@ -45,8 +45,8 @@ namespace Tiger.Orders
         /// 商品添加购物车
         /// </summary>
         /// <param name="productId">商品id</param>
-        /// <param name="SkuId">SkuIdid</param>
-        /// <param name="MemberId">会员id</param>
+        /// <param name="skuId">SkuIdid</param>
+        /// <param name="memberId">会员id</param>
         /// <returns></returns>
         public async Task<CartItemDto>  AddToCartItem(Guid productId, Guid skuId, Guid memberId)
         {

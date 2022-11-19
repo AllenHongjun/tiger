@@ -43,6 +43,10 @@ namespace Tiger.Volo.Abp.Identity
             _identityUserRepository = identityUserRepository;
         }
 
+
+
+
+        #region 测试代码
         /// <summary>
         /// 发送短信
         /// </summary>
@@ -92,6 +96,7 @@ namespace Tiger.Volo.Abp.Identity
          可以从写覆盖原来的方法。也可以扩展原有的功能。
          
          */
+        #endregion
 
         /// <summary>
         /// 将用户关联组织机构

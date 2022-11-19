@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：UpdateUserInput   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/16 15:14:24       
- * 说    明: 
- * 
- */
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 

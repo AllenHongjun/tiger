@@ -55,9 +55,9 @@ namespace Tiger.Basic.Products
 
         public int Sort { get; set; }
 
-        /// <summary>
-        /// 销量
-        /// </summary>
+        ///// <summary>
+        ///// 销量
+        ///// </summary>
         //public int Sale { get; set; }
 
         /// <summary>

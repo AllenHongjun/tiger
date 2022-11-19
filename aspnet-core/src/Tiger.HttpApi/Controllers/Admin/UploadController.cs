@@ -1,13 +1,4 @@
-﻿/**
- * 类    名：UploadController   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/15 15:13:12       
- * 说    明: 
- * 
- */
-
-
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

@@ -27,6 +27,7 @@ namespace Tiger.Controllers.WebApp
         /// 商品添加购物车
         /// </summary>
         /// <param name="productId"></param>
+        /// <param name="memberId"></param>
         /// <returns></returns>
         [Route("{productId}")]
         [HttpPost]

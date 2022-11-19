@@ -75,7 +75,6 @@ namespace Tiger.Controllers.Admin.Basics
         /// <summary>
         /// 获取所有列表
         /// </summary>
-        /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("all")]

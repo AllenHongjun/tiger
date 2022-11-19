@@ -102,10 +102,10 @@ namespace Tiger
                 options.RetryIntervalMillisecond = 5000;
 
                 //选项自定义异常处理策略:
-                options.RetryStrategy = async (retryIndex, executionContext, exception) =>
-                {
-                    // customize exception handling
-                };
+                //options.RetryStrategy = async (retryIndex, executionContext, exception) =>
+                //{
+                //    // customize exception handling
+                //};
             });
 
 
@@ -123,7 +123,7 @@ namespace Tiger
 
 
             //定时任务。
-            var configuration = context.Services.GetConfiguration();
+            //var configuration = context.Services.GetConfiguration();
 
             // 第一种配置方式
             //PreConfigure<AbpQuartzOptions>(options =>

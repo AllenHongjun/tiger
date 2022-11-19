@@ -5,11 +5,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Tiger</RootNamespace>
-    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\data\learning\project\tiger-admin\aspnet-core\src\Tiger.HttpApi\Tiger.HttpApi.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\hongj\source\repos\tiger_admin-main\aspnet-core\src\Tiger.HttpApi\Tiger.HttpApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

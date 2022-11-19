@@ -83,18 +83,23 @@ namespace Volo.Abp.AuditLogging
         }
 
         /// <summary>
-        /// 删除一条
+        /// 删除一条日志
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(AuditLogPermissions.AuditLogs.Delete)]
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            // 获取一条数据
+            var auditLog = await AuditLogRepository.GetAsync(id);
+            // 清空关联外键表数据
+            auditLog.EntityChanges.Clear();
+            auditLog.Actions.Clear();
+            await AuditLogRepository.DeleteAsync(id);
         }
 
         /// <summary>
-        /// 删除多条
+        /// 删除多条日志
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -109,5 +114,19 @@ namespace Volo.Abp.AuditLogging
                 await AuditLogRepository.DeleteAsync(id);
             }
         }
+
+
+        /// <summary>
+        /// 每日请求平均执行时间
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
+        public virtual async Task<Dictionary<DateTime, double>> GetAverageExecutionDurationPerDayAsync(DateTime startDate, DateTime endDate)
+        {
+            return await AuditLogRepository.GetAverageExecutionDurationPerDayAsync(startDate, endDate);
+        }
+
     }
 }

@@ -18,6 +18,7 @@ namespace Volo.Abp.AuditLogging
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";
+            public const string Get = Default + "Get";
             public const string Import = Default + ".Import";
             public const string Export = Default + ".Export";
             public const string Audit = Default + ".Audit";

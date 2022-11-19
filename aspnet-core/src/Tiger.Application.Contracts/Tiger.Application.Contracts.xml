@@ -1443,6 +1443,14 @@
             是否包含明细
             </summary>
         </member>
+        <member name="M:Volo.Abp.AuditLogging.IAuditLogAppService.GetAverageExecutionDurationPerDayAsync(System.DateTime,System.DateTime)">
+            <summary>
+            每日请求平均执行时间
+            </summary>
+            <param name="startDate"></param>
+            <param name="endDate"></param>
+            <returns></returns>
+        </member>
         <member name="P:Volo.Abp.Identity.GetAllOrgnizationUnitInput.Filter">
             <summary>
             过滤条件

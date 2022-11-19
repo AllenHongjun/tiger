@@ -267,10 +267,10 @@ namespace Tiger
                     var xmlPathContracts = Path.Combine(basePath, "Tiger.Application.Contracts.xml");
 
 
-                    //options.IncludeXmlComments(xmlPathHost);
-                    //options.IncludeXmlComments(xmlPathHttpApi);
-                    //options.IncludeXmlComments(xmlPathApplication);
-                    //options.IncludeXmlComments(xmlPathContracts);
+                    options.IncludeXmlComments(xmlPathHost);
+                    options.IncludeXmlComments(xmlPathHttpApi);
+                    options.IncludeXmlComments(xmlPathApplication);
+                    options.IncludeXmlComments(xmlPathContracts);
                     options.EnableAnnotations();//注释
 
 

@@ -108,7 +108,7 @@ namespace Tiger.Controllers.Admin.PurchaseHeaders
         /// <summary>
         /// 批量删除
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ids"></param>
         /// <returns></returns>
         [HttpDelete]
         [Route("batchDelete")]
@@ -120,7 +120,7 @@ namespace Tiger.Controllers.Admin.PurchaseHeaders
         /// <summary>
         /// 批量审核
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ids"></param>
         /// <returns></returns>
         [HttpDelete]
         [Route("batchAudit")]
@@ -132,7 +132,7 @@ namespace Tiger.Controllers.Admin.PurchaseHeaders
         /// <summary>
         /// 批量关闭
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ids"></param>
         /// <returns></returns>
         [HttpDelete]
         [Route("batchClose")]

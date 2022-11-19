@@ -192,7 +192,6 @@
             <summary>
             获取所有列表
             </summary>
-            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Controllers.Admin.Basics.ProductAttributeTypeController.UpdateAsync(System.Guid,Tiger.Basic.ProductAttributeTypes.CreateUpdateProductAttributeTypeDto)">
@@ -876,21 +875,21 @@
             <summary>
             批量删除
             </summary>
-            <param name="id"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Controllers.Admin.PurchaseHeaders.PurchaseHeaderController.BatchAuditAsync(System.Guid[])">
             <summary>
             批量审核
             </summary>
-            <param name="id"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Controllers.Admin.PurchaseHeaders.PurchaseHeaderController.BatchCloseAsync(System.Guid[])">
             <summary>
             批量关闭
             </summary>
-            <param name="id"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="T:Tiger.Controllers.Admin.PurchaseReturnHeaders.PurchaseReturnHeaderController">
@@ -1307,21 +1306,21 @@
             <summary>
             批量删除
             </summary>
-            <param name="id"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Controllers.TigerController.BatchAuditAsync(System.Guid[])">
             <summary>
             批量审核
             </summary>
-            <param name="id"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Controllers.TigerController.BatchCloseAsync(System.Guid[])">
             <summary>
             批量关闭
             </summary>
-            <param name="id"></param>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Controllers.WebApp.CartItemController.AddToCartItem(System.Guid,System.Guid)">
@@ -1329,6 +1328,7 @@
             商品添加购物车
             </summary>
             <param name="productId"></param>
+            <param name="memberId"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Controllers.WebApp.CartItemController.CreateAsync(Tiger.Orders.CartItems.CreateUpdateCartItemDto)">
@@ -1441,6 +1441,14 @@
             获取系统日志列表
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogController.GetAverageExecutionDurationPerDayAsync(System.DateTime,System.DateTime)">
+            <summary>
+            每日请求平均执行时间
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
             <returns></returns>
         </member>
         <member name="T:Volo.Abp.Identity.OrganizationUnitController">
