@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 
 namespace Volo.Abp.AuditLogging
 {
-    public class AuditLogDto : ExtensibleEntityDto<Guid>
+    public class AuditLogDto : ExtensibleFullAuditedEntityDto<Guid>
     {
         /// <summary>
         /// 状态码

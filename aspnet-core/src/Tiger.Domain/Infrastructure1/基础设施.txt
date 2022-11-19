@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Tiger.Infrastructure
+{
+    class 基础设施
+    {
+
+    // 缓存 消息队列 时间总线 这些应该放这里
+
+    }
+}

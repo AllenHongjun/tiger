@@ -50,8 +50,14 @@
         </member>
         <member name="M:Tiger.TigerHttpApiHostModule.ConfigureAuditing(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>
-            配置系统日志
+            配置审计日志
             </summary>
+        </member>
+        <member name="M:Tiger.TigerHttpApiHostModule.ConfigureDataFiltering(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            配置数据过滤
+            </summary>
+            <param name="context"></param>
         </member>
         <member name="M:Tiger.TigerHttpApiHostModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
             <summary>

@@ -18,6 +18,10 @@ using Tiger.Stock;
 using Tiger.Business.Stocks;
 using Tiger.Business.Marketings;
 using Tiger.Business.Purchases;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq.Expressions;
+using System;
+using Tiger.CoreModule.DataFiltiering;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -71,7 +75,6 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<ProductTagRelation> ProductTagRelations { get; set; }
         #endregion
 
-
         #region Order
 
         public DbSet<CartItem> CartItems { get; set; }
@@ -119,8 +122,6 @@ namespace Tiger.EntityFrameworkCore
 
         #endregion
 
-
-
         #region Coupon
 
         public DbSet<Coupon> Coupons { get; set; }
@@ -160,7 +161,7 @@ namespace Tiger.EntityFrameworkCore
 
         #endregion
 
-
+        #region Purchase
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside TigerDbContextModelCreatingExtensions.ConfigureTiger
          */
@@ -170,7 +171,8 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<PurchaseReturnDetail> PurchaseReturnDetails { get; set; }
         public DbSet<PurchaseReturnHeader> PurchaseReturnHeaders { get; set; }
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
-        public DbSet<OrderReturnHeader> OrderReturnHeaders { get; set; }
+        public DbSet<OrderReturnHeader> OrderReturnHeaders { get; set; } 
+        #endregion
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)
@@ -209,5 +211,48 @@ namespace Tiger.EntityFrameworkCore
 
             builder.ConfigureTiger();
         }
+
+
+        #region 自定义数据过滤
+        /// <summary>
+        /// 检查是否启用了 IsActive . 内部使用了之前介绍到的 IDataFilter 服务.
+        /// </summary>
+        protected bool IsActiveFilterEnabled => DataFilter?.IsEnabled<IsActive>() ?? false;
+
+
+        /// <summary>
+        /// EF全局过滤系统 https://learn.microsoft.com/en-us/ef/core/querying/filters
+        /// 实现自定义过滤的最佳方法是为重写你的 DbContext 的 ShouldFilterEntity 和 CreateFilterExpression 方法
+        /// 重写 ShouldFilterEntity 和 CreateFilterExpression 方法检查给定实体是否实现 IsActive 接口
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="entityType"></param>
+        /// <returns></returns>
+        protected override bool ShouldFilterEntity<TEntity>(IMutableEntityType entityType)
+        {
+            if (typeof(IsActive).IsAssignableFrom(typeof(TEntity)))
+            {
+                return true;
+            }
+
+            return base.ShouldFilterEntity<TEntity>(entityType);
+        }
+
+        protected override Expression<Func<TEntity, bool>> CreateFilterExpression<TEntity>()
+        {
+            var expression = base.CreateFilterExpression<TEntity>();
+
+            if (typeof(IsActive).IsAssignableFrom(typeof(TEntity)))
+            {
+                Expression<Func<TEntity, bool>> isActiveFilter =
+                    e => !IsActiveFilterEnabled || EF.Property<bool>(e, "IsActive");
+                expression = expression == null
+                    ? isActiveFilter
+                    : CombineExpressions(expression, isActiveFilter);
+            }
+            return expression;
+        } 
+        #endregion
+
     }
 }

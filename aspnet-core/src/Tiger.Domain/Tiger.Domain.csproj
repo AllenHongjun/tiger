@@ -76,8 +76,8 @@
     <Folder Include="CoreModule\ElasticSearch\" />
     <Folder Include="CoreModule\ApiGateWay\" />
     <Folder Include="CoreModule\Event\" />
-    <Folder Include="Infrastructure\" />
     <Folder Include="CoreModule\Utilities\DownLoadUpLoadFilesHelper\" />
+    <Folder Include="CoreModule\ObjectMapping\" />
   </ItemGroup>
 
 </Project>

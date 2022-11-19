@@ -43,17 +43,19 @@ namespace Tiger
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            #region 配置使用 AutoMapper
             Configure<AbpAutoMapperOptions>(options =>
-            {
-                //Add all mappings defined in the assembly of the TigerApplicationModule class
-                options.AddMaps<TigerApplicationModule>();
+                {
+                    //添加在TigerApplicationModule类中定义的所有配置规则
+                    options.AddMaps<TigerApplicationModule>();
 
-                //AddMaps 使用可选的 bool 参数控制模块的配置验证:
-                //options.AddMaps<TigerApplicationModule>(validate: true);
+                    //AddMaps 使用可选的 bool 参数控制模块的配置验证:
+                    //options.AddMaps<TigerApplicationModule>(validate: true);
 
-            });
+                }); 
+            #endregion
 
-
+            #region 配置使用BLOB
             // 配置使用BLOB
             Configure<AbpBlobStoringOptions>(options =>
             {
@@ -82,33 +84,32 @@ namespace Tiger
                 //    });
                 //});
             });
+            #endregion
 
-
-
+            #region 配置使用redis
             //// 配置模块使用redis缓存
             //context.Services.AddStackExchangeRedisCache(options =>
             //{
             //    options.Configuration = "127.0.0.1:6379,ConnectTimeout=15000,SyncTimeout=5000";
             //    //options.InstanceName
             //    //options.ConfigurationOptions
-            //});
+            //}); 
+            #endregion
 
-
-            
+            #region 配置使用Quartz定时任务
             Configure<AbpBackgroundJobQuartzOptions>(options =>
-            {
-                // 定时任务重试次数配置
-                options.RetryCount = 5;
-                options.RetryIntervalMillisecond = 5000;
+                {
+                    // 定时任务重试次数配置
+                    options.RetryCount = 5;
+                    options.RetryIntervalMillisecond = 5000;
 
-                //选项自定义异常处理策略:
-                //options.RetryStrategy = async (retryIndex, executionContext, exception) =>
-                //{
-                //    // customize exception handling
-                //};
-            });
-
-
+                    //选项自定义异常处理策略:
+                    //options.RetryStrategy = async (retryIndex, executionContext, exception) =>
+                    //{
+                    //    // customize exception handling
+                    //};
+                }); 
+            #endregion
 
         }
 

@@ -9,12 +9,19 @@ using Volo.Abp.AuditLogging;
 using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Account
-{
+{   
+    /// <summary>
+    /// 用户账号管理
+    /// </summary>
     [RemoteService(false)]
     public class TigerAccountAppService : AccountAppService, ITigerAccountAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }
         protected IAccountAppService AccountAppService { get; }
+
+        //protected IAbpApiDefinition
+
+        //protected IApplicationConfiguration
 
         public TigerAccountAppService(
             IdentityUserManager userManager, 

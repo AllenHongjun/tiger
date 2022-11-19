@@ -7,7 +7,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Volo.Abp.SettingManagementAppService
 {
-    public class SettingManagementDto : ExtensibleFullAuditedEntityDto<Guid>, IMultiTenant, IHasConcurrencyStamp
+    public class SettingManagementDto : ExtensibleFullAuditedEntityDto<Guid>, IMultiTenant
     {
         public SettingManagementDto()
         {
@@ -25,6 +25,8 @@ namespace Tiger.Volo.Abp.SettingManagementAppService
 
         public Guid? TenantId => throw new NotImplementedException();
 
-        public string ConcurrencyStamp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        // , IHasConcurrencyStamp
+
+        //public string ConcurrencyStamp { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

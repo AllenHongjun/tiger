@@ -28,6 +28,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
+using Volo.Abp.Data;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.UI.Navigation.Urls;
@@ -342,16 +343,36 @@ namespace Tiger
         }
 
         /// <summary>
-        /// 配置系统日志
+        /// 配置审计日志
         /// </summary>
         private void ConfigureAuditing(ServiceConfigurationContext context)
         {
             Configure<AbpAuditingOptions>(options =>
             {
-                options.IsEnabled = false; //Disables the auditing system
-                options.HideErrors = false;
-                options.IsEnabledForAnonymousUsers = true;
+                options.IsEnabled = true; //Disables the auditing system  (默认值: true): 启用或禁用审计系统的总开关. 如果值为 false,则不使用其他选项.
+                options.HideErrors = false; // (默认值: true) 在保存审计日志对象时如果发生任何错误,审计日志系统会将错误隐藏并写入常规日志. 如果保存审计日志对系统非常重要那么将其设置为 false 以便在隐藏错误时抛出异常.
+                options.IsEnabledForAnonymousUsers = true; // 如果只想为经过身份验证的用户记录审计日志,请设置为 false.如果为匿名用户保存审计日志,你将看到这些用户的 UserId 值为 null.
+#if DEBUG
+                options.IsEnabledForGetRequests = true; // HTTP GET请求通常不应该在数据库进行任何更改,审计日志系统不会为GET请求保存审计日志对象. 将此值设置为 true 可为GET请求启用审计日志系统.
+
+                //保存所有实体的所有变化 将占用大量的数据库空间看情况开启
+                options.EntityHistorySelectors.AddAllEntities();
+#endif
             });
+        }
+
+        /// <summary>
+        /// 配置数据过滤
+        /// </summary>
+        /// <param name="context"></param>
+        private void ConfigureDataFiltering(ServiceConfigurationContext context)
+        {
+            ////配置默认情况下禁用了 ISoftDelete 过滤,除非显示启用,在查询数据库时会包含标记为已删除的实体:
+            //Configure<AbpDataFilterOptions>(options =>
+            //{
+            //    options.DefaultStates[typeof(ISoftDelete)] = new DataFilterState(isEnabled: false);
+            //});
+
         }
 
         /// <summary>
@@ -390,7 +411,7 @@ namespace Tiger
             app.UseIdentityServer();
             app.UseAuthorization();
 
-            #region swaggerui 配置
+#region swaggerui 配置
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger(options =>
             {
@@ -426,7 +447,7 @@ namespace Tiger
 
                 options.OAuthClientId("testOauthClientId");
             }); 
-            #endregion
+#endregion
 
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();

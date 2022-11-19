@@ -42,6 +42,7 @@ namespace Tiger.Business.Demo
 
         public async Task SeedAsync(DataSeedContext context)
         {
+
             return;
 
             // 这个 Seed的代码坑了自己。。注意调试。。有些方法实现 转不过去。。 把源代码引入就好了。

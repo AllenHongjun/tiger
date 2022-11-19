@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger;
+using TigerAdmin.Books.Demo;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Auditing;
 using Volo.Abp.AuditLogging;
-
+using Volo.Abp.Data;
+using Volo.Abp.Users;
 
 namespace Volo.Abp.AuditLogging
 {       
@@ -14,13 +17,22 @@ namespace Volo.Abp.AuditLogging
     /// 系统日志功能
     /// </summary>
     [RemoteService(false)]
+    //[DisableAuditing]  // 禁用请求日志
     [Authorize(AuditLogPermissions.AuditLogs.Default)]
     public class AuditLogAppService : TigerAppService, IAuditLogAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }
-        public AuditLogAppService(IAuditLogRepository auditLogRepository)
+
+        //用于获取有关当前活动的用户信息  Appservice 有这个属性（其他自定义的类可以注入来使用）
+        private readonly ICurrentUser _currentUser;
+
+        //IDataFilter 服务: 启用/禁用 数据过滤
+        private readonly IDataFilter _dataFilter;
+        public AuditLogAppService(IAuditLogRepository auditLogRepository, IDataFilter dataFilter, ICurrentUser currentUser)
         {
             AuditLogRepository = auditLogRepository;
+            _dataFilter=dataFilter;
+            _currentUser=currentUser;
         }
 
         /// <summary>
@@ -46,7 +58,12 @@ namespace Volo.Abp.AuditLogging
         /// <returns>测试字符串</returns> 
         public virtual async Task<PagedResultDto<AuditLogDto>> GetListAsync(GetAuditLogDto input)
         {
-            var count = await AuditLogRepository.GetCountAsync(
+            var userId =  CurrentUser.Id; 
+
+            //临时禁用软删除的数据过滤
+            using (_dataFilter.Disable<ISoftDelete>())
+            {
+                var count = await AuditLogRepository.GetCountAsync(
                 startTime: input.StartTime,
                 endTime: input.EndTime,
                 httpMethod: input.HttpMethod,
@@ -59,27 +76,36 @@ namespace Volo.Abp.AuditLogging
                 hasException: input.HasException,
                 httpStatusCode: input.HttpStatusCode
             );
-            var list = await AuditLogRepository.GetListAsync(
-                sorting: input.Sorting,
-                maxResultCount: input.MaxResultCount,
-                skipCount: input.SkipCount,
-                startTime: input.StartTime,
-                endTime: input.EndTime,
-                httpMethod: input.HttpMethod,
-                url: input.Url,
-                userName: input.UserName,
-                applicationName: input.ApplicationName,
-                correlationId: input.CorrelationId,
-                maxExecutionDuration: input.MaxExecutionDuration,
-                minExecutionDuration: input.MinExecutionDuration,
-                hasException: input.HasException,
-                httpStatusCode: input.HttpStatusCode,
-                includeDetails: input.IncludeDetails
-            );
-            return new PagedResultDto<AuditLogDto>(
-                count,
-                ObjectMapper.Map<List<AuditLog>, List<AuditLogDto>>(list)
-            );
+                var list = await AuditLogRepository.GetListAsync(
+                    sorting: input.Sorting,
+                    maxResultCount: input.MaxResultCount,
+                    skipCount: input.SkipCount,
+                    startTime: input.StartTime,
+                    endTime: input.EndTime,
+                    httpMethod: input.HttpMethod,
+                    url: input.Url,
+                    userName: input.UserName,
+                    applicationName: input.ApplicationName,
+                    correlationId: input.CorrelationId,
+                    maxExecutionDuration: input.MaxExecutionDuration,
+                    minExecutionDuration: input.MinExecutionDuration,
+                    hasException: input.HasException,
+                    httpStatusCode: input.HttpStatusCode,
+                    includeDetails: input.IncludeDetails
+                );
+
+                // 必须先定义映射,然后才能映射对象
+                // 将对象映射到自己自定的对象
+                List<AuditLogDto> auditLogs = new List<AuditLogDto>();
+                ObjectMapper.Map<List<AuditLog>, List<AuditLogDto>>(list, auditLogs);
+
+                return new PagedResultDto<AuditLogDto>(
+                    count,
+                    // 自动用List<AuditLog> 创建一个List<AuditLogDto>类型的对象
+                    ObjectMapper.Map<List<AuditLog>, List<AuditLogDto>>(list)
+                );
+            }
+                
         }
 
         /// <summary>
@@ -88,6 +114,7 @@ namespace Volo.Abp.AuditLogging
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(AuditLogPermissions.AuditLogs.Delete)]
+        //[DisableAuditing] // 在控制器级别禁用日志
         public async Task DeleteAsync(Guid id)
         {
             // 获取一条数据

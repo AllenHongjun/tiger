@@ -19,6 +19,8 @@ namespace Volo.Abp.AuditLogging
     public class AuditLogController : TigerController, IAuditLogAppService
     {
         protected IAuditLogAppService AuditLogAppService { get; }
+
+        
         public AuditLogController(IAuditLogAppService auditLogAppService)
         {
             AuditLogAppService = auditLogAppService;
