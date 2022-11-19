@@ -1368,6 +1368,20 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.Setting.SettingController">
+            <summary>
+            系统设置
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Setting.SettingController.FindAsync(System.String,System.String,System.String)">
+            <summary>
+            查询单个设置值
+            </summary>
+            <param name="name"></param>
+            <param name="providerName"></param>
+            <param name="providerKey"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.Tenant.TenantController">
             <summary>
             租户信息管理

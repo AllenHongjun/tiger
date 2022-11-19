@@ -1318,6 +1318,15 @@
             商品sku编号
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagementAppService.ISettingManagementAppService.FindAsync(System.String,System.String,System.String)">
+            <summary>
+            查找单个设置
+            </summary>
+            <param name="name"></param>
+            <param name="providerName"></param>
+            <param name="providerKey"></param>
+            <returns></returns>
+        </member>
         <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
             <summary>
             修改用户信息

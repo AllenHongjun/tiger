@@ -50,6 +50,10 @@ namespace Tiger
     {
         private const string DefaultCorsPolicyName = "Default";
 
+        /// <summary>
+        /// 配置服务
+        /// </summary>
+        /// <param name="context"></param>
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
@@ -80,6 +84,10 @@ namespace Tiger
             });
         }
 
+        /// <summary>
+        /// 配置虚拟文件系统
+        /// </summary>
+        /// <param name="context"></param>
         private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
         {
             var hostingEnvironment = context.Services.GetHostingEnvironment();
@@ -346,6 +354,10 @@ namespace Tiger
             });
         }
 
+        /// <summary>
+        /// 应用初始化
+        /// </summary>
+        /// <param name="context"></param>
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();

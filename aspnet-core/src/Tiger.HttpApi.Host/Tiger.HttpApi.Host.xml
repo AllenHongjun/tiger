@@ -11,6 +11,18 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.TigerHttpApiHostModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            配置服务
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Tiger.TigerHttpApiHostModule.ConfigureVirtualFileSystem(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            配置虚拟文件系统
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="M:Tiger.TigerHttpApiHostModule.ConfigureAuthentication(Volo.Abp.Modularity.ServiceConfigurationContext,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             配置identityServer授权认证服务
@@ -40,6 +52,12 @@
             <summary>
             配置系统日志
             </summary>
+        </member>
+        <member name="M:Tiger.TigerHttpApiHostModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
+            <summary>
+            应用初始化
+            </summary>
+            <param name="context"></param>
         </member>
     </members>
 </doc>

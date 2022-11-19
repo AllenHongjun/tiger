@@ -10,10 +10,13 @@
 
   <ItemGroup>
     <Compile Remove="Business\Customers\**" />
+    <Compile Remove="CoreModule\Emailing\**" />
     <Compile Remove="Module\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
+    <EmbeddedResource Remove="CoreModule\Emailing\**" />
     <EmbeddedResource Remove="Module\**" />
     <None Remove="Business\Customers\**" />
+    <None Remove="CoreModule\Emailing\**" />
     <None Remove="Module\**" />
   </ItemGroup>
 
@@ -65,7 +68,6 @@
     <Folder Include="Business\Finances\" />
     <Folder Include="CoreModule\Security\" />
     <Folder Include="Business\Stat\" />
-    <Folder Include="CoreModule\Emailing\" />
     <Folder Include="CoreModule\Theming\" />
     <Folder Include="CoreModule\Serialization\" />
     <Folder Include="CoreModule\Validation\" />

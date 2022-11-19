@@ -517,13 +517,53 @@
             系统设置
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetAllAsync(System.String,System.String,System.Boolean)">
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.FindAsync(System.String,System.String,System.String)">
+            <summary>
+            查找单个设置
+            </summary>
+            <param name="name"></param>
+            <param name="providerName"></param>
+            <param name="providerKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetListAsync(System.String,System.String)">
             <summary>
             获取设置列表
             </summary>
             <param name="providerName"></param>
             <param name="providerKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetAllAsync(System.String,System.String,System.Boolean)">
+            <summary>
+            获取所有设置
+            </summary>
+            <param name="providerName"></param>
+            <param name="providerKey"></param>
             <param name="fallback"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.SetAsync(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            更新设置
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="providerName"></param>
+            <param name="providerKey"></param>
+            <param name="forceToSet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.TestGetSettingValueAsync">
+            <summary>
+            从缓存中读取配置信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.TestSetManager">
+            <summary>
+            测试将设置保存到数据库中
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Tiger.Volo.Abp.TenantManagement.TigerTenantManagement">
