@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.BackgroundJob;
 using Tiger.Volo.Abp.SettingManagementAppService;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
+using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectMapping;
 using Volo.Abp.SettingManagement;
@@ -26,15 +28,18 @@ namespace Tiger.Volo.Abp.SettingManagement
 
         private readonly ISettingProvider _settingProvider;
 
-        public SettingManagementAppService(ISettingManager settingManager, ISettingRepository settingRepository, ISettingProvider settingProvider)
+        private readonly IBackgroundJobManager _backgroundJobManager;
+
+        public SettingManagementAppService(ISettingManager settingManager, ISettingRepository settingRepository, ISettingProvider settingProvider, IBackgroundJobManager backgroundJobManager)
         {
             _settingManager = settingManager;
             _settingRepository = settingRepository;
             _settingProvider=settingProvider;
+            _backgroundJobManager=backgroundJobManager;
         }
 
 
-        
+
 
         /// <summary>
         /// 查找单个设置
@@ -191,5 +196,21 @@ namespace Tiger.Volo.Abp.SettingManagement
         }
         #endregion
 
+
+        #region 添加一个后台作业到队列中
+        public async Task RegisterAsync(string userName, string emailAddress, string password)
+        {
+            //TODO: 创建一个新用户到数据库中...
+
+            await _backgroundJobManager.EnqueueAsync(
+                new EmailSendingArgs
+                {
+                    EmailAddress = emailAddress,
+                    Subject = "You've successfully registered!",
+                    Body = "..."
+                }
+            );
+        } 
+        #endregion
     }
 }

@@ -1,3 +1,4 @@
+using Hangfire;
 using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
@@ -28,6 +29,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
+using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Data;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -45,7 +47,8 @@ namespace Tiger
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpAccountWebIdentityServerModule),
-        typeof(AbpAspNetCoreSerilogModule)
+        typeof(AbpAspNetCoreSerilogModule),
+        typeof(AbpBackgroundJobsHangfireModule) //Hangfire 定时作业模块依赖
         )]
     public class TigerHttpApiHostModule : AbpModule
     {
@@ -74,6 +77,7 @@ namespace Tiger
             ConfigureAuditing(context);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
+            ConfigureHangfire(context, configuration);
         }
 
         private void ConfigureUrls(IConfiguration configuration)
@@ -375,6 +379,16 @@ namespace Tiger
 
         }
 
+
+        private void ConfigureHangfire(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            // 配置Hangfire存储和连接字符串
+            context.Services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(configuration.GetConnectionString("Hangfire"));
+            });
+        }
+
         /// <summary>
         /// 应用初始化
         /// </summary>
@@ -411,47 +425,51 @@ namespace Tiger
             app.UseIdentityServer();
             app.UseAuthorization();
 
-#region swaggerui 配置
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger(options =>
-            {
-                // 改为openAPI 2.0版本 默认是3.0版本
-                //options.SerializeAsV2 = true;
-            });
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(options =>
-            {
-                // 配置自定义的样式
-                //options.InjectStylesheet("/swagger-ui/custom.css");
+            #region swaggerui 配置
+                        // Enable middleware to serve generated Swagger as a JSON endpoint.
+                        app.UseSwagger(options =>
+                        {
+                            // 改为openAPI 2.0版本 默认是3.0版本
+                            //options.SerializeAsV2 = true;
+                        });
+                        // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+                        // specifying the Swagger JSON endpoint.
+                        app.UseSwaggerUI(options =>
+                        {
+                            // 配置自定义的样式
+                            //options.InjectStylesheet("/swagger-ui/custom.css");
 
-                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
-                options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
-                options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
-                options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");
+                            options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
+                            options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
+                            options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
+                            options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");
                 
-                //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
-                //options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
-                //options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
-                //options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");
+                            //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
+                            //options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
+                            //options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
+                            //options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");
 
-                // 设置接口文档默认不展开
-                options.DocExpansion(DocExpansion.None);
-                options.DefaultModelExpandDepth(1);
+                            // 设置接口文档默认不展开
+                            options.DocExpansion(DocExpansion.None);
+                            options.DefaultModelExpandDepth(1);
 
-                // API前缀设置为空
-                options.RoutePrefix = string.Empty;
-                // API页面Title
-                options.DocumentTitle = "Tiger接口文档 - 花生了什么树";
+                            // API前缀设置为空
+                            options.RoutePrefix = string.Empty;
+                            // API页面Title
+                            options.DocumentTitle = "Tiger接口文档 - 花生了什么树";
 
 
-                options.OAuthClientId("testOauthClientId");
-            }); 
-#endregion
+                            options.OAuthClientId("testOauthClientId");
+                        }); 
+            #endregion
 
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+
+            // 使用Hangfire的面板
+            // Hangfire默认管理地址： https://localhost:44306/hangfire/
+            app.UseHangfireDashboard();
         }
     }
 }

@@ -45,6 +45,12 @@ namespace Tiger.Volo.Abp.Setting
             return await _settingManagementAppService.FindAsync(name, providerName, providerKey);
         }
 
+        [HttpGet]
+        [Route("test-register-task")]
+        public Task RegisterAsync(string userName="admin", string emailAddress="admin@gmai.com", string password="1q2w3E*")
+        {
+            return _settingManagementAppService.RegisterAsync(userName, emailAddress, password);
+        }
 
         [HttpGet]
         [Route("test-get-setting-value")]

@@ -325,6 +325,17 @@
             入库单
             </summary>
         </member>
+        <member name="T:Tiger.Infrastructure.BackgroundJob.RegistrationService">
+            <summary>
+            使用 IBackgroundJobManager 服务向队列中添加一个发送电子邮件作业
+            </summary>
+        </member>
+        <member name="T:Tiger.Infrastructure.ObjectMapping.TigerApplicationAutoMapperProfile">
+             <summary>
+             AutoMapper提供了多种定义类之间映射的方法. 有关详细信息请参阅AutoMapper的文档.
+            其中定义一种映射的方法是创建一个Profile 类.例如:
+             </summary>
+        </member>
         <member name="T:Tiger.BlobDemo.MyBlobContainer">
             <summary>
             类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
@@ -416,12 +427,6 @@
             七牛 oss对象存储  https://developer.qiniu.com/kodo/1237/csharp  
             
             </summary>
-        </member>
-        <member name="T:Tiger.Infrastructure.ObjectMapping.TigerApplicationAutoMapperProfile">
-             <summary>
-             AutoMapper提供了多种定义类之间映射的方法. 有关详细信息请参阅AutoMapper的文档.
-            其中定义一种映射的方法是创建一个Profile 类.例如:
-             </summary>
         </member>
         <member name="M:Tiger.Utilities.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>

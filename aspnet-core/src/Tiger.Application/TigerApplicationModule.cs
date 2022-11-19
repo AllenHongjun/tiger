@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Hangfire;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using System;
@@ -8,6 +9,7 @@ using Tiger.BlobDemo;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.BackgroundJobs.Quartz;
 using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.BlobStoring;
@@ -35,14 +37,17 @@ namespace Tiger
         typeof(AbpBlobStoringFileSystemModule),
         typeof(AbpSmsModule), //Add the new module dependency
         typeof(AbpCachingModule), // 缓存
-        typeof(AbpBackgroundJobsModule), // 后台任务
-        //typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
+        //typeof(AbpBackgroundJobsModule), // 后台任务  默认后台作业管理器
+                                         //typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
+        
         typeof(AbpBackgroundWorkersQuartzModule) //Quartz 定时任务(abp叫后台工作者)
         )]
     public class TigerApplicationModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            var configuration = context.Services.GetConfiguration();
+
             #region 配置使用 AutoMapper
             Configure<AbpAutoMapperOptions>(options =>
                 {
@@ -96,20 +101,21 @@ namespace Tiger
             //}); 
             #endregion
 
-            #region 配置使用Quartz定时任务
-            Configure<AbpBackgroundJobQuartzOptions>(options =>
-                {
-                    // 定时任务重试次数配置
-                    options.RetryCount = 5;
-                    options.RetryIntervalMillisecond = 5000;
+            #region 配置使用Abp默认定时任务
+            //Configure<AbpBackgroundJobQuartzOptions>(options =>
+            //    {
+            //        // 定时任务重试次数配置
+            //        options.RetryCount = 5;
+            //        options.RetryIntervalMillisecond = 5000;
 
-                    //选项自定义异常处理策略:
-                    //options.RetryStrategy = async (retryIndex, executionContext, exception) =>
-                    //{
-                    //    // customize exception handling
-                    //};
-                }); 
+            //        //选项自定义异常处理策略:
+            //        //options.RetryStrategy = async (retryIndex, executionContext, exception) =>
+            //        //{
+            //        //    // customize exception handling
+            //        //};
+            //    });
             #endregion
+            
 
         }
 

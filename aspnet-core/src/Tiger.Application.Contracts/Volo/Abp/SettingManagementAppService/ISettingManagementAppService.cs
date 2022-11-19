@@ -24,5 +24,8 @@ namespace Tiger.Volo.Abp.SettingManagementAppService
 
 
         Task TestSetManager();
+
+
+        Task RegisterAsync(string userName, string emailAddress, string password);
     }
 }

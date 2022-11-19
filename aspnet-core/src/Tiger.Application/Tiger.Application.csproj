@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -44,7 +44,9 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="3.1.7" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.11" />
     <PackageReference Include="Volo.Abp.Account.Application" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.HangFire" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Identity.Application" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Sms" Version="3.2.1" />
@@ -54,7 +56,6 @@
 
   <ItemGroup>
     <Folder Include="Business\Finance\" />
-    <Folder Include="Infrastructure\BackgroundJob\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />
     <Folder Include="Volo\Abp\IdentityServer\" />

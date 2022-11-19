@@ -11,22 +11,27 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Emailing;
 
 namespace Tiger.BackgroundJob
-{
+{   
+    /// <summary>
+    /// 定时发送邮件作业
+    /// </summary>
     public class EmailSendingJob : BackgroundJob<EmailSendingArgs>, ITransientDependency
     {
-        //private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
 
-        public EmailSendingJob()
+        public EmailSendingJob(IEmailSender emailSender)
         {
-            //IEmailSender emailSender
-            //_emailSender = emailSender;
+            _emailSender = emailSender;
         }
 
         public override void Execute(EmailSendingArgs args)
         {
             Console.WriteLine("后台定时任务测试执行");
+
+            // 定时发送邮件
             //_emailSender.Send(
             //    args.EmailAddress,
             //    args.Subject,
