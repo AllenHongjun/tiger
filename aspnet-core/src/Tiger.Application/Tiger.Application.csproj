@@ -15,10 +15,13 @@
 
   <ItemGroup>
     <Compile Remove="AuditLogs\**" />
+    <Compile Remove="Payment\**" />
     <Compile Remove="Volo\Abp\AuditLogging\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
+    <EmbeddedResource Remove="Payment\**" />
     <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
     <None Remove="AuditLogs\**" />
+    <None Remove="Payment\**" />
     <None Remove="Volo\Abp\AuditLogging\**" />
   </ItemGroup>
 
@@ -51,11 +54,11 @@
 
   <ItemGroup>
     <Folder Include="Business\Finance\" />
+    <Folder Include="Infrastructure\BackgroundJob\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />
     <Folder Include="Volo\Abp\IdentityServer\" />
     <Folder Include="Volo\Abp\CmsKit\" />
-    <Folder Include="Payment\" />
   </ItemGroup>
 
 </Project>
