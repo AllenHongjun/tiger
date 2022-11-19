@@ -42,53 +42,55 @@ namespace Tiger.Business.Demo
 
         public async Task SeedAsync(DataSeedContext context)
         {
+            return;
 
+            // 这个 Seed的代码坑了自己。。注意调试。。有些方法实现 转不过去。。 把源代码引入就好了。
 
-            if (await _bookRepository.GetCountAsync() > 0)
-            {
-                return;
-            }
+            //if (await _bookRepository.GetCountAsync() > 0)
+            //{
+            //    return;
+            //}
 
-            var orwell = await _authorRepository.InsertAsync(
-                await _authorManager.CreateAsync(
-                    "George Orwell",
-                    new DateTime(1903, 06, 25),
-                    "Orwell produced literary criticism and poetry, fiction and polemical journalism; and is best known for the allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949)."
-                )
-            );
+            //var orwell = await _authorRepository.InsertAsync(
+            //    await _authorManager.CreateAsync(
+            //        "George Orwell",
+            //        new DateTime(1903, 06, 25),
+            //        "Orwell produced literary criticism and poetry, fiction and polemical journalism; and is best known for the allegorical novella Animal Farm (1945) and the dystopian novel Nineteen Eighty-Four (1949)."
+            //    )
+            //);
 
-            var douglas = await _authorRepository.InsertAsync(
-                await _authorManager.CreateAsync(
-                    "Douglas Adams",
-                    new DateTime(1952, 03, 11),
-                    "Douglas Adams was an English author, screenwriter, essayist, humorist, satirist and dramatist. Adams was an advocate for environmentalism and conservation, a lover of fast cars, technological innovation and the Apple Macintosh, and a self-proclaimed 'radical atheist'."
-                )
-            );
+            //var douglas = await _authorRepository.InsertAsync(
+            //    await _authorManager.CreateAsync(
+            //        "Douglas Adams",
+            //        new DateTime(1952, 03, 11),
+            //        "Douglas Adams was an English author, screenwriter, essayist, humorist, satirist and dramatist. Adams was an advocate for environmentalism and conservation, a lover of fast cars, technological innovation and the Apple Macintosh, and a self-proclaimed 'radical atheist'."
+            //    )
+            //);
 
-            await _bookRepository.InsertAsync(
-                new Book
-                {   
-                    // 为书籍关联作者
-                    AuthorId = orwell.Id, // SET THE AUTHOR
-                    Name = "1984",
-                    Type = BookType.Dystopia,
-                    PublishDate = new DateTime(1949, 6, 8),
-                    Price = 19.84f
-                },
-                autoSave: true
-            );
+            //await _bookRepository.InsertAsync(
+            //    new Book
+            //    {   
+            //        // 为书籍关联作者
+            //        AuthorId = orwell.Id, // SET THE AUTHOR
+            //        Name = "1984",
+            //        Type = BookType.Dystopia,
+            //        PublishDate = new DateTime(1949, 6, 8),
+            //        Price = 19.84f
+            //    },
+            //    autoSave: true
+            //);
 
-            await _bookRepository.InsertAsync(
-                new Book
-                {
-                    AuthorId = douglas.Id, // SET THE AUTHOR
-                    Name = "The Hitchhiker's Guide to the Galaxy",
-                    Type = BookType.ScienceFiction,
-                    PublishDate = new DateTime(1995, 9, 27),
-                    Price = 42.0f
-                },
-                autoSave: true
-            );
+            //await _bookRepository.InsertAsync(
+            //    new Book
+            //    {
+            //        AuthorId = douglas.Id, // SET THE AUTHOR
+            //        Name = "The Hitchhiker's Guide to the Galaxy",
+            //        Type = BookType.ScienceFiction,
+            //        PublishDate = new DateTime(1995, 9, 27),
+            //        Price = 42.0f
+            //    },
+            //    autoSave: true
+            //);
         }
     }
 }

@@ -33,12 +33,13 @@ namespace Tiger.Business.Demo
             [NotNull] string name,
             DateTime birthDate,
             [CanBeNull] string shortBio = null)
+
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
 
             var existingAuthor = await _authorRepository.FindByNameAsync(name);
             if (existingAuthor != null)
-{
+            {
                 throw new AuthorAlreadyExistsException(name);
             }
 

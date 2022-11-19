@@ -14,6 +14,7 @@ namespace Tiger.Volo.Abp.Account
     public class TigerAccountAppService : AccountAppService, ITigerAccountAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }
+        protected IAccountAppService AccountAppService { get; }
 
         public TigerAccountAppService(
             IdentityUserManager userManager, 

@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -19,6 +20,7 @@ using Tiger.MultiTenancy;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
+using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
@@ -52,6 +54,12 @@ namespace Tiger
         {
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
+
+            // Abp项目默认会启动内置的异常处理，默认不将异常信息发送到客户端。
+            Configure<AbpExceptionHandlingOptions>(options =>
+            {
+                options.SendExceptionsDetailsToClients = true;
+            });
 
             ConfigureUrls(configuration);
             ConfigureConventionalControllers();
@@ -332,8 +340,8 @@ namespace Tiger
         {
             Configure<AbpAuditingOptions>(options =>
             {
-                options.IsEnabled = true; //Disables the auditing system
-                options.HideErrors = true;
+                options.IsEnabled = false; //Disables the auditing system
+                options.HideErrors = false;
                 options.IsEnabledForAnonymousUsers = true;
             });
         }

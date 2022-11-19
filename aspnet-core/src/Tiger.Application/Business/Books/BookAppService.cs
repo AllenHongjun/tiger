@@ -37,7 +37,7 @@ namespace Tiger.Books
     /// 书籍管理
     /// </summary>
     /// 
-    [RemoteService(true)]
+    [RemoteService(false)]
     [ApiExplorerSettings(GroupName = "admin")]
     public class BookAppService :
         CrudAppService<
