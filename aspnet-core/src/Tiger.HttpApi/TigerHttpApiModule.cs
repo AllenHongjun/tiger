@@ -10,6 +10,9 @@ using Volo.Abp.TenantManagement;
 
 namespace Tiger
 {
+    /// <summary>
+    /// 用于定义API控制器.
+    /// </summary>
     [DependsOn(
         typeof(TigerApplicationContractsModule),
         typeof(AbpAccountHttpApiModule),

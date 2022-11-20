@@ -21,6 +21,9 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
 namespace Tiger.EntityFrameworkCore
 {
+    /// <summary>
+    /// 这是集成EF Core的项目. 它定义了 DbContext 并实现 .Domain 项目中定义的仓储接口.
+    /// </summary>
     [DependsOn(
         typeof(TigerDomainModule),
         typeof(AbpIdentityEntityFrameworkCoreModule),

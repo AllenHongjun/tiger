@@ -8,6 +8,9 @@ using Volo.Abp.TenantManagement;
 
 namespace Tiger
 {
+    /// <summary>
+    /// 定义C#客户端代理使用解决方案的HTTP API项目. 
+    /// </summary>
     [DependsOn(
         typeof(TigerApplicationContractsModule),
         typeof(AbpAccountHttpApiClientModule),

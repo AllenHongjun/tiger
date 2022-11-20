@@ -11,6 +11,11 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.TigerHttpApiHostModule">
+            <summary>
+            包含应用程序的用户界面(UI).
+            </summary>
+        </member>
         <member name="M:Tiger.TigerHttpApiHostModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>
             预配置服务

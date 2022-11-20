@@ -467,6 +467,13 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.TigerApplicationModule">
+            <summary>
+            项目包含 .Application.Contracts 项目的 应用服务 接口实现.
+            它依赖 .Application.Contracts 项目, 因为它需要实现接口与使用DTO.
+            它依赖 .Domain 项目,因为它需要使用领域对象(实体,仓储接口等)执行应用程序逻辑.
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Account.TigerAccountAppService">
             <summary>
             用户账号管理

@@ -16,6 +16,9 @@ using Volo.Abp.TenantManagement;
 
 namespace Tiger
 {
+    /// <summary>
+    /// 解决方案的领域层. 它主要包含 实体, 集合根, 领域服务, 值类型, 仓储接口 和解决方案的其他领域对象.
+    /// </summary>
     [DependsOn(
         typeof(TigerDomainSharedModule),
         typeof(AbpAuditLoggingDomainModule),

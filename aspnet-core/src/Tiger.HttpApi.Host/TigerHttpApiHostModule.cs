@@ -49,6 +49,9 @@ using Volo.Abp.VirtualFileSystem;
 
 namespace Tiger
 {
+    /// <summary>
+    /// 包含应用程序的用户界面(UI).
+    /// </summary>
     [DependsOn(
         typeof(TigerHttpApiModule),
         typeof(AbpAutofacModule),

@@ -1,7 +1,7 @@
 # Tiger
 ## 基于 vue-template-admin abp vnext 开发的后台项目(商城+进销存)
 
-> 学习abp 和 vue 的入门项目  进度 10%
+> 基于 vue abp 开发的基础功能管理系统（权限 日志 多租户 基础服务等管理功能） 跟随版本升级系统
 
 [演示地址](http://tiger.hongjy.cn/admin/index.html)
 

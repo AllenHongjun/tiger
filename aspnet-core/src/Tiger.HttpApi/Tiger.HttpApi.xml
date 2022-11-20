@@ -1332,6 +1332,11 @@
             <param name="createOrderDto"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.TigerHttpApiModule">
+            <summary>
+            用于定义API控制器.
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserController">
             <summary>
             用户管理

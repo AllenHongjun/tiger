@@ -1318,6 +1318,12 @@
             商品sku编号
             </summary>
         </member>
+        <member name="T:Tiger.TigerApplicationContractsModule">
+            <summary>
+            项目主要包含 应用服务 interfaces 和应用层的 数据传输对象 (DTO). 它用于分离应用层的接口和实现. 这种方式可以将接口项目做为约定包共享给客户端.
+            例如 IBookAppService 接口和 BookCreationDto 类都适合放在这个项目中.
+            </summary>
+        </member>
         <member name="M:Tiger.Volo.Abp.SettingManagementAppService.ISettingManagementAppService.FindAsync(System.String,System.String,System.String)">
             <summary>
             查找单个设置

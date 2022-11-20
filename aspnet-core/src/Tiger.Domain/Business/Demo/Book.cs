@@ -12,12 +12,12 @@ namespace Tiger.Books
 {
 
     /// <summary>
-    /// 
+    /// 书籍实体
     /// </summary>
     /// <remarks>
-    /// 
     /// 1.AuditedAggregateRoot类在AggregateRoot类的基础上添加了一些审计属性(CreationTime, CreatorId, LastModificationTime 等).
     /// 目前一本书 值关联一个作者 一个作者可以关联多本书籍
+    /// 2. ABP为实体提供了两个基本的基类: AggregateRoot和Entity. Aggregate Root是领域驱动设计 概念之一. 可以视为直接查询和处理的根实体(请参阅实体文档).
     /// </remarks>
     public class Book:AuditedEntity<Guid>, ISoftDelete, IMultiTenant
     {

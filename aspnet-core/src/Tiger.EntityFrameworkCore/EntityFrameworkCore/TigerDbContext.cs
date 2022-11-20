@@ -41,10 +41,12 @@ namespace Tiger.EntityFrameworkCore
     {
         public DbSet<AppUser> Users { get; set; }
 
+        #region Demo
         //3.EF Core需要你将实体和 DbContext 建立关联.最简单的做法是在Acme.BookStore.EntityFrameworkCore项目的BookStoreDbContext类中添加DbSet属性.如下所示:
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<Author> Authors { get; set; }
+        public DbSet<Author> Authors { get; set; } 
+        #endregion
 
 
         #region Basic

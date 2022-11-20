@@ -37,7 +37,7 @@ namespace Tiger.EntityFrameworkCore
             //});
 
             #region Demo模块
-            //4. 添加 Book 实体的映射代码 自动根据代码生成数据表
+            //4. 添加 Book 实体的映射代码 自动根据代码生成数据表 将Book实体映射到数据库表
             builder.Entity<Book>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Books",
@@ -65,9 +65,7 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Authors",
                     TigerConsts.DbSchema);
-
                 b.ConfigureByConvention();
-
                 b.Property(x => x.Name)
                     .IsRequired()
                     .HasMaxLength(AuthorConsts.MaxNameLength);
@@ -346,7 +344,6 @@ namespace Tiger.EntityFrameworkCore
             });
             #endregion
 
-
             #region 订单模块
 
             // 购物车
@@ -603,9 +600,6 @@ namespace Tiger.EntityFrameworkCore
             });
 
             #endregion
-
-
-
 
             #region 营销
 

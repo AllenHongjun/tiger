@@ -17,12 +17,14 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Business.Demo
 {
-    /// <summary>
+
     /// 
     /// <summary>
-    /// 使用数据库的某些应用程序(或模块),可能需要有一些初始数据才能​​够正常启动和运行. 例如管理员用户和角色必须在一开始就可用. 
+    ///  添加种子数据
     /// </summary>
-    /// </summary>
+    /// <remarks>
+    /// 使用数据库的某些应用程序(或模块),可能需要有一些初始数据才能​​够正常启动和运行. 例如管理员用户和角色必须在一开始就可用.
+    /// </remarks>
     public class BookStoreDataSeederContributor
         : IDataSeedContributor, ITransientDependency
     {
@@ -40,6 +42,11 @@ namespace Tiger.Business.Demo
             _authorManager = authorManager;
         }
 
+        /// <summary>
+        /// 添加租户的时候会调用这个里面的方法
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task SeedAsync(DataSeedContext context)
         {
 
