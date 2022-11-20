@@ -13,10 +13,13 @@
 
   <ItemGroup>
     <Compile Remove="AuditLogs\**" />
+    <Compile Remove="Business\BookStore\Demo\**" />
     <Compile Remove="Module\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
+    <EmbeddedResource Remove="Business\BookStore\Demo\**" />
     <EmbeddedResource Remove="Module\**" />
     <None Remove="AuditLogs\**" />
+    <None Remove="Business\BookStore\Demo\**" />
     <None Remove="Module\**" />
   </ItemGroup>
 

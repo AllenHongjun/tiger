@@ -37,7 +37,7 @@ namespace Tiger.Books
     /// 书籍管理
     /// </summary>
     /// 
-    [RemoteService(false)]
+    [RemoteService(true)]
     [ApiExplorerSettings(GroupName = "admin")]
     public class BookAppService :
         CrudAppService<
@@ -192,11 +192,12 @@ namespace Tiger.Books
         }
 
 
-        public async Task TestAsync()
+        public  void TestAsync()
         {
             //var dbContext = await _authorRepository.GetDbContextAsync();
             //var dbSet = await _authorRepository.GetDbSetAsync();
             //var dbSet = dbContext.Set<Order>(); //Alternative, when you have the DbContext
+            return ;
         }
 
 

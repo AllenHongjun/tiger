@@ -30,13 +30,13 @@
     "Permission:BookStore": "BookStore",
     "Permission:Book": "Book Management",
     "Permission:Books.Creat": "Creating new books",
-    "Permission:Books.Edit": "Editing the books",
+    "Permission:Books.Update": "Editing the books",
     "Permission:Books.Delete": "Deleting the books"
 
 
-    //"Permission:OrganitaionUnit": "×éÖ¯¹ÜÀí",
-    //"Permission:OrganitaionUnit.Edit": "×éÖ¯±à¼­",
-    //"Permission:OrganitaionUnit.Delete": "×éÖ¯É¾³ý",
-    //"Permission:OrganitaionUnit.Create": "×éÖ¯Ìí¼Ó"
+    //"Permission:OrganitaionUnit": "ï¿½ï¿½Ö¯ï¿½ï¿½ï¿½ï¿½",
+    //"Permission:OrganitaionUnit.Edit": "ï¿½ï¿½Ö¯ï¿½à¼­",
+    //"Permission:OrganitaionUnit.Delete": "ï¿½ï¿½Ö¯É¾ï¿½ï¿½",
+    //"Permission:OrganitaionUnit.Create": "ï¿½ï¿½Ö¯ï¿½ï¿½ï¿½"
   }
 }

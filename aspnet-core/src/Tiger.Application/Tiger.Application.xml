@@ -265,11 +265,6 @@
             <param name="files"></param>
             <returns></returns>
         </member>
-        <member name="T:Tiger.Books.BookTestAppService">
-            <summary>
-            测试基础crud demo
-            </summary>
-        </member>
         <member name="T:Tiger.Books.Demo.EmailSettingProvider">
             <summary>
             ABP设置系统使用 demo

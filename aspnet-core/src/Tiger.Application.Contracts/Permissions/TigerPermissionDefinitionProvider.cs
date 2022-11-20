@@ -9,11 +9,35 @@ using Volo.Abp.Localization;
 
 namespace Tiger.Permissions
 {
+    /// <summary>
+    /// 权限管理
+    /// </summary>
+    /// <remarks>
+    /// 授权配置教程: https://docs.abp.io/zh-Hans/abp/latest/Tutorials/Part-5?UI=MVC&DB=EF
+    /// </remarks>
     public class TigerPermissionDefinitionProvider : PermissionDefinitionProvider
     {
         public override void Define(IPermissionDefinitionContext context)
         {
             //Define your own permissions here.
+
+
+            #region BookStore
+
+            // 书籍管理权限
+            var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName, L("Permission:BookStore"));
+            var bookPermission = bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
+                bookPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
+                bookPermission.AddChild(BookStorePermissions.Books.Update, L("Permission:Books.Update"));
+                bookPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
+
+            //作者
+            var authorsPermission = bookStoreGroup.AddPermission(BookStorePermissions.Authors.Default, L("Permission:Authors"));
+            authorsPermission.AddChild(BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
+            authorsPermission.AddChild(BookStorePermissions.Authors.Update, L("Permission:Authors.Update"));
+            authorsPermission.AddChild(BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
+
+            #endregion
 
             #region 基础
 

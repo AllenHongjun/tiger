@@ -6,6 +6,17 @@
     "AbpAuditLogging": "审计日志",
     "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
 
+    "Permission:BookStore": "书店",
+
+    "Permission:Books": "书籍",
+    "Permission:Books.Create": "添加",
+    "Permission:Books.Update": "编辑",
+    "Permission:Books.Delete": "删除",
+
+    "Permission:Authors": "作者",
+    "Permission:Authors.Create": "添加",
+    "Permission:Authors.Update": "编辑",
+    "Permission:Authors.Delete": "删除",
 
 
 

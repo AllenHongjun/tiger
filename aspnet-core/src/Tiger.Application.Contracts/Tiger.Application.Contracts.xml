@@ -609,45 +609,120 @@
             以取消数量
             </summary>
         </member>
+        <member name="T:Tiger.Books.AuthorDto">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.AuthorDto.Name">
+            <summary>
+            作者名字
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.AuthorDto.BirthDate">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.AuthorDto.ShortBio">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.CreateAuthorDto">
+            <summary>
+            作者 
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateAuthorDto.Name">
+            <summary>
+            作者名字
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateAuthorDto.BirthDate">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateAuthorDto.ShortBio">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.GetAuthorListDto">
+             <summary>
+            PagedAndSortedResultRequestDto has the standard paging and sorting properties: int MaxResultCount, int SkipCount and string Sorting.
+             </summary>
+        </member>
+        <member name="P:Tiger.Books.GetAuthorListDto.Filter">
+            <summary>
+            Filter is used to search authors. It can be null (or empty string) to get all the authors.
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.UpdateAuthorDto.Name">
+            <summary>
+            作者名字
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.UpdateAuthorDto.BirthDate">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.UpdateAuthorDto.ShortBio">
+            <summary>
+            简介
+            </summary>
+        </member>
         <member name="T:Tiger.Books.BookDto">
             <summary>
-            
+            书籍
+            </summary>
+            <remarks>
             数据传输对象(DTO)用于在应用层和表示层或其他类型的客户端之间传输数据.
             数据传输层对象使用说明 https://docs.abp.io/zh-Hans/abp/latest/Data-Transfer-Objects
-            </summary>
+            </remarks>
         </member>
         <member name="P:Tiger.Books.BookDto.AuthorId">
             <summary>
              dto 对象里面 需要把 autherId  和 author name 属性全部都加上去
             </summary>
         </member>
-        <member name="T:Tiger.Books.CreateAuthorDto">
+        <member name="P:Tiger.Books.CreateUpdateBookDto.Name">
             <summary>
-            poco 
+            书籍名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateUpdateBookDto.Type">
+            <summary>
+            书籍类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateUpdateBookDto.PublishDate">
+            <summary>
+            发布日期
+            </summary>
+        </member>
+        <member name="P:Tiger.Books.CreateUpdateBookDto.Price">
+            <summary>
+            价格
             </summary>
         </member>
         <member name="P:Tiger.Books.CreateUpdateBookDto.AuthorId">
             <summary>
-            添加关联的作者id
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.GetAuthorListDto">
-             <summary>
-             Filter is used to search authors. It can be null (or empty string) to get all the authors.
-            PagedAndSortedResultRequestDto has the standard paging and sorting properties: int MaxResultCount, int SkipCount and string Sorting.
-             </summary>
-        </member>
-        <member name="P:Tiger.Books.GetAuthorListDto.ProductSn">
-            <summary>
-            货号
+            作者id
             </summary>
         </member>
         <member name="M:Tiger.Books.IBookAppService.GetAuthorLookupAsync">
             <summary>
-            his new method will be used from the UI to get a list of authors and fill a dropdown list to select the author of a book.
             获取下拉框选中作者的列表数据
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.Books.BookStorePermissions">
+            <summary>
+            书店权限管理
+            </summary>
         </member>
         <member name="P:Tiger.Marketings.Coupons.CouponDto.Type">
             <summary>
@@ -1318,6 +1393,7 @@
             商品sku编号
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:Tiger.Permissions.TigerPermissionDefinitionProvider" -->
         <member name="T:Tiger.TigerApplicationContractsModule">
             <summary>
             项目主要包含 应用服务 interfaces 和应用层的 数据传输对象 (DTO). 它用于分离应用层的接口和实现. 这种方式可以将接口项目做为约定包共享给客户端.
@@ -1333,9 +1409,9 @@
             <param name="providerKey"></param>
             <returns></returns>
         </member>
-        <member name="T:TigerAdmin.Books.Demo.UpdateUserInput">
+        <member name="F:TigerAdmin.Books.AuthorConsts.MaxNameLength">
             <summary>
-            修改用户信息
+            名字最大长度
             </summary>
         </member>
         <member name="M:TigerAdmin.Volo.Abp.TenantManagement.ITigerTenantAppService.FindById(System.Guid,System.Boolean)">

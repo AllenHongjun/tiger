@@ -22,7 +22,7 @@ namespace Tiger.Books
     /// <summary>
     /// 实现 author 的服务层
     /// </summary>
-    [RemoteService(false)]
+    [RemoteService(true)]
     [ApiExplorerSettings(GroupName = "admin")]
     [Authorize(BookStorePermissions.Authors.Default)]
     public class AuthorAppService : TigerAppService, IAuthorAppService
@@ -117,7 +117,7 @@ namespace Tiger.Books
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        [Authorize(BookStorePermissions.Authors.Edit)]
+        [Authorize(BookStorePermissions.Authors.Update)]
         public async Task UpdateAsync(Guid id, UpdateAuthorDto input)
         {
             var author = await _authorRepository.GetAsync(id);
