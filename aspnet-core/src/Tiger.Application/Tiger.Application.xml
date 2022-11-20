@@ -467,12 +467,6 @@
             <param name="file"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.TigerApplicationModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
-            <summary>
-            预配置 
-            </summary>
-            <param name="context"></param>
-        </member>
         <member name="T:Tiger.Volo.Abp.Account.TigerAccountAppService">
             <summary>
             用户账号管理

@@ -1,21 +1,28 @@
+using Autofac.Core;
+using CrystalQuartz.AspNetCore;
 using Hangfire;
 using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Quartz;
+using Quartz.Impl;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using Tiger.BackgroundWorker;
 using Tiger.EntityFrameworkCore;
 using Tiger.Infrastructure.BackgroundWorker;
 using Tiger.MultiTenancy;
@@ -32,9 +39,11 @@ using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.BackgroundWorkers;
+using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.Data;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.Quartz;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 
@@ -51,11 +60,68 @@ namespace Tiger
         typeof(AbpAccountWebIdentityServerModule),
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpBackgroundJobsHangfireModule), //Hangfire 定时作业模块依赖
-        typeof(AbpBackgroundWorkersModule)  // 定时工作者
+        typeof(AbpBackgroundWorkersModule),  // 定时工作者
+        typeof(AbpBackgroundWorkersQuartzModule) //Quartz 定时任务(abp叫后台工作者)
         )]
     public class TigerHttpApiHostModule : AbpModule
     {
         private const string DefaultCorsPolicyName = "Default";
+
+
+        /// <summary>
+        /// 预配置服务
+        /// </summary>
+        /// <param name="context"></param>
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+
+            #region 配置Quartz后台工作者
+            //定时任务。
+            var configuration = context.Services.GetConfiguration();
+
+
+            //PreConfigure<AbpQuartzOptions>(options =>
+            //{
+            //    options.Properties = new NameValueCollection
+            //    {
+            //        ["quartz.jobStore.dataSource"] = "BackgroundJobsDemoApp",
+            //        ["quartz.jobStore.type"] = "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz",
+            //        ["quartz.jobStore.tablePrefix"] = "QRTZ_",
+            //        ["quartz.serializer.type"] = "json",
+            //        ["quartz.dataSource.BackgroundJobsDemoApp.connectionString"] = configuration.GetConnectionString("Quartz"),
+            //        ["quartz.dataSource.BackgroundJobsDemoApp.provider"] = "SqlServer",
+            //        ["quartz.jobStore.driverDelegateType"] = "Quartz.Impl.AdoJobStore.SqlServerDelegate, Quartz",
+            //    };
+            //});
+
+
+            //从ABP3.1版本开始,我们在 AbpQuartzOptions 添加了 Configurator 用于配置Quartz. 例:
+            PreConfigure<AbpQuartzOptions>(options =>
+            {
+                options.Configurator = configure =>
+                {
+                    configure.UsePersistentStore(storeOptions =>
+                    {
+                        // // serialization format breaks, defaults to false
+                        storeOptions.UseProperties = false;
+                        // this requires Quartz.Serialization.Json NuGet package
+                        storeOptions.UseJsonSerializer();
+                        // 将作业与调度信息存储数据中
+                        // 如果没有表需要手动创建 根据官网文档资料： https://github.com/quartznet/quartznet/tree/main/database/tables
+                        storeOptions.UseSqlServer(configuration.GetConnectionString("Quartz"));
+                        storeOptions.UseClustering(c =>
+                        {
+                            c.CheckinMisfireThreshold = TimeSpan.FromSeconds(20);
+                            c.CheckinInterval = TimeSpan.FromSeconds(10);
+                        });
+                    });
+                };
+            });
+
+            
+
+            #endregion
+        }
 
         /// <summary>
         /// 配置服务
@@ -66,11 +132,7 @@ namespace Tiger
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
 
-            // Abp项目默认会启动内置的异常处理，默认不将异常信息发送到客户端。
-            Configure<AbpExceptionHandlingOptions>(options =>
-            {
-                options.SendExceptionsDetailsToClients = true;
-            });
+            
 
             ConfigureUrls(configuration);
             ConfigureConventionalControllers();
@@ -81,17 +143,53 @@ namespace Tiger
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
             ConfigureHangfire(context, configuration);
+
+            #region 配置Abp  请求异常信息
+            // Abp项目默认会启动内置的异常处理，默认不将异常信息发送到客户端。
+            Configure<AbpExceptionHandlingOptions>(options =>
+            {
+#if DEBUG
+                options.SendExceptionsDetailsToClients = true;
+#else
+                options.SendExceptionsDetailsToClients = false;
+#endif
+            });
+            #endregion
+
+
+            #region 配置Quartz后台工作者
+
+            Configure<AbpBackgroundWorkerQuartzOptions>(options =>
+            {
+                // 全局自动添加
+                options.IsAutoRegisterEnabled = true;
+                
+            });
+
+
+
+            #endregion
+
+            #region 配置CrystalQuartz管理面板
+            //配置可以同步请求读取流数据
+            // 不配置开启同步流读取 CrystalQuartz 管理面板无法打开。。 
+            Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true);
+            Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
+            #endregion
         }
 
+        #region ConfigureUrls
         private void ConfigureUrls(IConfiguration configuration)
-        {   
-            
+        {
+
             Configure<AppUrlOptions>(options =>
             {
                 options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
             });
-        }
+        } 
+        #endregion
 
+        #region 配置虚拟文件系统
         /// <summary>
         /// 配置虚拟文件系统
         /// </summary>
@@ -111,15 +209,19 @@ namespace Tiger
                 });
             }
         }
+        #endregion
 
+        #region ConfigureConventionalControllers
         private void ConfigureConventionalControllers()
         {
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.ConventionalControllers.Create(typeof(TigerApplicationModule).Assembly);
             });
-        }
+        } 
+        #endregion
 
+        #region 配置identityServer授权认证服务
         /// <summary>
         /// 配置identityServer授权认证服务
         /// </summary>
@@ -181,7 +283,9 @@ namespace Tiger
             //    options.ClientSecret = configuration["Github:ClientSecret"];
             //});
         }
+        #endregion
 
+        #region 配置SwaggerUI
         /// <summary>
         /// 配置SwaggerUI
         /// </summary>
@@ -284,7 +388,7 @@ namespace Tiger
                     // 为 Swagger JSON and UI设置xml文档注释路径
                     //获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
                     var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
-                    
+
                     var xmlPathHost = Path.Combine(basePath, "Tiger.HttpApi.Host.xml");
                     var xmlPathHttpApi = Path.Combine(basePath, "Tiger.HttpApi.xml");
                     var xmlPathApplication = Path.Combine(basePath, "Tiger.Application.xml");
@@ -301,7 +405,9 @@ namespace Tiger
 
                 });
         }
+        #endregion
 
+        #region 多语言配置
         /// <summary>
         /// 多语言配置
         /// </summary>
@@ -320,8 +426,9 @@ namespace Tiger
                 //options.Languages.Add(new LanguageInfo("zh-Hant", "zh-Hant", "繁體中文"));
             });
         }
+        #endregion
 
-
+        #region 跨域配置
         /// <summary>
         /// 跨域配置
         /// </summary>
@@ -348,7 +455,9 @@ namespace Tiger
                 });
             });
         }
+        #endregion
 
+        #region 配置审计日志
         /// <summary>
         /// 配置审计日志
         /// </summary>
@@ -367,7 +476,9 @@ namespace Tiger
 #endif
             });
         }
+        #endregion
 
+        #region 配置数据过滤
         /// <summary>
         /// 配置数据过滤
         /// </summary>
@@ -381,8 +492,14 @@ namespace Tiger
             //});
 
         }
+        #endregion
 
-
+        #region 配置后台作业集成Hangfire
+        /// <summary>
+        /// 配置后台作业集成Hangfire
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="configuration"></param>
         private void ConfigureHangfire(ServiceConfigurationContext context, IConfiguration configuration)
         {
             // 配置Hangfire存储和连接字符串
@@ -391,7 +508,9 @@ namespace Tiger
                 config.UseSqlServerStorage(configuration.GetConnectionString("Hangfire"));
             });
         }
+        #endregion
 
+        #region 应用初始化
         /// <summary>
         /// 应用初始化
         /// </summary>
@@ -429,47 +548,60 @@ namespace Tiger
             app.UseAuthorization();
 
             #region swaggerui 配置
-                        // Enable middleware to serve generated Swagger as a JSON endpoint.
-                        app.UseSwagger(options =>
-                        {
-                            // 改为openAPI 2.0版本 默认是3.0版本
-                            //options.SerializeAsV2 = true;
-                        });
-                        // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-                        // specifying the Swagger JSON endpoint.
-                        app.UseSwaggerUI(options =>
-                        {
-                            // 配置自定义的样式
-                            //options.InjectStylesheet("/swagger-ui/custom.css");
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger(options =>
+            {
+                // 改为openAPI 2.0版本 默认是3.0版本
+                //options.SerializeAsV2 = true;
+            });
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(options =>
+            {
+                // 配置自定义的样式
+                //options.InjectStylesheet("/swagger-ui/custom.css");
 
-                            options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
-                            options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
-                            options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
-                            options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");
-                
-                            //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
-                            //options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
-                            //options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
-                            //options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");
+                options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
+                options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
+                options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
+                options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");
 
-                            // 设置接口文档默认不展开
-                            options.DocExpansion(DocExpansion.None);
-                            options.DefaultModelExpandDepth(1);
+                //options.SwaggerEndpoint("/swagger/auth/swagger.json", "Auth");
+                //options.SwaggerEndpoint("/swagger/gp/swagger.json", "登录模块");
+                //options.SwaggerEndpoint("/swagger/mom/swagger.json", "业务模块");
+                //options.SwaggerEndpoint("/swagger/dm/swagger.json", "其他模块");
 
-                            // API前缀设置为空
-                            options.RoutePrefix = string.Empty;
-                            // API页面Title
-                            options.DocumentTitle = "Tiger接口文档 - 花生了什么树";
+                // 设置接口文档默认不展开
+                options.DocExpansion(DocExpansion.None);
+                options.DefaultModelExpandDepth(1);
+
+                // API前缀设置为空
+                options.RoutePrefix = string.Empty;
+                // API页面Title
+                options.DocumentTitle = "Tiger接口文档 - 花生了什么树";
 
 
-                            options.OAuthClientId("testOauthClientId");
-                        }); 
+                options.OAuthClientId("testOauthClientId");
+            });
             #endregion
 
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
 
+            #region 后台工作者 CrystalQuartz控制面板
+
+            // 组件地址: https://github.com/guryanovev/CrystalQuartz
+
+            // TODO:修改为 从ABP的类获取这个对象
+            var scheduler = CreateScheduler();
+            app.UseCrystalQuartz(() => scheduler);
+            #endregion
+
+
+
+            #region 后台作业 Hangfire集成配置
+            // TODO:封装方法 同意管理新增的后台作业
             // 使用Hangfire的面板
             // Hangfire默认管理地址： https://localhost:44306/hangfire/
             app.UseHangfireDashboard();
@@ -478,7 +610,42 @@ namespace Tiger
             // 确保你的web应用程序被配置为始终运行. 否则只有在你的应用程序正在运行时后台作业才会工作.
             // Todo:后台工作者 集成 haigfire
 
-            context.AddBackgroundWorker<PassiveUserCheckerWorker>();
+            context.AddBackgroundWorker<PassiveUserCheckerWorker>(); 
+            #endregion
+
+
+
         }
+
+
+        private static IScheduler CreateScheduler()
+        {
+            var schedulerFactory = new StdSchedulerFactory();
+            var scheduler = schedulerFactory.GetScheduler().Result;
+
+            var job = JobBuilder.Create<MyLogWorker>()
+                .WithIdentity("localJob", "default")
+                .Build();
+
+            var trigger = TriggerBuilder.Create()
+                .WithIdentity("trigger1", "default")
+                .ForJob(job)
+                .StartNow()
+                .WithCronSchedule("0 /1 * ? * *")
+                .Build();
+
+            scheduler.ScheduleJob(job, trigger);
+
+            scheduler.Start();
+
+            return scheduler;
+        }
+
+
+
+
+
+
+        #endregion
     }
 }

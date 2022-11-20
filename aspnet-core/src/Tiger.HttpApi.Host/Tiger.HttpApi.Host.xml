@@ -11,6 +11,12 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.TigerHttpApiHostModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            预配置服务
+            </summary>
+            <param name="context"></param>
+        </member>
         <member name="M:Tiger.TigerHttpApiHostModule.ConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
             <summary>
             配置服务
@@ -58,6 +64,13 @@
             配置数据过滤
             </summary>
             <param name="context"></param>
+        </member>
+        <member name="M:Tiger.TigerHttpApiHostModule.ConfigureHangfire(Volo.Abp.Modularity.ServiceConfigurationContext,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            配置后台作业集成Hangfire
+            </summary>
+            <param name="context"></param>
+            <param name="configuration"></param>
         </member>
         <member name="M:Tiger.TigerHttpApiHostModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
             <summary>

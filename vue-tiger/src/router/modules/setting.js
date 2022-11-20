@@ -16,15 +16,36 @@ const settingRouter = {
     {
       path: 'audit-log/list',
       component: () => import('@/views/setting/audit-log/index'), // Parent router-view
+      
       name: 'audit_log_list',
       meta: { title: '系统日志' }
 
     },
+    // 添加外链
     {
       path: 'system/list',
       component: () => import('@/views/setting/system/index'), // Parent router-view
       name: 'system',
       meta: { title: '系统设置' }
+    },
+    {
+      path: 'https://localhost:44306/index.html',
+      component: Layout,
+      name: 'system',
+      meta: { title: '接口文档' }
+    },
+    {
+      path: 'https://localhost:44306/hangfire/',
+      component: Layout,
+      url:"http://www.baidu.com",
+      name: 'system',
+      meta: { title: '后台作业' }
+    },
+    {
+      path: 'https://localhost:44306/quartz',
+      component: () => import('@/views/setting/system/index'), // Parent router-view
+      name: 'system',
+      meta: { title: '后台工作者' }
     },
     {
       path: 'sass',

@@ -24,7 +24,6 @@ namespace Tiger
                 .MinimumLevel.Information()
 #endif
 
-
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
                 .Enrich.FromLogContext()
                 .WriteTo.Async(c => c.File(logFileName))
@@ -66,8 +65,6 @@ namespace Tiger
                 
                 .UseAutofac()
                 .UseSerilog();
-
-             
 
 
     }

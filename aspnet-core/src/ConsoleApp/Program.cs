@@ -3,16 +3,58 @@
 //using log4net.Repository;
 using Hangfire;
 using Hangfire.SqlServer;
+using Quartz.Impl;
+using Quartz;
 using System;
 using System.IO;
+using System.Threading.Tasks;
+using System.Collections.Specialized;
 //using Volo.Abp.BackgroundJobs;
 
 namespace ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async void Main(string[] args)
         {
+
+
+
+
+
+
+            // Grab the Scheduler instance from the Factory
+            StdSchedulerFactory factory = new StdSchedulerFactory();
+            IScheduler scheduler = await factory.GetScheduler();
+
+            // and start it off
+            await scheduler.Start();
+
+            // some sleep to show what's happening
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            // and last shut down the scheduler when you are ready to close your program
+            await scheduler.Shutdown();
+
+
+
+
+
+
+
+
+            return;
+
+
+
+
+
+
+
+
+
+
+
             //Console.WriteLine("Hello World!");
             //ILoggerRepository repository = LogManager.CreateRepository("NETCoreRepository");
             //// 默认简单配置，输出至控制台

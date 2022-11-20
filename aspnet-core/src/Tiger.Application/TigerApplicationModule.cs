@@ -36,11 +36,11 @@ namespace Tiger
         typeof(AbpBlobStoringModule),
         typeof(AbpBlobStoringFileSystemModule),
         typeof(AbpSmsModule), //Add the new module dependency
-        typeof(AbpCachingModule), // 缓存
-        //typeof(AbpBackgroundJobsModule), // 后台任务  默认后台作业管理器
-                                         //typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
+        typeof(AbpCachingModule) // 缓存
+                                  //typeof(AbpBackgroundJobsModule), // 后台任务  默认后台作业管理器
+        //typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
+
         
-        typeof(AbpBackgroundWorkersQuartzModule) //Quartz 定时任务(abp叫后台工作者)
         )]
     public class TigerApplicationModule : AbpModule
     {
@@ -116,64 +116,11 @@ namespace Tiger
             //    });
             #endregion
 
-            #region 配置Quartz后台工作者
-
-            Configure<AbpBackgroundWorkerQuartzOptions>(options =>
-            {
-                // 全局禁用自动添加
-                //options.IsAutoRegisterEnabled = false;
-            }); 
-            #endregion
+            
         }
 
 
-        /// <summary>
-        /// 预配置 
-        /// </summary>
-        /// <param name="context"></param>
-        public override void PreConfigureServices(ServiceConfigurationContext context)
-        {
-
-
-
-            //定时任务。
-            //var configuration = context.Services.GetConfiguration();
-
-            // 第一种配置方式
-            //PreConfigure<AbpQuartzOptions>(options =>
-            //{
-            //    options.Properties = new NameValueCollection
-            //    {
-            //        ["quartz.jobStore.dataSource"] = "BackgroundJobsDemoApp",
-            //        ["quartz.jobStore.type"] = "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz",
-            //        ["quartz.jobStore.tablePrefix"] = "QRTZ_",
-            //        ["quartz.serializer.type"] = "json",
-            //        ["quartz.dataSource.BackgroundJobsDemoApp.connectionString"] = configuration.GetConnectionString("Quartz"),
-            //        ["quartz.dataSource.BackgroundJobsDemoApp.provider"] = "SqlServer",
-            //        ["quartz.jobStore.driverDelegateType"] = "Quartz.Impl.AdoJobStore.SqlServerDelegate, Quartz",
-            //    };
-            //});
-
-
-
-            //从ABP3.1版本开始,我们在 AbpQuartzOptions 添加了 Configurator 用于配置Quartz. 例:
-            //PreConfigure<AbpQuartzOptions>(options =>
-            //{
-            //    options.Configurator = configure =>
-            //    {
-            //        configure.UsePersistentStore(storeOptions =>
-            //        {
-            //            storeOptions.UseProperties = true;
-            //            //storeOptions.UseJsonSerializer();
-            //            storeOptions.UseSqlServer(configuration.GetConnectionString("Quartz"));
-            //            storeOptions.UseClustering(c =>
-            //            {
-            //                c.CheckinMisfireThreshold = TimeSpan.FromSeconds(20);
-            //                c.CheckinInterval = TimeSpan.FromSeconds(10);
-            //            });
-            //        });
-            //    };
-            //});
-        }
+        
+        
     }
 }
