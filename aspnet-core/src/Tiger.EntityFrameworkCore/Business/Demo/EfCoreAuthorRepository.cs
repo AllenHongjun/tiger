@@ -32,11 +32,25 @@ namespace Tiger.Demo
         {
         }
 
+        /// <summary>
+        /// 根据名称查找作者
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public async Task<Author> FindByNameAsync(string name)
         {
             return await DbSet.FirstOrDefaultAsync(author => author.Name == name);
         }
 
+
+        /// <summary>
+        /// 分页获取作者列表
+        /// </summary>
+        /// <param name="skipCount"></param>
+        /// <param name="maxResultCount"></param>
+        /// <param name="sorting"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public async Task<List<Author>> GetListAsync(
             int skipCount,
             int maxResultCount,

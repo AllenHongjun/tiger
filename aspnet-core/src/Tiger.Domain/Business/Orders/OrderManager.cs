@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Orders;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 
 namespace Tiger.Business.Orders
@@ -26,6 +27,7 @@ namespace Tiger.Business.Orders
         }
 
 
+        #region 生成订单
         /// <summary>
         /// 生成订单
         /// </summary>
@@ -91,10 +93,53 @@ namespace Tiger.Business.Orders
 
             await _orderRepository.InsertAsync(order);
 
-            
+
 
             return order;
         }
+        #endregion
+
+
+        #region 仓储 Get/Find 方法 包含子对象测试
+        /// <summary>
+        /// 获取一个包含子对象的 order
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task TestWithDetails(Guid id)
+        {
+            var order = await _orderRepository.GetAsync(id);
+        }
+
+
+        /// <summary>
+        /// 获取一个不包含子对象的 order
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task TestWithoutDetails(Guid id)
+        {
+            // 显式 / 延迟加载
+
+            //order.OrderItems 此时是空的
+            var order = await _orderRepository.GetAsync(id, includeDetails: false);
+
+            //order.OrderItems 被填充
+            await _orderRepository.EnsureCollectionLoadedAsync(order, x => x.OrderItems);
+            
+        }
+
+        /// <summary>
+        /// 获取一个包含子对象的实体列表
+        /// </summary>
+        /// <returns></returns>
+        public async Task TestWithDetails()
+        {
+            var orders = await _orderRepository.GetListAsync(includeDetails: true);
+        } 
+        #endregion
+
+
 
 
     }

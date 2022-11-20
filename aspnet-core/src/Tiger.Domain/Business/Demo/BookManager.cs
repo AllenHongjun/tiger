@@ -18,18 +18,28 @@ using Volo.Abp.Domain.Services;
 namespace Tiger.Business.Demo
 {
     /// <summary>
-    /// 在领域服务中创建一个新的Book实例并且使用仓储持久化到数据库中
-    /// Manager 属于 领域服务的方法
+    /// 书籍领域服务
     /// </summary>
+    /// <remarks>
+    /// 在领域服务中创建一个新的Book实例并且使用仓储持久化到数据库中,Manager属于领域服务的方法
+    /// </remarks>
     public class BookManager:DomainService
     {
+        // Abp默认Repository接口
         private readonly IRepository<Book, Guid> _bookRepository;
 
+        //通过构造函数注入默认的repository
         public BookManager(IRepository<Book, Guid> bookRepository) //注入默认仓储
         {
             _bookRepository = bookRepository;
         }
 
+        /// <summary>
+        /// 新建一本书
+        /// </summary>
+        /// <param name="name">书籍名称</param>
+        /// <param name="type">书籍类型</param>
+        /// <returns></returns>
         public async Task<Book> CreateBook(string name, BookType type)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));

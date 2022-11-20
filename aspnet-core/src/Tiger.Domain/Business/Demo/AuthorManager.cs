@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Guids;
 using Volo.Abp;
+using Tiger.Business.Orders;
+using System.Linq;
 
 namespace Tiger.Business.Demo
 {
@@ -66,5 +68,39 @@ namespace Tiger.Business.Demo
 
             author.ChangeName(newName);
         }
+
+
+        /// <summary>
+        /// 获取一个包含 BooksId 的 author 对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task TestWithDetails(Guid id)
+        {
+            // 预先加载 / 包含子对象的加载
+
+            //通过包含子集合获取一个 IQueryable<T>
+            var queryable = _authorRepository.WithDetails(x => x.Books);
+
+            //应用其他的 LINQ 扩展方法
+            var query = queryable.Where(x => x.Id == id);
+
+            //执行此查询并获取结果  AsyncExecuter 用于执行异步 LINQ 扩展,而无需依赖 EF Core
+            var author = await AsyncExecuter.FirstOrDefaultAsync(query);
+        }
+
+        /// <summary>
+        /// 获取一个包含 Books 的 authors 列表
+        /// </summary>
+        /// <returns></returns>
+        public async Task TestWithDetails()
+        {
+            //通过包含一个子集合获取一个 IQueryable<T>
+            var queryable =  _authorRepository.WithDetails(x => x.Books);
+
+            //执行此查询并获取结果
+            var authos = await AsyncExecuter.ToListAsync(queryable);
+        }
+
     }
 }

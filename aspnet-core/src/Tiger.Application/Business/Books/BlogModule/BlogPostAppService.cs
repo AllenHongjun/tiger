@@ -39,6 +39,9 @@ namespace Tiger.Books.BlogModule
 
     }
 
+    /// <summary>
+    /// TaxCalculator因为实现了ITransientDependency,所以它会自动注册为transient生命周期.
+    /// </summary>
     public class TaxCalculator : ITransientDependency, ITaxCalculator
     {
         public TaxCalculator(double taxRatio)
@@ -49,10 +52,10 @@ namespace Tiger.Books.BlogModule
         public double taxRatio { get; set; }
     }
 
-    //public class TaxCalculator2 : ISingletonDependency
-    //{
+    public class TaxCalculator2 : ISingletonDependency
+    {
 
-    //}
+    }
 
     ///// <summary>
     ///// ExposeServicesAttribute用于控制相关类提供了什么服务.例:  显示的制定相关的类提供什么样子的服务
@@ -63,19 +66,19 @@ namespace Tiger.Books.BlogModule
 
     //}
 
-    ///// <summary>
-    ///// 
-    ///// Singleton  指定将创建服务的单个实例。
-    ///// Transient或Scoped  指定将为每个范围创建服务的新实例。
-    ///// Lifetime: 注册的生命周期:Singleton,Transient或Scoped.
-    /////TryRegister: 设置true则只注册以前未注册的服务.使用IServiceCollection的TryAdd...扩展方法.
-    /////ReplaceServices: 设置true则替换之前已经注册过的服务.使用IServiceCollection的Replace扩展方法.
-    ///// 
-    ///// Transient  指定每次创建服务的新实例
-    ///// </summary>
-    //[Dependency(ServiceLifetime.Transient, ReplaceServices = true)]
-    //public class TaxCalculator4
-    //{
+    /// <summary>
+    /// 配置依赖注入服务的另一种方法是使用DependencyAttribute.它具有以下属性:
+    /// Singleton  指定将创建服务的单个实例。
+    /// Transient或Scoped  指定将为每个范围创建服务的新实例。
+    /// Lifetime: 注册的生命周期:Singleton,Transient或Scoped.
+    ///TryRegister: 设置true则只注册以前未注册的服务.使用IServiceCollection的TryAdd...扩展方法.
+    ///ReplaceServices: 设置true则替换之前已经注册过的服务.使用IServiceCollection的Replace扩展方法.
+    /// 
+    /// Transient  指定每次创建服务的新实例
+    /// </summary>
+    [Dependency(ServiceLifetime.Transient, ReplaceServices = true)]
+    public class TaxCalculator4
+    {
 
-    //}
+    }
 }

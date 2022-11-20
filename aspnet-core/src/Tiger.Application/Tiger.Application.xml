@@ -157,6 +157,23 @@
             BlogPostAppService 由于它是从已知的基类派生的,因此会自动注册为transient生命周期.
             </summary>
         </member>
+        <member name="T:Tiger.Books.BlogModule.TaxCalculator">
+            <summary>
+            TaxCalculator因为实现了ITransientDependency,所以它会自动注册为transient生命周期.
+            </summary>
+        </member>
+        <member name="T:Tiger.Books.BlogModule.TaxCalculator4">
+             <summary>
+             配置依赖注入服务的另一种方法是使用DependencyAttribute.它具有以下属性:
+             Singleton  指定将创建服务的单个实例。
+             Transient或Scoped  指定将为每个范围创建服务的新实例。
+             Lifetime: 注册的生命周期:Singleton,Transient或Scoped.
+            TryRegister: 设置true则只注册以前未注册的服务.使用IServiceCollection的TryAdd...扩展方法.
+            ReplaceServices: 设置true则替换之前已经注册过的服务.使用IServiceCollection的Replace扩展方法.
+             
+             Transient  指定每次创建服务的新实例
+             </summary>
+        </member>
         <member name="T:Tiger.Books.BlogModule.TaxAppService">
             <summary>
             注入依赖关系
@@ -191,6 +208,13 @@
             <summary>
             获取作者筛选列表
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.BookAppService.DeleteBooksByType(Tiger.Books.BookType)">
+            <summary>
+            根据类型删除书籍
+            </summary>
+            <param name="bookType"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Books.BookAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">

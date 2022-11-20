@@ -18,6 +18,9 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Tiger.Books;
+using Tiger.Demo;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -50,6 +53,9 @@ namespace Tiger.EntityFrameworkCore
                 /* Remove "includeAllEntities: true" to create
                  * default repositories only for aggregate roots */
                 options.AddDefaultRepositories(includeAllEntities: true);
+
+                //将默认仓储实现替换为自定义仓储实现
+                options.AddRepository<Book, BookRepository>();
                 options.AddRepository<Warehouse, WarehouseRepository>();
                 options.AddRepository<Supply, SupplyRepository>();
                 options.AddRepository<Store, StoreRepository>();
@@ -83,9 +89,35 @@ namespace Tiger.EntityFrameworkCore
 
             Configure<AbpDbContextOptions>(options =>
             {
+                #region 配置为应用程序的所有 DbContext使用SQL Server作为默认DBMS
                 /* The main point to change your DBMS.
-                 * See also TigerMigrationsDbContextFactory for EF Core tooling. */
+                         * See also TigerMigrationsDbContextFactory for EF Core tooling. */
+                // 简化写法
                 options.UseSqlServer();
+
+                //// 使用Sqlserver另外一种写法
+                //Configure<AbpDbContextOptions>(options =>
+                //{
+                //    options.Configure(opts =>
+                //    {
+                //        opts.UseSqlServer();
+                //    });
+                //});
+                #endregion
+
+
+                //// 设置 DbContextOptions (EF Core自有的配置)
+                //options.Configure(opts =>
+                //{
+                //    opts.DbContextOptions.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                //});
+
+
+                //// 为其他的DbContext 使用一个特殊配置
+                //options.Configure<MyOtherDbContext>(opts =>
+                //{
+                //    opts.UseMySQL();
+                //});
             });
         }
     }

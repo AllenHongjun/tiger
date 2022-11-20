@@ -20,9 +20,12 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Demo
 {
     /// <summary>
+    /// 人物
+    /// </summary>
+    /// <remarks>
     /// 自定义存储库依赖于你使用的数据访问工具. 在此示例中, 我们将使用Entity Framework Core:
     /// 通过接口的定义的好处 如果 数据仓储层 可以有  mysql sqlserver mongodb 各种实现。但是只要定义一套接口就可以使用了。
-    /// </summary>
+    /// </remarks>
     public class PersonRepository : EfCoreRepository<TigerDbContext, Person, Guid>, IPersonRepository
     {
         public PersonRepository(IDbContextProvider<TigerDbContext> dbContextProvider)

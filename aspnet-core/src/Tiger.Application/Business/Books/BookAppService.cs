@@ -49,11 +49,13 @@ namespace Tiger.Books
         IBookAppService //implement the IBookAppService
     {
         private readonly IAuthorRepository _authorRepository;
+        // 自定义的书籍仓库可以在任意APP层的服务注入和使用
+        private readonly IRepository<Book, Guid> _repository;
+        private readonly IBookRepository _bookRepository;
+
 
         private readonly IDistributedCache<BookCacheItem> _cache;
-
         private readonly ILog _logger = LogManager.GetLogger(typeof(BookAppService));
-        private readonly IRepository<Book, Guid> _repository;
         private readonly IBackgroundJobManager _backgroundJobManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IConfiguration _configuration;
@@ -65,6 +67,8 @@ namespace Tiger.Books
         public BookAppService(
             IAuthorRepository authorRepository,
             IRepository<Book, Guid> repository,
+            IBookRepository bookRepository,
+
             IDistributedCache<BookCacheItem> cache,
             IBackgroundJobManager backgroundJobManager,
             IWebHostEnvironment webHostEnvironment,
@@ -73,7 +77,7 @@ namespace Tiger.Books
             ISettingEncryptionService settingEncryptionService
             
         ) : base(repository)
-        {   
+        {
 
 
             //使用权限
@@ -91,8 +95,10 @@ namespace Tiger.Books
             _configuration = configuration;
             _emailSender = emailSender;
             _settingEncryptionService = settingEncryptionService;
+            _bookRepository=bookRepository;
         }
 
+        #region 书籍Demo模块业务
         /// <summary>
         /// 查询一条书籍数据
         /// </summary>
@@ -173,6 +179,28 @@ namespace Tiger.Books
             );
         }
 
+
+        /// <summary>
+        /// 根据类型删除书籍
+        /// </summary>
+        /// <param name="bookType"></param>
+        /// <returns></returns>
+        public async Task DeleteBooksByType(BookType bookType)
+        {   
+            // 可以聚合多个数据库操作
+            await _bookRepository.DeleteBooksByType(bookType);
+        }
+
+
+        public async Task TestAsync()
+        {
+            //var dbContext = await _authorRepository.GetDbContextAsync();
+            //var dbSet = await _authorRepository.GetDbSetAsync();
+            //var dbSet = dbContext.Set<Order>(); //Alternative, when you have the DbContext
+        }
+
+
+        #endregion
 
 
 
@@ -293,7 +321,6 @@ namespace Tiger.Books
             return new JsonResult(res);
         } 
         #endregion
-
 
         #region 文件上传
         /// <summary>
@@ -437,7 +464,6 @@ namespace Tiger.Books
             public string FilePath { get; set; }
         }
         #endregion
-
 
         #region 七牛文件上传
         /// <summary>
