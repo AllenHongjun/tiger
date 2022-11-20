@@ -101,7 +101,7 @@ namespace Tiger
             //}); 
             #endregion
 
-            #region 配置使用Abp默认定时任务
+            #region 配置使用AbpQuartz 后台作业
             //Configure<AbpBackgroundJobQuartzOptions>(options =>
             //    {
             //        // 定时任务重试次数配置
@@ -115,8 +115,15 @@ namespace Tiger
             //        //};
             //    });
             #endregion
-            
 
+            #region 配置Quartz后台工作者
+
+            Configure<AbpBackgroundWorkerQuartzOptions>(options =>
+            {
+                // 全局禁用自动添加
+                //options.IsAutoRegisterEnabled = false;
+            }); 
+            #endregion
         }
 
 

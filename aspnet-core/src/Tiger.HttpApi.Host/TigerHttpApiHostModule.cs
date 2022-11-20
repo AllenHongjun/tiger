@@ -17,6 +17,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using Tiger.EntityFrameworkCore;
+using Tiger.Infrastructure.BackgroundWorker;
 using Tiger.MultiTenancy;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
@@ -30,6 +31,7 @@ using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs.Hangfire;
+using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.Data;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -48,7 +50,8 @@ namespace Tiger
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpAccountWebIdentityServerModule),
         typeof(AbpAspNetCoreSerilogModule),
-        typeof(AbpBackgroundJobsHangfireModule) //Hangfire 定时作业模块依赖
+        typeof(AbpBackgroundJobsHangfireModule), //Hangfire 定时作业模块依赖
+        typeof(AbpBackgroundWorkersModule)  // 定时工作者
         )]
     public class TigerHttpApiHostModule : AbpModule
     {
@@ -470,6 +473,12 @@ namespace Tiger
             // 使用Hangfire的面板
             // Hangfire默认管理地址： https://localhost:44306/hangfire/
             app.UseHangfireDashboard();
+
+            // 新建一个项目单独运行定时任务
+            // 确保你的web应用程序被配置为始终运行. 否则只有在你的应用程序正在运行时后台作业才会工作.
+            // Todo:后台工作者 集成 haigfire
+
+            context.AddBackgroundWorker<PassiveUserCheckerWorker>();
         }
     }
 }

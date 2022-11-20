@@ -78,6 +78,7 @@
     <Folder Include="CoreModule\Event\" />
     <Folder Include="CoreModule\Utilities\DownLoadUpLoadFilesHelper\" />
     <Folder Include="CoreModule\ObjectMapping\" />
+    <Folder Include="PlatfromSdk\" />
   </ItemGroup>
 
 </Project>

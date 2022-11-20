@@ -330,6 +330,38 @@
             使用 IBackgroundJobManager 服务向队列中添加一个发送电子邮件作业
             </summary>
         </member>
+        <member name="T:Tiger.Infrastructure.BackgroundWorker.MyWorker">
+            <summary>
+            后台定时作业（后台工作者 demo）
+            BackgroundWorkerBase 是创建后台工作者的简单方法.
+            </summary>
+        </member>
+        <member name="M:Tiger.Infrastructure.BackgroundWorker.MyWorker.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            startAsync 开始你的工作者(在应用程序启动时),
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Infrastructure.BackgroundWorker.MyWorker.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            topAsync 停止它(在应用程序关闭时).
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Infrastructure.BackgroundWorker.PassiveUserCheckerWorker">
+            <summary>
+            设置用户为不活跃用户(如果用户最近30天未登录应用程序)
+            </summary>
+        </member>
+        <member name="M:Tiger.Infrastructure.BackgroundWorker.PassiveUserCheckerWorker.DoWorkAsync(Volo.Abp.BackgroundWorkers.PeriodicBackgroundWorkerContext)">
+            <summary>
+            实现 DoWorkAsync 方法执行定期任务.
+            </summary>
+            <param name="workerContext"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Infrastructure.ObjectMapping.TigerApplicationAutoMapperProfile">
              <summary>
              AutoMapper提供了多种定义类之间映射的方法. 有关详细信息请参阅AutoMapper的文档.
