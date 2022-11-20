@@ -20,7 +20,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tiger.Demo
 {
     /// <summary>
-    /// Implementing the IAuthorRepository
+    /// 实现IAuthorRepository接口的仓储
     /// </summary>
     public class EfCoreAuthorRepository
         : EfCoreRepository<TigerDbContext, Author, Guid>,

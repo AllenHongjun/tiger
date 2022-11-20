@@ -31,6 +31,14 @@ namespace Tiger.Business.Demo
             _authorRepository = authorRepository;
         }
 
+        /// <summary>
+        /// 添加作者
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="birthDate"></param>
+        /// <param name="shortBio"></param>
+        /// <returns></returns>
+        /// <exception cref="AuthorAlreadyExistsException"></exception>
         public async Task<Author> CreateAsync(
             [NotNull] string name,
             DateTime birthDate,
@@ -53,6 +61,13 @@ namespace Tiger.Business.Demo
             );
         }
 
+        /// <summary>
+        /// 修改作者名称
+        /// </summary>
+        /// <param name="author"></param>
+        /// <param name="newName"></param>
+        /// <returns></returns>
+        /// <exception cref="AuthorAlreadyExistsException"></exception>
         public async Task ChangeNameAsync(
             [NotNull] Author author,
             [NotNull] string newName)
