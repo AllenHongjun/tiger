@@ -44,6 +44,7 @@ using Volo.Abp.Data;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.Quartz;
+using Volo.Abp.Timing;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 
@@ -146,6 +147,7 @@ namespace Tiger
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
             ConfigureHangfire(context, configuration);
+            ConfigureTiming(context, configuration);
 
             #region 配置Abp  请求异常信息
             // Abp项目默认会启动内置的异常处理，默认不将异常信息发送到客户端。
@@ -158,7 +160,6 @@ namespace Tiger
 #endif
             });
             #endregion
-
 
             #region 配置Quartz后台工作者
 
@@ -179,9 +180,10 @@ namespace Tiger
             Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true);
             Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
             #endregion
+
         }
 
-        #region ConfigureUrls
+        #region 配置Urls
         private void ConfigureUrls(IConfiguration configuration)
         {
 
@@ -511,6 +513,23 @@ namespace Tiger
                 config.UseSqlServerStorage(configuration.GetConnectionString("Hangfire"));
             });
         }
+        #endregion
+
+        #region 配置时区
+        /// <summary>
+        /// 配置时区
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="configuration"></param>
+        private void ConfigureTiming(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            Configure<AbpClockOptions>(options =>
+            {
+                //AbpClockOptions 是用于设置时钟种类的选项类.
+                options.Kind = DateTimeKind.Utc;
+            });
+
+        } 
         #endregion
 
         #region 应用初始化

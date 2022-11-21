@@ -64,11 +64,14 @@
     <PackageReference Include="Volo.Abp.TenantManagement.Domain" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.FeatureManagement.Domain" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.SettingManagement.Domain" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.VirtualFileSystem" Version="3.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Business\Finances\" />
     <Folder Include="Business\Stat\" />
+    <Folder Include="Infrastructure\ObjectMapping\新文件夹\" />
+    <Folder Include="Infrastructure\VirtualFileSystem\" />
     <Folder Include="PlatfromSdk\" />
   </ItemGroup>
 

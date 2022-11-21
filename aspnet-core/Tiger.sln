@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tiger.DbMigrator", "src\Tig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tiger.HttpApi.Host", "src\Tiger.HttpApi.Host\Tiger.HttpApi.Host.csproj", "{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{241EC7C8-93AC-4754-8E3A-0C7E1938516A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{241EC7C8-93AC-4754-8E3A-0C7E1938516A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{6528BEF5-363A-48F8-B357-EEFD9DED7B2B}"
 EndProject
@@ -49,7 +49,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C2D49CB9-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "src\ConsoleApp\ConsoleApp.csproj", "{54A6A58C-6A12-49F5-9F83-591D9DE82F30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tiger.TaskWeb", "Tiger.TaskWeb\Tiger.TaskWeb.csproj", "{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tiger.Task.Host", "Tiger.TaskWeb\Tiger.Task.Host.csproj", "{8A8AA5E5-A948-44EB-8870-5DCB5EF78A36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

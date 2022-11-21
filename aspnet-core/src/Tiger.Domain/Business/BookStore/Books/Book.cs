@@ -59,7 +59,7 @@ namespace Tiger.Books
         /// 作者对象
         /// </summary>
         /// <remarks>
-        /// 导航熟悉
+        /// 导航属性
         /// </remarks>
         [ForeignKey("AuthorId")]
         public virtual Author Author { get; set; }

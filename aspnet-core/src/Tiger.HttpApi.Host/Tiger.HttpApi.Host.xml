@@ -77,6 +77,13 @@
             <param name="context"></param>
             <param name="configuration"></param>
         </member>
+        <member name="M:Tiger.TigerHttpApiHostModule.ConfigureTiming(Volo.Abp.Modularity.ServiceConfigurationContext,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            配置时区
+            </summary>
+            <param name="context"></param>
+            <param name="configuration"></param>
+        </member>
         <member name="M:Tiger.TigerHttpApiHostModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
             <summary>
             应用初始化
