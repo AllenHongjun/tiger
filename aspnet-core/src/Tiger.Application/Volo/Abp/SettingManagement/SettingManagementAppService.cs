@@ -157,12 +157,12 @@ namespace Tiger.Volo.Abp.SettingManagement
 
 
 
-            await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Host", "127.0.0.1");
-            await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Port", "25");
-            await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.UserName", "test123");
-            await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Password", "1q2w3E*");
-            await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Domain", "https://www.baidu.com");
-            await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.EnableSsl", "true");
+            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Host", "127.0.0.1");
+            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Port", "25");
+            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.UserName", "test123");
+            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Password", "1q2w3E*");
+            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Domain", "https://www.baidu.com");
+            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.EnableSsl", "true");
 
 
             await _settingManager.SetForCurrentUserAsync("App.UI.LayoutType", "LeftMenu");

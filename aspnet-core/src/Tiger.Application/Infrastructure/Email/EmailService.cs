@@ -14,18 +14,25 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Emailing;
+using Volo.Abp.Settings;
 
 namespace Tiger.Books.Demo
 {
-    [ApiExplorerSettings(GroupName = "api")]
-    [RemoteService(false)]
-    public class EmailService : ITransientDependency
+    [ApiExplorerSettings(GroupName = "admin")]
+    [RemoteService(true)]
+    public class EmailService :TigerAppService, ITransientDependency
     {
         private readonly IEmailSender _emailSender;
 
-        public EmailService(IEmailSender emailSender)
+        private readonly ISettingEncryptionService _settingEncryptionService;
+        private readonly ISettingDefinitionManager _settingDefinitionManager;
+
+
+        public EmailService(IEmailSender emailSender, ISettingEncryptionService settingEncryptionService, ISettingDefinitionManager settingDefinitionManager)
         {
             _emailSender = emailSender;
+            _settingEncryptionService=settingEncryptionService;
+            _settingDefinitionManager=settingDefinitionManager;
         }
 
 
@@ -39,13 +46,39 @@ namespace Tiger.Books.Demo
         3. 集成第三方发送邮件的服务
          
          */
-        public async Task DoItAsync()
+        public async Task EmailSimpleTestAsync()
         {
-            await _emailSender.SendAsync(
-                "652971723@163.com",     // target email address
-                "Email subject",         // subject
-                "This is email body..."  // email body
-            );
+            try
+            {
+                await _emailSender.SendAsync(
+                    "hongjy1991@gmail.com",     // target email address
+                    "Email subject",         // subject
+                    "This is email body..."  // email body
+                );
+
+                await _emailSender.SendAsync(
+                    "806815027@qq.com",     // target email address
+                    "Email subject",         // subject
+                    "This is email body..."  // email body
+                );
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
+
+        
+
+        public async Task EncryptPwd()
+        {
+
+            var setting = _settingDefinitionManager.Get(EmailSettingNames.Smtp.Password);
+            var psd = _settingEncryptionService.Encrypt(setting, "HONGjunyu123");
+            throw new Exception($"密码是:{psd}");
+        }
+
+
     }
 }

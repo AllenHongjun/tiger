@@ -20,46 +20,30 @@ namespace Tiger.Books.Demo
     {
         public override void Define(ISettingDefinitionContext context)
         {
-
-            // ABP会自动发现并注册设置的定义.
             /*
-             SettingDefinition
-            SettingDefinition 类具有以下属性:
-
-            Name: 应用程序中设置的唯一名称. 是具有约束的唯一属性, 在应用程序获取/设置此设置的值 (设置名称定义为常量而不是magic字符串是个好主意).
-            DefaultValue: 设置的默认值.
-            DisplayName: 本地化的字符串,用于在UI上显示名称.
-            Description: 本地化的字符串,用于在UI上显示描述.
-            IsVisibleToClients: 布尔值,表示此设置是否在客户端可用. 默认为false,避免意外暴漏内部关键设置.
-            IsInherited: 布尔值,此设置值是否从其他提供程序继承. 如果没有为请求的提供程序设置设定值,那么默认值是true并回退到下一个提供程序 (参阅设置值提供程序部分了解更多).
-            IsEncrypted: 布尔值,表示是否在保存值是加密,读取时解密. 在数据库中存储加密的值.
-            Providers: 限制可用于特定的设置值提供程序(参阅设置值提供程序部分了解更多).
-            Properties: 设置此值的自定义属性 名称/值 集合,可以在之后的应用程序代码中使用.
-             
+                Abp.Mailing.DefaultFromAddress: 当你在发送电子邮件时未指定发件人时,用作发件人的电子邮件地址（就像上面的示例一样）.
+                Abp.Mailing.DefaultFromDisplayName: 当你在发送电子邮件时未指定发件人时,用作发件人的显示名称（就像在上面的示例中一样）.
+                Abp.Mailing.Smtp.Host: SMTP 服务器的 IP/域（默认值：127.0.0.1）。
+                Abp.Mailing.Smtp.Port: SMTP 服务器的端口（默认值：25）.
+                Abp.Mailing.Smtp.UserName: 用户名，如果 SMTP 服务器需要身份验证需要。
+                Abp.Mailing.Smtp.Password: 密码，如果 SMTP 服务器需要身份验证需要。 此值已加密（请参阅下面的部分）.
+                Abp.Mailing.Smtp.Domain: 账号域，如果 SMTP 服务器需要身份验证需要.
+                Abp.Mailing.Smtp.EnableSsl: 指示 SMTP 服务器是否使用 SSL 的值（“true”或“false”。默认值：“false”）.
+                Abp.Mailing.Smtp.UseDefaultCredentials:如果为 true，则使用默认凭据,而不是提供的用户名和密码（“true”或“false”。默认值：“true”）。.
              
              */
-
-
             //context.Add(
-            //    new SettingDefinition("Smtp.Host", "127.0.0.1"),
-            //    new SettingDefinition("Smtp.Port", "25"),
-            //    new SettingDefinition("Smtp.UserName", "test123456"),
-            //    new SettingDefinition("Smtp.Password", isEncrypted: true),
-            //    new SettingDefinition("Smtp.EnableSsl", "false")
+            //    new SettingDefinition("Abp.Mailing.DefaultFromAddress", "hongjy2000@outlook.com"),
+            //    new SettingDefinition("Abp.Mailing.DefaultFromDisplayName", "AllenHong"),
+            //    new SettingDefinition("Abp.Mailing.Smtp.Host", "smtp.office365.com"),
+            //    new SettingDefinition("Abp.Mailing.Smtp.Port", "587"),
+            //    // 直接使用保存的密码需要加密 https://www.cnblogs.com/zinan/p/15309515.html
+            //    new SettingDefinition("Abp.Mailing.Smtp.UserName", "hongjy2000@outlook.com"),
+            //    new SettingDefinition("Abp.Mailing.Smtp.Password", "OCttA8wx583UxEFnASt42w=="),
+            //    new SettingDefinition("Abp.Mailing.Smtp.Domain", "smtp.office365.com"),
+            //    new SettingDefinition("Abp.Mailing.Smtp.EnableSsl", "true"),
+            //    new SettingDefinition("Abp.Mailing.Smtp.UseDefaultCredentials", "false")
             //);
-
-
-            context.Add(
-                new SettingDefinition("Abp.Mailing.Smtp.Host", "127.0.0.1"),
-                new SettingDefinition("Abp.Mailing.Smtp.Port", "25"),
-                new SettingDefinition("Abp.Mailing.Smtp.UserName", "hongjy"),
-                new SettingDefinition("Abp.Mailing.Smtp.Password", isEncrypted: true),
-                new SettingDefinition("Abp.Mailing.Smtp.Domain", ""),
-                new SettingDefinition("Abp.Mailing.Smtp.EnableSsl", "false"),
-                new SettingDefinition("Abp.Mailing.Smtp.UseDefaultCredentials", "true"),
-                new SettingDefinition("Abp.Mailing.DefaultFromAddress", "hongjy1991@gmai.com"),
-                new SettingDefinition("Abp.Mailing.DefaultFromDisplayName", "ABP application")
-            );
         }
     }
 }
