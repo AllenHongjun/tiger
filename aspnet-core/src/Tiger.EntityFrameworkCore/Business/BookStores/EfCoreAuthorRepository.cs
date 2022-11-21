@@ -10,7 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+//using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Tiger.Business.Demo;
 using Tiger.EntityFrameworkCore;
@@ -35,16 +38,32 @@ namespace Tiger.Demo
         {
         }
 
+        
+
+        public async Task<Author> FindByNameAsync(string name)
+        {
+            return await DbSet
+                .OrderBy(x => x.Id)
+                .FirstOrDefaultAsync(author => author.Name == name);
+        }
+
         /// <summary>
         /// 根据名称查找作者
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<Author> FindByNameAsync(string name)
+        /// <remarks>
+        /// CancellationToken https://zhuanlan.zhihu.com/p/357602454
+        /// </remarks>
+        public async Task<Author> FindByNameAsync(
+            string name,
+            bool includeDetails = true,
+            CancellationToken cancellationToken = default)
         {
-            return await DbSet.FirstOrDefaultAsync(author => author.Name == name);
+            return await DbSet
+                .OrderBy(x => x.Id)
+                .FirstOrDefaultAsync(author => author.Name == name, GetCancellationToken(cancellationToken));
         }
-
 
         /// <summary>
         /// 分页获取作者列表
@@ -71,5 +90,26 @@ namespace Tiger.Demo
                 .Take(maxResultCount)
                 .ToListAsync();
         }
+
+
+        /// <summary>
+        /// 获取总数量
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public virtual async Task<long> GetCountAsync(string filter = null, CancellationToken cancellationToken = default)
+        {
+            return await DbSet
+                .WhereIf(
+                    !filter.IsNullOrWhiteSpace(),
+                    u =>
+                        u.Name.Contains(filter)
+                ).CountAsync(cancellationToken: GetCancellationToken(cancellationToken));
+        }
+
+
+       
+
     }
 }

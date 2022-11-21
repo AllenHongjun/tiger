@@ -9,6 +9,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,6 +30,32 @@ namespace Tiger.Demo
             : base(dbContextProvider)
         {
         }
+
+
+        public virtual async Task<Book> FindAsync(string name)
+        {
+            return await DbSet
+                .FirstOrDefaultAsync(
+                    s => s.Name == name
+                );
+        }
+
+
+        public virtual async Task<List<Book>> GetListAsync(BookType type)
+        {
+
+            var query = from book in DbContext.Set<Book>()
+                        join author in DbContext.Set<Author>() on book.AuthorId equals author.Id
+                        where book.Type == type
+                        select book;
+
+
+            return await DbSet.Include<Book>("")
+                .Where(
+                    s => s.Type == type
+                ).ToListAsync();
+        }
+
 
 
         /// <summary>

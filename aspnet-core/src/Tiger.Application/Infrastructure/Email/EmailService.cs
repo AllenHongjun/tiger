@@ -29,7 +29,6 @@ namespace Tiger.Books.Demo
         }
 
 
-
         /*
          Provides IEmailSender service that is used to send emails.
         Defines settings to configure email sending.
