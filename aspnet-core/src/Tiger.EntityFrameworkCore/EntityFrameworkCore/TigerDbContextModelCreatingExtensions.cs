@@ -40,7 +40,7 @@ namespace Tiger.EntityFrameworkCore
             //    //...
             //});
 
-            #region Demo模块
+            #region BookStore
             // 添加 Book 实体的映射代码 自动根据代码生成数据表 将Book实体映射到数据库表
             builder.Entity<Book>(b =>
             {
@@ -54,7 +54,10 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(128);
 
                 // ADD THE MAPPING FOR THE RELATION
-                b.HasOne<Business.Demo.Author>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
+                b.HasOne<Business.Demo.Author>()
+                .WithMany()
+                .HasForeignKey(x => x.AuthorId)
+                .IsRequired();
 
                 //b.HasMany(u => u.Claims).WithOne().HasForeignKey(uc => uc.UserId).IsRequired();
                 //b.HasMany(u => u.Logins).WithOne().HasForeignKey(ul => ul.UserId).IsRequired();

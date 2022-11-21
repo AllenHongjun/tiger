@@ -1,6 +1,7 @@
 ﻿
 using log4net;
 using log4net.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,9 @@ namespace Tiger.Books
     /// </summary>
     /// 
     [RemoteService(true)]
-    [ApiExplorerSettings(GroupName = "admin")]
+    [ApiExplorerSettings(GroupName = "admin")]  
+    // 增加授权
+    [Authorize(BookStorePermissions.Books.Default)]
     public class BookAppService :
         CrudAppService<
             Book, //The Book entity
@@ -100,12 +103,15 @@ namespace Tiger.Books
             
         }
 
-        #region 书籍Demo模块业务
+        #region 书籍模块crud基础业务
         /// <summary>
         /// 查询一条书籍数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// 重写父类的 GetAsync方法
+        /// </remarks>
         public override async Task<BookDto> GetAsync(Guid id)
         {
             await CheckGetPolicyAsync();
@@ -117,6 +123,7 @@ namespace Tiger.Books
                         select new { book, author };
 
             //Execute the query and get the book with author
+            // 使用 `AsyncExecuter.FirstOrDefaultAsync(...)` 执行查询并得到一个结果. 这是一种无需依赖database provider API, 使用异步LINQ扩展的方法. 
             var queryResult = await AsyncExecuter.FirstOrDefaultAsync(query);
             if (queryResult == null)
             {
@@ -176,9 +183,29 @@ namespace Tiger.Books
         {
             var authors = await _authorRepository.GetListAsync();
 
+            // 可以map一个list的数据
             return new ListResultDto<AuthorLookupDto>(
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
+        }
+
+        private static string NormalizeSorting(string sorting)
+        {
+            if (sorting.IsNullOrEmpty())
+            {
+                return $"book.{nameof(Book.Name)}";
+            }
+
+            if (sorting.Contains("authorName", StringComparison.OrdinalIgnoreCase))
+            {
+                return sorting.Replace(
+                    "authorName",
+                    "author.Name",
+                    StringComparison.OrdinalIgnoreCase
+                );
+            }
+
+            return $"book.{sorting}";
         }
 
 

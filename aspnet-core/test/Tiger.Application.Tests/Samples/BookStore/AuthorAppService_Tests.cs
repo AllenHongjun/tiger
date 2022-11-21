@@ -16,10 +16,13 @@ using Tiger.Business.Demo;
 using Xunit;
 
 namespace Tiger.Samples.Authors
-{   
+{
     /// <summary>
-    /// 跟着demo 完成 一张表 完整的增删改查  单元测试  实体类。仓储 仓储 接口 种子数据 等等。
+    ///  Author单元测试
     /// </summary>
+    /// <remarks>
+    /// 跟着demo 完成 一张表 完整的增删改查  单元测试  实体类。仓储 仓储 接口 种子数据 等等。
+    /// </remarks>
     public class AuthorAppService_Tests : TigerApplicationTestBase
     {
         private readonly IAuthorAppService _authorAppService;
