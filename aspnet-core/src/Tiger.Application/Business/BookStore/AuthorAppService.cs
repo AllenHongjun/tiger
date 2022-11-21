@@ -46,7 +46,11 @@ namespace Tiger.Books
         /// <returns></returns>
         [Authorize(BookStorePermissions.Authors.Create)]
         public async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
-        {
+        {   
+            // Validation 表单数据验证
+
+            // 数据逻辑验证错误抛出
+
             var author = await _authorManager.CreateAsync(
                     input.Name,
                     input.BirthDate,

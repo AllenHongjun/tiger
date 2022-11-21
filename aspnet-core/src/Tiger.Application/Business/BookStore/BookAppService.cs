@@ -78,24 +78,26 @@ namespace Tiger.Books
             
         ) : base(repository)
         {
-
-
-            //使用权限
-            //GetPolicyName = TigerPermissions.Books.Default;
-            //GetListPolicyName = TigerPermissions.Books.Default;
-            //CreatePolicyName = TigerPermissions.Books.Create;
-            //UpdatePolicyName = TigerPermissions.Books.Edit;
-            //DeletePolicyName = TigerPermissions.Books.Delete;
+            #region 授权-在构造函数中使用
+            //授权 在构造函数中时候 或者使用特性 声明式的授权  基类中的 `CrudAppService` 自动在CRUD操作中使用这些权限. 
+            GetPolicyName = TigerPermissions.Books.Default;
+            GetListPolicyName = TigerPermissions.Books.Default;
+            CreatePolicyName = TigerPermissions.Books.Create;
+            UpdatePolicyName = TigerPermissions.Books.Edit;
+            DeletePolicyName = TigerPermissions.Books.Delete;
+            #endregion
 
             _authorRepository = authorRepository;
             _repository = repository;
+            _bookRepository=bookRepository;
+
             _cache = cache;
             _backgroundJobManager = backgroundJobManager;
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
             _emailSender = emailSender;
             _settingEncryptionService = settingEncryptionService;
-            _bookRepository=bookRepository;
+            
         }
 
         #region 书籍Demo模块业务

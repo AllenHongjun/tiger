@@ -5,7 +5,9 @@
 -- QRTZ_JOB_DETAILS [JOB_NAME]  [JOB_CLASS_NAME]  官方默认者连个字段的值太小 运行异常。设置长度加大
 
 --
+-- this script is for SQL Server and Azure SQL
 
+USE Quartz;
 GO
 
 IF OBJECT_ID(N'[dbo].[FK_QRTZ_TRIGGERS_QRTZ_JOB_DETAILS]', N'F') IS NOT NULL
@@ -136,10 +138,10 @@ GO
 
 CREATE TABLE [dbo].[QRTZ_JOB_DETAILS] (
   [SCHED_NAME] nvarchar(120) NOT NULL,
-  [JOB_NAME] nvarchar(450) NOT NULL,
+  [JOB_NAME] nvarchar(150) NOT NULL,
   [JOB_GROUP] nvarchar(150) NOT NULL,
   [DESCRIPTION] nvarchar(250) NULL,
-  [JOB_CLASS_NAME] nvarchar(450) NOT NULL,
+  [JOB_CLASS_NAME] nvarchar(250) NOT NULL,
   [IS_DURABLE] bit NOT NULL,
   [IS_NONCONCURRENT] bit NOT NULL,
   [IS_UPDATE_DATA] bit NOT NULL,

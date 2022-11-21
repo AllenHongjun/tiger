@@ -688,10 +688,29 @@
              dto 对象里面 需要把 autherId  和 author name 属性全部都加上去
             </summary>
         </member>
+        <member name="T:Tiger.Books.CreateUpdateBookDto">
+            <summary>
+            添加创建删除书籍Dto
+            </summary>
+            <remarks>
+             
+            
+            </remarks>
+        </member>
         <member name="P:Tiger.Books.CreateUpdateBookDto.Name">
             <summary>
             书籍名称
             </summary>
+            <remarks>
+            Asp.net core 的模型验证 https://learn.microsoft.com/zh-cn/aspnet/core/mvc/models/validation?view=aspnetcore-7.0
+            ABP的优点
+            定义 `IValidationEnabled` 向任意类添加自动验证. 所有的[应用服务](Application-Services.md)都实现了该接口,所以它们会被自动验证.
+            自动将数据注解属性的验证错误信息本地化.
+            提供可扩展的服务来验证方法调用或对象的状态.
+            提供[FluentValidation](https://fluentvalidation.net/)的集成.
+            
+            数据注解 当使用该类作为[应用服务](Application-Services.md)或控制器的参数时,将对其自动验证并抛出本地化异常(由ABP框架[处理](Exception-Handling.md)).
+            </remarks>
         </member>
         <member name="P:Tiger.Books.CreateUpdateBookDto.Type">
             <summary>
@@ -713,6 +732,23 @@
             作者id
             </summary>
         </member>
+        <member name="M:Tiger.Books.CreateUpdateBookDto.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            可以将DTO实现 `IValidatableObject` 接口进行自定义验证逻辑. 下面的示例中 `CreateBookDto` 实现了这个接口,并检查 `Name` 是否等于 `Description` 并返回一个验证错误.
+            </summary>
+            <param name="validationContext"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Books.CreateUpdateBookDtoValidator">
+            <summary>
+            Book数据验证
+            </summary>
+            <remarks>
+            
+            FluentValidation文档 https://docs.fluentvalidation.net/en/latest/
+            ABP会自动找到这个类并在对象验证时与 `CreateUpdateBookDto` 关联.
+            </remarks>
+        </member>
         <member name="M:Tiger.Books.IBookAppService.GetAuthorLookupAsync">
             <summary>
             获取下拉框选中作者的列表数据
@@ -723,6 +759,13 @@
             <summary>
             书店权限管理
             </summary>
+            <remarks>
+            ASP.NET Core 中的授权简介   https://learn.microsoft.com/zh-cn/aspnet/core/security/authorization/introduction?view=aspnetcore-7.0
+            
+            权限名称配置
+            权限必须有唯一的名称 (一个 `字符串`). 最好的方法是把它定义为一个 `常量`, 这样我们就可以重用这个权限名称了
+            权限名称具有层次结构. 例如, "创建图书" 权限被定义为 `BookStore.Books.Create`. 
+            </remarks>
         </member>
         <member name="P:Tiger.Marketings.Coupons.CouponDto.Type">
             <summary>
