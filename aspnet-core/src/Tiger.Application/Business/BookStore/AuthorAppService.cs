@@ -125,6 +125,7 @@ namespace Tiger.Books
 
             if (author.Name != input.Name)
             {
+
                 await _authorManager.ChangeNameAsync(author, input.Name);
             }
 
