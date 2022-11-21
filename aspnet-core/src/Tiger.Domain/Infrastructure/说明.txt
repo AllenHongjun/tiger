@@ -1,0 +1,19 @@
+﻿ABP 框架是一个模块化和 组件化的开发框架。 
+比如 定时任务  邮件 缓存  序列化 验证  都基层了一个模块的功能。。
+还有没有的功能。。比如 导入 导出  生成验证 等 可以建立一个自己的模块。。
+也也可以弄一个帮助内容类。然后来使用。。
+
+
+Framework Modules vs Application Modules
+There are two types of modules. They don't have any structural difference but categorized by functionality and purpose:
+
+Framework modules: These are core modules of the framework like caching, emailing, theming, security, 
+serialization, validation, EF Core integration, MongoDB integration... etc.
+They do not have application/business functionalities but makes your daily development easier by providing common infrastructure,
+integration and abstractions.
+
+
+Application modules: These modules implement specific application/business functionalities like blogging, document management, 
+identity management, tenant management... etc. They generally have their own entities, services, 
+APIs and UI components.
+See pre-built application modules.

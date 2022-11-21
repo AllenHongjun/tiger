@@ -17,8 +17,11 @@ using Volo.Abp.TenantManagement;
 namespace Tiger
 {
     /// <summary>
-    /// 解决方案的领域层. 它主要包含 实体, 集合根, 领域服务, 值类型, 仓储接口 和解决方案的其他领域对象.
+    /// 领域模块
     /// </summary>
+    /// <remarks>
+    /// 解决方案的领域层. 它主要包含 实体, 集合根, 领域服务, 值类型, 仓储接口 和解决方案的其他领域对象.
+    /// </remarks>
     [DependsOn(
         typeof(TigerDomainSharedModule),
         typeof(AbpAuditLoggingDomainModule),
@@ -42,9 +45,9 @@ namespace Tiger
             });
 
 #if DEBUG
-            // NullEmailSender is a built-in class that implements the IEmailSender, but writes email contents to the standard log system, rathen than actually sending the emails.
-            //context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
+            //NullEmailSender 是实现 IEmailSender 的内置类，但将电子邮件内容写入 标准日志系统，而不是实际发送电子邮件。
+            context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
-        }
     }
+}
 }

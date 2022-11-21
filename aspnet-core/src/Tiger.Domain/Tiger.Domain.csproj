@@ -10,13 +10,16 @@
 
   <ItemGroup>
     <Compile Remove="Business\Customers\**" />
-    <Compile Remove="CoreModule\Emailing\**" />
+    <Compile Remove="CoreModule\**" />
+    <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <Compile Remove="Module\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
-    <EmbeddedResource Remove="CoreModule\Emailing\**" />
+    <EmbeddedResource Remove="CoreModule\**" />
+    <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <EmbeddedResource Remove="Module\**" />
     <None Remove="Business\Customers\**" />
-    <None Remove="CoreModule\Emailing\**" />
+    <None Remove="CoreModule\**" />
+    <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <None Remove="Module\**" />
   </ItemGroup>
 
@@ -32,10 +35,6 @@
     <Compile Remove="Business\Members\MemberTag.cs" />
     <Compile Remove="Business\Members\MemberTagRelation.cs" />
     <Compile Remove="Business\Members\MemberTask.cs" />
-    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\DownLoadHelper.cs" />
-    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\FileDown.cs" />
-    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\FileUp.cs" />
-    <Compile Remove="CoreModule\Utilities\DownLoadUpLoadFilesHelper\UpLoadFiles.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +50,7 @@
     <PackageReference Include="Volo.Abp.BackgroundJobs.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.BlobStoring.Aws" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Emailing" Version="3.2.1" />
@@ -68,18 +68,7 @@
 
   <ItemGroup>
     <Folder Include="Business\Finances\" />
-    <Folder Include="CoreModule\Security\" />
     <Folder Include="Business\Stat\" />
-    <Folder Include="CoreModule\Theming\" />
-    <Folder Include="CoreModule\Serialization\" />
-    <Folder Include="CoreModule\Validation\" />
-    <Folder Include="CoreModule\MongoDB\" />
-    <Folder Include="CoreModule\RabbitMq\" />
-    <Folder Include="CoreModule\ElasticSearch\" />
-    <Folder Include="CoreModule\ApiGateWay\" />
-    <Folder Include="CoreModule\Event\" />
-    <Folder Include="CoreModule\Utilities\DownLoadUpLoadFilesHelper\" />
-    <Folder Include="CoreModule\ObjectMapping\" />
     <Folder Include="PlatfromSdk\" />
   </ItemGroup>
 

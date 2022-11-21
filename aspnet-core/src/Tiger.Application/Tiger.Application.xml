@@ -324,6 +324,49 @@
             <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Tiger.Books.Demo.PersonAppService.TestQueryableAndAsync(System.String)" -->
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendAsync">
+            <summary>
+            邮件发送测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailQueueAsync">
+            <summary>
+            通过队列发送邮件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithAttachmentAsync">
+            <summary>
+            发送邮件附件
+            </summary>
+            <returns></returns>
+            <remarks>
+            附件发送邮件 https://learn.microsoft.com/zh-cn/dotnet/api/system.net.mail.mailmessage?view=net-7.0
+            </remarks>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithTemplateRenderer">
+            <summary>
+            测试使用文本模板发送邮件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithCustomTemplateRenderer">
+            <summary>
+            替换覆盖文件模板
+            </summary>
+            <returns></returns>
+            <remarks>
+            虚拟文件系统 https://docs.abp.io/zh-Hans/abp/latest/Virtual-File-System
+            </remarks>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.EncryptPwd">
+            <summary>
+            加密邮箱密码
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
         <member name="T:Tiger.Books.IAuthorAppService">
             <summary>
             作者应用服务接口
