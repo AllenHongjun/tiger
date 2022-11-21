@@ -28,6 +28,13 @@ namespace Tiger.Books
         /// </summary>
         public Guid AuthorId { get; set; }
 
+        /// <summary>
+        /// 作者名字
+        /// </summary>
+        /// <remarks>
+        /// 通过join 关联查询数据
+        /// </remarks>
+
         public string AuthorName { get; set; }
     }
 }

@@ -9,30 +9,41 @@ using Volo.Abp.Localization;
 
 namespace Tiger.Permissions
 {
+
+#pragma warning disable CS1570 // XML 注释出现 XML 格式错误
     /// <summary>
     /// 权限管理
     /// </summary>
     /// <remarks>
+    /// 权限定义
     /// 授权配置教程: https://docs.abp.io/zh-Hans/abp/latest/Tutorials/Part-5?UI=MVC&DB=EF
+    /// 配置权限步骤 1 添加权限名称 2. 添加权限定义 3. 编辑本地化文件 zh-Hans.json文件
     /// </remarks>
     public class TigerPermissionDefinitionProvider : PermissionDefinitionProvider
+#pragma warning restore CS1570 // XML 注释出现 XML 格式错误
     {
         public override void Define(IPermissionDefinitionContext context)
         {
             //Define your own permissions here.
 
+            #region 书店
 
-            #region BookStore
-
-            // 书籍管理权限
+            // 添加书店权限组
             var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName, L("Permission:BookStore"));
+
+            // 书籍
+
+            //
             var bookPermission = bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
-                bookPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
-                bookPermission.AddChild(BookStorePermissions.Books.Update, L("Permission:Books.Update"));
-                bookPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
+
+            // **创建**, **编辑** 和 **删除** 是 `BookStorePermissions.Books.Default` 权限的子权限  **仅当父权限被选择**时, 子权限才能被选择
+            bookPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
+            bookPermission.AddChild(BookStorePermissions.Books.Update, L("Permission:Books.Update"));
+            bookPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
 
             //作者
             var authorsPermission = bookStoreGroup.AddPermission(BookStorePermissions.Authors.Default, L("Permission:Authors"));
+
             authorsPermission.AddChild(BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
             authorsPermission.AddChild(BookStorePermissions.Authors.Update, L("Permission:Authors.Update"));
             authorsPermission.AddChild(BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
@@ -327,6 +338,7 @@ namespace Tiger.Permissions
             // 组织
             var identityGroup = context.GetGroup(IdentityPermissions.GroupName);
             var ouPermission = identityGroup.AddPermission(TigerIdentityPermissions.OrganitaionUnits.Default, L("Permission:OrganitaionUnits"));
+
             ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Create, L("Permission:OrganitaionUnits.Create"));
             ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Update, L("Permission:OrganitaionUnits.Edit"));
             ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Delete, L("Permission:OrganitaionUnits.Delete"));
@@ -334,6 +346,7 @@ namespace Tiger.Permissions
             //系统日志
             var auditLogGroup = context.AddGroup(AuditLogPermissions.GroupName, L("Permission:System"));
             var aduditLogPermission = auditLogGroup.AddPermission(AuditLogPermissions.AuditLogs.Default, L("Permission:AuditLog"));
+
             aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Create, L("Permission:AuditLog.Create"));
             aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Update, L("Permission:AuditLog.Edit"));
             aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Delete, L("Permission:AuditLog.Delete"));
@@ -350,7 +363,6 @@ namespace Tiger.Permissions
             //claimPermission.AddChild(TigerIdentityPermissions.ClaimTypes.Update, IdentityL("Permission:Edit"));
             //claimPermission.AddChild(TigerIdentityPermissions.ClaimTypes.Delete, IdentityL("Permission:Delete")); 
             #endregion
-
 
         }
 

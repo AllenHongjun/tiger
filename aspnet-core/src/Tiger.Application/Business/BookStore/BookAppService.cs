@@ -1,6 +1,7 @@
 ﻿
 using log4net;
 using log4net.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,9 @@ namespace Tiger.Books
     /// </summary>
     /// 
     [RemoteService(true)]
-    [ApiExplorerSettings(GroupName = "admin")]
+    [ApiExplorerSettings(GroupName = "admin")]  
+    // 增加授权
+    [Authorize(BookStorePermissions.Books.Default)]
     public class BookAppService :
         CrudAppService<
             Book, //The Book entity
@@ -78,32 +81,37 @@ namespace Tiger.Books
             
         ) : base(repository)
         {
-
-
-            //使用权限
-            //GetPolicyName = TigerPermissions.Books.Default;
-            //GetListPolicyName = TigerPermissions.Books.Default;
-            //CreatePolicyName = TigerPermissions.Books.Create;
-            //UpdatePolicyName = TigerPermissions.Books.Edit;
-            //DeletePolicyName = TigerPermissions.Books.Delete;
+            #region 授权-在构造函数中使用
+            //授权 在构造函数中时候 或者使用特性 声明式的授权  基类中的 `CrudAppService` 自动在CRUD操作中使用这些权限. 
+            GetPolicyName = TigerPermissions.Books.Default;
+            GetListPolicyName = TigerPermissions.Books.Default;
+            CreatePolicyName = TigerPermissions.Books.Create;
+            UpdatePolicyName = TigerPermissions.Books.Edit;
+            DeletePolicyName = TigerPermissions.Books.Delete;
+            #endregion
 
             _authorRepository = authorRepository;
             _repository = repository;
+            _bookRepository=bookRepository;
+
             _cache = cache;
             _backgroundJobManager = backgroundJobManager;
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
             _emailSender = emailSender;
             _settingEncryptionService = settingEncryptionService;
-            _bookRepository=bookRepository;
+            
         }
 
-        #region 书籍Demo模块业务
+        #region 书籍模块crud基础业务
         /// <summary>
         /// 查询一条书籍数据
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// 重写父类的 GetAsync方法
+        /// </remarks>
         public override async Task<BookDto> GetAsync(Guid id)
         {
             await CheckGetPolicyAsync();
@@ -115,6 +123,7 @@ namespace Tiger.Books
                         select new { book, author };
 
             //Execute the query and get the book with author
+            // 使用 `AsyncExecuter.FirstOrDefaultAsync(...)` 执行查询并得到一个结果. 这是一种无需依赖database provider API, 使用异步LINQ扩展的方法. 
             var queryResult = await AsyncExecuter.FirstOrDefaultAsync(query);
             if (queryResult == null)
             {
@@ -174,9 +183,29 @@ namespace Tiger.Books
         {
             var authors = await _authorRepository.GetListAsync();
 
+            // 可以map一个list的数据
             return new ListResultDto<AuthorLookupDto>(
                 ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
             );
+        }
+
+        private static string NormalizeSorting(string sorting)
+        {
+            if (sorting.IsNullOrEmpty())
+            {
+                return $"book.{nameof(Book.Name)}";
+            }
+
+            if (sorting.Contains("authorName", StringComparison.OrdinalIgnoreCase))
+            {
+                return sorting.Replace(
+                    "authorName",
+                    "author.Name",
+                    StringComparison.OrdinalIgnoreCase
+                );
+            }
+
+            return $"book.{sorting}";
         }
 
 

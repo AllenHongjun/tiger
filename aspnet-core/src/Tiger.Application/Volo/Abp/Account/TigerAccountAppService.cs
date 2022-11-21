@@ -13,7 +13,7 @@ namespace Tiger.Volo.Abp.Account
     /// <summary>
     /// 用户账号管理
     /// </summary>
-    [RemoteService(false)]
+    [RemoteService(true)]
     public class TigerAccountAppService : AccountAppService, ITigerAccountAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }

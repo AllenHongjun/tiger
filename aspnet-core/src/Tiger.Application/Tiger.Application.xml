@@ -125,6 +125,9 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
+            <remarks>
+            这个方法根据 `Id` 获得 `Author` 实体, 使用 [对象到对象映射](../Object-To-Object-Mapping.md) 转换为 `AuthorDto`. 这需要配置AutoMapper, 后面会介绍.
+            </remarks>
         </member>
         <member name="M:Tiger.Books.AuthorAppService.GetListAsync(Tiger.Books.GetAuthorListDto)">
             <summary>
@@ -132,6 +135,9 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+            <remarks>
+            
+            </remarks>
         </member>
         <member name="M:Tiger.Books.AuthorAppService.UpdateAsync(System.Guid,Tiger.Books.UpdateAuthorDto)">
             <summary>
@@ -196,6 +202,9 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
+            <remarks>
+            重写父类的 GetAsync方法
+            </remarks>
         </member>
         <member name="M:Tiger.Books.BookAppService.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
             <summary>
@@ -265,16 +274,6 @@
             <param name="files"></param>
             <returns></returns>
         </member>
-        <member name="T:Tiger.Books.Demo.EmailSettingProvider">
-            <summary>
-            ABP设置系统使用 demo
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.Demo.ExtraPropertiesDemoService">
-            <summary>
-            ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.
-            </summary>
-        </member>
         <member name="T:Tiger.Books.Demo.MyBookService">
              <summary>
              注入 IDataFilter 服务到你的类中.
@@ -298,6 +297,43 @@
             
             在Web应用程序中检索有关已登录用户的信息是很常见的. 当前用户是与Web应用程序中的当前请求相关的活动用户.
             </summary>
+        </member>
+        <member name="T:Tiger.Books.Demo.PersonAppService">
+            <summary>
+            人物
+            </summary>
+            <remark>
+            repssitories 仓储数据查询
+            </remark>
+        </member>
+        <member name="M:Tiger.Books.Demo.PersonAppService.GetList(System.String)">
+            <summary>
+            获取列表数据
+            </summary>
+            <param name="nameFilter"></param>
+            <returns></returns>
+            <remarks>
+            GetList 方法使用标准LINQ Where 和 ToList 方法在数据源中过滤并获取People集合.
+            </remarks>
+        </member>
+        <member name="M:Tiger.Books.Demo.PersonAppService.GetListAsync(System.String)">
+            <summary>
+            通过仓储对象来对实体执行LINQ查询以操作数据库
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Tiger.Books.Demo.PersonAppService.TestQueryableAndAsync(System.String)" -->
+        <member name="T:Tiger.Books.IAuthorAppService">
+            <summary>
+            作者应用服务接口
+            </summary>
+            <remarks>
+            `IApplicationService` 是一个常规接口, 所有应用服务都继承自它, 所以 ABP 框架可以识别它们.
+            在 `Author` 实体中定义标准方法用于CRUD操作.
+            `PagedResultDto` 是一个ABP框架中预定义的 DTO 类. 它拥有一个 `Items` 集合 和一个 `TotalCount` 属性, 用于返回分页结果.
+            优先从 `CreateAsync` 方法返回 `AuthorDto` (新创建的作者), 虽然在这个程序中没有这么做 - 这里只是展示一种不同用法.
+            </remarks>
         </member>
         <member name="T:Tiger.Module.Marketings.CouponAppService">
             <summary>

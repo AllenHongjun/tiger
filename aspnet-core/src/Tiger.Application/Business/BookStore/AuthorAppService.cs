@@ -46,13 +46,18 @@ namespace Tiger.Books
         /// <returns></returns>
         [Authorize(BookStorePermissions.Authors.Create)]
         public async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
-        {
+        {   
+            // Validation 表单数据验证
+
+            // 数据逻辑验证错误抛出
+
             var author = await _authorManager.CreateAsync(
                     input.Name,
                     input.BirthDate,
                     input.ShortBio
                 );
 
+            // CreateAsync` 插入新实体. 我们认为把它留给应用层是更好的设计 建议在应用层执行插入数据操作
             await _authorRepository.InsertAsync(author);
 
             return ObjectMapper.Map<Author, AuthorDto>(author);
@@ -66,6 +71,7 @@ namespace Tiger.Books
         [Authorize(BookStorePermissions.Authors.Delete)]
         public async Task DeleteAsync(Guid id)
         {
+            // 直接使用repository的 `DeleteAsync` 方法.
             await _authorRepository.DeleteAsync(id);
         }
 
@@ -74,6 +80,9 @@ namespace Tiger.Books
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// 这个方法根据 `Id` 获得 `Author` 实体, 使用 [对象到对象映射](../Object-To-Object-Mapping.md) 转换为 `AuthorDto`. 这需要配置AutoMapper, 后面会介绍.
+        /// </remarks>
         public async Task<AuthorDto> GetAsync(Guid id)
         {
             var author = await _authorRepository.GetAsync(id);
@@ -85,6 +94,9 @@ namespace Tiger.Books
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// <remarks>
+        /// 
+        /// </remarks>
         public async Task<PagedResultDto<AuthorDto>> GetListAsync(GetAuthorListDto input)
         {
             if (input.Sorting.IsNullOrWhiteSpace())
@@ -92,6 +104,8 @@ namespace Tiger.Books
                 input.Sorting = nameof(Author.Name);
             }
 
+
+            // 使用 `IAuthorRepository.GetListAsync` 从数据库中获得分页的, 排序的和过滤的作者列表. 
             var authors = await _authorRepository.GetListAsync(
                 input.SkipCount,
                 input.MaxResultCount,
@@ -99,12 +113,14 @@ namespace Tiger.Books
                 input.Filter
             );
 
+            // 直接查询 `AuthorRepository` , 得到作者的数量. 如果客户端发送了过滤条件, 会得到过滤后的作者数量.
             var totalCount = await AsyncExecuter.CountAsync<Author>(
                 _authorRepository.WhereIf(
                     !input.Filter.IsNullOrWhiteSpace(),
                     author => author.Name.Contains(input.Filter) && author.Books.Any()
                 )
             );
+
 
             return new PagedResultDto<AuthorDto>(
                 totalCount,
@@ -133,7 +149,10 @@ namespace Tiger.Books
             author.ShortBio = input.ShortBio;
 
             await _authorRepository.UpdateAsync(author);
-        } 
+        }
+
+
+
         #endregion
 
     }
