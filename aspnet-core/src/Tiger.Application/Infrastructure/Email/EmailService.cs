@@ -234,7 +234,7 @@ namespace Tiger.Books.Demo
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task EncryptPwd()
+        public  Task EncryptPwd()
         {
 
             var setting = _settingDefinitionManager.Get(EmailSettingNames.Smtp.Password);

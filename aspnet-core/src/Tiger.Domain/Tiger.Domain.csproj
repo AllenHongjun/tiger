@@ -70,6 +70,8 @@
   <ItemGroup>
     <Folder Include="Business\Finances\" />
     <Folder Include="Business\Stat\" />
+    <Folder Include="Infrastructure\EventBus\DistributedEventBusRabbitMQTest\" />
+    <Folder Include="Infrastructure\EventBus\DistributedEventBusKafka\" />
     <Folder Include="Infrastructure\ObjectMapping\新文件夹\" />
     <Folder Include="Infrastructure\VirtualFileSystem\" />
     <Folder Include="PlatfromSdk\" />

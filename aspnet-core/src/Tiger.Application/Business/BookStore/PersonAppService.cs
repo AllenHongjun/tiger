@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Business.Demo;
@@ -88,7 +89,7 @@ namespace Tiger.Books.Demo
                         select person;
 
             // 执行查询
-            var people = query.ToList();
+            var people = await query.ToDynamicListAsync();
 
             // 转DTO并返回给客户端
             return people.Select(p => new PersonDto { Name = p.Name }).ToList();
@@ -97,7 +98,7 @@ namespace Tiger.Books.Demo
 
 
         /// <summary>
-        /// 测试 IQueryable & 异步操作
+        /// 测试 IQueryable 异步操作
         /// </summary>
         /// <returns></returns>
         public async Task TestQueryableAndAsync(string name)

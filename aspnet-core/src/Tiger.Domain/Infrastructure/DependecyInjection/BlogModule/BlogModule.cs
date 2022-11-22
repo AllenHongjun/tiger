@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Infrastructure.DependecyInjection.BlogModule;
 using Volo.Abp.Modularity;
 
 namespace Tiger.Infrastructure.DependecyInjection
@@ -16,7 +17,7 @@ namespace Tiger.Infrastructure.DependecyInjection
     /// 
     /// 由于ABP是一个模块化框架,因此每个模块都定义它自己的服务并在它自己的单独模块类中通过依赖注入进行注册
     /// </remark>
-    internal class BlogModule:AbpModule
+    internal class BlogModule1:AbpModule
     {
 
         public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -35,7 +36,14 @@ namespace Tiger.Infrastructure.DependecyInjection
             // 在此处注入依赖项
 
             //AddAssemblyOf扩展方法可以帮助你依照约定注册所有服务.例:
-            context.Services.AddAssemblyOf<BlogModule>();
+            context.Services.AddAssemblyOf<BlogModule1>();
+
+
+            //注册一个singleton实例
+            context.Services.AddSingleton<TaxCalculator>(new TaxCalculator());
+
+            //注册一个从IServiceProvider解析得来的工厂方法
+            context.Services.AddScoped<ITaxCalculator>(sp => (ITaxCalculator)sp.GetRequiredService<TaxCalculator>());
 
         }
     }

@@ -323,7 +323,12 @@
             <param name="filter"></param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Tiger.Books.Demo.PersonAppService.TestQueryableAndAsync(System.String)" -->
+        <member name="M:Tiger.Books.Demo.PersonAppService.TestQueryableAndAsync(System.String)">
+            <summary>
+            测试 IQueryable 异步操作
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendAsync">
             <summary>
             邮件发送测试
