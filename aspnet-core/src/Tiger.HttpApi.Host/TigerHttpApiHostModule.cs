@@ -62,7 +62,7 @@ namespace Tiger
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpAccountWebIdentityServerModule),
-        typeof(AbpAspNetCoreSerilogModule),
+        //typeof(AbpAspNetCoreSerilogModule),  // 设置依赖于 SerilogModule 日志组件
         typeof(AbpBackgroundJobsHangfireModule), //Hangfire 定时作业模块依赖
         typeof(AbpBackgroundWorkersModule),  // 定时工作者
         typeof(AbpBackgroundWorkersQuartzModule) //Quartz 定时任务(abp叫后台工作者)
@@ -608,7 +608,7 @@ namespace Tiger
             #endregion
 
             app.UseAuditing();
-            app.UseAbpSerilogEnrichers();
+            //app.UseAbpSerilogEnrichers(); // 使用Serilog日志
             app.UseConfiguredEndpoints();
 
             #region 后台工作者 CrystalQuartz控制面板
@@ -619,8 +619,6 @@ namespace Tiger
             var scheduler = CreateScheduler();
             app.UseCrystalQuartz(() => scheduler);
             #endregion
-
-
 
             #region 后台作业 Hangfire集成配置
             // TODO:封装方法 同意管理新增的后台作业
