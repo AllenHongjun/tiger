@@ -1,6 +1,0 @@
-﻿namespace Tiger.Task.Host
-{
-    public class 该项目要删除重新建_命名空间不对
-    {
-    }
-}

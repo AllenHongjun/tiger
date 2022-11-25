@@ -11,11 +11,6 @@
             <param name="file"></param>
             <returns></returns>
         </member>
-        <member name="F:Tiger.Program.serilogDebug">
-            <summary>
-            Serilog日志模板
-            </summary>
-        </member>
         <member name="T:Tiger.TigerHttpApiHostModule">
             <summary>
             包含应用程序的用户界面(UI).

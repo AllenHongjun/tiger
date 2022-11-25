@@ -22,11 +22,6 @@ namespace Tiger.CoreModule.AuditLog
                 "MyCustomClaimValue",
                 currentUser.FindClaimValue("MyCustomClaim")
             );
-
-            
-
-
-
         }
 
         public override void PostContribute(AuditLogContributionContext context)

@@ -74,7 +74,14 @@
     <Folder Include="Infrastructure\EventBus\DistributedEventBusKafka\" />
     <Folder Include="Infrastructure\ObjectMapping\新文件夹\" />
     <Folder Include="Infrastructure\VirtualFileSystem\" />
+    <Folder Include="Infrastructure\Localization\" />
+    <Folder Include="Infrastructure\Exception\" />
+    <Folder Include="Infrastructure\Validation\" />
+    <Folder Include="Infrastructure\Authorization\" />
+    <Folder Include="Infrastructure\ObjectExtensions\" />
     <Folder Include="PlatfromSdk\" />
+    <Folder Include="SignalR\" />
+    <Folder Include="Deployment\" />
   </ItemGroup>
 
 </Project>

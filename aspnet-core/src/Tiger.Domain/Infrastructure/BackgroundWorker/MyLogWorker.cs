@@ -22,8 +22,10 @@ namespace Tiger.BackgroundWorker
     /// </summary>
     public class MyLogWorker : QuartzBackgroundWorkerBase
     {
-        public MyLogWorker()
+        private readonly ILogger _logger;
+        public MyLogWorker(ILogger<MyLogWorker> logger)
         {
+            _logger = logger;
             //默认后台工作者会在应用程序启动时自动添加到 BackgroundWorkerManager,如果你想要手动添加,可以将 AutoRegister 属性值设置为 false:
             //AutoRegister = false;
             // nameof(MyLogWorker)
@@ -48,6 +50,7 @@ namespace Tiger.BackgroundWorker
                     await scheduler.ScheduleJob(JobDetail, Trigger);
                 }
             };
+            _logger=logger;
         }
 
         /// <summary>
@@ -56,10 +59,8 @@ namespace Tiger.BackgroundWorker
         /// <param name="context"></param>
         /// <returns></returns>
         public override Task Execute(IJobExecutionContext context)
-        {   
-
-
-            Logger.LogInformation($"Executed MyLogWorker..!  执行时间：{DateTime.Now.ToString()}");
+        {
+            _logger.LogInformation($"Executed MyLogWorker..!  执行时间：{DateTime.Now.ToString()}");
             return Task.CompletedTask;
         }
     }
