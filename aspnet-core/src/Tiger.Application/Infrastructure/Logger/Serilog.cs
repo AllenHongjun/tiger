@@ -11,7 +11,7 @@ namespace Tiger.Infrastructure.Logger
         // Serilog日志记录组件   https://serilog.net/
 
         // wiki文档 https://github.com/serilog/serilog/wiki
-
+        
         // .net 自带的组件邮件功能 还没有提供。。 一般都需要第三方日志组件在项目用应用
         // 我选择 Serilog 后台配置 日志可视化程序 和搜索引擎一起使用
 

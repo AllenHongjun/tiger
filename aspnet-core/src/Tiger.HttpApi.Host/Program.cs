@@ -25,33 +25,34 @@ namespace Tiger
         {
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
-                .Enrich.FromLogContext()
-                .MinimumLevel.Debug()
-                .WriteTo.Debug()
-                .WriteTo.Console(
-                    outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}",
-                    restrictedToMinimumLevel: LogEventLevel.Debug)
+                //.Enrich.FromLogContext()
+                //.MinimumLevel.Debug()
+                //.WriteTo.Debug()
+                //.WriteTo.Console(
+                //    outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}",
+                //    restrictedToMinimumLevel: LogEventLevel.Debug)
+                //.WriteTo.File("Logs/Warning/log.txt")
 
-
-                // 配置不同的错误写入不同的日志文件
-                .WriteTo.File("Logs/Warning/log.txt",
-                        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-                        rollingInterval: RollingInterval.Day,
-                        restrictedToMinimumLevel: LogEventLevel.Warning)
-                .WriteTo.File("Logs/Error/log.txt",
-                        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-                        rollingInterval: RollingInterval.Day,
-                        restrictedToMinimumLevel: LogEventLevel.Error)
-                .WriteTo.File("Logs/Fatal/log.txt",
-                        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-                        rollingInterval: RollingInterval.Day,
-                        restrictedToMinimumLevel: LogEventLevel.Fatal)
+                //// 配置不同的错误写入不同的日志文件
+                //.WriteTo.File("Logs/Warning/log.txt",
+                //        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+                //        rollingInterval: RollingInterval.Day,
+                //        restrictedToMinimumLevel: LogEventLevel.Warning)
+                //.WriteTo.File("Logs/Error/log.txt",
+                //        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+                //        rollingInterval: RollingInterval.Day,
+                //        restrictedToMinimumLevel: LogEventLevel.Error)
+                //.WriteTo.File("Logs/Fatal/log.txt",
+                //        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+                //        rollingInterval: RollingInterval.Day,
+                //        restrictedToMinimumLevel: LogEventLevel.Fatal)
                 
 
                 .CreateLogger();
 
             try
-            {
+            {   
+                
                 Log.Information("Starting web host");
                 CreateHostBuilder(args).Build().Run();
                 return 0;
