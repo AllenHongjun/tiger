@@ -25,6 +25,7 @@ namespace Tiger
         {
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
+                 #region Serilog日志代码配置
                 //.Enrich.FromLogContext()
                 //.MinimumLevel.Debug()
                 //.WriteTo.Debug()
@@ -45,9 +46,8 @@ namespace Tiger
                 //.WriteTo.File("Logs/Fatal/log.txt",
                 //        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
                 //        rollingInterval: RollingInterval.Day,
-                //        restrictedToMinimumLevel: LogEventLevel.Fatal)
-                
-
+                //        restrictedToMinimumLevel: LogEventLevel.Fatal) 
+                 #endregion
                 .CreateLogger();
 
             try

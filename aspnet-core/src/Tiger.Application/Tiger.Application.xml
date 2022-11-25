@@ -471,6 +471,18 @@
             其中定义一种映射的方法是创建一个Profile 类.例如:
              </summary>
         </member>
+        <member name="T:Tiger.BackgroundWorker.MyQuartzLogWorker">
+            <summary>
+            Demo 定时任务
+            </summary>
+        </member>
+        <member name="M:Tiger.BackgroundWorker.MyQuartzLogWorker.Execute(Quartz.IJobExecutionContext)">
+            <summary>
+            测试定时任务功能。
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.BlobDemo.MyBlobContainer">
             <summary>
             类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;

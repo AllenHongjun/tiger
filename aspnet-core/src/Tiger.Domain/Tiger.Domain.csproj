@@ -35,6 +35,7 @@
     <Compile Remove="Business\Members\MemberTag.cs" />
     <Compile Remove="Business\Members\MemberTagRelation.cs" />
     <Compile Remove="Business\Members\MemberTask.cs" />
+    <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />
   </ItemGroup>
 
   <ItemGroup>

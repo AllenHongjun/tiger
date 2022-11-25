@@ -64,7 +64,7 @@ namespace Tiger
         typeof(AbpAccountWebIdentityServerModule),
         //typeof(AbpAspNetCoreSerilogModule),  // 设置依赖于 SerilogModule 日志组件
         typeof(AbpBackgroundJobsHangfireModule), //Hangfire 定时作业模块依赖
-        typeof(AbpBackgroundWorkersModule),  // 定时工作者
+        //typeof(AbpBackgroundWorkersModule),  // ABP默认后台工作者
         typeof(AbpBackgroundWorkersQuartzModule) //Quartz 定时任务(abp叫后台工作者)
         )]
     public class TigerHttpApiHostModule : AbpModule
@@ -162,13 +162,12 @@ namespace Tiger
             #endregion
 
             #region 配置Quartz后台工作者
-
-            Configure<AbpBackgroundWorkerQuartzOptions>(options =>
-            {
-                // 全局自动添加
-                options.IsAutoRegisterEnabled = true;
+            //Configure<AbpBackgroundWorkerQuartzOptions>(options =>
+            //{
+            //    // 全局自动添加
+            //    options.IsAutoRegisterEnabled = false;
                 
-            });
+            //});
 
 
 
@@ -615,9 +614,14 @@ namespace Tiger
 
             // 组件地址: https://github.com/guryanovev/CrystalQuartz
 
-            // TODO:修改为 从ABP的类获取这个对象
-            var scheduler = CreateScheduler();
-            app.UseCrystalQuartz(() => scheduler);
+            //// TODO:修改为 从ABP的类获取这个对象
+            //var scheduler = CreateScheduler();
+            //app.UseCrystalQuartz(() => scheduler);
+            #endregion
+
+            #region 后台工作者
+            // 在应用程序运行时候添加定时任务
+            //context.AddBackgroundWorker<PassiveUserCheckerWorker>();
             #endregion
 
             #region 后台作业 Hangfire集成配置
@@ -630,7 +634,7 @@ namespace Tiger
             // 确保你的web应用程序被配置为始终运行. 否则只有在你的应用程序正在运行时后台作业才会工作.
             // Todo:后台工作者 集成 haigfire
 
-            context.AddBackgroundWorker<PassiveUserCheckerWorker>(); 
+             
             #endregion
 
 
@@ -643,7 +647,7 @@ namespace Tiger
             var schedulerFactory = new StdSchedulerFactory();
             var scheduler = schedulerFactory.GetScheduler().Result;
 
-            var job = JobBuilder.Create<MyLogWorker>()
+            var job = JobBuilder.Create<MyQuartzLogWorker>()
                 .WithIdentity("localJob", "default")
                 .Build();
 

@@ -40,12 +40,13 @@ namespace Tiger
         typeof(AbpFeatureManagementApplicationModule),
         typeof(AbpBlobStoringModule),
         typeof(AbpBlobStoringFileSystemModule),
+        typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
         typeof(AbpSmsModule), //Add the new module dependency
         typeof(AbpCachingModule) // 缓存
                                   //typeof(AbpBackgroundJobsModule), // 后台任务  默认后台作业管理器
-        //typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
 
-        
+
+
         )]
     public class TigerApplicationModule : AbpModule
     {
@@ -106,22 +107,22 @@ namespace Tiger
             //}); 
             #endregion
 
-            #region 配置使用AbpQuartz 后台作业
-            //Configure<AbpBackgroundJobQuartzOptions>(options =>
-            //    {
-            //        // 定时任务重试次数配置
-            //        options.RetryCount = 5;
-            //        options.RetryIntervalMillisecond = 5000;
+            #region 配置使用AbpQuartz 后台工作者
+            Configure<AbpBackgroundJobQuartzOptions>(options =>
+                {
+                    // 每次间隔5秒 重试3次
+                    options.RetryCount = 3;
+                    options.RetryIntervalMillisecond = 5000;
 
-            //        //选项自定义异常处理策略:
-            //        //options.RetryStrategy = async (retryIndex, executionContext, exception) =>
-            //        //{
-            //        //    // customize exception handling
-            //        //};
-            //    });
+                    //选项自定义异常处理策略:
+                    //options.RetryStrategy = async (retryIndex, executionContext, exception) =>
+                    //{
+                    //    // customize exception handling
+                    //};
+                });
             #endregion
 
-            
+
         }
 
 

@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Tiger.MultiTenancy;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BackgroundJobs.Quartz;
+using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -26,6 +28,8 @@ namespace Tiger
         typeof(TigerDomainSharedModule),
         typeof(AbpAuditLoggingDomainModule),
         typeof(AbpBackgroundJobsDomainModule),
+        typeof(AbpBackgroundJobsQuartzModule),
+        typeof(AbpBackgroundWorkersQuartzModule),
         typeof(AbpFeatureManagementDomainModule),
         typeof(AbpIdentityDomainModule),
         typeof(AbpPermissionManagementDomainIdentityModule),
@@ -34,6 +38,7 @@ namespace Tiger
         typeof(AbpSettingManagementDomainModule),
         typeof(AbpTenantManagementDomainModule),
         typeof(AbpEmailingModule)
+
     )]
     public class TigerDomainModule : AbpModule
     {

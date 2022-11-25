@@ -25,7 +25,7 @@ namespace Tiger.Infrastructure.BackgroundWorker
                 serviceScopeFactory)
         {
             //AsyncPeriodicBackgroundWorkerBase 使用 AbpTimer(线程安全定时器)对象来确定时间段. 我们可以在构造函数中设置了Period 属性.
-            Timer.Period = 600000; //10 minutes
+            Timer.Period = 6 * 1000; //10 minutes
         }
 
         /// <summary>
@@ -42,16 +42,25 @@ namespace Tiger.Infrastructure.BackgroundWorker
             // 最好使用 PeriodicBackgroundWorkerContext 解析依赖 而不是构造函数. 因为 AsyncPeriodicBackgroundWorkerBase 使用 IServiceScope 在你的任务执行结束时会对其 disposed.
 
             // 解析数据库的类 调用数据库的方法
-            var userRepository = workerContext
-            .ServiceProvider
-                .GetRequiredService<IUserRepository<IdentityUser>>();
-            await userRepository.GetListAsync();
+            //var userRepository = workerContext
+            //.ServiceProvider
+            //    .GetRequiredService<IUserRepository<IdentityUser>>();
+            //await userRepository.GetListAsync();
 
             ////Do the work
             //await userRepository.UpdateInactiveUserStatusesAsync();
 
             Logger.LogInformation("Completed: Setting status of inactive users...");
         }
+
+
+        /*
+            集群部署问题：
+            专门有一台服务器来运行后台服务
+            使用上面提到的 AbpBackgroundWorkerOptions 禁用其他的后台工作者系统,只保留一个实例.
+            所有的应用程序都禁用后台工作者系统,创建一个特殊的应用程序在一个服务上运行执行工作者.
+         
+         */
     }
 
 }
