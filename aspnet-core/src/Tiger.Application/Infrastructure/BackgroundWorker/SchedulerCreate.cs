@@ -3,6 +3,7 @@ using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Infrastructure.BackgroundWorker.DogApi;
 
 namespace Tiger.Infrastructure.BackgroundWorker
 {
@@ -24,8 +25,13 @@ namespace Tiger.Infrastructure.BackgroundWorker
 
             CreateCompressLogsJob(scheduler);
             CreateDBBackupJob(scheduler);
+
+
             CreateDailySalesJob(scheduler);
-            
+
+            CreateDogApiJob(scheduler);
+
+
 
             scheduler.Start();
             return scheduler;
@@ -111,10 +117,26 @@ namespace Tiger.Infrastructure.BackgroundWorker
 
             scheduler.ScheduleJob(job, trigger);
             return scheduler;
-        } 
+        }
         #endregion
 
 
+        private static IScheduler CreateDogApiJob(IScheduler scheduler)
+        {
+            var job = JobBuilder.Create<ListAllBreedsWorker>()
+                .WithIdentity("Dog Api", "Api")
+                .Build();
+
+            var trigger = TriggerBuilder.Create()
+                .WithIdentity("ms_trigger", "Api")
+                .ForJob(job)
+                .StartNow()
+                .WithCronSchedule("0/10 * * ? * *")
+                .Build();
+
+            scheduler.ScheduleJob(job, trigger);
+            return scheduler;
+        }
 
     }
 }
