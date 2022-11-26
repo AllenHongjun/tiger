@@ -47,6 +47,7 @@ namespace Tiger.BackgroundWorker
                 }
             };
         }
+        
 
         /// <summary>
         /// 测试定时任务功能。

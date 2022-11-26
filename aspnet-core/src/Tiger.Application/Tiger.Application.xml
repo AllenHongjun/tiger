@@ -433,6 +433,13 @@
             使用 IBackgroundJobManager 服务向队列中添加一个发送电子邮件作业
             </summary>
         </member>
+        <member name="M:Tiger.Infrastructure.BackgroundWorker.CrystalQuartzLogWorker.Execute(Quartz.IJobExecutionContext)">
+            <summary>
+            测试定时任务功能。
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Infrastructure.BackgroundWorker.MyWorker">
             <summary>
             后台定时作业（后台工作者 demo）

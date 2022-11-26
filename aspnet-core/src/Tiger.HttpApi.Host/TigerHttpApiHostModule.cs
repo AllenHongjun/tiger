@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 using Tiger.BackgroundWorker;
 using Tiger.EntityFrameworkCore;
 using Tiger.Infrastructure.BackgroundWorker;
@@ -162,12 +163,12 @@ namespace Tiger
             #endregion
 
             #region 配置Quartz后台工作者
-            //Configure<AbpBackgroundWorkerQuartzOptions>(options =>
-            //{
-            //    // 全局自动添加
-            //    options.IsAutoRegisterEnabled = false;
-                
-            //});
+            Configure<AbpBackgroundWorkerQuartzOptions>(options =>
+            {
+                // 全局自动添加
+                options.IsAutoRegisterEnabled = false;
+
+            });
 
 
 
@@ -615,8 +616,8 @@ namespace Tiger
             // 组件地址: https://github.com/guryanovev/CrystalQuartz
 
             //// TODO:修改为 从ABP的类获取这个对象
-            //var scheduler = CreateScheduler();
-            //app.UseCrystalQuartz(() => scheduler);
+            var scheduler = SchedulerManage.Create();
+            app.UseCrystalQuartz(() => scheduler);
             #endregion
 
             #region 后台工作者
@@ -642,28 +643,27 @@ namespace Tiger
         }
 
 
-        private static IScheduler CreateScheduler()
-        {
-            var schedulerFactory = new StdSchedulerFactory();
-            var scheduler = schedulerFactory.GetScheduler().Result;
+        //private static IScheduler CreateScheduler()
+        //{
+        //    var schedulerFactory = new StdSchedulerFactory();
+        //    var scheduler = schedulerFactory.GetScheduler().Result;
 
-            var job = JobBuilder.Create<MyQuartzLogWorker>()
-                .WithIdentity("localJob", "default")
-                .Build();
+        //    var job = JobBuilder.Create<CrystalQuartzLogWorker>()
+        //        .WithIdentity("localJob", "default")
+        //        .Build();
 
-            var trigger = TriggerBuilder.Create()
-                .WithIdentity("trigger1", "default")
-                .ForJob(job)
-                .StartNow()
-                .WithCronSchedule("0 /1 * ? * *")
-                .Build();
+        //    var trigger = TriggerBuilder.Create()
+        //        .WithIdentity("trigger1", "default")
+        //        .ForJob(job)
+        //        .StartNow()
+        //        .WithCronSchedule("0 /1 * ? * *")
+        //        .Build();
 
-            scheduler.ScheduleJob(job, trigger);
+        //    scheduler.ScheduleJob(job, trigger);
 
-            scheduler.Start();
-
-            return scheduler;
-        }
+        //    scheduler.Start();
+        //    return scheduler;
+        //}
 
 
 
