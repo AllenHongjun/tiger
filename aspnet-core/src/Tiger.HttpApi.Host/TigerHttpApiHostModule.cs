@@ -612,12 +612,18 @@ namespace Tiger
             app.UseConfiguredEndpoints();
 
             #region 后台工作者 CrystalQuartz控制面板
-
             // 组件地址: https://github.com/guryanovev/CrystalQuartz
-
             //// TODO:修改为 从ABP的类获取这个对象
-            var scheduler = SchedulerManage.Create();
-            app.UseCrystalQuartz(() => scheduler);
+            var scheduler = SchedulerManager.Create();
+            app.UseCrystalQuartz(() => scheduler
+            //, new CrystalQuartz.Application.CrystalQuartzOptions
+            //{
+            //    Path = "quartz",
+            //    CustomCssUrl = null,
+            //    LazyInit = false,
+            //    TimelineSpan = new TimeSpan(1,0,0)// 面板显示的时间轴事件范围。
+            //}
+            );
             #endregion
 
             #region 后台工作者
@@ -641,32 +647,6 @@ namespace Tiger
 
 
         }
-
-
-        //private static IScheduler CreateScheduler()
-        //{
-        //    var schedulerFactory = new StdSchedulerFactory();
-        //    var scheduler = schedulerFactory.GetScheduler().Result;
-
-        //    var job = JobBuilder.Create<CrystalQuartzLogWorker>()
-        //        .WithIdentity("localJob", "default")
-        //        .Build();
-
-        //    var trigger = TriggerBuilder.Create()
-        //        .WithIdentity("trigger1", "default")
-        //        .ForJob(job)
-        //        .StartNow()
-        //        .WithCronSchedule("0 /1 * ? * *")
-        //        .Build();
-
-        //    scheduler.ScheduleJob(job, trigger);
-
-        //    scheduler.Start();
-        //    return scheduler;
-        //}
-
-
-
 
 
 

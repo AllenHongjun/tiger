@@ -48,6 +48,7 @@
     <PackageReference Include="MQiniu.CoreSdk" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.1.0" />
+    <PackageReference Include="RestSharp" Version="108.0.3" />
     <PackageReference Include="Volo.Abp.BackgroundJobs.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
@@ -80,7 +81,7 @@
     <Folder Include="Infrastructure\Validation\" />
     <Folder Include="Infrastructure\Authorization\" />
     <Folder Include="Infrastructure\ObjectExtensions\" />
-    <Folder Include="PlatfromSdk\" />
+    <Folder Include="PlatfromSdk\DogApi\" />
     <Folder Include="SignalR\" />
     <Folder Include="Deployment\" />
   </ItemGroup>

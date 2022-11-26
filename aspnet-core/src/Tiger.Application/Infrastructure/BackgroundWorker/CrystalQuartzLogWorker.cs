@@ -15,23 +15,6 @@ namespace Tiger.Infrastructure.BackgroundWorker
         {
         }
 
-        public void CreateJob()
-        {
-            JobDetail = JobBuilder.Create<MyQuartzLogWorker>().WithIdentity(nameof(MyQuartzLogWorker)).Build();
-            Trigger = TriggerBuilder.Create().WithIdentity(nameof(MyQuartzLogWorker))
-                .WithSimpleSchedule(s => s.WithIntervalInSeconds(3).RepeatForever()
-                .WithMisfireHandlingInstructionIgnoreMisfires()).Build();
-
-            ScheduleJob = async scheduler =>
-            {
-                if (!await scheduler.CheckExists(JobDetail.Key))
-                {
-                    await scheduler.ScheduleJob(JobDetail, Trigger);
-                }
-            };
-            
-        }
-
 
         /// <summary>
         /// 测试定时任务功能。
@@ -40,7 +23,7 @@ namespace Tiger.Infrastructure.BackgroundWorker
         /// <returns></returns>
         public override Task Execute(IJobExecutionContext context)
         {
-            Console.WriteLine("Greetings from HelloJob!  执行时间：{DateTime.Now.ToString()}");
+            Console.WriteLine($"Greetings from HelloJob!  执行时间：{DateTime.Now.ToString()}");
             //Logger.LogInformation($"Executed CrystalQuartzLogWorker..!  执行时间：{DateTime.Now.ToString()}");
             return Task.CompletedTask;
         }
