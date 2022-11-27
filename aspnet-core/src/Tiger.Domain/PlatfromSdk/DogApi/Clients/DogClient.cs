@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Tiger.PlatfromSdk.DogApi.Clients.Interfaces;
 using Tiger.PlatfromSdk.DogApi.Models;
@@ -20,6 +22,11 @@ namespace Tiger.PlatfromSdk.DogApi.Clients
         {
             var request = new RestRequest("/api/breeds/list/all", Method.Get);
             var response = await _client.ExecuteAsync<ListAllBreedsResponse>(request);
+
+            //Trace.Write(string.Format("Request completed in {0} ms, Request: {1}, Response: {2}",
+            //    10,
+            //    JsonConvert.SerializeObject(request),
+            //    JsonConvert.SerializeObject(response)));
             return response.Data;
         }
 
@@ -65,6 +72,10 @@ namespace Tiger.PlatfromSdk.DogApi.Clients
                 .AddUrlSegment("breed", breed)
                 .AddUrlSegment("subbreed", subbreed);
             var response = await _client.ExecuteAsync<MessageReponse>(request);
+            //Trace.TraceError(string.Format("Request completed in {0} ms, Request: {1}, Response: {2}",
+            //    10,
+            //    JsonConvert.SerializeObject(request),
+            //    JsonConvert.SerializeObject(response)));
             return response.Data;
         }
 

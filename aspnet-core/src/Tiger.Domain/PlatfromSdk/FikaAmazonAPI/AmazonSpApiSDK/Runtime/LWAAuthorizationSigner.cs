@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using FikaAmazonAPI.AmazonSpApiSDK.Runtime;
+using RestSharp;
 
 namespace AmazonSpApiSDK.Runtime
 {

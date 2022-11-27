@@ -14,21 +14,18 @@
     <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <Compile Remove="Module\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
-    <Compile Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
     <EmbeddedResource Remove="CoreModule\**" />
     <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <EmbeddedResource Remove="Module\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
-    <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
     <None Remove="Business\Customers\**" />
     <None Remove="CoreModule\**" />
     <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <None Remove="Module\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
-    <None Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <None Remove="PlatfromSdk\PayPalApi\**" />
   </ItemGroup>
 
@@ -45,6 +42,7 @@
     <Compile Remove="Business\Members\MemberTagRelation.cs" />
     <Compile Remove="Business\Members\MemberTask.cs" />
     <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />
+    <Compile Remove="PlatfromSdk\FikaAmazonAPI\AmazonSpApiSDK\Runtime\LWAAuthorizationSigner.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,16 +50,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.100.19" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.100.19" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.18" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
     <PackageReference Include="MQiniu.CoreSdk" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.1.0" />
-    <PackageReference Include="RestSharp" Version="107.3.0" />
+    <PackageReference Include="RestSharp" Version="108.0.2" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="108.0.2" />
     <PackageReference Include="Volo.Abp.BackgroundJobs.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
-    <PackageReference Include="Volo.Abp.BlobStoring.Aws" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring.FileSystem" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.Emailing" Version="3.2.1" />
