@@ -36,5 +36,22 @@
 	2. 各种请求方式的测试
 	3. 
 
+22. 授权模块如何实现的？
+	1. 用户权限验证。权限规则配置到文件中读取。
+	2. 返回到前端的权限分组前端 list转 true 返回所有权限和这个权限是否授权
+	3. 验证授权 获取用户信息 已经授权表 片段这个权限规则 用户是否授权。如果是就可以请求
+	4. abp 一个功能都是一个模块 比如授权 缓存 日志等。有基础模块 和应用模块 需要哪个安装哪个就可以
+		具体哪个模块应该安装到那一层 具体问题具体分析
+		静态文件帮助类使用。。
+	5. 关键是要有一套自己熟悉的工具框架和组件。
 
 
+24. Identity
+	组织单元 (OU) 可被用于 按层级对用户和实体进行分组.
+	https://learn.microsoft.com/zh-cn/aspnet/core/security/authentication/identity?view=aspnetcore-3.1&tabs=visual-studio
+
+23. identity server
+	1. currentUser 信息是如何获取的？
+	2. indentity server 有什么用？
+	3. 单点登陆什么意思？
+	4. 

@@ -22,7 +22,7 @@ namespace Tiger
         {
             PreConfigure<AbpIdentityServerBuilderOptions>(options =>
             {
-                options.AddDeveloperSigningCredential = false;
+                options.AddDeveloperSigningCredential = false; // 禁止调用 IIdentityServerBuilder 中的 AddDeveloperSigningCredential().
             });
 
             PreConfigure<IIdentityServerBuilder>(identityServerBuilder =>
