@@ -56,14 +56,14 @@ namespace Tiger.Infrastructure.BackgroundWorker
                 .WithIdentity("log_trigger", "Maintenance")
                 .ForJob(job)
                 .StartNow()
-                .WithCronSchedule("0 /1 * ? * *")
+                .WithCronSchedule("0 0/15 * ? * *")
                 .Build();
 
             var trigger2 = TriggerBuilder.Create()
                 .WithIdentity("log_trigger2", "Maintenance")
                 .ForJob(job)
                 .StartNow()
-                .WithCronSchedule("0 0/3 * * * ? ")
+                .WithCronSchedule("0 0/30 * * * ? ")
                 .Build();
             
             scheduler.ScheduleJob(job, trigger);
@@ -112,7 +112,7 @@ namespace Tiger.Infrastructure.BackgroundWorker
                 .WithIdentity("ds_trigger", "Report")
                 .ForJob(job)
                 .StartNow()
-                .WithCronSchedule("0/3 * * ? * *")
+                .WithCronSchedule("0 0 0/3 ? * *")
                 .Build();
 
             scheduler.ScheduleJob(job, trigger);
@@ -131,7 +131,7 @@ namespace Tiger.Infrastructure.BackgroundWorker
                 .WithIdentity("ms_trigger", "Api")
                 .ForJob(job)
                 .StartNow()
-                .WithCronSchedule("0/10 * * ? * *")
+                .WithCronSchedule("0 0 0/3 ? * *")
                 .Build();
 
             scheduler.ScheduleJob(job, trigger);
