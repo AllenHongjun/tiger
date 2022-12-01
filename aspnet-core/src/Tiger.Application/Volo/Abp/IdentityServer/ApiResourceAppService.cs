@@ -5,23 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Books;
+using Tiger.Volo.Abp.IdentityServer.ApiResources;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.IdentityServer.ApiResources;
 
-namespace Tiger.Volo.Abp.IdentityServer.ApiResources
+namespace Tiger.Volo.Abp.IdentityServer
 {
     [RemoteService(true)]
     [ApiExplorerSettings(GroupName = "admin")]
-    // 增加授权
     //[Authorize(BookStorePermissions.Books.Default)]
     public class ApiResourceAppService :
         CrudAppService<
-            ApiResource, //The Book entity
-            ApiResourceDto, //Used to show books
-            Guid, //Primary key of the book entity
+            ApiResource,
+            ApiResourceDto,
+            Guid, //Primary key 
             PagedAndSortedResultRequestDto, //Used for paging/sorting
             CreateUpdateApiResourceDto>, IApiResourceAppService
     {

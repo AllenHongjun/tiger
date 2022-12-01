@@ -9,6 +9,7 @@ using Volo.Abp.Identity;
 using Volo.Abp;
 using Tiger.Volo.Abp.SettingManagementAppService;
 using System.Threading.Tasks;
+using Volo.Abp.Settings;
 
 namespace Tiger.Volo.Abp.Setting
 {
@@ -45,12 +46,42 @@ namespace Tiger.Volo.Abp.Setting
             return await _settingManagementAppService.FindAsync(name, providerName, providerKey);
         }
 
+        /// <summary>
+        /// 获取设置列表
+        /// </summary>
+        /// <param name="providerName"></param>
+        /// <param name="providerKey"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("get-list")]
+        public async Task<List<SettingValue>> GetAllAsync(string providerName, string providerKey)
+        {
+            return await _settingManagementAppService.GetAllAsync(providerName, providerKey);
+        }
+
+        /// <summary>
+        /// 增加设置
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <param name="providerName"></param>
+        /// <param name="providerKey"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public Task SetAsync(string name, string value, string providerName, string providerKey)
+        {
+            return _settingManagementAppService.SetAsync(name, value, providerName, providerKey);
+        }
+
+
         [HttpGet]
         [Route("test-register-task")]
         public Task RegisterAsync(string userName="admin", string emailAddress="admin@gmai.com", string password="1q2w3E*")
         {
             return _settingManagementAppService.RegisterAsync(userName, emailAddress, password);
         }
+
+        
 
         [HttpGet]
         [Route("test-get-setting-value")]

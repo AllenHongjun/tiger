@@ -714,6 +714,32 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService">
+            <summary>
+            邮件设置服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService.GetAsync">
+            <summary>
+            获取邮箱设置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService.UpdateAsync(Tiger.Volo.Abp.SettingManagementAppService.UpdateEmailSettingsDto)">
+            <summary>
+            更新邮箱设置
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService.SendTestEmailAsync(Tiger.Volo.Abp.SettingManagementAppService.SendTestEmailInput)">
+            <summary>
+            发送测试邮件
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService">
             <summary>
             系统设置
@@ -736,7 +762,7 @@
             <param name="providerKey"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetAllAsync(System.String,System.String,System.Boolean)">
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetAllAsync(System.String,System.String)">
             <summary>
             获取所有设置
             </summary>
@@ -745,7 +771,7 @@
             <param name="fallback"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.SetAsync(System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.SetAsync(System.String,System.String,System.String,System.String)">
             <summary>
             更新设置
             </summary>
