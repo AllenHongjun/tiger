@@ -17,7 +17,8 @@ namespace Tiger.Volo.Abp.Setting
     /// <summary>
     /// 系统设置
     /// </summary>
-    [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
+    //[RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
+    [RemoteService(false)]
     [Area("setting")]
     [ControllerName("Setting")]
     [Route("api/setting")]
