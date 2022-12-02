@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,9 +21,12 @@ namespace Tiger.Volo.Abp.SettingManagement
     /// 系统设置
     /// </summary>
     [RemoteService(false)]
+    
     public class SettingManagementAppService: ApplicationService, ISettingManagementAppService
     {
         protected ISettingManager _settingManager { get; set; }
+
+        private ISettingManagementStore _settingManagerStore;
 
         protected ISettingRepository _settingRepository { get; }
 
@@ -30,9 +34,15 @@ namespace Tiger.Volo.Abp.SettingManagement
 
         private readonly IBackgroundJobManager _backgroundJobManager;
 
-        public SettingManagementAppService(ISettingManager settingManager, ISettingRepository settingRepository, ISettingProvider settingProvider, IBackgroundJobManager backgroundJobManager)
+        public SettingManagementAppService(
+            ISettingManager settingManager,
+            ISettingManagementStore settingManagerStore,
+            ISettingRepository settingRepository, 
+            ISettingProvider settingProvider, 
+            IBackgroundJobManager backgroundJobManager)
         {
             _settingManager = settingManager;
+            _settingManagerStore = settingManagerStore;
             _settingRepository = settingRepository;
             _settingProvider=settingProvider;
             _backgroundJobManager=backgroundJobManager;
@@ -75,9 +85,11 @@ namespace Tiger.Volo.Abp.SettingManagement
         /// <param name="providerKey"></param>
         /// <param name="fallback"></param>
         /// <returns></returns>
-        public async Task<List<SettingValue>> GetAllAsync(string providerName, string providerKey, bool fallback = true)
+        public async Task<List<SettingValue>> GetAllAsync(string providerName, string providerKey)
         {
-            return await _settingManager.GetAllAsync(providerName, providerKey, fallback);
+            var settingValue =  await _settingManagerStore.GetListAsync(providerName, providerKey);
+            return settingValue;
+            //return await _settingManager.GetAllAsync(providerName, providerKey, fallback);
         }
 
 
@@ -90,9 +102,10 @@ namespace Tiger.Volo.Abp.SettingManagement
         /// <param name="providerKey"></param>
         /// <param name="forceToSet"></param>
         /// <returns></returns>
-        public virtual async Task SetAsync(string name, string value, string providerName, string providerKey, bool forceToSet = false)
+        public virtual async Task SetAsync(string name, string value, string providerName, string providerKey)
         {
-            await _settingManager.SetAsync(name, value, providerName, providerKey, forceToSet);
+            await _settingManagerStore.SetAsync(name, value, providerName, providerKey);
+            //await _settingManager.SetAsync(name, value, providerName, providerKey, forceToSet);
         }
 
 

@@ -29,9 +29,19 @@ using Tiger.Orders.OrderSettings;
 using Tiger.SecurityLogs;
 using Tiger.Stock;
 using Tiger.Stock.Dtos;
+using Tiger.Volo.Abp.IdentityServer.ApiResources;
+using Tiger.Volo.Abp.IdentityServer.Clients;
+using Tiger.Volo.Abp.IdentityServer.Devices;
+using Tiger.Volo.Abp.IdentityServer.Grants;
+using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity;
+using Volo.Abp.IdentityServer.ApiResources;
+using Volo.Abp.IdentityServer.Clients;
+using Volo.Abp.IdentityServer.Devices;
+using Volo.Abp.IdentityServer.Grants;
+using Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.SecurityLog;
 
 namespace Tiger.Infrastructure.ObjectMapping
@@ -223,9 +233,22 @@ namespace Tiger.Infrastructure.ObjectMapping
                 // MapExtraPropertiesTo 是ABP框架提供的扩展方法,用于以受控方式将额外的属性从一个对象复制到另一个对象
                 .MapExtraProperties();
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
+                .MapExtraProperties();
 
-                
-                .MapExtraProperties(); 
+            CreateMap<ApiResource, ApiResourceDto>();
+            CreateMap<CreateUpdateApiResourceDto, ApiResource>();
+
+            CreateMap<Client, ClientDto>();
+            CreateMap<CreateUpdateClientDto, ClientDto>();
+
+            CreateMap<DeviceFlowCodes, DeviceFlowCodeDto>();
+            CreateMap<CreateUpdateDeviceFlowCodeDto, DeviceFlowCodeDto>();
+
+            CreateMap<PersistedGrant, PersistedGrantDto>();
+            CreateMap<CreateUpdatePersistedGrantDto, PersistedGrant>();
+
+            CreateMap<IdentityResource, IdentityResourceDto>();
+            CreateMap<CreateUpdateIdentityResourceDto, IdentityResource>();
             #endregion
         }
     }
