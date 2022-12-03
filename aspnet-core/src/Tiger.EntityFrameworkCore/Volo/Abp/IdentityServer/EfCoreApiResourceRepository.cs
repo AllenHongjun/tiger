@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.IdentityServer;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.IdentityServer;
 using Volo.Abp.IdentityServer.ApiResources;
 using Volo.Abp.IdentityServer.EntityFrameworkCore;
 

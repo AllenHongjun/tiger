@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,9 +34,9 @@ namespace Volo.Abp.AuditLogging
         /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
-        public virtual Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
-            return AuditLogAppService.DeleteAsync(id);
+             await AuditLogAppService.DeleteAsync(id);
         }
 
         /// <summary>
@@ -45,9 +46,9 @@ namespace Volo.Abp.AuditLogging
         /// <returns></returns>
         [HttpDelete]
         [Route("delete-many")]
-        public virtual Task DeleteManyAsync(Guid[] ids)
+        public virtual async Task DeleteManyAsync(Guid[] ids)
         {
-            return AuditLogAppService.DeleteManyAsync(ids);
+             await AuditLogAppService.DeleteManyAsync(ids);
         }
 
         /// <summary>
@@ -57,9 +58,9 @@ namespace Volo.Abp.AuditLogging
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public virtual Task<AuditLogDto> GetAsync(Guid id)
+        public virtual async Task<AuditLogDto> GetAsync(Guid id)
         {
-            return AuditLogAppService.GetAsync(id);
+            return await AuditLogAppService.GetAsync(id);
         }
 
         /// <summary>
@@ -84,6 +85,31 @@ namespace Volo.Abp.AuditLogging
         public Task<Dictionary<DateTime, double>> GetAverageExecutionDurationPerDayAsync(DateTime startDate, DateTime endDate)
         {
             return AuditLogAppService.GetAverageExecutionDurationPerDayAsync(startDate, endDate);
+        }
+
+
+        /// <summary>
+        /// 获取实体变更明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("entity-change/{id}")]
+        public async Task<EntityChangeDto> GetEntityChangeAsync(Guid id)
+        {
+            return await AuditLogAppService.GetEntityChangeAsync(id);
+        }
+
+        /// <summary>
+        /// 获取实体变更列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("entity-changes")]
+        public async Task<PagedResultDto<EntityChangeDto>> GetEntityChangeListAsync(GetEntityChangeDto input)
+        {
+            return await AuditLogAppService.GetEntityChangeListAsync(input);
         }
     }
 }

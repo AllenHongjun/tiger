@@ -11,7 +11,7 @@ using Volo.Abp.Data;
 using Volo.Abp.Users;
 
 namespace Volo.Abp.AuditLogging
-{       
+{
     /// <summary>
     /// 系统日志功能
     /// </summary>
@@ -41,7 +41,7 @@ namespace Volo.Abp.AuditLogging
         /// <returns></returns>
         public virtual async Task<AuditLogDto> GetAsync(Guid id)
         {
-            return ObjectMapper.Map<AuditLog, AuditLogDto>(await AuditLogRepository.GetAsync(id));
+            return ObjectMapper.Map<AuditLog, AuditLogDto>(await AuditLogRepository.GetAsync(id, true));
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Volo.Abp.AuditLogging
         /// <returns>测试字符串</returns> 
         public virtual async Task<PagedResultDto<AuditLogDto>> GetListAsync(GetAuditLogDto input)
         {
-            var userId =  CurrentUser.Id; 
+            var userId = CurrentUser.Id;
 
             //临时禁用软删除的数据过滤
             using (_dataFilter.Disable<ISoftDelete>())
@@ -104,7 +104,7 @@ namespace Volo.Abp.AuditLogging
                     ObjectMapper.Map<List<AuditLog>, List<AuditLogDto>>(list)
                 );
             }
-                
+
         }
 
         /// <summary>
@@ -152,6 +152,78 @@ namespace Volo.Abp.AuditLogging
         public virtual async Task<Dictionary<DateTime, double>> GetAverageExecutionDurationPerDayAsync(DateTime startDate, DateTime endDate)
         {
             return await AuditLogRepository.GetAverageExecutionDurationPerDayAsync(startDate, endDate);
+        }
+
+
+
+        /// <summary>
+        /// 根据id获取实体变更
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual async Task<EntityChangeDto> GetEntityChangeAsync(Guid id)
+        {
+            return ObjectMapper.
+                Map<EntityChange, EntityChangeDto>(
+                await AuditLogRepository.GetEntityChange(id)
+                );
+        }
+
+
+        /// <summary>
+        /// 获取实体变更列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public virtual async Task<PagedResultDto<EntityChangeDto>> GetEntityChangeListAsync(GetEntityChangeDto input)
+        {
+            var entityChangeCount = await AuditLogRepository.GetEntityChangeCountAsync(
+                input.AuditLogId,
+                input.StartTime,
+                input.EndTime,
+                input.ChangeType,
+                input.EntityId,
+                input.EntityTypeFullName);
+
+            var entityChanges = await AuditLogRepository.GetEntityChangeListAsync(
+                input.Sorting,
+                input.MaxResultCount,
+                input.SkipCount,
+                input.AuditLogId,
+                input.StartTime,
+                input.EndTime,
+                input.ChangeType,
+                input.EntityId,
+                input.EntityTypeFullName,
+                includeDetails: true);
+
+            return new PagedResultDto<EntityChangeDto>(entityChangeCount,
+                ObjectMapper.Map<List<EntityChange>,List<EntityChangeDto>>(entityChanges));
+        }
+
+        /// <summary>
+        /// 获取实体变更及操作人
+        /// </summary>
+        /// <param name="entityChangeId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public virtual async Task<EntityChangeWithUsername> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
+        {   
+
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 获取实体变更及操作人
+        /// </summary>
+        /// <param name="entityId"></param>
+        /// <param name="entityTypeFullName"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public virtual async Task<List<EntityChangeWithUsername>> GetEntityChangesWithUsernameAsync(string entityId, string entityTypeFullName)
+        {
+            throw new NotImplementedException();
         }
 
     }

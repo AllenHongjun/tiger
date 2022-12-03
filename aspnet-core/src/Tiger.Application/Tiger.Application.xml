@@ -854,6 +854,38 @@
             <param name="endDate"></param>
             <returns></returns>
         </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangeAsync(System.Guid)">
+            <summary>
+            根据id获取实体变更
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangeListAsync(Volo.Abp.AuditLogging.GetEntityChangeDto)">
+            <summary>
+            获取实体变更列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangeWithUsernameAsync(System.Guid)">
+            <summary>
+            获取实体变更及操作人
+            </summary>
+            <param name="entityChangeId"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangesWithUsernameAsync(System.String,System.String)">
+            <summary>
+            获取实体变更及操作人
+            </summary>
+            <param name="entityId"></param>
+            <param name="entityTypeFullName"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetAsync(System.Guid)">
             <summary>
             获取单条组织机构

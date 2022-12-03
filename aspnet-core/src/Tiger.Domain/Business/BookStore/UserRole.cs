@@ -18,7 +18,7 @@ namespace Tiger.Business.Demo
     /// 
     /// 上面的例子中,复合键由UserId和RoleId组成.在关系数据库中,它是相关表的复合主键. 具有复合键的实体应当实现上面代码中所示的GetKeys()方法.
     /// </summary>
-    public class UserRole: Volo.Abp.Domain.Entities.Entity
+    public class UserRole
     {
         public Guid UserId { get; set; }
 
@@ -31,10 +31,10 @@ namespace Tiger.Business.Demo
 
         }
 
-        public override object[] GetKeys()
-        {
-            return new object[] { UserId, RoleId };
-            //throw new NotImplementedException();
-        }
+        //public override object[] GetKeys()
+        //{
+        //    return new object[] { UserId, RoleId };
+        //    //throw new NotImplementedException();
+        //}
     }
 }

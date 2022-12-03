@@ -1479,6 +1479,20 @@
             <param name="endDate">结束日期</param>
             <returns></returns>
         </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogController.GetEntityChangeAsync(System.Guid)">
+            <summary>
+            获取实体变更明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogController.GetEntityChangeListAsync(Volo.Abp.AuditLogging.GetEntityChangeDto)">
+            <summary>
+            获取实体变更列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Volo.Abp.Identity.OrganizationUnitController">
              <summary>
              组织架构

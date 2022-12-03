@@ -9,7 +9,7 @@ namespace Volo.Abp.AuditLogging
     public class AuditLogActionDto : EntityDto<Guid>, IHasExtraProperties
     {   
         /// <summary>
-        /// 
+        /// 服务名称
         /// </summary>
         public string ServiceName { get; set; }
 
@@ -27,6 +27,11 @@ namespace Volo.Abp.AuditLogging
         /// 执行时间
         /// </summary>
         public DateTime ExecutionTime { get; set; }
+        
+        /// <summary>
+        /// 执行持续时间
+        /// </summary>
+        
         public int ExecutionDuration { get; set; }
 
         /// <summary>

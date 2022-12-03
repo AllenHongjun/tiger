@@ -31,5 +31,8 @@ namespace Volo.Abp.AuditLogging
         /// <param name="endDate"></param>
         /// <returns></returns>
         Task<Dictionary<DateTime, double>> GetAverageExecutionDurationPerDayAsync(DateTime startDate, DateTime endDate);
+        Task<EntityChangeDto> GetEntityChangeAsync(Guid id);
+        Task<PagedResultDto<EntityChangeDto>> GetEntityChangeListAsync(GetEntityChangeDto input);
+        
     }
 }

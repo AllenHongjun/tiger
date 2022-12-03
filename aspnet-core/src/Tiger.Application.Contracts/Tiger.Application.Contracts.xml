@@ -1451,6 +1451,11 @@
             例如 IBookAppService 接口和 BookCreationDto 类都适合放在这个项目中.
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.EntityChangeWithUsernameDto.Username">
+            <summary>
+            操作人
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.SettingManagementAppService.IdentitySettingsDto">
             <summary>
             身份标识管理
@@ -1701,7 +1706,7 @@
         </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
             <summary>
-            
+            服务名称
             </summary>
         </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.MethodName">
@@ -1717,6 +1722,11 @@
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ExecutionTime">
             <summary>
             执行时间
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ExecutionDuration">
+            <summary>
+            执行持续时间
             </summary>
         </member>
         <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ExtraProperties">
@@ -1779,6 +1789,66 @@
             系统日志权限配置
             </summary>
         </member>
+        <member name="T:Volo.Abp.AuditLogging.EntityChangeDto">
+            <summary>
+            实体变更
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.ChangeTime">
+            <summary>
+            变更时间
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.ChangeType">
+            <summary>
+            实体变更类型 0:创建； 1:更新；  2:删除
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.EntityTenantId">
+            <summary>
+            租户id
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.EntityId">
+            <summary>
+            实体Id
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.EntityTypeFullName">
+            <summary>
+            实体类型全称
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.PropertyChanges">
+            <summary>
+            实体属性变更
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.ExtraProperties">
+            <summary>
+            额外属性
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.NewValue">
+            <summary>
+            新值
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.OriginalValue">
+            <summary>
+            原始值
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.PropertyName">
+            <summary>
+            属性名称
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.PropertyTypeFullName">
+            <summary>
+            属性原始值
+            </summary>
+        </member>
         <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.StartTime">
             <summary>
             开始时间
@@ -1815,6 +1885,41 @@
             </summary>
         </member>
         <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.IncludeDetails">
+            <summary>
+            是否包含明细
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.AuditLogId">
+            <summary>
+            审计日志id
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.ChangeType">
+            <summary>
+            实体变更类型 0:创建； 1:更新；  2:删除
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.EntityId">
+            <summary>
+            实体Id
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.EntityTypeFullName">
+            <summary>
+            实体类型全称
+            </summary>
+        </member>
+        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.IncludeDetails">
             <summary>
             是否包含明细
             </summary>

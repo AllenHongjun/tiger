@@ -219,6 +219,8 @@ namespace Tiger.Infrastructure.ObjectMapping
 
             #region Volo系统设置
             CreateMap<SecurityLogInfo, SecurityLogDto>();
+
+            CreateMap<AuditLogAction, AuditLogActionDto>();
             CreateMap<AuditLog, AuditLogDto>()
 
                 // 从DTO映射时你可能想忽略这些基本属性
@@ -232,6 +234,12 @@ namespace Tiger.Infrastructure.ObjectMapping
                 .ForMember(x => x.CreationTime, map => map.Ignore())
                 // MapExtraPropertiesTo 是ABP框架提供的扩展方法,用于以受控方式将额外的属性从一个对象复制到另一个对象
                 .MapExtraProperties();
+
+            CreateMap<EntityChange, EntityChangeDto>()
+                .MapExtraProperties();
+            CreateMap<EntityPropertyChange,EntityPropertyChangeDto>();
+
+
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
                 .MapExtraProperties();
 
