@@ -29,6 +29,7 @@ using Tiger.Orders.OrderSettings;
 using Tiger.SecurityLogs;
 using Tiger.Stock;
 using Tiger.Stock.Dtos;
+using Tiger.Volo.Abp.AuditLogging.Dto;
 using Tiger.Volo.Abp.IdentityServer.ApiResources;
 using Tiger.Volo.Abp.IdentityServer.Clients;
 using Tiger.Volo.Abp.IdentityServer.Devices;

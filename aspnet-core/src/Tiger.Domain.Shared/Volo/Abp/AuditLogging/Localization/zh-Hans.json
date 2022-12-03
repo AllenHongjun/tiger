@@ -1,9 +1,12 @@
 {
   "culture": "zh-Hans",
   "texts": {
+
     "Permission:AuditLogManagement": "审计日志管理",
     "Permission:AuditLogging": "审计日志",
     "Permission:Delete": "删除",
+
+
     "AuditLogging": "审计日志",
     "Menu:AuditLogging": "审计日志",
     "RequestInfo": "状态码 | 方法 | 耗时(毫秒) | 地址",

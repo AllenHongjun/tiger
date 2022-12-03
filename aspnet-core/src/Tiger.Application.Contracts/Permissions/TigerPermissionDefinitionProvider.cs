@@ -343,13 +343,13 @@ namespace Tiger.Permissions
             ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Update, L("Permission:OrganitaionUnits.Edit"));
             ouPermission.AddChild(TigerIdentityPermissions.OrganitaionUnits.Delete, L("Permission:OrganitaionUnits.Delete"));
 
-            //系统日志
-            var auditLogGroup = context.AddGroup(AuditLogPermissions.GroupName, L("Permission:System"));
-            var aduditLogPermission = auditLogGroup.AddPermission(AuditLogPermissions.AuditLogs.Default, L("Permission:AuditLog"));
+            ////系统日志
+            //var auditLogGroup = context.AddGroup(AuditLogPermissions.GroupName, L("Permission:System"));
+            //var aduditLogPermission = auditLogGroup.AddPermission(AuditLogPermissions.AuditLogs.Default, L("Permission:AuditLog"));
 
-            aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Create, L("Permission:AuditLog.Create"));
-            aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Update, L("Permission:AuditLog.Edit"));
-            aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Delete, L("Permission:AuditLog.Delete"));
+            //aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Create, L("Permission:AuditLog.Create"));
+            //aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Update, L("Permission:AuditLog.Edit"));
+            //aduditLogPermission.AddChild(AuditLogPermissions.AuditLogs.Delete, L("Permission:AuditLog.Delete"));
 
             //var userPermission = identityGroup.GetPermissionOrNull(IdentityPermissions.Users.Default);
             //userPermission?.AddChild(TigerIdentityPermissions.Users.DistributionOrganizationUnit, IdentityL("Permission:DistributionOrganizationUnit"));

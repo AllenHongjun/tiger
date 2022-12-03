@@ -95,6 +95,7 @@
     <Folder Include="PlatfromSdk\SpotifyAPI.Web\Http\" />
     <Folder Include="SignalR\" />
     <Folder Include="Deployment\" />
+    <Folder Include="Volo\Abp\Auditing\" />
   </ItemGroup>
 
 </Project>

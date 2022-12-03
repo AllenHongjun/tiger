@@ -188,10 +188,13 @@
     "Permission:OrganitaionUnits.Audit": "审核",
 
     "Permission:AuditLog": "系统日志管理",
-    "Permission:AuditLog.Edit": "编辑",
+    "Permission:AuditLog.Update": "编辑",
     "Permission:AuditLog.Delete": "删除",
     "Permission:AuditLog.Create": "添加",
     "Permission:AuditLog.Audit": "审核",
+    "Permission:AuditLog.Import": "导入",
+    "Permission:AuditLog.Export": "导出",
+    "Permission:AuditLog.Print": "打印",
 
     "Permission:PermissionManagement": "权限管理",
     "Permission:Create": "权限添加",

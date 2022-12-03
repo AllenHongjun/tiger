@@ -1451,9 +1451,233 @@
             例如 IBookAppService 接口和 BookCreationDto 类都适合放在这个项目中.
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.AuditLogging.EntityChangeWithUsernameDto.Username">
+        <member name="T:Tiger.Volo.Abp.AuditLogging.AuditingPermissionDefinitionProvider">
+            <summary>
+            定义审计模块权限
+            </summary>
+            <remarks>
+            Abp会自动发现这个类 不需要注册
+            权限系统是为特定用户,角色或客户端授权或禁止的简单策略.
+            </remarks>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogActionDto.ServiceName">
+            <summary>
+            服务名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogActionDto.MethodName">
+            <summary>
+            方法名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogActionDto.Parameters">
+            <summary>
+            参数名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogActionDto.ExecutionTime">
+            <summary>
+            执行时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogActionDto.ExecutionDuration">
+            <summary>
+            执行持续时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogActionDto.ExtraProperties">
+            <summary>
+            附加参数
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.HttpStatusCode">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.Exceptions">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.Url">
+            <summary>
+            请求url
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.HttpMethod">
+            <summary>
+            请求方式
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.ClientIpAddress">
+            <summary>
+            客户端ip
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.ExecutionDuration">
+            <summary>
+            执行时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.TenantName">
+            <summary>
+            租户名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.TenantId">
+            <summary>
+            租户id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto">
+            <summary>
+            实体变更
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto.ChangeTime">
+            <summary>
+            变更时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto.ChangeType">
+            <summary>
+            实体变更类型 0:创建； 1:更新；  2:删除
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto.EntityTenantId">
+            <summary>
+            租户id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto.EntityId">
+            <summary>
+            实体Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto.EntityTypeFullName">
+            <summary>
+            实体类型全称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto.PropertyChanges">
+            <summary>
+            实体属性变更
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeDto.ExtraProperties">
+            <summary>
+            额外属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityChangeWithUsernameDto.Username">
             <summary>
             操作人
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityPropertyChangeDto.NewValue">
+            <summary>
+            新值
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityPropertyChangeDto.OriginalValue">
+            <summary>
+            原始值
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityPropertyChangeDto.PropertyName">
+            <summary>
+            属性名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityPropertyChangeDto.PropertyTypeFullName">
+            <summary>
+            属性原始值
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.HttpMethod">
+            <summary>
+            请求方式
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.Url">
+            <summary>
+            请求URL
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.MaxExecutionDuration">
+            <summary>
+            最大执行时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.HasException">
+            <summary>
+            是否有异常
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.HttpStatusCode">
+            <summary>
+            请求状态码
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.IncludeDetails">
+            <summary>
+            是否包含明细
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.AuditLogId">
+            <summary>
+            审计日志id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.StartTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.ChangeType">
+            <summary>
+            实体变更类型 0:创建； 1:更新；  2:删除
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.EntityId">
+            <summary>
+            实体Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.EntityTypeFullName">
+            <summary>
+            实体类型全称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.IncludeDetails">
+            <summary>
+            是否包含明细
             </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.SettingManagementAppService.IdentitySettingsDto">
@@ -1704,229 +1928,19 @@
             <param name="includeDetails">includeDetails</param>
             <returns></returns>
         </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ServiceName">
-            <summary>
-            服务名称
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.MethodName">
-            <summary>
-            方法名称
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.Parameters">
-            <summary>
-            参数名称
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ExecutionTime">
-            <summary>
-            执行时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ExecutionDuration">
-            <summary>
-            执行持续时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogActionDto.ExtraProperties">
-            <summary>
-            附加参数
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.HttpStatusCode">
-            <summary>
-            状态码
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.Exceptions">
-            <summary>
-            异常信息
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.Url">
-            <summary>
-            请求url
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.HttpMethod">
-            <summary>
-            请求方式
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.BrowserInfo">
-            <summary>
-            浏览器信息
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.ClientIpAddress">
-            <summary>
-            客户端ip
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.ExecutionDuration">
-            <summary>
-            执行时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.TenantName">
-            <summary>
-            租户名称
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.TenantId">
-            <summary>
-            租户id
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.AuditLogDto.UserName">
-            <summary>
-            用户名
-            </summary>
-        </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogPermissions">
             <summary>
-            系统日志权限配置
+            审计日志权限配置
             </summary>
         </member>
-        <member name="T:Volo.Abp.AuditLogging.EntityChangeDto">
+        <member name="T:Volo.Abp.AuditLogging.AuditLogRemoteServiceConsts">
             <summary>
-            实体变更
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.ChangeTime">
-            <summary>
-            变更时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.ChangeType">
-            <summary>
-            实体变更类型 0:创建； 1:更新；  2:删除
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.EntityTenantId">
-            <summary>
-            租户id
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.EntityId">
-            <summary>
-            实体Id
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.EntityTypeFullName">
-            <summary>
-            实体类型全称
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.PropertyChanges">
-            <summary>
-            实体属性变更
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityChangeDto.ExtraProperties">
-            <summary>
-            额外属性
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.NewValue">
-            <summary>
-            新值
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.OriginalValue">
-            <summary>
-            原始值
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.PropertyName">
-            <summary>
-            属性名称
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.EntityPropertyChangeDto.PropertyTypeFullName">
-            <summary>
-            属性原始值
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.StartTime">
-            <summary>
-            开始时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.EndTime">
-            <summary>
-            结束时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.HttpMethod">
-            <summary>
-            请求方式
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.Url">
-            <summary>
-            请求URL
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.MaxExecutionDuration">
-            <summary>
-            最大执行时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.HasException">
-            <summary>
-            是否有异常
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.HttpStatusCode">
-            <summary>
-            请求状态码
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetAuditLogDto.IncludeDetails">
-            <summary>
-            是否包含明细
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.AuditLogId">
-            <summary>
-            审计日志id
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.StartTime">
-            <summary>
-            开始时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.EndTime">
-            <summary>
-            结束时间
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.ChangeType">
-            <summary>
-            实体变更类型 0:创建； 1:更新；  2:删除
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.EntityId">
-            <summary>
-            实体Id
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.EntityTypeFullName">
-            <summary>
-            实体类型全称
-            </summary>
-        </member>
-        <member name="P:Volo.Abp.AuditLogging.GetEntityChangeDto.IncludeDetails">
-            <summary>
-            是否包含明细
+            审计日志常量配置
             </summary>
         </member>
         <member name="T:Volo.Abp.AuditLogging.IAuditLogAppService">
             <summary>
-            系统日志
+            审计日志接口
             </summary>
         </member>
         <member name="M:Volo.Abp.AuditLogging.IAuditLogAppService.DeleteManyAsync(System.Guid[])">

@@ -819,7 +819,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetListAsync(Volo.Abp.AuditLogging.GetAuditLogDto)">
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetListAsync(Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto)">
             <summary>
             审核日志列表
             </summary>
@@ -861,7 +861,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangeListAsync(Volo.Abp.AuditLogging.GetEntityChangeDto)">
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangeListAsync(Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto)">
             <summary>
             获取实体变更列表
             </summary>
@@ -877,12 +877,11 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangesWithUsernameAsync(System.String,System.String)">
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetEntityChangesWithUsernameAsync(Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeWithUsernameDto)">
             <summary>
-            获取实体变更及操作人
+            获取实体变更及操作人列表
             </summary>
-            <param name="entityId"></param>
-            <param name="entityTypeFullName"></param>
+            <param name="input"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>

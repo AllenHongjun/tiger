@@ -5,10 +5,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Auditing;
 using Volo.Abp.Data;
 
-namespace Volo.Abp.AuditLogging
+namespace Tiger.Volo.Abp.AuditLogging.Dto
 {
     public class GetEntityChangeDto : PagedAndSortedResultRequestDto
-    {   
+    {
         /// <summary>
         /// 审计日志id
         /// </summary>

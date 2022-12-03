@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Volo.Abp.AuditLogging;
 
-namespace Tiger.Volo.Abp.AuditLogging
+namespace Tiger.Volo.Abp.AuditLogging.Dto
 {
     public class EntityChangeWithUsernameDto
-    {   
+    {
         /// <summary>
         /// 操作人
         /// </summary>

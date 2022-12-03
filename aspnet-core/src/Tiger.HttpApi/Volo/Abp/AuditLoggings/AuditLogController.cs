@@ -5,17 +5,19 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Controllers;
+using Tiger.Volo.Abp.AuditLogging.Dto;
 using Volo.Abp.Application.Dtos;
 
 
 namespace Volo.Abp.AuditLogging
-{   
+{
     /// <summary>
     /// 系统日志
     /// </summary>
     [RemoteService(Name = AuditLogRemoteServiceConsts.RemoteServiceName)]
-    [ControllerName("AuditLogging")]
+    [ApiExplorerSettings(GroupName = "admin")]
     [Area("auditlogging")]
+    [ControllerName("AuditLogging")]
     [Route("/api/audit-logging/audit-logs")]
     public class AuditLogController : TigerController, IAuditLogAppService
     {
@@ -110,6 +112,30 @@ namespace Volo.Abp.AuditLogging
         public async Task<PagedResultDto<EntityChangeDto>> GetEntityChangeListAsync(GetEntityChangeDto input)
         {
             return await AuditLogAppService.GetEntityChangeListAsync(input);
+        }
+
+        /// <summary>
+        /// 获取实体变更及操作人列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("entity-change-with-username")]
+        public async Task<List<EntityChangeWithUsernameDto>> GetEntityChangesWithUsernameAsync(GetEntityChangeWithUsernameDto input)
+        {   
+            return await AuditLogAppService.GetEntityChangesWithUsernameAsync(input);
+        }
+
+        /// <summary>
+        /// 获取实体变更及操作人明细
+        /// </summary>
+        /// <param name="entityChangeId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("entity-change-with-username/{id}")]
+        public async Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
+        {
+            return await AuditLogAppService.GetEntityChangeWithUsernameAsync(entityChangeId);
         }
     }
 }

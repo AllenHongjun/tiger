@@ -7,7 +7,7 @@
     "AuditLogging": "AuditLogging",
     "Menu:AuditLogging": "AuditLogging",
     "RequestInfo": "code | method | duration(ms) | url",
-    "HttpStatusCode": "״̬��",
+    "HttpStatusCode": "状态码",
     "Comments": "comments",
     "Exceptions": "exceptions",
     "Url": "url",

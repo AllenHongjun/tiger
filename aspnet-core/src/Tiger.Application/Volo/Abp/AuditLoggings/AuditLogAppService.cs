@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger;
+using Tiger.Volo.Abp.AuditLogging.Dto;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Auditing;
-using Volo.Abp.AuditLogging;
 using Volo.Abp.Data;
+using Volo.Abp.ObjectMapping;
 using Volo.Abp.Users;
 
 namespace Volo.Abp.AuditLogging
@@ -208,22 +209,21 @@ namespace Volo.Abp.AuditLogging
         /// <param name="entityChangeId"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual async Task<EntityChangeWithUsername> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
+        public virtual async Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
         {   
-
-            throw new NotImplementedException();
+            return ObjectMapper.Map<EntityChangeWithUsername,EntityChangeWithUsernameDto>( await AuditLogRepository.GetEntityChangeWithUsernameAsync(entityChangeId));
         }
 
         /// <summary>
-        /// 获取实体变更及操作人
+        /// 获取实体变更及操作人列表
         /// </summary>
-        /// <param name="entityId"></param>
-        /// <param name="entityTypeFullName"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public virtual async Task<List<EntityChangeWithUsername>> GetEntityChangesWithUsernameAsync(string entityId, string entityTypeFullName)
-        {
-            throw new NotImplementedException();
+        public virtual async Task<List<EntityChangeWithUsernameDto>> GetEntityChangesWithUsernameAsync(GetEntityChangeWithUsernameDto input)
+        {   
+            return ObjectMapper.Map<List<EntityChangeWithUsername>, List<EntityChangeWithUsernameDto>>(
+                await AuditLogRepository.GetEntityChangesWithUsernameAsync(input.EntityId, input.EntityTypeFullName));
         }
 
     }

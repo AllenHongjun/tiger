@@ -5,13 +5,14 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.AuditLogging.Dto;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Volo.Abp.AuditLogging
-{   
+{
     /// <summary>
-    /// 系统日志
+    /// 审计日志接口
     /// </summary>
     public interface IAuditLogAppService : IReadOnlyAppService<AuditLogDto, Guid, GetAuditLogDto>, IDeleteAppService<Guid>
     {
@@ -33,6 +34,7 @@ namespace Volo.Abp.AuditLogging
         Task<Dictionary<DateTime, double>> GetAverageExecutionDurationPerDayAsync(DateTime startDate, DateTime endDate);
         Task<EntityChangeDto> GetEntityChangeAsync(Guid id);
         Task<PagedResultDto<EntityChangeDto>> GetEntityChangeListAsync(GetEntityChangeDto input);
-        
+        Task<List<EntityChangeWithUsernameDto>> GetEntityChangesWithUsernameAsync(GetEntityChangeWithUsernameDto input);
+        Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId);
     }
 }

@@ -37,6 +37,7 @@
     <Folder Include="Business\Stat\" />
     <Folder Include="Security\" />
     <Folder Include="Business\Orders\" />
+    <Folder Include="Volo\Abp\IdentityServer\" />
   </ItemGroup>
 
 </Project>
