@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,12 +96,21 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<long> GetUsersInOrganizationUnitCountAsync(
+        public async Task<long> GetUsersInOrganizationUnitCountAsync(
             Guid organizationId,
             string filter = null,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+
+            var query = from userOU in DbContext.Set<IdentityUserOrganizationUnit>()
+                        join user in DbContext.Users on userOU.UserId equals user.Id
+                        join ou in DbContext.OrganizationUnits
+                            on userOU.OrganizationUnitId equals ou.Id
+                        where userOU.OrganizationUnitId == organizationId
+                        select user;
+            return await query.WhereIf(!string.IsNullOrEmpty(filter),
+                            user => user.Name.Contains(filter) || user.PhoneNumber.Contains(filter))
+                            .LongCountAsync(cancellationToken);
         }
 
         /// <summary>
@@ -113,14 +123,24 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="cancellation"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<List<IdentityUser>> GetUsersInOrganizationUnitAsync(
+        public async Task<List<IdentityUser>> GetUsersInOrganizationUnitListAsync(
             Guid organizationUnitId,
             string filter = null,
             int skipCount = 1,
             int maxResultCount = 50,
             CancellationToken cancellation = default)
         {
-            throw new NotImplementedException();
+            var query = from userOU in DbContext.Set<IdentityUserOrganizationUnit>()
+                        join user in DbContext.Users on userOU.UserId equals user.Id
+                        join ou in DbContext.OrganizationUnits
+                            on userOU.OrganizationUnitId equals ou.Id
+                        where userOU.OrganizationUnitId == organizationUnitId
+                        select user;
+            return await query.WhereIf(!string.IsNullOrEmpty(filter),
+                                    user => user.Name.Contains(filter) || user.PhoneNumber.Contains(filter))
+                              .OrderBy("")
+                              .PageBy(skipCount,maxResultCount)
+                              .ToListAsync(GetCancellationToken(cancellation));
         } 
         #endregion
 

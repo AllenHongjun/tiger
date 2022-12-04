@@ -730,6 +730,40 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.PersistedGrantAppService">
+            <summary>
+            持续授予服务
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.IdentityClaimTypeAppService">
+            <summary>
+            用户声明类型
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentityClaimTypeAppService.CheckChangingClaimType(Volo.Abp.Identity.IdentityClaimType)">
+            <summary>
+            检查声明类型
+            </summary>
+            <param name="claimType"></param>
+            <exception cref="T:Volo.Abp.BusinessException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentityClaimTypeAppService.CreateAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.CreateClaimTypeDto)">
+            <summary>
+            创建声明类型
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentityClaimTypeAppService.GetAllListAsync">
+            <summary>
+            获取所有声明类型
+            </summary>
+            <returns></returns>
+            <remarks>
+            有些没有必要的注释可以省略
+            </remarks>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)
@@ -738,7 +772,7 @@
             <param name="ouId"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.CreateAsync(Volo.Abp.Identity.IdentityRoleOrgCreateDto)">
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityRoleOrgCreateDto)">
             <summary>
             添加角色同时关联组织
             </summary>
@@ -778,7 +812,7 @@
             <param name="ouId"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.CreateAsync(Volo.Abp.Identity.IdentityUserOrgCreateDto)">
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityUserOrgCreateDto)">
             <summary>
             添加用户，同时用户关联组织id
             </summary>
@@ -793,7 +827,7 @@
             <param name="includeDetails"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.UpdateAsync(System.Guid,Volo.Abp.Identity.IdentityUserOrgUpdateDto)">
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.UpdateAsync(System.Guid,Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityUserOrgUpdateDto)">
             <summary>
             修改用户及用户关联的组织
             </summary>
@@ -972,6 +1006,39 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Volo.Abp.Identity.OrganizationUnitAppService">
+            <summary>
+            组织单元服务
+            </summary>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.TraverseTreeAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitDto,System.Collections.Generic.List{Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitDto})">
+            <summary>
+            将列表转换为组织树
+            </summary>
+            <param name="dto"></param>
+            <param name="children"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.SetLeaf(System.Collections.Generic.List{Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitDto})">
+            <summary>
+            设置叶子节点
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetRootListAsync">
+            <summary>
+             获取根节点的组织列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetListAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetOrganizationUnitInput)">
+            <summary>
+            获取组织列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetAsync(System.Guid)">
             <summary>
             获取单条组织机构
@@ -979,21 +1046,17 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetDetailsAsync(System.Guid)">
-            <summary>
-            获取单条组织明细
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.CreateAsync(Volo.Abp.Identity.OrganizationUnitCreateDto)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitCreateDto)">
             <summary>
             添加组织
             </summary>
             <param name="input"></param>
             <returns></returns>
+            <remarks>
+            自动计算要添加的code (有层次结构代码)
+            </remarks>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.UpdateAsync(System.Guid,Volo.Abp.Identity.OrganizationUnitUpdateDto)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.UpdateAsync(System.Guid,Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitUpdateDto)">
             <summary>
             修改组织
             </summary>
@@ -1007,20 +1070,47 @@
             </summary>
             <param name="id"></param>
             <returns></returns>
+            <remarks>
+            1. 删除所有组织关联的角色
+            2. 删除所有的组织子节点
+            3. Todo:删除组织关联的用户
+            </remarks>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.TraverseTreeAsync(Volo.Abp.Identity.OrganizationUnitDto,System.Collections.Generic.List{Volo.Abp.Identity.OrganizationUnitDto})">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetAllListAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetAllOrgnizationUnitInput)">
             <summary>
-            将列表转换为组织树
+            查询所有组织单元(树结构)
             </summary>
-            <param name="dto"></param>
-            <param name="children"></param>
+            <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.SetLeaf(System.Collections.Generic.List{Volo.Abp.Identity.OrganizationUnitDto})">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetDetailsAsync(System.Guid)">
             <summary>
-            后面考虑处理存储leaf到数据库,避免这么进行处理
+            获取单条组织明细(树形结构)
             </summary>
-            <param name="list"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetChildrenAsync(System.Guid,System.Boolean)">
+            <summary>
+            查询组织的子节点
+            </summary>
+            <param name="parentId"></param>
+            <param name="recursive"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetNextChildCodeAsync(System.Nullable{System.Guid})">
+            <summary>
+            获取下一个子节点的code
+            </summary>
+            <param name="parentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.MoveAsync(System.Guid,System.Nullable{System.Guid})">
+            <summary>
+            移动组织树节点
+            </summary>
+            <param name="id"></param>
+            <param name="parentId"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitAppService.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">

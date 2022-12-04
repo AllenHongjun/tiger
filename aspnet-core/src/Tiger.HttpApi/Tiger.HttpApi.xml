@@ -1463,6 +1463,11 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Tiger.Volo.Abp.Identity.ClaimTypeController">
+            <summary>
+            声明类型
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserController">
             <summary>
             用户管理
@@ -1476,7 +1481,7 @@
             <param name="ouIds"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.CreateAsync(Volo.Abp.Identity.IdentityUserOrgCreateDto)">
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityUserOrgCreateDto)">
             <summary>
             添加用户同时关联组织
             </summary>
@@ -1491,7 +1496,7 @@
             <param name="includeDetails"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.UpdateAsync(System.Guid,Volo.Abp.Identity.IdentityUserOrgUpdateDto)">
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.UpdateAsync(System.Guid,Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityUserOrgUpdateDto)">
             <summary>
             修改用户
             </summary>
@@ -1634,51 +1639,26 @@
             <returns></returns>
         </member>
         <member name="T:Volo.Abp.Identity.OrganizationUnitController">
-             <summary>
-             组织架构
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 POST /Todo
-                 {
-                    "id": 1,
-                    "name": "Item1",
-                    "isComplete": true
-                 }
-            
-             </remarks>
+            <summary>
+            组织架构服务
+            </summary>
+            <remarks>
+            </remarks>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.CreateAsync(Volo.Abp.Identity.OrganizationUnitCreateDto)">
-             <summary>
-             添加组织
-             </summary>
-             <param name="input"></param>
-             <returns></returns>
-             <remarks>
-             Sample request:
-            
-                 POST /Todo
-                 {
-                    "id": 1,
-                    "name": "Item1",
-                    "isComplete": true
-                 }
-            
-             </remarks>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitCreateDto)">
+            <summary>
+            添加组织
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <remarks>
+            </remarks>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitController.DeleteAsync(System.Guid)">
             <summary>
             删除组织
             </summary>
             <param name="id">Guid</param>
-            <returns></returns>
-        </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetAllListAsync(Volo.Abp.Identity.GetAllOrgnizationUnitInput)">
-            <summary>
-            获取所有组织
-            </summary>
-            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetAsync(System.Guid)">
@@ -1688,14 +1668,14 @@
             <param name="id">Guid</param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetListAsync(Volo.Abp.Identity.GetOrganizationUnitInput)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetListAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetOrganizationUnitInput)">
             <summary>
             获取组织列表
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.UpdateAsync(System.Guid,Volo.Abp.Identity.OrganizationUnitUpdateDto)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.UpdateAsync(System.Guid,Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitUpdateDto)">
             <summary>
             修改组织
             </summary>
@@ -1703,25 +1683,34 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetDetailsAsync(System.Guid)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">
             <summary>
-            获取组织id查询组织树
+            获取组织机构关联的用户
             </summary>
-            <param name="id"></param>
+            <param name="ouId"></param>
+            <param name="usersInput"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetListDetailsAsync(Volo.Abp.Identity.GetOrganizationUnitInput)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetRolesAsync(System.Nullable{System.Guid},Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
             <summary>
-            
+            获取组织机构的角色
+            </summary>
+            <param name="ouId">组织id</param>
+            <param name="roleInput">角色</param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetAllListAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetAllOrgnizationUnitInput)">
+            <summary>
+            获取所有组织（树结构）
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetChildrenAsync(System.Guid)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetDetailsAsync(System.Guid)">
             <summary>
-            根据父级id获取组织
+            获取组织id查询单个组织(包含子节点的树结构)
             </summary>
-            <param name="parentId"></param>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetRootListAsync">
@@ -1730,20 +1719,27 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.MoveAsync(System.Guid,System.Nullable{System.Guid})">
             <summary>
-            获取用户关联的组织机构
+            将组织移动到指定父节点
             </summary>
-            <param name="ouId"></param>
-            <param name="usersInput"></param>
+            <param name="id"></param>
+            <param name="parentId"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetRolesAsync(System.Nullable{System.Guid},Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetListDetailsAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetOrganizationUnitInput)">
             <summary>
-            获取组织机构关联的角色
+            
             </summary>
-            <param name="ouId">组织id</param>
-            <param name="roleInput">角色</param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetChildrenAsync(System.Guid,System.Boolean)">
+            <summary>
+            根据父级id获取组织
+            </summary>
+            <param name="parentId"></param>
+            <param name="recursive"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitController.UploadFile(Microsoft.AspNetCore.Http.IFormFile)">
@@ -1761,7 +1757,7 @@
             <param name="ouId"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.CreateAsync(Volo.Abp.Identity.IdentityRoleOrgCreateDto)">
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityRoleOrgCreateDto)">
             <summary>
             添加角色关联组织单元
             </summary>

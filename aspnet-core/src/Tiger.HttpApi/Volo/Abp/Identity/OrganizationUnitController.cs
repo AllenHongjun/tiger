@@ -6,24 +6,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Identity.OrganizationUnits;
+using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Volo.Abp.Identity
 {
     /// <summary>
-    /// 组织架构
+    /// 组织架构服务
     /// </summary>
     /// <remarks>
-    /// Sample request:
-    ///
-    ///     POST /Todo
-    ///     {
-    ///        "id": 1,
-    ///        "name": "Item1",
-    ///        "isComplete": true
-    ///     }
-    ///
     /// </remarks>
     [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
     [Area("identity")]
@@ -46,15 +39,6 @@ namespace Volo.Abp.Identity
         /// <param name="input"></param>
         /// <returns></returns>
         /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Todo
-        ///     {
-        ///        "id": 1,
-        ///        "name": "Item1",
-        ///        "isComplete": true
-        ///     }
-        ///
         /// </remarks>
         [HttpPost]
         public virtual Task<OrganizationUnitDto> CreateAsync(OrganizationUnitCreateDto input)
@@ -74,17 +58,7 @@ namespace Volo.Abp.Identity
             return UnitAppService.DeleteAsync(id);
         }
 
-        /// <summary>
-        /// 获取所有组织
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("all")]
-        public virtual Task<ListResultDto<OrganizationUnitDto>> GetAllListAsync(GetAllOrgnizationUnitInput input)
-        {
-            return UnitAppService.GetAllListAsync(input);
-        }
+        
 
         /// <summary>
         /// 获取明细
@@ -122,76 +96,9 @@ namespace Volo.Abp.Identity
             return UnitAppService.UpdateAsync(id, input);
         }
 
-        [HttpPut]
-        [Route("move")]
-        public Task MoveAsync(Guid id, Guid? parentId)
-        {
-            return UnitAppService.MoveAsync(id, parentId);
-        }
 
         /// <summary>
-        /// 获取组织id查询组织树
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("{id}/details")]
-        public Task<OrganizationUnitDto> GetDetailsAsync(Guid id)
-        {
-            return UnitAppService.GetDetailsAsync(id);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("details")]
-        public Task<PagedResultDto<OrganizationUnitDto>> GetListDetailsAsync(GetOrganizationUnitInput input)
-        {
-            return UnitAppService.GetListDetailsAsync(input);
-        }
-
-        [HttpGet]
-        [Route("all/details")]
-        public Task<ListResultDto<OrganizationUnitDto>> GetAllListDetailsAsync(GetAllOrgnizationUnitInput input)
-        {
-            return UnitAppService.GetAllListDetailsAsync(input);
-        }
-
-        /// <summary>
-        /// 根据父级id获取组织
-        /// </summary>
-        /// <param name="parentId"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("children/{parentId}")]
-        public Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId)
-        {
-            return UnitAppService.GetChildrenAsync(parentId);
-        }
-
-        /// <summary>
-        /// 获取根组织
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("root")]
-        public Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()
-        {
-            return UnitAppService.GetRootListAsync();
-        }
-
-        [HttpGet]
-        [Route("next-code")]
-        public Task<string> GetNextChildCodeAsync(Guid? parentId)
-        {
-            return UnitAppService.GetNextChildCodeAsync(parentId);
-        }
-
-        /// <summary>
-        /// 获取用户关联的组织机构
+        /// 获取组织机构关联的用户
         /// </summary>
         /// <param name="ouId"></param>
         /// <param name="usersInput"></param>
@@ -204,7 +111,7 @@ namespace Volo.Abp.Identity
         }
 
         /// <summary>
-        /// 获取组织机构关联的角色
+        /// 获取组织机构的角色
         /// </summary>
         /// <param name="ouId">组织id</param>
         /// <param name="roleInput">角色</param>
@@ -217,12 +124,125 @@ namespace Volo.Abp.Identity
         }
 
         /// <summary>
+        /// 获取所有组织（树结构）
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all-tree")]
+        public virtual Task<ListResultDto<OrganizationUnitDto>> GetAllListAsync(GetAllOrgnizationUnitInput input)
+        {
+            return UnitAppService.GetAllListAsync(input);
+        }
+
+
+        /// <summary>
+        /// 获取组织id查询单个组织(包含子节点的树结构)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}/detail-tree")]
+        public Task<OrganizationUnitDto> GetDetailsAsync(Guid id)
+        {
+            return UnitAppService.GetDetailsAsync(id);
+        }
+
+
+
+
+
+        #region 待重构
+        /// <summary>
+        /// 获取根组织
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("root")]
+        public Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()
+        {
+            return UnitAppService.GetRootListAsync();
+        }
+
+
+
+
+
+        /// <summary>
+        /// 将组织移动到指定父节点
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("move")]
+        [RemoteService(false)]
+        public Task MoveAsync(Guid id, Guid? parentId)
+        {
+            return UnitAppService.MoveAsync(id, parentId);
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("details")]
+        [RemoteService(false)]
+        public Task<PagedResultDto<OrganizationUnitDto>> GetListDetailsAsync(GetOrganizationUnitInput input)
+        {
+            return UnitAppService.GetListDetailsAsync(input);
+        }
+
+        [HttpGet]
+        [Route("all/details")]
+        [RemoteService(false)]
+        public Task<ListResultDto<OrganizationUnitDto>> GetAllListDetailsAsync(GetAllOrgnizationUnitInput input)
+        {
+            return UnitAppService.GetAllListDetailsAsync(input);
+        }
+
+        /// <summary>
+        /// 根据父级id获取组织
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <param name="recursive"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("children/{parentId}")]
+        [RemoteService(false)]
+        public Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId, bool recursive = false)
+        {
+            return UnitAppService.GetChildrenAsync(parentId, recursive);
+        }
+
+
+
+        [HttpGet]
+        [Route("next-code")]
+        [RemoteService(false)]
+        public Task<string> GetNextChildCodeAsync(Guid? parentId)
+        {
+            return UnitAppService.GetNextChildCodeAsync(parentId);
+        } 
+        #endregion
+
+
+
+
+
+        #region 文件上传测试
+        /// <summary>
         /// 上传 文件,并返回相对url(不包含 host port wwwroot)
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
         [Route("upload-file")]
         [HttpPost]
+        [RemoteService(false)]
         public async Task<string> UploadFile(IFormFile file)
         {
             if (file == null)
@@ -253,8 +273,8 @@ namespace Volo.Abp.Identity
             }
             var url = $@"\{uploadPath}\{newFileName}";
             return url;
-        }
-
+        } 
+        #endregion
 
 
     }

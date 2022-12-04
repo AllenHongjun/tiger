@@ -37,7 +37,6 @@
     <Compile Remove="Helper\UserAgentHelper.cs" />
     <Compile Remove="Volo\Abp\Identity\HelloIdentityRoleAppService.cs" />
     <Compile Remove="Volo\Abp\Identity\HelloIdentityUserAppService.cs" />
-    <Compile Remove="Volo\Abp\Identity\IdentityClaimTypeAppService.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -30,6 +30,7 @@ using Tiger.SecurityLogs;
 using Tiger.Stock;
 using Tiger.Stock.Dtos;
 using Tiger.Volo.Abp.AuditLogging.Dto;
+using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.IdentityServer.ApiResources.Dto;
 using Tiger.Volo.Abp.IdentityServer.Clients.Dto;
 using Tiger.Volo.Abp.IdentityServer.Devices;
@@ -219,45 +220,11 @@ namespace Tiger.Infrastructure.ObjectMapping
             #endregion
 
             #region Volo系统设置
-            CreateMap<SecurityLogInfo, SecurityLogDto>();
+            
 
-            CreateMap<AuditLogAction, AuditLogActionDto>();
-            CreateMap<AuditLog, AuditLogDto>()
+            
 
-                // 从DTO映射时你可能想忽略这些基本属性
-                .IgnoreAuditedObjectProperties()
-                .IgnoreFullAuditedObjectProperties()
-                .IgnoreCreationAuditedObjectProperties()
-
-                // ABP 中可以这样写来忽略
-                .Ignore(x => x.CreationTime)
-                // 在AutoMapper中,通常可以编写这样的映射代码来忽略属性
-                .ForMember(x => x.CreationTime, map => map.Ignore())
-                // MapExtraPropertiesTo 是ABP框架提供的扩展方法,用于以受控方式将额外的属性从一个对象复制到另一个对象
-                .MapExtraProperties();
-
-            CreateMap<EntityChange, EntityChangeDto>()
-                .MapExtraProperties();
-            CreateMap<EntityPropertyChange,EntityPropertyChangeDto>();
-
-
-            CreateMap<OrganizationUnit, OrganizationUnitDto>()
-                .MapExtraProperties();
-
-            CreateMap<ApiResource, ApiResourceDto>();
-            CreateMap<CreateUpdateApiResourceDto, ApiResource>();
-
-            CreateMap<Client, ClientDto>();
-            CreateMap<CreateUpdateClientDto, ClientDto>();
-
-            CreateMap<DeviceFlowCodes, DeviceFlowCodeDto>();
-            CreateMap<CreateUpdateDeviceFlowCodeDto, DeviceFlowCodeDto>();
-
-            CreateMap<PersistedGrant, PersistedGrantDto>();
-            CreateMap<CreateUpdatePersistedGrantDto, PersistedGrant>();
-
-            CreateMap<IdentityResource, IdentityResourceDto>();
-            CreateMap<CreateUpdateIdentityResourceDto, IdentityResource>();
+            
             #endregion
         }
     }

@@ -38,7 +38,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         }
 
         /// <summary>
-        /// 获取
+        /// 获取持久授予数量
         /// </summary>
         /// <param name="subjectId"></param>
         /// <param name="filter"></param>
@@ -54,6 +54,16 @@ namespace Tiger.Volo.Abp.IdentityServer
             return result;
         }
 
+        /// <summary>
+        /// 获取持续授权列表
+        /// </summary>
+        /// <param name="subjectId"></param>
+        /// <param name="filter"></param>
+        /// <param name="sorting"></param>
+        /// <param name="skipCount"></param>
+        /// <param name="maxResultCount"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
         public async Task<List<PersistedGrant>> GetListAsync(string subjectId = null, string filter = null, string sorting = "CreationTime", int skipCount = 1, int maxResultCount = 10, CancellationToken cancellation = default)
         {   
 

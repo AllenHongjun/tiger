@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Validation;
 
-namespace Volo.Abp.Identity
+namespace Tiger.Volo.Abp.Identity.OrganizationUnits.Dto
 {
     public abstract class OrganizationUnitCreateOrUpdateDtoBase : ExtensibleObject
     {

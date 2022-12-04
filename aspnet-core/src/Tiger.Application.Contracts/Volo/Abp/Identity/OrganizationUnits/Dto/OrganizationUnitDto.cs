@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.MultiTenancy;
 
-namespace Volo.Abp.Identity
+namespace Tiger.Volo.Abp.Identity.OrganizationUnits.Dto
 {
     public class OrganizationUnitDto : ExtensibleFullAuditedEntityDto<Guid>, IMultiTenant, IHasConcurrencyStamp
     {

@@ -1,0 +1,52 @@
+﻿using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text;
+using Volo.Abp;
+using Volo.Abp.Logging;
+
+namespace Tiger.Volo.Abp.Identity
+{   
+    /// <summary>
+    /// 身份模块异常
+    /// </summary>
+    public class IdentityException : BusinessException, IExceptionWithSelfLogging
+    {
+        /// <summary>
+        /// Constructor for serializing.
+        /// </summary>
+        /// <param name="serializationInfo"></param>
+        /// <param name="context"></param>
+        public IdentityException(
+            SerializationInfo serializationInfo,
+            StreamingContext context)
+            : base(serializationInfo, context)
+        {
+        }
+
+        public IdentityException(
+            string code = null,
+            string message = null,
+            string details = null,
+            Exception innerException = null,
+            LogLevel logLevel = LogLevel.Warning)
+            : base(code, message, details, innerException, logLevel)
+        {
+        }
+
+        /// <summary>
+        /// 记录错误日志
+        /// </summary>
+        /// <param name="logger"></param>
+        public virtual void Log(ILogger logger)
+        {
+            logger.Log(
+                LogLevel,
+                "An id error occurred,code: {0}, Message: {1}, Details: {2}",
+                Code,
+                Message,
+                Details);
+        }
+    }
+}

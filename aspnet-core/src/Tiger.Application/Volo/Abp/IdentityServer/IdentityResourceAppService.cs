@@ -177,6 +177,7 @@ namespace Tiger.Volo.Abp.IdentityServer
             //        {
             //            identityResourceProperty.Value = inputProp.Value;
             //        }
+
             //    }
             //}
         }
