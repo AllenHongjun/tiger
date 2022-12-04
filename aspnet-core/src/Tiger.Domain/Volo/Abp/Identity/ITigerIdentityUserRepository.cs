@@ -119,7 +119,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="maxResultCount"></param>
         /// <param name="cancellation"></param>
         /// <returns></returns>
-        Task<List<IdentityUser>> GetUsersInOrganiztionUnitAsync(
+        Task<List<IdentityUser>> GetUsersInOrganizationUnitAsync(
             Guid organizationUnitId,
             string filter = null,
             int skipCount = 1,
