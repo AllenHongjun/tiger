@@ -96,6 +96,7 @@
     <Folder Include="SignalR\" />
     <Folder Include="Deployment\" />
     <Folder Include="Volo\Abp\Auditing\" />
+    <Folder Include="Volo\Abp\IdentityServer\Devices\" />
   </ItemGroup>
 
 </Project>

@@ -12,8 +12,8 @@ using Volo.Abp.IdentityServer.Grants;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
-    [RemoteService(true)]
-    [ApiExplorerSettings(GroupName = "admin")]
+    [RemoteService(false)]
+    //[ApiExplorerSettings(GroupName = "admin")]
     //[Authorize(BookStorePermissions.Books.Default)]
     public class PersistedGrantAppService :
         CrudAppService<

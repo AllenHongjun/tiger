@@ -643,6 +643,93 @@
             特性管理
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.ClientAppService">
+            <summary>
+            客户端服务
+            </summary>
+            <remarks>
+            数据格式转换 转化为数据层需要的输入格式 或者输出格式
+            </remarks>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.DeleteAsync(System.Guid)">
+            <summary>
+            删除客户端
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAsync(System.Guid)">
+            <summary>
+            获取客户端详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+            <summary>
+            获取客户端列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.CreateAsync(Tiger.Volo.Abp.IdentityServer.Clients.Dto.CreateUpdateClientDto)">
+            <summary>
+            客户端添加
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAllDistinctAllowedCorsOriginsAsync">
+            <summary>
+            获取所有跨域地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAssignableApiResourceAsync">
+            <summary>
+            获取可用的Api资源列表
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAssignableIdentityResourceAsync">
+            <summary>
+            获取可用的身份资源
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.GetAsync(System.Guid)">
+            <summary>
+            获取标识资源详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.GetListAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.GetIdentityResourceDto)">
+            <summary>
+            获取标识资源列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.CreateAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto)">
+            <summary>
+            创建标识资源
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.UpdateApiResourceByInputAsync(Volo.Abp.IdentityServer.IdentityResources.IdentityResource,Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto)">
+            <summary>
+            通过传入的数据修改标识资源对象
+            </summary>
+            <param name="identityResource"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)

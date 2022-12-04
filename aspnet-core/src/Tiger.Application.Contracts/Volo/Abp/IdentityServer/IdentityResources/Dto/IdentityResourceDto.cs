@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.IdentityResources
+namespace Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto
 {
-    public class IdentityResourceDto:FullAuditedEntityDto<Guid>
+    public class IdentityResourceDto : FullAuditedEntityDto<Guid>
     {
         public virtual string Name { get; set; }
 

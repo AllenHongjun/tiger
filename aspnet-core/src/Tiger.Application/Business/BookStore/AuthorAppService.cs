@@ -139,6 +139,7 @@ namespace Tiger.Books
         {
             var author = await _authorRepository.GetAsync(id);
 
+            // update 此处 不能直接用automapper EF返回的类 需要在上下文中
             if (author.Name != input.Name)
             {
 

@@ -4,6 +4,11 @@
         <name>Tiger.Application.Contracts</name>
     </assembly>
     <members>
+        <member name="T:Tiger.ApiExplorerConsts">
+            <summary>
+            Api资源管理器
+            </summary>
+        </member>
         <member name="P:Tiger.Basic.Categorys.CategoryDto.Level">
             <summary>
             级别
@@ -1678,6 +1683,96 @@
         <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetEntityChangeDto.IncludeDetails">
             <summary>
             是否包含明细
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.ClientId">
+            <summary>
+            客户端Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.ClientName">
+            <summary>
+            客户端名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyAllowedGrantType">
+            <summary>
+            复制客户端授权类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyAllowdScope">
+            <summary>
+            复制客户端作用域
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyRedirectUri">
+            <summary>
+            复制客户端重定向 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyClaim">
+            <summary>
+            复制客户端声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopySecret">
+            <summary>
+            复制客户端密钥
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyAllowedCorsOrigin">
+            <summary>
+            复制客户端跨域来源
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyPostLogouRedirectUri">
+            <summary>
+            复制客户端注销重定向Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyPropertie">
+            <summary>
+            复制客户端属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyIdentityProviderRestriction">
+            <summary>
+            复制客户端IdP限制
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.ClientId">
+            <summary>
+            Unique ID of the client
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.Enabled">
+            <summary>
+            Specifire if client is enabled .Defaults to true
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.ProtocolType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.RequireClientSecret">
+            <summary>
+            Specifires whether this client needs a secret to request tokens from the token endpoint(default to true)
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityServerPermissions">
+            <summary>
+            IdentityServer 权限定义
             </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.SettingManagementAppService.IdentitySettingsDto">

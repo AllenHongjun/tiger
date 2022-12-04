@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.Clients
+namespace Tiger.Volo.Abp.IdentityServer.Clients.Dto
 {
-    public class CreateUpdateClientDto:FullAuditedEntityDto<Guid>
+    public class CreateUpdateClientDto : FullAuditedEntityDto<Guid>
     {
         public virtual string ClientId { get; set; }
 

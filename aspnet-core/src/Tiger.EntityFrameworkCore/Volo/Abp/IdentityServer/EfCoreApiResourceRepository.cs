@@ -19,7 +19,7 @@ namespace Volo.Abp.IdentityServer
         typeof(IApiResourceRepository),
         typeof(ApiResourceRepository),
         typeof(Volo.Abp.IdentityServer.ApiResources.IApiResourceRepository))]
-    public class EfCoreApiResourceRepository : ApiResourceRepository, IApiResourceRepository
+    public class EfCoreApiResourceRepository : ApiResourceRepository, ITigerApiResourceRepository
     {
         public EfCoreApiResourceRepository(
             IDbContextProvider<IIdentityServerDbContext> dbContextProvider)

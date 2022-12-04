@@ -338,6 +338,13 @@ namespace Tiger
                         }
                     });
 
+                    options.SwaggerDoc("identity-server", new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "IdentityServer",
+                        Description = "IdentityServer接口",
+                    });
+
                     options.SwaggerDoc("admin-basic", new OpenApiInfo
                     {
                         Version = "v1",
@@ -583,6 +590,7 @@ namespace Tiger
                 // 配置自定义的样式
                 //options.InjectStylesheet("/swagger-ui/custom.css");
 
+                options.SwaggerEndpoint("/swagger/identity-server/swagger.json", "identity-server");
                 options.SwaggerEndpoint("/swagger/admin/swagger.json", "Admin-系统设置");
                 options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
                 options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");

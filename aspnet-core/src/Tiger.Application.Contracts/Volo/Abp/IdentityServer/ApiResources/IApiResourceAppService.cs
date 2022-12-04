@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Books;
+using Tiger.Volo.Abp.IdentityServer.ApiResources.Dto;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 

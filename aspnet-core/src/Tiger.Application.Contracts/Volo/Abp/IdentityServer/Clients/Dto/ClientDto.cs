@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.Clients
+namespace Tiger.Volo.Abp.IdentityServer.Clients.Dto
 {
-    public class ClientDto:FullAuditedEntityDto<Guid>
+    public class ClientDto : FullAuditedEntityDto<Guid>
     {
+        /// <summary>
+        /// Unique ID of the client
+        /// </summary>
         public virtual string ClientId { get; set; }
 
         public virtual string ClientName { get; set; }
@@ -17,10 +20,19 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
 
         public virtual string LogoUri { get; set; }
 
+        /// <summary>
+        /// Specifire if client is enabled .Defaults to true
+        /// </summary>
         public virtual bool Enabled { get; set; } = true;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string ProtocolType { get; set; }
 
+        /// <summary>
+        /// Specifires whether this client needs a secret to request tokens from the token endpoint(default to true)
+        /// </summary>
         public virtual bool RequireClientSecret { get; set; }
 
         public virtual bool RequireConsent { get; set; }

@@ -12,8 +12,8 @@ using Volo.Abp.IdentityServer.Devices;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
-    [RemoteService(true)]
-    [ApiExplorerSettings(GroupName = "admin")]
+    [RemoteService(false)]
+    //[ApiExplorerSettings(GroupName = "admin")]
     //[Authorize(BookStorePermissions.Books.Default)]
     public class DeviceFlowCodeAppService :
         CrudAppService<

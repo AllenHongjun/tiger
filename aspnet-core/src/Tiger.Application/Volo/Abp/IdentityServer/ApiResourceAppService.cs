@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Books;
 using Tiger.Volo.Abp.IdentityServer.ApiResources;
+using Tiger.Volo.Abp.IdentityServer.ApiResources.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -14,8 +15,8 @@ using Volo.Abp.IdentityServer.ApiResources;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
-    [RemoteService(true)]
-    [ApiExplorerSettings(GroupName = "admin")]
+    [RemoteService(false)]
+    //[ApiExplorerSettings(GroupName = "admin")]
     //[Authorize(BookStorePermissions.Books.Default)]
     public class ApiResourceAppService :
         CrudAppService<
