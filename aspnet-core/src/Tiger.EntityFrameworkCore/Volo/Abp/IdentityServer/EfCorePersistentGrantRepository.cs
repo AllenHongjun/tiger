@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Runtime.CompilerServices;
+//using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,8 +26,9 @@ namespace Tiger.Volo.Abp.IdentityServer
     /// <remarks>
     /// 持久授权存储授权代码、刷新令牌和用户同意。
     /// </remarks>
+    [Dependency(ServiceLifetime.Transient)]
     [ExposeServices(
-        //typeof(Volo.Abp.IdentityServer.ITigerPersistentGrantRepository),
+        typeof(ITigerPersistentGrantRepository),
         typeof(IPersistentGrantRepository),
         typeof(PersistentGrantRepository))]
     public class EfCorePersistentGrantRepository : PersistentGrantRepository, ITigerPersistentGrantRepository

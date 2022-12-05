@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Runtime.CompilerServices;
+//using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,11 +12,20 @@ using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.IdentityServer.EntityFrameworkCore;
 using Volo.Abp.IdentityServer.IdentityResources;
+using Volo.Abp.DependencyInjection;
+using Volo.Abp.IdentityServer.Grants;
+using Volo.Abp.IdentityServer;
 
 namespace Tiger.Volo.Abp.IdentityServer
-{
-
-    //[Dependency(ServiceLifetime.Transient, LoadHint.Always)]
+{   
+    /// <summary>
+    /// 身份资源仓储
+    /// </summary>
+    [Dependency(ServiceLifetime.Transient)]
+    [ExposeServices(  // ExposeServicesAttribute用于控制相关类提供了什么服务
+        typeof(ITigerIdentityResourceRepository),
+        typeof(IIdentityResourceRepository),
+        typeof(EfCoreIdentityResourceRepository))]
     public class EfCoreIdentityResourceRepository : IdentityResourceRepository, ITigerIdentityResourceRepository
     {
         public EfCoreIdentityResourceRepository(
