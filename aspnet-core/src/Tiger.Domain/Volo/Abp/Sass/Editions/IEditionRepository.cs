@@ -20,7 +20,7 @@ namespace Tiger.Volo.Abp.Sass.Editions
 
         Task<Edition> FindByTenantIdAsync(Guid tenantId, CancellationToken cancellationToken = default);
 
-        Task<Edition> GetListAsync(
+        Task<List<Edition>> GetListAsync(
             string sorting = null,
             int maxResultCount = 50,
             int skipCount = 0,

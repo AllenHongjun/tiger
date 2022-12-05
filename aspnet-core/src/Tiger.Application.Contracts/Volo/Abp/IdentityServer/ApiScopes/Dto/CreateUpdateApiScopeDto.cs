@@ -24,7 +24,7 @@ namespace Tiger.Volo.Abp.IdentityServer.ApiScopes.Dto
 
         public List<ApiScopePropertyDto> Properties { get; set; }
 
-        public ApiScopeDto()
+        public CreateUpdateApiScopeDto()
         {
             UserClaims = new List<ApiScopeClaimDto>();
             Properties = new List<ApiScopePropertyDto>();

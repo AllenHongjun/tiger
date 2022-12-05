@@ -49,13 +49,13 @@ namespace Tiger.Volo.Abp.Sass
                     .LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
-        public async Task<Edition> GetListAsync(string sorting = null, int maxResultCount = 50, int skipCount = 0, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<List<Edition>> GetListAsync(string sorting = null, int maxResultCount = 50, int skipCount = 0, string filter = null, CancellationToken cancellationToken = default)
         {
             return await DbContext.Set<Edition>()
                     .WhereIf(!filter.IsNullOrEmpty(), x => x.DisplayName.Contains(filter))
                     .OrderBy(sorting.IsNullOrEmpty() ? nameof(Edition.DisplayName) : sorting)
                     .PageBy(skipCount, maxResultCount)
-                    .ToListAsync(GetCancellationToken(cancellationToken);
+                    .ToListAsync(GetCancellationToken(cancellationToken));
                 
         }
     }
