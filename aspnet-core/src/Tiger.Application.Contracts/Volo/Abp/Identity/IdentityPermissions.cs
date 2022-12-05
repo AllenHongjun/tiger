@@ -34,6 +34,11 @@ namespace Volo.Abp.Identity
             public const string Delete = Default + ".Delete";
         }
 
+        public static class IdentitySecurityLog
+        {
+            public const string Default = IdentityPermissions.GroupName + ".IdentitySecurityLogs";
+        }
+
         public static string[] GetAll()
         {
             return ReflectionHelper.GetPublicConstantsRecursively(typeof(IdentityPermissions));

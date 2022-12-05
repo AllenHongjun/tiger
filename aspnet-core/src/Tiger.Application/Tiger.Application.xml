@@ -764,6 +764,11 @@
             有些没有必要的注释可以省略
             </remarks>
         </member>
+        <member name="T:Tiger.Volo.Abp.Identity.IdentitySecurityLogAppService">
+            <summary>
+            安全日志服务
+            </summary>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)

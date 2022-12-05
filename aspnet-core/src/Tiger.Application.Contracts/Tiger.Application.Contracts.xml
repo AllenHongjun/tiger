@@ -1830,6 +1830,41 @@
             用户声明类型管理
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto">
+            <summary>
+            安全日志
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.ApplicationName">
+            <summary>
+            应用名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.Identity">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.CorrelationId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.ClientIpAddress">
+            <summary>
+            客户端ip地址
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.IIdentitySecurityLogAppService">
+            <summary>
+            安全日志接口
+            </summary>
+        </member>
         <member name="P:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetAllOrgnizationUnitInput.Filter">
             <summary>
             过滤条件

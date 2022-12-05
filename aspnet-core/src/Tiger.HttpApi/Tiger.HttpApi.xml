@@ -1337,6 +1337,11 @@
             用于定义API控制器.
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.ApiResourceController">
+            <summary>
+            Api资源
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ClientController">
             <summary>
             IdentityServer客户端
@@ -1463,9 +1468,25 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.PersistedGrantController">
+            <summary>
+            持续授权
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.ClaimTypeController">
             <summary>
             声明类型
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.ClaimTypeController.GetAllListAsync">
+            <summary>
+            获取所有声明类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.IdentitySecurityLogController">
+            <summary>
+            安全日志
             </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserController">

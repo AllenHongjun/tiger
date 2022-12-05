@@ -21,35 +21,43 @@ namespace Tiger.Volo.Abp.IdentityServer
     [Route("/v1/identity-server/device-flow-code")]
     public class DeviceFlowCodeController : AbpController, IDeviceFlowCodeAppService
     {
-        [HttpPost]
-        public Task<DeviceFlowCodeDto> CreateAsync(CreateUpdateDeviceFlowCodeDto input)
+        public DeviceFlowCodeController(IDeviceFlowCodeAppService deviceFlowCodeAppService)
         {
-            throw new NotImplementedException();
+            DeviceFlowCodeAppService=deviceFlowCodeAppService;
+        }
+
+        protected IDeviceFlowCodeAppService DeviceFlowCodeAppService { get; }
+
+        [HttpPost]
+        public async Task<DeviceFlowCodeDto> CreateAsync(CreateUpdateDeviceFlowCodeDto input)
+        {
+            return await DeviceFlowCodeAppService.CreateAsync(input);
         }
 
         [HttpDelete]
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await DeviceFlowCodeAppService.DeleteAsync(id);
+            return;
         }
 
         [HttpGet]
         [Route("{id}")]
-        public Task<DeviceFlowCodeDto> GetAsync(Guid id)
+        public async Task<DeviceFlowCodeDto> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await DeviceFlowCodeAppService.GetAsync(id);
         }
 
         [HttpGet]
-        public Task<PagedResultDto<DeviceFlowCodeDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public async Task<PagedResultDto<DeviceFlowCodeDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            throw new NotImplementedException();
+            return await DeviceFlowCodeAppService.GetListAsync(input);
         }
 
         [HttpPut]
-        public Task<DeviceFlowCodeDto> UpdateAsync(Guid id, CreateUpdateDeviceFlowCodeDto input)
+        public async Task<DeviceFlowCodeDto> UpdateAsync(Guid id, CreateUpdateDeviceFlowCodeDto input)
         {
-            throw new NotImplementedException();
+            return await DeviceFlowCodeAppService.UpdateAsync(id, input);
         }
     }
 }

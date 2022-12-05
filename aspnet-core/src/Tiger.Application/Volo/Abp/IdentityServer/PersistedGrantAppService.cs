@@ -22,8 +22,8 @@ namespace Tiger.Volo.Abp.IdentityServer
     //[Authorize(BookStorePermissions.Books.Default)]
     public class PersistedGrantAppService :
         CrudAppService<
-            PersistedGrant,
-            PersistedGrantDto,
+            PersistedGrant,  // Entity
+            PersistedGrantDto, // Dto
             Guid, //Primary key 
             GetPersistedGrantInput, //Used for paging/sorting
             CreateUpdatePersistedGrantDto>, IPersistedGrantAppService

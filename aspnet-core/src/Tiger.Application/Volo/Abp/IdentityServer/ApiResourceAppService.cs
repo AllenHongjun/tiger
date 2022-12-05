@@ -16,8 +16,7 @@ using Volo.Abp.IdentityServer.ApiResources;
 namespace Tiger.Volo.Abp.IdentityServer
 {
     [RemoteService(false)]
-    //[ApiExplorerSettings(GroupName = "admin")]
-    //[Authorize(BookStorePermissions.Books.Default)]
+    [Authorize(IdentityServerPermissions.ApiResources.Default)]
     public class ApiResourceAppService :
         CrudAppService<
             ApiResource,

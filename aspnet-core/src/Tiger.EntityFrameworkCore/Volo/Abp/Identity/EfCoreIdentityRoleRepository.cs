@@ -71,8 +71,8 @@ namespace Tiger.Volo.Abp.Identity
                         join role in DbContext.Roles on ruleOu.RoleId equals role.Id
 
                         join ou in DbContext.OrganizationUnits.IncludeDetails(includeDetails)
-                        // 通过关联表的组织id和组织表的id关联
-                        on ruleOu.OrganizationUnitId equals ou.Id
+                            // 通过关联表的组织id和组织表的id关联
+                            on ruleOu.OrganizationUnitId equals ou.Id
                         where roleNames.Contains(role.Name)
                         select ou;
 

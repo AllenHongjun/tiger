@@ -19,8 +19,8 @@ namespace Tiger.Volo.Abp.Identity
     [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
     [Area("identity")]
     [ControllerName("ClaimType")]
-    [Route("api/identity/claim-type")]
     [ApiExplorerSettings(GroupName = "admin")]
+    [Route("api/identity/claim-type")]
     public class ClaimTypeController : AbpController, IIdentityClaimTypeAppService
     {   
         protected IIdentityClaimTypeAppService _identityClaimTypeAppService;
@@ -44,6 +44,10 @@ namespace Tiger.Volo.Abp.Identity
              return;
         }
 
+        /// <summary>
+        /// 获取所有声明类型
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("all")]
         public async Task<List<ClaimTypeDto>> GetAllListAsync()

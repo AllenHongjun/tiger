@@ -12,6 +12,9 @@ using Volo.Abp.Application.Dtos;
 namespace Tiger.Volo.Abp.IdentityServer
 {
 
+    /// <summary>
+    /// Api资源
+    /// </summary>
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.IdentityServerGroupName)]
     [RemoteService(Name = IdentityServerClientConsts.RemoteServiceName)]
     [Area("identity-server")]
@@ -19,36 +22,45 @@ namespace Tiger.Volo.Abp.IdentityServer
     [Route("/v1/identity-server/api-resource")]
     public class ApiResourceController : IApiResourceAppService
     {
-        [HttpPost]
-        public Task<ApiResourceDto> CreateAsync(CreateUpdateApiResourceDto input)
+        public ApiResourceController(IApiResourceAppService apiResourceAppService)
         {
-            throw new NotImplementedException();
+            ApiResourceAppService=apiResourceAppService;
+        }
+
+        protected IApiResourceAppService ApiResourceAppService { get; }
+
+
+        [HttpPost]
+        public async Task<ApiResourceDto> CreateAsync(CreateUpdateApiResourceDto input)
+        {
+            return await ApiResourceAppService.CreateAsync(input);
         }
 
         [HttpDelete]
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await ApiResourceAppService.DeleteAsync(id);
+            return;
         }
 
         [HttpGet]
         [Route("{id}")]
-        public Task<ApiResourceDto> GetAsync(Guid id)
+        public async Task<ApiResourceDto> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await ApiResourceAppService.GetAsync(id);
         }
 
         [HttpGet]
-        public Task<PagedResultDto<ApiResourceDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public async Task<PagedResultDto<ApiResourceDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            throw new NotImplementedException();
+            return await ApiResourceAppService.GetListAsync(input);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public Task<ApiResourceDto> UpdateAsync(Guid id, CreateUpdateApiResourceDto input)
+        public async Task<ApiResourceDto> UpdateAsync(Guid id, CreateUpdateApiResourceDto input)
         {
-            throw new NotImplementedException();
+            return await ApiResourceAppService.UpdateAsync(id, input);
         }
     }
 }

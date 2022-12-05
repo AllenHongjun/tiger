@@ -8,6 +8,7 @@ using Tiger.Volo.Abp.AuditLogging.Dto;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Auditing;
 using Volo.Abp.Data;
+using Volo.Abp.Identity;
 using Volo.Abp.ObjectMapping;
 using Volo.Abp.Users;
 
@@ -17,11 +18,13 @@ namespace Volo.Abp.AuditLogging
     /// 系统日志功能
     /// </summary>
     [RemoteService(false)]
-    //[DisableAuditing]  // 禁用请求日志
     [Authorize(AuditLogPermissions.AuditLogs.Default)]
     public class AuditLogAppService : TigerAppService, IAuditLogAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }
+
+        protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
+
 
         //用于获取有关当前活动的用户信息  Appservice 有这个属性（其他自定义的类可以注入来使用）
         private readonly ICurrentUser _currentUser;
