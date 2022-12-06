@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Configuration.Provider;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.SettingManagementAppService;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Emailing;
 using Volo.Abp.Features;
@@ -19,6 +21,7 @@ namespace Tiger.Volo.Abp.SettingManagement
     /// 邮件设置服务
     /// </summary>
     //[Authorize(SettingManagementPermissions.Emailing)]
+    [RemoteService(false)]
     public class EmailSettingsAppService : ApplicationService, IEmailSettingsAppService
     {
         protected ISettingManager SettingManager { get; }

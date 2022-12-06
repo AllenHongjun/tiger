@@ -11,7 +11,7 @@ using Volo.Abp.SettingManagement;
 
 namespace Tiger.Volo.Abp.SettingManagement
 {
-    [RemoteService(true)]
+    [RemoteService(false)]
     //[RemoteService(Name = SettingManagementRemoteServiceConsts.RemoteServiceName)]
     //[Area(SettingManagementRemoteServiceConsts.ModuleName)]
     //[Area("setting")]

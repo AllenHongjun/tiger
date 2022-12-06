@@ -13,7 +13,7 @@ using Tiger.PlatfromSdk.DogApi.Models;
 namespace Tiger.Infrastructure.Rest.DogApi
 {
     [ApiExplorerSettings(GroupName = "admin")]
-    [RemoteService(true)]
+    [RemoteService(false)]
     public class DogApiService : TigerAppService
     {
         private readonly ILogger _logger;

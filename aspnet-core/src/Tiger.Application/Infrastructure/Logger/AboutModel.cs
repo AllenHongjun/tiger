@@ -9,7 +9,7 @@ using Volo.Abp;
 namespace Tiger.Infrastructure.Logger
 {
     [ApiExplorerSettings(GroupName = "admin")]
-    [RemoteService(true)]
+    [RemoteService(false)]
     public class AboutModel: TigerAppService
     {
         // ElasticSearch+Kibana 实现日志可视化 和搜索引擎使用。

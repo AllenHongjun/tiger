@@ -27,7 +27,7 @@ using Volo.Abp.Emailing.Templates;
 namespace Tiger.Books.Demo
 {
     [ApiExplorerSettings(GroupName = "admin")]
-    [RemoteService(true)]
+    [RemoteService(false)]
     public class EmailService :TigerAppService, ITransientDependency
     {
         private readonly IEmailSender _emailSender;

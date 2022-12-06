@@ -16,7 +16,8 @@ namespace Tiger.Volo.Abp.Identity
     /// <summary>
     /// 声明类型
     /// </summary>
-    [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
+    //[RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
+    [RemoteService(false)]
     [Area("identity")]
     [ControllerName("ClaimType")]
     [ApiExplorerSettings(GroupName = "admin")]
