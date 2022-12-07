@@ -25,14 +25,14 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
             var options = new RestClientOptions("https://dog.ceo/api")
             {
                 ThrowOnAnyError = true,
-                Timeout = 1000
+                MaxTimeout = 1000
             };
             var client = new RestClient(options);
 
+            var request = new RestRequest("sbreeds/list/all").AddQueryParameter("foo", "bar")
+                    .AddJsonBody(new { test = 1 });
 
-
-
-
+            var response = await client.GetAsync(request);
 
             return;
         }
@@ -46,7 +46,7 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
             var options = new RestClientOptions("https://dog.ceo")
             {
                 ThrowOnAnyError = true,
-                Timeout = 1000
+                MaxTimeout = 1000
             };
             var client = new RestClient(options);
 

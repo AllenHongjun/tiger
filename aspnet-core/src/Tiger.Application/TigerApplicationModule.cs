@@ -40,6 +40,7 @@ namespace Tiger
         typeof(AbpFeatureManagementApplicationModule),
         typeof(AbpBlobStoringModule),
         typeof(AbpBlobStoringFileSystemModule),
+        typeof(AbpBackgroundWorkersQuartzModule),
         typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
         typeof(AbpSmsModule), //Add the new module dependency
         typeof(AbpCachingModule) // 缓存

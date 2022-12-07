@@ -51,6 +51,7 @@ namespace Tiger.Infrastructure.BackgroundWorker
             //await userRepository.UpdateInactiveUserStatusesAsync();
 
             Logger.LogInformation("Completed: Setting status of inactive users...");
+            return;
         }
 
 

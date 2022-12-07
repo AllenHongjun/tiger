@@ -12,7 +12,6 @@ using Tiger.PlatfromSdk.DogApi.Models;
 
 namespace Tiger.Infrastructure.Rest.DogApi
 {
-    [ApiExplorerSettings(GroupName = "admin")]
     [RemoteService(true)]
     public class DogApiService : TigerAppService
     {
