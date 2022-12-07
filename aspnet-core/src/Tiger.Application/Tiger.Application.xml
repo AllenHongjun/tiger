@@ -433,31 +433,11 @@
             使用 IBackgroundJobManager 服务向队列中添加一个发送电子邮件作业
             </summary>
         </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.CrystalQuartzLogWorker.Execute(Quartz.IJobExecutionContext)">
+        <member name="M:Tiger.Infrastructure.BackgroundWorker.DailySalesWorker.Execute(Quartz.IJobExecutionContext)">
             <summary>
             测试定时任务功能。
             </summary>
             <param name="context"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Infrastructure.BackgroundWorker.MyWorker">
-            <summary>
-            后台定时作业（后台工作者 demo）
-            BackgroundWorkerBase 是创建后台工作者的简单方法.
-            </summary>
-        </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.MyWorker.StartAsync(System.Threading.CancellationToken)">
-            <summary>
-            startAsync 开始你的工作者(在应用程序启动时),
-            </summary>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.MyWorker.StopAsync(System.Threading.CancellationToken)">
-            <summary>
-            topAsync 停止它(在应用程序关闭时).
-            </summary>
-            <param name="cancellationToken"></param>
             <returns></returns>
         </member>
         <member name="T:Tiger.Infrastructure.BackgroundWorker.PassiveUserCheckerWorker">
@@ -465,44 +445,10 @@
             设置用户为不活跃用户(如果用户最近30天未登录应用程序)
             </summary>
         </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.PassiveUserCheckerWorker.DoWorkAsync(Volo.Abp.BackgroundWorkers.PeriodicBackgroundWorkerContext)">
+        <member name="T:Tiger.Infrastructure.BackgroundWorker.ResourceConsumptionWorker">
             <summary>
-            实现 DoWorkAsync 方法执行定期任务.
+            资源消耗
             </summary>
-            <param name="workerContext"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Infrastructure.BackgroundWorker.SchedulerManager">
-            <summary>
-            Scheduler管理器
-            </summary>
-        </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.SchedulerManager.Create">
-            <summary>
-            初始化创建Scheduler
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.SchedulerManager.CreateCompressLogsJob(Quartz.IScheduler)">
-            <summary>
-            压缩日志任务
-            </summary>
-            <param name="scheduler"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.SchedulerManager.CreateDBBackupJob(Quartz.IScheduler)">
-            <summary>
-            数据库备份任务
-            </summary>
-            <param name="scheduler"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Infrastructure.BackgroundWorker.SchedulerManager.CreateDailySalesJob(Quartz.IScheduler)">
-            <summary>
-            每日销售报表
-            </summary>
-            <param name="scheduler"></param>
-            <returns></returns>
         </member>
         <member name="T:Tiger.Infrastructure.ObjectMapping.TigerApplicationAutoMapperProfile">
              <summary>
@@ -519,6 +465,13 @@
             <summary>
             Demo 定时任务
             </summary>
+            <remarks>
+            
+            一定要定义Trigger  和JobDetail 不然项目无法启动
+            如果数据库 的 Trigger状态是error就无法启动
+            不能和 abp自带的任务管理器一起使用 会无法运行
+            安装模块化的事项 那个模块需要什么作业 把作业放到对应的模块里面
+            </remarks>
         </member>
         <member name="M:Tiger.BackgroundWorker.MyQuartzLogWorker.Execute(Quartz.IJobExecutionContext)">
             <summary>
@@ -637,6 +590,13 @@
             <summary>
             用户账号管理
             </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.ThrowIfInvalidEmailAddress(System.String)">
+            <summary>
+            严重邮箱
+            </summary>
+            <param name="inputEmail"></param>
+            <exception cref="T:Volo.Abp.Validation.AbpValidationException"></exception>
         </member>
         <member name="T:Tiger.Volo.Abp.FeatureManagement.TigerFeatureAppService">
             <summary>

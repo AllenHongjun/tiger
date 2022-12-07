@@ -1456,6 +1456,59 @@
             例如 IBookAppService 接口和 BookCreationDto 类都适合放在这个项目中.
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.Account.Dto.ChangeAvatarInput">
+            <summary>
+            修改头像
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput">
+            <summary>
+            修改手机号
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Account.Dto.ComfirmEmailInput">
+            <summary>
+            邮箱确认
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Account.Dto.PhoneRegisterDto">
+            <summary>
+            手机号注册
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Account.ITigerProfileAppService">
+            <summary>
+            针对每个帐户的 数据存储 
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.SendChangePhoneNumberCodeAsync(Tiger.Volo.Abp.Account.Dto.SendChangePhoneNumberCodeInput)">
+            <summary>
+            发送改变手机号验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.ChangePhoneNumberAsync(Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput)">
+            <summary>
+            更改手机绑定
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.SendEmailConfirmLinkAsync(Tiger.Volo.Abp.Account.Dto.SendEmailConfirmCodeDto)">
+            <summary>
+            发送确认邮件验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.ConfirmEmailAsync(Tiger.Volo.Abp.Account.Dto.ComfirmEmailInput)">
+            <summary>
+            确认邮件地址
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.AuditLogging.AuditingPermissionDefinitionProvider">
             <summary>
             定义审计模块权限
@@ -2261,6 +2314,48 @@
             <summary>
             名字最大长度
             </summary>
+        </member>
+        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.RegisterAsync(Tiger.Volo.Abp.Account.Dto.PhoneRegisterDto)">
+            <summary>
+            通过手机号注册
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.ResetPasswordAsync(Tiger.Volo.Abp.Account.Dto.PhoneRestPasswordDto)">
+            <summary>
+            通过手机号重置用户密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.SendPhoneRegisterCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneRegisterCodeDto)">
+            <summary>
+            发送手机号注册验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.SendPhoneSigninCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneSigninCodeDto)">
+            <summary>
+            发送手机号登陆验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.SendPhoneResetPasswordCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneResetPasswordCode)">
+            <summary>
+            发送手机号重置密码验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.SendEmailSigninCodeAsync(Tiger.Volo.Abp.Account.Dto.SendEmailSigninCodeDto)">
+            <summary>
+            发送邮件登录验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="M:TigerAdmin.Volo.Abp.TenantManagement.ITigerTenantAppService.FindById(System.Guid,System.Boolean)">
             <summary>

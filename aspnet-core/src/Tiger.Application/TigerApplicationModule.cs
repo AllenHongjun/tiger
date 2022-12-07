@@ -40,6 +40,7 @@ namespace Tiger
         typeof(AbpFeatureManagementApplicationModule),
         typeof(AbpBlobStoringModule),
         typeof(AbpBlobStoringFileSystemModule),
+        typeof(AbpBackgroundWorkersQuartzModule),
         typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
         typeof(AbpSmsModule), //Add the new module dependency
         typeof(AbpCachingModule) // 缓存
@@ -107,7 +108,7 @@ namespace Tiger
             //}); 
             #endregion
 
-            #region 配置使用AbpQuartz 后台工作者
+            #region 配置使用AbpQuartz 后台作业
             Configure<AbpBackgroundJobQuartzOptions>(options =>
                 {
                     // 每次间隔5秒 重试3次

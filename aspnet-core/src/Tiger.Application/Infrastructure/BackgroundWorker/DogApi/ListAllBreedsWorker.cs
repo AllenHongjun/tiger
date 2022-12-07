@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using Microsoft.Extensions.Logging;
+using Quartz;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -12,6 +13,29 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
 {
     public class ListAllBreedsWorker : QuartzBackgroundWorkerBase
     {
+        public ListAllBreedsWorker()
+        {
+
+             JobDetail = JobBuilder.Create<ListAllBreedsWorker>()
+                .WithIdentity("Dog Api", "Api")
+                .Build();
+
+             Trigger = TriggerBuilder.Create()
+                .WithIdentity("ms_trigger", "Api")
+                .ForJob(JobDetail)
+                .StartNow()
+                .WithCronSchedule("0 0 0/3 ? * *")
+                .Build();
+
+
+            ScheduleJob = async scheduler =>
+            {
+                if (!await scheduler.CheckExists(JobDetail.Key))
+                {
+                    await scheduler.ScheduleJob(JobDetail, Trigger);
+                }
+            };
+        }
 
         public async override Task Execute(IJobExecutionContext context)
         {
@@ -19,21 +43,17 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
             //var request = new RestRequest(new Uri("https://dog.ceo/api/breeds/list/all"), Method.Get);
             //var response = client.Execute(request);
             //Console.WriteLine($"ListAllBreeds response {response.Content}{DateTime.Now.ToString()}");
-            //Logger.LogInformation($"Executed CrystalQuartzLogWorker..!  执行时间：{DateTime.Now.ToString()}");
+            Logger.LogInformation($"Executed ListAllBreedsWorker!  执行时间：{DateTime.Now.ToString()}");
 
 
             var options = new RestClientOptions("https://dog.ceo/api")
             {
                 ThrowOnAnyError = true,
-                Timeout = 1000
+                MaxTimeout = 1000
             };
             var client = new RestClient(options);
 
-
-
-
-
-
+            TestRestClient();
             return;
         }
 
@@ -46,7 +66,7 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
             var options = new RestClientOptions("https://dog.ceo")
             {
                 ThrowOnAnyError = true,
-                Timeout = 1000
+                MaxTimeout = 1000
             };
             var client = new RestClient(options);
 
@@ -57,7 +77,7 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
             //var response = await client.PostAsync<MyResponse>(request, cancellationToken);
             //var response = await client.PostAsync(request);
             var response = await client.GetAsync(request);
-            Console.WriteLine($"ListAllBreeds response {response.Content}{DateTime.Now.ToString()}");
+            Logger.LogInformation($"ListAllBreeds response {response.Content}{DateTime.Now.ToString()}");
         }
     }
 }

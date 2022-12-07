@@ -166,7 +166,7 @@ namespace Tiger
             Configure<AbpBackgroundWorkerQuartzOptions>(options =>
             {
                 // 全局自动添加
-                options.IsAutoRegisterEnabled = false;
+                options.IsAutoRegisterEnabled = true;
 
             });
 
@@ -544,7 +544,7 @@ namespace Tiger
         /// 应用初始化
         /// </summary>
         /// <param name="context"></param>
-        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        public override async void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
             var env = context.GetEnvironment();
@@ -620,9 +620,13 @@ namespace Tiger
             app.UseConfiguredEndpoints();
 
             #region 后台工作者 CrystalQuartz控制面板
-            // 组件地址: https://github.com/guryanovev/CrystalQuartz
-            //// TODO:修改为 从ABP的类获取这个对象
-            var scheduler = SchedulerManager.Create();
+            //// 组件地址: https://github.com/guryanovev/CrystalQuartz
+
+            //// 获取Abp 框架的IScheduler
+            var scheduler = context.ServiceProvider
+                .GetRequiredService<IScheduler>();
+
+            ////var scheduler = SchedulerManager.Create();
             app.UseCrystalQuartz(() => scheduler
             //, new CrystalQuartz.Application.CrystalQuartzOptions
             //{
@@ -635,8 +639,10 @@ namespace Tiger
             #endregion
 
             #region 后台工作者
-            // 在应用程序运行时候添加定时任务
+
             //context.AddBackgroundWorker<PassiveUserCheckerWorker>();
+            // 在应用程序运行时候添加定时任务
+            context.AddBackgroundWorker<MyQuartzLogWorker>();
             #endregion
 
             #region 后台作业 Hangfire集成配置
