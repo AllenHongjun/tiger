@@ -8,6 +8,7 @@ using Tiger.Volo.Abp.IdentityServer.ApiResources;
 using Tiger.Volo.Abp.IdentityServer.ApiResources.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.AspNetCore.Mvc;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
@@ -20,7 +21,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     [Area("identity-server")]
     [ControllerName("ApiResource")]
     [Route("/v1/identity-server/api-resource")]
-    public class ApiResourceController : IApiResourceAppService
+    public class ApiResourceController : AbpController, IApiResourceAppService
     {
         public ApiResourceController(IApiResourceAppService apiResourceAppService)
         {

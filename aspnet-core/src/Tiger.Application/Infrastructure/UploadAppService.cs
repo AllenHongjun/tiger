@@ -20,7 +20,7 @@ using Volo.Abp.Identity;
 namespace Tiger.Utilities.DownLoadUpLoadFilesHelper
 {
 
-    [RemoteService(Name = "Upload")]
+    [RemoteService(false)]
     [Area("upload")]
     [Route("api/upload")]
     [ApiExplorerSettings(GroupName = "admin")]

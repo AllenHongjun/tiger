@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.IdentityServer.Devices;
@@ -11,6 +13,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Identity;
 using Volo.Abp.IdentityServer.Devices;
 using Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Uow;
@@ -18,8 +21,7 @@ using Volo.Abp.Uow;
 namespace Tiger.Volo.Abp.IdentityServer
 {
     [RemoteService(false)]
-    //[ApiExplorerSettings(GroupName = "admin")]
-    //[Authorize(BookStorePermissions.Books.Default)]
+    [Authorize(IdentityServerPermissions.IdentityResources.Default)]
     public class IdentityResourceAppService :
         CrudAppService<
             IdentityResource,
@@ -29,12 +31,15 @@ namespace Tiger.Volo.Abp.IdentityServer
             CreateUpdateIdentityResourceDto>, IIdentityResourceAppService
     {
         protected ITigerIdentityResourceRepository IdentityResourceRepository { get; }
+        protected IPermissionChecker PermissionChecker { get; }
 
         public IdentityResourceAppService(
-            IRepository<IdentityResource, Guid> repository, 
-            ITigerIdentityResourceRepository identityResourceRepository) : base(repository)
+            IRepository<IdentityResource, Guid> repository,
+            ITigerIdentityResourceRepository identityResourceRepository,
+            IPermissionChecker permissionChecker) : base(repository)
         {
             IdentityResourceRepository=identityResourceRepository;
+            PermissionChecker=permissionChecker;
         }
 
         /// <summary>
@@ -148,23 +153,24 @@ namespace Tiger.Volo.Abp.IdentityServer
              3. 修改数据中存在前端传入的数据
              
              */
-            //if (await PermissionChecker.IsGrantedAsync(AbpIdentityServerPermissions.IdentityResources.ManageClaims))
-            //{
-            //    // 删除不存在的UserClaim
-            //    identityResource.UserClaims.RemoveAll(claim => input.UserClaims.Any(inputClaim => claim.Type == inputClaim.Type));
-            //    foreach (var inputClaim in input.UserClaims)
-            //    {
-            //        var userClaim = identityResource.FindUserClaim(inputClaim.Type);
-            //        if (userClaim == null)
-            //        {
-            //            identityResource.AddUserClaim(inputClaim.Type);
-            //        }
-            //    }
-            //}
+            if (await PermissionChecker.IsGrantedAsync(IdentityServerPermissions.IdentityResources.ManageClaims))
+            {
+                // 删除不存在的UserClaim
+                identityResource.UserClaims.RemoveAll(claim => input.UserClaims.Any(inputClaim => claim.Type == inputClaim.Type));
+                foreach (var inputClaim in input.UserClaims)
+                {
+                    var userClaim = identityResource.FindUserClaim(inputClaim.Type);
+                    if (userClaim == null)
+                    {
+                        identityResource.AddUserClaim(inputClaim.Type);
+                    }
+                }
+            }
 
-            //if (await PermissionChecker.IsGrantedAsync(AbpIdentityServerPermissions.IdentityResources.ManageProperties))
+            #region 删除不存在的Property
+            //if (await PermissionChecker.IsGrantedAsync(IdentityServerPermissions.IdentityResources.ManageProperties))
             //{
-            //    // 删除不存在的Property
+            //    
             //    identityResource.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
             //    foreach (var inputProp in input.Properties)
             //    {
@@ -179,7 +185,8 @@ namespace Tiger.Volo.Abp.IdentityServer
             //        }
 
             //    }
-            //}
+            //} 
+            #endregion
         }
 
     }

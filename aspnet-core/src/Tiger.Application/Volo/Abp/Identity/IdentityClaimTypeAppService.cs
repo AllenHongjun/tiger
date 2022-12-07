@@ -15,6 +15,7 @@ namespace Tiger.Volo.Abp.Identity
     /// <summary>
     /// 用户声明类型
     /// </summary>
+    [RemoteService(false)]
     [Authorize(TigerIdentityPermissions.ClaimTypes.Default)]
     public class IdentityClaimTypeAppService : IdentityAppServiceBase, IIdentityClaimTypeAppService
     {

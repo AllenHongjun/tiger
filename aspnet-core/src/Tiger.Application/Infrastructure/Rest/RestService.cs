@@ -16,7 +16,7 @@ using static SpotifyAPI.Web.SearchRequest;
 namespace Tiger.Infrastructure.Rest
 {
     [ApiExplorerSettings(GroupName = "admin")]
-    [RemoteService(true)]
+    [RemoteService(false)]
     public class RestService : TigerAppService
     {
 

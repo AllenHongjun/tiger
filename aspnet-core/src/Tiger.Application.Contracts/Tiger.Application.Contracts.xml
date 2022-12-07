@@ -1770,9 +1770,19 @@
             Specifires whether this client needs a secret to request tokens from the token endpoint(default to true)
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto">
+            <summary>
+            身份资源Dto
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityServerPermissions">
             <summary>
             IdentityServer 权限定义
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.SecretDto.Expiration">
+            <summary>
+            过期时间
             </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.Identity.ClaimTypes.Dto.ClaimTypeDto">

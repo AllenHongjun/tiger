@@ -17,7 +17,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.IdentityServerGroupName)]
     [RemoteService(Name = "PersistedGrant")]
     [Area("identity-server")]
-    [ControllerName("IdentityResource")]
+    [ControllerName("PersistedGrant")]
     [Route("/v1/identity-server/persisted-grant")]
     public class PersistedGrantController: AbpController, IPersistedGrantAppService
     {
@@ -28,27 +28,33 @@ namespace Tiger.Volo.Abp.IdentityServer
 
         protected IPersistedGrantAppService PersistedGrantAppService { get; }
 
+        [HttpPost]
         public async Task<PersistedGrantDto> CreateAsync(CreateUpdatePersistedGrantDto input)
         {
             return await PersistedGrantAppService.CreateAsync(input);
         }
 
+        [HttpDelete]
         public async Task DeleteAsync(Guid id)
         {
             await PersistedGrantAppService.DeleteAsync(id);
             return;
         }
 
+        [HttpGet]
+        [Route("{id}")]
         public async Task<PersistedGrantDto> GetAsync(Guid id)
         {
             return await PersistedGrantAppService.GetAsync(id);
         }
 
+        [HttpGet]
         public async Task<PagedResultDto<PersistedGrantDto>> GetListAsync(GetPersistedGrantInput input)
         {
             return await PersistedGrantAppService.GetListAsync(input);
         }
 
+        [HttpPut]
         public async Task<PersistedGrantDto> UpdateAsync(Guid id, CreateUpdatePersistedGrantDto input)
         {
             return await PersistedGrantAppService.UpdateAsync(id, input);

@@ -16,8 +16,8 @@ namespace Tiger.Volo.Abp.Tenant
     /// <summary>
     /// 租户信息管理
     /// </summary>
-    [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
-    [Area("tenant")]
+    [RemoteService(Name = TenantManagementRemoteServiceConsts.RemoteServiceName)]
+    [Area("multi-tenancy")]
     [ControllerName("Tenant")]
     [Route("api/multi-tenancy/tenants")]
     [ApiExplorerSettings(GroupName = "admin")]
@@ -25,9 +25,10 @@ namespace Tiger.Volo.Abp.Tenant
     {   
         private readonly ITigerTenantAppService _tenantAppService;
 
-        public TenantController(ITigerTenantAppService tenantAppService)
+
+        public TenantController(ITigerTenantAppService tigerTenantAppService)
         {
-            _tenantAppService=tenantAppService;
+            _tenantAppService=tigerTenantAppService;
         }
 
 

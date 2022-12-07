@@ -16,9 +16,9 @@ namespace Volo.Abp.IdentityServer
 {
     [Dependency(ServiceLifetime.Transient)]
     [ExposeServices(
+        typeof(ITigerApiResourceRepository),
         typeof(IApiResourceRepository),
-        typeof(ApiResourceRepository),
-        typeof(Volo.Abp.IdentityServer.ApiResources.IApiResourceRepository))]
+        typeof(ApiResourceRepository))]
     public class EfCoreApiResourceRepository : ApiResourceRepository, ITigerApiResourceRepository
     {
         public EfCoreApiResourceRepository(
