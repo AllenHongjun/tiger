@@ -11,6 +11,9 @@ namespace Tiger.Volo.Abp.Account
     /// </summary>
     public interface ITigerProfileAppService
     {
+
+        //Task<TwoFactorEnableDto> GetTwoFactorEnabledAsync();
+
         /// <summary>
         /// 发送改变手机号验证码
         /// </summary>

@@ -48,30 +48,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Tiger.HttpApi.Host.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include=".config\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Tiger.HttpApi.Host.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
   <ItemGroup>
-    <FinalDocFile Remove="bin\Debug\netcoreapp3.1\Tiger.HttpApi.Host.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bin\Debug\netcoreapp3.1\Tiger.HttpApi.Host.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
+    <Folder Include="bin\Debug\netcoreapp3.1\" />
     <Folder Include="Files\" />
   </ItemGroup>
 

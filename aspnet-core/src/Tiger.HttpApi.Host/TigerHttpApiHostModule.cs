@@ -635,7 +635,7 @@ namespace Tiger
             //    LazyInit = false,
             //    TimelineSpan = new TimeSpan(1,0,0)// 面板显示的时间轴事件范围。
             //}
-            //);
+            );
             #endregion
 
             #region 后台工作者

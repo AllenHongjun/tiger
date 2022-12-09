@@ -37,7 +37,6 @@
     <Folder Include="Business\Stat\" />
     <Folder Include="Security\" />
     <Folder Include="Business\Orders\" />
-    <Folder Include="Volo\Abp\Identity\Settings\" />
     <Folder Include="Volo\Abp\Sass\Localization\" />
     <Folder Include="Volo\Abp\Sass\ObjectExtending\" />
   </ItemGroup>

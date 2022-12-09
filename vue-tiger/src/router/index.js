@@ -35,6 +35,17 @@ import settingRouter from './modules/setting'
  */
 export const constantRoutes = [
   {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index')
+      }
+    ]
+  },
+  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -73,292 +84,292 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/basic',
-    name: 'Basic',
-    meta: { title: '基础资料', icon: 'el-icon-document' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    redirect: '/dashboard',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'product/list',
-        name: 'ProductList',
-        component: () => import('@/views/basic/product/list'),
-        meta: { title: '商品' }
-      },
-      {
-        path: 'product/create',
-        component: () => import('@/views/basic/product/create'),
-        name: 'CreateProduct',
-        meta: { title: '添加产品', noCache: true, activeMenu: '/basic/product/list' },
-        hidden: true
-      },
-      {
-        path: 'product/edit/:id',
-        component: () => import('@/views/basic/product/edit'),
-        name: 'EditProduct',
-        meta: { title: '编辑产品', noCache: true, activeMenu: '/basic/product/list' },
-        hidden: true
-      },
-      {
-        path: 'category/list',
-        name: '分类',
-        component: () => import('@/views/basic/category/list'),
-        meta: { title: '分类' }
-      },
-      {
-        path: 'warehouse/list',
-        name: 'Warehouse',
-        component: () => import('@/views/basic/warehouse/list'),
-        meta: { title: '仓库' }
-      },
-      {
-        path: 'supply/list',
-        name: 'Supply',
-        component: () => import('@/views/basic/supply/list'),
-        meta: { title: '供应商' }
-      },
-      {
-        path: 'store/list',
-        name: 'Store',
-        component: () => import('@/views/basic/store/list'),
-        meta: { title: '店铺' }
-      },
-      {
-        path: 'product-attribute-type/list',
-        name: '规格',
-        component: () => import('@/views/basic/product-attribute-type/list'),
-        meta: { title: '规格' },
-        children: [
-        ]
-      },
-      {
-        path: '/basic/product-attribute/list',
-        name: '规格属性',
-        component: () => import('@/views/basic/product-attribute/list'),
-        meta: { title: '规格属性', activeMenu: '/basic/product-attribute-type/list' },
-        hidden: true
-      }
+  // {
+  //   path: '/basic',
+  //   name: 'Basic',
+  //   meta: { title: '基础资料', icon: 'el-icon-document' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: 'product/list',
+  //       name: 'ProductList',
+  //       component: () => import('@/views/basic/product/list'),
+  //       meta: { title: '商品' }
+  //     },
+  //     {
+  //       path: 'product/create',
+  //       component: () => import('@/views/basic/product/create'),
+  //       name: 'CreateProduct',
+  //       meta: { title: '添加产品', noCache: true, activeMenu: '/basic/product/list' },
+  //       hidden: true
+  //     },
+  //     {
+  //       path: 'product/edit/:id',
+  //       component: () => import('@/views/basic/product/edit'),
+  //       name: 'EditProduct',
+  //       meta: { title: '编辑产品', noCache: true, activeMenu: '/basic/product/list' },
+  //       hidden: true
+  //     },
+  //     {
+  //       path: 'category/list',
+  //       name: '分类',
+  //       component: () => import('@/views/basic/category/list'),
+  //       meta: { title: '分类' }
+  //     },
+  //     {
+  //       path: 'warehouse/list',
+  //       name: 'Warehouse',
+  //       component: () => import('@/views/basic/warehouse/list'),
+  //       meta: { title: '仓库' }
+  //     },
+  //     {
+  //       path: 'supply/list',
+  //       name: 'Supply',
+  //       component: () => import('@/views/basic/supply/list'),
+  //       meta: { title: '供应商' }
+  //     },
+  //     {
+  //       path: 'store/list',
+  //       name: 'Store',
+  //       component: () => import('@/views/basic/store/list'),
+  //       meta: { title: '店铺' }
+  //     },
+  //     {
+  //       path: 'product-attribute-type/list',
+  //       name: '规格',
+  //       component: () => import('@/views/basic/product-attribute-type/list'),
+  //       meta: { title: '规格' },
+  //       children: [
+  //       ]
+  //     },
+  //     {
+  //       path: '/basic/product-attribute/list',
+  //       name: '规格属性',
+  //       component: () => import('@/views/basic/product-attribute/list'),
+  //       meta: { title: '规格属性', activeMenu: '/basic/product-attribute-type/list' },
+  //       hidden: true
+  //     }
 
-      // {
-      //   path: 'comment/list',
-      //   name: '产品评论',
-      //   component: () => import('@/views/basic/comment/list'),
-      //   meta: { title: '评论', icon: 'eye-open' }
-      // }
-    ]
-  },
-  // 采购
-  {
-    path: '/purchase',
-    name: 'Purchase',
-    meta: { title: '采购', icon: 'el-icon-shopping-cart-full' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    redirect: '/dashboard',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'list',
-        name: 'PurchaseList',
-        component: () => import('@/views/purchase/list'),
-        meta: { title: '采购单' }
-      },
-      {
-        path: 'purchase-return/list',
-        component: () => import('@/views/purchase/purchase-return/list'),
-        name: 'PurchaseOrderReturnApply',
-        meta: { title: '退货单' }
-      }
+  //     // {
+  //     //   path: 'comment/list',
+  //     //   name: '产品评论',
+  //     //   component: () => import('@/views/basic/comment/list'),
+  //     //   meta: { title: '评论', icon: 'eye-open' }
+  //     // }
+  //   ]
+  // },
+  // // 采购
+  // {
+  //   path: '/purchase',
+  //   name: 'Purchase',
+  //   meta: { title: '采购', icon: 'el-icon-shopping-cart-full' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: 'list',
+  //       name: 'PurchaseList',
+  //       component: () => import('@/views/purchase/list'),
+  //       meta: { title: '采购单' }
+  //     },
+  //     {
+  //       path: 'purchase-return/list',
+  //       component: () => import('@/views/purchase/purchase-return/list'),
+  //       name: 'PurchaseOrderReturnApply',
+  //       meta: { title: '退货单' }
+  //     }
 
-      // {
-      //   path: 'order-setting/list',
-      //   name: 'OrderSetting',
-      //   component: () => import('@/views/order/order-setting/list'),
-      //   meta: { title: '订单设置', icon: 'form' }
-      // }
+  //     // {
+  //     //   path: 'order-setting/list',
+  //     //   name: 'OrderSetting',
+  //     //   component: () => import('@/views/order/order-setting/list'),
+  //     //   meta: { title: '订单设置', icon: 'form' }
+  //     // }
 
-    ]
-  },
-  // 订单
-  {
-    path: '/order',
-    name: 'order',
-    meta: { title: '订单', icon: 'el-icon-s-order' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    redirect: '/dashboard',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'order/list',
-        name: 'OrderList',
-        component: () => import('@/views/order/list'),
-        meta: { title: '销售单' }
-      },
-      {
-        path: 'order-return-apply/list',
-        component: () => import('@/views/order/order-return-apply/list'),
-        name: 'OrderReturnApply',
-        meta: { title: '退款单' }
-      },
+  //   ]
+  // },
+  // // 订单
+  // {
+  //   path: '/order',
+  //   name: 'order',
+  //   meta: { title: '订单', icon: 'el-icon-s-order' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: 'order/list',
+  //       name: 'OrderList',
+  //       component: () => import('@/views/order/list'),
+  //       meta: { title: '销售单' }
+  //     },
+  //     {
+  //       path: 'order-return-apply/list',
+  //       component: () => import('@/views/order/order-return-apply/list'),
+  //       name: 'OrderReturnApply',
+  //       meta: { title: '退款单' }
+  //     },
 
-      {
-        path: 'order-setting/list',
-        name: 'OrderSetting',
-        component: () => import('@/views/order/order-setting/list'),
-        meta: { title: '订单设置' }
-      }
+  //     {
+  //       path: 'order-setting/list',
+  //       name: 'OrderSetting',
+  //       component: () => import('@/views/order/order-setting/list'),
+  //       meta: { title: '订单设置' }
+  //     }
 
-    ]
-  },
-  // 仓库
-  {
-    path: '/stock',
-    name: 'Stock',
-    meta: { title: '仓储', icon: 'el-icon-house' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    redirect: '/dashboard',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'inventory/list',
-        name: 'InventoryList',
-        component: () => import('@/views/stock/inventory/list'),
-        meta: { title: '库存量' }
-      },
-      {
-        path: 'inventory-history/list',
-        name: 'InventoryHistoryList',
-        component: () => import('@/views/stock/inventory-history/list'),
-        meta: { title: '出入库记录' }
-      },
-      {
-        path: '/stockManage',
-        name: 'StockManage',
-        component: () => import('@/views/setting/identity/index'), // Parent router-view
-        meta: { title: '仓管单据' },
-        children: [
+  //   ]
+  // },
+  // // 仓库
+  // {
+  //   path: '/stock',
+  //   name: 'Stock',
+  //   meta: { title: '仓储', icon: 'el-icon-house' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: 'inventory/list',
+  //       name: 'InventoryList',
+  //       component: () => import('@/views/stock/inventory/list'),
+  //       meta: { title: '库存量' }
+  //     },
+  //     {
+  //       path: 'inventory-history/list',
+  //       name: 'InventoryHistoryList',
+  //       component: () => import('@/views/stock/inventory-history/list'),
+  //       meta: { title: '出入库记录' }
+  //     },
+  //     {
+  //       path: '/stockManage',
+  //       name: 'StockManage',
+  //       component: () => import('@/views/setting/identity/index'), // Parent router-view
+  //       meta: { title: '仓管单据' },
+  //       children: [
 
-          {
-            path: 'receipt/list',
-            component: () => import('@/views/stock/receipt/list'),
-            name: 'ReceiptList',
-            meta: { title: '入库单' }
-          },
-          {
-            path: 'shipment/list',
-            component: () => import('@/views/stock/shipment/list'),
-            name: 'shipmentList',
-            meta: { title: '出库单' }
-          },
-          {
-            path: 'check/list',
-            component: () => import('@/views/stock/check/list'),
-            name: 'CheckList',
-            meta: { title: '盘点单' }
-          },
-          {
-            path: 'transfer/list',
-            component: () => import('@/views/stock/transfer/list'),
-            name: 'TransferList',
-            meta: { title: '调拨单' }
-          },
-          {
-            path: 'reverse/list',
-            component: () => import('@/views/stock/reverse/list'),
-            name: 'ReverseList',
-            meta: { title: '拆套单' }
-          }
-        ]
-      }
+  //         {
+  //           path: 'receipt/list',
+  //           component: () => import('@/views/stock/receipt/list'),
+  //           name: 'ReceiptList',
+  //           meta: { title: '入库单' }
+  //         },
+  //         {
+  //           path: 'shipment/list',
+  //           component: () => import('@/views/stock/shipment/list'),
+  //           name: 'shipmentList',
+  //           meta: { title: '出库单' }
+  //         },
+  //         {
+  //           path: 'check/list',
+  //           component: () => import('@/views/stock/check/list'),
+  //           name: 'CheckList',
+  //           meta: { title: '盘点单' }
+  //         },
+  //         {
+  //           path: 'transfer/list',
+  //           component: () => import('@/views/stock/transfer/list'),
+  //           name: 'TransferList',
+  //           meta: { title: '调拨单' }
+  //         },
+  //         {
+  //           path: 'reverse/list',
+  //           component: () => import('@/views/stock/reverse/list'),
+  //           name: 'ReverseList',
+  //           meta: { title: '拆套单' }
+  //         }
+  //       ]
+  //     }
 
-    ]
-  },
-  // 统计
-  {
-    path: '/stat',
-    name: 'Stat',
-    meta: { title: '统计', icon: 'el-icon-s-data' },
-    // 你可以选择不同的layout组件
-    component: Layout,
-    redirect: '/dashboard',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'inventory4/list',
-        name: 'InventoryStatList',
-        component: () => import('@/views/setting/identity/index'), // Parent router-view
-        meta: { title: '采购统计' },
-        children: [
-          {
-            path: 'inventory1/list',
-            name: 'InventoryStatList1',
-            component: () => import('@/views/stock/inventory/list'),
-            meta: { title: '采购明细统计' }
-          },
-          {
-            path: 'inventory2/list',
-            name: 'OrderStatList2',
-            component: () => import('@/views/stock/inventory/list'),
-            meta: { title: '收货明细' }
-          },
-          {
-            path: 'inventory3/list',
-            name: 'OrderStatList3',
-            component: () => import('@/views/stock/inventory/list'),
-            meta: { title: '进货汇总统计' }
-          }
-        ]
-      },
-      {
-        path: 'inventory5/list',
-        name: 'OrderStatList4',
-        component: () => import('@/views/stock/inventory/list'),
-        meta: { title: '销售统计' }
-      },
-      {
-        path: 'inventory6/list',
-        name: 'OrderStatList5',
-        component: () => import('@/views/stock/inventory/list'),
-        meta: { title: '库存统计' }
-      }
-      // {
-      //   path: 'receipt/list',
-      //   component: () => import('@/views/stock/receipt/list'),
-      //   name: 'ReceiptList',
-      //   meta: { title: '入库单', icon: 'international' }
-      // },
-      // {
-      //   path: 'shipment/list',
-      //   component: () => import('@/views/stock/shipment/list'),
-      //   name: 'shipmentList',
-      //   meta: { title: '出库单', icon: 'lock' }
-      // },
-      // {
-      //   path: 'check/list',
-      //   component: () => import('@/views/stock/check/list'),
-      //   name: 'CheckList',
-      //   meta: { title: '盘点单', icon: 'message' }
-      // },
-      // {
-      //   path: 'transfer/list',
-      //   component: () => import('@/views/stock/transfer/list'),
-      //   name: 'TransferList',
-      //   meta: { title: '调拨单', icon: 'money' }
-      // },
-      // {
-      //   path: 'reverse/list',
-      //   component: () => import('@/views/stock/reverse/list'),
-      //   name: 'ReverseList',
-      //   meta: { title: '拆套单', icon: 'skill' }
-      // }
+  //   ]
+  // },
+  // // 统计
+  // {
+  //   path: '/stat',
+  //   name: 'Stat',
+  //   meta: { title: '统计', icon: 'el-icon-s-data' },
+  //   // 你可以选择不同的layout组件
+  //   component: Layout,
+  //   redirect: '/dashboard',
+  //   // 这里开始对应的路由都会显示在app-main中 如上图所示
+  //   children: [
+  //     {
+  //       path: 'inventory4/list',
+  //       name: 'InventoryStatList',
+  //       component: () => import('@/views/setting/identity/index'), // Parent router-view
+  //       meta: { title: '采购统计' },
+  //       children: [
+  //         {
+  //           path: 'inventory1/list',
+  //           name: 'InventoryStatList1',
+  //           component: () => import('@/views/stock/inventory/list'),
+  //           meta: { title: '采购明细统计' }
+  //         },
+  //         {
+  //           path: 'inventory2/list',
+  //           name: 'OrderStatList2',
+  //           component: () => import('@/views/stock/inventory/list'),
+  //           meta: { title: '收货明细' }
+  //         },
+  //         {
+  //           path: 'inventory3/list',
+  //           name: 'OrderStatList3',
+  //           component: () => import('@/views/stock/inventory/list'),
+  //           meta: { title: '进货汇总统计' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'inventory5/list',
+  //       name: 'OrderStatList4',
+  //       component: () => import('@/views/stock/inventory/list'),
+  //       meta: { title: '销售统计' }
+  //     },
+  //     {
+  //       path: 'inventory6/list',
+  //       name: 'OrderStatList5',
+  //       component: () => import('@/views/stock/inventory/list'),
+  //       meta: { title: '库存统计' }
+  //     }
+  //     // {
+  //     //   path: 'receipt/list',
+  //     //   component: () => import('@/views/stock/receipt/list'),
+  //     //   name: 'ReceiptList',
+  //     //   meta: { title: '入库单', icon: 'international' }
+  //     // },
+  //     // {
+  //     //   path: 'shipment/list',
+  //     //   component: () => import('@/views/stock/shipment/list'),
+  //     //   name: 'shipmentList',
+  //     //   meta: { title: '出库单', icon: 'lock' }
+  //     // },
+  //     // {
+  //     //   path: 'check/list',
+  //     //   component: () => import('@/views/stock/check/list'),
+  //     //   name: 'CheckList',
+  //     //   meta: { title: '盘点单', icon: 'message' }
+  //     // },
+  //     // {
+  //     //   path: 'transfer/list',
+  //     //   component: () => import('@/views/stock/transfer/list'),
+  //     //   name: 'TransferList',
+  //     //   meta: { title: '调拨单', icon: 'money' }
+  //     // },
+  //     // {
+  //     //   path: 'reverse/list',
+  //     //   component: () => import('@/views/stock/reverse/list'),
+  //     //   name: 'ReverseList',
+  //     //   meta: { title: '拆套单', icon: 'skill' }
+  //     // }
 
-    ]
-  },
+  //   ]
+  // },
   // // 会员
   // {
   //   path: '/member',

@@ -49,10 +49,14 @@ namespace Tiger.Infrastructure.BackgroundWorker
             // 最好使用 PeriodicBackgroundWorkerContext 解析依赖 而不是构造函数. 因为 AsyncPeriodicBackgroundWorkerBase 使用 IServiceScope 在你的任务执行结束时会对其 disposed.
 
             //// 解析数据库的类 调用数据库的方法
-            //var userRepository = context
-            //.ServiceProvider
-            //    .GetRequiredService<IUserRepository<IdentityUser>>();
-            var user =  await _identityUserRepository.FindByNormalizedUserNameAsync("admin");
+            ////Resolve dependencies 解析依赖关系
+            var userRepository = ServiceProvider.GetService<IIdentityUserRepository>();
+            var user = await userRepository.FindByNormalizedUserNameAsync("admin");
+
+            
+
+            Logger.LogInformation($"user info -- {user.Name}");
+            var user1 =  await _identityUserRepository.FindByNormalizedUserNameAsync("admin");
 
             ////Do the work
             //await userRepository.UpdateInactiveUserStatusesAsync();

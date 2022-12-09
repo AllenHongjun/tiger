@@ -591,12 +591,88 @@
             用户账号管理
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.RegisterAsync(Tiger.Volo.Abp.Account.Dto.PhoneRegisterDto)">
+            <summary>
+            通过手机号注册
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.ResetPasswordAsync(Tiger.Volo.Abp.Account.Dto.PhoneRestPasswordDto)">
+            <summary>
+            通过手机验证码重置密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.SendPhoneRegisterCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneRegisterCodeDto)">
+            <summary>
+            发送注册短信验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.SendPhoneSigninCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneSigninCodeDto)">
+            <summary>
+            发送手机号登录验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.ThrowIfInvalidEmailAddress(System.String)">
             <summary>
             严重邮箱
             </summary>
             <param name="inputEmail"></param>
             <exception cref="T:Volo.Abp.Validation.AbpValidationException"></exception>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Account.TigerProfileAppService">
+            <summary>
+            Profile服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerProfileAppService.ChangePhoneNumberAsync(Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput)">
+            <summary>
+            修改绑定的手机号
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerProfileAppService.SendChangePhoneNumberCodeAsync(Tiger.Volo.Abp.Account.Dto.SendChangePhoneNumberCodeInput)">
+            <summary>
+            发送修改手机号验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerProfileAppService.SendEmailConfirmLinkAsync(Tiger.Volo.Abp.Account.Dto.SendEmailConfirmCodeDto)">
+            <summary>
+            发送邮箱确认链接
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerProfileAppService.ConfirmEmailAsync(Tiger.Volo.Abp.Account.Dto.ComfirmEmailInput)">
+            <summary>
+            用户确认邮箱
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerProfileAppService.ChangeAvatarAsync(Tiger.Volo.Abp.Account.Dto.ChangeAvatarInput)">
+            <summary>
+            修改用户头像
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Volo.Abp.FeatureManagement.TigerFeatureAppService">
             <summary>

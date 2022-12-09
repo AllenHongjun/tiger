@@ -40,5 +40,7 @@ namespace Tiger.Volo.Abp.Identity
         /// </summary>
         public const string DuplicateConfirmEmailAddress = "Volo.Abp.Identity:020010";
 
+        public const string ExternalUserPasswordChange = "Volo.Abp.Identity:020011";
+
     }
 }

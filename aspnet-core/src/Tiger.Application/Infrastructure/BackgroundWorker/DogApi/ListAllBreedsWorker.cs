@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Quartz;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -7,7 +8,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.PlatfromSdk.DogApi.Clients.Interfaces;
 using Volo.Abp.BackgroundWorkers.Quartz;
+using Volo.Abp.Identity;
 
 namespace Tiger.Infrastructure.BackgroundWorker.DogApi
 {
@@ -24,7 +27,7 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
                 .WithIdentity("ms_trigger", "Api")
                 .ForJob(JobDetail)
                 .StartNow()
-                .WithCronSchedule("0 0 0/3 ? * *")
+                .WithCronSchedule("0 0/10 * ? * *")
                 .Build();
 
 
@@ -45,13 +48,28 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
             //Console.WriteLine($"ListAllBreeds response {response.Content}{DateTime.Now.ToString()}");
             Logger.LogInformation($"Executed ListAllBreedsWorker!  执行时间：{DateTime.Now.ToString()}");
 
+            var dogClient = ServiceProvider.GetService<IDogClient>();
+            var response =  await dogClient.GetAllBreeds();
+            
+            Logger.LogInformation($"Executed ListAllBreedsWorker! {response.message}  执行时间：{DateTime.Now.ToString()}",response.message);
+            return;
 
-            var options = new RestClientOptions("https://dog.ceo/api")
-            {
-                ThrowOnAnyError = true,
-                MaxTimeout = 1000
-            };
-            var client = new RestClient(options);
+            //var options = new RestClientOptions("https://dog.ceo/api")
+            //{
+            //    ThrowOnAnyError = true,
+            //    MaxTimeout = 1000
+            //};
+            //var client = new RestClient(options);
+
+            // 请求接口 
+
+            // 下载文件
+
+            // 上传文件服务器
+
+            // 
+
+            // 数据入库
 
             TestRestClient();
             return;
@@ -60,6 +78,9 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
 
         private async void TestRestClient()
         {
+            
+
+            return;
             // 实例化客户端
             //var client = new RestClient("https://dog.ceo/api");
 

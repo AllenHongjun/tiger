@@ -31,20 +31,20 @@ const settingRouter = {
     {
       path: 'https://localhost:44306/index.html',
       component: Layout,
-      name: 'system',
+      name: 'system1',
       meta: { title: '接口文档' }
     },
     {
       path: 'https://localhost:44306/hangfire/',
       component: Layout,
       url:"http://www.baidu.com",
-      name: 'system',
+      name: 'system2',
       meta: { title: '后台作业' }
     },
     {
       path: 'https://localhost:44306/quartz',
       component: () => import('@/views/setting/system/index'), // Parent router-view
-      name: 'system',
+      name: 'system3',
       meta: { title: '后台工作者' }
     },
     {
