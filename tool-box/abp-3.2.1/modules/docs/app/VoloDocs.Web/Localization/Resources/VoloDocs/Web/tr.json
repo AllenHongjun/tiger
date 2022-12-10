@@ -1,0 +1,10 @@
+{
+  "culture": "tr",
+  "texts": {
+    "DocsTitle": "VoloDocs",
+    "WelcomeVoloDocs": "VoloDocs Hoşgeldiniz!",
+    "NoProjectWarning": "Henüz bir proje yok!",
+    "CreateYourFirstProject": "İlk projenizi oluşturmak için tıklayın",
+    "NoProject": "Proje yok!"
+  }
+}
