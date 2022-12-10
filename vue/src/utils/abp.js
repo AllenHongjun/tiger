@@ -18,6 +18,7 @@ export const Url = {
   baseUrl: baseUrl
 }
 
+//定义基础查询参数
 const baseListQuery = {
   page: 1,
   limit: 10,
@@ -25,6 +26,7 @@ const baseListQuery = {
   filter: undefined
 }
 
+// 定义http请求状态码
 export const httpCode = [
   {
     label: 200,
@@ -77,6 +79,7 @@ function shouldFetchAppConfig(providerKey, providerName) {
   return false
 }
 
+// 获取App配置信息
 export function fetchAppConfig(providerKey, providerName) {
   if (shouldFetchAppConfig(providerKey, providerName)) {
     store.dispatch('app/applicationConfiguration').then(abpConfig => {
@@ -100,6 +103,7 @@ export function fetchAppConfig(providerKey, providerName) {
   }
 }
 
+// 检查权限配置
 export function checkPermission(policy) {
   const abpConfig = store.getters.abpConfig
   return true

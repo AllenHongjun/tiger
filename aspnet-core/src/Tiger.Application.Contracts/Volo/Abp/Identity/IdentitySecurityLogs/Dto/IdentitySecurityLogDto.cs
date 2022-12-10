@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto
 {   
     /// <summary>
     /// 安全日志
     /// </summary>
-    public class IdentitySecurityLogDto
+    public class IdentitySecurityLogDto: EntityDto<Guid>
     {
         public Guid? TenantId { get;  set; }
 
@@ -47,5 +50,6 @@ namespace Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto
         public string BrowserInfo { get;  set; }
 
         public DateTime CreationTime { get;  set; }
+
     }
 }

@@ -18,7 +18,7 @@ namespace Volo.Abp.Identity
     /// 组织单元服务
     /// </summary>
     [RemoteService(false)]
-    [Authorize(TigerIdentityPermissions.OrganitaionUnits.Default)]
+    [Authorize(TigerIdentityPermissions.OrganizationUnits.Default)]
     public class OrganizationUnitAppService : IdentityAppServiceBase, IOrganizationUnitAppService
     {
         private readonly IDistributedCache<OrganizationUnitDto> _cache;
@@ -170,7 +170,7 @@ namespace Volo.Abp.Identity
         /// <remarks>
         /// 自动计算要添加的code (有层次结构代码)
         /// </remarks>
-        [Authorize(TigerIdentityPermissions.OrganitaionUnits.Create)]
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.Create)]
         public virtual async Task<OrganizationUnitDto> CreateAsync(OrganizationUnitCreateDto input)
         {
             var ou = new OrganizationUnit(
@@ -193,7 +193,7 @@ namespace Volo.Abp.Identity
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        [Authorize(TigerIdentityPermissions.OrganitaionUnits.Update)]
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.Update)]
         public virtual async Task<OrganizationUnitDto> UpdateAsync(Guid id, OrganizationUnitUpdateDto input)
         {
             var ou = await UnitRepository.GetAsync(id);
@@ -218,7 +218,7 @@ namespace Volo.Abp.Identity
         /// 2. 删除所有的组织子节点
         /// 3. Todo:删除组织关联的用户
         /// </remarks>
-        [Authorize(TigerIdentityPermissions.OrganitaionUnits.Delete)]
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
             var ou = await UnitRepository.GetAsync(id, false);

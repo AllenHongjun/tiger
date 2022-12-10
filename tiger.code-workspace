@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "vue"
+		},
+		{
+			"path": "tool-box/abp-3.2.1"
+		},
+		{
+			"path": "tool-box/vue-element-admin-4.4.0"
+		}
+	],
+	"settings": {}
+}

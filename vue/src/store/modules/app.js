@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import { getLanguage, setLocale } from '@/lang/index'
 import { getApplicationConfiguration } from '@/api/user'
 
 const state = {
@@ -6,7 +7,8 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
-  device: 'desktop'
+  device: 'desktop',
+  language: getLanguage(),
 }
 
 const mutations = {
@@ -27,6 +29,10 @@ const mutations = {
   TOGGLE_DEVICE: (state, device) => {
     state.device = device
   },
+  SET_LANGUAGE: (state, language) => {
+    state.language = language
+    Cookies.set('language', language)
+  },
   SET_ABPCONFIG: (state, abpConfig) => {
     state.abpConfig = abpConfig
   }
@@ -42,17 +48,17 @@ const actions = {
   toggleDevice({ commit }, device) {
     commit('TOGGLE_DEVICE', device)
   },
+  setLanguage({ commit }, language) {
+    commit('SET_LANGUAGE', language)
+  },
   applicationConfiguration({ commit }) {
     return new Promise((resolve, reject) => {
       getApplicationConfiguration()
         .then(response => {
           commit('SET_ABPCONFIG', response)
-
-
           const language = response.localization.currentCulture.cultureName
           const values = response.localization.values
-          // setLocale(language, values)
-
+          setLocale(language, values)
           resolve(response)
         })
         .catch(error => {

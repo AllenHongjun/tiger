@@ -1,8 +1,10 @@
 ﻿using Tiger.Localization;
 using Volo.Abp.AuditLogging;
+using Volo.Abp.AuditLogging.Localization;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
+using Volo.Abp.Identity.Localization;
 using Volo.Abp.IdentityServer;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
@@ -51,6 +53,18 @@ namespace Tiger
                     .Add<TigerResource>("en")
                     .AddBaseTypes(typeof(AbpValidationResource))
                     .AddVirtualJson("/Localization/Tiger");
+
+                
+
+                options.Resources
+                    .Get<IdentityResource>()
+                    .AddVirtualJson("/Volo/Abp/Identity/Localization");
+
+                // 添加审计日志本地化资源
+                options.Resources
+                    //.Add<AuditLoggingResource>("en")
+                    .Get<AuditLoggingResource>()
+                    .AddVirtualJson("/Volo/Abp/AuditLogging/Localization");
 
                 options.DefaultResourceType = typeof(TigerResource);
             });

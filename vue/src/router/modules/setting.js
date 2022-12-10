@@ -15,10 +15,9 @@ const settingRouter = {
   children: [
     {
       path: 'audit-log/list',
-      component: () => import('@/views/setting/audit-log/index'), // Parent router-view
-      
-      name: 'audit_log_list',
-      meta: { title: '系统日志' }
+      component: () => import('@/views/auditing/index'), // Parent router-view
+      name: 'audit-log-list',
+      meta: { title: '审计日志' }
 
     },
     // 添加外链
@@ -99,6 +98,13 @@ const settingRouter = {
           component: () => import('@/views/setting/user/index'),
           name: 'user_list',
           meta: { title: '用户', policy: 'AbpIdentity.Users' }
+        },
+
+        {
+          path: '/security-log/list',
+          component: () => import('@/views/identity/security-logs/index'),
+          name: 'security-log',
+          meta: { title: '安全日志',  }
         },
 
         {

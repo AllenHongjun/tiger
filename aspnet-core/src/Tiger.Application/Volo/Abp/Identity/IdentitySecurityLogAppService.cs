@@ -20,8 +20,9 @@ namespace Tiger.Volo.Abp.Identity
     [Authorize(TigerIdentityPermissions.IdentitySecurityLog.Default)]
     public class IdentitySecurityLogAppService : IdentityAppServiceBase, IIdentitySecurityLogAppService
     {
-        public IdentitySecurityLogAppService()
+        public IdentitySecurityLogAppService(IIdentitySecurityLogRepository identitySecurityLogRepository)
         {
+            IdentitySecurityLogRepository=identitySecurityLogRepository;
         }
 
         protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
@@ -41,19 +42,20 @@ namespace Tiger.Volo.Abp.Identity
             return ObjectMapper.Map<IdentitySecurityLog, IdentitySecurityLogDto>(securityLog);
         }
 
+        [Authorize(TigerIdentityPermissions.IdentitySecurityLog.Default)]
         public async Task<PagedResultDto<IdentitySecurityLogDto>> GetListAsync(GetIdentitySecurityLogInput input)
         {
             var totalCount = await IdentitySecurityLogRepository.GetCountAsync(input.startTime,
                 input.endTime,
                 input.applicationName,
                 input.identity,
-                input.action,
+                null,  // TODO: 被自动赋值了？？ input.action
                 null,
                 input.userName,
                 input.clientId,
                 input.correlationId);
-            var securityLogs =  await IdentitySecurityLogRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount, input.startTime, input.endTime, input .applicationName, input.identity,
-                input.action, null, input.userName, input.clientId, input.correlationId, input.includeDetails);
+            var securityLogs =  await IdentitySecurityLogRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount, input.startTime, input.endTime, input.applicationName, input.identity,
+                null, null, input.userName, input.clientId, input.correlationId, input.includeDetails);
             return new PagedResultDto<IdentitySecurityLogDto>(totalCount,
                 ObjectMapper.Map<List<IdentitySecurityLog>, List<IdentitySecurityLogDto>>(securityLogs));
         }

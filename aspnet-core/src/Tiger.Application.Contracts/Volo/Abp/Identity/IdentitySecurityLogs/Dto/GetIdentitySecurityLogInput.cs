@@ -7,6 +7,10 @@ namespace Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto
 {
     public class GetIdentitySecurityLogInput : PagedAndSortedResultRequestDto
     {
+        public GetIdentitySecurityLogInput()
+        {
+        }
+
         public string Filter { get; set; }
 
         public DateTime? startTime { get; set; }

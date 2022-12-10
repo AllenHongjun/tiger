@@ -1893,6 +1893,11 @@
             用户声明类型管理
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.Identity.IdentityPermissionDefinitionProvider">
+            <summary>
+            身份认证模块权限定义
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto">
             <summary>
             安全日志
@@ -2394,6 +2399,11 @@
             <param name="startDate"></param>
             <param name="endDate"></param>
             <returns></returns>
+        </member>
+        <member name="T:Volo.Abp.Identity.TigerIdentityPermissions">
+            <summary>
+            身份认证模块权限常量
+            </summary>
         </member>
     </members>
 </doc>

@@ -3,11 +3,11 @@
     <div class="filter-container" style="margin-bottom: 20px">
         <el-input v-model="listQuery.Filter" placeholder="关键词" style="width: 150px" class="filter-item" />
 
-        <el-button size="small" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
+        <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
             搜索
         </el-button>
 
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="handleCreate">
+        <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
             添加
         </el-button>
     </div>

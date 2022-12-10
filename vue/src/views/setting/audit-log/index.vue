@@ -1,114 +1,134 @@
 <template>
 <div class="app-container">
-    <div class="filter-container" style="margin-bottom: 20px">
-
-        <el-date-picker v-model="queryDateTime" value-format="yyyy-MM-dd hh:mm:ss" type="datetimerange" :picker-options="pickerOptions" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" align="right" />
-        <el-input v-model="listQuery.userName" placeholder="用户名" style="width: 150px;" class="filter-item" />
-        <el-input v-model="listQuery.url" placeholder="URL过滤" style="width: 150px;" class="filter-item" />
-        <el-input v-model="listQuery.url" placeholder="最小持续时间" style="width: 150px;" class="filter-item" />
-        <el-input v-model="listQuery.url" placeholder="最大持续时间" style="width: 150px;" class="filter-item" />
-
-        <el-select v-model="listQuery.httpMethod" placeholder="HTTP方法" clearable style="width: 110px" class="filter-item" size="mini">
-            <el-option v-for="item in httpMethodOptions" :key="item" :label="item" :value="item" />
-        </el-select>
-        <el-select v-model="listQuery.httpMethod" placeholder="HTTP状态码" clearable style="width: 150px" class="filter-item" size="mini">
-            <el-option v-for="item in httpMethodOptions" :key="item" :label="item" :value="item" />
-        </el-select>
-        <!-- <el-input v-model="listQuery.url" placeholder="应用名称" style="width: 150px;" class="filter-item" />
-        <el-input v-model="listQuery.url" placeholder="客户端地址" style="width: 150px;" class="filter-item" /> -->
-
-        <el-select v-model="listQuery.hasException" placeholder="存在异常" clearable style="width: 110px" class="filter-item" size="mini">
-            <el-option v-for="item in hasExceptionOptions" :key="item.value" :label="item.label" :value="item.value" />
-        </el-select>
-        <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-            搜索
-        </el-button>
-        <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
-            导出
-        </el-button>
-
-    </div>
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row :default-sort="{prop: 'date', order: 'descending'}" @sort-change="sortChange">
-        <el-table-column align="left" label="HTTP请求" prop="httpStatusCode" sortable="custom">
-            <template slot-scope="scope">
-                <el-tag :type="scope.row.httpStatusCode | httpCodeFilter" style="margin-right:5px;">
-                    {{ scope.row.httpStatusCode }}
-                </el-tag>
-                <el-tag :type="scope.row.httpStatusCode | httpCodeFilter">
-                    {{ scope.row.httpMethod }}
-                </el-tag>
-                {{ scope.row.url }}
-            </template>
-        </el-table-column>
-        <el-table-column label="用户" align="center" width="80" prop="userName" sortable="custom">
-            <template slot-scope="scope">
-                {{ scope.row.userName }}
-            </template>
-        </el-table-column>
-        <el-table-column label="IP地址" align="center" width="180" prop="clientIpAddress" sortable="custom">
-            <template slot-scope="scope">
-                {{ scope.row.clientIpAddress }}
-            </template>
-        </el-table-column>
-        <el-table-column label="时间" prop="executionTime" align="center" width="180" sortable="custom">
-            <template slot-scope="scope">
-                {{ scope.row.executionTime | formatDate('YYYY-MM-DD HH:mm:ss') }}
-            </template>
-        </el-table-column>
-        <el-table-column label="持续时间(s)" align="center" width="180" prop="executionDuration" sortable="custom">
-            <template slot-scope="scope">
-                {{ scope.row.executionDuration }}
-            </template>
-        </el-table-column>
-        <el-table-column label="应用名称" align="center" width="120" prop="clientId" sortable="custom">
-            <template slot-scope="scope">
-                {{ scope.row.clientId }}
-            </template>
-        </el-table-column>
-
-        <el-table-column align="center" label="操作" width="240">
-            <template slot-scope="scope">
-                <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
-                    详情
-                </el-button>
-                &nbsp;&nbsp;
-
-            </template>
-        </el-table-column>
-    </el-table>
-    <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
-
-    <el-dialog title="日志明细" :visible.sync="dialogRoleFormVisible">
-        <el-form ref="dataForm" :model="temp" label-width="180px" label-position="left">
-
-            <el-form-item label="浏览器信息" prop="browserInfo">
-                <div>{{ temp.browserInfo }}</div>
-            </el-form-item>
-
-            <el-form-item v-if="temp.exceptions != ''" label="异常信息" prop="exceptions">
-                <el-input v-model="temp.exceptions" type="textarea" :rows="8" />
-            </el-form-item>
-
-            <el-form-item label="id" prop="id">
-                <div>{{ temp.id }}</div>
-            </el-form-item>
-            <el-form-item label="url地址" prop="url">
-                <div>{{ temp.url }}</div>
-            </el-form-item>
-            <el-form-item label="用户id" prop="userId">
-                <div>{{ temp.userId }}</div>
-            </el-form-item>
-            <el-form-item label="用户名" prop="userName">
-                <div>{{ temp.userName }}</div>
-            </el-form-item>
-
+    <div class="filter-container">
+        <el-form ref="logQueryForm" label-position="right" label-width="120px" :model="queryForm">
+            <el-row>
+                <el-col :span="6">
+                    <el-form-item prop="url" :label="$t('AbpAuditLogging[\'Url\']')">
+                        <el-input v-model="queryForm.url" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item prop="httpMethod" :label="$t('AbpAuditLogging[\'HttpMethod\']')">
+                        <el-select v-model="queryForm.httpMethod" clearable style="width:100%" @clear="queryForm.httpMethod=undefined">
+                            <el-option label="获取(GET)" value="GET" />
+                            <el-option label="修改(PUT)" value="PUT" />
+                            <el-option label="提交(POST)" value="POST" />
+                            <el-option label="删除(DELETE)" value="DELETE" />
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item prop="userName" :label="$t('AbpAuditLogging[\'UserName\']')">
+                        <el-input v-model="queryForm.userName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item prop="tenantName" :label="$t('AbpAuditLogging[\'TenantName\']')">
+                        <el-input v-model="queryForm.tenantName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="6">
+                    <el-form-item prop="clientIpAddress" :label="$t('AbpAuditLogging[\'ClientIpAddress\']')">
+                        <el-input v-model="queryForm.clientIpAddress" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item prop="ttpStatusCode" :label="$t('AbpAuditLogging[\'HttpStatusCode\']')">
+                        <el-select v-model="queryForm.httpStatusCode" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
+                            <el-option label="成功(200)" value="200" />
+                            <el-option label="未登录(401)" value="401" />
+                            <el-option label="未授权(403)" value="403" />
+                            <el-option label="未找到资源(404)" value="404" />
+                            <el-option label="异常(500)" value="500" />
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item prop="executionDuration" :label="$t('AbpAuditLogging[\'ExecutionDuration\']')">
+                        <el-input v-model="queryForm.executionDuration" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item prop="applicationName" :label="$t('AbpAuditLogging[\'ApplicationName\']')">
+                        <el-input v-model="queryForm.applicationName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="9">
+                    <el-form-item label="日期">
+                        <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="4" :offset="11">
+                    <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
+                        {{ $t('AbpAuditLogging.Reset') }}
+                    </el-button>
+                    <el-button type="primary" icon="el-icon-search" @click="getList">
+                        {{ $t('AbpAuditLogging.Search') }}
+                    </el-button>
+                </el-col>
+            </el-row>
         </el-form>
-        <div style="text-align: right">
+    </div>
 
-            <el-button type="primary" @click="dialogRoleFormVisible = false">关闭</el-button>
-        </div>
-    </el-dialog>
-
+    <div class="table-container">
+        <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;">
+            <el-table-column :label="$t('AbpAuditLogging[\'RequestInfo\']')" align="left" width="">
+                <template slot-scope="{ row }">
+                    <el-tag :type="row.httpStatusCode | requestStatusCode">
+                        {{ row.httpStatusCode }}
+                    </el-tag>
+                    <el-tag :type="row.httpMethod | requestMethodFilter">
+                        {{ row.httpMethod }}
+                    </el-tag>
+                    <el-tag effect="dark" :type="row.executionDuration | requestDurationFilter">
+                        {{ row.executionDuration }} <b>ms</b>
+                    </el-tag>
+                    <span class="api-block" :class="row.httpMethod | requestMethodFilter">
+                        {{ row.url }}
+                    </span>
+                </template>
+            </el-table-column>
+            <el-table-column :label="$t('AbpAuditLogging[\'UserName\']')" prop="userName" align="center" width="120">
+                <template slot-scope="{ row }">
+                    <span>{{ row.userName | empty }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column :label="$t('AbpAuditLogging[\'TenantName\']')" prop="tenantName" align="center" width="120">
+                <template slot-scope="{ row }">
+                    <span>{{ row.tenantName | empty }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column :label="$t('AbpAuditLogging[\'ExecutionTime\']')" prop="executionTime" align="center" width="180">
+                <template slot-scope="{ row }">
+                    <span>{{ row.executionTime | moment }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column :label="$t('AbpAuditLogging[\'ApplicationName\']')" prop="applicationName" align="center" width="120">
+                <template slot-scope="{ row }">
+                    <span>{{ row.applicationName | empty }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column :label="$t('AbpAuditLogging[\'ClientIpAddress\']')" prop="clientIpAddress" align="center" width="120">
+                <template slot-scope="{ row }">
+                    <span>{{ row.clientIpAddress | empty }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column :label="$t('AbpAuditLogging[\'Action\']')" prop="action" align="center" width="120">
+                <template slot-scope="{ row }">
+                    <el-button type="primary" @click="handleDetail(row)">
+                        {{ $t('AbpAuditLogging.Detail') }}
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <pagination v-show="total > 0" :total="total" :page.sync="queryForm.page" :limit.sync="queryForm.limit" @pagination="getList" />
+        <audit-log-details ref="auditLogDetailsDialog" />
+    </div>
 </div>
 </template>
 
@@ -116,47 +136,71 @@
 import {
     getAuditLogs
 } from '@/api/auditlogging/auditlog'
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
-import baseListQuery from '@/utils/abp'
 import {
-    parseTime
-} from '@/utils'
-
+    pickerRangeWithHotKey
+} from '@/utils/picker'
+import Pagination from '@/components/Pagination'
+import baseListQuery from '@/utils/abp'
+import AuditLogDetails from './details'
 export default {
-    name: 'AuditLogList',
+    name: 'AuditLog',
     components: {
-        Pagination
+        Pagination,
+        AuditLogDetails
     },
     filters: {
-        httpCodeFilter(code) {
-            code = parseInt(code)
-            var result = ''
-            if (code <= 100) {
-                result = 'info'
-            } else if (code <= 200) {
-                result = 'success'
-            } else if (code <= 300) {
-                result = 'warning'
-            } else {
-                result = 'danger'
+        requestDurationFilter(duration) {
+            let type = 'success'
+            if (duration > 2 * 1000) {
+                type = 'warning'
+            } else if (duration > 5 * 1000) {
+                type = 'error'
             }
-            return result
+            return type
         },
-        typeFilter(type) {
-            return calendarTypeKeyValue[type]
+        requestStatusCode(code) {
+            let type = 'success'
+            switch (code) {
+                case 401:
+                case 403:
+                case 404:
+                    type = 'warning'
+                    break
+                case 500:
+                    type = 'danger'
+                    break
+            }
+            return type
+        },
+        requestMethodFilter(method) {
+            let type = 'success'
+            switch (method.toUpperCase()) {
+                case 'GET':
+                    type = ''
+                    break
+                case 'PUT':
+                    type = 'warning'
+                    break
+                case 'POST':
+                    type = 'success'
+                    break
+                case 'DELETE':
+                    type = 'danger'
+                    break
+                default:
+                    type = 'Info'
+            }
+            return type
         }
     },
     data() {
         return {
+            tableKey: 0,
             list: null,
-            listLoading: true,
-            downloadLoading: false,
-            filename: 'auto-log',
-            autoWidth: true,
-            bookType: 'xlsx', // 'csv' ''
             total: 0,
+            listLoading: true,
             queryDateTime: undefined,
-            listQuery: Object.assign({
+            queryForm: Object.assign({
                 startTime: undefined,
                 endTime: undefined,
                 httpMethod: undefined,
@@ -164,169 +208,95 @@ export default {
                 userName: undefined,
                 tenantName: undefined,
                 applicationName: undefined,
-                hasException: '',
-                httpStatusCode: undefined,
-                Sorting: ''
+                hasException: false,
+                httpStatusCode: undefined
             }, baseListQuery),
-            httpMethodOptions: [
-                'GET',
-                'POST',
-                'DELETE',
-                'PUT',
-                'HEAD',
-                'CONNECT',
-                'OPTIONS',
-                'TRACE'
-            ],
-            hasExceptionOptions: [{
-                    value: '',
-                    label: '存在异常'
-                },
-                {
-                    value: 'False',
-                    label: '否'
-                }, {
-                    value: 'True',
-                    label: '是'
-                }
-            ],
-            pickerOptions: {
-                shortcuts: [{
-                        text: '最近一周',
-                        onClick(picker) {
-                            const end = new Date()
-                            const start = new Date()
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-                            picker.$emit('pick', [start, end])
-                        }
-                    },
-                    {
-                        text: '最近一个月',
-                        onClick(picker) {
-                            const end = new Date()
-                            const start = new Date()
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-                            picker.$emit('pick', [start, end])
-                        }
-                    },
-                    {
-                        text: '最近三个月',
-                        onClick(picker) {
-                            const end = new Date()
-                            const start = new Date()
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-                            picker.$emit('pick', [start, end])
-                        }
-                    }
-                ]
-            },
-            value1: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
-            value2: '',
-            dialogStatus: '',
-            dialogRoleFormVisible: false,
-            temp: {
-                httpStatusCode: 204,
-                comments: '',
-                exceptions: '',
-                url: '/api/permission-management/permissions',
-                httpMethod: 'PUT',
-                browserInfo: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36',
-                correlationId: '3dd03595582048c1ae603ef669b756d6',
-                clientId: 'TigerAdmin_App',
-                clientName: null,
-                clientIpAddress: '::1',
-                executionDuration: 65,
-                executionTime: '2020-10-24T22:27:54.9287546',
-                impersonatorTenantId: null,
-                impersonatorUserId: null,
-                tenantName: null,
-                tenantId: null,
-                userName: 'admin',
-                userId: '1847197c-bfc8-aa9c-bafd-39f8621f66ad',
-                applicationName: null,
-                id: '67a91900-a8b1-8766-f751-39f86d2f15f1',
-                extraProperties: {}
-            }
+            pickerOptions: pickerRangeWithHotKey
         }
     },
     created() {
-        this.fetchData()
+        this.getList()
     },
     methods: {
-        handleSizeChange(val) {
-            console.log(`每页 ${val} 条`)
-            this.listQuery.SkipCount =
-                (this.listQuery.page - 1) * this.listQuery.MaxResultCount
-        },
-        fetchData() {
+        getList() {
             this.listLoading = true
             if (this.queryDateTime) {
-                this.listQuery.startTime = this.queryDateTime[0]
-                this.listQuery.endTime = this.queryDateTime[1]
+                this.queryForm.startTime = this.queryDateTime[0]
+                this.queryForm.endTime = this.queryDateTime[1]
             }
-            getAuditLogs(this.listQuery).then((response) => {
+            console.log(this.queryForm)
+            getAuditLogs(this.queryForm).then(response => {
                 this.list = response.items
                 this.total = response.totalCount
                 this.listLoading = false
             })
         },
-        handleFilter() {
-            this.listQuery.page = 1
-            this.fetchData()
+        resetQueryForm() {
+            this.queryForm = Object.assign({
+                startTime: undefined,
+                endTime: undefined,
+                httpMethod: undefined,
+                url: undefined,
+                userName: undefined,
+                tenantName: undefined,
+                applicationName: undefined,
+                hasException: false,
+                httpStatusCode: undefined
+            }, baseListQuery)
         },
-        sortChange(data) {
-            const {
-                prop,
-                order
-            } = data
-            if (order === 'ascending') {
-                this.listQuery.Sorting = prop + ' ASC'
-            } else {
-                this.listQuery.Sorting = prop + ' DESC'
-            }
-            this.handleFilter()
-        },
-        deleteData(id) {
-            console.log('delete')
-        },
-        handleUpdate(row) {
-            this.temp = Object.assign({}, row) // copy obj
-            console.log(this.temp)
-            this.dialogStatus = 'update'
-            this.dialogRoleFormVisible = true
-        },
-        handleDownload() {
-            this.downloadLoading = true
-            import('@/vendor/Export2Excel').then(excel => {
-                const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-                const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-                const list = this.list
-                const data = this.formatJson(filterVal, list)
-                excel.export_json_to_excel({
-                    header: tHeader,
-                    data,
-                    filename: this.filename,
-                    autoWidth: this.autoWidth,
-                    bookType: this.bookType
-                })
-                this.downloadLoading = false
-            })
-        },
-        formatJson(filterVal, jsonData) {
-            return jsonData.map(v => filterVal.map(j => {
-                if (j === 'executionTime') {
-                    return parseTime(v[j])
-                } else {
-                    return v[j]
-                }
-            }))
+        handleDetail(row) {
+            // console.log('detail-data:', row)
+            this.$refs['auditLogDetailsDialog'].createLogInfo(row)
         }
     }
 }
 </script>
 
-<style scoped>
-.filter-container {
-    margin-bottom: 20px;
+<style lang="scss" scoped>
+.app-container {
+    .api-block {
+        height: auto;
+        border: none;
+        padding: 4px 0;
+        margin: 4px 0;
+    }
+
+    .el-tag {
+        color: #ffffff;
+        font-weight: 700;
+        background: #61affe;
+    }
+
+    .el-tag--warning {
+        background: #fca130;
+    }
+
+    .el-tag--danger {
+        background: #f93e3e;
+    }
+
+    .el-tag--success {
+        background: #49cc90;
+    }
+
+    .info {
+        border-color: #61affe;
+        background: rgba(97, 175, 254, .1);
+    }
+
+    .success {
+        border-color: #49cc90;
+        background: rgba(73, 204, 144, .1);
+    }
+
+    .danger {
+        border-color: #f93e3e;
+        background: rgba(249, 62, 62, .1);
+    }
+
+    .warning {
+        border-color: #fca130;
+        background: rgba(252, 161, 48, .1);
+    }
 }
 </style>

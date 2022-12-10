@@ -4,31 +4,41 @@ using System.Text;
 using Volo.Abp.Reflection;
 
 namespace Volo.Abp.Identity
-{
+{   
+    /// <summary>
+    /// 身份认证模块权限常量
+    /// </summary>
     public static class TigerIdentityPermissions
     {
+        
+
         public static class Users
         {
-            // 分配人员给组织单元权限
-            public const string DistributionOrganizationUnit = IdentityPermissions.Users.Default + ".DistributionOrganizationUnit";
+            public const string ResetPassword = Volo.Abp.Identity.IdentityPermissions.Users.Default + ".ResetPassword";
+            public const string ManageClaims = Volo.Abp.Identity.IdentityPermissions.Users.Default + ".ManageClaims";
+            public const string ManageOrganizationUnits = Volo.Abp.Identity.IdentityPermissions.Users.Default + ".ManageOrganizationUnits";
         }
 
         public static class Roles
         {
-            public const string AddOrganizationUnitRole = IdentityPermissions.Roles.Default + ".AddOrganizationUnitRole";
+            public const string ManageClaims = Volo.Abp.Identity.IdentityPermissions.Roles.Default + ".ManageClaims";
+            public const string ManageOrganizationUnits = Volo.Abp.Identity.IdentityPermissions.Roles.Default + ".ManageOrganizationUnits";
         }
 
-        public static class OrganitaionUnits
+        public static class OrganizationUnits
         {
-            public const string Default = IdentityPermissions.GroupName + ".OrganitaionUnits";
+            public const string Default = Volo.Abp.Identity.IdentityPermissions.GroupName + ".OrganizationUnits";
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";
+            public const string ManageUsers = Default + ".ManageUsers";
+            public const string ManageRoles = Default + ".ManageRoles";
+            public const string ManagePermissions = Default + ".ManagePermissions";
         }
 
-        public static class ClaimTypes
+        public static class IdentityClaimType
         {
-            public const string Default = IdentityPermissions.GroupName + ".ClaimTypes";
+            public const string Default = Volo.Abp.Identity.IdentityPermissions.GroupName + ".IdentityClaimTypes";
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";
@@ -37,6 +47,7 @@ namespace Volo.Abp.Identity
         public static class IdentitySecurityLog
         {
             public const string Default = IdentityPermissions.GroupName + ".IdentitySecurityLogs";
+            public const string Delete  = Default + ".Delete";
         }
 
         public static string[] GetAll()

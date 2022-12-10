@@ -16,7 +16,7 @@ namespace Tiger.Volo.Abp.Identity
     /// 用户声明类型
     /// </summary>
     [RemoteService(false)]
-    [Authorize(TigerIdentityPermissions.ClaimTypes.Default)]
+    [Authorize(TigerIdentityPermissions.IdentityClaimType.Default)]
     public class IdentityClaimTypeAppService : IdentityAppServiceBase, IIdentityClaimTypeAppService
     {
         protected IIdentityClaimTypeRepository IdentityClaimTypeRepository { get; }
@@ -50,7 +50,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
-        [Authorize(TigerIdentityPermissions.ClaimTypes.Create)]
+        [Authorize(TigerIdentityPermissions.IdentityClaimType.Create)]
         public async Task<ClaimTypeDto> CreateAsync(CreateClaimTypeDto input)
         {
             var isExisit =  await IdentityClaimTypeRepository.AnyAsync(input.Name);
@@ -73,7 +73,7 @@ namespace Tiger.Volo.Abp.Identity
             return ObjectMapper.Map<IdentityClaimType, ClaimTypeDto>(identityClaimType);
         }
 
-        [Authorize(TigerIdentityPermissions.ClaimTypes.Delete)]
+        [Authorize(TigerIdentityPermissions.IdentityClaimType.Delete)]
         public async Task DeleteAsync(Guid id)
         {   
             // Find 如果查询不到返回null
@@ -102,7 +102,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <remarks>
         /// 有些没有必要的注释可以省略
         /// </remarks>
-        [Authorize(TigerIdentityPermissions.ClaimTypes.Default)]
+        [Authorize(TigerIdentityPermissions.IdentityClaimType.Default)]
         public async Task<List<ClaimTypeDto>> GetAllListAsync()
         {   
             // 基类有获取所有的方法
@@ -112,7 +112,7 @@ namespace Tiger.Volo.Abp.Identity
 
         }
 
-        [Authorize(TigerIdentityPermissions.ClaimTypes.Default)]
+        [Authorize(TigerIdentityPermissions.IdentityClaimType.Default)]
         public async Task<ClaimTypeDto> GetAsync(Guid id)
         {
             var identityClaimType = await IdentityClaimTypeRepository.GetAsync(id);
@@ -121,7 +121,7 @@ namespace Tiger.Volo.Abp.Identity
             throw new NotImplementedException();
         }
 
-        [Authorize(TigerIdentityPermissions.ClaimTypes.Default)]
+        [Authorize(TigerIdentityPermissions.IdentityClaimType.Default)]
         public async Task<PagedResultDto<ClaimTypeDto>> GetListAsync(GetIdentityClaimTypesInput input)
         {
             var claimTypeCount = await IdentityClaimTypeRepository.GetCountAsync(input.Filter);
@@ -133,7 +133,7 @@ namespace Tiger.Volo.Abp.Identity
 
         }
 
-        [Authorize(TigerIdentityPermissions.ClaimTypes.Update)]
+        [Authorize(TigerIdentityPermissions.IdentityClaimType.Update)]
         public async Task<ClaimTypeDto> UpdateAsync(Guid id, UpdateClaimTypeDto input)
         {
             // Update 如果属性很多 只能一个一个赋值？
