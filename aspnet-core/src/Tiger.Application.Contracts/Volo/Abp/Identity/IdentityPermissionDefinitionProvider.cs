@@ -40,7 +40,7 @@ namespace Tiger.Volo.Abp.Identity
                 //组织机构权限
                 var origanizationUnitPermission = identityGroup.AddPermission(TigerIdentityPermissions.OrganizationUnits.Default, L("Permission:OrganizationUnitManagement"));
                     origanizationUnitPermission.AddChild(TigerIdentityPermissions.OrganizationUnits.Create, L("Permission:Create"));
-                    origanizationUnitPermission.AddChild(TigerIdentityPermissions.OrganizationUnits.Update, L("Permission:Edit"));
+                    origanizationUnitPermission.AddChild(TigerIdentityPermissions.OrganizationUnits.Update, L("Permission:Update"));
                     origanizationUnitPermission.AddChild(TigerIdentityPermissions.OrganizationUnits.Delete, L("Permission:Delete"));
                     origanizationUnitPermission.AddChild(TigerIdentityPermissions.OrganizationUnits.ManageRoles, L("Permission:ManageRoles"));
                     origanizationUnitPermission.AddChild(TigerIdentityPermissions.OrganizationUnits.ManageUsers, L("Permission:ManageUsers"));
@@ -49,7 +49,7 @@ namespace Tiger.Volo.Abp.Identity
                 // 2020-10-23 修复Bug 租户用户也必须能查询自定义的声明, 管理权限只能为主机
                 var identityClaimType = identityGroup.AddPermission(TigerIdentityPermissions.IdentityClaimType.Default, L("Permission:IdentityClaimTypeManagement"));
                     identityClaimType.AddChild(TigerIdentityPermissions.IdentityClaimType.Create, L("Permission:Create"), MultiTenancySides.Host);
-                    identityClaimType.AddChild(TigerIdentityPermissions.IdentityClaimType.Update, L("Permission:Edit"), MultiTenancySides.Host);
+                    identityClaimType.AddChild(TigerIdentityPermissions.IdentityClaimType.Update, L("Permission:Update"), MultiTenancySides.Host);
                     identityClaimType.AddChild(TigerIdentityPermissions.IdentityClaimType.Delete, L("Permission:Delete"), MultiTenancySides.Host);
 
                 // 定义安全日志管理权限

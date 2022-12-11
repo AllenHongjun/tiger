@@ -1,4 +1,5 @@
 ﻿using Tiger.Localization;
+using Tiger.Volo.Abp.Identity;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AuditLogging.Localization;
 using Volo.Abp.BackgroundJobs;
@@ -50,19 +51,16 @@ namespace Tiger
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
-                    .Add<TigerResource>("en")
+                    .Add<TigerResource>("zh-Hans")
                     .AddBaseTypes(typeof(AbpValidationResource))
                     .AddVirtualJson("/Localization/Tiger");
-
-                
 
                 options.Resources
                     .Get<IdentityResource>()
                     .AddVirtualJson("/Volo/Abp/Identity/Localization");
 
-                // 添加审计日志本地化资源
+
                 options.Resources
-                    //.Add<AuditLoggingResource>("en")
                     .Get<AuditLoggingResource>()
                     .AddVirtualJson("/Volo/Abp/AuditLogging/Localization");
 

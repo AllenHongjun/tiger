@@ -8,9 +8,9 @@
             <el-row style="margin-bottom: 20px">
                 <el-input v-model="listQuery.Filter" placeholder="关键词" style="width: 150px" class="filter-item" />
 
-                <el-button  class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
+                <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
 
-                <el-button type="primary"  icon="el-icon-edit" @click="handleCreate">
+                <el-button type="primary" icon="el-icon-edit" @click="handleCreate">
                     添加
                 </el-button>
                 <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">
@@ -46,14 +46,14 @@
 
                 <el-table-column align="center" label="操作" width="400">
                     <template slot-scope="scope">
-                        <el-button type="primary" size="mini" icon="el-icon-edit" @click="handleUpdate(scope.row)">
+                        <el-button type="primary"  icon="el-icon-edit" @click="handleUpdate(scope.row)">
                             编辑
                         </el-button>
                         &nbsp;&nbsp;
-                        <el-button type="primary" size="mini" @click="handlePermission(scope)">
+                        <el-button type="primary"  @click="handlePermission(scope)">
                             授权
                         </el-button>
-                        <el-button type="danger" size="mini" icon="el-icon-delete" @click="deleteData(scope.row.id)">
+                        <el-button type="danger"  icon="el-icon-delete" @click="deleteData(scope.row.id)">
                             删除
                         </el-button>
                     </template>
@@ -61,10 +61,16 @@
             </el-table>
             <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
-            <el-dialog :visible.sync="dialogVisible" title="角色授权">
+            <el-dialog :visible.sync="dialogVisible" title="角色授权" >
+                <el-checkbox v-model="allPermissionChecked">授予所有权限</el-checkbox>
+                <el-divider></el-divider>
                 <el-form label-width="80px" label-position="left">
                     <el-tabs tab-position="left">
                         <el-tab-pane v-for="group in permissionData.groups" :key="group.name" :label="group.displayName">
+                            <!-- <h3>{{group.displayName}}</h3>
+                            <el-divider></el-divider> -->
+                            <el-checkbox v-model="allPermissionChecked">全选</el-checkbox>
+                            <el-divider></el-divider>
                             <el-form-item :label="group.displayName">
                                 <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox :check-strictly="false" node-key="name" :default-expand-all="false" />
                             </el-form-item>
@@ -72,8 +78,8 @@
                     </el-tabs>
                 </el-form>
                 <div style="text-align: right">
-                    <el-button size="mini" type="danger" @click="dialogVisible = false">取消</el-button>
-                    <el-button size="mini" type="primary" @click="updatePermissionData()">确认</el-button>
+                    <el-button  type="danger" @click="dialogVisible = false">取消</el-button>
+                    <el-button  type="primary" @click="updatePermissionData()">确认</el-button>
                 </div>
             </el-dialog>
 
@@ -106,7 +112,6 @@
 import {
     getRoleList,
     deleteRole,
-    
     createRole,
     createRoleToOrg,
     updateRole
@@ -171,6 +176,7 @@ export default {
                 label: 'label'
             },
             dialogPermissionFormVisible: false,
+            allPermissionChecked:false,
             permissionsQuery: {
                 providerKey: '',
                 providerName: 'R'
@@ -410,7 +416,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-dialog {
-    min-height: 800px;
+
+.el-form-item{
+    height: 450px;
+    overflow-y: scroll;
 }
 </style>

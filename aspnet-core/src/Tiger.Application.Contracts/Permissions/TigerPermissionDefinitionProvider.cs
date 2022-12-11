@@ -26,313 +26,313 @@ namespace Tiger.Permissions
         {
             //Define your own permissions here.
 
-            #region 书店
+            //#region 书店
 
-            // 添加书店权限组
-            var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName, L("Permission:BookStore"));
+            //// 添加书店权限组
+            //var bookStoreGroup = context.AddGroup(BookStorePermissions.GroupName, L("Permission:BookStore"));
 
-            // 书籍
+            //// 书籍
 
-            //
-            var bookPermission = bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
+            ////
+            //var bookPermission = bookStoreGroup.AddPermission(BookStorePermissions.Books.Default, L("Permission:Books"));
 
-            // **创建**, **编辑** 和 **删除** 是 `BookStorePermissions.Books.Default` 权限的子权限  **仅当父权限被选择**时, 子权限才能被选择
-            bookPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
-            bookPermission.AddChild(BookStorePermissions.Books.Update, L("Permission:Books.Update"));
-            bookPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
+            //// **创建**, **编辑** 和 **删除** 是 `BookStorePermissions.Books.Default` 权限的子权限  **仅当父权限被选择**时, 子权限才能被选择
+            //bookPermission.AddChild(BookStorePermissions.Books.Create, L("Permission:Books.Create"));
+            //bookPermission.AddChild(BookStorePermissions.Books.Update, L("Permission:Books.Update"));
+            //bookPermission.AddChild(BookStorePermissions.Books.Delete, L("Permission:Books.Delete"));
 
-            //作者
-            var authorsPermission = bookStoreGroup.AddPermission(BookStorePermissions.Authors.Default, L("Permission:Authors"));
+            ////作者
+            //var authorsPermission = bookStoreGroup.AddPermission(BookStorePermissions.Authors.Default, L("Permission:Authors"));
 
-            authorsPermission.AddChild(BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
-            authorsPermission.AddChild(BookStorePermissions.Authors.Update, L("Permission:Authors.Update"));
-            authorsPermission.AddChild(BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
+            //authorsPermission.AddChild(BookStorePermissions.Authors.Create, L("Permission:Authors.Create"));
+            //authorsPermission.AddChild(BookStorePermissions.Authors.Update, L("Permission:Authors.Update"));
+            //authorsPermission.AddChild(BookStorePermissions.Authors.Delete, L("Permission:Authors.Delete"));
 
-            #endregion
+            //#endregion
 
-            #region 基础
-
-
-            var basicGroup = context.AddGroup(BasicPermissions.GroupName, L("Permission:Product"));
+            //#region 基础
 
 
-            // 产品管理权限
-            var productsPermission = basicGroup.AddPermission(
-                    BasicPermissions.Product.Default, L("Permission:Product"));
-            productsPermission.AddChild(
-               BasicPermissions.Product.Create, L("Permission:Product.Create"));
-            productsPermission.AddChild(
-               BasicPermissions.Product.Update, L("Permission:Product.Update"));
-            productsPermission.AddChild(
-               BasicPermissions.Product.Delete, L("Permission:Product.Delete"));
-
-            // 仓库管理权限
-            var warehousePermission = basicGroup.AddPermission(
-                    BasicPermissions.Warehouse.Default, L("Permission:Warehouse"));
-            warehousePermission.AddChild(
-               BasicPermissions.Warehouse.Create, L("Permission:Warehouse.Create"));
-            warehousePermission.AddChild(
-               BasicPermissions.Warehouse.Update, L("Permission:Warehouse.Update"));
-            warehousePermission.AddChild(
-               BasicPermissions.Warehouse.Delete, L("Permission:Warehouse.Delete"));
-
-            //供应商管理权限
-            var supplyPermission = basicGroup.AddPermission(
-                    BasicPermissions.Supply.Default, L("Permission:Supply"));
-            supplyPermission.AddChild(
-               BasicPermissions.Supply.Create, L("Permission:Supply.Create"));
-            supplyPermission.AddChild(
-               BasicPermissions.Supply.Update, L("Permission:Supply.Update"));
-            supplyPermission.AddChild(
-               BasicPermissions.Supply.Delete, L("Permission:Supply.Delete"));
-
-            //店铺管理权限
-            var storePermission = basicGroup.AddPermission(
-                    BasicPermissions.Store.Default, L("Permission:Store"));
-            storePermission.AddChild(
-               BasicPermissions.Store.Create, L("Permission:Store.Create"));
-            storePermission.AddChild(
-               BasicPermissions.Store.Update, L("Permission:Store.Update"));
-            storePermission.AddChild(
-               BasicPermissions.Store.Delete, L("Permission:Store.Delete"));
-
-            ////SKU管理权限
-            //var skuPermission = basicGroup.AddPermission(
-            //        BasicPermissions.Sku.Default, L("Permission:Sku"));
-            //skuPermission.AddChild(
-            //   BasicPermissions.Sku.Create, L("Permission:Sku.Create"));
-            //skuPermission.AddChild(
-            //   BasicPermissions.Sku.Update, L("Permission:Sku.Update"));
-            //skuPermission.AddChild(
-            //   BasicPermissions.Sku.Delete, L("Permission:Sku.Delete"));
+            //var basicGroup = context.AddGroup(BasicPermissions.GroupName, L("Permission:Product"));
 
 
-            // 分类管理权限
-            var categorysPermission = basicGroup.AddPermission(
-                    BasicPermissions.Category.Default, L("Permission:Category"));
-            categorysPermission.AddChild(
-                 BasicPermissions.Category.Create, L("Permission:Category.Create"));
-            categorysPermission.AddChild(
-                 BasicPermissions.Category.Update, L("Permission:Category.Update"));
-            categorysPermission.AddChild(
-                 BasicPermissions.Category.Delete, L("Permission:Category.Delete"));
+            //// 产品管理权限
+            //var productsPermission = basicGroup.AddPermission(
+            //        BasicPermissions.Product.Default, L("Permission:Product"));
+            //productsPermission.AddChild(
+            //   BasicPermissions.Product.Create, L("Permission:Product.Create"));
+            //productsPermission.AddChild(
+            //   BasicPermissions.Product.Update, L("Permission:Product.Update"));
+            //productsPermission.AddChild(
+            //   BasicPermissions.Product.Delete, L("Permission:Product.Delete"));
 
-            // 产品属性分类权限
+            //// 仓库管理权限
+            //var warehousePermission = basicGroup.AddPermission(
+            //        BasicPermissions.Warehouse.Default, L("Permission:Warehouse"));
+            //warehousePermission.AddChild(
+            //   BasicPermissions.Warehouse.Create, L("Permission:Warehouse.Create"));
+            //warehousePermission.AddChild(
+            //   BasicPermissions.Warehouse.Update, L("Permission:Warehouse.Update"));
+            //warehousePermission.AddChild(
+            //   BasicPermissions.Warehouse.Delete, L("Permission:Warehouse.Delete"));
 
-            var productAttributeTypesPermission = basicGroup.AddPermission(
-                    BasicPermissions.ProductAttributeType.Default, L("Permission:ProductAttributeTypes"));
-            productAttributeTypesPermission.AddChild(
-                  BasicPermissions.ProductAttributeType.Create, L("Permission:ProductAttributeTypes.Create"));
-            productAttributeTypesPermission.AddChild(
-                  BasicPermissions.ProductAttributeType.Update, L("Permission:ProductAttributeTypes.Update"));
-            productAttributeTypesPermission.AddChild(
-                  BasicPermissions.ProductAttributeType.Delete, L("Permission:ProductAttributeTypes.Delete"));
+            ////供应商管理权限
+            //var supplyPermission = basicGroup.AddPermission(
+            //        BasicPermissions.Supply.Default, L("Permission:Supply"));
+            //supplyPermission.AddChild(
+            //   BasicPermissions.Supply.Create, L("Permission:Supply.Create"));
+            //supplyPermission.AddChild(
+            //   BasicPermissions.Supply.Update, L("Permission:Supply.Update"));
+            //supplyPermission.AddChild(
+            //   BasicPermissions.Supply.Delete, L("Permission:Supply.Delete"));
 
+            ////店铺管理权限
+            //var storePermission = basicGroup.AddPermission(
+            //        BasicPermissions.Store.Default, L("Permission:Store"));
+            //storePermission.AddChild(
+            //   BasicPermissions.Store.Create, L("Permission:Store.Create"));
+            //storePermission.AddChild(
+            //   BasicPermissions.Store.Update, L("Permission:Store.Update"));
+            //storePermission.AddChild(
+            //   BasicPermissions.Store.Delete, L("Permission:Store.Delete"));
 
-            // 产品属性权限
-
-            var productAttributesPermission = basicGroup.AddPermission(
-                    BasicPermissions.ProductAttribute.Default, L("Permission:ProductAttributes"));
-            productAttributesPermission.AddChild(
-                  BasicPermissions.ProductAttribute.Create, L("Permission:ProductAttributes.Create"));
-            productAttributesPermission.AddChild(
-                  BasicPermissions.ProductAttribute.Update, L("Permission:ProductAttributes.Update"));
-            productAttributesPermission.AddChild(
-                  BasicPermissions.ProductAttribute.Delete, L("Permission:ProductAttributes.Delete"));
-
-            // 评论属性权限
-
-            var commentsPermission = basicGroup.AddPermission(
-                    BasicPermissions.Comment.Default, L("Permission:Comments"));
-            commentsPermission.AddChild(
-                  BasicPermissions.Comment.Create, L("Permission:Comments.Create"));
-            commentsPermission.AddChild(
-                  BasicPermissions.Comment.Update, L("Permission:Comments.Update"));
-            commentsPermission.AddChild(
-                  BasicPermissions.Comment.Delete, L("Permission:Comments.Delete"));
-
-            #endregion
-
-            #region 采购
-
-            var purchaseGroup = context.AddGroup(PurchasePermissions.GroupName, L("Permission:Purchase"));
-
-            // 采购单管理权限
-            var purchasePermission = purchaseGroup.AddPermission(
-                    PurchasePermissions.Purchase.Default, L("Permission:Purchase"));
-            purchasePermission.AddChild(
-               PurchasePermissions.Purchase.Create, L("Permission:Purchase.Create"));
-            purchasePermission.AddChild(
-               PurchasePermissions.Purchase.Update, L("Permission:CheckHeader.Update"));
-            purchasePermission.AddChild(
-               PurchasePermissions.Purchase.Delete, L("Permission:Purchase.Delete"));
-
-            // 采购退款单管理权限
-            var purchaseReturnPermission = purchaseGroup.AddPermission(
-                    PurchasePermissions.PurchaseReturn.Default, L("Permission:PurchaseReturn"));
-            purchaseReturnPermission.AddChild(
-               PurchasePermissions.PurchaseReturn.Create, L("Permission:PurchaseReturn.Create"));
-            purchaseReturnPermission.AddChild(
-               PurchasePermissions.PurchaseReturn.Update, L("Permission:PurchaseReturn.Update"));
-            purchaseReturnPermission.AddChild(
-               PurchasePermissions.PurchaseReturn.Delete, L("Permission:PurchaseReturn.Delete"));
-
-            #endregion
-
-            #region 订单
-            // 订单管理权限
-            var orderGroup = context.AddGroup(OrderPermissions.GroupName, L("Permission:Order"));
-
-            // 订单
-            var orderPermission = orderGroup.AddPermission(
-                    OrderPermissions.Order.Default, L("Permission:Order"));
-            orderPermission.AddChild(
-               OrderPermissions.Order.Create, L("Permission:Order.Create"));
-            orderPermission.AddChild(
-               OrderPermissions.Order.Update, L("Permission:Order.Update"));
-            orderPermission.AddChild(
-               OrderPermissions.Order.Delete, L("Permission:Order.Delete"));
-
-            // 退款
-            var orderReturnPermission = orderGroup.AddPermission(
-                    OrderPermissions.OrderReturn.Default, L("Permission:OrderReturn"));
-            orderReturnPermission.AddChild(
-               OrderPermissions.OrderReturn.Create, L("Permission:OrderReturn.Create"));
-            orderReturnPermission.AddChild(
-               OrderPermissions.OrderReturn.Update, L("Permission:OrderReturn.Update"));
-            orderReturnPermission.AddChild(
-               OrderPermissions.OrderReturn.Delete, L("Permission:OrderReturn.Delete"));
-
-            // 订单设置
-            var orderSettingPermission = orderGroup.AddPermission(
-                    OrderPermissions.OrderSetting.Default, L("Permission:OrderSetting"));
-            orderSettingPermission.AddChild(
-               OrderPermissions.OrderSetting.Create, L("Permission:OrderSetting.Create"));
-            orderSettingPermission.AddChild(
-               OrderPermissions.OrderSetting.Update, L("Permission:OrderSetting.Update"));
-            orderSettingPermission.AddChild(
-               OrderPermissions.OrderSetting.Delete, L("Permission:OrderSetting.Delete"));
-            #endregion
-
-            #region 仓库
-            // 仓储权限
-            var stockGroup = context.AddGroup(StockPermissions.GroupName, L("Permission:Inventory"));
+            //////SKU管理权限
+            ////var skuPermission = basicGroup.AddPermission(
+            ////        BasicPermissions.Sku.Default, L("Permission:Sku"));
+            ////skuPermission.AddChild(
+            ////   BasicPermissions.Sku.Create, L("Permission:Sku.Create"));
+            ////skuPermission.AddChild(
+            ////   BasicPermissions.Sku.Update, L("Permission:Sku.Update"));
+            ////skuPermission.AddChild(
+            ////   BasicPermissions.Sku.Delete, L("Permission:Sku.Delete"));
 
 
-            // 库存管理权限
-            var inventoryPermission = stockGroup.AddPermission(
-                    StockPermissions.Inventory.Default, L("Permission:Inventory"));
-            inventoryPermission.AddChild(
-               StockPermissions.Inventory.Create, L("Permission:Inventory.Create"));
-            inventoryPermission.AddChild(
-               StockPermissions.Inventory.Update, L("Permission:Inventory.Update"));
-            inventoryPermission.AddChild(
-               StockPermissions.Inventory.Delete, L("Permission:Inventory.Delete"));
+            //// 分类管理权限
+            //var categorysPermission = basicGroup.AddPermission(
+            //        BasicPermissions.Category.Default, L("Permission:Category"));
+            //categorysPermission.AddChild(
+            //     BasicPermissions.Category.Create, L("Permission:Category.Create"));
+            //categorysPermission.AddChild(
+            //     BasicPermissions.Category.Update, L("Permission:Category.Update"));
+            //categorysPermission.AddChild(
+            //     BasicPermissions.Category.Delete, L("Permission:Category.Delete"));
 
-            // 库存记录管理权限
-            var inventoryHistoryPermission = stockGroup.AddPermission(
-                    StockPermissions.InventoryHistory.Default, L("Permission:InventoryHistory"));
-            inventoryHistoryPermission.AddChild(
-               StockPermissions.InventoryHistory.Create, L("Permission:InventoryHistory.Create"));
-            inventoryHistoryPermission.AddChild(
-               StockPermissions.InventoryHistory.Update, L("Permission:InventoryHistory.Update"));
-            inventoryHistoryPermission.AddChild(
-               StockPermissions.InventoryHistory.Delete, L("Permission:InventoryHistory.Delete"));
+            //// 产品属性分类权限
 
-            // 盘点单管理权限
-            var checkHeaderPermission = stockGroup.AddPermission(
-                    StockPermissions.CheckHeader.Default, L("Permission:CheckHeader"));
-            checkHeaderPermission.AddChild(
-               StockPermissions.CheckHeader.Create, L("Permission:CheckHeader.Create"));
-            checkHeaderPermission.AddChild(
-               StockPermissions.CheckHeader.Update, L("Permission:CheckHeader.Update"));
-            checkHeaderPermission.AddChild(
-               StockPermissions.CheckHeader.Delete, L("Permission:CheckHeader.Delete"));
-
-            //// 盘点单明细管理权限
-            //var checkDetailPermission = stockGroup.AddPermission(
-            //        StockPermissions.CheckDetail.Default, L("Permission:CheckDetail"));
-            //checkDetailPermission.AddChild(
-            //   StockPermissions.CheckDetail.Create, L("Permission:CheckDetail.Create"));
-            //checkDetailPermission.AddChild(
-            //   StockPermissions.CheckDetail.Update, L("Permission:CheckDetail.Update"));
-            //checkDetailPermission.AddChild(
-            //   StockPermissions.CheckDetail.Delete, L("Permission:CheckDetail.Delete"));
+            //var productAttributeTypesPermission = basicGroup.AddPermission(
+            //        BasicPermissions.ProductAttributeType.Default, L("Permission:ProductAttributeTypes"));
+            //productAttributeTypesPermission.AddChild(
+            //      BasicPermissions.ProductAttributeType.Create, L("Permission:ProductAttributeTypes.Create"));
+            //productAttributeTypesPermission.AddChild(
+            //      BasicPermissions.ProductAttributeType.Update, L("Permission:ProductAttributeTypes.Update"));
+            //productAttributeTypesPermission.AddChild(
+            //      BasicPermissions.ProductAttributeType.Delete, L("Permission:ProductAttributeTypes.Delete"));
 
 
-            // 入库单管理权限
-            var receiptHeaderPermission = stockGroup.AddPermission(
-                    StockPermissions.ReceiptHeader.Default, L("Permission:ReceiptHeader"));
-            receiptHeaderPermission.AddChild(
-               StockPermissions.ReceiptHeader.Create, L("Permission:ReceiptHeader.Create"));
-            receiptHeaderPermission.AddChild(
-               StockPermissions.ReceiptHeader.Update, L("Permission:ReceiptHeader.Update"));
-            receiptHeaderPermission.AddChild(
-               StockPermissions.ReceiptHeader.Delete, L("Permission:ReceiptHeader.Delete"));
+            //// 产品属性权限
 
-            // 出库单管理权限
-            var shipmentHeaderPermission = stockGroup.AddPermission(
-                    StockPermissions.ShipmentHeader.Default, L("Permission:ShipmentHeader"));
-            shipmentHeaderPermission.AddChild(
-               StockPermissions.ShipmentHeader.Create, L("Permission:ShipmentHeader.Create"));
-            shipmentHeaderPermission.AddChild(
-               StockPermissions.ShipmentHeader.Update, L("Permission:ShipmentHeader.Update"));
-            shipmentHeaderPermission.AddChild(
-               StockPermissions.ShipmentHeader.Delete, L("Permission:ShipmentHeader.Delete"));
+            //var productAttributesPermission = basicGroup.AddPermission(
+            //        BasicPermissions.ProductAttribute.Default, L("Permission:ProductAttributes"));
+            //productAttributesPermission.AddChild(
+            //      BasicPermissions.ProductAttribute.Create, L("Permission:ProductAttributes.Create"));
+            //productAttributesPermission.AddChild(
+            //      BasicPermissions.ProductAttribute.Update, L("Permission:ProductAttributes.Update"));
+            //productAttributesPermission.AddChild(
+            //      BasicPermissions.ProductAttribute.Delete, L("Permission:ProductAttributes.Delete"));
 
-            // 调拨单管理权限
-            var transferHeaderPermission = stockGroup.AddPermission(
-                    StockPermissions.TransferHeader.Default, L("Permission:TransferHeader"));
-            transferHeaderPermission.AddChild(
-               StockPermissions.TransferHeader.Create, L("Permission:TransferHeader.Create"));
-            transferHeaderPermission.AddChild(
-               StockPermissions.TransferHeader.Update, L("Permission:TransferHeader.Update"));
-            transferHeaderPermission.AddChild(
-               StockPermissions.TransferHeader.Delete, L("Permission:TransferHeader.Delete"));
+            //// 评论属性权限
+
+            //var commentsPermission = basicGroup.AddPermission(
+            //        BasicPermissions.Comment.Default, L("Permission:Comments"));
+            //commentsPermission.AddChild(
+            //      BasicPermissions.Comment.Create, L("Permission:Comments.Create"));
+            //commentsPermission.AddChild(
+            //      BasicPermissions.Comment.Update, L("Permission:Comments.Update"));
+            //commentsPermission.AddChild(
+            //      BasicPermissions.Comment.Delete, L("Permission:Comments.Delete"));
+
+            //#endregion
+
+            //#region 采购
+
+            //var purchaseGroup = context.AddGroup(PurchasePermissions.GroupName, L("Permission:Purchase"));
+
+            //// 采购单管理权限
+            //var purchasePermission = purchaseGroup.AddPermission(
+            //        PurchasePermissions.Purchase.Default, L("Permission:Purchase"));
+            //purchasePermission.AddChild(
+            //   PurchasePermissions.Purchase.Create, L("Permission:Purchase.Create"));
+            //purchasePermission.AddChild(
+            //   PurchasePermissions.Purchase.Update, L("Permission:CheckHeader.Update"));
+            //purchasePermission.AddChild(
+            //   PurchasePermissions.Purchase.Delete, L("Permission:Purchase.Delete"));
+
+            //// 采购退款单管理权限
+            //var purchaseReturnPermission = purchaseGroup.AddPermission(
+            //        PurchasePermissions.PurchaseReturn.Default, L("Permission:PurchaseReturn"));
+            //purchaseReturnPermission.AddChild(
+            //   PurchasePermissions.PurchaseReturn.Create, L("Permission:PurchaseReturn.Create"));
+            //purchaseReturnPermission.AddChild(
+            //   PurchasePermissions.PurchaseReturn.Update, L("Permission:PurchaseReturn.Update"));
+            //purchaseReturnPermission.AddChild(
+            //   PurchasePermissions.PurchaseReturn.Delete, L("Permission:PurchaseReturn.Delete"));
+
+            //#endregion
+
+            //#region 订单
+            //// 订单管理权限
+            //var orderGroup = context.AddGroup(OrderPermissions.GroupName, L("Permission:Order"));
+
+            //// 订单
+            //var orderPermission = orderGroup.AddPermission(
+            //        OrderPermissions.Order.Default, L("Permission:Order"));
+            //orderPermission.AddChild(
+            //   OrderPermissions.Order.Create, L("Permission:Order.Create"));
+            //orderPermission.AddChild(
+            //   OrderPermissions.Order.Update, L("Permission:Order.Update"));
+            //orderPermission.AddChild(
+            //   OrderPermissions.Order.Delete, L("Permission:Order.Delete"));
+
+            //// 退款
+            //var orderReturnPermission = orderGroup.AddPermission(
+            //        OrderPermissions.OrderReturn.Default, L("Permission:OrderReturn"));
+            //orderReturnPermission.AddChild(
+            //   OrderPermissions.OrderReturn.Create, L("Permission:OrderReturn.Create"));
+            //orderReturnPermission.AddChild(
+            //   OrderPermissions.OrderReturn.Update, L("Permission:OrderReturn.Update"));
+            //orderReturnPermission.AddChild(
+            //   OrderPermissions.OrderReturn.Delete, L("Permission:OrderReturn.Delete"));
+
+            //// 订单设置
+            //var orderSettingPermission = orderGroup.AddPermission(
+            //        OrderPermissions.OrderSetting.Default, L("Permission:OrderSetting"));
+            //orderSettingPermission.AddChild(
+            //   OrderPermissions.OrderSetting.Create, L("Permission:OrderSetting.Create"));
+            //orderSettingPermission.AddChild(
+            //   OrderPermissions.OrderSetting.Update, L("Permission:OrderSetting.Update"));
+            //orderSettingPermission.AddChild(
+            //   OrderPermissions.OrderSetting.Delete, L("Permission:OrderSetting.Delete"));
+            //#endregion
+
+            //#region 仓库
+            //// 仓储权限
+            //var stockGroup = context.AddGroup(StockPermissions.GroupName, L("Permission:Inventory"));
 
 
-            // 拆套单管理权限
-            var reverseHeaderPermission = stockGroup.AddPermission(
-                    StockPermissions.ReverseHeader.Default, L("Permission:ReverseHeader"));
-            reverseHeaderPermission.AddChild(
-               StockPermissions.ReverseHeader.Create, L("Permission:ReverseHeader.Create"));
-            reverseHeaderPermission.AddChild(
-               StockPermissions.ReverseHeader.Update, L("Permission:ReverseHeader.Update"));
-            reverseHeaderPermission.AddChild(
-               StockPermissions.ReverseHeader.Delete, L("Permission:ReverseHeader.Delete"));
+            //// 库存管理权限
+            //var inventoryPermission = stockGroup.AddPermission(
+            //        StockPermissions.Inventory.Default, L("Permission:Inventory"));
+            //inventoryPermission.AddChild(
+            //   StockPermissions.Inventory.Create, L("Permission:Inventory.Create"));
+            //inventoryPermission.AddChild(
+            //   StockPermissions.Inventory.Update, L("Permission:Inventory.Update"));
+            //inventoryPermission.AddChild(
+            //   StockPermissions.Inventory.Delete, L("Permission:Inventory.Delete"));
+
+            //// 库存记录管理权限
+            //var inventoryHistoryPermission = stockGroup.AddPermission(
+            //        StockPermissions.InventoryHistory.Default, L("Permission:InventoryHistory"));
+            //inventoryHistoryPermission.AddChild(
+            //   StockPermissions.InventoryHistory.Create, L("Permission:InventoryHistory.Create"));
+            //inventoryHistoryPermission.AddChild(
+            //   StockPermissions.InventoryHistory.Update, L("Permission:InventoryHistory.Update"));
+            //inventoryHistoryPermission.AddChild(
+            //   StockPermissions.InventoryHistory.Delete, L("Permission:InventoryHistory.Delete"));
+
+            //// 盘点单管理权限
+            //var checkHeaderPermission = stockGroup.AddPermission(
+            //        StockPermissions.CheckHeader.Default, L("Permission:CheckHeader"));
+            //checkHeaderPermission.AddChild(
+            //   StockPermissions.CheckHeader.Create, L("Permission:CheckHeader.Create"));
+            //checkHeaderPermission.AddChild(
+            //   StockPermissions.CheckHeader.Update, L("Permission:CheckHeader.Update"));
+            //checkHeaderPermission.AddChild(
+            //   StockPermissions.CheckHeader.Delete, L("Permission:CheckHeader.Delete"));
+
+            ////// 盘点单明细管理权限
+            ////var checkDetailPermission = stockGroup.AddPermission(
+            ////        StockPermissions.CheckDetail.Default, L("Permission:CheckDetail"));
+            ////checkDetailPermission.AddChild(
+            ////   StockPermissions.CheckDetail.Create, L("Permission:CheckDetail.Create"));
+            ////checkDetailPermission.AddChild(
+            ////   StockPermissions.CheckDetail.Update, L("Permission:CheckDetail.Update"));
+            ////checkDetailPermission.AddChild(
+            ////   StockPermissions.CheckDetail.Delete, L("Permission:CheckDetail.Delete"));
 
 
-            #endregion
+            //// 入库单管理权限
+            //var receiptHeaderPermission = stockGroup.AddPermission(
+            //        StockPermissions.ReceiptHeader.Default, L("Permission:ReceiptHeader"));
+            //receiptHeaderPermission.AddChild(
+            //   StockPermissions.ReceiptHeader.Create, L("Permission:ReceiptHeader.Create"));
+            //receiptHeaderPermission.AddChild(
+            //   StockPermissions.ReceiptHeader.Update, L("Permission:ReceiptHeader.Update"));
+            //receiptHeaderPermission.AddChild(
+            //   StockPermissions.ReceiptHeader.Delete, L("Permission:ReceiptHeader.Delete"));
 
-            #region 营销
+            //// 出库单管理权限
+            //var shipmentHeaderPermission = stockGroup.AddPermission(
+            //        StockPermissions.ShipmentHeader.Default, L("Permission:ShipmentHeader"));
+            //shipmentHeaderPermission.AddChild(
+            //   StockPermissions.ShipmentHeader.Create, L("Permission:ShipmentHeader.Create"));
+            //shipmentHeaderPermission.AddChild(
+            //   StockPermissions.ShipmentHeader.Update, L("Permission:ShipmentHeader.Update"));
+            //shipmentHeaderPermission.AddChild(
+            //   StockPermissions.ShipmentHeader.Delete, L("Permission:ShipmentHeader.Delete"));
 
-            // 营销权限
-            var marketingGroup = context.AddGroup(MarketingPermissions.GroupName);
-
-
-            // 优惠券
-            var couponPermission = marketingGroup.AddPermission(
-                    MarketingPermissions.Coupon.Default, L("Permission:Coupon"));
-            couponPermission.AddChild(
-               MarketingPermissions.Coupon.Create, L("Permission:Coupon.Create"));
-            couponPermission.AddChild(
-               MarketingPermissions.Coupon.Update, L("Permission:Coupon.Update"));
-            couponPermission.AddChild(
-               MarketingPermissions.Coupon.Delete, L("Permission:Coupon.Delete"));
-
-            // 优惠券
-            var flashPromotionPermission = marketingGroup.AddPermission(
-                    MarketingPermissions.FlashPromotion.Default, L("Permission:FlashPromotion"));
-            flashPromotionPermission.AddChild(
-               MarketingPermissions.FlashPromotion.Create, L("Permission:Coupon.Create"));
-            flashPromotionPermission.AddChild(
-               MarketingPermissions.FlashPromotion.Update, L("Permission:Coupon.Update"));
-            flashPromotionPermission.AddChild(
-               MarketingPermissions.FlashPromotion.Delete, L("Permission:Coupon.Delete"));
+            //// 调拨单管理权限
+            //var transferHeaderPermission = stockGroup.AddPermission(
+            //        StockPermissions.TransferHeader.Default, L("Permission:TransferHeader"));
+            //transferHeaderPermission.AddChild(
+            //   StockPermissions.TransferHeader.Create, L("Permission:TransferHeader.Create"));
+            //transferHeaderPermission.AddChild(
+            //   StockPermissions.TransferHeader.Update, L("Permission:TransferHeader.Update"));
+            //transferHeaderPermission.AddChild(
+            //   StockPermissions.TransferHeader.Delete, L("Permission:TransferHeader.Delete"));
 
 
+            //// 拆套单管理权限
+            //var reverseHeaderPermission = stockGroup.AddPermission(
+            //        StockPermissions.ReverseHeader.Default, L("Permission:ReverseHeader"));
+            //reverseHeaderPermission.AddChild(
+            //   StockPermissions.ReverseHeader.Create, L("Permission:ReverseHeader.Create"));
+            //reverseHeaderPermission.AddChild(
+            //   StockPermissions.ReverseHeader.Update, L("Permission:ReverseHeader.Update"));
+            //reverseHeaderPermission.AddChild(
+            //   StockPermissions.ReverseHeader.Delete, L("Permission:ReverseHeader.Delete"));
 
-            #endregion
+
+            //#endregion
+
+            //#region 营销
+
+            //// 营销权限
+            //var marketingGroup = context.AddGroup(MarketingPermissions.GroupName);
+
+
+            //// 优惠券
+            //var couponPermission = marketingGroup.AddPermission(
+            //        MarketingPermissions.Coupon.Default, L("Permission:Coupon"));
+            //couponPermission.AddChild(
+            //   MarketingPermissions.Coupon.Create, L("Permission:Coupon.Create"));
+            //couponPermission.AddChild(
+            //   MarketingPermissions.Coupon.Update, L("Permission:Coupon.Update"));
+            //couponPermission.AddChild(
+            //   MarketingPermissions.Coupon.Delete, L("Permission:Coupon.Delete"));
+
+            //// 优惠券
+            //var flashPromotionPermission = marketingGroup.AddPermission(
+            //        MarketingPermissions.FlashPromotion.Default, L("Permission:FlashPromotion"));
+            //flashPromotionPermission.AddChild(
+            //   MarketingPermissions.FlashPromotion.Create, L("Permission:Coupon.Create"));
+            //flashPromotionPermission.AddChild(
+            //   MarketingPermissions.FlashPromotion.Update, L("Permission:Coupon.Update"));
+            //flashPromotionPermission.AddChild(
+            //   MarketingPermissions.FlashPromotion.Delete, L("Permission:Coupon.Delete"));
+
+
+
+            //#endregion
 
             #region 系统
             // 组织

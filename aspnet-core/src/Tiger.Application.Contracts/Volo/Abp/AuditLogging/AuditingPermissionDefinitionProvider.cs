@@ -22,7 +22,7 @@ namespace Tiger.Volo.Abp.AuditLogging
             //添加权限分组
             var auditLogGroup = context.AddGroup(
                 AuditLogPermissions.GroupName,
-                L("Permission:System"));
+                L("Permission:AuditLog"));
 
             // 添加权限
             var aduditLogPermission = auditLogGroup.AddPermission(

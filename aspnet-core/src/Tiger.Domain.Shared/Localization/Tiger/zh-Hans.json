@@ -13,6 +13,30 @@
     "Error": "错误",
     "ErrorMessage": "操作失败！",
 
+    "Permission:Update": "更新",
+    "Permission:Delete": "删除",
+    "Permission:Create": "创建",
+    "Permission:Audit": "审核",
+
+    "Permission:System": "系统管理",
+
+    "Permission:OrganitaionUnits": "组织管理",
+    "Permission:OrganitaionUnits.Edit": "编辑",
+    "Permission:OrganitaionUnits.Delete": "删除",
+    "Permission:OrganitaionUnits.Create": "添加",
+    "Permission:OrganitaionUnits.Audit": "审核",
+
+    //"Permission:AuditLog": "系统日志管理",
+    //"Permission:AuditLog.Update": "编辑",
+    //"Permission:AuditLog.Delete": "删除",
+    //"Permission:AuditLog.Create": "添加",
+    //"Permission:AuditLog.Audit": "审核",
+    //"Permission:AuditLog.Import": "导入",
+    //"Permission:AuditLog.Export": "导出",
+    //"Permission:AuditLog.Print": "打印",
+
+    "Permission:PermissionManagement": "权限管理",
+
 
 
 
@@ -30,185 +54,166 @@
 
 
 
-    "Permission:Product": "产品",
-    "Permission:Product.ManagePermissions": "产品管理",
-    "Permission:Product.Update": "编辑",
-    "Permission:Product.Delete": "删除",
-    "Permission:Product.Create": "添加",
-    "Permission:Product.Audit": "审核",
+    //"Permission:Product": "产品",
+    //"Permission:Product.ManagePermissions": "产品管理",
+    //"Permission:Product.Update": "编辑",
+    //"Permission:Product.Delete": "删除",
+    //"Permission:Product.Create": "添加",
+    //"Permission:Product.Audit": "审核",
 
-    "Permission:Warehouse": "仓库",
-    "Permission:Warehouse.ManagePermissions": "仓库管理",
-    "Permission:Warehouse.Update": "编辑",
-    "Permission:Warehouse.Delete": "删除",
-    "Permission:Warehouse.Create": "添加",
-    "Permission:Warehouse.Audit": "审核",
-
-
-
-    "Permission:Supply": "供应商",
-    "Permission:Supply.ManagePermissions": "仓库管理",
-    "Permission:Supply.Update": "编辑",
-    "Permission:Supply.Delete": "删除",
-    "Permission:Supply.Create": "添加",
-    "Permission:Supply.Audit": "审核",
-
-    "Permission:Store": "店铺",
-    "Permission:Store.ManagePermissions": "仓库管理",
-    "Permission:Store.Update": "编辑",
-    "Permission:Store.Delete": "删除",
-    "Permission:Store.Create": "添加",
-    "Permission:Store.Audit": "审核",
-
-    "Permission:Category": "分类",
-    "Permission:Category.ManagePermissions": "分类管理",
-    "Permission:Category.Update": "编辑",
-    "Permission:Category.Delete": "删除",
-    "Permission:Category.Create": "添加",
-    "Permission:Category.Audit": "审核",
-
-    "Permission:ProductAttributeTypes": "产品属性分类",
-    "Permission:ProductAttributeTypes.ManagePermissions": "产品属性分类管理",
-    "Permission:ProductAttributeTypes.Update": "编辑",
-    "Permission:ProductAttributeTypes.Delete": "删除",
-    "Permission:ProductAttributeTypes.Create": "添加",
-    "Permission:ProductAttributeTypes.Audit": "审核",
-
-    "Permission:ProductAttributes": "产品属性",
-    "Permission:ProductAttributes.ManagePermissions": "产品属性分类管理",
-    "Permission:ProductAttributes.Update": "编辑",
-    "Permission:ProductAttributes.Delete": "删除",
-    "Permission:ProductAttributes.Create": "添加",
-    "Permission:ProductAttributes.Audit": "审核",
-
-    "Permission:Comments": "产品评论",
-    "Permission:Comments.ManagePermissions": "产品评论管理",
-    "Permission:Comments.Update": "编辑",
-    "Permission:Comments.Delete": "删除",
-    "Permission:Comments.Create": "添加",
-    "Permission:Comments.Audit": "审核",
+    //"Permission:Warehouse": "仓库",
+    //"Permission:Warehouse.ManagePermissions": "仓库管理",
+    //"Permission:Warehouse.Update": "编辑",
+    //"Permission:Warehouse.Delete": "删除",
+    //"Permission:Warehouse.Create": "添加",
+    //"Permission:Warehouse.Audit": "审核",
 
 
 
+    //"Permission:Supply": "供应商",
+    //"Permission:Supply.ManagePermissions": "仓库管理",
+    //"Permission:Supply.Update": "编辑",
+    //"Permission:Supply.Delete": "删除",
+    //"Permission:Supply.Create": "添加",
+    //"Permission:Supply.Audit": "审核",
 
-    "Permission:Purchase": "采购单",
-    "Permission:Purchase.ManagePermissions": "采购单管理",
-    "Permission:Purchase.Update": "编辑",
-    "Permission:Purchase.Delete": "删除",
-    "Permission:Purchase.Create": "添加",
-    "Permission:Purchase.Audit": "审核",
+    //"Permission:Store": "店铺",
+    //"Permission:Store.ManagePermissions": "仓库管理",
+    //"Permission:Store.Update": "编辑",
+    //"Permission:Store.Delete": "删除",
+    //"Permission:Store.Create": "添加",
+    //"Permission:Store.Audit": "审核",
 
-    "Permission:PurchaseReturn": "采购退款单",
-    "Permission:PurchaseReturn.ManagePermissions": "采购退款单管理",
-    "Permission:PurchaseReturn.Update": "编辑",
-    "Permission:PurchaseReturn.Delete": "删除",
-    "Permission:PurchaseReturn.Create": "添加",
-    "Permission:PurchaseReturn.Audit": "审核",
+    //"Permission:Category": "分类",
+    //"Permission:Category.ManagePermissions": "分类管理",
+    //"Permission:Category.Update": "编辑",
+    //"Permission:Category.Delete": "删除",
+    //"Permission:Category.Create": "添加",
+    //"Permission:Category.Audit": "审核",
+
+    //"Permission:ProductAttributeTypes": "产品属性分类",
+    //"Permission:ProductAttributeTypes.ManagePermissions": "产品属性分类管理",
+    //"Permission:ProductAttributeTypes.Update": "编辑",
+    //"Permission:ProductAttributeTypes.Delete": "删除",
+    //"Permission:ProductAttributeTypes.Create": "添加",
+    //"Permission:ProductAttributeTypes.Audit": "审核",
+
+    //"Permission:ProductAttributes": "产品属性",
+    //"Permission:ProductAttributes.ManagePermissions": "产品属性分类管理",
+    //"Permission:ProductAttributes.Update": "编辑",
+    //"Permission:ProductAttributes.Delete": "删除",
+    //"Permission:ProductAttributes.Create": "添加",
+    //"Permission:ProductAttributes.Audit": "审核",
+
+    //"Permission:Comments": "产品评论",
+    //"Permission:Comments.ManagePermissions": "产品评论管理",
+    //"Permission:Comments.Update": "编辑",
+    //"Permission:Comments.Delete": "删除",
+    //"Permission:Comments.Create": "添加",
+    //"Permission:Comments.Audit": "审核",
 
 
 
 
-    "Permission:Order": "订单",
-    "Permission:Order.ManagePermissions": "订单管理",
-    "Permission:Order.Update": "编辑",
-    "Permission:Order.Delete": "删除",
-    "Permission:Order.Create": "添加",
-    "Permission:Order.Audit": "审核",
+    //"Permission:Purchase": "采购单",
+    //"Permission:Purchase.ManagePermissions": "采购单管理",
+    //"Permission:Purchase.Update": "编辑",
+    //"Permission:Purchase.Delete": "删除",
+    //"Permission:Purchase.Create": "添加",
+    //"Permission:Purchase.Audit": "审核",
 
-    "Permission:OrderReturn": "订单退款",
-    "Permission:OrderReturn.ManagePermissions": "订单退款管理",
-    "Permission:OrderReturn.Update": "编辑",
-    "Permission:OrderReturn.Delete": "删除",
-    "Permission:OrderReturn.Create": "添加",
-    "Permission:OrderReturn.Audit": "审核",
-
-
-    "Permission:OrderSetting": "订单设置",
-    "Permission:OrderSetting.ManagePermissions": "订单设置管理",
-    "Permission:OrderSetting.Update": "编辑",
-    "Permission:OrderSetting.Delete": "删除",
-    "Permission:OrderSetting.Create": "添加",
-    "Permission:OrderSetting.Audit": "审核",
+    //"Permission:PurchaseReturn": "采购退款单",
+    //"Permission:PurchaseReturn.ManagePermissions": "采购退款单管理",
+    //"Permission:PurchaseReturn.Update": "编辑",
+    //"Permission:PurchaseReturn.Delete": "删除",
+    //"Permission:PurchaseReturn.Create": "添加",
+    //"Permission:PurchaseReturn.Audit": "审核",
 
 
 
 
+    //"Permission:Order": "订单",
+    //"Permission:Order.ManagePermissions": "订单管理",
+    //"Permission:Order.Update": "编辑",
+    //"Permission:Order.Delete": "删除",
+    //"Permission:Order.Create": "添加",
+    //"Permission:Order.Audit": "审核",
+
+    //"Permission:OrderReturn": "订单退款",
+    //"Permission:OrderReturn.ManagePermissions": "订单退款管理",
+    //"Permission:OrderReturn.Update": "编辑",
+    //"Permission:OrderReturn.Delete": "删除",
+    //"Permission:OrderReturn.Create": "添加",
+    //"Permission:OrderReturn.Audit": "审核",
 
 
-    "Permission:Inventory": "库存",
-    "Permission:Inventory.ManagePermissions": "库存管理",
-    "Permission:Inventory.Update": "编辑",
-    "Permission:Inventory.Delete": "删除",
-    "Permission:Inventory.Create": "添加",
-    "Permission:Inventory.Audit": "审核",
-
-    "Permission:InventoryHistory": "出入库记录",
-    "Permission:InventoryHistory.ManagePermissions": "库存管理",
-    "Permission:InventoryHistory.Update": "编辑",
-    "Permission:InventoryHistory.Delete": "删除",
-    "Permission:InventoryHistory.Create": "添加",
-    "Permission:InventoryHistory.Audit": "审核",
-
-    "Permission:CheckHeader": "盘点单",
-    "Permission:CheckHeader.ManagePermissions": "盘点单管理",
-    "Permission:CheckHeader.Update": "编辑",
-    "Permission:CheckHeader.Delete": "删除",
-    "Permission:CheckHeader.Create": "添加",
-    "Permission:CheckHeader.Audit": "审核",
-
-    "Permission:ReceiptHeader": "入库单",
-    "Permission:ReceiptHeader.ManagePermissions": "入库单管理",
-    "Permission:ReceiptHeader.Update": "编辑",
-    "Permission:ReceiptHeader.Delete": "删除",
-    "Permission:ReceiptHeader.Create": "添加",
-    "Permission:ReceiptHeader.Audit": "审核",
-
-    "Permission:ShipmentHeader": "出库单",
-    "Permission:ShipmentHeader.ManagePermissions": "出库单管理",
-    "Permission:ShipmentHeader.Update": "编辑",
-    "Permission:ShipmentHeader.Delete": "删除",
-    "Permission:ShipmentHeader.Create": "添加",
-    "Permission:ShipmentHeader.Audit": "审核",
-
-    "Permission:TransferHeader": "调拨单",
-    "Permission:TransferHeader.ManagePermissions": "调拨单管理",
-    "Permission:TransferHeader.Update": "编辑",
-    "Permission:TransferHeader.Delete": "删除",
-    "Permission:TransferHeader.Create": "添加",
-    "Permission:TransferHeader.Audit": "审核",
-
-    "Permission:ReverseHeader": "拆套单",
-    "Permission:ReverseHeader.ManagePermissions": "拆套单管理",
-    "Permission:ReverseHeader.Update": "编辑",
-    "Permission:ReverseHeader.Delete": "删除",
-    "Permission:ReverseHeader.Create": "添加",
-    "Permission:ReverseHeader.Audit": "审核",
+    //"Permission:OrderSetting": "订单设置",
+    //"Permission:OrderSetting.ManagePermissions": "订单设置管理",
+    //"Permission:OrderSetting.Update": "编辑",
+    //"Permission:OrderSetting.Delete": "删除",
+    //"Permission:OrderSetting.Create": "添加",
+    //"Permission:OrderSetting.Audit": "审核",
 
 
 
 
 
 
-    "Permission:System": "系统管理",
+    //"Permission:Inventory": "库存",
+    //"Permission:Inventory.ManagePermissions": "库存管理",
+    //"Permission:Inventory.Update": "编辑",
+    //"Permission:Inventory.Delete": "删除",
+    //"Permission:Inventory.Create": "添加",
+    //"Permission:Inventory.Audit": "审核",
 
-    "Permission:OrganitaionUnits": "组织管理",
-    "Permission:OrganitaionUnits.Edit": "编辑",
-    "Permission:OrganitaionUnits.Delete": "删除",
-    "Permission:OrganitaionUnits.Create": "添加",
-    "Permission:OrganitaionUnits.Audit": "审核",
+    //"Permission:InventoryHistory": "出入库记录",
+    //"Permission:InventoryHistory.ManagePermissions": "库存管理",
+    //"Permission:InventoryHistory.Update": "编辑",
+    //"Permission:InventoryHistory.Delete": "删除",
+    //"Permission:InventoryHistory.Create": "添加",
+    //"Permission:InventoryHistory.Audit": "审核",
 
-    "Permission:AuditLog": "系统日志管理",
-    "Permission:AuditLog.Update": "编辑",
-    "Permission:AuditLog.Delete": "删除",
-    "Permission:AuditLog.Create": "添加",
-    "Permission:AuditLog.Audit": "审核",
-    "Permission:AuditLog.Import": "导入",
-    "Permission:AuditLog.Export": "导出",
-    "Permission:AuditLog.Print": "打印",
+    //"Permission:CheckHeader": "盘点单",
+    //"Permission:CheckHeader.ManagePermissions": "盘点单管理",
+    //"Permission:CheckHeader.Update": "编辑",
+    //"Permission:CheckHeader.Delete": "删除",
+    //"Permission:CheckHeader.Create": "添加",
+    //"Permission:CheckHeader.Audit": "审核",
 
-    "Permission:PermissionManagement": "权限管理",
-    "Permission:Create": "权限添加",
-    "Permission:Edit": "权限编辑",
-    "Permission:Delete": "权限删除"
+    //"Permission:ReceiptHeader": "入库单",
+    //"Permission:ReceiptHeader.ManagePermissions": "入库单管理",
+    //"Permission:ReceiptHeader.Update": "编辑",
+    //"Permission:ReceiptHeader.Delete": "删除",
+    //"Permission:ReceiptHeader.Create": "添加",
+    //"Permission:ReceiptHeader.Audit": "审核",
+
+    //"Permission:ShipmentHeader": "出库单",
+    //"Permission:ShipmentHeader.ManagePermissions": "出库单管理",
+    //"Permission:ShipmentHeader.Update": "编辑",
+    //"Permission:ShipmentHeader.Delete": "删除",
+    //"Permission:ShipmentHeader.Create": "添加",
+    //"Permission:ShipmentHeader.Audit": "审核",
+
+    //"Permission:TransferHeader": "调拨单",
+    //"Permission:TransferHeader.ManagePermissions": "调拨单管理",
+    //"Permission:TransferHeader.Update": "编辑",
+    //"Permission:TransferHeader.Delete": "删除",
+    //"Permission:TransferHeader.Create": "添加",
+    //"Permission:TransferHeader.Audit": "审核",
+
+    //"Permission:ReverseHeader": "拆套单",
+    //"Permission:ReverseHeader.ManagePermissions": "拆套单管理",
+    //"Permission:ReverseHeader.Update": "编辑",
+    //"Permission:ReverseHeader.Delete": "删除",
+    //"Permission:ReverseHeader.Create": "添加",
+    //"Permission:ReverseHeader.Audit": "审核"
+
+
+
+
+
+
+
+
   }
 }

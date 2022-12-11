@@ -1,7 +1,10 @@
 ﻿{
   "culture": "zh-Hans",
   "texts": {
+    "Permission:IdentityManagement": "Identity管理",
     "Permission:OrganizationUnitManagement": "组织机构管理",
+    "Permission:RoleManagement": "角色管理",
+    "Permission:UserManagement": "用户管理",
     "Permission:ResetPassword": "重置密码",
     "Permission:ManageRoles": "管理角色",
     "Permission:ManageUsers": "管理用户",
@@ -9,6 +12,12 @@
     "Permission:ManageOrganizationUnits": "管理组织机构",
     "Permission:IdentityClaimTypeManagement": "管理声明类型",
     "Permission:IdentitySecurityLogManagement": "管理安全日志",
+    "Permission:Create": "新增",
+    "Permission:Update": "更新",
+    "Permission:Edit": "更新",
+    "Permission:Clone": "克隆",
+    "Permission:Delete": "删除",
+    "Permission:ChangePermissions": "授权",
 
     "Search": "搜索",
     "Reset": "重置",

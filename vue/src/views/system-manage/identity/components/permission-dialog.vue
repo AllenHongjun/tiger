@@ -1,13 +1,18 @@
 <template>
 <!-- permissionsQuery.providerKey -->
 <el-dialog :title="
-      '用户授权'
+      '用户授权1'
     " :visible.sync="dialogPermissionFormVisible">
+    <!-- `checked` 为 true 或 false -->
+    <el-checkbox v-model="allPermissionChecked">授予所有权限</el-checkbox>
+    <el-divider></el-divider>
     <el-form label-position="top" style="min-height:500px;">
         <el-tabs tab-position="left">
             <el-tab-pane v-for="group in permissionData.groups" :key="group.name" :label="group.displayName">
+                <el-checkbox v-model="allPermissionChecked">全选</el-checkbox>
+                <el-divider></el-divider>
                 <el-form-item :label="group.displayName">
-                    <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox node-key="name" default-expand-all />
+                    <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox node-key="name" :default-expand-all="false" />
                 </el-form-item>
             </el-tab-pane>
         </el-tabs>
@@ -27,7 +32,7 @@
 import {
     getPermissions,
     updatePermissions
-} from '@/api/user'
+} from '@/api/system-manage/identity/permission'
 import {
     fetchAppConfig
 } from '@/utils/abp'
@@ -42,6 +47,7 @@ export default {
     },
     data() {
         return {
+            allPermissionChecked: false,
             permissionData: {
                 groups: []
             },
@@ -172,3 +178,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.el-form-item {
+    height: 450px;
+    overflow-y: scroll;
+}
+</style>
