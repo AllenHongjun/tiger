@@ -24,14 +24,15 @@ router.beforeEach(async(to, from, next) => {
   if (!abpConfig) {
     abpConfig = await store.dispatch('app/applicationConfiguration')
   }
-
+  // debugger;
   if (abpConfig.currentUser.isAuthenticated) {
+    
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
     } else {
-      const hasGetUserInfo = store.getters.name
+      const hasGetUserInfo = store.getters.userName
       if (hasGetUserInfo) {
         next()
       } else {

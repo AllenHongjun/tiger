@@ -151,7 +151,7 @@
 <script>
 import {
     getAuditLog
-} from '@/api/auditlogging/auditlog'
+} from '@/api/system-manage/auditing/auditlog'
 import clip from '@/utils/clipboard' // 引入复制组件
 export default {
     name: 'AuditLogDetails',

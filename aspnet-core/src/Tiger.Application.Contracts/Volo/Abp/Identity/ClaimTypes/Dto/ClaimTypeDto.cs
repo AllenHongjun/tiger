@@ -49,6 +49,12 @@ namespace Tiger.Volo.Abp.Identity.ClaimTypes.Dto
         /// </summary>
         public IdentityClaimValueType ValueType { get; set; }
 
-        public string ValueTypeAsString { get; set; }
+        public string ValueTypeAsString 
+        {
+            get
+            {
+                return ValueType.ToString();
+            } 
+        }
     }
 }

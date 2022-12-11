@@ -146,7 +146,7 @@ import {
   createOrganization,
   updateOrganization,
   deleteOrganization
-} from '@/api/identity/organization'
+} from '@/api/system-manage/identity/organization-unit'
 import { checkPermission } from '@/utils/abp'
 
 // const id = 1000
@@ -365,16 +365,16 @@ export default {
       children.splice(index, 1)
     },
 
-    renderContent(h, { node, data, store }) {
-      return (
-        <span class='custom-tree-node'>
-          <span>{node.label}</span>
-          <span>
-            <el-button size='mini' type='text' on-click={() => this.append(data)}>添加</el-button>
-            <el-button size='mini' type='text' on-click={() => this.remove(node, data)}>删除</el-button>
-          </span>
-        </span>)
-    }
+    // renderContent(h, { node, data, store }) {
+    //   return (
+    //     <span class='custom-tree-node'>
+    //       <span>{node.label}</span>
+    //       <span>
+    //         <el-button size='mini' type='text' on-click={() => this.append(data)}>添加</el-button>
+    //         <el-button size='mini' type='text' on-click={() => this.remove(node, data)}>删除</el-button>
+    //       </span>
+    //     </span>)
+    // }
   }
 }
 </script>

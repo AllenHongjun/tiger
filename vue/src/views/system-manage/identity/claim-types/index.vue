@@ -17,7 +17,7 @@
                 <span>{{ row.name }}</span>
             </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpIdentity[\'IdentityClaim:ValueType\']')" prop="valueType" sortable align="center">
+        <el-table-column :label="$t('AbpIdentity[\'IdentityClaim:ValueType\']')"  align="center">
             <template slot-scope="{ row }">
                 <span>{{ row.valueTypeAsString }}</span>
             </template>
@@ -105,7 +105,7 @@
 <script>
 import {
     getClaimTypes,
-    getClaimTypeById,
+    getClaimType,
     // getClaimTypesAll,
     createClaimType,
     updateClaimType,
@@ -236,11 +236,12 @@ export default {
 
         // 更新按钮点击
         handleUpdate(row) {
+            debugger
             this.temp = Object.assign({}, row) // copy obj
             this.dialogStatus = 'update'
             this.dialogFormVisible = true
 
-            getClaimTypeById(row.id).then(response => {
+            getClaimType(row.id).then(response => {
                 this.temp = response
             })
 
@@ -253,6 +254,7 @@ export default {
         updateData() {
             this.$refs['dataForm'].validate(valid => {
                 if (valid) {
+                    debugger;
                     updateClaimType(this.temp).then(() => {
                         this.handleFilter(false)
                         this.dialogFormVisible = false

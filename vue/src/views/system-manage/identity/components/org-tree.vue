@@ -10,7 +10,7 @@
 <script>
 import {
     getOrganizationsAllWithDetails
-} from '@/api/identity/organization'
+} from '@/api/system-manage/identity/organization-unit'
 import {
     Tree
 } from 'element-ui'

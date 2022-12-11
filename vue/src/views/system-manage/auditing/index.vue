@@ -160,7 +160,7 @@
 <script>
 import {
     getAuditLogs
-} from '@/api/auditlogging/auditlog'
+} from '@/api/system-manage/auditing/auditlog'
 import {
     pickerRangeWithHotKey
 } from '@/utils/picker'
