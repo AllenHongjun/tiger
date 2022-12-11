@@ -8,9 +8,9 @@
             <el-row style="margin-bottom: 20px">
                 <el-input v-model="listQuery.Filter" placeholder="关键词" style="width: 150px" class="filter-item" />
 
-                <el-button size="small" class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
+                <el-button  class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
 
-                <el-button type="primary" size="small" icon="el-icon-edit" @click="handleCreate">
+                <el-button type="primary"  icon="el-icon-edit" @click="handleCreate">
                     添加
                 </el-button>
                 <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">
@@ -39,10 +39,10 @@
                     </template>
                 </el-table-column>
                 <!-- <el-table-column label="是否静态" align="center" width="95">
-        <template slot-scope="scope">
-          {{ scope.row.isStatic == true? '是':'否' }}
-        </template>
-      </el-table-column> -->
+                        <template slot-scope="scope">
+                        {{ scope.row.isStatic == true? '是':'否' }}
+                        </template>
+                    </el-table-column> -->
 
                 <el-table-column align="center" label="操作" width="400">
                     <template slot-scope="scope">
@@ -106,18 +106,22 @@
 import {
     getRoleList,
     deleteRole,
-    getPermissions,
-    updatePermissions,
+    
     createRole,
     createRoleToOrg,
     updateRole
 } from '@/api/system-manage/identity/role'
+
+import {
+    getPermissions,
+    updatePermissions
+} from '@/api/system-manage/identity/permission'
+
 import {
     getOrgRoles
 } from '@/api/system-manage/identity/organization-unit'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import OrgTree from '../components/org-tree'
-
 
 export default {
     name: 'Role',
@@ -195,9 +199,7 @@ export default {
     methods: {
         fetchData() {
             this.listLoading = true
-            console.log(this.listQuery)
             getOrgRoles(this.listQuery).then((response) => {
-                console.log('response', response)
                 this.list = response.items
                 this.total = response.totalCount
                 this.listLoading = false
@@ -249,7 +251,6 @@ export default {
         },
         handleUpdate(row) {
             this.temp = Object.assign({}, row) // copy obj
-            console.log(this.temp)
             // this.temp.timestamp = new Date(this.temp.timestamp)
             this.dialogStatus = 'update'
             this.dialogRoleFormVisible = true
@@ -261,7 +262,6 @@ export default {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
                     const tempData = Object.assign({}, this.temp)
-                    // console.log(tempData)
                     // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
                     updateRole(tempData).then(() => {
                         const index = this.list.findIndex((v) => v.id === this.temp.id)
@@ -278,7 +278,6 @@ export default {
             })
         },
         deleteData(id) {
-            console.log('delete')
             deleteRole(id)
                 .then((response) => {
                     this.$message({
@@ -292,17 +291,12 @@ export default {
         },
         handlePermission(scope) {
             this.dialogVisible = true
-            // this.dialogPermissionFormVisible = true
-            // console.log(row)
-            // console.log(row.name)
             if (this.permissionsQuery.providerName === 'R') {
                 this.permissionsQuery.providerKey = scope.row.name
             } else if (this.permissionsQuery.providerName === 'U') {
                 this.permissionsQuery.providerKey = scope.row.id
             }
-            // console.log(this.permissionsQuery)
             getPermissions(this.permissionsQuery).then((response) => {
-                // console.log(response)
                 this.permissionData = response
 
                 for (const i in this.permissionData.groups) {
@@ -310,16 +304,12 @@ export default {
                     const group = this.permissionData.groups[i]
                     for (const j in group.permissions) {
                         if (group.permissions[j].isGranted) {
-                            console.log(group.permissions[j])
                             keys.push(group.permissions[j].name)
                         }
                     }
 
-                    // console.log(this.$refs['permissionTree'])
                     this.$nextTick(() => {
-                        // console.log(this.$refs)
-                        // console.log(this.$refs.permissionTree)
-                        // console.log(keys)
+
                         this.$refs.permissionTree[i].setCheckedKeys(keys)
                     })
                 }
@@ -365,6 +355,7 @@ export default {
             }
             return false
         },
+        // 更新权限
         updatePermissionData() {
             const tempData = []
             for (const i in this.permissionData.groups) {

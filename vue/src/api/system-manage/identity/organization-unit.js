@@ -54,6 +54,7 @@ export function getOrganizationsAll() {
   })
 }
 
+// 查询组织机构列表
 export function getOrganizations(query) {
   return request({
     url: '/api/identity/organizations',

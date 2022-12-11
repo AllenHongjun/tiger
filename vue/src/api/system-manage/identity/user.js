@@ -34,6 +34,13 @@ export function updateUser(id, payload) {
   })
 }
 
+export function deleteUser(id) {
+  return request({
+    url: `/api/identity/users/${id}`,
+    method: 'delete'
+  })
+}
+
 // 添加用户同时关联组织机构
 export function createUserToOrg(payload) {
   return request({
@@ -52,9 +59,27 @@ export function updateUserToOrg(payload) {
   })
 }
 
-export function deleteUser(id) {
+// 根据用户id获取关联的角色
+export function getRolesByUserId(id) {
   return request({
-    url: `/api/identity/users/${id}`,
-    method: 'delete'
+    url: `/api/identity/users/${id}/roles`,
+    method: 'get'
+  })
+}
+
+// 
+export function getAssignableRoles() {
+  return request({
+    url: '/api/identity/users/assignable-roles',
+    method: 'get'
+  })
+}
+
+// 根据用户id获取关联的组织机构
+export function getOrganizationsByUserId(id, includeDetails = false) {
+  return request({
+    url: `/api/identity/users/${id}/organizations`,
+    method: 'get',
+    params: includeDetails
   })
 }

@@ -41,71 +41,7 @@ export function getInfo() {
   })
 }
 
-// // user
-// export function getUserList(params) {
-//   return request({
-//     url: '/api/identity/users',
-//     method: 'get',
-//     params: transformAbpListQuery(params)
-//   })
-// }
 
-// export function getUser(id) {
-//   return request({
-//     url: `/api/identity/users/${id}`,
-//     method: 'get'
-//   })
-// }
-
-// export function createUser(payload) {
-//   return request({
-//     url: '/api/identity/users',
-//     method: 'post',
-//     data: payload
-//   })
-// }
-
-// export function updateUser(id, payload) {
-//   return request({
-//     url: `/api/identity/users/${id}`,
-//     method: 'put',
-//     data: payload
-//   })
-// }
-
-// // 添加用户同时关联组织机构
-// export function createUserToOrg(payload) {
-//   return request({
-//     url: '/api/identity/users/create-to-organizations',
-//     method: 'post',
-//     data: payload
-//   })
-// }
-
-// // 修改用户关联组织机构
-// export function updateUserToOrg(payload) {
-//   return request({
-//     url: `/api/identity/users/${payload.id}/update-to-organizations`,
-//     method: 'put',
-//     data: payload
-//   })
-// }
-
-// export function deleteUser(id) {
-//   return request({
-//     url: `/api/identity/users/${id}`,
-//     method: 'delete'
-//   })
-// }
-
-// // 通过用户id获取用户关联的组织
-// export function getOrganizationsByUserId(id, includeDetails = false) {
-//   return request({
-//     url: `/api/identity/users/${id}/organizations`,
-//     method: 'get',
-//     params: includeDetails
-//   })
-// }
 
 // profile 修改用户信息
 export function setUserInfo(data) {
@@ -124,69 +60,7 @@ export function changePassword(payload) {
   })
 }
 
-// // 获取用户所有可用的角色
-// export function getAssignableRoles() {
-//   return request({
-//     url: '/api/identity/users/assignable-roles',
-//     method: 'get'
-//   })
-// }
 
-// // 获取用户关联的角色
-// export function getUserRoles(id) {
-//   return request({
-//     url: `/api/identity/users/${id}/roles`,
-//     method: 'get'
-//   })
-// }
-
-// // role
-// export function getRoleList(params) {
-//   return request({
-//     url: '/api/identity/roles',
-//     method: 'get',
-//     params: transformAbpListQuery(params)
-//   })
-// }
-
-// export function getRole(id) {
-//   return request({
-//     url: `/api/identity/roles/${id}`,
-//     method: 'get'
-//   })
-// }
-
-// export function createRole(payload) {
-//   return request({
-//     url: '/api/identity/roles',
-//     method: 'post',
-//     data: payload
-//   })
-// }
-
-// export function updateRole(id, payload) {
-//   return request({
-//     url: `/api/identity/roles/${id}`,
-//     method: 'put',
-//     data: payload
-//   })
-// }
-
-// export function deleteRole(id) {
-//   return request({
-//     url: `/api/identity/roles/${id}`,
-//     method: 'delete'
-//   })
-// }
-
-// // audit_log
-// export function getAuditLogList(params) {
-//   return request({
-//     url: '/api/app/auditLog',
-//     method: 'get',
-//     params: transformAbpListQuery(params)
-//   })
-// }
 
 // permission
 export function getPermissions(query) {
@@ -206,42 +80,4 @@ export function updatePermissions(query, payload) {
   })
 }
 
-// // tenant
-// export function getTenantList(params) {
-//   return request({
-//     url: '/api/multi-tenancy/tenants',
-//     method: 'get',
-//     params: transformAbpListQuery(params)
-//   })
-// }
-
-// export function getTenant(id) {
-//   return request({
-//     url: `/api/multi-tenancy/tenants/${id}`,
-//     method: 'get'
-//   })
-// }
-
-// export function createTenant(payload) {
-//   return request({
-//     url: '/api/multi-tenancy/tenants',
-//     method: 'post',
-//     data: payload
-//   })
-// }
-
-// export function updateTenant(id, payload) {
-//   return request({
-//     url: `/api/multi-tenancy/tenants/${id}`,
-//     method: 'put',
-//     data: payload
-//   })
-// }
-
-// export function deleteTenant(id) {
-//   return request({
-//     url: `/api/multi-tenancy/tenants/${id}`,
-//     method: 'delete'
-//   })
-// }
 

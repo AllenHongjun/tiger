@@ -13,20 +13,21 @@
             <el-dropdown-menu slot="dropdown" class="user-dropdown">
                 <router-link to="/">
                     <el-dropdown-item>
-                        主页
+                        首页
                     </el-dropdown-item>
                 </router-link>
                 <router-link to="/profile/index">
                     <el-dropdown-item>
-                        个人中心
+                        我的账号
                     </el-dropdown-item>
                 </router-link>
-                <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-                    <el-dropdown-item>Github</el-dropdown-item>
-                </a>
-                <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-                    <el-dropdown-item>文档</el-dropdown-item>
-                </a>
+
+                <router-link to="/security-log/list">
+                    <el-dropdown-item>
+                        安全日志
+                    </el-dropdown-item>
+                </router-link>
+                
                 <el-dropdown-item divided @click.native="handelLogout">
                     <span style="display:block;">注 销</span>
                 </el-dropdown-item>

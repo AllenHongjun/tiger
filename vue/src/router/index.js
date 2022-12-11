@@ -96,14 +96,14 @@ export const constantRoutes = [
     children: [
       {
         path: '/tenant/list',
-        component: () => import('@/views/setting/saas/tenant/index'),
+        component: () => import('@/views/saas/tenant/index'),
         name: 'Tenant',
         meta: { title: '租户', policy: 'AbpTenantManagement.Tenants' }
       },
       {
-        path: '/version/list',
-        component: () => import('@/views/setting/saas/tenant/index'),
-        name: 'version',
+        path: '/edition/list',
+        component: () => import('@/views/saas/edition/index'),
+        name: 'edition',
         meta: { title: '版本', policy: 'AbpTenantManagement.Tenants' }
       }
     ]

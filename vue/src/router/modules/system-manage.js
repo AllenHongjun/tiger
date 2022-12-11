@@ -68,8 +68,8 @@ const SystemManageRouter = {
       }
     },
     {
-      path: 'system/list',
-      component: Layout,
+      path: 'setting/index',
+      component: () => import('@/views/system-manage/setting/index'), // Parent router-view
       name: 'system',
       meta: {
         title: '系统设置',

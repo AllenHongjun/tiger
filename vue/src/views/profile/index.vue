@@ -10,11 +10,13 @@
         <el-col :span="18" :xs="24">
           <el-card>
             <el-tabs v-model="activeTab">
-              <el-tab-pane label="修改密码" name="ChangePassword">
-                <changePassword />
-              </el-tab-pane>
+              
               <el-tab-pane label="管理个人资料" name="PersonalSettings">
                 <PersonalSettings :user="user" />
+              </el-tab-pane>
+
+              <el-tab-pane label="修改密码" name="ChangePassword">
+                <changePassword />
               </el-tab-pane>
             </el-tabs>
           </el-card>
@@ -37,7 +39,7 @@ export default {
   data() {
     return {
       user: {},
-      activeTab: 'ChangePassword'
+      activeTab: 'PersonalSettings'
     }
   },
   computed: {

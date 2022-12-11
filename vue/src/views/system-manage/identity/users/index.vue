@@ -139,9 +139,15 @@ import {
     deleteUser,
     getOrganizationsByUserId,
     getAssignableRoles,
+    getRolesByUserId,
     getUserRoles
-
 } from '@/api/system-manage/identity/user'
+
+import {
+    
+} from '@/api/system-manage/identity/role'
+
+
 // import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import {
@@ -288,7 +294,7 @@ export default {
             })
         },
         fetchGetUserRoles(id) {
-            getUserRoles(id).then((response) => {
+            getRolesByUserId(id).then((response) => {
                 var obj = response.items
                 console.log('obj', obj)
                 var tempArr = []
