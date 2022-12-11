@@ -7,7 +7,7 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import settingRouter from './modules/setting'
+import SystemManageRouter from './modules/system-manage'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -76,11 +76,36 @@ export const constantRoutes = [
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [{
       path: 'dashboard',
-      name: '首页',
+      name: '仪表盘',
       component: () => import('@/views/dashboard/index1'),
-      meta: { title: '首页' }
+      meta: { title: '仪表盘' }
     }
 
+    ]
+  },
+
+  {
+    path: 'sass',
+    component: Layout,
+    // component: () => import('@/views/setting/saas/tenant/index'), // Parent router-view
+    name: 'Saas',
+    meta: { 
+      title: 'Saas' ,
+      icon:'peoples'
+    },
+    children: [
+      {
+        path: '/tenant/list',
+        component: () => import('@/views/setting/saas/tenant/index'),
+        name: 'Tenant',
+        meta: { title: '租户', policy: 'AbpTenantManagement.Tenants' }
+      },
+      {
+        path: '/version/list',
+        component: () => import('@/views/setting/saas/tenant/index'),
+        name: 'version',
+        meta: { title: '版本', policy: 'AbpTenantManagement.Tenants' }
+      }
     ]
   },
 
@@ -723,7 +748,7 @@ export const asyncRoutes = [
   // tenantRouter,
   // dictionaryRouter,
   // auditlogRouter,
-  settingRouter,
+  SystemManageRouter,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -9,6 +9,7 @@ const state = {
   },
   device: 'desktop',
   language: getLanguage(),
+  abpConfig: null  // TODO: 添加读取这个配置会无法登录
 }
 
 const mutations = {

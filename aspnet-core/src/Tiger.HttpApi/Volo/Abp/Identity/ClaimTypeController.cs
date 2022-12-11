@@ -38,7 +38,16 @@ namespace Tiger.Volo.Abp.Identity
             return await _identityClaimTypeAppService.CreateAsync(input);
         }
 
+        /// <summary>
+        ///  删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 默认将id放到路由当中
+        /// </remarks>
         [HttpDelete]
+        [Route("{id}")]
         public async Task DeleteAsync(Guid id)
         {
              await _identityClaimTypeAppService.DeleteAsync(id);
@@ -70,7 +79,7 @@ namespace Tiger.Volo.Abp.Identity
         }
 
         [HttpPut]
-        [Route("id")]
+        [Route("{id}")]
         public async Task<ClaimTypeDto> UpdateAsync(Guid id, UpdateClaimTypeDto input)
         {
             return await _identityClaimTypeAppService.UpdateAsync(id, input);

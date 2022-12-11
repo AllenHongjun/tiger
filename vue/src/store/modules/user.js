@@ -2,14 +2,19 @@ import { login, logout, getInfo, setUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
+// IdentityServer客户端授权信息配置
 const clientSetting = {
   grant_type: 'password',
+  issuer: 'https://localhost:44367',
+  redirectUri: process.env.VUE_APP_BASE_API,
+  responseType: 'code',
   scope: 'Tiger',
   username: '',
   password: '',
-  client_id: 'Tiger_App',
-  client_secret: '1q2w3e*'
+  client_id: 'Tiger_App',  // 客户端id
+  client_secret: '1q2w3e*'   // 客户端secert
 }
+
 
 const getDefaultState = () => {
   return {
@@ -75,9 +80,6 @@ const actions = {
     clientSetting.password = password
     return new Promise((resolve, reject) => {
       login(clientSetting).then(response => {
-        console.log('login-response', response)
-        console.log('12312')
-        console.log('login-response.access_token', response.access_token)
         commit('SET_TOKEN', response.access_token)
         setToken(response.access_token)
         resolve()

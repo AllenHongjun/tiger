@@ -106,7 +106,6 @@ export function fetchAppConfig(providerKey, providerName) {
 // 检查权限配置
 export function checkPermission(policy) {
   const abpConfig = store.getters.abpConfig
-  return true
   if (abpConfig.auth.grantedPolicies[policy]) {
     return true
   } else {

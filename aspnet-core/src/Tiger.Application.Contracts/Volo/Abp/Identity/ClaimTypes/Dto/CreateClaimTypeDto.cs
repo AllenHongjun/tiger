@@ -9,6 +9,8 @@ namespace Tiger.Volo.Abp.Identity.ClaimTypes.Dto
 
         public bool Required { get; set; }
 
+        public bool IsStatic { get; set; }
+
         public string Regex { get; set; }
 
         public string RegexDescription { get; set; }

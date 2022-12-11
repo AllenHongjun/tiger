@@ -70,9 +70,9 @@
                         <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
                             刷新
                         </el-button>
-                        <el-button type="reset" icon="el-icon-download" @click="handleDownload">
+                        <!-- <el-button type="reset" icon="el-icon-download" @click="handleDownload">
                             导出
-                        </el-button>
+                        </el-button> -->
                     </el-button-group>
 
                 </el-col>

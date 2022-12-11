@@ -2,7 +2,7 @@
 
 namespace Tiger.Localization
 {
-    [LocalizationResourceName("Tiger")]
+    [LocalizationResourceName("TigerUi")]
     public class TigerResource
     {
 

@@ -63,7 +63,7 @@ namespace Tiger.Volo.Abp.Identity
                 GuidGenerator.Create(),
                 input.Name,
                 input.Required,
-                input.Required,
+                isStatic:false,
                 input.Regex,
                 input.RegexDescription,
                 input.Description,
@@ -127,7 +127,7 @@ namespace Tiger.Volo.Abp.Identity
             var claimTypeCount = await IdentityClaimTypeRepository.GetCountAsync(input.Filter);
 
             var claimTypes = await IdentityClaimTypeRepository.GetListAsync(
-                input.Sorting,input.MaxResultCount,input.SkipCount,input.Filter);
+                input.Sorting ?? "Id desc", input.MaxResultCount,input.SkipCount,input.Filter);
             return new PagedResultDto<ClaimTypeDto>(claimTypeCount,
                 ObjectMapper.Map<List<IdentityClaimType>, List<ClaimTypeDto>>(claimTypes));
 

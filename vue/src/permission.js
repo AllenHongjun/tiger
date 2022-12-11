@@ -12,29 +12,18 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login', '/register', '/reset_password'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
-  // debugger;
   // start progress bar
   NProgress.start()
-  // debugger
-
   // set page title
   document.title = getPageTitle(to.meta.title)
 
   // determine whether the user has logged in
-  const hasToken = getToken()
 
-  // next({ path: '/' })
-  // NProgress.done()
-  // return;
-
+  // 获取应用配置信息
   let abpConfig = store.getters.abpConfig
   if (!abpConfig) {
     abpConfig = await store.dispatch('app/applicationConfiguration')
   }
-  // store.dispatch('user/getInfo')
-
- 
-
 
   if (abpConfig.currentUser.isAuthenticated) {
     if (to.path === '/login') {
@@ -43,14 +32,10 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
-      // console.log('hasGetUserInfo')
-      // console.log(hasGetUserInfo)
       if (hasGetUserInfo) {
         next()
       } else {
         try {
-          // return;
-          // get user info
           await store.dispatch('user/getInfo')
 
           store.dispatch('user/setRoles', abpConfig.currentUser.roles)
@@ -63,13 +48,10 @@ router.beforeEach(async(to, from, next) => {
             grantedPolicies
           )
 
-          // console.log('accessRoutes',accessRoutes)
           // dynamically add accessible routes
 
-          // console.log('router_before',router)
           router.addRoutes(accessRoutes)
 
-          // console.log('router_after',router)
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
@@ -83,25 +65,13 @@ router.beforeEach(async(to, from, next) => {
       }
     }
   } else {
-    /* has no token*/
-    // console.log(router)
-    // return
-    // constantRoutes.forEach(function (item) {
-    //     if (item.path === to.path) {
-    //       next()
-    //     }
-    //     console.log(item);
-    // });
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
-      // console.log(to.path);
-      // return;
       next()
     } else {
       if (to.path === '/login') {
         next()
       }
-      // next({path: '/login'})
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
       NProgress.done()

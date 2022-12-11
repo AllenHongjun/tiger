@@ -1478,6 +1478,16 @@
             声明类型
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.ClaimTypeController.DeleteAsync(System.Guid)">
+            <summary>
+             删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <remarks>
+            默认将id放到路由当中
+            </remarks>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.ClaimTypeController.GetAllListAsync">
             <summary>
             获取所有声明类型
