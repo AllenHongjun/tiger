@@ -13,16 +13,7 @@
     </div>
 
     <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        <!-- <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column> -->
-        <!-- <el-table-column label="名称">
-        <template slot-scope="scope">
-          {{ scope.row.name }}
-        </template>
-      </el-table-column> -->
+        
         <el-table-column label="用户名" align="center" width="120">
             <template slot-scope="scope">
                 {{ scope.row.userName }}

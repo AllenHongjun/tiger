@@ -14,5 +14,6 @@ const getters = {
   language: state => state.app.language,
   abpConfig: state => state.app.abpConfig,
   permission_routes: state => state.permission.routes,
+  errorLogs: state => state.errorLog.logs
 }
 export default getters

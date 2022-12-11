@@ -28,6 +28,12 @@ const SystemManageRouter = {
           meta: { title: '组织机构', policy: 'AbpIdentity.Roles' }
         },
         {
+          path: 'organization-units/list-2',
+          component: () => import('@/views/system-manage/identity/organization-units/index-2'),
+          name: 'organization-units',
+          meta: { title: '组织机构2', policy: 'AbpIdentity.Roles' }
+        },
+        {
           path: 'role/list',
           component: () => import('@/views/system-manage/identity/roles/index'),
           name: 'role',
