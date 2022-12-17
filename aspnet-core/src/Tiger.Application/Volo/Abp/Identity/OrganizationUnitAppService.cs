@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Tiger.Books;
+using Tiger.Volo.Abp.Identity;
 using Tiger.Volo.Abp.Identity.OrganizationUnits;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Volo.Abp.Application.Dtos;
@@ -25,8 +27,13 @@ namespace Volo.Abp.Identity
         private readonly IDistributedCache<ListResultDto<OrganizationUnitDto>> _cacheList;
         private readonly IDistributedCache<PagedResultDto<OrganizationUnitDto>> _cachePage;
 
-        protected OrganizationUnitManager UnitManager { get; }
-        protected IOrganizationUnitRepository UnitRepository { get; }
+        protected OrganizationUnitManager OrganizationUnitManager { get; }
+        protected IdentityUserManager UserManager { get; }
+        protected IOrganizationUnitRepository OrganizationUnitRepository { get; }
+        protected ITigerIdentityRoleRepository RoleRepository { get; }
+        protected ITigerIdentityUserRepository UserRepository { get; }
+
+
         protected IIdentityUserAppService UserAppService { get; }
         protected IIdentityRoleAppService RoleAppService { get; }
 
@@ -37,11 +44,13 @@ namespace Volo.Abp.Identity
             IIdentityRoleAppService roleAppService,
             IDistributedCache<OrganizationUnitDto> cache,
             IDistributedCache<ListResultDto<OrganizationUnitDto>> cacheList,
-            IDistributedCache<PagedResultDto<OrganizationUnitDto>> cachePage
-            )
+            IDistributedCache<PagedResultDto<OrganizationUnitDto>> cachePage,
+            ITigerIdentityRoleRepository roleRepository,
+            ITigerIdentityUserRepository userRepository,
+            IdentityUserManager userManager)
         {
-            UnitManager = unitManager;
-            UnitRepository = unitRepository;
+            OrganizationUnitManager = unitManager;
+            OrganizationUnitRepository = unitRepository;
             UserAppService = userAppService;
             RoleAppService = roleAppService;
 
@@ -49,9 +58,26 @@ namespace Volo.Abp.Identity
             _cache = cache;
             _cacheList = cacheList;
             _cachePage = cachePage;
+            RoleRepository=roleRepository;
+            UserRepository=userRepository;
+            UserManager=userManager;
         }
 
         #region Utility
+        /// <summary>
+        /// 查询组织的子节点
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <param name="recursive"></param>
+        /// <returns></returns>
+        protected virtual async Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId, bool recursive = false)
+        {
+            var list = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await OrganizationUnitManager.FindChildrenAsync(parentId, recursive));
+            await SetLeaf(list);
+            return list;
+        }
+
+
         /// <summary>
         /// 将列表转换为组织树
         /// </summary>
@@ -87,7 +113,7 @@ namespace Volo.Abp.Identity
         {
             foreach (var item in list)
             {
-                if ((await UnitRepository.GetChildrenAsync(item.Id)).Count == 0)
+                if ((await OrganizationUnitRepository.GetChildrenAsync(item.Id)).Count == 0)
                 {
                     item.SetLeaf();
                 }
@@ -98,13 +124,13 @@ namespace Volo.Abp.Identity
         ///  获取根节点的组织列表
         /// </summary>
         /// <returns></returns>
-        public virtual async Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()
+        protected virtual async Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()
         {
             return await _cacheList.GetOrAddAsync(
                 Guid.NewGuid().ToString(), //Cache key
                 async () => {
 
-                    var root = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await UnitRepository.GetChildrenAsync(null));
+                    var root = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await OrganizationUnitRepository.GetChildrenAsync(null,includeDetails:false));
                     await SetLeaf(root);
                     return new PagedResultDto<OrganizationUnitDto>(
                         root.Count,
@@ -118,9 +144,10 @@ namespace Volo.Abp.Identity
             );
         }
 
+        
         #endregion
 
-        #region Basic
+        #region CRUD
 
         /// <summary>
         /// 获取组织列表
@@ -129,12 +156,40 @@ namespace Volo.Abp.Identity
         /// <returns></returns>
         public virtual async Task<PagedResultDto<OrganizationUnitDto>> GetListAsync(GetOrganizationUnitInput input)
         {
-            var count = await UnitRepository.GetCountAsync();
-            var list = await UnitRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount, includeDetails:false);
+            var count = await OrganizationUnitRepository.GetCountAsync();
+            var list = await OrganizationUnitRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount, includeDetails:false);
             return new PagedResultDto<OrganizationUnitDto>(
                 count,
                 ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(list)
             );
+        }
+
+        /// <summary>
+        /// 获取根节点
+        /// </summary>
+        /// <returns></returns>
+        public async virtual Task<ListResultDto<OrganizationUnitDto>> GetRootAsync()
+        {
+            var rootOrganizationUnits = await OrganizationUnitManager.FindChildrenAsync(null, recursive: false);
+
+            return new ListResultDto<OrganizationUnitDto>(
+                ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(rootOrganizationUnits));
+        }
+
+
+        /// <summary>
+        /// 查询所有组织单元(树结构)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public virtual async Task<ListResultDto<OrganizationUnitDto>> GetAllListAsync(GetAllOrgnizationUnitInput input)
+        {
+            var root = await GetRootListAsync();
+            foreach (var ouDto in root.Items)
+            {
+                await TraverseTreeAsync(ouDto, ouDto.Children);
+            }
+            return root;
         }
 
 
@@ -150,7 +205,7 @@ namespace Volo.Abp.Identity
                async () =>
                {
                    return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(
-                       await UnitRepository.GetAsync(id)
+                       await OrganizationUnitRepository.GetAsync(id)
                    );
                },
                () => new DistributedCacheEntryOptions
@@ -159,7 +214,46 @@ namespace Volo.Abp.Identity
                }
            );
         }
-        
+
+        /// <summary>
+        /// 获取单条组织明细(树形结构)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual async Task<OrganizationUnitDto> GetDetailsAsync(Guid id)
+        {
+            var ou = await OrganizationUnitRepository.GetAsync(id, includeDetails: true);
+            var ouDto = ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(ou);
+            await TraverseTreeAsync(ouDto, ouDto.Children);
+            return ouDto;
+        }
+
+        /// <summary>
+        /// 查询组织的子节点
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public virtual async Task<ListResultDto<OrganizationUnitDto>> FindChildrenAsync(GetOrganizationUnitChildrenDto input)
+        {
+            var organizationUnitChildren = await OrganizationUnitManager.FindChildrenAsync(input.Id, input.Recursive);
+
+            return new ListResultDto<OrganizationUnitDto>(
+                ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(organizationUnitChildren));
+        }
+
+        /// <summary>
+        /// 获取最后一个子节点
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public virtual async Task<OrganizationUnitDto> GetLastChildOrNullAsync(Guid? parentId)
+        {
+            var organizationUnitLastChild = await OrganizationUnitManager.GetLastChildOrNullAsync(parentId);
+
+            return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>
+                (organizationUnitLastChild);
+        }
+
 
 
         /// <summary>
@@ -181,7 +275,7 @@ namespace Volo.Abp.Identity
             );
             input.MapExtraPropertiesTo(ou);
 
-            await UnitManager.CreateAsync(ou);
+            await OrganizationUnitManager.CreateAsync(ou);
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(ou);
@@ -196,16 +290,34 @@ namespace Volo.Abp.Identity
         [Authorize(TigerIdentityPermissions.OrganizationUnits.Update)]
         public virtual async Task<OrganizationUnitDto> UpdateAsync(Guid id, OrganizationUnitUpdateDto input)
         {
-            var ou = await UnitRepository.GetAsync(id);
+            var ou = await OrganizationUnitRepository.GetAsync(id);
             ou.ConcurrencyStamp = input.ConcurrencyStamp;
             ou.DisplayName = input.DisplayName;
 
             input.MapExtraPropertiesTo(ou);
 
-            await UnitManager.UpdateAsync(ou);
+            await OrganizationUnitManager.UpdateAsync(ou);
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(ou);
+        }
+
+
+        /// <summary>
+        /// 移动组织树节点
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.Update)]
+        public async Task MoveAsync(Guid id, Guid? parentId)
+        {
+            var ou = await OrganizationUnitRepository.GetAsync(id);
+            if (ou == null)
+            {
+                return;
+            }
+            await OrganizationUnitManager.MoveAsync(id, parentId);
         }
 
         /// <summary>
@@ -221,128 +333,125 @@ namespace Volo.Abp.Identity
         [Authorize(TigerIdentityPermissions.OrganizationUnits.Delete)]
         public virtual async Task DeleteAsync(Guid id)
         {
-            var ou = await UnitRepository.GetAsync(id, false);
+            var ou = await OrganizationUnitRepository.GetAsync(id, false);
             if (ou == null)
             {
                 return;
             }
-            await UnitManager.DeleteAsync(id);
+            await OrganizationUnitManager.DeleteAsync(id);
         }
         #endregion
 
 
 
+        #region 组织关联角色
         /// <summary>
-        /// 查询所有组织单元(树结构)
+        /// 获取组织机构关联的角色
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="ouId"></param>
+        /// <param name="roleInput"></param>
         /// <returns></returns>
-        public virtual async Task<ListResultDto<OrganizationUnitDto>> GetAllListAsync(GetAllOrgnizationUnitInput input)
+        [Authorize(IdentityPermissions.Roles.Default)]
+        public virtual async Task<PagedResultDto<IdentityRoleDto>> GetRolesAsync(Guid? ouId, PagedAndSortedResultRequestDto roleInput)
         {
-            var root = await GetRootListAsync();
-            foreach (var ouDto in root.Items)
+            if (!ouId.HasValue)
             {
-                await TraverseTreeAsync(ouDto, ouDto.Children);
+                return await RoleAppService.GetListAsync(roleInput);
             }
-            return root;
-        }
+            IEnumerable<IdentityRole> list = new List<IdentityRole>();
+            var ou = await OrganizationUnitRepository.GetAsync(ouId.Value);
+            var selfAndChildren = await OrganizationUnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
+            selfAndChildren.Add(ou);
 
-
-        /// <summary>
-        /// 获取单条组织明细(树形结构)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public virtual async Task<OrganizationUnitDto> GetDetailsAsync(Guid id)
-        {
-            var ou = await UnitRepository.GetAsync(id, includeDetails: true);
-            var ouDto = ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(ou);
-            await TraverseTreeAsync(ouDto, ouDto.Children);
-            return ouDto;
-        }
-
-
-
-
-
-        #region  待重构
-
-
-        public virtual async Task<ListResultDto<OrganizationUnitDto>> GetAllListDetailsAsync(GetAllOrgnizationUnitInput input)
-        {
-            var root = await GetRootListAsync();
-            foreach (var ouDto in root.Items)
+            // Todo:减少查询数据库次数
+            foreach (var child in selfAndChildren)
             {
-                await TraverseTreeAsync(ouDto, ouDto.Children);
+                list = Enumerable.Union(list, await OrganizationUnitRepository.GetRolesAsync(
+                       child,
+                       roleInput.Sorting
+                ));
             }
-            return root;
-        }
-
-        public virtual async Task<PagedResultDto<OrganizationUnitDto>> GetListDetailsAsync(GetOrganizationUnitInput input)
-        {
-            var count = await UnitRepository.GetCountAsync();
-            var list = await UnitRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount);
-            var listDto = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(list);
-            foreach (var ouDto in listDto)
-            {
-                await TraverseTreeAsync(ouDto, ouDto.Children);
-            }
-            return new PagedResultDto<OrganizationUnitDto>(
-                count,
-                listDto
+            return new PagedResultDto<IdentityRoleDto>(
+                list.Count(),
+                ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(
+                    list.Skip(roleInput.SkipCount).Take(roleInput.MaxResultCount)
+                    .ToList()
+                )
             );
         }
 
-
-
         /// <summary>
-        /// 查询组织的子节点
+        /// 获取未关联组织的角色列表
         /// </summary>
-        /// <param name="parentId"></param>
-        /// <param name="recursive"></param>
+        /// <param name="id">组织机构id</param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        public virtual async Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId, bool recursive = false)
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageRoles)]
+        public async virtual Task<PagedResultDto<IdentityRoleDto>> GetUnaddedRolesAsync(Guid id, GetOrganizationUnitInput input)
         {
-            var list = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(await UnitManager.FindChildrenAsync(parentId, recursive));
-            await SetLeaf(list);
-            return list;
+            var organizationUnit = await OrganizationUnitRepository.GetAsync(id);
+
+            if (organizationUnit == null)
+            {
+                throw new UserFriendlyException("组织机构不存在");
+            }
+
+            var organizationUnitRolesCount = await OrganizationUnitRepository.GetUnaddedRolesCountAsync(organizationUnit, input.Filter);
+
+            var organizationUnitRoles = await OrganizationUnitRepository.GetUnaddedRolesAsync(organizationUnit, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
+
+            return new PagedResultDto<IdentityRoleDto>(organizationUnitRolesCount,
+                ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(organizationUnitRoles));
         }
 
 
-
-
-        /// <summary>
-        /// 获取下一个子节点的code
-        /// </summary>
-        /// <param name="parentId"></param>
-        /// <returns></returns>
-        public Task<string> GetNextChildCodeAsync(Guid? parentId)
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageRoles)]
+        public async virtual Task<ListResultDto<string>> GetRoleNamesAsync(Guid ouid)
         {
-            return UnitManager.GetNextChildCodeAsync(parentId);
+            var roleNames = await UserRepository.GetRoleNamesInOrganizationUnitAsync(ouid);
+
+            return new ListResultDto<string>(roleNames);
         }
 
 
         /// <summary>
-        /// 移动组织树节点
+        /// 组织机构关联多个角色
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="parentId"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        public async Task MoveAsync(Guid id, Guid? parentId)
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageRoles)]
+        public async virtual Task AddRolesAsync(Guid id, OrganizationUnitAddRolesDto input)
         {
-            var ou = await UnitRepository.GetAsync(id);
-            if (ou == null)
+            var organizationUnit = await OrganizationUnitRepository.GetAsync(id);
+
+            var roles = await RoleRepository.GetListByIdListAsync(input.RoleIds, includeDetails: true);
+
+            foreach (var role in roles)
             {
-                return;
+                await OrganizationUnitManager.AddRoleToOrganizationUnitAsync(role, organizationUnit);
             }
-            await UnitManager.MoveAsync(id, parentId);
+            // 不调用savechange 就不最终保存数据
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 从组织机构中移除角色
+        /// </summary>
+        /// <param name="id">组织id</param>
+        /// <param name="RoleId">角色id</param>
+        /// <returns></returns>
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageRoles)]
+        public async virtual Task RemoveRoleAsync(Guid id, Guid RoleId)
+        {
+            await OrganizationUnitManager.RemoveRoleFromOrganizationUnitAsync(id, RoleId);
+
+            await CurrentUnitOfWork.SaveChangesAsync();
         }
 
         #endregion
 
-
-
-
+        #region 组织关联用户
 
         /// <summary>
         /// 获取组织机构关联的用户
@@ -358,15 +467,15 @@ namespace Volo.Abp.Identity
                 return await UserAppService.GetListAsync(userInput);
             }
             IEnumerable<IdentityUser> list = new List<IdentityUser>();
-            var ou = await UnitRepository.GetAsync(ouId.Value);
-            var selfAndChildren = await UnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
+            var ou = await OrganizationUnitRepository.GetAsync(ouId.Value);
+            var selfAndChildren = await OrganizationUnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
             selfAndChildren.Add(ou);
             //Consider submitting PR to get its own overloading method containing all the members of the child node
             foreach (var child in selfAndChildren)
             {
                 // Find child nodes where users have duplicates (users can have multiple organizations)
                 //count += await UnitRepository.GetMembersCountAsync(child, usersInput.Filter);
-                list = Enumerable.Union(list, await UnitRepository.GetMembersAsync(
+                list = Enumerable.Union(list, await OrganizationUnitRepository.GetMembersAsync(
                        child,
                        userInput.Sorting,
                        //usersInput.MaxResultCount, // So let's think about looking up all the members of the subset
@@ -383,44 +492,125 @@ namespace Volo.Abp.Identity
             );
         }
 
-        
-        /// <summary>
-        /// 获取组织机构关联的角色
-        /// </summary>
-        /// <param name="ouId"></param>
-        /// <param name="roleInput"></param>
-        /// <returns></returns>
-        [Authorize(IdentityPermissions.Roles.Default)]
-        public virtual async Task<PagedResultDto<IdentityRoleDto>> GetRolesAsync(Guid? ouId, PagedAndSortedResultRequestDto roleInput)
-        {
-            if (!ouId.HasValue)
-            {
-                return await RoleAppService.GetListAsync(roleInput);
-            }
-            IEnumerable<IdentityRole> list = new List<IdentityRole>();
-            var ou = await UnitRepository.GetAsync(ouId.Value);
-            var selfAndChildren = await UnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
-            selfAndChildren.Add(ou);
 
-            // Todo:减少查询数据库次数
-            foreach (var child in selfAndChildren)
-            {
-                list = Enumerable.Union(list, await UnitRepository.GetRolesAsync(
-                       child,
-                       roleInput.Sorting
-                ));
-            }
-            return new PagedResultDto<IdentityRoleDto>(
-                list.Count(),
-                ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(
-                    list.Skip(roleInput.SkipCount).Take(roleInput.MaxResultCount)
-                    .ToList()
-                )
-            );
+        /// <summary>
+        /// 获取未关联组织的用户列表
+        /// </summary>
+        /// <param name="id">组织id</param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageUsers)]
+        public async virtual Task<PagedResultDto<IdentityUserDto>> GetUnaddedUsersAsync(Guid id, GetOrganizationUnitInput input)
+        {   
+            var organizationUnit = await OrganizationUnitRepository.GetAsync(id);
+
+            var organizationUnitUsersCount = await OrganizationUnitRepository
+                .GetUnaddedUsersCountAsync(organizationUnit, input.Filter);
+
+            var organizationUnitUsers = await OrganizationUnitRepository
+                .GetUnaddedUsersAsync(organizationUnit, input.Sorting, input.MaxResultCount,
+                input.SkipCount, input.Filter);
+
+            return new PagedResultDto<IdentityUserDto>(organizationUnitUsersCount,
+                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(organizationUnitUsers));
+
         }
 
 
+        /// <summary>
+        /// 组织关联多个用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageUsers)]
+        public async virtual Task AddUsersAsync(Guid id, OrganizationUnitAddUsersDto input)
+        {
+            var organizationUnit = await OrganizationUnitRepository.GetAsync(id);
+
+            var users = await UserRepository.GetListByIdListAsync(input.UserIds, includeDetails: true);
+
+            foreach (var user in users)
+            {
+                await UserManager.AddToOrganizationUnitAsync(user, organizationUnit);
+            }
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 移除组织关联的用户
+        /// </summary>
+        /// <param name="ouId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageUsers)]
+        public async virtual Task RemoveUserAsync(Guid ouId, Guid userId)
+        {
+
+            await UserManager.RemoveFromOrganizationUnitAsync(userId, ouId);
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+        #endregion
 
 
+
+
+
+
+
+
+
+
+
+        #region  待重构
+
+
+        //public virtual async Task<ListResultDto<OrganizationUnitDto>> GetAllListDetailsAsync(GetAllOrgnizationUnitInput input)
+        //{
+        //    var root = await GetRootListAsync();
+        //    foreach (var ouDto in root.Items)
+        //    {
+        //        await TraverseTreeAsync(ouDto, ouDto.Children);
+        //    }
+        //    return root;
+        //}
+
+        //public virtual async Task<PagedResultDto<OrganizationUnitDto>> GetListDetailsAsync(GetOrganizationUnitInput input)
+        //{
+        //    var count = await OrganizationUnitRepository.GetCountAsync();
+        //    var list = await OrganizationUnitRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount);
+        //    var listDto = ObjectMapper.Map<List<OrganizationUnit>, List<OrganizationUnitDto>>(list);
+        //    foreach (var ouDto in listDto)
+        //    {
+        //        await TraverseTreeAsync(ouDto, ouDto.Children);
+        //    }
+        //    return new PagedResultDto<OrganizationUnitDto>(
+        //        count,
+        //        listDto
+        //    );
+        //}
+
+
+
+        
+
+
+        /// <summary>
+        /// 获取下一个子节点的code
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public Task<string> GetNextChildCodeAsync(Guid? parentId)
+        {
+            return OrganizationUnitManager.GetNextChildCodeAsync(parentId);
+        }
+
+
+        
+
+        #endregion
     }
 }

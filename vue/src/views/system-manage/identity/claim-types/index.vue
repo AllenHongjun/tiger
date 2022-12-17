@@ -61,10 +61,7 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title="
-        dialogStatus == 'create'
-          ? $t('AbpIdentity[\'AddClaim\']')
-          : $t('AbpUi[\'Edit\']')
-      " :visible.sync="dialogFormVisible">
+        dialogStatus == 'create'? $t('AbpIdentity[\'AddClaim\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
         <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
             <el-form-item :label="$t('AbpIdentity[\'IdentityClaim:Name\']')" prop="name">
                 <el-input v-model="temp.name" />

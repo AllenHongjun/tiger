@@ -25,6 +25,7 @@
     "OrganizationUnit:Tree": "组织机构树",
     "OrganizationUnit:New": "新组织机构",
     "OrganizationUnit:Members": "机构成员",
+    "OrganizationUnit:Roles": "机构角色",
     "OrganizationUnit:AddRoot": "添加根机构",
     "OrganizationUnit:AddChildren": "添加子机构",
     "OrganizationUnit:AddMember": "添加成员",
@@ -141,6 +142,9 @@
     "Volo.Abp.Identity:020008": "你不能修改你的手机绑定信息!",
     "Volo.Abp.Identity:020009": "你不能修改你的邮件绑定信息!",
     "Volo.Abp.Identity:020010": "邮件地址已绑定!",
+
+
+
     "Volo.Abp.Identity:DuplicatePhoneNumber": "手机号 '{0}' 已存在.",
     "DisplayName:Abp.Identity.User.SmsNewUserRegister": "新用户注册模板",
     "Description:Abp.Identity.User.SmsNewUserRegister": "新用户通过手机注册账号验证码模板",
@@ -157,6 +161,8 @@
     "DisplayName:EmailVerifyCode": "邮件验证码",
     "DisplayName:WeChatCode": "微信登录凭证",
     "SendRepeatSmsVerifyCode": "手机验证码不能在 {0} 分钟内重复发送!",
+
+
     "LockTime": "锁定时间",
     "LockType": "锁定类型",
     "Confirmed": "已确认",

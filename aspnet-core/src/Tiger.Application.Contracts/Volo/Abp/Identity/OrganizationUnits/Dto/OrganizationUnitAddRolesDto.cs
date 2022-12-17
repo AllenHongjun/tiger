@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Identity.OrganizationUnits.Dto
-{
-    public class IdentityUserOrgCreateDto : IdentityUserCreateDto
+{   
+    /// <summary>
+    /// 组织机构关联多个角色
+    /// </summary>
+    public class OrganizationUnitAddRolesDto
     {
+
         [Required]
-        public List<Guid> OrgIds { get; set; }
+        public List<Guid> RoleIds { get; set; }
     }
 }

@@ -25,11 +25,11 @@ namespace Volo.Abp.Identity
     [ApiExplorerSettings(GroupName = "admin")]
     public class OrganizationUnitController : AbpController, IOrganizationUnitAppService
     {
-        protected IOrganizationUnitAppService UnitAppService { get; }
+        protected IOrganizationUnitAppService OrganizationUnitAppService { get; }
         private readonly IWebHostEnvironment _webHostEnvironment;
         public OrganizationUnitController(IOrganizationUnitAppService unitAppService, IWebHostEnvironment webHostEnvironment)
         {
-            UnitAppService = unitAppService;
+            OrganizationUnitAppService = unitAppService;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -43,7 +43,7 @@ namespace Volo.Abp.Identity
         [HttpPost]
         public virtual Task<OrganizationUnitDto> CreateAsync(OrganizationUnitCreateDto input)
         {
-            return UnitAppService.CreateAsync(input);
+            return OrganizationUnitAppService.CreateAsync(input);
         }
 
         /// <summary>
@@ -55,10 +55,8 @@ namespace Volo.Abp.Identity
         [Route("{id}")]
         public virtual Task DeleteAsync(Guid id)
         {
-            return UnitAppService.DeleteAsync(id);
+            return OrganizationUnitAppService.DeleteAsync(id);
         }
-
-        
 
         /// <summary>
         /// 获取明细
@@ -69,7 +67,7 @@ namespace Volo.Abp.Identity
         [Route("{id}")]
         public virtual Task<OrganizationUnitDto> GetAsync(Guid id)
         {
-            return UnitAppService.GetAsync(id);
+            return OrganizationUnitAppService.GetAsync(id);
         }
 
         /// <summary>
@@ -80,47 +78,7 @@ namespace Volo.Abp.Identity
         [HttpGet]
         public virtual Task<PagedResultDto<OrganizationUnitDto>> GetListAsync(GetOrganizationUnitInput input)
         {
-            return UnitAppService.GetListAsync(input);
-        }
-
-        /// <summary>
-        /// 修改组织
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("{id}")]
-        public virtual Task<OrganizationUnitDto> UpdateAsync(Guid id, OrganizationUnitUpdateDto input)
-        {
-            return UnitAppService.UpdateAsync(id, input);
-        }
-
-
-        /// <summary>
-        /// 获取组织机构关联的用户
-        /// </summary>
-        /// <param name="ouId"></param>
-        /// <param name="usersInput"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("users")]
-        public Task<PagedResultDto<IdentityUserDto>> GetUsersAsync(Guid? ouId, GetIdentityUsersInput usersInput)
-        {
-            return UnitAppService.GetUsersAsync(ouId, usersInput);
-        }
-
-        /// <summary>
-        /// 获取组织机构的角色
-        /// </summary>
-        /// <param name="ouId">组织id</param>
-        /// <param name="roleInput">角色</param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("roles")]
-        public Task<PagedResultDto<IdentityRoleDto>> GetRolesAsync(Guid? ouId, PagedAndSortedResultRequestDto roleInput)
-        {
-            return UnitAppService.GetRolesAsync(ouId, roleInput);
+            return OrganizationUnitAppService.GetListAsync(input);
         }
 
         /// <summary>
@@ -132,8 +90,143 @@ namespace Volo.Abp.Identity
         [Route("all-tree")]
         public virtual Task<ListResultDto<OrganizationUnitDto>> GetAllListAsync(GetAllOrgnizationUnitInput input)
         {
-            return UnitAppService.GetAllListAsync(input);
+            return OrganizationUnitAppService.GetAllListAsync(input);
         }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="input"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("details")]
+        //[RemoteService(false)]
+        //[Obsolete("可以合并一个接口")]
+        //public Task<PagedResultDto<OrganizationUnitDto>> GetListDetailsAsync(GetOrganizationUnitInput input)
+        //{
+        //    return OrganizationUnitAppService.GetListDetailsAsync(input);
+        //}
+
+        //[HttpGet]
+        //[Route("all/details")]
+        //[RemoteService(false)]
+        //[Obsolete("可以合并一个接口")]
+        //public Task<ListResultDto<OrganizationUnitDto>> GetAllListDetailsAsync(GetAllOrgnizationUnitInput input)
+        //{
+        //    return OrganizationUnitAppService.GetAllListDetailsAsync(input);
+        //}
+
+        ///// <summary>
+        ///// 根据父级id获取组织
+        ///// </summary>
+        ///// <param name="parentId"></param>
+        ///// <param name="recursive"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("children/{parentId}")]
+        //[RemoteService(false)]
+        //public Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId, bool recursive = false)
+        //{
+        //    return OrganizationUnitAppService.GetChildrenAsync(parentId, recursive);
+        //}
+
+        ///// <summary>
+        ///// 获取根组织
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("root-old")]
+        //[RemoteService(false)]
+        //[Obsolete("使用GetRootAsync替代")]
+        //public Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()
+        //{
+        //    return OrganizationUnitAppService.GetRootListAsync();
+        //}
+
+        /// <summary>
+        /// 获取根组织
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpGet]
+        [Route("root")]
+        public async Task<ListResultDto<OrganizationUnitDto>> GetRootAsync()
+        {
+            return await OrganizationUnitAppService.GetRootAsync();
+        }
+
+        /// <summary>
+        /// 获取子节点
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpGet]
+        [Route("find-children")]
+        public async Task<ListResultDto<OrganizationUnitDto>> FindChildrenAsync(GetOrganizationUnitChildrenDto input)
+        {
+            return await OrganizationUnitAppService.FindChildrenAsync(input);
+        }
+
+        /// <summary>
+        /// 获取最后的子节点
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpGet]
+        [Route("{parentId}/last-child")]
+        public async Task<OrganizationUnitDto> GetLastChildOrNullAsync(Guid? parentId)
+        {
+            return await OrganizationUnitAppService.GetLastChildOrNullAsync(parentId);
+        }
+
+
+        /// <summary>
+        /// 获取下一个子节点的组织编码
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{parentId}/next-code")]
+        [RemoteService(false)]
+        public Task<string> GetNextChildCodeAsync(Guid? parentId)
+        {
+            return OrganizationUnitAppService.GetNextChildCodeAsync(parentId);
+        }
+
+        
+
+        /// <summary>
+        /// 修改组织
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}")]
+        public virtual Task<OrganizationUnitDto> UpdateAsync(Guid id, OrganizationUnitUpdateDto input)
+        {
+            return OrganizationUnitAppService.UpdateAsync(id, input);
+        }
+
+        /// <summary>
+        /// 将组织移动到指定父节点
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/move")]
+        [RemoteService(false)]
+        public Task MoveAsync(Guid id, Guid? parentId)
+        {
+            return OrganizationUnitAppService.MoveAsync(id, parentId);
+        }
+
+        
+
+        
 
 
         /// <summary>
@@ -145,94 +238,136 @@ namespace Volo.Abp.Identity
         [Route("{id}/detail-tree")]
         public Task<OrganizationUnitDto> GetDetailsAsync(Guid id)
         {
-            return UnitAppService.GetDetailsAsync(id);
+            return OrganizationUnitAppService.GetDetailsAsync(id);
         }
 
 
 
+        
 
-
-        #region 待重构
         /// <summary>
-        /// 获取根组织
+        /// 获取组织机构关联的角色
         /// </summary>
+        /// <param name="ouId">组织id</param>
+        /// <param name="roleInput">角色</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("root")]
-        public Task<ListResultDto<OrganizationUnitDto>> GetRootListAsync()
+        [Route("roles")]
+        public Task<PagedResultDto<IdentityRoleDto>> GetRolesAsync(Guid? ouId, PagedAndSortedResultRequestDto roleInput)
         {
-            return UnitAppService.GetRootListAsync();
+            return OrganizationUnitAppService.GetRolesAsync(ouId, roleInput);
         }
 
 
-
-
-
         /// <summary>
-        /// 将组织移动到指定父节点
+        /// 获取未关联组织的角色
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="parentId"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("move")]
-        [RemoteService(false)]
-        public Task MoveAsync(Guid id, Guid? parentId)
-        {
-            return UnitAppService.MoveAsync(id, parentId);
-        }
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        [Route("details")]
-        [RemoteService(false)]
-        public Task<PagedResultDto<OrganizationUnitDto>> GetListDetailsAsync(GetOrganizationUnitInput input)
+        [Route("{ouid}/get-unadded-roles")]
+        public Task<PagedResultDto<IdentityRoleDto>> GetUnaddedRolesAsync(Guid id, GetOrganizationUnitInput input)
         {
-            return UnitAppService.GetListDetailsAsync(input);
-        }
-
-        [HttpGet]
-        [Route("all/details")]
-        [RemoteService(false)]
-        public Task<ListResultDto<OrganizationUnitDto>> GetAllListDetailsAsync(GetAllOrgnizationUnitInput input)
-        {
-            return UnitAppService.GetAllListDetailsAsync(input);
+            throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 根据父级id获取组织
+        /// 获取组织关联的角色名称
         /// </summary>
-        /// <param name="parentId"></param>
-        /// <param name="recursive"></param>
+        /// <param name="ouid"></param>
         /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        [Route("children/{parentId}")]
-        [RemoteService(false)]
-        public Task<List<OrganizationUnitDto>> GetChildrenAsync(Guid parentId, bool recursive = false)
+        [Route("{ouid}/role-names")]
+        public async Task<ListResultDto<string>> GetRoleNamesAsync(Guid ouid)
         {
-            return UnitAppService.GetChildrenAsync(parentId, recursive);
+            return await OrganizationUnitAppService.GetRoleNamesAsync(ouid);
+        }
+
+
+        /// <summary>
+        /// 添加组织关联的角色
+        /// </summary>
+        /// <param name="ouid"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("{ouid}/add-roles")]
+        public async Task AddRolesAsync(Guid ouid, OrganizationUnitAddRolesDto input)
+        {
+             await OrganizationUnitAppService.AddRolesAsync(ouid, input);
+        }
+
+        /// <summary>
+        /// 移除组织关联的角色
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="RoleId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{ouid}/remove-role")]
+        public async Task RemoveRoleAsync(Guid id, Guid RoleId)
+        {
+            await OrganizationUnitAppService.RemoveRoleAsync(id, RoleId);
         }
 
 
 
+
+        /// <summary>
+        /// 获取未关联组织的用户列表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        [Route("next-code")]
-        [RemoteService(false)]
-        public Task<string> GetNextChildCodeAsync(Guid? parentId)
+        [Route("{ouid}/unadded-users")]
+        public Task<PagedResultDto<IdentityUserDto>> GetUnaddedUsersAsync(Guid id, GetOrganizationUnitInput input)
         {
-            return UnitAppService.GetNextChildCodeAsync(parentId);
-        } 
-        #endregion
+            return OrganizationUnitAppService.GetUnaddedUsersAsync(id, input);
+        }
 
+        /// <summary>
+        /// 获取组织机构关联的用户
+        /// </summary>
+        /// <param name="ouId"></param>
+        /// <param name="usersInput"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("users")]
+        public Task<PagedResultDto<IdentityUserDto>> GetUsersAsync(Guid? ouId, GetIdentityUsersInput usersInput)
+        {
+            return OrganizationUnitAppService.GetUsersAsync(ouId, usersInput);
+        }
 
+        /// <summary>
+        /// 组织关联多个用户
+        /// </summary>
+        /// <param name="ouid"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("{ouid}/add-users")]
+        public async Task AddUsersAsync(Guid ouid, OrganizationUnitAddUsersDto input)
+        {
+            await OrganizationUnitAppService.AddUsersAsync(ouid, input);
+        }
 
-
+        /// <summary>
+        /// 移除组织关联的用户
+        /// </summary>
+        /// <param name="ouId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{ouid}/remove-users")]
+        public  async Task RemoveUserAsync(Guid ouId, Guid userId)
+        {
+            await OrganizationUnitAppService.RemoveUserAsync(ouId, userId);
+        }
 
         #region 文件上传测试
         /// <summary>
@@ -273,9 +408,9 @@ namespace Volo.Abp.Identity
             }
             var url = $@"\{uploadPath}\{newFileName}";
             return url;
-        } 
+        }
+
+
         #endregion
-
-
     }
 }

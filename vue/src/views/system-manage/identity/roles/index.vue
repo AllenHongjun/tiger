@@ -46,14 +46,14 @@
 
                 <el-table-column align="center" label="操作" width="400">
                     <template slot-scope="scope">
-                        <el-button type="primary"  icon="el-icon-edit" @click="handleUpdate(scope.row)">
+                        <el-button type="primary" icon="el-icon-edit" @click="handleUpdate(scope.row)">
                             编辑
                         </el-button>
                         &nbsp;&nbsp;
-                        <el-button type="primary"  @click="handlePermission(scope)">
+                        <el-button type="primary" @click="handlePermission(scope)">
                             授权
                         </el-button>
-                        <el-button type="danger"  icon="el-icon-delete" @click="deleteData(scope.row.id)">
+                        <el-button type="danger" icon="el-icon-delete" @click="deleteData(scope.row.id)">
                             删除
                         </el-button>
                     </template>
@@ -61,7 +61,7 @@
             </el-table>
             <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
-            <el-dialog :visible.sync="dialogVisible" title="角色授权" >
+            <el-dialog :visible.sync="dialogVisible" title="角色授权">
                 <el-checkbox v-model="allPermissionChecked">授予所有权限</el-checkbox>
                 <el-divider></el-divider>
                 <el-form label-width="80px" label-position="left">
@@ -71,15 +71,15 @@
                             <el-divider></el-divider> -->
                             <el-checkbox v-model="allPermissionChecked">全选</el-checkbox>
                             <el-divider></el-divider>
-                            <el-form-item :label="group.displayName">
+                            <el-form-item :label="group.displayName" class="permissionTree">
                                 <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox :check-strictly="false" node-key="name" :default-expand-all="false" />
                             </el-form-item>
                         </el-tab-pane>
                     </el-tabs>
                 </el-form>
                 <div style="text-align: right">
-                    <el-button  type="danger" @click="dialogVisible = false">取消</el-button>
-                    <el-button  type="primary" @click="updatePermissionData()">确认</el-button>
+                    <el-button type="danger" @click="dialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="updatePermissionData()">确认</el-button>
                 </div>
             </el-dialog>
 
@@ -176,7 +176,7 @@ export default {
                 label: 'label'
             },
             dialogPermissionFormVisible: false,
-            allPermissionChecked:false,
+            allPermissionChecked: false,
             permissionsQuery: {
                 providerKey: '',
                 providerName: 'R'
@@ -416,8 +416,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.el-form-item{
+.permissionTree {
     height: 450px;
     overflow-y: scroll;
 }

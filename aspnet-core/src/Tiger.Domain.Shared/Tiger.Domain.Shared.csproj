@@ -22,8 +22,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Localization\Tiger\*.json" />
     <Compile Remove="Module\**" />
+    <Compile Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
     <EmbeddedResource Remove="Module\**" />
+    <EmbeddedResource Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
     <None Remove="Module\**" />
+    <None Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Volo\Abp\Identity\Localization\TigerIdentityResource.cs" />
   </ItemGroup>
 
   <ItemGroup>

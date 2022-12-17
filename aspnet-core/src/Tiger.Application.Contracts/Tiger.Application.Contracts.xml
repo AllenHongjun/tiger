@@ -1943,9 +1943,34 @@
             排序
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityRoleOrgCreateDto">
+            <summary>
+            添加角色关联多个组织
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityUserOrgUpdateDto">
+            <summary>
+            添加用户关联多个组织
+            </summary>
+        </member>
         <member name="P:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityUserOrgUpdateDto.OrgIds">
             <summary>
             组织id列表
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitAddRolesDto">
+            <summary>
+            组织机构关联多个角色
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitAddUsersDto">
+            <summary>
+            组织机构关联多个用户
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitAddUsersDto.UserIds">
+            <summary>
+            用户id数组
             </summary>
         </member>
         <member name="P:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitCreateDto.ParentId">
@@ -1978,16 +2003,20 @@
             子组织
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetOrganizationUnitChildrenDto">
+            <summary>
+            组织单元获取子节点
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.OrganizationUnitMoveDto">
+            <summary>
+            组织机构拖拽移动
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.OrganizationUnits.IOrganizationUnitAppService">
             <summary>
             组织机构
             </summary>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.OrganizationUnits.IOrganizationUnitAppService.GetRootListAsync">
-            <summary>
-            获取根组织列表
-            </summary>
-            <returns></returns>
         </member>
         <member name="M:Tiger.Volo.Abp.Identity.OrganizationUnits.IOrganizationUnitAppService.GetDetailsAsync(System.Guid)">
             <summary>
@@ -2001,21 +2030,6 @@
             获取所有组织列表数据
             </summary>
             <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.OrganizationUnits.IOrganizationUnitAppService.GetAllListDetailsAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetAllOrgnizationUnitInput)">
-            <summary>
-            获取所有组织列表明细数据
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.OrganizationUnits.IOrganizationUnitAppService.GetChildrenAsync(System.Guid,System.Boolean)">
-            <summary>
-            获取子集组织
-            </summary>
-            <param name="parentId"></param>
-            <param name="recursive"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Volo.Abp.Identity.OrganizationUnits.IOrganizationUnitAppService.GetUsersAsync(System.Nullable{System.Guid},Volo.Abp.Identity.GetIdentityUsersInput)">
