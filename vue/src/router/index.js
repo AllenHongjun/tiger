@@ -74,12 +74,25 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/dashboard',
     // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [{
-      path: 'dashboard',
-      name: '仪表盘',
-      component: () => import('@/views/dashboard/index1'),
-      meta: { title: '仪表盘' }
-    }
+    children: [
+      {
+        path: 'dashboard',
+        name: '仪表盘',
+        component: () => import('@/views/dashboard/index1'),
+        meta: { title: '仪表盘' }
+      },
+      {
+        path: 'vue2.0',
+        name: 'vue学习',
+        component: () => import('@/views/vue2.0/index'),
+        meta: { title: 'vue学习' }
+      },
+      {
+        path: 'vue2.0/componet',
+        name: '组件',
+        component: () => import('@/views/vue2.0/component'),
+        meta: { title: '组件' }
+      }
 
     ]
   },
@@ -89,9 +102,9 @@ export const constantRoutes = [
     component: Layout,
     // component: () => import('@/views/setting/saas/tenant/index'), // Parent router-view
     name: 'Saas',
-    meta: { 
-      title: 'Saas' ,
-      icon:'peoples'
+    meta: {
+      title: 'Saas',
+      icon: 'peoples'
     },
     children: [
       {

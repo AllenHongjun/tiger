@@ -13,7 +13,7 @@
     </div>
 
     <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
-        
+
         <el-table-column label="用户名" align="center" width="120">
             <template slot-scope="scope">
                 {{ scope.row.userName }}
@@ -135,9 +135,8 @@ import {
 } from '@/api/system-manage/identity/user'
 
 import {
-    
-} from '@/api/system-manage/identity/role'
 
+} from '@/api/system-manage/identity/role'
 
 // import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
@@ -437,6 +436,7 @@ export default {
                             })
                         })
                         .catch((err) => {
+                            
                             console.log(err)
                         })
                 })
