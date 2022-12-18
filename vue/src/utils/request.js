@@ -4,6 +4,9 @@ import store from '@/store'
 // import { getToken } from '@/utils/auth'
 import { param as encodeParam } from '@/utils'
 
+//axios官网 https://axios-http.com/zh/
+
+
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_LOCAL, // url = base url + request url

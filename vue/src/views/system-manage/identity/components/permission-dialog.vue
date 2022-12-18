@@ -1,6 +1,8 @@
 <template>
 <!-- permissionsQuery.providerKey -->
-<el-dialog :title="'用户授权1'" :visible.sync="dialogPermissionFormVisible">
+<el-dialog :title="
+      '用户授权1'
+    " :visible.sync="dialogPermissionFormVisible">
     <!-- `checked` 为 true 或 false -->
     <el-checkbox v-model="allPermissionChecked">授予所有权限</el-checkbox>
     <el-divider></el-divider>

@@ -438,13 +438,13 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 从组织机构中移除角色
         /// </summary>
-        /// <param name="id">组织id</param>
-        /// <param name="RoleId">角色id</param>
+        /// <param name="ouid">组织id</param>
+        /// <param name="roleId">角色id</param>
         /// <returns></returns>
         [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageRoles)]
-        public async virtual Task RemoveRoleAsync(Guid id, Guid RoleId)
+        public async virtual Task RemoveRoleAsync(Guid ouid, Guid roleId)
         {
-            await OrganizationUnitManager.RemoveRoleFromOrganizationUnitAsync(id, RoleId);
+            await OrganizationUnitManager.RemoveRoleFromOrganizationUnitAsync(roleId, ouid);
 
             await CurrentUnitOfWork.SaveChangesAsync();
         }

@@ -1803,15 +1803,15 @@
             <summary>
             移除组织关联的角色
             </summary>
-            <param name="id"></param>
-            <param name="RoleId"></param>
+            <param name="ouid"></param>
+            <param name="roleId"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.OrganizationUnitController.GetUnaddedUsersAsync(System.Guid,Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.GetOrganizationUnitInput)">
             <summary>
             获取未关联组织的用户列表
             </summary>
-            <param name="id"></param>
+            <param name="ouid"></param>
             <param name="input"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>

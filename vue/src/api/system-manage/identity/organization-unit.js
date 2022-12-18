@@ -173,6 +173,7 @@ export function getRoleNames(id, query) {
   })
 }
 
+// 如果是服务端将参数当作Java对象来封装接收则 参数格式为： {data: param}
 export function AddRoles(id, payload) {
   return request({
     url: `/api/identity/organizations/${id}/add-roles`,
@@ -181,10 +182,12 @@ export function AddRoles(id, payload) {
   })
 }
 
-export function removeRole(id) {
+// 如果服务端将参数当做url 参数 params接收
+export function removeRole(id, payload) {
   return request({
     url: `/api/identity/organizations/${id}/remove-role`,
-    method: 'delete'
+    method: 'delete',
+    params: payload
   })
 }
 

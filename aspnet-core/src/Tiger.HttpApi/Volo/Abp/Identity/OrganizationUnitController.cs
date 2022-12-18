@@ -268,7 +268,7 @@ namespace Volo.Abp.Identity
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
         [Route("{ouid}/get-unadded-roles")]
-        public Task<PagedResultDto<IdentityRoleDto>> GetUnaddedRolesAsync(Guid id, GetOrganizationUnitInput input)
+        public Task<PagedResultDto<IdentityRoleDto>> GetUnaddedRolesAsync(Guid ouid, GetOrganizationUnitInput input)
         {
             throw new NotImplementedException();
         }
@@ -303,14 +303,14 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 移除组织关联的角色
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="RoleId"></param>
+        /// <param name="ouid"></param>
+        /// <param name="roleId"></param>
         /// <returns></returns>
         [HttpDelete]
         [Route("{ouid}/remove-role")]
-        public async Task RemoveRoleAsync(Guid id, Guid RoleId)
+        public async Task RemoveRoleAsync(Guid ouid, Guid roleId)
         {
-            await OrganizationUnitAppService.RemoveRoleAsync(id, RoleId);
+            await OrganizationUnitAppService.RemoveRoleAsync(ouid, roleId);
         }
 
 
@@ -319,15 +319,15 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 获取未关联组织的用户列表
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ouid"></param>
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
         [Route("{ouid}/unadded-users")]
-        public Task<PagedResultDto<IdentityUserDto>> GetUnaddedUsersAsync(Guid id, GetOrganizationUnitInput input)
+        public Task<PagedResultDto<IdentityUserDto>> GetUnaddedUsersAsync(Guid ouid, GetOrganizationUnitInput input)
         {
-            return OrganizationUnitAppService.GetUnaddedUsersAsync(id, input);
+            return OrganizationUnitAppService.GetUnaddedUsersAsync(ouid, input);
         }
 
         /// <summary>

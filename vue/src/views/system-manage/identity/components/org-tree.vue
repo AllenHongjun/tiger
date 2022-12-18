@@ -3,18 +3,18 @@
     <div class="filter-container">
         <el-input v-model="filterText" placeholder="查询组织" />
     </div>
-    <el-tree ref="orgTree" :data="orgTreeData" :props="orgTreeProps" :filter-node-method="filterOrg" :expand-on-click-node="false" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" node-key="id" highlight-current :default-expand-all="false" @node-click="handleOrgClick" @check-change="checkChange">
+    <el-tree ref="orgTree" :data="orgTreeData" :props="orgTreeProps" :filter-node-method="filterOrg" :expand-on-click-node="false" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" node-key="id" highlight-current :default-expand-all="true" @node-click="handleOrgClick" @check-change="checkChange">
         <span class="custom-tree-node" slot-scope="{ node, data }">
             <span>{{ node.label }}</span>
             <span>
                 <el-button type="text" @click="() => handleUpdate(data)">
-                    编辑
+                    {{ $t('AbpUi[\'Edit\']') }}
                 </el-button>
                 <el-button type="text" @click="() => handleCreate(data)">
                     创建子组织
                 </el-button>
                 <el-button type="text" @click="() => remove(node, data)">
-                    删除
+                    {{ $t('AbpUi[\'Delete\']') }}
                 </el-button>
             </span>
         </span>
@@ -23,7 +23,12 @@
     <el-dialog :title="
         dialogStatus == 'create'? $t('AbpIdentity[\'AddClaim\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
         <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-            <el-form-item :label="$t('AbpIdentity[\'OrganizationUnit:DisplayName\']')" prop="DisplayName">
+            <el-form-item v-if="currentParentName!==''" :label="$t('AbpIdentity[\'OrganizationUnit:ParentDisplayName\']')">
+                <el-input v-model="currentParentName" disabled />
+            </el-form-item>
+
+            <!-- Form 组件提供了表单验证的功能，只需要通过 rules 属性传入约定的验证规则，并将 Form-Item 的 prop 属性设置为需校验的字段名即可。校验规则参见 async-validator https://github.com/yiminghe/async-validator prop 字段的大小写需要保持一致 -->
+            <el-form-item :label="$t('AbpIdentity[\'OrganizationUnit:DisplayName\']')" prop="displayName">
                 <el-input v-model="temp.displayName" />
             </el-form-item>
 
@@ -32,7 +37,7 @@
             <el-button @click="dialogFormVisible = false">
                 {{ $t("AbpUi['Cancel']") }}
             </el-button>
-            <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">
+            <el-button type="primary" @click="dialogStatus === 'create' ||dialogStatus === 'createChild' ? createData() : updateData()">
                 {{ $t("AbpUi['Save']") }}
             </el-button>
         </div>
@@ -43,20 +48,11 @@
 <script>
 import {
     getOrganizationsRoot,
-    getOrganizationSingleWithDetails,
-    getOrganizationSingle,
-    getOrganizationsAll,
     getOrganizations,
-    getOrganizationChildren,
-    getOrgUsers,
-    getOrgRoles,
     createOrganization,
     updateOrganization,
     deleteOrganization,
-
     getOrganizationsAllTree,
-
-    getOrganizationsAllWithDetails
 } from '@/api/system-manage/identity/organization-unit'
 import {
     Tree
@@ -88,8 +84,9 @@ export default {
                 filter: undefined
             },
             filterText: '',
+            currentParentName: '',
             temp: {
-                id: undefined,
+                parentId: undefined,
                 displayName: '',
             },
             dialogFormVisible: false,
@@ -97,10 +94,10 @@ export default {
 
             // 表单验证规则
             rules: {
-                name: [{
+                displayName: [{
                         required: true,
                         message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [
-                            this.$i18n.t("AbpIdentity['IdentityClaim:Name']")
+                            this.$i18n.t("AbpIdentity['OrganizationUnit:DisplayName']")
                         ]),
                         trigger: 'blur'
                     },
@@ -109,7 +106,7 @@ export default {
                         max: 256,
                         message: this.$i18n.t(
                             "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
-                            [this.$i18n.t("AbpIdentity['IdentityClaim:Name']"), '256']
+                            [this.$i18n.t("AbpIdentity['OrganizationUnit:DisplayName']"), '256']
                         ),
                         trigger: 'blur'
                     }
@@ -129,53 +126,55 @@ export default {
     methods: {
         getOrgs() {
             getOrganizationsAllTree(this.treeQuery).then(response => {
-                // console.log('orgTreeData', response.items)
                 this.orgTreeData = response.items
             })
         },
-
-        // 重置表单
         resetTemp() {
             this.temp = {
-                id: undefined,
-                name: '',
-                required: false,
-                isStatic: false,
-                regex: '',
-                regexDescription: '',
-                description: '',
-                valueType: 0
+                parentId: undefined,
+                displayName: '',
             }
         },
-
         // 点击创建按钮
-
-        handleCreate(data) {
+        handleCreate(row) {
             this.resetTemp()
-            this.dialogStatus = 'create'
+            // row 存放当前点击节点的信息
+            if (!row.id) {
+                this.dialogStatus = 'create'
+                this.currentParentName = ''
+            } else {
+                this.dialogStatus = 'createChild'
+                this.temp.parentId = row.id
+                this.currentParentName = `${row.displayName}(${row.code})`
+            }
             this.dialogFormVisible = true
             this.$nextTick(() => {
                 this.$refs['dataForm'].clearValidate()
             })
-
-            return;
         },
 
         // 创建数据
         createData() {
             this.$refs['dataForm'].validate(valid => {
                 if (valid) {
+                   
                     createOrganization(this.temp).then((res) => {
-                        // TODO: bug添加更新组织 页面不会刷新
-                        const newChild = {
-                            id: res.id,
-                            label: res.displayName,
-                            children: res.children
-                        };
-                        if (!this.orgTreeData.children) {
-                            this.$set(this.orgTreeData, 'children', []);
-                        }
-                        this.orgTreeData.push(newChild);
+                        // TODO: 修改为前端添加节点数据刷新
+                        // debugger
+                        // this.$refs.orgTree
+                        // const newChild = {
+                        //     id: res.id,
+                        //     label: res.displayName,
+                        //     children: res.children
+                        // };
+                        // if (!this.orgTreeData.children) {
+                        //     this.$set(this.orgTreeData, 'children', []);
+                        // }
+                        // this.orgTreeData.push(newChild);
+
+                        this.handleRefresh();
+
+
                         this.dialogFormVisible = false
                         this.$notify({
                             title: this.$i18n.t("TigerUi['Success']"),
@@ -211,18 +210,9 @@ export default {
             this.$refs['dataForm'].validate(valid => {
                 if (valid) {
                     updateOrganization(this.currentId, this.temp).then((res) => {
-                        
-                        // 更新不能用这个
-                        // const newChild = {
-                        //     id: res.id,
-                        //     label: res.displayName,
-                        //     children: res.children
-                        // };
-                        // if (!this.orgTreeData.children) {
-                        //     this.$set(this.orgTreeData, 'children', []);
-                        // }
-                        // this.orgTreeData.children.push(newChild);
-
+                        // TODO:修改为前端添加节点刷新
+                        // 如果数据比较多 默认不展开全部 就无法看到效果
+                        this.handleRefresh();
                         this.dialogFormVisible = false
                         this.$notify({
                             title: this.$i18n.t("TigerUi['Success']"),
@@ -237,8 +227,8 @@ export default {
 
         remove(node, data) {
             this.$confirm(
-                this.$i18n.t("AbpIdentity['OUDeletionConfirmationMessage']", [
-                    node.displayName
+                this.$i18n.t("AbpIdentity['OrganizationUnit:WillDelete']", [
+                    data.displayName
                 ]),
                 this.$i18n.t("AbpIdentity['AreYouSure']"), {
                     confirmButtonText: this.$i18n.t("AbpIdentity['Yes']"),
@@ -261,7 +251,9 @@ export default {
                 })
             })
         },
-
+        handleRefresh() {
+            this.getOrgs()
+        },
         handleOrgClick(data) {
             this.orgTreeNodeClick(data)
         },
@@ -290,17 +282,6 @@ export default {
                 this.$emit('handleCheckChange', data, keys)
             }
         },
-
-        // renderContent(h, { node, data, store }) {
-        //   return (
-        //     <span class="custom-tree-node">
-        //       <span>{node.label}</span>
-        //       <span>
-        //         <el-button size="mini" type="text" on-click={ () => this.append(data) }>Append</el-button>
-        //         <el-button size="mini" type="text" on-click={ () => this.remove(node, data) }>Delete</el-button>
-        //       </span>
-        //     </span>);
-        //}
         handleDragStart(node, ev) {
             console.log('drag start', node);
         },

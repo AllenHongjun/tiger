@@ -40,3 +40,11 @@ export function getRoleList(params) {
       method: 'delete'
     })
   }
+
+  export function createRoleToOrg(payload) {
+    return request({
+      url: '/api/identity/roles/create-to-organization',
+      method: 'post',
+      data: payload
+    })
+  }
