@@ -68,6 +68,7 @@ const actions = {
           const language = response.localization.currentCulture.cultureName
           const values = response.localization.values
           setLocale(language, values)
+          
           resolve(response)
         })
         .catch(error => {

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Identity;
 
@@ -24,5 +26,6 @@ namespace Tiger.Volo.Abp.Identity.Roles
         /// <param name="input"></param>
         /// <returns></returns>
         Task<IdentityRoleDto> CreateAsync(IdentityRoleOrgCreateDto input);
+        Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input);
     }
 }

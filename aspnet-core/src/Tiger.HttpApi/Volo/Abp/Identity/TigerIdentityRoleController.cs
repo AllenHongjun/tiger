@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Roles;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Auditing;
 
@@ -46,6 +48,21 @@ namespace Volo.Abp.Identity
         public Task<IdentityRoleDto> CreateAsync(IdentityRoleOrgCreateDto input)
         {
             return RoleAppService.CreateAsync(input);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// TODO: 覆盖父类已经有的接口方法
+        /// </remarks>
+        [HttpGet]
+        [Route("roles")]
+        public Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
+        {   
+            return RoleAppService.GetListAsync(input);
         }
     }
 }

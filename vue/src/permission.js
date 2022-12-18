@@ -18,19 +18,17 @@ router.beforeEach(async(to, from, next) => {
   document.title = getPageTitle(to.meta.title)
 
   // determine whether the user has logged in
-
   // 获取应用配置信息
   let abpConfig = store.getters.abpConfig
   if (!abpConfig) {
     abpConfig = await store.dispatch('app/applicationConfiguration')
   }
-  // debugger;
+  // debugger
   if (abpConfig.currentUser.isAuthenticated) {
-    
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
-      NProgress.done()
+      NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939
     } else {
       const hasGetUserInfo = store.getters.userName
       if (hasGetUserInfo) {
@@ -42,7 +40,7 @@ router.beforeEach(async(to, from, next) => {
           store.dispatch('user/setRoles', abpConfig.currentUser.roles)
 
           const grantedPolicies = abpConfig.auth.grantedPolicies
-          // console.log('grantedPolicies',grantedPolicies)
+
           // generate accessible routes map based on grantedPolicies
           const accessRoutes = await store.dispatch(
             'permission/generateRoutes',
@@ -50,7 +48,6 @@ router.beforeEach(async(to, from, next) => {
           )
 
           // dynamically add accessible routes
-
           router.addRoutes(accessRoutes)
 
           // hack method to ensure that addRoutes is complete
@@ -70,9 +67,6 @@ router.beforeEach(async(to, from, next) => {
       // in the free login whitelist, go directly
       next()
     } else {
-      if (to.path === '/login') {
-        next()
-      }
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
       NProgress.done()

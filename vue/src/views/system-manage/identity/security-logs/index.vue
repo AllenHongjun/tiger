@@ -98,7 +98,7 @@
                     <span>{{ row.clientIpAddress | empty }}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('AbpIdentity[\'BrowserInfo\']')" prop="browserInfo" align="center">
+            <el-table-column :label="$t('AbpIdentity[\'BrowserInfo\']')" prop="browserInfo" align="center" :show-overflow-tooltip="true">
                 <template slot-scope="{ row }">
                     <span>{{ row.browserInfo | empty }}</span>
                 </template>
@@ -128,7 +128,7 @@
                     <span>{{ row.clientId | empty }}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('AbpIdentity[\'CorrelationId\']')" prop="correlationId" align="center" width="120" sortable="custom">
+            <el-table-column :label="$t('AbpIdentity[\'CorrelationId\']')" prop="correlationId" align="center" width="120" sortable="custom" :show-overflow-tooltip="true">
                 <template slot-scope="{ row }">
                     <span>{{ row.correlationId | empty }}</span>
                 </template>

@@ -1862,5 +1862,15 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.GetListAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <remarks>
+            TODO: 覆盖父类已经有的接口方法
+            </remarks>
+        </member>
     </members>
 </doc>

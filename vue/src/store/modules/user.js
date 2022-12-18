@@ -80,9 +80,11 @@ const actions = {
     clientSetting.password = password
     return new Promise((resolve, reject) => {
       login(clientSetting).then(response => {
+        
         commit('SET_TOKEN', response.access_token)
-        setToken(response.access_token)
-        resolve()
+        setToken(response.access_token).then(() => {
+          resolve()
+        })
       }).catch(error => {
         reject(error)
       })
@@ -133,11 +135,16 @@ const actions = {
   // user logout
   logout({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
+      logout().then(() => {
+        // 必须token移除之后再来重置路由
         commit('CLEAN')
-        resolve()
+        removeToken().then(() => {
+          resetRouter()
+          // reset visited views and cached views
+          // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
+          dispatch('tagsView/delAllViews', null, { root: true })
+          resolve()
+        })
       }).catch(error => {
         reject(error)
       })

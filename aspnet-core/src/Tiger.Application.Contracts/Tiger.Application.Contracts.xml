@@ -1888,6 +1888,11 @@
             查询字符
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput.Filter">
+            <summary>
+            查询字符
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.ClaimTypes.IIdentityClaimTypeAppService">
             <summary>
             用户声明类型管理

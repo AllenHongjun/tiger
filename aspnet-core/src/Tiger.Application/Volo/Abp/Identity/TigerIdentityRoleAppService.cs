@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Roles;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
 
@@ -21,16 +23,35 @@ namespace Tiger.Volo.Abp.Identity
     {
         //private IStringLocalizer<HelloAbpResource> _localizer;
         protected OrganizationUnitManager _orgManager { get; }
+
+        protected ITigerIdentityRoleRepository TigerRoleRepository { get; }
         private readonly IdentityRoleManager _roleManager;
         public TigerIdentityRoleAppService(IdentityRoleManager roleManager,
             IIdentityRoleRepository roleRepository,
             //IStringLocalizer<HelloAbpResource> localizer,
-            OrganizationUnitManager orgManager) : base(roleManager, roleRepository)
+            OrganizationUnitManager orgManager,
+            ITigerIdentityRoleRepository tigerRoleRepository) : base(roleManager, roleRepository)
         {
             //_localizer = localizer;
             _orgManager = orgManager;
             _roleManager = roleManager;
+            TigerRoleRepository=tigerRoleRepository;
         }
+
+
+        [Authorize(IdentityPermissions.Roles.Default)]
+        public async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
+        {
+            var roleCount = await TigerRoleRepository.GetCountAsync(input.Filter);
+
+            var roles = await TigerRoleRepository.GetListAsync(
+                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter);
+            return new PagedResultDto<IdentityRoleDto>(roleCount,
+                ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(roles));
+
+        }
+
+
 
         /// <summary>
         /// 角色关联组织(一个角色之关联一个组织)

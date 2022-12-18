@@ -8,7 +8,7 @@ const SystemManageRouter = {
   meta: {
     title: '管理',
     icon: 'el-icon-setting',
-    policy: 'AbpIdentity.Users'
+    policy: ''
   },
   children: [
     {
@@ -18,14 +18,18 @@ const SystemManageRouter = {
       redirect: '/user/list',
       meta: {
         title: '身份认证',
-        icon: 'el-icon-user-solid'
+        icon: 'el-icon-user-solid',
+        policy: ''
       },
       children: [
         {
           path: 'organization-units/list',
           component: () => import('@/views/system-manage/identity/organization-units/index'),
           name: 'organization-units',
-          meta: { title: '组织机构', policy: 'AbpIdentity.Roles' }
+          meta: { 
+            title: '组织机构', 
+            policy: 'AbpIdentity.OrganizationUnits' 
+          }
         },
         {
           path: 'role/list',
@@ -43,14 +47,14 @@ const SystemManageRouter = {
           path: '/claim-type/list',
           component: () => import('@/views/system-manage/identity/claim-types/index'),
           name: 'claim-type',
-          meta: { title: '声明类型', policy: 'AbpIdentity.Users' }
+          meta: { title: '声明类型', policy: 'AbpIdentity.IdentityClaimTypes' }
         },
 
         {
           path: '/security-log/list',
           component: () => import('@/views/system-manage/identity/security-logs/index'),
           name: 'security-log',
-          meta: { title: '安全日志', }
+          meta: { title: '安全日志',  policy: 'AbpIdentity.IdentitySecurityLogs' }
         }
       ]
 
@@ -60,11 +64,10 @@ const SystemManageRouter = {
       component: () => import('@/views/system-manage/auditing/index'), // Parent router-view
       name: 'audit-log-list',
       meta: {
-        // roles: ['admin','editor'],    //control the page roles (you can set multiple roles)
-        title: '审计日志',               //the name show in sidebar and breadcrumb (recommend set)
+        title: '请求日志',               //the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document', //the icon show in the sidebar
-        // breadcrumb: false,            //if set false, the item will hidden in breadcrumb(default is true)
-        // activeMenu: '/example/list'  //if set path, the sidebar will highlight the path you set
+        policy: 'AbpAuditLogging.Default' 
+        // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
       }
     },
     {

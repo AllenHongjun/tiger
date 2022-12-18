@@ -1,10 +1,10 @@
 <template>
 <div class="app-container">
     <div class="filter-container" style="margin-bottom: 20px">
-        <el-input v-model="listQuery.Filter" placeholder="关键词" style="width: 150px" class="filter-item" />
+        <el-input v-model="listQuery.filter" placeholder="关键词" style="width: 150px" class="filter-item" />
 
         <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-            搜索
+            {{ $t('AbpIdentity.Search') }}
         </el-button>
 
         <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
@@ -22,7 +22,7 @@
                 {{ scope.row.userName }}
             </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" align="center">
+        <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" align="center" width="180">
             <template slot-scope="scope">
                 {{ scope.row.email }}
             </template>
@@ -88,14 +88,36 @@
     </el-table>
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-        <el-form ref="dataForm" :rules="rules" :model="temp" label-width="180px" label-position="left">
+    <el-dialog :title="dialogStatus == 'create'? $t('AbpIdentity[\'NewUser\']'): $t('AbpIdentity[\'Edit\']')" :visible.sync="dialogFormVisible">
+        <el-form ref="dataForm" :rules="rules" :model="temp" label-width="120px" label-position="right">
             <el-tabs v-model="activeName">
-                <el-tab-pane label="用户信息" name="first">
-                    <el-form-item label="用户名" prop="userName">
+                <el-tab-pane :label="$t('AbpIdentity[\'UserInformations\']')" name="first">
+                    <el-form-item :label="$t('AbpIdentity[\'UserName\']')" prop="userName">
                         <el-input v-model="temp.userName" />
                     </el-form-item>
-                    <el-form-item v-if="dialogStatus === 'create'" label="密码" prop="password">
+                    <el-form-item :label="$t('AbpIdentity[\'DisplayName:Name\']')" prop="name">
+                        <el-input v-model="temp.name" />
+                    </el-form-item>
+                    <el-form-item :label="$t('AbpIdentity[\'DisplayName:Surname\']')" prop="surname">
+                        <el-input v-model="temp.surname" />
+                    </el-form-item>
+                    <el-form-item :label="$t('AbpIdentity[\'Password\']')" prop="password" :class="{ 'is-required': !temp.id }">
+                        <el-input v-model="temp.password" type="password" auto-complete="off" />
+                    </el-form-item>
+                    <el-form-item :label="$t('AbpIdentity[\'EmailAddress\']')" prop="email">
+                        <el-input v-model="temp.email" />
+                    </el-form-item>
+                    <el-form-item :label="$t('AbpIdentity[\'PhoneNumber\']')" prop="phoneNumber">
+                        <el-input v-model="temp.phoneNumber" />
+                    </el-form-item>
+                    <el-form-item prop="lockoutEnabled">
+                        <el-checkbox v-model="temp.lockoutEnabled" :label="$t('AbpIdentity[\'DisplayName:LockoutEnabled\']')" />
+                    </el-form-item>
+                    <el-form-item prop="twoFactorEnabled">
+                        <el-checkbox v-model="temp.twoFactorEnabled" :label="$t('AbpIdentity[\'DisplayName:TwoFactorEnabled\']')" />
+                    </el-form-item>
+
+                    <!-- <el-form-item v-if="dialogStatus === 'create'" label="密码" prop="password">
                         <el-input v-model="temp.password" />
                     </el-form-item>
                     <el-form-item label="邮箱" prop="email">
@@ -103,18 +125,18 @@
                     </el-form-item>
                     <el-form-item label="手机号" prop="phoneNumber">
                         <el-input v-model="temp.phoneNumber" />
-                    </el-form-item>
+                    </el-form-item> -->
                 </el-tab-pane>
-                <el-tab-pane label="角色" name="second">
+                <el-tab-pane :label="$t('AbpIdentity[\'Roles\']')" name="second">
                     <template>
                         <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
                         <div style="margin: 15px 0" />
-                        <el-checkbox-group v-model="checkedRoles" @change="handleCheckedRolesChange">
-                            <el-checkbox v-for="role in roles" :key="role" span="4" :label="role">{{ role }}</el-checkbox>
+                        <el-checkbox-group class="check-roles-group" v-model="checkedRoles" @change="handleCheckedRolesChange">
+                            <el-checkbox v-for="role in roles" :key="role" span="8" :label="role">{{ role }}</el-checkbox>
                         </el-checkbox-group>
                     </template>
                 </el-tab-pane>
-                <el-tab-pane label="组织机构" name="third">
+                <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:AddMember\']')" name="third">
                     <org-tree ref="dialogOrgTree" :show-checkbox="true" :support-single-checked="singleChecked" @handleCheckChange="handleCheckChange" />
                     <el-form-item />
                 </el-tab-pane>
@@ -145,10 +167,6 @@ import {
     getRolesByUserId,
     getUserRoles
 } from '@/api/system-manage/identity/user'
-
-import {
-
-} from '@/api/system-manage/identity/role'
 
 // import { parseTime } from '@/utils'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
@@ -290,7 +308,7 @@ export default {
             listLoading: true,
             total: 0,
             listQuery: {
-                Filter: '',
+                filter: '',
                 page: 1,
                 limit: 10,
                 Sorting: ''
@@ -301,6 +319,7 @@ export default {
             isIndeterminate: true,
             activeName: 'first',
             singleChecked: false,
+
             temp: {
                 id: '',
                 userName: '',
@@ -413,7 +432,7 @@ export default {
                 this.roles = tempArr
             })
         },
-        fetchGetUserRoles(id) {
+        fetchUserRoles(id) {
             getRolesByUserId(id).then((response) => {
                 var obj = response.items
                 var tempArr = []
@@ -478,7 +497,6 @@ export default {
             this.dialogStatus = 'create'
             this.dialogFormVisible = true
 
-            // create org
             this.singleChecked = false
             this.temp.roleNames = []
             this.fetchRoles()
@@ -489,7 +507,6 @@ export default {
         createData() {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
-                    console.log(this.temp.roleNames)
                     this.temp.roleNames = this.checkedRoles
                     createUserToOrg(this.temp).then(() => {
                         this.list.unshift(this.temp)
@@ -511,7 +528,7 @@ export default {
             // update can check many
             this.singleChecked = false
             this.fetchRoles()
-            this.fetchGetUserRoles(row.id)
+            this.fetchUserRoles(row.id)
 
             // handle org
             getOrganizationsByUserId(row.id).then(response => {
@@ -546,11 +563,6 @@ export default {
                 }
             })
         },
-        handleUpdatePermission(row) {
-            console.log('row', row)
-            // 用户授权
-            this.$refs['permissionDialog'].handleUpdatePermission(row)
-        },
         deleteData(id) {
             console.log('delete')
             this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
@@ -580,6 +592,10 @@ export default {
                     })
                 })
         },
+        handleUpdatePermission(row) {
+            // 用户授权
+            this.$refs['permissionDialog'].handleUpdatePermission(row)
+        },
         handleCheckChange(data, orgIds) {
             // singleChecked
             if (orgIds) {
@@ -591,7 +607,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-checkbox {
-    width: 60px;
+.check-roles-group .el-checkbox {
+    width: 120px;
 }
 </style>
