@@ -1,28 +1,26 @@
 <template>
 <!-- permissionsQuery.providerKey -->
-<el-dialog :title="
-      '用户授权1'
-    " :visible.sync="dialogPermissionFormVisible">
+<el-dialog :title="'用户授权'" :visible.sync="dialogPermissionFormVisible">
     <!-- `checked` 为 true 或 false -->
-    <el-checkbox v-model="allPermissionChecked">授予所有权限</el-checkbox>
+    <el-checkbox v-model="allPermissionChecked" @change="toggleCheckAll">授予所有权限</el-checkbox>
     <el-divider></el-divider>
     <el-form label-position="top" style="min-height:500px;">
-        <el-tabs tab-position="left">
+        <el-tabs tab-position="left" v-model="activeName">
             <el-tab-pane v-for="group in permissionData.groups" :key="group.name" :label="group.displayName">
-                <el-checkbox v-model="allPermissionChecked">全选</el-checkbox>
+                <el-checkbox v-model="groupAllPermissionChecked" @change="toggleCheckGroupAll">全选</el-checkbox>
                 <el-divider></el-divider>
                 <el-form-item :label="group.displayName">
-                    <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox node-key="name" :default-expand-all="false" />
+                    <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox node-key="name" :default-expand-all="true" />
                 </el-form-item>
             </el-tab-pane>
         </el-tabs>
     </el-form>
     <div slot="footer" class="dialog-footer">
         <el-button @click="dialogPermissionFormVisible = false">
-            取消
+            {{ $t("AbpIdentity['Cancel']") }}
         </el-button>
         <el-button type="primary" @click="updatePermissionData()">
-            保存
+            {{ $t("AbpIdentity['Save']") }}
         </el-button>
     </div>
 </el-dialog>
@@ -48,6 +46,8 @@ export default {
     data() {
         return {
             allPermissionChecked: false,
+            groupAllPermissionChecked: false,
+            activeName: '',
             permissionData: {
                 groups: []
             },
@@ -66,6 +66,37 @@ export default {
         this.permissionsQuery.providerName = this.providerName
     },
     methods: {
+        toggleCheckAll() {
+            if (this.allPermissionChecked) {
+                for (const i in this.permissionData.groups) {
+                    const keys = []
+                    const group = this.permissionData.groups[i]
+                    for (const j in group.permissions) {
+                        keys.push(group.permissions[j].name)
+                    }
+                    this.$refs['permissionTree'][i].setCheckedKeys(keys)
+                }
+            } else {
+                for (const i in this.permissionData.groups) {
+                    this.$refs['permissionTree'][i].setCheckedKeys([])
+                }
+            }
+        },
+        toggleCheckGroupAll() {
+            console.log("activeName", this.activeName);
+            var i = this.activeName;
+            // 获取全局分组的id
+            if (this.groupAllPermissionChecked) {
+                const keys = []
+                const group = this.permissionData.groups[i]
+                for (const j in group.permissions) {
+                    keys.push(group.permissions[j].name)
+                }
+                this.$refs['permissionTree'][i].setCheckedKeys(keys)
+            } else {
+                this.$refs['permissionTree'][i].setCheckedKeys([])
+            }
+        },
         handleUpdatePermission(row) {
             this.dialogPermissionFormVisible = true
             if (this.permissionsQuery.providerName === 'R') {
@@ -85,6 +116,7 @@ export default {
                             keys.push(group.permissions[j].name)
                         }
                     }
+                    // 修改数据后立刻得到更新后的DOM结构，可以使用Vue.nextTick()
                     this.$nextTick(() => {
                         this.$refs['permissionTree'][i].setCheckedKeys(keys)
                     })

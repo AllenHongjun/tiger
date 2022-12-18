@@ -1,20 +1,20 @@
 <template>
 <div class="app-container">
     <el-row :gutter="0">
-        <el-col :span="6">
+        <!-- <el-col :span="6">
             <org-tree ref="roleOrgTree" :org-tree-node-click="handleOrgTreeNodeClick" />
-        </el-col>
-        <el-col :span="18">
+        </el-col> -->
+        <el-col :span="24">
             <el-row style="margin-bottom: 20px">
                 <el-input v-model="listQuery.Filter" placeholder="关键词" style="width: 150px" class="filter-item" />
 
                 <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
 
                 <el-button type="primary" icon="el-icon-edit" @click="handleCreate">
-                    添加
+                    {{ $t("AbpIdentity['NewRole']") }}
                 </el-button>
                 <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">
-                    刷新
+                    {{ $t("AbpIdentity['Refresh']") }}
                 </el-button>
             </el-row>
             <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
@@ -23,86 +23,62 @@
                         {{ scope.$index }}
                     </template>
                 </el-table-column>
-                <el-table-column label="名称" align="center">
+                <el-table-column label="名称" align="left">
                     <template slot-scope="scope">
+                        
+                        <el-tag v-if="scope.row.isPublic">
+                            {{ $t('AbpIdentity[\'DisplayName:IsPublic\']')}}
+                        </el-tag>
+
+                        <el-tag v-if="scope.row.isDefault" type="warning">
+                            {{ $t('AbpIdentity[\'DisplayName:IsDefault\']')}}
+                        </el-tag>
+                        <el-tag v-if="scope.row.isStatic" type="success">
+                            {{ $t('AbpIdentity[\'DisplayName:IsStatic\']')}}
+                        </el-tag>
                         {{ scope.row.name }}
                     </template>
                 </el-table-column>
-                <el-table-column label="是否默认" align="center" width="95">
-                    <template slot-scope="scope">
-                        {{ scope.row.isDefault == true ? "是" : "否" }}
-                    </template>
-                </el-table-column>
-                <el-table-column label="是否发布" align="center" width="95">
-                    <template slot-scope="scope">
-                        {{ scope.row.isPublic == true ? "是" : "否" }}
-                    </template>
-                </el-table-column>
-                <!-- <el-table-column label="是否静态" align="center" width="95">
-                        <template slot-scope="scope">
-                        {{ scope.row.isStatic == true? '是':'否' }}
-                        </template>
-                    </el-table-column> -->
 
-                <el-table-column align="center" label="操作" width="400">
+                <el-table-column align="center" :label="$t('AbpIdentity[\'Actions\']')" width="400">
                     <template slot-scope="scope">
-                        <el-button type="primary" icon="el-icon-edit" @click="handleUpdate(scope.row)">
-                            编辑
+                        <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" icon="el-icon-edit" @click="handleUpdate(scope.row)">
+                            {{ $t("AbpIdentity['Edit']") }}
                         </el-button>
                         &nbsp;&nbsp;
-                        <el-button type="primary" @click="handlePermission(scope)">
-                            授权
+                        <el-button v-if="checkPermission('AbpIdentity.Roles.ManagePermissions')" type="primary" @click="handleUpdatePermission(scope.row)">
+                            {{ $t("AbpIdentity['Permissions']") }}
                         </el-button>
-                        <el-button type="danger" icon="el-icon-delete" @click="deleteData(scope.row.id)">
-                            删除
+                        <el-button v-if="!scope.row.isStatic && checkPermission('AbpIdentity.Roles.Delete')" type="danger" icon="el-icon-delete" @click="deleteData(scope.row.id)">
+                            {{ $t("AbpIdentity['Delete']") }}
                         </el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
-            <el-dialog :visible.sync="dialogVisible" title="角色授权">
-                <el-checkbox v-model="allPermissionChecked">授予所有权限</el-checkbox>
-                <el-divider></el-divider>
-                <el-form label-width="80px" label-position="left">
-                    <el-tabs tab-position="left">
-                        <el-tab-pane v-for="group in permissionData.groups" :key="group.name" :label="group.displayName">
-                            <!-- <h3>{{group.displayName}}</h3>
-                            <el-divider></el-divider> -->
-                            <el-checkbox v-model="allPermissionChecked">全选</el-checkbox>
-                            <el-divider></el-divider>
-                            <el-form-item :label="group.displayName" class="permissionTree">
-                                <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox :check-strictly="false" node-key="name" :default-expand-all="false" />
-                            </el-form-item>
-                        </el-tab-pane>
-                    </el-tabs>
-                </el-form>
-                <div style="text-align: right">
-                    <el-button type="danger" @click="dialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="updatePermissionData()">确认</el-button>
-                </div>
-            </el-dialog>
-
-            <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogRoleFormVisible">
+            <el-dialog :title="dialogStatus == 'create'? $t('AbpIdentity[\'NewRole\']'): $t('AbpIdentity[\'Edit\']')" :visible.sync="dialogRoleFormVisible">
                 <el-form ref="dataForm" :rules="rules" :model="temp" label-width="180px" label-position="left">
                     <el-form-item label="组织" prop="orgName">
                         <el-input v-model="orgName" disabled />
                     </el-form-item>
-                    <el-form-item label="名称" prop="name">
+                    <el-form-item :label="$t('AbpIdentity[\'RoleName\']')" prop="name">
                         <el-input v-model="temp.name" />
                     </el-form-item>
-                    <el-form-item label="是否默认" prop="title">
+                    <el-form-item :label="$t('AbpIdentity[\'DisplayName:IsDefault\']')" prop="title">
                         <el-checkbox v-model="temp.isDefault" />
                     </el-form-item>
-                    <el-form-item label="是否公开" prop="title">
+                    <el-form-item :label="$t('AbpIdentity[\'DisplayName:IsPublic\']')" prop="title">
                         <el-checkbox v-model="temp.isPublic" />
                     </el-form-item>
                 </el-form>
                 <div style="text-align: right">
-                    <el-button type="danger" @click="dialogRoleFormVisible = false">取消</el-button>
-                    <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">确认</el-button>
+                    <el-button type="danger" @click="dialogRoleFormVisible = false">{{ $t("AbpIdentity['Cancel']") }}</el-button>
+                    <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">{{ $t("AbpIdentity['Save']") }}</el-button>
                 </div>
             </el-dialog>
+
+            <permission-dialog ref="permissionDialog" provider-name="R" />
         </el-col>
     </el-row>
 </div>
@@ -118,27 +94,23 @@ import {
 } from '@/api/system-manage/identity/role'
 
 import {
-    getPermissions,
-    updatePermissions
-} from '@/api/system-manage/identity/permission'
+    baseListQuery,
+    checkPermission
+} from '@/utils/abp'
 
 import {
     getOrgRoles
 } from '@/api/system-manage/identity/organization-unit'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import OrgTree from '../components/org-tree'
+import PermissionDialog from '../components/permission-dialog'
 
 export default {
     name: 'Role',
     components: {
         Pagination,
-        OrgTree
-    },
-    props: {
-        providerName: {
-            type: String,
-            required: false
-        }
+        OrgTree,
+        PermissionDialog
     },
     data() {
         return {
@@ -161,7 +133,8 @@ export default {
                 name: '',
                 orgId: '',
                 isDefault: false,
-                isPublic: false
+                isPublic: false,
+                isStatic: false
             },
             textMap: {
                 update: '编辑',
@@ -175,12 +148,7 @@ export default {
                 children: 'children',
                 label: 'label'
             },
-            dialogPermissionFormVisible: false,
-            allPermissionChecked: false,
-            permissionsQuery: {
-                providerKey: '',
-                providerName: 'R'
-            },
+
             rules: {
                 name: [{
                     required: true,
@@ -200,9 +168,9 @@ export default {
     },
     created() {
         this.fetchData()
-        this.permissionsQuery.providerName = 'R'
     },
     methods: {
+        checkPermission,
         fetchData() {
             this.listLoading = true
             getOrgRoles(this.listQuery).then((response) => {
@@ -213,7 +181,7 @@ export default {
         },
         handleRefresh() {
             this.listQuery.ouId = undefined
-            this.$refs.roleOrgTree.$refs.orgTree.setCurrentKey(null)
+            // this.$refs.roleOrgTree.$refs.orgTree.setCurrentKey(null)
             this.orgData = null
             this.handleFilter()
         },
@@ -295,113 +263,8 @@ export default {
                     console.log(err)
                 })
         },
-        handlePermission(scope) {
-            this.dialogVisible = true
-            if (this.permissionsQuery.providerName === 'R') {
-                this.permissionsQuery.providerKey = scope.row.name
-            } else if (this.permissionsQuery.providerName === 'U') {
-                this.permissionsQuery.providerKey = scope.row.id
-            }
-            getPermissions(this.permissionsQuery).then((response) => {
-                this.permissionData = response
-
-                for (const i in this.permissionData.groups) {
-                    const keys = []
-                    const group = this.permissionData.groups[i]
-                    for (const j in group.permissions) {
-                        if (group.permissions[j].isGranted) {
-                            keys.push(group.permissions[j].name)
-                        }
-                    }
-
-                    this.$nextTick(() => {
-
-                        this.$refs.permissionTree[i].setCheckedKeys(keys)
-                    })
-                }
-            })
-        },
-        transformPermissionTree(permissions, name = null) {
-            const arr = []
-            if (!permissions || !permissions.some((v) => v.parentName === name)) {
-                return arr
-            }
-
-            const parents = permissions.filter((v) => v.parentName === name)
-            for (const i in parents) {
-                let label = ''
-                if (this.permissionsQuery.providerName === 'R') {
-                    label = parents[i].displayName
-                } else if (this.permissionsQuery.providerName === 'U') {
-                    label =
-                        parents[i].displayName +
-                        ' ' +
-                        parents[i].grantedProviders.map((provider) => {
-                            return `${provider.providerName}: ${provider.providerKey}`
-                        })
-                }
-                arr.push({
-                    name: parents[i].name,
-                    label,
-                    disabled: this.isGrantedByOtherProviderName(
-                        parents[i].grantedProviders
-                    ),
-                    children: this.transformPermissionTree(permissions, parents[i].name)
-                })
-            }
-            return arr
-        },
-        isGrantedByOtherProviderName(grantedProviders) {
-            if (grantedProviders.length) {
-                return (
-                    grantedProviders.findIndex(
-                        (p) => p.providerName !== this.permissionsQuery.providerName
-                    ) > -1
-                )
-            }
-            return false
-        },
-        // 更新权限
-        updatePermissionData() {
-            const tempData = []
-            for (const i in this.permissionData.groups) {
-                const keys = this.$refs.permissionTree[i].getCheckedKeys()
-                const group = this.permissionData.groups[i]
-                for (const j in group.permissions) {
-                    if (
-                        group.permissions[j].isGranted &&
-                        !keys.some((v) => v === group.permissions[j].name)
-                    ) {
-                        tempData.push({
-                            isGranted: false,
-                            name: group.permissions[j].name
-                        })
-                    } else if (
-                        !group.permissions[j].isGranted &&
-                        keys.some((v) => v === group.permissions[j].name)
-                    ) {
-                        tempData.push({
-                            isGranted: true,
-                            name: group.permissions[j].name
-                        })
-                    }
-                }
-            }
-            updatePermissions(this.permissionsQuery, {
-                permissions: tempData
-            }).then(
-                () => {
-                    this.dialogPermissionFormVisible = false
-                    this.$message({
-                        message: '权限添加成功',
-                        type: 'success'
-                    })
-                    // fetchAppConfig(
-                    //   this.permissionsQuery.providerKey,
-                    //   this.permissionsQuery.providerName
-                    // )
-                }
-            )
+        handleUpdatePermission(row) {
+            this.$refs['permissionDialog'].handleUpdatePermission(row)
         },
 
         handleOrgTreeNodeClick(data) {

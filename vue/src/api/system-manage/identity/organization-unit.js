@@ -136,17 +136,6 @@ export function getOrganizationSingle(id) {
   })
 }
 
-
-
-
-
-
-
-
-
-
-
-
 // 组织关联角色
 
 export function getOrgRoles(query) {
@@ -159,7 +148,7 @@ export function getOrgRoles(query) {
 
 export function getUnaddedRoles(id, query) {
   return request({
-    url: `/api/identity/organizations/${id}get-unadded-roles`,
+    url: `/api/identity/organizations/${id}/get-unadded-roles`,
     method: 'get',
     params: transformAbpListQuery(query)
   })

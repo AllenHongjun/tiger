@@ -2,8 +2,9 @@
 <div class="app-container">
     <!-- 组织选择关联多个角色 -->
     <el-dialog :title="$t('AbpIdentity[\'OrganizationUnit:SelectRoles\']')" :visible.sync="dialogFormVisible">
-        <!--@select-all="handleSelectionChange" @selection-change="handleSelectionChange" :row-key="getRowKeys"  -->
-        <el-table ref="roleSelectTable" :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" @sort-change="sortChange">
+        <!--@select-all="handleSelectionChange" @selection-change="handleSelectionChange"   -->
+        <el-table ref="roleSelectTable" :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;"
+         @sort-change="sortChange" :row-key="getRowKeys">
             <el-table-column type="selection" width="55" :reserve-selection="true">
             </el-table-column>
             <el-table-column :label="$t('AbpIdentity[\'RoleName\']')" prop="name" sortable align="left">
@@ -12,7 +13,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getOrgRoleList" :page-sizes="pageSizesSelect" />
+        <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getOrgRoleList" />
         <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false">
                 {{ $t("AbpIdentity['Cancel']") }}
@@ -30,6 +31,7 @@
 import Pagination from '@/components/Pagination'
 import {
     getOrgRoles,
+    getUnaddedRoles,
     AddRoles
 } from '@/api/system-manage/identity/organization-unit'
 
@@ -48,7 +50,7 @@ export default {
         // }
         // 是否显示dialog + 用户选择的table
         ouId: {
-            type: Boolean,
+            type: String,
         },
         refreshParentRoles: {
             type: Function,
@@ -61,11 +63,11 @@ export default {
         }
     },
     computed: {
-        // 根据当前的multipleSelection得到对应选中的pkId
+        // 根据当前的multipleSelection得到对应选中的id
         curSelectedRowIds() {
             let result = [];
             if (this.multipleSelection && this.multipleSelection.length > 0) {
-                result = this.multipleSelection.map((role) => role.pkId);
+                result = this.multipleSelection.map((role) => role.id);
             }
             return result;
         }
@@ -90,12 +92,11 @@ export default {
     },
     data() {
         return {
-            activeName: 'roles',
             tableKey: 0,
+            orgData: undefined,
             list: null,
             total: 0,
             multipleSelection: [], // // 用来保存当前的选中
-            pageSizesSelect: [5, 20, 30, 40, 50, 100],
             listLoading: true,
             listQuery: {
                 page: 1,
@@ -104,9 +105,6 @@ export default {
                 filter: undefined,
                 ouId: undefined
             },
-
-            orgData: undefined,
-
             dialogFormVisible: false,
             dialogStatus: '',
         }
@@ -114,7 +112,7 @@ export default {
     methods: {
         getOrgRoleList() {
             this.listLoading = true
-            getOrgRoles(this.listQuery).then(response => {
+            getUnaddedRoles(this.ouId , this.listQuery).then(response => {
                 this.list = response.items
                 this.total = response.totalCount
                 this.listLoading = false
@@ -139,8 +137,10 @@ export default {
             this.handleFilter()
         },
         handleAddRoles(orgData) {
+            // 每次重新打开都要请求新的组织接口数据
             this.dialogFormVisible = true;
             this.orgData = orgData;
+            this.getOrgRoleList()
         },
         addRoles() {
             var roleIds = [];
@@ -163,10 +163,9 @@ export default {
                 })
             })
         },
-
         getRowKeys(row) {
             // 在使用 reserve-selection 功能与显示树形数据时，该属性是必填的。类型为 String 时，支持多层访问：user.info.id，但不支持 user.info[0].id，此种情况请使用 Function。
-            return row.pkId;
+            return row.id;
         },
         // 监听selection-change获得跨页选中的行的数据
         /**
@@ -178,7 +177,7 @@ export default {
             // 检查有没有新增的，有新增的就push
             if (selection && selection.length > 0) {
                 selection.forEach((row) => {
-                    if (this.curSelectedRowIds.indexOf(row.pkId) < 0) {
+                    if (this.curSelectedRowIds.indexOf(row.id) < 0) {
                         this.multipleSelection.push(row);
                     }
                 });
@@ -186,9 +185,9 @@ export default {
             // 如果当前的selection没有changedRow，表示changedRow被cancel了，
             // 如果this.multipleSelection有这一条，需要splice掉
             if (row && selection.indexOf(changedRow) < 0) {
-                if (this.curSelectedRowIds.indexOf(changedRow.pkId) > -1) {
+                if (this.curSelectedRowIds.indexOf(changedRow.id) > -1) {
                     for (let index = 0; index < this.multipleSelection.length; index++) {
-                        if (row.pkId === this.multipleSelection[index].pkId) {
+                        if (row.id === this.multipleSelection[index].id) {
                             this.multipleSelection.splice(index, 1);
                             break;
                         }
@@ -198,7 +197,7 @@ export default {
             // 如果当前一条都没有选中，表示都没有选中，则需要把当前页面的rows都遍历一下，splice掉没选中的
             if (selection.length === 0) {
                 this.list.forEach((row) => {
-                    let index = this.curSelectedRowIds.indexOf(row.pkId);
+                    let index = this.curSelectedRowIds.indexOf(row.id);
                     if (index > -1) {
                         this.multipleSelection.splice(index, 1);
                     }
@@ -216,7 +215,7 @@ export default {
                 this.$nextTick(() => {
                     // 触发一下选中
                     this.list.forEach((row) => {
-                        if (this.curSelectedRowIds.indexOf(row.pkId) > -1) {
+                        if (this.curSelectedRowIds.indexOf(row.id) > -1) {
                             this.$refs["roleSelectTable"].toggleRowSelection(row, true);
                         }
                     });

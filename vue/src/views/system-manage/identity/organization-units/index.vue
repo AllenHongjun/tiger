@@ -1,227 +1,257 @@
 <template>
 <div class="app-container">
-    <div class="filter-container">
-        <!-- <el-input
-        v-model="listQuery.filter"
-        :placeholder="$t('AbpUi[\'PagerSearch\']')"
-        style="width: 200px;"
-        class="filter-item"
-        @keyup.enter.native="handleRefresh"
-      /> -->
-        <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-            {{ $t("AbpIdentity['OrganizationUnit:New']") }}
-        </el-button>
-    </div>
-    <el-table :data="list" :load="loadChildren" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" style="width: 100%" row-key="id" border fit highlight-current-row lazy>
-        <el-table-column :label="$t('AbpIdentity[\'OrganizationUnit:Code\']')" prop="code">
-            <template slot-scope="{ row }">
-                <span>{{ row.code }}</span>
-            </template>
-        </el-table-column>
-        <el-table-column :label="$t('AbpIdentity[\'OrganizationUnit:DisplayName\']')" prop="displayName">
-            <template slot-scope="{ row }">
-                <span>{{ row.displayName }}</span>
-            </template>
-        </el-table-column>
-        <el-table-column :label="$t('AbpIdentity[\'Actions\']')" align="center" width="380" class-name="small-padding fixed-width">
-            <template slot-scope="{ row }">
-                <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Create')"  type="success"  @click="handleCreate(row)">
-                    {{ $t("AbpIdentity['OrganizationUnit:AddChildren']") }}
-                </el-button>
-                <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Update')"  type="primary" icon="el-icon-edit" @click="handleUpdate(row)">
-                    {{ $t("AbpIdentity['Edit']") }}
-                </el-button>
-                <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Delete')"  type="danger" icon="el-icon-delete" @click="handleDelete(row)">
-                    {{ $t("AbpIdentity['Delete']") }}
-                </el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+    <el-row :gutter="20">
+        <el-col :span="10">
+            <div class="grid-content">
+                <el-row>
+                    <el-col :span="20">
+                        <h3 class="grid-content">{{ $t('AbpIdentity["OrganizationUnit:Tree"]') }}</h3>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <div class="block">
+                        <org-tree ref="roleOrgTree" :org-tree-node-click="handleOrgTreeNodeClick" />
+                    </div>
+                </el-row>
+            </div>
+        </el-col>
+        <el-col :span="14">
+            <div class="grid-content">
+                <el-tabs type="border-card" v-model="activeName">
+                    <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:Members\']')" name="users">
+                        <p>组织关联的用户列表</p>
+                    </el-tab-pane>
+                    <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:Roles\']')" name="roles">
+                        <div v-if="this.orgData">
+                            <el-row>
+                                <el-col :span="5" :offset="19">
+                                    <el-button v-if="checkPermission('AbpIdentity.Roles.Create')" class="filter-item" style="margin-left: 10px" type="primary" icon="el-icon-edit" @click="handleAddRoles">
+                                        {{ $t("AbpIdentity['OrganizationUnit:AddRole']") }}
+                                    </el-button>
+                                    <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefreshRoles">
+                                        {{ $t("AbpIdentity['Refresh']") }}
+                                    </el-button>
+                                </el-col>
+                            </el-row>
 
-    <el-dialog :title="dialogStatus==='create'?
-        $t('AbpIdentity[\'OrganizationUnit:New\']') :
-        dialogStatus==='createChild'?
-          $t('AbpIdentity[\'OrganizationUnit:AddChildren\']') :
-          $t('AbpIdentity[\'Edit\']')" :visible.sync="dialogFormVisible">
-        <el-form ref="dataForm" :model="temp" label-position="right" label-width="120px">
-            <el-form-item v-if="currentParentName!==''" :label="$t('AbpIdentity[\'OrganizationUnit:ParentDisplayName\']')">
-                <el-input v-model="currentParentName" disabled />
-            </el-form-item>
-            <el-form-item prop="displayName" :label="$t('AbpIdentity[\'OrganizationUnit:DisplayName\']')">
-                <el-input v-model="temp.displayName" />
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">
-                {{ $t("AbpIdentity['Cancel']") }}
-            </el-button>
-            <el-button type="primary" @click="dialogStatus === 'create' ||
-            dialogStatus === 'createChild' ?
-            createData() : updateData()">
-                {{ $t("AbpIdentity['Save']") }}
-            </el-button>
-        </div>
-    </el-dialog>
+                            <el-table :key="tableKey" v-loading="listLoading" :data="orgRoleList" border fit highlight-current-row style="width: 100%" @sort-change="sortChangeRoles">
+                                <el-table-column :label="$t('AbpIdentity[\'RoleName\']')" prop="name" sortable align="center">
+                                    <template slot-scope="{ row }">
+                                        <span>{{ row.name }}</span>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column :label="$t('AbpIdentity[\'Actions\']')" align="center" width="300" class-name="small-padding fixed-width">
+                                    <template slot-scope="{ row, $index }">
+                                        <el-button v-if="!row.isStatic &&checkPermission('AbpIdentity.Roles.Delete')"  type="danger" @click="handleRemoveRole(row, $index)">
+                                            {{ $t("AbpIdentity['Delete']") }}
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
 
+                            <pagination v-show="orgRoleTotal > 0" :total="orgRoleTotal" :page.sync="listQueryRoles.page" :limit.sync="listQueryRoles.limit" @pagination="getOrgRoleList" />
+
+                            <!-- 组织选择关联多个角色 -->
+                            <add-roles-dialog ref="addRolesDialog" :refreshParentRoles="handleRefreshRoles" :ouId="orgData.id" />
+                        </div>
+                        <el-row v-else>
+                            <p style="color: #606266">选择一个组织机构来查看角色</p>
+                        </el-row>
+                    </el-tab-pane>
+                </el-tabs>
+            </div>
+        </el-col>
+    </el-row>
 </div>
 </template>
 
 <script>
+import Pagination from "@/components/Pagination";
+import OrgTree from "../components/org-tree";
+import AddRolesDialog from "./components/add-roles-dialog";
+
 import {
-    // getOrganizations,
-    getOrganizationsRoot,
-    getOrganizationChildren,
-    createOrganization,
-    updateOrganization,
-    deleteOrganization
-} from '@/api/system-manage/identity/organization-unit'
+    getOrganizationsAll,
+    getOrganizations,
+    getOrgUsers,
+    getOrgRoles,
+    removeRole,
+} from "@/api/system-manage/identity/organization-unit";
+
 import {
+    baseListQuery,
     checkPermission
-} from '@/utils/abp'
+} from "@/utils/abp";
+
 export default {
-    name: 'Organizations',
+    name: "OrganizationUnits",
+    components: {
+        Pagination,
+        OrgTree,
+        AddRolesDialog
+    },
     data() {
         return {
+            activeName: "roles",
             tableKey: 0,
-            list: null,
             listLoading: true,
-            currentId: '',
-            currentParentName: '',
-            temp: {
-                parentId: null,
-                displayName: ''
+            orgData: null,
+
+            orgRoleList: null,
+            orgRoleTotal: 0,
+            listQueryRoles: {
+                page: 1,
+                limit: 50,
+                sort: undefined,
+                filter: undefined,
+                ouId: undefined,
             },
-            dialogFormVisible: false,
-            dialogStatus: ''
-        }
+            dialogRoleFormVisible: false,
+
+
+            orgUserList: null,
+            orgUserTotal: 0,
+            
+            
+        };
     },
-    created() {
-        this.getList()
+    computed: {
+        orgName() {
+            if (this.orgData === null) {
+                return "";
+            }
+            return `${this.orgData.displayName}(${this.orgData.code})`;
+        },
     },
+    created() {},
     methods: {
         checkPermission,
-        getList() {
-            this.listLoading = true
-            // 这里会出现感觉是重新刷新了(给人感觉不好的感觉),后期考虑下通过level进行控制返回层架数据,
-            this.list = []
-            getOrganizationsRoot().then(response => {
-                this.list = this.processingChildrenLeaf(response.items)
-                this.listLoading = false
-            })
-        },
-        loadChildren(row, treeNode, resolve) {
-            getOrganizationChildren(row.id).then(response => {
-                resolve(this.processingChildrenLeaf(response))
-            })
-        },
-        handleCreate(row) {
-            this.resetTemp()
-            if (!row.id) {
-                this.dialogStatus = 'create'
-                this.currentParentName = ''
-            } else {
-                this.dialogStatus = 'createChild'
-                this.temp.parentId = row.id
-                this.currentParentName = `${row.displayName}(${row.code})`
+        handleOrgTreeNodeClick(data) {
+            if (data.id) {
+                this.listQueryRoles.ouId = data.id;
+                this.orgData = data;
+                this.handleFilterRoles();
             }
-            this.dialogFormVisible = true
-            this.$nextTick(() => {
-                this.$refs['dataForm'].clearValidate()
-            })
         },
-        createData() {
-            this.$refs['dataForm'].validate(valid => {
-                if (valid) {
-                    createOrganization(this.temp).then(() => {
-                        this.handleRefresh()
-                        this.dialogFormVisible = false
-                        this.$notify({
-                            title: this.$i18n.t("TigerUi['Success']"),
-                            message: this.$i18n.t("TigerUi['SuccessMessage']"),
-                            type: 'success',
-                            duration: 2000
-                        })
-                    })
-                }
-            })
+        getOrgUserList() {
+            this.listLoading = true;
+            getOrgUsers(this.listQueryRoles).then((response) => {
+                this.orgUserList = response.items;
+                this.orgUserTotal = response.totalCount;
+                this.listLoading = false;
+            });
         },
-        handleUpdate(row) {
+
+
+
+        getOrgRoleList() {
+            this.listLoading = true;
+            getOrgRoles(this.listQueryRoles).then((response) => {
+                this.orgRoleList = response.items;
+                this.orgRoleTotal = response.totalCount;
+                this.listLoading = false;
+            });
+        },
+        handleFilterRoles() {
+            this.listQueryRoles.page = 1;
+            this.getOrgRoleList();
+        },
+        
+        sortChangeRoles(data) {
             const {
-                id,
-                displayName,
-                concurrencyStamp
-            } = row
-            this.currentId = id
-            this.temp.displayName = displayName
-            this.temp.concurrencyStamp = concurrencyStamp
-
-            this.dialogStatus = 'update'
-            this.dialogFormVisible = true
-
-            this.$nextTick(() => {
-                this.$refs['dataForm'].clearValidate()
-            })
+                prop,
+                order
+            } = data;
+            this.listQueryRoles.sort = order ? `${prop} ${order}` : undefined;
+            this.handleFilterRoles();
         },
-        updateData() {
-            this.$refs['dataForm'].validate(valid => {
-                if (valid) {
-                    updateOrganization(this.currentId, this.temp).then(() => {
-                        this.handleRefresh(false)
-                        this.dialogFormVisible = false
-                        this.$notify({
-                            title: this.$i18n.t("TigerUi['Success']"),
-                            message: this.$i18n.t("TigerUi['SuccessMessage']"),
-                            type: 'success',
-                            duration: 2000
-                        })
-                    })
-                }
-            })
+
+        handleRefreshRoles() {
+            this.handleFilterRoles();
         },
-        handleDelete(row, index) {
+
+        handleAddRoles() {
+            this.$refs["addRolesDialog"].handleAddRoles(this.orgData);
+        },
+        handleRemoveRole(row, index) {
             this.$confirm(
-                this.$i18n.t("AbpIdentity['OUDeletionConfirmationMessage']", [
-                    row.displayName
+                this.$i18n.t("AbpIdentity['OrganizationUnit:AreYouSureRemoveRole']", [
+                    row.name,
                 ]),
                 this.$i18n.t("AbpIdentity['AreYouSure']"), {
                     confirmButtonText: this.$i18n.t("AbpIdentity['Yes']"),
                     cancelButtonText: this.$i18n.t("AbpIdentity['Cancel']"),
-                    type: 'warning'
+                    type: "warning",
                 }
             ).then(async () => {
-                deleteOrganization(row.id).then(() => {
-                    this.handleRefresh()
+                removeRole(this.orgData.id, {
+                    roleId: row.id,
+                }).then(() => {
+                    this.handleFilterRoles();
                     this.$notify({
                         title: this.$i18n.t("TigerUi['Success']"),
                         message: this.$i18n.t("TigerUi['SuccessMessage']"),
-                        type: 'success',
-                        duration: 2000
-                    })
-                })
-            })
-        },
-        handleRefresh(firstPage = true) {
-            // if (firstPage) this.listQuery.page = 1
-            this.getList()
-        },
-        resetTemp() {
-            this.currentId = ''
-            this.currentParentName = ''
-            this.temp = {
-                parentId: null,
-                displayName: ''
-            }
-        },
-        processingChildrenLeaf(response) {
-            // 统一处理返回值
-            return response.map(item => {
-                if (item.children) {
-                    item.children = []
-                }
-                item.hasChildren = !item.isLeaf
-                return item
-            })
+                        type: "success",
+                        duration: 2000,
+                    });
+                });
+            });
         }
+        
+
+        
+    },
+};
+</script>
+
+<style lang="scss" scoped>
+.el-row {
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
     }
 }
-</script>
+
+.el-col {
+    border-radius: 4px;
+}
+
+.bg-purple-dark {
+    background: #99a9bf;
+}
+
+.bg-purple {
+    background: #d3dce6;
+}
+
+.bg-purple-light {
+    background: #e5e9f2;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+}
+
+.el-table .warning-row {
+    background: oldlace;
+}
+
+.el-table .success-row {
+    background: #f0f9eb;
+}
+
+.el-tab-pane .h3 {
+    margin: 0;
+}
+
+h3{
+    margin: 0px;
+}
+</style>

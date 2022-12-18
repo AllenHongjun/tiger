@@ -8,27 +8,54 @@
         </el-button>
 
         <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
-            添加
+            {{ $t("AbpIdentity['NewUser']") }}
+        </el-button>
+        <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">
+            {{ $t("AbpIdentity['Refresh']") }}
         </el-button>
     </div>
 
     <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
 
-        <el-table-column label="用户名" align="center" width="120">
+        <el-table-column :label="$t('AbpIdentity[\'UserName\']')" align="center" width="120">
             <template slot-scope="scope">
                 {{ scope.row.userName }}
             </template>
         </el-table-column>
-        <el-table-column label="手机号" align="center" width="200">
-            <template slot-scope="scope">
-                {{ scope.row.phoneNumber }}
-            </template>
-        </el-table-column>
-        <el-table-column label="邮箱" align="center">
+        <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" align="center">
             <template slot-scope="scope">
                 {{ scope.row.email }}
             </template>
         </el-table-column>
+        <el-table-column :label="$t('AbpIdentity[\'PhoneNumber\']')" align="center" width="200">
+            <template slot-scope="scope">
+                {{ scope.row.phoneNumber }}
+            </template>
+        </el-table-column>
+
+        <el-table-column label="启用" align="center">
+            <template slot-scope="scope">
+                <el-tag :type="( scope.row.isDeleted ? 'danger' : 'success')" :class="[scope.row.isDeleted ?  'el-icon-close' : 'el-icon-check']"></el-tag>
+            </template>
+        </el-table-column>
+        <el-table-column label="锁定" align="center">
+            <template slot-scope="scope">
+                <el-tag :type="( scope.row.lockoutEnabled ? 'danger' : 'success')" :class="[scope.row.lockoutEnabled ?  'el-icon-close' : 'el-icon-check']">
+                    {{ scope.row.lockoutEnabled ?  '锁定' : '正常' }}
+                </el-tag>
+            </template>
+        </el-table-column>
+        <el-table-column label="绑定邮箱" align="center">
+            <template slot-scope="scope">
+                <el-tag :type="( scope.row.emailConfirmed ?  'success' : 'danger')" :class="[scope.row.emailConfirmed ?  'el-icon-check':'el-icon-close' ]"></el-tag>
+            </template>
+        </el-table-column>
+        <el-table-column label="锁定结束时间" align="center" width="200">
+            <template slot-scope="scope">
+                {{ scope.row.lockoutEnd == null ? '' : (scope.row.lockoutEnd | formatDate) }}
+            </template>
+        </el-table-column>
+
         <el-table-column label="创建时间" align="center" width="200">
             <template slot-scope="scope">
                 {{ scope.row.creationTime | formatDate }}
@@ -39,36 +66,21 @@
                 {{ scope.row.lastModificationTime | formatDate }}
             </template>
         </el-table-column>
-        <el-table-column label="是否删除" align="center">
-            <template slot-scope="scope">
-                {{ scope.row.isDeleted == true ? '是' : '否' }}
-            </template>
-        </el-table-column>
-        <el-table-column label="能否锁定" align="center">
-            <template slot-scope="scope">
-                {{ scope.row.lockoutEnabled == true ? '是' : '否' }}
-            </template>
-        </el-table-column>
-        <el-table-column label="锁定结束时间" align="center" width="200">
-            <template slot-scope="scope">
-                {{ scope.row.lockoutEnd == null ? '' : (scope.row.lockoutEnd | formatDate) }}
-            </template>
-        </el-table-column>
 
         <el-table-column align="right" label="操作" width="220">
             <template slot-scope="scope">
                 <el-dropdown trigger="click" @command="handleCommand">
                     <el-button type="primary" size="small">
-                        操作<i class="el-icon-arrow-down el-icon--right" />
+                        {{ $t("AbpIdentity['Actions']") }}<i class="el-icon-arrow-down el-icon--right" />
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item :command="beforeHandleCommand(scope, 'edit')">编辑</el-dropdown-item>
+                        <el-dropdown-item :command="beforeHandleCommand(scope, 'edit')">{{ $t("AbpIdentity['Edit']") }}</el-dropdown-item>
                         <el-dropdown-item>锁定</el-dropdown-item>
                         <el-dropdown-item :command="beforeHandleCommand(scope, 'updatePermission')">
-                            授权
+                            {{ $t("AbpIdentity['Permissions']") }}
                         </el-dropdown-item>
                         <el-dropdown-item>设置密码</el-dropdown-item>
-                        <el-dropdown-item :command="beforeHandleCommand(scope, 'delete')">删除</el-dropdown-item>
+                        <el-dropdown-item :command="beforeHandleCommand(scope, 'delete')">{{ $t("AbpIdentity['Delete']") }}</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </template>
@@ -194,7 +206,84 @@ export default {
                     callback(new Error('请输入正确的邮箱格式'))
                 }
             }, 100)
-        }
+        };
+
+        const passwordValidator = (rule, value, callback) => {
+            if (this.temp.id && !value) {
+                callback()
+                return
+            }
+
+            if (!value) {
+                callback(
+                    new Error(
+                        this.$i18n.t("AbpIdentity['The {0} field is required.']", [
+                            this.$i18n.t("AbpIdentity['Password']")
+                        ])
+                    )
+                )
+                return
+            }
+            if (value.length < this.requiredLength) {
+                callback(
+                    new Error(
+                        this.$i18n.t("AbpIdentity['Identity.PasswordTooShort']", [`${this.requiredLength}`])
+                    )
+                )
+                return
+            }
+            if (value.length > 128) {
+                callback(
+                    new Error(
+                        this.$i18n.t(
+                            "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+                            [this.$i18n.t("AbpIdentity['Password']"), '128']
+                        )
+                    )
+                )
+                return
+            }
+            let reg = /\d+/
+            if (this.requireDigit && !reg.test(value)) {
+                callback(
+                    new Error(
+                        this.$i18n.t("AbpIdentity['Identity.PasswordRequiresDigit']")
+                    )
+                )
+                return
+            }
+            reg = /[a-z]+/
+            if (this.requireLowercase && !reg.test(value)) {
+                callback(
+                    new Error(
+                        this.$i18n.t("AbpIdentity['Identity.PasswordRequiresLower']")
+                    )
+                )
+                return
+            }
+            reg = /[A-Z]+/
+            if (this.requireUppercase && !reg.test(value)) {
+                callback(
+                    new Error(
+                        this.$i18n.t("AbpIdentity['Identity.PasswordRequiresUpper']")
+                    )
+                )
+                return
+            }
+            reg = /\W+/
+            if (this.requireNonAlphanumeric && !reg.test(value)) {
+                callback(
+                    new Error(
+                        this.$i18n.t(
+                            "AbpIdentity['Identity.PasswordRequiresNonAlphanumeric']"
+                        )
+                    )
+                )
+                return
+            }
+
+            callback()
+        };
 
         return {
             list: null,
@@ -233,30 +322,71 @@ export default {
             rules: {
                 userName: [{
                         required: true,
-                        message: '请输入名称',
+                        message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [
+                            this.$i18n.t("AbpIdentity['UserName']")
+                        ]),
                         trigger: 'blur'
                     },
                     {
-                        min: 3,
-                        max: 15,
-                        message: '长度在 3 到 15 个字符',
+                        max: 256,
+                        message: this.$i18n.t(
+                            "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+                            [this.$i18n.t("AbpIdentity['UserName']"), '256']
+                        ),
                         trigger: 'blur'
                     }
                 ],
                 email: [{
-                    required: true,
-                    trigger: 'blur',
-                    validator: checkEmail
+                        required: true,
+                        message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [
+                            this.$i18n.t("AbpIdentity['EmailAddress']")
+                        ]),
+                        trigger: 'blur'
+                    },
+                    {
+                        type: 'email',
+                        message: this.$i18n.t(
+                            "AbpIdentity['The {0} field is not a valid e-mail address.']",
+                            [this.$i18n.t("AbpIdentity['EmailAddress']")]
+                        ),
+                        trigger: ['blur', 'change']
+                    },
+                    {
+                        max: 256,
+                        message: this.$i18n.t(
+                            "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+                            [this.$i18n.t("AbpIdentity['EmailAddress']"), '256']
+                        ),
+                        trigger: 'blur'
+                    }
+                ],
+                name: [{
+                    max: 64,
+                    message: this.$i18n.t(
+                        "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+                        [this.$i18n.t("AbpIdentity['DisplayName:Name']"), '64']
+                    ),
+                    trigger: 'blur'
+                }],
+                surname: [{
+                    max: 64,
+                    message: this.$i18n.t(
+                        "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+                        [this.$i18n.t("AbpIdentity['DisplayName:Surname']"), '64']
+                    ),
+                    trigger: 'blur'
                 }],
                 phoneNumber: [{
-                    required: true,
-                    trigger: 'blur',
-                    validator: checkPhone
+                    max: 16,
+                    message: this.$i18n.t(
+                        "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+                        [this.$i18n.t("AbpIdentity['PhoneNumber']"), '16']
+                    ),
+                    trigger: 'blur'
                 }],
                 password: [{
-                    required: true,
-                    message: '请输入密码',
-                    trigger: 'blur'
+                    validator: passwordValidator,
+                    trigger: ['blur', 'change']
                 }]
             }
         }
@@ -286,7 +416,6 @@ export default {
         fetchGetUserRoles(id) {
             getRolesByUserId(id).then((response) => {
                 var obj = response.items
-                console.log('obj', obj)
                 var tempArr = []
                 if (obj.length > 0) {
                     var arr = Object.keys(obj).forEach(function (key) {
@@ -299,6 +428,10 @@ export default {
         },
         handleFilter() {
             this.listQuery.page = 1
+            this.fetchData()
+        },
+        handleRefresh() {
+            this.listQuery.filter = undefined
             this.fetchData()
         },
         handleCheckAllChange(val) {
@@ -436,7 +569,7 @@ export default {
                             })
                         })
                         .catch((err) => {
-                            
+
                             console.log(err)
                         })
                 })

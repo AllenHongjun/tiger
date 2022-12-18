@@ -1,7 +1,16 @@
 <template>
 <div class="app-container" style="padding:0 20px;">
     <div class="filter-container">
-        <el-input v-model="filterText" placeholder="查询组织" />
+        <el-row :gutter="20">
+            <el-col :span="20">
+                <el-input v-model="filterText" placeholder="查询组织" />
+            </el-col>
+            <el-col :span="4">
+                <div class="grid-content">
+                    <el-button type="primary" @click="() => handleCreate()">添加根机构</el-button>
+                </div>
+            </el-col>
+        </el-row>
     </div>
     <el-tree ref="orgTree" :data="orgTreeData" :props="orgTreeProps" :filter-node-method="filterOrg" :expand-on-click-node="false" :show-checkbox="showCheckbox" :check-strictly="checkStrictly" node-key="id" highlight-current :default-expand-all="true" @node-click="handleOrgClick" @check-change="checkChange">
         <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -139,7 +148,7 @@ export default {
         handleCreate(row) {
             this.resetTemp()
             // row 存放当前点击节点的信息
-            if (!row.id) {
+            if ( !row || !row.id) {
                 this.dialogStatus = 'create'
                 this.currentParentName = ''
             } else {
@@ -157,7 +166,7 @@ export default {
         createData() {
             this.$refs['dataForm'].validate(valid => {
                 if (valid) {
-                   
+
                     createOrganization(this.temp).then((res) => {
                         // TODO: 修改为前端添加节点数据刷新
                         // debugger
@@ -173,7 +182,6 @@ export default {
                         // this.orgTreeData.push(newChild);
 
                         this.handleRefresh();
-
 
                         this.dialogFormVisible = false
                         this.$notify({
@@ -266,19 +274,19 @@ export default {
             let keys = ''
             if (this.supportSingleChecked) {
                 if (checked) {
-                    console.log(data, checked, indeterminate)
+                    // console.log(data, checked, indeterminate)
                     keys = this.$refs.orgTree.getCheckedKeys()
                     if (keys.length > 1) {
                         this.$refs.orgTree.setCheckedKeys([])
                         this.$refs.orgTree.setChecked(data, true)
                         keys = this.$refs.orgTree.getCheckedKeys()
                     }
-                    console.log('单个-keys:', keys)
+                    // console.log('单个-keys:', keys)
                     this.$emit('handleCheckChange', data, keys)
                 }
             } else {
                 keys = this.$refs.orgTree.getCheckedKeys()
-                console.log('多个-keys:', keys)
+                // console.log('多个-keys:', keys)
                 this.$emit('handleCheckChange', data, keys)
             }
         },

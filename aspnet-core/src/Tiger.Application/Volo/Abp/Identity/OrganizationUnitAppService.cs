@@ -396,6 +396,7 @@ namespace Volo.Abp.Identity
                 throw new UserFriendlyException("组织机构不存在");
             }
 
+            // TODO: 移除子机构已经关联的角色
             var organizationUnitRolesCount = await OrganizationUnitRepository.GetUnaddedRolesCountAsync(organizationUnit, input.Filter);
 
             var organizationUnitRoles = await OrganizationUnitRepository.GetUnaddedRolesAsync(organizationUnit, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);

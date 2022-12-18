@@ -262,7 +262,7 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 获取未关联组织的角色
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ouid"></param>
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
@@ -270,7 +270,7 @@ namespace Volo.Abp.Identity
         [Route("{ouid}/get-unadded-roles")]
         public Task<PagedResultDto<IdentityRoleDto>> GetUnaddedRolesAsync(Guid ouid, GetOrganizationUnitInput input)
         {
-            throw new NotImplementedException();
+            return OrganizationUnitAppService.GetUnaddedRolesAsync(ouid, input);
         }
 
         /// <summary>
