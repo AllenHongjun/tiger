@@ -18,7 +18,7 @@ const tenantRouter = {
       component: () => import('@/views/saas/tenant/index'),
       name: 'Tenant',
       meta: { 
-        title: 'AbpTenantManagement["Menu:TenantManagement"]', 
+        title: '租户', 
         policy: 'AbpTenantManagement.Tenants' 
       }
     },

@@ -40,6 +40,9 @@ namespace Tiger.Volo.Abp.Identity
         /// </summary>
         public const string DuplicateConfirmEmailAddress = "Volo.Abp.Identity:020010";
 
+        /// <summary>
+        /// 外部用户无法重置密码
+        /// </summary>
         public const string ExternalUserPasswordChange = "Volo.Abp.Identity:020011";
 
     }

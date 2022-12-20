@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Tiger.Volo.Abp.Identity.ClaimTypes.Dto
+namespace Tiger.Volo.Abp.Identity.Roles.Dto
 {
-    public class IdentityUserClaimDto
+    public class IdentityRoleClaimDto
     {
-        public Guid UserId { get; set; }
+        public Guid RoleId { get; set; }
 
         public string ClaimType { get; set; }
 

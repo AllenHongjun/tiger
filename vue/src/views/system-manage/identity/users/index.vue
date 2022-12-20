@@ -116,16 +116,6 @@
                     <el-form-item prop="twoFactorEnabled">
                         <el-checkbox v-model="temp.twoFactorEnabled" :label="$t('AbpIdentity[\'DisplayName:TwoFactorEnabled\']')" />
                     </el-form-item>
-
-                    <!-- <el-form-item v-if="dialogStatus === 'create'" label="密码" prop="password">
-                        <el-input v-model="temp.password" />
-                    </el-form-item>
-                    <el-form-item label="邮箱" prop="email">
-                        <el-input v-model="temp.email" />
-                    </el-form-item>
-                    <el-form-item label="手机号" prop="phoneNumber">
-                        <el-input v-model="temp.phoneNumber" />
-                    </el-form-item> -->
                 </el-tab-pane>
                 <el-tab-pane :label="$t('AbpIdentity[\'Roles\']')" name="second">
                     <template>
@@ -136,7 +126,7 @@
                         </el-checkbox-group>
                     </template>
                 </el-tab-pane>
-                <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:AddMember\']')" name="third">
+                <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:Tree\']')" name="third">
                     <org-tree ref="dialogOrgTree" :show-checkbox="true" :support-single-checked="singleChecked" @handleCheckChange="handleCheckChange" />
                     <el-form-item />
                 </el-tab-pane>
@@ -147,8 +137,8 @@
         </el-form-item> -->
         </el-form>
         <div style="text-align: right">
-            <el-button type="danger" @click="dialogFormVisible = false">取消</el-button>
-            <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">确认</el-button>
+            <el-button type="danger" @click="dialogFormVisible = false">{{ $t("AbpIdentity['Cancel']") }}</el-button>
+            <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">{{ $t("AbpIdentity['Save']") }}</el-button>
         </div>
     </el-dialog>
 
@@ -313,13 +303,13 @@ export default {
                 limit: 10,
                 Sorting: ''
             },
+
             checkAll: false,
             checkedRoles: [],
             roles: [],
             isIndeterminate: true,
             activeName: 'first',
             singleChecked: false,
-
             temp: {
                 id: '',
                 userName: '',
@@ -422,51 +412,27 @@ export default {
                 this.listLoading = false
             })
         },
-        fetchRoles() {
-            getAssignableRoles().then((response) => {
-                var obj = response.items
-                var tempArr = []
-                var arr = Object.keys(obj).forEach(function (key) {
-                    tempArr.push(obj[key].name)
-                })
-                this.roles = tempArr
-            })
-        },
-        fetchUserRoles(id) {
-            getRolesByUserId(id).then((response) => {
-                var obj = response.items
-                var tempArr = []
-                if (obj.length > 0) {
-                    var arr = Object.keys(obj).forEach(function (key) {
-                        tempArr.push(obj[key].name)
-                    })
-                }
-
-                this.checkedRoles = tempArr
-            })
-        },
         handleFilter() {
             this.listQuery.page = 1
             this.fetchData()
+        },
+        sortChange(data) {
+            const {
+                prop,
+                order
+            } = data
+            this.listQuery.sort = order ? `${prop} ${order}` : undefined
+            this.handleFilter()
         },
         handleRefresh() {
             this.listQuery.filter = undefined
             this.fetchData()
         },
-        handleCheckAllChange(val) {
-            this.checkedRoles = val ? this.roles : []
-            this.isIndeterminate = false
-        },
-        handleCheckedRolesChange(value) {
-            const checkedCount = value.length
-            this.checkAll = checkedCount === this.roles.length
-            this.isIndeterminate =
-                checkedCount > 0 && checkedCount < this.roles.length
-        },
+        
         handleCommand(param) {
             switch (param.command) {
                 case 'delete':
-                    this.deleteData(param.scope.row.id)
+                    this.deleteData(param.scope.row)
                     break
                 case 'edit':
                     this.handleUpdate(param.scope.row)
@@ -485,11 +451,18 @@ export default {
                 command: command
             }
         },
+
         resetTemp() {
             this.temp = {
+                orgIds: [],
+                userName: '',
+                email: '',
                 name: '',
-                adminEmailAddress: '',
-                adminPassword: ''
+                surname: '',
+                phoneNumber: '',
+                lockoutEnabled: true,
+                twoFactorEnabled: true,
+                roleNames: []
             }
         },
         handleCreate() {
@@ -521,6 +494,39 @@ export default {
                 }
             })
         },
+        fetchRoles() {
+            getAssignableRoles().then((response) => {
+                var obj = response.items
+                var tempArr = []
+                var arr = Object.keys(obj).forEach(function (key) {
+                    tempArr.push(obj[key].name)
+                })
+                this.roles = tempArr
+            })
+        },
+        fetchUserRoles(id) {
+            getRolesByUserId(id).then((response) => {
+                var obj = response.items
+                var tempArr = []
+                if (obj.length > 0) {
+                    var arr = Object.keys(obj).forEach(function (key) {
+                        tempArr.push(obj[key].name)
+                    })
+                }
+
+                this.checkedRoles = tempArr
+            })
+        },
+        handleCheckAllChange(val) {
+            this.checkedRoles = val ? this.roles : []
+            this.isIndeterminate = false
+        },
+        handleCheckedRolesChange(value) {
+            const checkedCount = value.length
+            this.checkAll = checkedCount === this.roles.length
+            this.isIndeterminate =
+                checkedCount > 0 && checkedCount < this.roles.length
+        },
         handleUpdate(row) {
             this.temp = Object.assign({}, row) // copy obj
             this.dialogStatus = 'update'
@@ -547,15 +553,14 @@ export default {
             this.$refs['dataForm'].validate((valid) => {
                 if (valid) {
                     this.temp.roleNames = this.checkedRoles
-                    console.log(this.temp)
                     const tempData = Object.assign({}, this.temp)
-                    updateUserToOrg(this.temp).then(() => {
+                    updateUserToOrg(tempData).then(() => {
                         const index = this.list.findIndex((v) => v.id === this.temp.id)
                         this.list.splice(index, 1, this.temp)
                         this.dialogFormVisible = false
                         this.$notify({
-                            title: '成功',
-                            message: '修改成功',
+                            title: this.$i18n.t("TigerUi['Success']"),
+                            message: this.$i18n.t("TigerUi['SuccessMessage']"),
                             type: 'success',
                             duration: 2000
                         })
@@ -563,25 +568,27 @@ export default {
                 }
             })
         },
-        deleteData(id) {
-            console.log('delete')
-            this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
+        deleteData(row) {
+            this.$confirm(this.$i18n.t("AbpIdentity['UserDeletionConfirmationMessage']", [
+                    row.userName
+                ]), this.$i18n.t("AbpIdentity['AreYouSure']"), {
+                    confirmButtonText: this.$i18n.t("AbpIdentity['Yes']"),
+                    cancelButtonText: this.$i18n.t("AbpIdentity['Cancel']"),
                     type: 'warning'
                 })
                 .then(() => {
-                    deleteUser(id)
+                    deleteUser(row.id)
                         .then((response) => {
-                            const index = this.list.findIndex((v) => v.id === id)
+                            const index = this.list.findIndex((v) => v.id === row.id)
                             this.list.splice(index, 1)
                             this.$message({
-                                message: '删除成功',
-                                type: 'success'
+                                title: this.$i18n.t("TigerUi['Success']"),
+                                message: this.$i18n.t("TigerUi['SuccessMessage']"),
+                                type: 'success',
+                                duration: 2000
                             })
                         })
                         .catch((err) => {
-
                             console.log(err)
                         })
                 })

@@ -9,7 +9,7 @@ const auditlogRouter = {
       component: () => import('@/views/auditlogging/index'),
       name: 'AuditLog',
       meta: {
-        title: 'AbpAuditLogging["AuditLogging"]',
+        title: '审计日志',
         policy: 'AbpAuditLogging.Default',
         icon: 'el-icon-document'
       }
