@@ -77,6 +77,7 @@ namespace Tiger.Volo.Abp.Setting
 
         [HttpGet]
         [Route("test-register-task")]
+        [RemoteService(false)]
         public Task RegisterAsync(string userName="admin", string emailAddress="admin@gmai.com", string password="1q2w3E*")
         {
             return _settingManagementAppService.RegisterAsync(userName, emailAddress, password);
@@ -86,6 +87,7 @@ namespace Tiger.Volo.Abp.Setting
 
         [HttpGet]
         [Route("test-get-setting-value")]
+        [RemoteService(false)]
         public Task TestGetSettingValueAsync()
         {
             return _settingManagementAppService.TestGetSettingValueAsync();
@@ -93,6 +95,7 @@ namespace Tiger.Volo.Abp.Setting
 
         [HttpGet]
         [Route("test-set-manager")]
+        [RemoteService(false)]
         public Task TestSetManager()
         {
             return _settingManagementAppService.TestSetManager();

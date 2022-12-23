@@ -34,6 +34,31 @@ export function updateUser(id, payload) {
   })
 }
 
+export function ChangePassword(id, payload) {
+  return request({
+    url: `/api/identity/users/${id}/change-password`,
+    method: 'put',
+    data: payload
+  })
+}
+
+export function Lock(id, payload) {
+  return request({
+    url: `/api/identity/users/${id}/lock`,
+    method: 'put',
+    params: payload
+  })
+}
+
+export function UnLock(id) {
+  return request({
+    url: `/api/identity/users/${id}/unlock`,
+    method: 'put'
+  })
+}
+
+
+
 export function deleteUser(id) {
   return request({
     url: `/api/identity/users/${id}`,

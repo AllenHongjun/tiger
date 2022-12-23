@@ -22,6 +22,8 @@
     "Search": "搜索",
     "Reset": "重置",
 
+    "Users:ChangePassword": "重置密码", 
+
     "OrganizationUnit:Tree": "组织机构树",
     "OrganizationUnit:New": "新组织机构",
     "OrganizationUnit:Members": "机构成员",

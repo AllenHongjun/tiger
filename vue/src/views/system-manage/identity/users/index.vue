@@ -1,35 +1,116 @@
 <template>
 <div class="app-container">
-    <div class="filter-container" style="margin-bottom: 20px">
-        <el-input v-model="listQuery.filter" placeholder="关键词" style="width: 150px" class="filter-item" />
 
-        <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-            {{ $t('AbpIdentity.Search') }}
-        </el-button>
+    <div class="filter-container" style="margin-bottom:10px;">
+        <el-form ref="userQueryForm" label-position="left" label-width="100px" :model="listQuery">
+            <!-- 增加没一列之间的间隔 -->
+            <el-row :gutter="20">
+                <el-col :span="4">
+                    <el-form-item prop="applicationName" :label="$t('AbpIdentity.Search')">
+                        <el-input v-model="listQuery.filter" :placeholder="$t('AbpIdentity.Search')" />
+                    </el-form-item>
+                </el-col>
 
-        <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
-            {{ $t("AbpIdentity['NewUser']") }}
-        </el-button>
-        <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">
-            {{ $t("AbpIdentity['Refresh']") }}
-        </el-button>
+                <el-col :span="4">
+                    <el-button-group>
+                        <el-button type="primary" icon="el-icon-search" @click="handleFilter">
+                            {{ $t('AbpIdentity.Search') }}
+                        </el-button>
+                        <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
+                            {{ $t('AbpIdentity.Reset') }}
+                        </el-button>
+                        <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+                            {{ advanced ? '收起' :  '展开'}}
+                            <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
+                        </el-link>
+                    </el-button-group>
+                </el-col>
+            </el-row>
+
+            <el-collapse-transition>
+                <div v-show="advanced">
+                    <el-row :gutter="10">
+                        <el-col :span="4">
+                            <el-form-item prop="roleNames" label="角色">
+                                <el-input v-model="listQuery.roleNames" placeholder="角色" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-form-item prop="OrganizationUnit" label="组织机构">
+                                <el-input v-model="listQuery.OrganizationUnit" placeholder="组织机构" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-form-item prop="userName" :label="$t('AbpIdentity[\'UserName\']')">
+                                <el-input v-model="listQuery.userName" :placeholder="$t('AbpIdentity[\'UserName\']')" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-form-item prop="phoneNumber" :label="$t('AbpIdentity[\'PhoneNumber\']')">
+                                <el-input v-model="listQuery.phoneNumber" :placeholder="$t('AbpIdentity[\'PhoneNumber\']')" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-form-item prop="emailAddress" :label="$t('AbpIdentity[\'EmailAddress\']')">
+                                <el-input v-model="listQuery.emailAddress" :placeholder="$t('AbpIdentity[\'EmailAddress\']')" />
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="1">
+                            <el-form-item prop="isActive">
+                                <el-checkbox v-model="listQuery.isActive">启用</el-checkbox>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="1">
+                            <el-form-item prop="isLockOut">
+                                <el-checkbox v-model="listQuery.isLockOut">锁定</el-checkbox>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                </div>
+            </el-collapse-transition>
+
+            <el-row>
+                <el-col :span="4">
+                    <el-button-group style="float:left">
+                        <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
+                            {{ $t("AbpIdentity['NewUser']") }}
+                        </el-button>
+                        <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
+                            {{ $t("AbpIdentity['Refresh']") }}
+                        </el-button>
+                        <!-- <el-button type="reset" icon="el-icon-download" @click="handleDownload">
+                            导出
+                        </el-button> -->
+                    </el-button-group>
+
+                </el-col>
+            </el-row>
+        </el-form>
     </div>
 
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row :default-sort="{prop:'creationTime', order: 'descending'}" @sort-change="sortChange">
 
-        <el-table-column :label="$t('AbpIdentity[\'UserName\']')" align="center" width="120">
+        <el-table-column :label="$t('AbpIdentity[\'UserName\']')" align="center" width="120" prop="userName" sortable="custom">
             <template slot-scope="scope">
                 {{ scope.row.userName }}
+                <el-tag v-if="scope.row.lockoutEnd && (new Date(scope.row.lockoutEnd)) >= new Date()" type="danger" class="el-icon-lock" title="此用户已被锁定. 要解锁,请单击“操作”,然后单击“解锁”."></el-tag>
             </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" align="center" width="180">
+        <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" align="center" width="180" prop="email" sortable="custom">
             <template slot-scope="scope">
                 {{ scope.row.email }}
             </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpIdentity[\'PhoneNumber\']')" align="center" width="200">
+        <el-table-column :label="$t('AbpIdentity[\'PhoneNumber\']')" align="center" width="200" prop="phoneNumber" sortable="custom">
             <template slot-scope="scope">
                 {{ scope.row.phoneNumber }}
+            </template>
+        </el-table-column>
+
+        <el-table-column :label="$t('AbpIdentity[\'DisplayName:Surname\']') + $t('AbpIdentity[\'DisplayName:Name\']')" align="center" width="100">
+            <template slot-scope="scope">
+                {{ scope.row.surname }}{{ scope.row.name }}
             </template>
         </el-table-column>
 
@@ -40,8 +121,8 @@
         </el-table-column>
         <el-table-column label="锁定" align="center">
             <template slot-scope="scope">
-                <el-tag :type="( scope.row.lockoutEnabled ? 'danger' : 'success')" :class="[scope.row.lockoutEnabled ?  'el-icon-close' : 'el-icon-check']">
-                    {{ scope.row.lockoutEnabled ?  '锁定' : '正常' }}
+                <el-tag :type="( scope.row.lockoutEnabled ? 'success' : 'danger')">
+                    {{ scope.row.lockoutEnabled ?  '启用' : '禁用' }}
                 </el-tag>
             </template>
         </el-table-column>
@@ -52,16 +133,18 @@
         </el-table-column>
         <el-table-column label="锁定结束时间" align="center" width="200">
             <template slot-scope="scope">
-                {{ scope.row.lockoutEnd == null ? '' : (scope.row.lockoutEnd | formatDate) }}
+                <!-- 过滤器用括号会不识别。把全局过滤器当作方法一样使用  -->
+                {{ scope.row.lockoutEnd == null ? '' : $options.filters.formatDate(scope.row.lockoutEnd)  }}
             </template>
         </el-table-column>
 
-        <el-table-column label="创建时间" align="center" width="200">
+        <el-table-column label="创建时间" align="center" width="200" prop="creationTime" sortable="custom">
             <template slot-scope="scope">
                 {{ scope.row.creationTime | formatDate }}
+
             </template>
         </el-table-column>
-        <el-table-column label="最后修改时间" align="center" width="200">
+        <el-table-column label="最后修改时间" align="center" width="200" prop="creationTime" sortable="custom">
             <template slot-scope="scope">
                 {{ scope.row.lastModificationTime | formatDate }}
             </template>
@@ -75,11 +158,11 @@
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item :command="beforeHandleCommand(scope, 'edit')">{{ $t("AbpIdentity['Edit']") }}</el-dropdown-item>
-                        <el-dropdown-item>锁定</el-dropdown-item>
-                        <el-dropdown-item :command="beforeHandleCommand(scope, 'updatePermission')">
-                            {{ $t("AbpIdentity['Permissions']") }}
-                        </el-dropdown-item>
-                        <el-dropdown-item>设置密码</el-dropdown-item>
+
+                        <el-dropdown-item :command="beforeHandleCommand(scope, 'updatePermission')">{{ $t("AbpIdentity['Permissions']") }}</el-dropdown-item>
+                        <el-dropdown-item :command="beforeHandleCommand(scope, 'changePassword')">设置密码</el-dropdown-item>
+                        <el-dropdown-item v-if="scope.row.lockoutEnd && (new Date(scope.row.lockoutEnd)) >= new Date()" :command="beforeHandleCommand(scope, 'unlock')">解锁</el-dropdown-item>
+                        <el-dropdown-item v-else :command="beforeHandleCommand(scope, 'lock')">锁定</el-dropdown-item>
                         <el-dropdown-item :command="beforeHandleCommand(scope, 'delete')">{{ $t("AbpIdentity['Delete']") }}</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -88,6 +171,7 @@
     </el-table>
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
+    <!-- 创建 修改用户对话框 -->
     <el-dialog :title="dialogStatus == 'create'? $t('AbpIdentity[\'NewUser\']'): $t('AbpIdentity[\'Edit\']')" :visible.sync="dialogFormVisible">
         <el-form ref="dataForm" :rules="rules" :model="temp" label-width="120px" label-position="right">
             <el-tabs v-model="activeName">
@@ -95,14 +179,14 @@
                     <el-form-item :label="$t('AbpIdentity[\'UserName\']')" prop="userName">
                         <el-input v-model="temp.userName" />
                     </el-form-item>
-                    <el-form-item :label="$t('AbpIdentity[\'DisplayName:Name\']')" prop="name">
-                        <el-input v-model="temp.name" />
-                    </el-form-item>
                     <el-form-item :label="$t('AbpIdentity[\'DisplayName:Surname\']')" prop="surname">
                         <el-input v-model="temp.surname" />
                     </el-form-item>
-                    <el-form-item :label="$t('AbpIdentity[\'Password\']')" prop="password" :class="{ 'is-required': !temp.id }">
-                        <el-input v-model="temp.password" type="password" auto-complete="off" />
+                    <el-form-item :label="$t('AbpIdentity[\'DisplayName:Name\']')" prop="name">
+                        <el-input v-model="temp.name" />
+                    </el-form-item>
+                    <el-form-item v-if="dialogStatus === 'create'" :label="$t('AbpIdentity[\'Password\']')" prop="password" :class="{ 'is-required': !temp.id }">
+                        <el-input v-model="temp.password" type="text" auto-complete="off" class="no-autofill-pwd" />
                     </el-form-item>
                     <el-form-item :label="$t('AbpIdentity[\'EmailAddress\']')" prop="email">
                         <el-input v-model="temp.email" />
@@ -132,13 +216,39 @@
                 </el-tab-pane>
             </el-tabs>
 
-            <!-- <el-form-item label="使用共享数据库" prop="title">
-          <el-checkbox v-model="checked"></el-checkbox>
-        </el-form-item> -->
         </el-form>
         <div style="text-align: right">
             <el-button type="danger" @click="dialogFormVisible = false">{{ $t("AbpIdentity['Cancel']") }}</el-button>
             <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">{{ $t("AbpIdentity['Save']") }}</el-button>
+        </div>
+    </el-dialog>
+
+    <!-- 重置密码对话框 -->
+    <el-dialog :title="$t('AbpIdentity[\'Users:ChangePassword\']')" :visible.sync="dialogChangePasswordFormVisible" width="30%">
+        <el-form ref="changePasswordForm" :rules="rules" :model="changePasswordForm" label-width="80px" label-position="right">
+            <el-form-item :label="$t('AbpIdentity[\'Password\']')" :inline="true">
+                <el-input v-model="changePasswordForm.password" prop="password" type="text" auto-complete="off" style="width:90%" />
+                <el-button type="primary" icon="el-icon-refresh" @click="generatePassword( 8 )"></el-button>
+            </el-form-item>
+        </el-form>
+        <div style="text-align: right">
+            <el-button type="danger" @click="dialogChangePasswordFormVisible = false">{{ $t("AbpIdentity['Cancel']") }}</el-button>
+            <el-button type="primary" @click="changePassword()">{{ $t("AbpIdentity['Save']") }}</el-button>
+        </div>
+    </el-dialog>
+
+    <!-- 锁定用户对话框 -->
+    <el-dialog title="锁定" :visible.sync="dialogLockFormVisible" width="30%">
+        <el-form :model="lockForm">
+            <el-form-item label="锁定终止时间" label-width="100px">
+                <el-date-picker v-model="lockForm.lockoutEnd" type="datetime" placeholder="选择日期">
+                </el-date-picker>
+            </el-form-item>
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogLockFormVisible = false">{{ $t("AbpIdentity['Cancel']") }}</el-button>
+            <el-button type="primary" @click="lock()">{{ $t("AbpIdentity['Save']") }}</el-button>
         </div>
     </el-dialog>
 
@@ -151,14 +261,16 @@ import {
     getUserList,
     createUserToOrg,
     updateUserToOrg,
+    ChangePassword,
+    Lock,
+    UnLock,
     deleteUser,
     getOrganizationsByUserId,
     getAssignableRoles,
-    getRolesByUserId,
-    getUserRoles
+    getRolesByUserId
 } from '@/api/system-manage/identity/user'
 
-// import { parseTime } from '@/utils'
+import baseListQuery from '@/utils/abp'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import {
     validEmail,
@@ -187,7 +299,8 @@ export default {
     data() {
         var checkPhone = (rule, value, callback) => {
             if (!value) {
-                return callback(new Error('电话号码不能为空'))
+                // 默认设置手机号可以为空
+                return callback();
             }
             setTimeout(() => {
                 // Number.isInteger是es6验证数字是否为整数的方法,但是我实际用的时候输入的数字总是识别成字符串
@@ -296,12 +409,22 @@ export default {
         return {
             list: null,
             listLoading: true,
+            advanced: false, // 判断搜索栏展开/收起
             total: 0,
             listQuery: {
                 filter: '',
                 page: 1,
                 limit: 10,
-                Sorting: ''
+                sort: 'creationTime descending',
+
+                roleNames: '',
+                organiztion: '',
+                username: '',
+                phone: '',
+                emailAddress: '',
+                lockoutEnd: '',
+                isLockOut: '',
+                isActive: '', // 是否启用
             },
 
             checkAll: false,
@@ -313,11 +436,12 @@ export default {
             temp: {
                 id: '',
                 userName: '',
-                password: '',
+                password: '1q2w3E*', // 修改用户的时候是重置密码，如果密码为空就不修改密码
                 name: '',
                 surname: '',
                 email: '',
                 lockoutEnabled: '',
+                lockoutEnd: '',
                 phoneNumber: '',
                 roleNames: [],
                 orgIds: []
@@ -328,6 +452,14 @@ export default {
                 update: '编辑',
                 create: '添加'
             },
+            dialogChangePasswordFormVisible: false,
+            changePasswordForm: {
+                password: '', // 重置后的密码
+            },
+            lockForm: {
+                lockoutEnd: undefined,
+            },
+            dialogLockFormVisible: false,
             rules: {
                 userName: [{
                         required: true,
@@ -385,14 +517,30 @@ export default {
                     ),
                     trigger: 'blur'
                 }],
-                phoneNumber: [{
-                    max: 16,
-                    message: this.$i18n.t(
-                        "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
-                        [this.$i18n.t("AbpIdentity['PhoneNumber']"), '16']
-                    ),
-                    trigger: 'blur'
-                }],
+                phoneNumber: [
+                    // {
+                    //     required: true,
+                    //     message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [
+                    //         this.$i18n.t("AbpIdentity['PhoneNumber']")
+                    //     ]),
+                    //     trigger: 'blur'
+                    // },
+                    {
+                        validator: checkPhone,
+                        message: this.$i18n.t("AbpIdentity['The {0} field is not a valid phone number.']", [
+                            this.$i18n.t("AbpIdentity['PhoneNumber']")
+                        ]),
+                        trigger: 'blur'
+                    },
+                    {
+                        max: 16,
+                        message: this.$i18n.t(
+                            "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+                            [this.$i18n.t("AbpIdentity['PhoneNumber']"), '16']
+                        ),
+                        trigger: 'blur'
+                    }
+                ],
                 password: [{
                     validator: passwordValidator,
                     trigger: ['blur', 'change']
@@ -412,6 +560,22 @@ export default {
                 this.listLoading = false
             })
         },
+        // 重置查询参数
+        resetQueryForm() {
+            this.listQuery = Object.assign({
+                roleNames: '',
+                organiztion: '',
+                username: '',
+                phone: '',
+                emailAddress: '',
+                lockoutEnd: '',
+                isLockOut: '',
+                isActive: '' // 是否启用
+            }, baseListQuery)
+        },
+        toggleAdvanced() {
+            this.advanced = !this.advanced
+        },
         handleFilter() {
             this.listQuery.page = 1
             this.fetchData()
@@ -428,17 +592,27 @@ export default {
             this.listQuery.filter = undefined
             this.fetchData()
         },
-        
+
         handleCommand(param) {
             switch (param.command) {
-                case 'delete':
-                    this.deleteData(param.scope.row)
-                    break
+
                 case 'edit':
                     this.handleUpdate(param.scope.row)
                     break
+                case 'lock':
+                    this.handleLock(param.scope.row)
+                    break
+                case 'unlock':
+                    this.unLock(param.scope.row)
+                    break
                 case 'updatePermission':
                     this.handleUpdatePermission(param.scope.row)
+                    break
+                case 'changePassword':
+                    this.handelChangePassword(param.scope.row)
+                    break
+                case 'delete':
+                    this.deleteData(param.scope.row)
                     break
                 default:
                     // this.handlePasswd(command.scope.row)
@@ -454,31 +628,32 @@ export default {
 
         resetTemp() {
             this.temp = {
-                orgIds: [],
+                id: '',
                 userName: '',
-                email: '',
+                password: '',
                 name: '',
                 surname: '',
+                email: '',
+                lockoutEnabled: '',
+                lockoutEnd: '',
                 phoneNumber: '',
-                lockoutEnabled: true,
-                twoFactorEnabled: true,
-                roleNames: []
+                roleNames: [],
+                orgIds: []
             }
+            this.checkedRoles = []
         },
         handleCreate() {
             this.resetTemp()
             this.dialogStatus = 'create'
             this.dialogFormVisible = true
-
             this.singleChecked = false
-            this.temp.roleNames = []
             this.fetchRoles()
             this.$nextTick(() => {
                 this.$refs['dataForm'].clearValidate()
             })
         },
         createData() {
-            this.$refs['dataForm'].validate((valid) => {
+            this.$refs['dataForm'].validate((valid, object) => {
                 if (valid) {
                     this.temp.roleNames = this.checkedRoles
                     createUserToOrg(this.temp).then(() => {
@@ -491,6 +666,13 @@ export default {
                             duration: 2000
                         })
                     })
+                } else {
+                    // 错误消息弹框的形式出现
+                    let errorMessage = [];
+                    for (let key in object) {
+                        errorMessage.push(object[key][0].message);
+                    }
+                    this.$message.error(errorMessage.join(","));
                 }
             })
         },
@@ -548,9 +730,11 @@ export default {
                 this.$refs.dialogOrgTree.$refs.orgTree.setCheckedKeys([])
                 this.$refs['dataForm'].clearValidate()
             })
+
         },
         updateData() {
-            this.$refs['dataForm'].validate((valid) => {
+            this.$refs['dataForm'].validate((valid, object) => {
+
                 if (valid) {
                     this.temp.roleNames = this.checkedRoles
                     const tempData = Object.assign({}, this.temp)
@@ -558,6 +742,7 @@ export default {
                         const index = this.list.findIndex((v) => v.id === this.temp.id)
                         this.list.splice(index, 1, this.temp)
                         this.dialogFormVisible = false
+
                         this.$notify({
                             title: this.$i18n.t("TigerUi['Success']"),
                             message: this.$i18n.t("TigerUi['SuccessMessage']"),
@@ -565,6 +750,12 @@ export default {
                             duration: 2000
                         })
                     })
+                } else {
+                    let errorMessage = [];
+                    for (let key in object) {
+                        errorMessage.push(obj[key][0].message);
+                    }
+                    this.$message.error(errorMessage.join(","));
                 }
             })
         },
@@ -603,6 +794,103 @@ export default {
             // 用户授权
             this.$refs['permissionDialog'].handleUpdatePermission(row)
         },
+        handleLock(row) {
+            this.dialogLockFormVisible = true;
+            this.lockForm.lockoutEnd = undefined;
+            this.temp = Object.assign({}, row) // copy obj
+        },
+        lock() {
+            var dateEnd = new Date(this.lockForm.lockoutEnd);
+            var now = new Date();
+            var seconds = parseInt((dateEnd.getTime() - now.getTime()) / 1000);
+            this.temp.lockoutEnd = this.lockForm.lockoutEnd;
+            Lock(this.temp.id, {
+                seconds: seconds
+            }).then(() => {
+                const index = this.list.findIndex((v) => v.id === this.temp.id)
+                this.list.splice(index, 1, this.temp)
+                this.dialogLockFormVisible = false
+                this.$notify({
+                    title: this.$i18n.t("TigerUi['Success']"),
+                    message: this.$i18n.t("TigerUi['SuccessMessage']"),
+                    type: 'success',
+                    duration: 2000
+                })
+            });
+        },
+        unLock(row) {
+            this.temp = Object.assign({}, row) // copy obj
+            this.temp.lockoutEnd = undefined;
+            UnLock(this.temp.id).then(() => {
+                const index = this.list.findIndex((v) => v.id === this.temp.id)
+                this.list.splice(index, 1, this.temp)
+                this.$notify({
+                    title: this.$i18n.t("TigerUi['Success']"),
+                    message: this.$i18n.t("TigerUi['SuccessMessage']"),
+                    type: 'success',
+                    duration: 2000
+                })
+            });
+        },
+        handelChangePassword(row) {
+            this.temp = Object.assign({}, row) // copy obj
+            this.changePasswordForm.password = ''
+            this.dialogChangePasswordFormVisible = true;
+        },
+        // Random user password
+        generatePassword(length = 8) {
+            length = Number(length)
+            // Limit length
+            if (length < 6) {
+                length = 6
+            } else if (length > 16) {
+                length = 16
+            }
+            let passwordArray = ['ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz', '1234567890', '!@#$%&*()'];
+            var password = [];
+            let n = 0;
+            for (let i = 0; i < length; i++) {
+                // If password length less than 9, all value random
+                if (password.length < (length - 4)) {
+                    // Get random passwordArray index
+                    let arrayRandom = Math.floor(Math.random() * 4);
+                    // Get password array value
+                    let passwordItem = passwordArray[arrayRandom];
+                    // Get password array value random index
+                    // Get random real value
+                    let item = passwordItem[Math.floor(Math.random() * passwordItem.length)];
+                    password.push(item);
+                } else {
+                    // If password large then 9, lastest 4 password will push in according to the random password index
+                    // Get the array values sequentially
+                    let newItem = passwordArray[n];
+                    let lastItem = newItem[Math.floor(Math.random() * newItem.length)];
+                    // Get array splice index
+                    let spliceIndex = Math.floor(Math.random() * password.length);
+                    password.splice(spliceIndex, 0, lastItem);
+                    n++
+                }
+            }
+            this.changePasswordForm.password = password.join("");
+        },
+        changePassword() {
+            // TODO:表单验证没有生效
+            this.$refs['changePasswordForm'].validate((valid) => {
+                if (valid) {
+                    ChangePassword(this.temp.id, {
+                        password: this.changePasswordForm.password
+                    }).then(() => {
+                        this.dialogChangePasswordFormVisible = false
+                        this.$notify({
+                            title: this.$i18n.t("TigerUi['Success']"),
+                            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+                            type: 'success',
+                            duration: 2000
+                        })
+                    })
+                }
+            })
+        },
         handleCheckChange(data, orgIds) {
             // singleChecked
             if (orgIds) {
@@ -616,5 +904,16 @@ export default {
 <style lang="scss" scoped>
 .check-roles-group .el-checkbox {
     width: 120px;
+}
+
+// 粗暴解决浏览器密码表单自动填充问题 https://www.jianshu.com/p/c92d99d27360
+.no-autofill-pwd {
+
+    .el-input__inner {
+
+        -webkit-text-security: disc !important;
+
+    }
+
 }
 </style>

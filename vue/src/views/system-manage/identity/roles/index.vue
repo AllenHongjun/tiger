@@ -8,11 +8,11 @@
                 <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t("AbpIdentity['NewRole']") }}</el-button>
                 <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
             </el-row>
-            <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row>
+            <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @sort-change="sortChange">
                 <el-table-column align="center" label="ID" width="95">
                     <template slot-scope="scope">{{ scope.$index }}</template>
                 </el-table-column>
-                <el-table-column :label="$t('AbpIdentity[\'RoleName\']')" align="left">
+                <el-table-column :label="$t('AbpIdentity[\'RoleName\']')" align="left" prop="name" sortable>
                     <template slot-scope="scope">
                         <el-tag v-if="scope.row.isPublic">
                             {{ $t('AbpIdentity[\'DisplayName:IsPublic\']')}}
@@ -35,7 +35,7 @@
                         <el-button v-if="checkPermission('AbpIdentity.Roles.ManagePermissions')" type="success" plain @click="handleUpdatePermission(scope.row)">
                             {{ $t("AbpIdentity['Permissions']") }}
                         </el-button>
-                        <el-button v-if="!scope.row.isStatic && checkPermission('AbpIdentity.Roles.Delete')" type="danger" @click="deleteData(scope.row.id)">
+                        <el-button v-if="!scope.row.isStatic && checkPermission('AbpIdentity.Roles.Delete')" type="danger" @click="deleteData(scope.row)">
                             {{ $t("AbpIdentity['Delete']") }}
                         </el-button>
                     </template>
@@ -100,7 +100,7 @@ export default {
                 filter: '',
                 sorting: 'name desc'
             },
-            
+
             dialogStatus: '',
             dialogFormVisible: false,
             temp: {
@@ -131,7 +131,7 @@ export default {
             }
         }
     },
-    
+
     created() {
         this.fetchData()
     },
@@ -144,6 +144,14 @@ export default {
                 this.total = response.totalCount
                 this.listLoading = false
             })
+        },
+        sortChange(data) {
+            const {
+                prop,
+                order
+            } = data
+            this.listQuery.sort = order ? `${prop} ${order}` : undefined
+            this.handleFilter()
         },
         handleFilter() {
             this.listQuery.page = 1
@@ -211,12 +219,16 @@ export default {
                 }
             })
         },
-        deleteData(id) {
-            deleteRole(id)
+        deleteData(row) {
+            deleteRole(row.id)
                 .then((response) => {
+                    const index = this.list.findIndex((v) => v.id === row.id)
+                    this.list.splice(index, 1)
                     this.$message({
-                        message: '删除成功',
-                        type: 'success'
+                        title: this.$i18n.t("TigerUi['Success']"),
+                        message: this.$i18n.t("TigerUi['SuccessMessage']"),
+                        type: 'success',
+                        duration: 2000
                     })
                 })
                 .catch((err) => {

@@ -10,6 +10,7 @@ const tenantRouter = {
   name: 'Saas',
   meta: {
     title: 'Saas',
+    policy: 'AbpTenantManagement.Tenants',
     icon: 'peoples'
   },
   children: [
@@ -26,7 +27,7 @@ const tenantRouter = {
       path: '/edition/list',
       component: () => import('@/views/saas/edition/index'),
       name: 'edition',
-      meta: { title: '版本', policy: 'AbpTenantManagement.Tenants' }
+      meta: { title: '版本', policy: 'AbpTenantManagement.Features' }
     }
   ]
 }

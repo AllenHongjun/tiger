@@ -267,7 +267,7 @@ namespace Volo.Abp.Identity
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        [Route("{ouid}/get-unadded-roles")]
+        [Route("{ouid}/unadded-roles")]
         public Task<PagedResultDto<IdentityRoleDto>> GetUnaddedRolesAsync(Guid ouid, GetOrganizationUnitInput input)
         {
             return OrganizationUnitAppService.GetUnaddedRolesAsync(ouid, input);
@@ -363,7 +363,7 @@ namespace Volo.Abp.Identity
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{ouid}/remove-users")]
+        [Route("{ouid}/remove-user")]
         public  async Task RemoveUserAsync(Guid ouId, Guid userId)
         {
             await OrganizationUnitAppService.RemoveUserAsync(ouId, userId);

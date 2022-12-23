@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function getSettingValues() {
   return request({
-    url: '/api/setting-ui',
+    url: '/api/setting/get-list',
     method: 'get'
   })
 }
 
 export function setSettingValues(values) {
   return request({
-    url: '/api/setting-ui/set-setting-values',
+    url: '/api/setting/set-setting-values',
     method: 'put',
     data: values
   })

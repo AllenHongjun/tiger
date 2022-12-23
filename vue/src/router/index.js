@@ -69,17 +69,29 @@ export const constantRoutes = [
   {
     path: '/',
     name: '主页',
-    meta: { title: '主页', icon: 'dashboard' },
+    meta: { title: '主页', icon: 'el-icon-s-home' },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [
       {
+        path: '/documentation',
+        component: Layout,
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/documentation/index'),
+            name: 'Documentation',
+            meta: { title: '文档', icon: 'documentation', affix: true }
+          }
+        ]
+      },
+      {
         path: 'dashboard',
         name: '仪表盘',
         component: () => import('@/views/dashboard/index1'),
-        meta: { title: '仪表盘' , affix: true}
+        meta: { title: '仪表盘', icon: 'dashboard', affix: true}
       }
       // {
       //   path: 'vue2.0',
@@ -93,6 +105,21 @@ export const constantRoutes = [
       //   component: () => import('@/views/vue2.0/component'),
       //   meta: { title: '组件' }
       // }
+    ]
+  },
+ 
+  {
+    path: '/profile',
+    component: Layout,
+    redirect: '/profile/index',
+    hidden: true,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/profile/index'),
+        name: 'Profile',
+        meta: { title: '我的账户', icon: 'user', noCache: true }
+      }
     ]
   }
 ]

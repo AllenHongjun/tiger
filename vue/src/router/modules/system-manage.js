@@ -76,7 +76,8 @@ const SystemManageRouter = {
       name: 'system',
       meta: {
         title: '系统设置',
-        icon: 'el-icon-setting'
+        icon: 'el-icon-setting',
+        policy: 'AbpAuditLogging.Default' 
       }
     },
     // 添加外链

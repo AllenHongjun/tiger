@@ -41,6 +41,7 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
         }
 
         public async override Task Execute(IJobExecutionContext context)
+        
         {
             //var client = new RestClient("https://dog.ceo/api/breeds/list/all");
             //var request = new RestRequest(new Uri("https://dog.ceo/api/breeds/list/all"), Method.Get);

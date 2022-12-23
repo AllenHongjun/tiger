@@ -148,7 +148,7 @@ export function getOrgRoles(query) {
 
 export function getUnaddedRoles(id, query) {
   return request({
-    url: `/api/identity/organizations/${id}/get-unadded-roles`,
+    url: `/api/identity/organizations/${id}/unadded-roles`,
     method: 'get',
     params: transformAbpListQuery(query)
   })
@@ -180,8 +180,6 @@ export function removeRole(id, payload) {
   })
 }
 
-
-
 // 组织关联的用户
 
 export function getOrgUsers(query) {
@@ -194,7 +192,7 @@ export function getOrgUsers(query) {
 
 export function getUnAddedUsers(id, query) {
   return request({
-    url: `/api/identity/organizations/${id}/users`,
+    url: `/api/identity/organizations/${id}/unadded-users`,
     method: 'get',
     params: transformAbpListQuery(query)
   })
@@ -208,10 +206,11 @@ export function AddUsers(id, payload) {
   })
 }
 
-export function removeUser(id) {
+export function removeUser(id, payload) {
   return request({
     url: `/api/identity/organizations/${id}/remove-user`,
-    method: 'delete'
+    method: 'delete',
+    params: payload
   })
 }
 

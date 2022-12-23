@@ -6,13 +6,21 @@ import { param as encodeParam } from '@/utils'
 
 //axios官网 https://axios-http.com/zh/
 
+var timeout = 5000
+if (process.env.NODE_ENV === 'production') {
+  timeout = 5000 // request timeout
+} else {
+  timeout = 50000 // 开发环境增加调试请求时间
+}
 
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_LOCAL, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: timeout // request timeout
 })
+
+
 
 // request interceptor 请求拦截器
 service.interceptors.request.use(
@@ -61,7 +69,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log("error", error) // for debug
-    debugger
+    // debugger
 
     if (error.status === 401) {
       // to re-login
@@ -81,7 +89,12 @@ service.interceptors.response.use(
     }
 
     let message = ''
-    if (error.response && error.response.data && error.response.data.error) {
+    if(error.response && error.response.data && error.response.data.error && error.response.data.error.validationErrors){
+      error.response.data.error.validationErrors.forEach(element => {
+        message += element.message + '\n'
+      });
+    }
+    else if(error.response && error.response.data && error.response.data.error) {
       message = error.response.data.error.message //+ '<br>' + error.response.data.error.details
     } else {
       message = error.message

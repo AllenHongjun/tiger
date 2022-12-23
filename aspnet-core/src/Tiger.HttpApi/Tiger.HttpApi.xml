@@ -1535,6 +1535,31 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.ChangePasswordAsync(System.Guid,Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserSetPasswordInput)">
+            <summary>
+            修改用户密码
+            </summary>
+            <param name="id">用户id</param>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.LockAsync(System.Guid,System.Int32)">
+            <summary>
+            锁定用户
+            </summary>
+            <param name="id">用户id</param>
+            <param name="seconds">锁定时长单位 秒</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.UnlockAsync(System.Guid)">
+            <summary>
+            解锁用户
+            </summary>
+            <param name="id">用户id</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="M:Tiger.Volo.Abp.Setting.EmailSettingsController.GetAsync">
             <summary>
             获取邮件配置
@@ -1864,12 +1889,11 @@
         </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.GetListAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
             <summary>
-            
+            查询角色列表
             </summary>
             <param name="input"></param>
             <returns></returns>
             <remarks>
-            TODO: 覆盖父类已经有的接口方法
             </remarks>
         </member>
     </members>

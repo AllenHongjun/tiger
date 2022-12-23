@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
+using Tiger.Volo.Abp.Identity.Users.Dto;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.DependencyInjection;
@@ -13,7 +14,7 @@ namespace Tiger.Volo.Abp.Identity.Users
     public interface ITigerIdentityUserAppService : IApplicationService
     {
         /// <summary>
-        /// 用户管理组织
+        /// 添加用户同时关联组织机构
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="ouId"></param>
@@ -22,7 +23,6 @@ namespace Tiger.Volo.Abp.Identity.Users
 
 
         /// <summary>
-        /// get list OrganizationUnits
         /// </summary>
         /// <param name="id">user id</param>
         /// <param name="includeDetails"></param>
@@ -30,18 +30,21 @@ namespace Tiger.Volo.Abp.Identity.Users
         Task<ListResultDto<OrganizationUnitDto>> GetListOrganizationUnitsAsync(Guid id, bool includeDetails = false);
 
         /// <summary>
-        /// 添加组织
+        /// 添加
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         Task<IdentityUserDto> CreateAsync(IdentityUserOrgCreateDto input);
 
         /// <summary>
-        /// 修改组织
+        /// 修改
         /// </summary>
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
         Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input);
+        Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input);
+        Task LockAsync(Guid id, int seconds);
+        Task UnlockAsync(Guid id);
     }
 }

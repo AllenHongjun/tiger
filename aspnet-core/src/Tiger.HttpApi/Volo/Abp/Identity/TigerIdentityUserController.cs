@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users;
+using Tiger.Volo.Abp.Identity.Users.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
@@ -87,6 +88,44 @@ namespace Tiger.Volo.Abp.Identity
             return _userAppService.UpdateAsync(id, input);
         }
 
-       
+        /// <summary>
+        /// 修改用户密码
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPut]
+        [Route("{id}/change-password")]
+        public Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input)
+        {
+            return _userAppService.ChangePasswordAsync(id, input);
+        }
+
+        /// <summary>
+        /// 锁定用户
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <param name="seconds">锁定时长单位 秒</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/lock")]
+        public Task LockAsync(Guid id, int seconds)
+        {
+            return _userAppService.LockAsync(id, seconds);
+        }
+
+        /// <summary>
+        /// 解锁用户
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPut]
+        [Route("{id}/unlock")]
+        public Task UnlockAsync(Guid id)
+        {
+            return (_userAppService.UnlockAsync(id));
+        }
     }
 }

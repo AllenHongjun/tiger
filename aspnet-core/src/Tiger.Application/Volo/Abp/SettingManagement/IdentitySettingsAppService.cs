@@ -12,10 +12,6 @@ using Volo.Abp.SettingManagement;
 namespace Tiger.Volo.Abp.SettingManagement
 {
     [RemoteService(false)]
-    //[RemoteService(Name = SettingManagementRemoteServiceConsts.RemoteServiceName)]
-    //[Area(SettingManagementRemoteServiceConsts.ModuleName)]
-    //[Area("setting")]
-    //[Route("api/setting/identity")]
     [ApiExplorerSettings(GroupName = "admin")]
     public class IdentitySettingsAppService : ApplicationService, IIdentitySettingsAppService
     {

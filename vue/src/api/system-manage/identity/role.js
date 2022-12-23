@@ -5,7 +5,7 @@ import { transformAbpListQuery } from '@/utils/abp'
 // role
 export function getRoleList(params) {
     return request({
-      url: '/api/identity/roles',
+      url: '/api/identity/roles/search',
       method: 'get',
       params: transformAbpListQuery(params)
     })

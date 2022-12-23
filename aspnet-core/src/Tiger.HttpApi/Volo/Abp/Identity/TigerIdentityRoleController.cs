@@ -51,15 +51,14 @@ namespace Volo.Abp.Identity
         }
 
         /// <summary>
-        /// 
+        /// 查询角色列表
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         /// <remarks>
-        /// TODO: 覆盖父类已经有的接口方法
         /// </remarks>
         [HttpGet]
-        [Route("roles")]
+        [Route("search")]
         public Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
         {   
             return RoleAppService.GetListAsync(input);
