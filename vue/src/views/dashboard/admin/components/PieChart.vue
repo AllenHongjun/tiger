@@ -52,24 +52,21 @@ export default {
         legend: {
           left: 'center',
           bottom: '10',
-          data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
+          data: ['成功', '故障']
         },
         series: [
           {
-            name: 'WEEKLY WRITE ARTICLES',
+            name: '日志中的错误率',
             type: 'pie',
-            roseType: 'radius',
+            // roseType: 'radius', 
             radius: [15, 95],
-            center: ['50%', '38%'],
+            center: ['50%', '42%'],
             data: [
-              { value: 320, name: 'Industries' },
-              { value: 240, name: 'Technology' },
-              { value: 149, name: 'Forex' },
-              { value: 100, name: 'Gold' },
-              { value: 59, name: 'Forecasts' }
+              { value: 30512, name: '成功' },
+              { value: 1418, name: '故障' }
             ],
             animationEasing: 'cubicInOut',
-            animationDuration: 2600
+            animationDuration: 1600
           }
         ]
       })

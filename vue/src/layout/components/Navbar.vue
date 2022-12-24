@@ -36,7 +36,7 @@
                     </el-dropdown-item>
                 </router-link>
 
-                <router-link to="/security-log/list">
+                <router-link v-if="checkPermission('AbpIdentity.IdentitySecurityLogs')" to="/security-log/list">
                     <el-dropdown-item>
                         安全日志
                     </el-dropdown-item>
@@ -64,6 +64,10 @@ import Search from '@/components/HeaderSearch'
 import {
     logout
 } from '@/api/user'
+import {
+    baseListQuery,
+    checkPermission
+} from '@/utils/abp'
 
 export default {
     components: {
@@ -82,6 +86,7 @@ export default {
         ])
     },
     methods: {
+        checkPermission,
         toggleSideBar() {
             this.$store.dispatch('app/toggleSideBar')
         },

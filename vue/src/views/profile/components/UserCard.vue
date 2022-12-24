@@ -8,12 +8,12 @@
         <div class="box-center">
             <pan-thumb :image="getFilePathByName(user.avatar)" :height="'100px'" :width="'100px'" :hoverable="false">
                 <div>欢迎</div>
-                {{ user.name }}
+                {{ user.userName }}
             </pan-thumb>
         </div>
         <div />
         <div class="box-center">
-            <div class="user-name text-center">{{ user.name }}</div>
+            <div class="user-name text-center">{{  user.name }}</div>
             <div class="user-role text-center text-muted">
                 {{ user.role  }}
             </div>
@@ -24,7 +24,7 @@
             </el-upload>
         </div>
     </div>
-    <div class="user-bio">
+    <!-- <div class="user-bio">
         <div class="user-education user-bio-section">
             <div class="user-bio-section-header">
                 <svg-icon icon-class="education" />
@@ -32,15 +32,11 @@
             </div>
             <div class="user-bio-section-body">
                 <div class="text-muted">
-                    {{
-              user.introduction
-                ? user.introduction
-                : '个人介绍内容'
-            }}
+                    {{user.introduction? user.introduction: '个人介绍内容'}}
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </el-card>
 </template>
 
@@ -61,6 +57,7 @@ export default {
             type: Object,
             default: () => {
                 return {
+                    surname:'',
                     name: '',
                     userName: '',
                     email: '',
@@ -90,6 +87,7 @@ export default {
             createFile(fd).then(resData => {
                 this.user.avatar = resData
                 const userInfo = {
+                    surname:this.user.surname,
                     userName: this.user.userName,
                     email: this.user.email,
                     name: this.user.name,

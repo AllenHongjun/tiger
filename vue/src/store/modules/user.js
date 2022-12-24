@@ -19,6 +19,7 @@ const clientSetting = {
 const getDefaultState = () => {
   return {
     token: getToken(),
+    surname:'',
     name: '',
     userName: '',
     avatar: '',
@@ -37,6 +38,9 @@ const mutations = {
   },
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_SURNAME:(state, surname) => {
+    state.surname = surname
   },
   SET_NAME: (state, name) => {
     state.name = name
@@ -62,6 +66,7 @@ const mutations = {
   },
   CLEAN: state => {
     state.token = ''
+    state.surname = ''
     state.name = ''
     state.userName = ''
     state.avatar = ''
@@ -98,7 +103,8 @@ const actions = {
         if (!response) {
           return reject('Verification failed, please Login again.')
         }
-        const { userName, name, phoneNumber, email, extraProperties } = response
+        const { userName, surname, name, phoneNumber, email, extraProperties } = response
+        commit('SET_SURNAME', surname)
         commit('SET_NAME', name)
         commit('SET_AVATAR', extraProperties.Avatar)
         commit('SET_USERNAME', userName)
@@ -118,7 +124,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       setUserInfo(userInfo)
         .then(response => {
-          const { userName, name, phoneNumber, email, extraProperties } = userInfo
+          const { userName, surname, name, phoneNumber, email, extraProperties } = userInfo
+          commit('SET_SURNAME', surname)
           commit('SET_NAME', name)
           commit('SET_USERNAME', userName)
           commit('SET_TEL', phoneNumber)

@@ -1,6 +1,9 @@
 <template>
 <el-form ref="aForm" :model="userInfo" :rules="aRules">
-    <el-form-item label="姓名" prop="name">
+    <el-form-item label="姓" prop="surname">
+        <el-input v-model.trim="userInfo.surname" />
+    </el-form-item>
+    <el-form-item label="名" prop="name">
         <el-input v-model.trim="userInfo.name" />
     </el-form-item>
     <el-form-item label="邮箱" prop="email">
@@ -12,9 +15,9 @@
     <el-form-item label="手机号" prop="phoneNumber">
         <el-input v-model.trim="userInfo.phoneNumber" />
     </el-form-item>
-    <el-form-item label="个人介绍">
+    <!-- <el-form-item label="个人介绍">
         <el-input v-model.trim="userInfo.extraProperties.Introduction" type="textarea" :rows="2" placeholder="请输入个人介绍" />
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item>
         <el-button type="primary" @click="submit">提交</el-button>
     </el-form-item>
@@ -28,6 +31,7 @@ export default {
             type: Object,
             default: () => {
                 return {
+                    surname: '',
                     name: '',
                     userName: '',
                     email: '',
@@ -42,11 +46,6 @@ export default {
     data() {
         return {
             aRules: {
-                name: [{
-                    required: true,
-                    message: '字段不能为空',
-                    trigger: ['blur', 'change']
-                }],
                 email: [{
                     required: true,
                     message: '邮箱不能为空',
@@ -67,6 +66,7 @@ export default {
             userInfo: {
                 userName: this.user.userName,
                 email: this.user.email,
+                surname:this.user.surname,
                 name: this.user.name,
                 phoneNumber: this.user.phoneNumber,
                 extraProperties: {

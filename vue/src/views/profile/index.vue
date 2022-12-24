@@ -50,6 +50,7 @@ export default {
     },
     computed: {
         ...mapGetters([
+            'surname',
             'name',
             'email',
             'avatar',
@@ -66,6 +67,7 @@ export default {
         getUser() {
             console.log(this)
             this.user = {
+                surname:this.surname,
                 name: this.name,
                 role: this.roles.join(' | '),
                 email: this.email,
