@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Localization;
 using Volo.Abp.AuditLogging;
+using Volo.Abp.AuditLogging.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
@@ -22,47 +23,35 @@ namespace Tiger.Volo.Abp.AuditLogging
             //添加权限分组
             var auditLogGroup = context.AddGroup(
                 AuditLogPermissions.GroupName,
-                L("Permission:AuditLog"));
+                L("Permission:Auditing"));
 
             // 添加权限
             var aduditLogPermission = auditLogGroup.AddPermission(
                 AuditLogPermissions.AuditLogs.Default,
                 L("Permission:AuditLog"));
 
-            // 添加子权限
-            aduditLogPermission.AddChild(
-                AuditLogPermissions.AuditLogs.Create,
-                L("Permission:AuditLog.Create"));
-
-            aduditLogPermission.AddChild(
-                AuditLogPermissions.AuditLogs.Update,
-                L("Permission:AuditLog.Update"));
-
             aduditLogPermission.AddChild(
                 AuditLogPermissions.AuditLogs.Delete,
                 L("Permission:AuditLog.Delete"));
-
-
-            aduditLogPermission.AddChild(
-                AuditLogPermissions.AuditLogs.Import,
-                L("Permission:AuditLog.Import"));
 
             aduditLogPermission.AddChild(
                 AuditLogPermissions.AuditLogs.Export,
                 L("Permission:AuditLog.Export"));
 
-            aduditLogPermission.AddChild(
-                AuditLogPermissions.AuditLogs.Audit,
-                L("Permission:AuditLog.Audit"));
-
-            aduditLogPermission.AddChild(
-                AuditLogPermissions.AuditLogs.Print,
-                L("Permission:AuditLog.Print"));
+            //aduditLogPermission.AddChild(
+            //    AuditLogPermissions.AuditLogs.ManagePermissions,
+            //    L("Permission:AuditLog.AuditLogManagement"));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         private static LocalizableString L(string name)
-        {
-            return LocalizableString.Create<TigerResource>(name);
+        {   
+            // 需要使用对应的的汉化资源方法
+            return LocalizableString.Create<AuditLoggingResource>(name);
         }
     }
 }

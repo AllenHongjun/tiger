@@ -244,6 +244,13 @@
             权限系统是为特定用户,角色或客户端授权或禁止的简单策略.
             </remarks>
         </member>
+        <member name="M:Tiger.Volo.Abp.AuditLogging.AuditingPermissionDefinitionProvider.L(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.AuditLogActionDto.ServiceName">
             <summary>
             服务名称

@@ -22,7 +22,8 @@ namespace Volo.Abp.AuditLogging
     public class AuditLogAppService : TigerAppService, IAuditLogAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }
-
+        protected IAuditingHelper AuditingHelper { get; }
+        protected IAuditingManager AuditingManager { get; }
         protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
 
 

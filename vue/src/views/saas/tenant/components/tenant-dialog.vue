@@ -1,9 +1,5 @@
 <template>
-<el-dialog :title="
-      dialogStatus == 'create'
-        ? $t('AbpTenantManagement[\'NewTenant\']')
-        : $t('AbpTenantManagement[\'Edit\']')
-    " :visible.sync="dialogFormVisible">
+<el-dialog :title="dialogStatus == 'create'? $t('AbpTenantManagement[\'NewTenant\']'): $t('AbpTenantManagement[\'Edit\']')" :visible.sync="dialogFormVisible">
     <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="180px">
         <el-form-item :label="$t('AbpTenantManagement[\'TenantName\']')" prop="name">
             <el-input v-model="temp.name" />
@@ -204,8 +200,8 @@ export default {
                         this.$emit('handleFilter')
                         this.dialogFormVisible = false
                         this.$notify({
-                            title: this.$i18n.t("HelloAbp['Success']"),
-                            message: this.$i18n.t("HelloAbp['SuccessMessage']"),
+                            title: this.$i18n.t("TigerUi['Success']"),
+                            message: this.$i18n.t("TigerUi['SuccessMessage']"),
                             type: 'success',
                             duration: 2000
                         })
@@ -233,8 +229,8 @@ export default {
                         this.$emit('handleFilter', false)
                         this.dialogFormVisible = false
                         this.$notify({
-                            title: this.$i18n.t("HelloAbp['Success']"),
-                            message: this.$i18n.t("HelloAbp['SuccessMessage']"),
+                            title: this.$i18n.t("TigerUi['Success']"),
+                            message: this.$i18n.t("TigerUi['SuccessMessage']"),
                             type: 'success',
                             duration: 2000
                         })

@@ -77,21 +77,23 @@ export const constantRoutes = [
     children: [
       {
         path: '/documentation',
-        component: Layout,
-        children: [
-          {
-            path: 'index',
-            component: () => import('@/views/documentation/index'),
-            name: 'Documentation',
-            meta: { title: '文档', icon: 'documentation', affix: true }
-          }
-        ]
+        component: () => import('@/views/documentation/index'),
+        name: 'Documentation',
+        meta: { title: '文档', icon: 'documentation', affix: true },
+        // children: [
+        //   {
+        //     path: 'index',
+        //     component: () => import('@/views/documentation/index'),
+        //     name: 'Documentation',
+        //     meta: { title: '文档', icon: 'documentation', affix: true }
+        //   }
+        // ]
       },
       {
         path: 'dashboard',
         name: '仪表盘',
         component: () => import('@/views/dashboard/index1'),
-        meta: { title: '仪表盘', icon: 'dashboard', affix: true}
+        meta: { title: '仪表盘', icon: 'dashboard', affix: true }
       }
       // {
       //   path: 'vue2.0',
@@ -107,7 +109,7 @@ export const constantRoutes = [
       // }
     ]
   },
- 
+
   {
     path: '/profile',
     component: Layout,

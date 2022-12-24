@@ -2,19 +2,16 @@
   "culture": "zh-Hans",
   "texts": {
 
-    "Permission:AuditLogManagement": "审计日志管理",
-    "Permission:AuditLogging": "审计日志",
-    "Permission:Delete": "删除",
-
-    "Permission:AuditLog": "系统日志管理",
+    "Permission:Auditing": "审计管理",
+    "Permission:AuditLog": "审计日志",
     "Permission:AuditLog.Update": "编辑",
     "Permission:AuditLog.Delete": "删除",
     "Permission:AuditLog.Create": "添加",
+    //"Permission:AuditLog.AuditLogManagement": "审计日志管理",
     "Permission:AuditLog.Audit": "审核",
     "Permission:AuditLog.Import": "导入",
     "Permission:AuditLog.Export": "导出",
     "Permission:AuditLog.Print": "打印",
-
 
     "AuditLogging": "审计日志",
     "Menu:AuditLogging": "审计日志",

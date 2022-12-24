@@ -122,8 +122,8 @@ export default {
                 deleteTenant(row.id).then(() => {
                     this.handleFilter()
                     this.$notify({
-                        title: this.$i18n.t("HelloAbp['Success']"),
-                        message: this.$i18n.t("HelloAbp['SuccessMessage']"),
+                        title: this.$i18n.t("TigerUi['Success']"),
+                        message: this.$i18n.t("TigerUi['SuccessMessage']"),
                         type: 'success',
                         duration: 2000
                     })

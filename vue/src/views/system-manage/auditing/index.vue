@@ -2,21 +2,10 @@
 <div class="app-container">
     <div class="filter-container" style="margin-bottom:10px;">
         <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="queryForm">
-            <!-- 增加没一列之间的间隔 -->
             <el-row :gutter="20">
-                <el-col :span="4">
-                    <el-form-item prop="url" :label="$t('AbpAuditLogging[\'Url\']')">
-                        <el-input v-model="queryForm.url" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
-                    </el-form-item>
-                </el-col>
-                <el-col :span="4">
-                    <el-form-item prop="httpMethod" :label="$t('AbpAuditLogging[\'HttpMethod\']')">
-                        <el-select v-model="queryForm.httpMethod" clearable style="width:100%" @clear="queryForm.httpMethod=undefined">
-                            <el-option label="获取(GET)" value="GET" />
-                            <el-option label="修改(PUT)" value="PUT" />
-                            <el-option label="提交(POST)" value="POST" />
-                            <el-option label="删除(DELETE)" value="DELETE" />
-                        </el-select>
+                <el-col :span="8">
+                    <el-form-item label="日期">
+                        <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" />
                     </el-form-item>
                 </el-col>
                 <el-col :span="4">
@@ -25,25 +14,17 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                    <el-form-item prop="clientIpAddress" :label="$t('AbpAuditLogging[\'ClientIpAddress\']')">
-                        <el-input v-model="queryForm.clientIpAddress" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    <el-form-item prop="url" :label="$t('AbpAuditLogging[\'Url\']')">
+                        <el-input v-model="queryForm.url" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
                     </el-form-item>
                 </el-col>
                 <el-col :span="4">
-                    <el-form-item prop="ttpStatusCode" :label="$t('AbpAuditLogging[\'HttpStatusCode\']')">
-                        <el-select v-model="queryForm.httpStatusCode" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
-                            <el-option label="成功(200)" value="200" />
-                            <el-option label="未登录(401)" value="401" />
-                            <el-option label="未授权(403)" value="403" />
-                            <el-option label="未找到资源(404)" value="404" />
-                            <el-option label="异常(500)" value="500" />
-                        </el-select>
+                    <el-form-item prop="executionDuration" :label="$t('AbpAuditLogging[\'ExecutionDuration\']')">
+                        <el-input v-model="queryForm.executionDuration" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
                     </el-form-item>
                 </el-col>
+
                 <el-col :span="4">
-                    <!-- <el-form-item prop="tenantName" :label="$t('AbpAuditLogging[\'TenantName\']')">
-                        <el-input v-model="queryForm.tenantName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
-                    </el-form-item> -->
                     <el-button-group>
                         <el-button type="primary" icon="el-icon-search" @click="getList">
                             {{ $t('AbpAuditLogging.Search') }}
@@ -63,8 +44,28 @@
                 <div v-show="advanced">
                     <el-row :gutter="20">
                         <el-col :span="4">
-                            <el-form-item prop="executionDuration" :label="$t('AbpAuditLogging[\'ExecutionDuration\']')">
-                                <el-input v-model="queryForm.executionDuration" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                            <el-form-item prop="httpMethod" :label="$t('AbpAuditLogging[\'HttpMethod\']')">
+                                <el-select v-model="queryForm.httpMethod" clearable style="width:100%" @clear="queryForm.httpMethod=undefined">
+                                    <el-option label="GET" value="GET" />
+                                    <el-option label="PUT" value="PUT" />
+                                    <el-option label="POST" value="POST" />
+                                    <el-option label="DELETE" value="DELETE" />
+                                    <el-option label="HEAD" value="HEAD" />
+                                    <el-option label="CONNECT" value="CONNECT" />
+                                    <el-option label="OPTIONS" value="OPTIONS" />
+                                    <el-option label="TRACE" value="TRACE" />
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-form-item prop="httpStatueCode" :label="$t('AbpAuditLogging[\'HttpStatusCode\']')">
+                                <el-select v-model="queryForm.httpStatusCode" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
+                                    <el-option label="100" value="100" />
+                                    <el-option label="200" value="200" />
+                                    <el-option label="300" value="300" />
+                                    <el-option label="400" value="400" />
+                                    <el-option label="500" value="500" />
+                                </el-select>
                             </el-form-item>
                         </el-col>
                         <el-col :span="4">
@@ -72,11 +73,19 @@
                                 <el-input v-model="queryForm.applicationName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
                             </el-form-item>
                         </el-col>
-                        <el-col :span="9">
-                            <el-form-item label="日期">
-                                <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" />
+                        <el-col :span="4">
+                            <el-form-item prop="hasException" :label="$t('AbpAuditLogging[\'Exceptions\']')">
+                                <el-select v-model="queryForm.hasException" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
+                                    <el-option label="Yes" value="true" />
+                                    <el-option label="No" value="false" />
+                                </el-select>
                             </el-form-item>
                         </el-col>
+                        <!-- <el-col :span="4">
+                            <el-form-item prop="clientIpAddress" :label="$t('AbpAuditLogging[\'ClientIpAddress\']')">
+                                <el-input v-model="queryForm.clientIpAddress" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                            </el-form-item>
+                        </el-col> -->
                     </el-row>
                 </div>
             </el-collapse-transition>
@@ -115,7 +124,7 @@
                     </span>
                 </template>
             </el-table-column>
-            
+
             <el-table-column :label="$t('AbpAuditLogging[\'TenantName\']')" prop="tenantName" align="center" width="120" sortable="custom">
                 <template slot-scope="{ row }">
                     <span>{{ row.tenantName | empty }}</span>
@@ -126,9 +135,9 @@
                     <span>{{ row.userName | empty }}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('AbpAuditLogging[\'ApplicationName\']')" prop="applicationName" align="center" width="120" sortable="custom">
+            <el-table-column :label="$t('AbpAuditLogging[\'ClientIpAddress\']')" prop="clientIpAddress" align="center" width="120" sortable="custom">
                 <template slot-scope="{ row }">
-                    <span>{{ row.applicationName | empty }}</span>
+                    <span>{{ row.clientIpAddress | empty }}</span>
                 </template>
             </el-table-column>
             <el-table-column :label="$t('AbpAuditLogging[\'ExecutionTime\']')" prop="executionTime" align="center" width="180" sortable="custom">
@@ -136,11 +145,17 @@
                     <span>{{ row.executionTime | moment }}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('AbpAuditLogging[\'ClientIpAddress\']')" prop="clientIpAddress" align="center" width="120" sortable="custom">
+            <el-table-column :label="$t('AbpAuditLogging[\'ExecutionDuration\']')" prop="executionDuration" align="center" width="180" sortable="custom">
                 <template slot-scope="{ row }">
-                    <span>{{ row.clientIpAddress | empty }}</span>
+                    <span>{{ row.executionDuration }}</span>
                 </template>
             </el-table-column>
+            <el-table-column :label="$t('AbpAuditLogging[\'ApplicationName\']')" prop="applicationName" align="center" width="120" sortable="custom">
+                <template slot-scope="{ row }">
+                    <span>{{ row.applicationName | empty }}</span>
+                </template>
+            </el-table-column>
+
             <el-table-column :label="$t('AbpAuditLogging[\'Action\']')" prop="action" align="center" width="120">
                 <template slot-scope="{ row }">
                     <el-button type="primary" @click="handleDetail(row)">
@@ -171,7 +186,6 @@ import {
 import Pagination from '@/components/Pagination'
 import baseListQuery from '@/utils/abp'
 import AuditLogDetails from './details'
-
 
 export default {
     name: 'AuditLog',
@@ -235,16 +249,16 @@ export default {
             queryForm: Object.assign({
                 startTime: undefined,
                 endTime: undefined,
-                httpMethod: undefined,
-                url: undefined,
                 userName: undefined,
-                tenantName: undefined,
+                url: undefined,
+                httpMethod: undefined,
+                httpStatusCode: undefined,
                 applicationName: undefined,
-                hasException: false,
-                httpStatusCode: undefined
+                clientIpAddress: undefined,
+                hasException: undefined
             }, baseListQuery),
             pickerOptions: pickerRangeWithHotKey,
-            downloadLoading:false // 下载控制
+            downloadLoading: false // 下载控制
 
         }
     },
@@ -252,7 +266,7 @@ export default {
         this.getList()
     },
     methods: {
-        
+
         // 获取列表
         getList() {
             this.listLoading = true
@@ -276,7 +290,7 @@ export default {
                 userName: undefined,
                 tenantName: undefined,
                 applicationName: undefined,
-                hasException: false,
+                hasException: undefined,
                 httpStatusCode: undefined
             }, baseListQuery)
         },
@@ -299,7 +313,7 @@ export default {
             this.getList()
         },
         //刷新页面
-        handleRefresh(){
+        handleRefresh() {
             //  在history记录中前进或者后退val步，当val为0时刷新当前页面。
             this.$router.go(0);
         },
@@ -313,7 +327,7 @@ export default {
             import('@/vendor/Export2Excel').then(excel => {
                 const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
                 const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-                
+
                 // TODO: 修改为当前查询条件下所有页数的数据
                 const list = this.list
                 const data = this.formatJson(filterVal, list)

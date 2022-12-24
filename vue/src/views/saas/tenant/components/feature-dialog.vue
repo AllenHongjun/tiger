@@ -60,7 +60,7 @@ export default {
             this.dialogFormVisible = true
 
             getFeatures(this.featuresQuery).then(response => {
-                this.features = response.features
+                this.features = response.groups[0].features
 
                 this.features.map(feature => {
                     if (feature.valueType.name === 'ToggleStringValueType') {

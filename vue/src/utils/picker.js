@@ -14,7 +14,7 @@ export const pickerRangeWithHotKey = {
     text: '最近一周',
     onClick(picker) {
       const end = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')
-      const start = moment().endOf('day').subtract(7, 'days')
+      const start = moment().endOf('day').subtract(7, 'days').format('YYYY-MM-DD HH:mm:ss')
       picker.$emit('pick', [start, end])
     }
   },

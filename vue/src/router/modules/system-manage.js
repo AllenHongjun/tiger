@@ -66,7 +66,7 @@ const SystemManageRouter = {
       meta: {
         title: '请求日志',               //the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document', //the icon show in the sidebar
-        policy: 'AbpAuditLogging.Default' 
+        policy: 'Auditing.AuditingLog' 
         // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
       }
     },
