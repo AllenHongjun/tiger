@@ -1,0 +1,31 @@
+{
+  "culture": "zh-Hans",
+  "texts": {
+    "Settings": "设置",
+    "System": "系统",
+    "Localization": "本地化",
+    "Password": "密码",
+    "Lockout": "锁定",
+    "SignIn": "登录",
+    "User": "用户",
+    "OrganizationUnit": "组织单元",
+    "Account": "帐户",
+    "Mail": "邮件",
+    "Smtp": "SMTP",
+    "TimeZone": "时区",
+    "Others": "其它",
+    "Permission:SettingUi": "设置UI",
+    "Permission:SettingUi.ShowSettingPage": "显示设置页面",
+    "Permission:SettingUi.Tenant": "租户设置",
+    "Permission:SettingUi.User": "用户设置",
+    "Permission:SettingUi.Host": "宿主设置",
+    "Save": "保存",
+    "Reset": "重置",
+    "SuccessfullySaved": "保存成功",
+    "ResetConfirm" : "重置组 '{0}' 中的设置为默认值",
+    "TwoFactor": "双因素认证",
+    "Optional": "可选",
+    "Disabled": "禁用",
+    "Forced": "强制"
+  }
+}

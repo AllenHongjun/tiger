@@ -4,29 +4,30 @@
     <el-tabs tab-position="left">
         <el-tab-pane v-for="(group,sIndex) in settingData" :key="group.groupName" :label="group.groupDisplayName">
             <el-tabs tab-position="top">
-                <el-tab-pane v-for="card in group.settingInfos" :key="card[0].properties.Group2" :label="$t(`EasyAbpAbpSettingUi.${card[0].properties.Group2}`)">
+                <el-tab-pane v-for="card in group.settingInfos" :key="card[0].properties.Group2" :label="$t(`AbpSettingUi.${card[0].properties.Group2}`)">
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span>{{ $t(`EasyAbpAbpSettingUi.${card[0].properties.Group2}`) }}</span>
+                            <span>{{ $t(`AbpSettingUi.${card[0].properties.Group2}`) }}</span>
                         </div>
                         <div class="text item">
                             <el-form :ref="card[0].properties.Group2" label-position="top">
                                 <el-form-item v-for="info in card" :key="info.name" :label="info.displayName">
                                     <div v-if="info.properties.Type==='number' || info.properties.Type==='text'">
-                                        <label :for="info.name">{{ info.description }}</label>
                                         <el-input :id="info.name" v-model="info.value" :type="info.properties.Type" :name="info.formName" />
+                                        <span>{{ info.description }}</span>
                                     </div>
                                     <div v-if="info.properties.Type==='checkbox'">
-                                        <el-checkbox :id="info.name" v-model="info.value" :name="info.formName" :checked="info.value==='true' || info.value==='True'">{{ info.description }}</el-checkbox>
+                                        <el-checkbox :id="info.name" v-model="info.value" :name="info.formName" :checked="info.value==='true' || info.value==='True'"></el-checkbox>
+                                        <span style="margin-left:5px;">{{ info.description }}</span>
                                     </div>
                                     <div v-if="info.properties.Type==='select'">
-                                        <label :for="info.name">{{ info.description }}</label>
                                         <el-select :id="info.name" v-model="info.value" :name="info.formName">
                                             <el-option v-for="item in info.properties.Options.split('|')" :key="item" :label="item" :value="item" />
                                         </el-select>
+                                        <p>{{ info.description }}</p>
                                     </div>
                                 </el-form-item>
-                                <el-button type="primary" @click="updateSettingValues(card[0].properties.Group2,sIndex)">{{ $t('EasyAbpAbpSettingUi.Save') }}</el-button>
+                                <el-button type="primary" @click="updateSettingValues(card[0].properties.Group2,sIndex)">{{ $t('AbpUi.Save') }}</el-button>
                             </el-form>
                         </div>
                     </el-card>
@@ -70,8 +71,7 @@ export default {
                             this.formRefs.push(formRefsKey)
                         }
                     }
-                    console.log('=======settingInfo=========')
-                    console.log(...settingInfo)
+
                     this.settingData.push({
                         groupName: s.groupName,
                         groupDisplayName: s.groupDisplayName,
@@ -93,8 +93,8 @@ export default {
             }
             setSettingValues(obj).then(() => {
                 this.$notify({
-                    title: this.$i18n.t("HelloAbp['Success']"),
-                    message: this.$i18n.t("EasyAbpAbpSettingUi['SuccessfullySaved']"),
+                    title: this.$i18n.t("TigerUi['Success']"),
+                    message: this.$i18n.t("TigerUi['SuccessMessage']"),
                     type: 'success',
                     duration: 2000
                 })

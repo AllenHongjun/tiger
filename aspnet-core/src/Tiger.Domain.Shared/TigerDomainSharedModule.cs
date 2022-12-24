@@ -1,5 +1,6 @@
 ﻿using Tiger.Localization;
 using Tiger.Volo.Abp.Identity;
+using Tiger.Volo.Abp.SettingUi.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AuditLogging.Localization;
 using Volo.Abp.BackgroundJobs;
@@ -12,6 +13,7 @@ using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
+using Volo.Abp.SettingManagement.Localization;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
@@ -64,6 +66,13 @@ namespace Tiger
                 options.Resources
                     .Get<AuditLoggingResource>() // 扩展现有的资源
                     .AddVirtualJson("/Volo/Abp/AuditLogging/Localization/Extensions");
+
+                //Configure<AbpVirtualFileSystemOptions>(options => { options.FileSets.AddEmbedded<AbpSettingUiDomainSharedModule>(); });
+
+                options.Resources
+                       .Add<SettingUiResource>("en")
+                       .AddBaseTypes(typeof(AbpSettingManagementResource))
+                       .AddVirtualJson("/Volo/Abp/SettingUi/Localization/SettingUi");
 
                 options.DefaultResourceType = typeof(TigerResource);
             });

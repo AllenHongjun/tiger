@@ -10,6 +10,7 @@ using Volo.Abp;
 using Tiger.Volo.Abp.SettingManagementAppService;
 using System.Threading.Tasks;
 using Volo.Abp.Settings;
+using Tiger.Volo.Abp.SettingUi;
 
 namespace Tiger.Volo.Abp.Setting
 {
@@ -17,20 +18,47 @@ namespace Tiger.Volo.Abp.Setting
     /// <summary>
     /// 系统设置
     /// </summary>
-    //[RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]
-    [RemoteService(true)]
-    [Area("setting")]
+    [RemoteService(Name = SettingUiRemoteServiceConsts.RemoteServiceName)]
+    [Area(SettingUiRemoteServiceConsts.ModuleName)]
     [ControllerName("Setting")]
     [Route("api/setting")]
     [ApiExplorerSettings(GroupName = "admin")]
-    public class SettingController : AbpController, ISettingManagementAppService
+    public class SettingController : AbpController, ISettingManagementAppService, ISettingUiAppService
     {
         private readonly ISettingManagementAppService _settingManagementAppService;
 
-        public SettingController(ISettingManagementAppService settingManagementAppService)
+        private readonly ISettingUiAppService _settingUiAppService;
+
+        public SettingController(ISettingManagementAppService settingManagementAppService, ISettingUiAppService settingUiAppService)
         {
             _settingManagementAppService=settingManagementAppService;
+            _settingUiAppService=settingUiAppService;
         }
+
+
+        [HttpGet]
+        [Route("group-setting-definitions")]
+        public virtual Task<List<SettingGroup>> GroupSettingDefinitionsAsync()
+        {
+            return _settingUiAppService.GroupSettingDefinitionsAsync();
+        }
+
+        [HttpPut]
+        [Route("set-setting-values")]
+        public virtual Task SetSettingValuesAsync(Dictionary<string, string> settingValues)
+        {
+            return _settingUiAppService.SetSettingValuesAsync(settingValues);
+        }
+
+        [HttpPut]
+        [Route("reset-setting-values")]
+        public virtual Task ResetSettingValuesAsync(List<string> settingNames)
+        {
+            return _settingUiAppService.ResetSettingValuesAsync(settingNames);
+        }
+
+
+        
 
 
         /// <summary>

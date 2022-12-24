@@ -46,6 +46,7 @@
     <Folder Include="Business\Orders\" />
     <Folder Include="Volo\Abp\Sass\Localization\" />
     <Folder Include="Volo\Abp\Sass\ObjectExtending\" />
+    <Folder Include="Volo\Abp\SettingUi\" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getSettingValues() {
   return request({
-    url: '/api/setting/get-list',
+    url: '/api/setting/group-setting-definitions',
     method: 'get'
   })
 }
