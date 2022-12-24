@@ -77,7 +77,7 @@ const SystemManageRouter = {
       meta: {
         title: '系统设置',
         icon: 'el-icon-setting',
-        policy: 'AbpAuditLogging.Default' 
+        policy: 'SettingUi.ShowSettingPage' 
       }
     },
     // 添加外链
@@ -87,7 +87,8 @@ const SystemManageRouter = {
       name: 'swagger-api',
       meta: {
         title: '接口文档',
-        icon: 'el-icon-notebook-1'
+        icon: 'el-icon-notebook-1',
+        policy: 'SettingUi.ShowSettingPage' 
       }
     },
     {
@@ -97,7 +98,8 @@ const SystemManageRouter = {
       name: 'background-job',
       meta: {
         title: '后台作业',
-        icon: 'el-icon-message'
+        icon: 'el-icon-message',
+        policy: 'SettingUi.ShowSettingPage' 
       }
     },
     {
@@ -106,7 +108,8 @@ const SystemManageRouter = {
       name: 'background-worker',
       meta: {
         title: '定时任务',
-        icon: 'el-icon-timer'
+        icon: 'el-icon-timer',
+        policy: 'SettingUi.ShowSettingPage' 
       }
     }
 

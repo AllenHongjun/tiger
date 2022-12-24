@@ -1,20 +1,25 @@
 <template>
 <div class="app-container documentation-container">
     <el-row>
+        <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/aspnet/core/getting-started/?view=aspnetcore-3.1&tabs=windows">asp.net core</a>
+        <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/ef/core/">ef core</a>
+        <a class="document-btn" target="_blank" href="https://identityserver4docs.readthedocs.io/zh_CN/latest/intro/big_picture.html">identity server</a>
         <a class="document-btn" target="_blank" href="https://docs.abp.io/zh-Hans/abp/latest/">abp</a>
         <a class="document-btn" target="_blank" href="https://github.com/EasyAbp/awesome-abp">awesome-abp</a>
         <a class="document-btn" target="_blank" href="https://github.com/EasyAbp/EasyAbpGuide">EasyAbpGuide</a>
         <a class="document-btn" target="_blank" href="https://github.com/abpframework/abp-samples">abp-samples</a>
         <a class="document-btn" target="_blank" href="https://github.com/EasyAbp/AbpHelper.GUI">AbpHelper.GUI</a>
-        <a class="document-btn" target="_blank" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/">国内文档</a>
     </el-row>
 
     <el-row>
-        <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/">vue-element-admin-site</a>
-        <a class="document-btn" target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">vue-element-admin</a>
+        <a class="document-btn" target="_blank" href="https://v2.cn.vuejs.org/">vue</a>
+        <a class="document-btn" target="_blank" href="https://v3.vuex.vuejs.org/zh/">vuex</a>
+        <a class="document-btn" target="_blank" href="https://element.eleme.cn/#/zh-CN/component/installation">element-ui</a>
+        <a class="document-btn" target="_blank" href="https://axios-http.com/zh/docs/intro">axios</a>
+        <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/">element-admin-site</a>
+        <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin/#/dashboard">element-admin</a>
         <a class="document-btn" target="_blank" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/">国内文档</a>
         <dropdown-menu class="document-btn" :items="articleList" title="系列文章" />
-        <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/zh/job/">内推招聘</a>
     </el-row>
     <el-row>
     </el-row>

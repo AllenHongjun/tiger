@@ -34,6 +34,7 @@ export function getApplicationConfiguration(name) {
   })
 }
 
+// profile 
 export function getInfo() {
   return request({
     url: '/api/identity/my-profile',
@@ -42,8 +43,6 @@ export function getInfo() {
 }
 
 
-
-// profile 修改用户信息
 export function setUserInfo(data) {
   return request({
     url: '/api/identity/my-profile',

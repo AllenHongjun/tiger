@@ -69,8 +69,6 @@ service.interceptors.response.use(
   },
   error => {
     console.log("error", error) // for debug
-    // debugger
-
     if (error.status === 401) {
       // to re-login
       MessageBox.confirm(
@@ -87,7 +85,6 @@ service.interceptors.response.use(
         })
       })
     }
-
     let message = ''
     if(error.response && error.response.data && error.response.data.error && error.response.data.error.validationErrors){
       error.response.data.error.validationErrors.forEach(element => {
@@ -95,7 +92,13 @@ service.interceptors.response.use(
       });
     }
     else if(error.response && error.response.data && error.response.data.error) {
-      message = error.response.data.error.message //+ '<br>' + error.response.data.error.details
+      // TODO: 优化错误处理的提醒方式
+      if(error.response.data.error_description){
+        message += error.response.data.error_description
+      }else{
+        message = error.response.data.error.message 
+      }
+      
     } else {
       message = error.message
     }

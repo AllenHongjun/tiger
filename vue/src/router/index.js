@@ -67,6 +67,21 @@ export const constantRoutes = [
   },
 
   {
+    path: '/profile',
+    component: Layout,
+    redirect: '/profile/index',
+    hidden: true,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/profile/index'),
+        name: 'Profile',
+        meta: { title: '我的账户', icon: 'user', noCache: true }
+      }
+    ]
+  },
+
+  {
     path: '/',
     name: '主页',
     meta: { title: '主页', icon: 'el-icon-s-home' },
@@ -80,50 +95,44 @@ export const constantRoutes = [
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
         meta: { title: '文档', icon: 'documentation', affix: true },
-        // children: [
-        //   {
-        //     path: 'index',
-        //     component: () => import('@/views/documentation/index'),
-        //     name: 'Documentation',
-        //     meta: { title: '文档', icon: 'documentation', affix: true }
-        //   }
-        // ]
       },
       {
         path: 'dashboard',
         name: '仪表盘',
-        component: () => import('@/views/dashboard/index1'),
+        component: () => import('@/views/dashboard/index'),
         meta: { title: '仪表盘', icon: 'dashboard', affix: true }
       }
-      // {
-      //   path: 'vue2.0',
-      //   name: 'vue学习',
-      //   component: () => import('@/views/vue2.0/index'),
-      //   meta: { title: 'vue学习' }
-      // },
-      // {
-      //   path: 'vue2.0/componet',
-      //   name: '组件',
-      //   component: () => import('@/views/vue2.0/component'),
-      //   meta: { title: '组件' }
-      // }
     ]
   },
-
   {
-    path: '/profile',
+    path: '/test',
+    name: '测试',
+    meta: { title: '测试', icon: 'el-icon-coffee' },
     component: Layout,
-    redirect: '/profile/index',
-    hidden: true,
+    redirect: '/vue2',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/profile/index'),
-        name: 'Profile',
-        meta: { title: '我的账户', icon: 'user', noCache: true }
+        path: 'vue2',
+        name: 'vue2',
+        component: () => import('@/views/vue2.0/index'),
+        meta: { title: 'vue2' }
+      },
+      {
+        path: 'vue2/componet',
+        name: 'vue2-componet',
+        component: () => import('@/views/vue2.0/component'),
+        meta: { title: 'vue2组件' }
+      },
+      {
+        path: 'vue2/element-ui',
+        name: 'element-ui',
+        component: () => import('@/views/vue2.0/element-ui'),
+        meta: { title: 'element-ui' }
       }
     ]
   }
+  
 ]
 
 /**
