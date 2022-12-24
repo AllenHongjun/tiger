@@ -13,13 +13,34 @@
 
   <ItemGroup>
     <Compile Remove="AuditLogs\**" />
+    <Compile Remove="Business\Basic\**" />
     <Compile Remove="Business\BookStore\Demo\**" />
+    <Compile Remove="Business\Common\**" />
+    <Compile Remove="Business\Marketings\**" />
+    <Compile Remove="Business\Members\**" />
+    <Compile Remove="Business\Orders\**" />
+    <Compile Remove="Business\Purchases\**" />
+    <Compile Remove="Business\Stocks\**" />
     <Compile Remove="Module\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
+    <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\BookStore\Demo\**" />
+    <EmbeddedResource Remove="Business\Common\**" />
+    <EmbeddedResource Remove="Business\Marketings\**" />
+    <EmbeddedResource Remove="Business\Members\**" />
+    <EmbeddedResource Remove="Business\Orders\**" />
+    <EmbeddedResource Remove="Business\Purchases\**" />
+    <EmbeddedResource Remove="Business\Stocks\**" />
     <EmbeddedResource Remove="Module\**" />
     <None Remove="AuditLogs\**" />
+    <None Remove="Business\Basic\**" />
     <None Remove="Business\BookStore\Demo\**" />
+    <None Remove="Business\Common\**" />
+    <None Remove="Business\Marketings\**" />
+    <None Remove="Business\Members\**" />
+    <None Remove="Business\Orders\**" />
+    <None Remove="Business\Purchases\**" />
+    <None Remove="Business\Stocks\**" />
     <None Remove="Module\**" />
   </ItemGroup>
 
@@ -43,7 +64,6 @@
 
   <ItemGroup>
     <Folder Include="Business\Finances\" />
-    <Folder Include="Business\Purchases\" />
     <Folder Include="Business\Stat\" />
     <Folder Include="Volo\Abp\BackgroundJobs\" />
     <Folder Include="Volo\Abp\Blogging\" />

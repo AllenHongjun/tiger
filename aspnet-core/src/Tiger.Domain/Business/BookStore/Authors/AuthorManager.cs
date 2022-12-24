@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Guids;
 using Volo.Abp;
-using Tiger.Business.Orders;
 using System.Linq;
 
 namespace Tiger.Business.Demo

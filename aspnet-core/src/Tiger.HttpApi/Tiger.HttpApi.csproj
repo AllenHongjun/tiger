@@ -13,8 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Admin\**" />
+    <Compile Remove="Controllers\WebApp\**" />
     <Compile Remove="Volo\Abp\AuditLogging\**" />
+    <EmbeddedResource Remove="Controllers\Admin\**" />
+    <EmbeddedResource Remove="Controllers\WebApp\**" />
     <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
+    <None Remove="Controllers\Admin\**" />
+    <None Remove="Controllers\WebApp\**" />
     <None Remove="Volo\Abp\AuditLogging\**" />
   </ItemGroup>
 

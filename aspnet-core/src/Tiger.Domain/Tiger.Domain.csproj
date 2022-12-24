@@ -9,19 +9,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Business\Basic\**" />
     <Compile Remove="Business\Customers\**" />
+    <Compile Remove="Business\Marketings\**" />
+    <Compile Remove="Business\Members\**" />
+    <Compile Remove="Business\Orders\**" />
+    <Compile Remove="Business\Purchases\**" />
+    <Compile Remove="Business\Stocks\**" />
     <Compile Remove="CoreModule\**" />
     <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <Compile Remove="Module\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
+    <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
+    <EmbeddedResource Remove="Business\Marketings\**" />
+    <EmbeddedResource Remove="Business\Members\**" />
+    <EmbeddedResource Remove="Business\Orders\**" />
+    <EmbeddedResource Remove="Business\Purchases\**" />
+    <EmbeddedResource Remove="Business\Stocks\**" />
     <EmbeddedResource Remove="CoreModule\**" />
     <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <EmbeddedResource Remove="Module\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
+    <None Remove="Business\Basic\**" />
     <None Remove="Business\Customers\**" />
+    <None Remove="Business\Marketings\**" />
+    <None Remove="Business\Members\**" />
+    <None Remove="Business\Orders\**" />
+    <None Remove="Business\Purchases\**" />
+    <None Remove="Business\Stocks\**" />
     <None Remove="CoreModule\**" />
     <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <None Remove="Module\**" />
@@ -30,17 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Business\Basic\Shop.cs" />
     <Compile Remove="Business\Demo\Order.cs" />
     <Compile Remove="Business\Demo\OrderLine.cs" />
-    <Compile Remove="Business\Marketings\HomeAdvertise.cs" />
-    <Compile Remove="Business\Marketings\HomeBrand.cs" />
-    <Compile Remove="Business\Marketings\HomeNewProduct.cs" />
-    <Compile Remove="Business\Marketings\HomeRecommendProduct.cs" />
-    <Compile Remove="Business\Marketings\HomeRecommendSubject.cs" />
-    <Compile Remove="Business\Members\MemberTag.cs" />
-    <Compile Remove="Business\Members\MemberTagRelation.cs" />
-    <Compile Remove="Business\Members\MemberTask.cs" />
     <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI\AmazonSpApiSDK\Runtime\LWAAuthorizationSigner.cs" />
   </ItemGroup>

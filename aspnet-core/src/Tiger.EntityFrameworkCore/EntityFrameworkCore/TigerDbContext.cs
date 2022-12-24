@@ -1,27 +1,16 @@
 using Microsoft.EntityFrameworkCore;
-using Tiger.Basic;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System;
+using System.Linq.Expressions;
 using Tiger.Books;
-using Tiger.Business;
-using Tiger.Business.Basic;
 using Tiger.Business.Demo;
-using Tiger.Business.Orders;
-using Tiger.Business.Members;
-using Tiger.Marketing;
-using Tiger.Orders;
+using Tiger.CoreModule.DataFiltiering;
 using Tiger.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
-using Tiger.Stock;
-using Tiger.Business.Stocks;
-using Tiger.Business.Marketings;
-using Tiger.Business.Purchases;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System.Linq.Expressions;
-using System;
-using Tiger.CoreModule.DataFiltiering;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -59,132 +48,7 @@ namespace Tiger.EntityFrameworkCore
         #endregion
 
 
-        #region Basic
-        public DbSet<Basic.Product> Products { get; set; }
-
-        public DbSet<Category> Categories { get; set; }
-
-        public DbSet<Sku>  Skus  { get; set; }
-
-        public DbSet<Store> Stores { get; set; }
-
-        public DbSet<Supply> Sypplies { get; set; }
-
-        public DbSet<Warehouse> Warehouses { get; set; }
-
-        public DbSet<ProductAttributeType> ProductAttributeTypes { get; set; }
-
-        public DbSet<ProductAttribute> ProductAttributes { get; set; }
-
-        public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
-
-        public DbSet<Comment>  Comments { get; set; }
-
-        public DbSet<CommentReply> CommentReplies { get; set; }
-
-        public DbSet<ProductTag> ProductTags { get; set; }
-
-        public DbSet<ProductTagRelation> ProductTagRelations { get; set; }
-        #endregion
-
-        #region Order
-
-        public DbSet<CartItem> CartItems { get; set; }
-
-        public DbSet<Order> Orders { get; set; }
-
-        public DbSet<OrderItem> OrderItems { get; set; }
-
-        public DbSet<OrderSetting> OrderSettings { get; set; }
-
-        //public DbSet<OrderReturnDetail> OrderReturnDetails { get; set; }
-
-        public DbSet<OrderOperateHistory> OrderOperateHistories { get; set; }
-        #endregion
-
-        #region Stock
-
-        public DbSet<Inventory> Inventorys { get; set; }
-        public DbSet<InventoryHistory> InventoryHistories { get; set; }
-
-        public DbSet<BomDetail> BomDetails { get; set; }
-
-        public DbSet<BomHeader> BomHeaders { get; set; }
-
-        public DbSet<ReverseDetail> ReverseDetails { get; set; }
-
-        public DbSet<ReverseHeader> ReverseHeaders { get; set; }
-
-        public DbSet<CheckDetail> CheckDetails { get; set; }
-
-        public DbSet<CheckHeader> CheckHeaders { get; set; }
-
-        public DbSet<ReceiptDetail> ReceiptDetails { get; set; }
-
-        public DbSet<ReceiptHeader> ReceiptHeaders { get; set; }
-
-
-        public DbSet<TransferDetail> TransferDetails { get; set; }
-
-        public DbSet<TransferHeader> TransferHeaders { get; set; }
-
-        public DbSet<ShipmentDetail> ShipmentDetails { get; set; }
-
-        public DbSet<ShipmentHeader> ShipmentHeader { get; set; }
-
-        #endregion
-
-        #region Coupon
-
-        public DbSet<Coupon> Coupons { get; set; }
-
-        public DbSet<CouponHistory> CouponHistories { get; set; }
-
-        public DbSet<CouponProductRelation> CouponProductRelations { get; set; }
-
-        public DbSet<CouponCategoryRelation> CouponCategoryRelations { get; set; }
-
-        public DbSet<FlashPromotion> FlashPromotions { get; set; }
-
-        public DbSet<FlashPromotionSession> FlashPromotionSessions { get; set; }
-
-        public DbSet<FlashPromotionLog> FlashPromotionLogs { get; set; }
-
-        public DbSet<FlashPromotionProductRelation> FlashPromotionProductRelations { get; set; }
-
         
-
-
-        #endregion
-
-        #region Member
-        public DbSet<Member> Members { get; set; }
-
-        public DbSet<MemberLevel> MemberLevels { get; set; }
-
-        public DbSet<MemberLoginLog> MemberLoginLogs { get; set; }
-
-        public DbSet<MemberReceiveAddress> MemberReceiveAddresses { get; set; }
-
-        public DbSet<MemberStatisticInfo> MemberStatisticInfos { get; set; }
-
-
-
-
-        #endregion
-
-        #region Purchase
-        /* Add DbSet properties for your Aggregate Roots / Entities here.
-         * Also map them inside TigerDbContextModelCreatingExtensions.ConfigureTiger
-         */
-        public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<ShipmentHeader> ShipmentHeaders { get; set; }
-        public DbSet<PurchaseHeader> PurchaseHeaders { get; set; }
-        public DbSet<PurchaseReturnDetail> PurchaseReturnDetails { get; set; }
-        public DbSet<PurchaseReturnHeader> PurchaseReturnHeaders { get; set; }
-        public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
-        public DbSet<OrderReturnHeader> OrderReturnHeaders { get; set; } 
-        #endregion
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)
