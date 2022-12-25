@@ -23,7 +23,7 @@ namespace Tiger.Volo.Abp.Sass
         {
         }
 
-        public async Task<bool> CheckUsedByTenantAsync(Guid tenantId, CancellationToken cancellationToken = default)
+        public Task<bool> CheckUsedByTenantAsync(Guid tenantId, CancellationToken cancellationToken = default)
         {   
             // 需要扩充 tenant 的字段
 

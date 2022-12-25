@@ -145,6 +145,51 @@
     "Group2": "Others",
     "Type": "text"
   },
+  "Tiger.Qiniu.Oss.AccessKey": {
+    "Group1": "Oss",
+    "Group2": "Qiniu",
+    "Type": "text"
+  },
+  "Tiger.Qiniu.Oss.SecretKey": {
+    "Group1": "Oss",
+    "Group2": "Qiniu",
+    "Type": "text"
+  },
+  "Tiger.Qiniu.Oss.Bucket": {
+    "Group1": "Oss",
+    "Group2": "Qiniu",
+    "Type": "text"
+  },
+  "Tiger.Aliyun.Oss.AccessKeyId": {
+    "Group1": "Oss",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Tiger.Aliyun.Oss.AccessKeySecret": {
+    "Group1": "Oss",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Tiger.Aliyun.Oss.Endpoint": {
+    "Group1": "Oss",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Tiger.Aliyun.Sms.AccessKeyId": {
+    "Group1": "Sms",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Tiger.Aliyun.Sms.AccessKeySecret": {
+    "Group1": "Sms",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Tiger.Aliyun.Sms.Endpoint": {
+    "Group1": "Sms",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
   "Abp.Timing.TimeZone": {
     "Group1": "System",
     "Group2": "TimeZone",

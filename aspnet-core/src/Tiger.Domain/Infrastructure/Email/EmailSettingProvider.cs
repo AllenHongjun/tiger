@@ -9,13 +9,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Volo.Abp.Emailing;
+using Volo.Abp.Emailing.Localization;
+using Volo.Abp.Localization;
 using Volo.Abp.Settings;
 
 namespace Tiger.Books.Demo
 {   
     /// <summary>
-    /// ABP设置系统使用 demo
+    /// ABP设置系统使用
     /// </summary>
+    /// <remarks>
+    /// 邮件的默认设置规则 abp框架已经默认定义
+    /// </remarks>
     public class EmailSettingProvider : SettingDefinitionProvider
     {
         public override void Define(ISettingDefinitionContext context)
@@ -33,6 +39,18 @@ namespace Tiger.Books.Demo
              
              */
             //context.Add(
+            //    // 定义设置
+            //    new SettingDefinition(
+            //        name: EmailSettingNames.Smtp.Host,
+            //        defaultValue: "",
+            //        displayName: L("DisplayName:Abp.Identity.User.SmsNewUserRegister"),
+            //        description: L("Description:Abp.Identity.User.SmsNewUserRegister"),
+            //        isVisibleToClients: true)
+            //    .WithProviders(
+            //        DefaultValueSettingValueProvider.ProviderName,
+            //        ConfigurationSettingValueProvider.ProviderName,
+            //        GlobalSettingValueProvider.ProviderName,
+            //        TenantSettingValueProvider.ProviderName),
             //    new SettingDefinition("Abp.Mailing.DefaultFromAddress", "hongjy2000@outlook.com"),
             //    new SettingDefinition("Abp.Mailing.DefaultFromDisplayName", "AllenHong"),
             //    new SettingDefinition("Abp.Mailing.Smtp.Host", "smtp.office365.com"),
@@ -44,6 +62,11 @@ namespace Tiger.Books.Demo
             //    new SettingDefinition("Abp.Mailing.Smtp.EnableSsl", "true"),
             //    new SettingDefinition("Abp.Mailing.Smtp.UseDefaultCredentials", "false")
             //);
+        }
+
+        private static LocalizableString L(string name)
+        {
+            return LocalizableString.Create<EmailingResource>(name);
         }
     }
 }

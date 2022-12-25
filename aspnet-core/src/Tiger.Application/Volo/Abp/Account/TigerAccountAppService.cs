@@ -368,9 +368,10 @@ namespace Tiger.Volo.Abp.Account
         }
 
 
-        protected async virtual Task CheckNewUserPhoneNumberNotBeUsedAsync(string phoneNumber)
+        protected virtual Task CheckNewUserPhoneNumberNotBeUsedAsync(string phoneNumber)
         {
-            return;
+
+            throw new NotImplementedException();
             //if (await UserRepository.IsPhoneNumberUedAsync(phoneNumber))
             //{
             //    throw new UserFriendlyException(L["DuplicatePhoneNumber"]);

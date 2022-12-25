@@ -315,11 +315,6 @@
             其中定义一种映射的方法是创建一个Profile 类.例如:
              </summary>
         </member>
-        <member name="M:Tiger.Infrastructure.Rest.RestService.TestOauthToken">
-            <summary>
-            请求接口测试
-            </summary>
-        </member>
         <member name="T:Tiger.BackgroundWorker.MyQuartzLogWorker">
             <summary>
             Demo 定时任务
@@ -428,7 +423,6 @@
         <member name="T:Tiger.Blob.Qinui.QiniuBlobProvider">
             <summary>
             七牛 oss对象存储  https://developer.qiniu.com/kodo/1237/csharp  
-            
             </summary>
         </member>
         <member name="M:Tiger.Utilities.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">

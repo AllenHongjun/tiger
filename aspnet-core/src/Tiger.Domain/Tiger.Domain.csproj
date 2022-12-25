@@ -20,7 +20,9 @@
     <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <Compile Remove="Module\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
+    <Compile Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
+    <Compile Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
     <EmbeddedResource Remove="Business\Marketings\**" />
@@ -32,7 +34,9 @@
     <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <EmbeddedResource Remove="Module\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
+    <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
+    <EmbeddedResource Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <None Remove="Business\Basic\**" />
     <None Remove="Business\Customers\**" />
     <None Remove="Business\Marketings\**" />
@@ -44,14 +48,15 @@
     <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <None Remove="Module\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
+    <None Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <None Remove="PlatfromSdk\PayPalApi\**" />
+    <None Remove="PlatfromSdk\SpotifyAPI.Web\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Business\Demo\Order.cs" />
     <Compile Remove="Business\Demo\OrderLine.cs" />
     <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />
-    <Compile Remove="PlatfromSdk\FikaAmazonAPI\AmazonSpApiSDK\Runtime\LWAAuthorizationSigner.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -99,9 +104,6 @@
     <Folder Include="Infrastructure\Validation\" />
     <Folder Include="Infrastructure\Authorization\" />
     <Folder Include="Infrastructure\ObjectExtensions\" />
-    <Folder Include="PlatfromSdk\SpotifyAPI.Web\Api\" />
-    <Folder Include="PlatfromSdk\SpotifyAPI.Web\Authenticators\" />
-    <Folder Include="PlatfromSdk\SpotifyAPI.Web\Http\" />
     <Folder Include="SignalR\" />
     <Folder Include="Deployment\" />
     <Folder Include="Volo\Abp\Auditing\" />

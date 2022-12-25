@@ -168,8 +168,9 @@ namespace Tiger.Volo.Abp.Account
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async virtual Task ChangeAvatarAsync(ChangeAvatarInput input)
+        public  virtual Task ChangeAvatarAsync(ChangeAvatarInput input)
         {
+            throw new NotImplementedException();
             //var user = await UserManager.GetByIdAsync(CurrentUser.GetId());
 
             //user.Claims.RemoveAll(x => x.ClaimType.Equals(IdentityConsts.ClaimType.Avatar.Name, input.AvatarUrl));

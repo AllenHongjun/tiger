@@ -3,15 +3,7 @@ using Microsoft.Extensions.Logging;
 using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Serializers;
-using SpotifyAPI.Web;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 using Volo.Abp;
-using Volo.Abp.DependencyInjection;
-using static SpotifyAPI.Web.SearchRequest;
 
 namespace Tiger.Infrastructure.Rest
 {
@@ -85,15 +77,6 @@ namespace Tiger.Infrastructure.Rest
         
 
 
-
-
-        /// <summary>
-        /// 请求接口测试
-        /// </summary>
-        public async void TestOauthToken()
-        {
-
-        }
 
 
     }

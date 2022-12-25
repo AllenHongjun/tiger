@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Tiger.Books;
 using Tiger.Business.Demo;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;

@@ -1,5 +1,4 @@
 ﻿using RestSharp;
-using SpotifyAPI.Web;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;

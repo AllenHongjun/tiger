@@ -22,7 +22,6 @@ namespace Tiger.Blob.Qinui
 {
     /// <summary>
     /// 七牛 oss对象存储  https://developer.qiniu.com/kodo/1237/csharp  
-    /// 
     /// </summary>
     public class QiniuBlobProvider : BlobProviderBase, ITransientDependency
     {

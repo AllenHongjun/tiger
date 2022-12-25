@@ -72,16 +72,14 @@ namespace Tiger.Infrastructure.BackgroundWorker.DogApi
 
             // 数据入库
 
-            TestRestClient();
-            return;
+            //TestRestClient();
+            
         }
 
 
         private async void TestRestClient()
         {
-            
 
-            return;
             // 实例化客户端
             //var client = new RestClient("https://dog.ceo/api");
 

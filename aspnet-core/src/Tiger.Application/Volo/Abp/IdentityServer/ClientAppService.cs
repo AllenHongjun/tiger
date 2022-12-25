@@ -130,7 +130,7 @@ namespace Tiger.Volo.Abp.IdentityServer
 
         }
 
-        public async Task<ClientDto> UpdateAsync(Guid id, CreateUpdateClientDto input)
+        public override Task<ClientDto> UpdateAsync(Guid id, CreateUpdateClientDto input)
         {
             throw new NotImplementedException();
         }

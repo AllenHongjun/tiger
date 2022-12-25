@@ -544,7 +544,7 @@ namespace Tiger
         /// 应用初始化
         /// </summary>
         /// <param name="context"></param>
-        public override async void OnApplicationInitialization(ApplicationInitializationContext context)
+        public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
             var env = context.GetEnvironment();
