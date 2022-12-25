@@ -84,7 +84,7 @@ export const constantRoutes = [
   {
     path: '/',
     name: '主页',
-    meta: { title: '主页', icon: 'el-icon-s-home' },
+    meta: { title: '主页', icon: 'el-icon-s-home'  },
     // 你可以选择不同的layout组件
     component: Layout,
     redirect: '/dashboard',
@@ -101,34 +101,6 @@ export const constantRoutes = [
         name: '仪表盘',
         component: () => import('@/views/dashboard/index'),
         meta: { title: '仪表盘', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
-    path: '/test',
-    name: '测试',
-    meta: { title: '测试', icon: 'el-icon-coffee' },
-    component: Layout,
-    redirect: '/vue2',
-    // 这里开始对应的路由都会显示在app-main中 如上图所示
-    children: [
-      {
-        path: 'vue2',
-        name: 'vue2',
-        component: () => import('@/views/vue2.0/index'),
-        meta: { title: 'vue2' }
-      },
-      {
-        path: 'vue2/componet',
-        name: 'vue2-componet',
-        component: () => import('@/views/vue2.0/component'),
-        meta: { title: 'vue2组件' }
-      },
-      {
-        path: 'vue2/element-ui',
-        name: 'element-ui',
-        component: () => import('@/views/vue2.0/element-ui'),
-        meta: { title: 'element-ui' }
       }
     ]
   }

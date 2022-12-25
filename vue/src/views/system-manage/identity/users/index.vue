@@ -6,7 +6,7 @@
             <!-- 增加没一列之间的间隔 -->
             <el-row :gutter="20">
                 <el-col :span="4">
-                    <el-form-item prop="applicationName" :label="$t('AbpIdentity.Search')">
+                    <el-form-item prop="filter" :label="$t('AbpIdentity.Search')">
                         <el-input v-model="listQuery.filter" :placeholder="$t('AbpIdentity.Search')" />
                     </el-form-item>
                 </el-col>
@@ -19,10 +19,10 @@
                         <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                             {{ $t('AbpIdentity.Reset') }}
                         </el-button>
-                        <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+                        <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
                             {{ advanced ? '收起' :  '展开'}}
                             <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-                        </el-link>
+                        </el-link> -->
                     </el-button-group>
                 </el-col>
             </el-row>
@@ -114,19 +114,19 @@
             </template>
         </el-table-column>
 
-        <el-table-column label="启用" align="center">
+        <!-- <el-table-column label="是否删除" align="center">
             <template slot-scope="scope">
                 <el-tag :type="( scope.row.isDeleted ? 'danger' : 'success')" :class="[scope.row.isDeleted ?  'el-icon-close' : 'el-icon-check']"></el-tag>
             </template>
-        </el-table-column>
-        <el-table-column label="锁定" align="center">
+        </el-table-column> -->
+        <el-table-column :label="$t('AbpIdentity[\'DisplayName:LockoutEnabled\']')"  align="center">
             <template slot-scope="scope">
                 <el-tag :type="( scope.row.lockoutEnabled ? 'success' : 'danger')">
                     {{ scope.row.lockoutEnabled ?  '启用' : '禁用' }}
                 </el-tag>
             </template>
         </el-table-column>
-        <el-table-column label="绑定邮箱" align="center">
+        <el-table-column label="邮箱已经确认" align="center">
             <template slot-scope="scope">
                 <el-tag :type="( scope.row.emailConfirmed ?  'success' : 'danger')" :class="[scope.row.emailConfirmed ?  'el-icon-check':'el-icon-close' ]"></el-tag>
             </template>

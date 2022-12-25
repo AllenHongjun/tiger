@@ -13,6 +13,8 @@
     "Permission:AuditLog.Export": "导出",
     "Permission:AuditLog.Print": "打印",
 
+
+
     "AuditLogging": "审计日志",
     "Menu:AuditLogging": "审计日志",
     "RequestInfo": "状态码 | 方法 | 耗时(毫秒) | 地址",
@@ -27,6 +29,8 @@
     "ClientName": "客户端名称",
     "ClientIpAddress": "客户端IP",
     "ExecutionDuration": "耗时(毫秒)",
+    "MinExecutionDuration": "最小持续时间",
+    "MaxExecutionDuration": "最大持续时间",
     "ExecutionTime": "请求时间",
     "ImpersonatorTenantId": "impersonatorTenantId",
     "ImpersonatorUserId": "impersonatorUserId",

@@ -171,6 +171,27 @@
             安全日志
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentitySecurityLogController.DeleteAsync(System.Guid)">
+            <summary>
+            删除安全日志
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentitySecurityLogController.GetAsync(System.Guid)">
+            <summary>
+            获取安全日志明细
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentitySecurityLogController.GetListAsync(Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.GetIdentitySecurityLogInput)">
+            <summary>
+            获取安全日志列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserController">
             <summary>
             用户管理

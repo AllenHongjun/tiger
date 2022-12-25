@@ -22,13 +22,19 @@ namespace Tiger.Volo.Abp.Identity
     [Route("api/identity/security-log")]
     public class IdentitySecurityLogController : AbpController, IIdentitySecurityLogAppService
     {
+        protected IIdentitySecurityLogAppService IdentitySecurityLogAppService { get; }
+
         public IdentitySecurityLogController(IIdentitySecurityLogAppService identitySecurityLogAppService)
         {
             IdentitySecurityLogAppService=identitySecurityLogAppService;
         }
 
-        protected IIdentitySecurityLogAppService IdentitySecurityLogAppService { get; }
-
+        
+        /// <summary>
+        /// 删除安全日志
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
         public async Task DeleteAsync(Guid id)
@@ -36,6 +42,11 @@ namespace Tiger.Volo.Abp.Identity
             await IdentitySecurityLogAppService.DeleteAsync(id);
         }
 
+        /// <summary>
+        /// 获取安全日志明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public async Task<IdentitySecurityLogDto> GetAsync(Guid id)
@@ -43,6 +54,11 @@ namespace Tiger.Volo.Abp.Identity
             return await IdentitySecurityLogAppService.GetAsync(id);
         }
 
+        /// <summary>
+        /// 获取安全日志列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<PagedResultDto<IdentitySecurityLogDto>> GetListAsync(GetIdentitySecurityLogInput input)
         {

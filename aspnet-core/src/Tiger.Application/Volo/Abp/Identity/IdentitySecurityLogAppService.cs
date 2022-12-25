@@ -20,14 +20,17 @@ namespace Tiger.Volo.Abp.Identity
     [Authorize(TigerIdentityPermissions.IdentitySecurityLog.Default)]
     public class IdentitySecurityLogAppService : IdentityAppServiceBase, IIdentitySecurityLogAppService
     {
+        protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
+
+        protected IdentitySecurityLogManager IdentitySecurityLogManager { get; }
+
+
         public IdentitySecurityLogAppService(IIdentitySecurityLogRepository identitySecurityLogRepository)
         {
             IdentitySecurityLogRepository=identitySecurityLogRepository;
         }
 
-        protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
-
-        protected IdentitySecurityLogManager IdentitySecurityLogManager { get; }
+        
 
         public async Task DeleteAsync(Guid id)
         {   
@@ -49,13 +52,26 @@ namespace Tiger.Volo.Abp.Identity
                 input.endTime,
                 input.applicationName,
                 input.identity,
-                null,  // TODO: 被自动赋值了？？ input.action
-                null,
+                input.actionName,  // input.action 会被自动赋值,换一个名称使用
+                userId:null,
                 input.userName,
                 input.clientId,
                 input.correlationId);
-            var securityLogs =  await IdentitySecurityLogRepository.GetListAsync(input.Sorting, input.MaxResultCount, input.SkipCount, input.startTime, input.endTime, input.applicationName, input.identity,
-                null, null, input.userName, input.clientId, input.correlationId, input.includeDetails);
+
+            var securityLogs =  await IdentitySecurityLogRepository.GetListAsync(
+                input.Sorting, 
+                input.MaxResultCount, 
+                input.SkipCount, 
+                input.startTime, 
+                input.endTime, 
+                input.applicationName, 
+                input.identity, 
+                input.actionName, 
+                userId: null, 
+                input.userName, 
+                input.clientId, 
+                input.correlationId, 
+                input.includeDetails);
             return new PagedResultDto<IdentitySecurityLogDto>(totalCount,
                 ObjectMapper.Map<List<IdentitySecurityLog>, List<IdentitySecurityLogDto>>(securityLogs));
         }

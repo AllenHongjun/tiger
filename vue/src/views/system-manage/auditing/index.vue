@@ -5,7 +5,7 @@
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item label="日期">
-                        <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" />
+                        <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" @change="datePickerChange"/>
                     </el-form-item>
                 </el-col>
                 <el-col :span="4">
@@ -18,9 +18,13 @@
                         <el-input v-model="queryForm.url" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
                     </el-form-item>
                 </el-col>
+
                 <el-col :span="4">
-                    <el-form-item prop="executionDuration" :label="$t('AbpAuditLogging[\'ExecutionDuration\']')">
-                        <el-input v-model="queryForm.executionDuration" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                    <el-form-item prop="hasException" :label="$t('AbpAuditLogging[\'Exceptions\']')">
+                        <el-select v-model="queryForm.hasException" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
+                            <el-option label="有" value="true" />
+                            <el-option label="无" value="false" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
 
@@ -60,11 +64,11 @@
                         <el-col :span="4">
                             <el-form-item prop="httpStatueCode" :label="$t('AbpAuditLogging[\'HttpStatusCode\']')">
                                 <el-select v-model="queryForm.httpStatusCode" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
-                                    <el-option label="100" value="100" />
-                                    <el-option label="200" value="200" />
-                                    <el-option label="300" value="300" />
-                                    <el-option label="400" value="400" />
-                                    <el-option label="500" value="500" />
+                                    <el-option label=" 100 - Continue " value="100" />
+                                    <el-option label=" 200 - Ok " value="200" />
+                                    <el-option label=" 300 - Multiple Choices " value="300" />
+                                    <el-option label=" 400 - Bad Request " value="400" />
+                                    <el-option label=" 500 - Internal Server Error " value="500" />
                                 </el-select>
                             </el-form-item>
                         </el-col>
@@ -73,22 +77,23 @@
                                 <el-input v-model="queryForm.applicationName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
                             </el-form-item>
                         </el-col>
+
                         <el-col :span="4">
-                            <el-form-item prop="hasException" :label="$t('AbpAuditLogging[\'Exceptions\']')">
-                                <el-select v-model="queryForm.hasException" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
-                                    <el-option label="Yes" value="true" />
-                                    <el-option label="No" value="false" />
-                                </el-select>
+                            <el-form-item prop="minExecutionDuration" :label="$t('AbpAuditLogging[\'MinExecutionDuration\']')">
+                                <el-input v-model="queryForm.minExecutionDuration" type="number" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
                             </el-form-item>
                         </el-col>
-                        <!-- <el-col :span="4">
-                            <el-form-item prop="clientIpAddress" :label="$t('AbpAuditLogging[\'ClientIpAddress\']')">
-                                <el-input v-model="queryForm.clientIpAddress" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                        <el-col :span="4">
+                            <el-form-item prop="maxExecutionDuration" :label="$t('AbpAuditLogging[\'MaxExecutionDuration\']')">
+                                <el-input v-model="queryForm.maxExecutionDuration" type="number" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
                             </el-form-item>
-                        </el-col> -->
+                        </el-col>
+
+                        
                     </el-row>
                 </div>
             </el-collapse-transition>
+            <!-- 操作按钮 -->
             <el-row>
                 <el-col :span="4">
                     <el-button-group style="float:left">
@@ -255,7 +260,9 @@ export default {
                 httpStatusCode: undefined,
                 applicationName: undefined,
                 clientIpAddress: undefined,
-                hasException: undefined
+                hasException: undefined,
+                minExecutionDuration:undefined,
+                maxExecutionDuration:undefined
             }, baseListQuery),
             pickerOptions: pickerRangeWithHotKey,
             downloadLoading: false // 下载控制
@@ -291,8 +298,17 @@ export default {
                 tenantName: undefined,
                 applicationName: undefined,
                 hasException: undefined,
-                httpStatusCode: undefined
+                httpStatusCode: undefined,
+                minExecutionDuration:undefined,
+                maxExecutionDuration:undefined
             }, baseListQuery)
+        },
+        datePickerChange(value){
+            if(!value){
+                // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
+                this.queryForm.startTime = undefined
+                this.queryForm.endTime = undefined
+            }
         },
         // 搜索展开切换
         toggleAdvanced() {

@@ -2,11 +2,10 @@
 <div class="app-container">
     <div class="filter-container" style="margin-bottom:10px;">
         <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="queryForm">
-            <!-- 增加没一列之间的间隔 -->
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item :label="$t('AbpIdentity[\'SelectDateTime\']')">
-                        <el-date-picker v-model="queryDateTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" />
+                        <el-date-picker v-model="queryDateTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" @change="datePickerChange"/>
                     </el-form-item>
                 </el-col>
                 <el-col :span="4">
@@ -45,8 +44,8 @@
                 <div v-show="advanced">
                     <el-row :gutter="20">
                         <el-col :span="4">
-                            <el-form-item prop="action" :label="$t('AbpIdentity[\'ActionName\']')">
-                                <el-input v-model="queryForm.action" :placeholder="$t('AbpIdentity[\'ActionName\']')" />
+                            <el-form-item prop="actionName" :label="$t('AbpIdentity[\'ActionName\']')">
+                                <el-input v-model="queryForm.actionName" :placeholder="$t('AbpIdentity[\'ActionName\']')" />
                             </el-form-item>
                         </el-col>
                         <el-col :span="4">
@@ -88,7 +87,7 @@
                     <span>{{ row.creationTime | moment }}</span>
                 </template>
             </el-table-column>
-            <el-table-column :label="$t('AbpIdentity[\'ActionName\']')" prop="action" align="center" width="120" sortable="custom">
+            <el-table-column :label="$t('AbpIdentity[\'ActionName\']')" prop="action" align="center" width="160" sortable="custom">
                 <template slot-scope="{ row }">
                     <span>{{ row.action | empty }}</span>
                 </template>
@@ -207,16 +206,24 @@ export default {
         },
         // 重置查询参数
         resetQueryForm() {
+            this.queryDateTime = undefined;
             this.queryForm = Object.assign({
                 startTime: undefined,
                 endTime: undefined,
                 applicationName: undefined,
                 userName: undefined,
                 identity: undefined,
-                action: undefined,
+                actionName: undefined,
                 clientId: undefined,
                 correlationId: undefined,
             }, baseListQuery)
+        },
+        datePickerChange(value){
+            if(!value){
+                // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
+                this.queryForm.startTime = undefined
+                this.queryForm.endTime = undefined
+            }
         },
         // 搜索展开切换
         toggleAdvanced() {

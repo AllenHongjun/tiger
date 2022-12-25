@@ -651,9 +651,19 @@
             
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.Action">
+            <summary>
+            操作
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.ClientId">
+            <summary>
+            客户端Id
+            </summary>
+        </member>
         <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.CorrelationId">
             <summary>
-            
+            CorrelationId
             </summary>
         </member>
         <member name="P:Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.IdentitySecurityLogDto.ClientIpAddress">

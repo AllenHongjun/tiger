@@ -27,7 +27,7 @@ const tenantRouter = {
       path: '/edition/list',
       component: () => import('@/views/saas/edition/index'),
       name: 'edition',
-      meta: { title: '版本', policy: 'AbpTenantManagement.Features' }
+      meta: { title: '版本', policy: 'AbpTenantManagement.Editions' }
     }
   ]
 }

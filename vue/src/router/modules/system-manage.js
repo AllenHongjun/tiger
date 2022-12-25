@@ -26,9 +26,9 @@ const SystemManageRouter = {
           path: 'organization-units/list',
           component: () => import('@/views/system-manage/identity/organization-units/index'),
           name: 'organization-units',
-          meta: { 
-            title: '组织机构', 
-            policy: 'AbpIdentity.OrganizationUnits' 
+          meta: {
+            title: '组织机构',
+            policy: 'AbpIdentity.OrganizationUnits'
           }
         },
         {
@@ -54,7 +54,7 @@ const SystemManageRouter = {
           path: '/security-log/list',
           component: () => import('@/views/system-manage/identity/security-logs/index'),
           name: 'security-log',
-          meta: { title: '安全日志',  policy: 'AbpIdentity.IdentitySecurityLogs' }
+          meta: { title: '安全日志', policy: 'AbpIdentity.IdentitySecurityLogs' }
         }
       ]
 
@@ -66,7 +66,7 @@ const SystemManageRouter = {
       meta: {
         title: '请求日志',               //the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document', //the icon show in the sidebar
-        policy: 'Auditing.AuditingLog' 
+        policy: 'Auditing.AuditingLog'
         // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
       }
     },
@@ -77,7 +77,7 @@ const SystemManageRouter = {
       meta: {
         title: '系统设置',
         icon: 'el-icon-setting',
-        policy: 'SettingUi.ShowSettingPage' 
+        policy: 'SettingUi.ShowSettingPage'
       }
     },
     // 添加外链
@@ -88,7 +88,7 @@ const SystemManageRouter = {
       meta: {
         title: '接口文档',
         icon: 'el-icon-notebook-1',
-        policy: 'SettingUi.ShowSettingPage' 
+        policy: 'SettingUi.ShowSettingPage'
       }
     },
     {
@@ -99,7 +99,7 @@ const SystemManageRouter = {
       meta: {
         title: '后台作业',
         icon: 'el-icon-message',
-        policy: 'SettingUi.ShowSettingPage' 
+        policy: 'SettingUi.ShowSettingPage'
       }
     },
     {
@@ -109,8 +109,36 @@ const SystemManageRouter = {
       meta: {
         title: '定时任务',
         icon: 'el-icon-timer',
-        policy: 'SettingUi.ShowSettingPage' 
+        policy: 'SettingUi.ShowSettingPage'
       }
+    },
+    {
+      path: '/test',
+      name: '测试',
+      meta: { title: '测试', icon: 'el-icon-coffee', policy: 'SettingUi.ShowSettingPage' },
+      component: Layout,
+      redirect: '/vue2',
+      // 这里开始对应的路由都会显示在app-main中 如上图所示
+      children: [
+        {
+          path: 'vue2',
+          name: 'vue2',
+          component: () => import('@/views/vue2.0/index'),
+          meta: { title: 'vue2' }
+        },
+        {
+          path: 'vue2/componet',
+          name: 'vue2-componet',
+          component: () => import('@/views/vue2.0/component'),
+          meta: { title: 'vue2组件' }
+        },
+        {
+          path: 'vue2/element-ui',
+          name: 'element-ui',
+          component: () => import('@/views/vue2.0/element-ui'),
+          meta: { title: 'element-ui' }
+        }
+      ]
     }
 
   ]

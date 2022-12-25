@@ -24,6 +24,9 @@ namespace Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto
         /// </summary>
         public string Identity { get;  set; }
 
+        /// <summary>
+        /// 操作
+        /// </summary>
         public string Action { get;  set; }
 
         public Guid? UserId { get;  set; }
@@ -32,10 +35,13 @@ namespace Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto
 
         public string TenantName { get;  set; }
 
+        /// <summary>
+        /// 客户端Id
+        /// </summary>
         public string ClientId { get;  set; }
 
         /// <summary>
-        /// 
+        /// CorrelationId
         /// </summary>
         public string CorrelationId { get;  set; }
 
