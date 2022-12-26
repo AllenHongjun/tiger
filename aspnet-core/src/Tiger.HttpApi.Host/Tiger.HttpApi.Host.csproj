@@ -48,6 +48,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\TigerAccountController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Tiger.HttpApi.Host.xml" />
   </ItemGroup>
 

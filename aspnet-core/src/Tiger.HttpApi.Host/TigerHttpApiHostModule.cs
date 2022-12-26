@@ -28,6 +28,7 @@ using Tiger.EntityFrameworkCore;
 using Tiger.Infrastructure.BackgroundWorker;
 using Tiger.MultiTenancy;
 using Volo.Abp;
+using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.ExceptionHandling;
@@ -188,8 +189,11 @@ namespace Tiger
         {
 
             Configure<AppUrlOptions>(options =>
-            {
+            {   
+                // 配置应用MVC项目的根路径
                 options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+                options.Applications["FrontWeb"].RootUrl = configuration["App:FrontWebUrl"];
+                options.Applications["FrontWeb"].Urls[AccountUrlNames.PasswordReset] = "Account/ResetPassword";
             });
         } 
         #endregion
@@ -282,11 +286,6 @@ namespace Tiger
                         RoleClaimType = "role"
                     };
                 });
-            //.AddGitHub(options =>
-            //{
-            //    options.ClientId = configuration["Github:ClientID"];
-            //    options.ClientSecret = configuration["Github:ClientSecret"];
-            //});
         }
         #endregion
 

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Volo.Abp.Account;
 using Volo.Abp.AspNetCore.Mvc;
 
 namespace Tiger.Controllers
@@ -19,7 +20,7 @@ namespace Tiger.Controllers
     public class Authentication : AbpController
     {
         private readonly IHttpContextAccessor _contextAccessor;
-        //private readonly IConfiguration _configuration;
+        private readonly AccountController accountController;
 
         public Authentication(IHttpContextAccessor contextAccessor, IConfiguration configuration)
         {

@@ -387,7 +387,7 @@ namespace Tiger.Volo.Abp.Account
 
 
         /// <summary>
-        /// 严重邮箱
+        /// 
         /// </summary>
         /// <param name="inputEmail"></param>
         /// <exception cref="AbpValidationException"></exception>

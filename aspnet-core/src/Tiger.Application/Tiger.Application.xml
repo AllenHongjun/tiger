@@ -479,7 +479,7 @@
         </member>
         <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.ThrowIfInvalidEmailAddress(System.String)">
             <summary>
-            严重邮箱
+            
             </summary>
             <param name="inputEmail"></param>
             <exception cref="T:Volo.Abp.Validation.AbpValidationException"></exception>
