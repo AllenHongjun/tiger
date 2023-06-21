@@ -15,7 +15,7 @@ using Volo.Abp.Users;
 namespace Volo.Abp.AuditLogging
 {
     /// <summary>
-    /// 系统日志功能
+    /// 系统审计日志功能
     /// </summary>
     [RemoteService(false)]
     [Authorize(AuditLogPermissions.AuditLogs.Default)]
@@ -25,7 +25,6 @@ namespace Volo.Abp.AuditLogging
         protected IAuditingHelper AuditingHelper { get; }
         protected IAuditingManager AuditingManager { get; }
         protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
-
 
         //用于获取有关当前活动的用户信息  Appservice 有这个属性（其他自定义的类可以注入来使用）
         private readonly ICurrentUser _currentUser;
@@ -39,6 +38,7 @@ namespace Volo.Abp.AuditLogging
             _currentUser=currentUser;
         }
 
+        #region AuditLog
         /// <summary>
         /// 获取一条
         /// </summary>
@@ -158,9 +158,9 @@ namespace Volo.Abp.AuditLogging
         {
             return await AuditLogRepository.GetAverageExecutionDurationPerDayAsync(startDate, endDate);
         }
+        #endregion
 
-
-
+        #region EntityChange
         /// <summary>
         /// 根据id获取实体变更
         /// </summary>
@@ -204,7 +204,7 @@ namespace Volo.Abp.AuditLogging
                 includeDetails: true);
 
             return new PagedResultDto<EntityChangeDto>(entityChangeCount,
-                ObjectMapper.Map<List<EntityChange>,List<EntityChangeDto>>(entityChanges));
+                ObjectMapper.Map<List<EntityChange>, List<EntityChangeDto>>(entityChanges));
         }
 
         /// <summary>
@@ -214,8 +214,8 @@ namespace Volo.Abp.AuditLogging
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public virtual async Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
-        {   
-            return ObjectMapper.Map<EntityChangeWithUsername,EntityChangeWithUsernameDto>( await AuditLogRepository.GetEntityChangeWithUsernameAsync(entityChangeId));
+        {
+            return ObjectMapper.Map<EntityChangeWithUsername, EntityChangeWithUsernameDto>(await AuditLogRepository.GetEntityChangeWithUsernameAsync(entityChangeId));
         }
 
         /// <summary>
@@ -225,10 +225,11 @@ namespace Volo.Abp.AuditLogging
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public virtual async Task<List<EntityChangeWithUsernameDto>> GetEntityChangesWithUsernameAsync(GetEntityChangeWithUsernameDto input)
-        {   
+        {
             return ObjectMapper.Map<List<EntityChangeWithUsername>, List<EntityChangeWithUsernameDto>>(
                 await AuditLogRepository.GetEntityChangesWithUsernameAsync(input.EntityId, input.EntityTypeFullName));
-        }
+        } 
+        #endregion
 
     }
 }

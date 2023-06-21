@@ -9,7 +9,7 @@ const identityRouter = {
   alwaysShow: true,
   name: 'Identity',
   meta: {
-    title: '身份认证', 
+    title: '身份认证',
     icon: 'user',
     policy: ''
   },

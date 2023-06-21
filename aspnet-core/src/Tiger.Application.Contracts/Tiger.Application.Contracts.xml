@@ -376,6 +376,11 @@
             操作人
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.AuditLogging.Dto.EntityPropertyChangeDto">
+            <summary>
+            实体属性变更
+            </summary>
+        </member>
         <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityPropertyChangeDto.NewValue">
             <summary>
             新值

@@ -15,12 +15,15 @@
   <ItemGroup>
     <Compile Remove="Controllers\Admin\**" />
     <Compile Remove="Controllers\WebApp\**" />
+    <Compile Remove="Modules\**" />
     <Compile Remove="Volo\Abp\AuditLogging\**" />
     <EmbeddedResource Remove="Controllers\Admin\**" />
     <EmbeddedResource Remove="Controllers\WebApp\**" />
+    <EmbeddedResource Remove="Modules\**" />
     <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
     <None Remove="Controllers\Admin\**" />
     <None Remove="Controllers\WebApp\**" />
+    <None Remove="Modules\**" />
     <None Remove="Volo\Abp\AuditLogging\**" />
   </ItemGroup>
 
@@ -40,19 +43,6 @@
     <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="3.2.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Modules\BasicData\" />
-    <Folder Include="Modules\Books\" />
-    <Folder Include="Modules\Finance\" />
-    <Folder Include="Modules\Marketing\" />
-    <Folder Include="Modules\Member\" />
-    <Folder Include="Modules\Order\" />
-    <Folder Include="Modules\Purchase\" />
-    <Folder Include="Modules\SecurityLogs\" />
-    <Folder Include="Modules\StatData\" />
-    <Folder Include="Modules\Stock\" />
   </ItemGroup>
 
 </Project>

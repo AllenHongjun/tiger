@@ -14,12 +14,11 @@ namespace Volo.Abp.AuditLogging
         public static class AuditLogs
         {
             public const string Default = GroupName + ".AuditingLog";
-            
+
+            public const string ManagePermissions = Default + ".ManagePermissions";
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";
-            public const string ManagePermissions = Default + ".ManagePermissions";
-
             public const string Import = Default + ".Import";
             public const string Export = Default + ".Export";
             public const string Audit  = Default + ".Audit";

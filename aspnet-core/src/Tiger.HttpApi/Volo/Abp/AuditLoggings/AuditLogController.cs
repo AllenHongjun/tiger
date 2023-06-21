@@ -29,6 +29,7 @@ namespace Volo.Abp.AuditLogging
             AuditLogAppService = auditLogAppService;
         }
 
+        #region AuditLog
         /// <summary>
         /// 删除一条
         /// </summary>
@@ -38,7 +39,7 @@ namespace Volo.Abp.AuditLogging
         [Route("{id}")]
         public virtual async Task DeleteAsync(Guid id)
         {
-             await AuditLogAppService.DeleteAsync(id);
+            await AuditLogAppService.DeleteAsync(id);
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Volo.Abp.AuditLogging
         [Route("delete-many")]
         public virtual async Task DeleteManyAsync(Guid[] ids)
         {
-             await AuditLogAppService.DeleteManyAsync(ids);
+            await AuditLogAppService.DeleteManyAsync(ids);
         }
 
         /// <summary>
@@ -89,7 +90,9 @@ namespace Volo.Abp.AuditLogging
             return AuditLogAppService.GetAverageExecutionDurationPerDayAsync(startDate, endDate);
         }
 
+        #endregion
 
+        #region EntityChange
         /// <summary>
         /// 获取实体变更明细
         /// </summary>
@@ -122,7 +125,7 @@ namespace Volo.Abp.AuditLogging
         [HttpGet]
         [Route("entity-change-with-username")]
         public async Task<List<EntityChangeWithUsernameDto>> GetEntityChangesWithUsernameAsync(GetEntityChangeWithUsernameDto input)
-        {   
+        {
             return await AuditLogAppService.GetEntityChangesWithUsernameAsync(input);
         }
 
@@ -136,6 +139,7 @@ namespace Volo.Abp.AuditLogging
         public async Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
         {
             return await AuditLogAppService.GetEntityChangeWithUsernameAsync(entityChangeId);
-        }
+        } 
+        #endregion
     }
 }

@@ -1,5 +1,5 @@
 # Tiger
-## 基于 vue-template-admin abp vnext 的基础后台项目
+## 基于 vue-template-admin和 abp vnext 的基础后台项目
 
 > 基于 vue abp 开发的基础功能管理系统（权限 日志 多租户 基础服务等管理功能） 跟随版本升级系统
 

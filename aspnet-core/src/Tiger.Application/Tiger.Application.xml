@@ -872,7 +872,7 @@
         </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogAppService">
             <summary>
-            系统日志功能
+            系统审计日志功能
             </summary>
         </member>
         <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetAsync(System.Guid)">

@@ -38,9 +38,9 @@ namespace Tiger.Volo.Abp.AuditLogging
                 AuditLogPermissions.AuditLogs.Export,
                 L("Permission:AuditLog.Export"));
 
-            //aduditLogPermission.AddChild(
-            //    AuditLogPermissions.AuditLogs.ManagePermissions,
-            //    L("Permission:AuditLog.AuditLogManagement"));
+            aduditLogPermission.AddChild(
+                AuditLogPermissions.AuditLogs.ManagePermissions,
+                L("Permission:AuditLog.AuditLogManagement"));
         }
 
         /// <summary>

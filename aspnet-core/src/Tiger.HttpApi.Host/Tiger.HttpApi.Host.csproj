@@ -41,9 +41,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="bin\**" />
     <Compile Remove="Logs\**" />
+    <Content Remove="bin\**" />
     <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="bin\**" />
     <EmbeddedResource Remove="Logs\**" />
+    <None Remove="bin\**" />
     <None Remove="Logs\**" />
   </ItemGroup>
 
@@ -64,7 +68,6 @@
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
   <ItemGroup>
-    <Folder Include="bin\Debug\netcoreapp3.1\" />
     <Folder Include="Files\" />
   </ItemGroup>
 

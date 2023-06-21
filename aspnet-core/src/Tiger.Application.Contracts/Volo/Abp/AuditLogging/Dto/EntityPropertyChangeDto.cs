@@ -4,7 +4,10 @@ using System.Text;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Volo.Abp.AuditLogging.Dto
-{
+{   
+    /// <summary>
+    /// 实体属性变更
+    /// </summary>
     public class EntityPropertyChangeDto : EntityDto<Guid>
     {
         /// <summary>
