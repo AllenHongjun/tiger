@@ -34,6 +34,11 @@ namespace Tiger.Volo.Abp.Account
         //    return await AccountAppService.SendPasswordResetCodeAsync(input);
         //}
 
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("reset-password3")]
         public virtual Task ResetPasswordAsync(ResetPasswordDto input)

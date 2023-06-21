@@ -30,21 +30,36 @@ namespace Tiger.Volo.Abp.Identity
             IdentitySecurityLogRepository=identitySecurityLogRepository;
         }
 
-        
 
+        #region SecurityLog
+        /// <summary>
+        /// 删除日志
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeleteAsync(Guid id)
-        {   
+        {
             var securityLog = await IdentitySecurityLogRepository.GetAsync(id);
             await IdentitySecurityLogRepository.DeleteAsync(securityLog);
             return;
         }
 
+        /// <summary>
+        /// 获取日志详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IdentitySecurityLogDto> GetAsync(Guid id)
         {
             var securityLog = await IdentitySecurityLogRepository.GetAsync(id);
             return ObjectMapper.Map<IdentitySecurityLog, IdentitySecurityLogDto>(securityLog);
         }
 
+        /// <summary>
+        /// 获取日志列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(TigerIdentityPermissions.IdentitySecurityLog.Default)]
         public async Task<PagedResultDto<IdentitySecurityLogDto>> GetListAsync(GetIdentitySecurityLogInput input)
         {
@@ -53,27 +68,28 @@ namespace Tiger.Volo.Abp.Identity
                 input.applicationName,
                 input.identity,
                 input.actionName,  // input.action 会被自动赋值,换一个名称使用
-                userId:null,
+                userId: null,
                 input.userName,
                 input.clientId,
                 input.correlationId);
 
-            var securityLogs =  await IdentitySecurityLogRepository.GetListAsync(
-                input.Sorting, 
-                input.MaxResultCount, 
-                input.SkipCount, 
-                input.startTime, 
-                input.endTime, 
-                input.applicationName, 
-                input.identity, 
-                input.actionName, 
-                userId: null, 
-                input.userName, 
-                input.clientId, 
-                input.correlationId, 
+            var securityLogs = await IdentitySecurityLogRepository.GetListAsync(
+                input.Sorting,
+                input.MaxResultCount,
+                input.SkipCount,
+                input.startTime,
+                input.endTime,
+                input.applicationName,
+                input.identity,
+                input.actionName,
+                userId: null,
+                input.userName,
+                input.clientId,
+                input.correlationId,
                 input.includeDetails);
             return new PagedResultDto<IdentitySecurityLogDto>(totalCount,
                 ObjectMapper.Map<List<IdentitySecurityLog>, List<IdentitySecurityLogDto>>(securityLogs));
-        }
+        } 
+        #endregion
     }
 }

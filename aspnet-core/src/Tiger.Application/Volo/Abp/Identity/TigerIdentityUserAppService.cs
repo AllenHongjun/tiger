@@ -20,7 +20,10 @@ using Volo.Abp.Sms;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
 namespace Tiger.Volo.Abp.Identity
-{
+{   
+    /// <summary>
+    /// 用户管理
+    /// </summary>
     [RemoteService(IsEnabled = false)]
     [Dependency(ReplaceServices = true)]
     [ExposeServices(typeof(IIdentityUserAppService),
@@ -30,8 +33,6 @@ namespace Tiger.Volo.Abp.Identity
     public class TigerIdentityUserAppService : IdentityUserAppService, 
         ITigerIdentityUserAppService
     {
-        //private readonly IStringLocalizer<HelloAbpResource> _localizer;
-
         private readonly IBlobContainer _blobContainer;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
@@ -107,6 +108,7 @@ namespace Tiger.Volo.Abp.Identity
          */
         #endregion
 
+        #region IdentityUser
         /// <summary>
         /// 将用户关联组织机构
         /// </summary>
@@ -119,7 +121,7 @@ namespace Tiger.Volo.Abp.Identity
         }
 
         public override async Task<IdentityUserDto> CreateAsync(IdentityUserCreateDto input)
-        {   
+        {
             /*
              移除用户关联的角色
              新增用户关联的新角色
@@ -174,7 +176,7 @@ namespace Tiger.Volo.Abp.Identity
             return result;
         }
 
-        
+
 
         /// <summary>
         /// 设置用户关联的组织机构
@@ -204,10 +206,8 @@ namespace Tiger.Volo.Abp.Identity
             await UserManager.RemoveFromOrganizationUnitAsync(id, ouId);
 
             await CurrentUnitOfWork.SaveChangesAsync();
-        }
-
-
-
+        } 
+        #endregion
 
         #region Claim
 
@@ -256,8 +256,6 @@ namespace Tiger.Volo.Abp.Identity
         }
 
         #endregion
-
-
 
 
         /// <summary>

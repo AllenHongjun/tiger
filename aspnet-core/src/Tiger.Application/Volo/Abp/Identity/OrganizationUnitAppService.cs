@@ -32,8 +32,6 @@ namespace Volo.Abp.Identity
         protected IOrganizationUnitRepository OrganizationUnitRepository { get; }
         protected ITigerIdentityRoleRepository RoleRepository { get; }
         protected ITigerIdentityUserRepository UserRepository { get; }
-
-
         protected IIdentityUserAppService UserAppService { get; }
         protected IIdentityRoleAppService RoleAppService { get; }
 
@@ -53,14 +51,13 @@ namespace Volo.Abp.Identity
             OrganizationUnitRepository = unitRepository;
             UserAppService = userAppService;
             RoleAppService = roleAppService;
-
+            RoleRepository=roleRepository;
+            UserRepository=userRepository;
+            UserManager=userManager;
 
             _cache = cache;
             _cacheList = cacheList;
             _cachePage = cachePage;
-            RoleRepository=roleRepository;
-            UserRepository=userRepository;
-            UserManager=userManager;
         }
 
         #region Utility
@@ -144,10 +141,10 @@ namespace Volo.Abp.Identity
             );
         }
 
-        
+
         #endregion
 
-        #region CRUD
+        #region OrganizationUnit
 
         /// <summary>
         /// 获取组织列表
@@ -341,8 +338,6 @@ namespace Volo.Abp.Identity
             await OrganizationUnitManager.DeleteAsync(id);
         }
         #endregion
-
-
 
         #region 组织关联角色
         /// <summary>
@@ -555,16 +550,6 @@ namespace Volo.Abp.Identity
         }
 
         #endregion
-
-
-
-
-
-
-
-
-
-
 
         #region  待重构
 

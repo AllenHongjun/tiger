@@ -34,7 +34,6 @@ namespace Tiger.Volo.Abp.Identity
             _identityUserAppService = identityUserAppService;
         }
 
-        
 
 
         /// <summary>

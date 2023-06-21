@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Remove="AuditLogs\**" />
     <Compile Remove="Business\Basic\**" />
+    <Compile Remove="Business\Finance\**" />
     <Compile Remove="Business\Marketings\**" />
     <Compile Remove="Business\Members\**" />
     <Compile Remove="Business\Orders\**" />
@@ -29,6 +30,7 @@
     <Compile Remove="Volo\Abp\CmsKit\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
+    <EmbeddedResource Remove="Business\Finance\**" />
     <EmbeddedResource Remove="Business\Marketings\**" />
     <EmbeddedResource Remove="Business\Members\**" />
     <EmbeddedResource Remove="Business\Orders\**" />
@@ -42,6 +44,7 @@
     <EmbeddedResource Remove="Volo\Abp\CmsKit\**" />
     <None Remove="AuditLogs\**" />
     <None Remove="Business\Basic\**" />
+    <None Remove="Business\Finance\**" />
     <None Remove="Business\Marketings\**" />
     <None Remove="Business\Members\**" />
     <None Remove="Business\Orders\**" />
@@ -84,7 +87,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Finance\" />
     <Folder Include="Modules\" />
   </ItemGroup>
 

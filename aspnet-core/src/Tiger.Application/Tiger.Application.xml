@@ -658,6 +658,27 @@
             安全日志服务
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentitySecurityLogAppService.DeleteAsync(System.Guid)">
+            <summary>
+            删除日志
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentitySecurityLogAppService.GetAsync(System.Guid)">
+            <summary>
+            获取日志详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.IdentitySecurityLogAppService.GetListAsync(Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto.GetIdentitySecurityLogInput)">
+            <summary>
+            获取日志列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)
@@ -672,6 +693,11 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService">
+            <summary>
+            用户管理
+            </summary>
         </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.SmsSend">
             <summary>

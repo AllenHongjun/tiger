@@ -16,22 +16,15 @@ namespace Tiger.Volo.Abp.Identity
         {
             
             CreateMap<IdentityRoleClaim, IdentityClaimDto>();
-
             CreateMap<IdentityUser, IdentityUserDto>()
                 .MapExtraProperties();
-
             CreateMap<IdentityRole, IdentityRoleDto>()
                 .MapExtraProperties();
-
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
                 .MapExtraProperties();
-
             CreateMap<IdentityClaimType, ClaimTypeDto>()
                 .MapExtraProperties();
-
             CreateMap<IdentityUserClaim, IdentityClaimDto>();
-
-
             CreateMap<IdentitySecurityLog, IdentitySecurityLogDto>();
         }
     }

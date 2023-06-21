@@ -9,6 +9,13 @@
             用于定义API控制器.
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountController.ResetPasswordAsync(Volo.Abp.Account.ResetPasswordDto)">
+            <summary>
+            重置密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ApiResourceController">
             <summary>
             Api资源
