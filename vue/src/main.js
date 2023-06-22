@@ -30,14 +30,11 @@ import * as filters from './filters' // global filters
  * mockXHR()
  */
 
+// // mock-server只会在开发环境中使用，线上生产环境目前使用MockJs进行模拟。如果不需要请移除。具体代码：main.js
 // import { mockXHR } from '../mock'
-// mockXHR()
-
-import { mockXHR } from '../mock'
-if (process.env.NODE_ENV === 'production') {
-  mockXHR()
-}
-// mockXHR()
+// if (process.env.NODE_ENV === 'production') {
+//   mockXHR()
+// }
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })

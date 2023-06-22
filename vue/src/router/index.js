@@ -6,7 +6,11 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import SystemManageRouter from './modules/system-manage'
-import tenantRouter from './modules/tenant'
+import SassRouter from './modules/sass'
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
 
 Vue.use(Router)
 /**
@@ -146,8 +150,74 @@ export const asyncRoutes = [
   // identityRouter,
   // dictionaryRouter,
   // auditlogRouter,
-  tenantRouter,
+  SassRouter,
   SystemManageRouter,
+  tableRouter,
+  {
+    path: '/test',
+    name: '测试',
+    meta: { title: '测试', icon: 'el-icon-coffee', policy: 'SettingUi.ShowSettingPage' },
+    component: Layout,
+    redirect: '/vue2',
+    // 这里开始对应的路由都会显示在app-main中 如上图所示
+    children: [
+      {
+        path: 'vue2',
+        name: 'vue2',
+        component: () => import('@/views/vue2.0/index'),
+        meta: { title: 'vue2' }
+      },
+      {
+        path: 'vue2/componet',
+        name: 'vue2-componet',
+        component: () => import('@/views/vue2.0/component'),
+        meta: { title: 'vue2组件' }
+      },
+      {
+        path: 'vue2/element-ui',
+        name: 'element-ui',
+        component: () => import('@/views/vue2.0/element-ui'),
+        meta: { title: 'element-ui' }
+      },
+      {
+        path: 'table1',
+        name: 'table1',
+        component: () => import('@/views/table/index'),
+        meta: { title: 'table1' }
+      }
+    ]
+  },
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/list',
+    name: 'Example',
+    meta: {
+      title: 'Example',
+      icon: 'el-icon-s-help'
+    },
+    children: [
+      {
+        path: 'create',
+        component: () => import('@/views/example/create'),
+        name: 'CreateArticle',
+        meta: { title: 'Create Article', icon: 'edit' }
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/example/edit'),
+        name: 'EditArticle',
+        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+        hidden: true
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/example/list'),
+        name: 'ArticleList',
+        meta: { title: 'Article List', icon: 'list' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -1,16 +1,17 @@
-import request from '@/utils/request'
+// import request from '@/utils/request'
+import request from '@/utils/requestMock'
 
-export function getFeatures(query) {
+export function getFeatures(params) {
   return request({
-    url: '/api/feature-management/features',
+    url: '/feature-management/features',
     method: 'get',
-    params: query
+    params: params
   })
 }
 
 export function updateFeatures(query, payload) {
   return request({
-    url: '/api/feature-management/features',
+    url: '/feature-management/features',
     method: 'put',
     params: query,
     data: payload

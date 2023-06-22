@@ -90,7 +90,6 @@ export default {
       getTenants(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
-
         this.listLoading = false
       })
     },

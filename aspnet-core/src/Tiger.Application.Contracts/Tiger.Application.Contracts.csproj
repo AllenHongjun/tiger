@@ -28,6 +28,7 @@
     <Compile Remove="Volo\Abp\Blogging\**" />
     <Compile Remove="Volo\Abp\CmsKit\**" />
     <Compile Remove="Volo\Abp\FeatureManagement\**" />
+    <Compile Remove="Volo\Abp\PermissionManagement\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\BookStore\Demo\**" />
@@ -44,6 +45,7 @@
     <EmbeddedResource Remove="Volo\Abp\Blogging\**" />
     <EmbeddedResource Remove="Volo\Abp\CmsKit\**" />
     <EmbeddedResource Remove="Volo\Abp\FeatureManagement\**" />
+    <EmbeddedResource Remove="Volo\Abp\PermissionManagement\**" />
     <None Remove="AuditLogs\**" />
     <None Remove="Business\Basic\**" />
     <None Remove="Business\BookStore\Demo\**" />
@@ -60,6 +62,7 @@
     <None Remove="Volo\Abp\Blogging\**" />
     <None Remove="Volo\Abp\CmsKit\**" />
     <None Remove="Volo\Abp\FeatureManagement\**" />
+    <None Remove="Volo\Abp\PermissionManagement\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,7 +84,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Volo\Abp\PermissionManagement\" />
     <Folder Include="Modules\" />
   </ItemGroup>
 

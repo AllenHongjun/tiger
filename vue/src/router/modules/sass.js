@@ -2,7 +2,7 @@
 
 import Layout from '@/layout'
 
-const tenantRouter = {
+const sassRouter = {
   path: '/sass',
   component: Layout,
   redirect: '/tenant/list',
@@ -27,8 +27,13 @@ const tenantRouter = {
       path: '/edition/list',
       component: () => import('@/views/saas/edition/index'),
       name: 'edition',
-      meta: { title: '版本', policy: 'AbpTenantManagement.Editions' }
+      meta: {
+        title: '版本',
+        // TODO: 增加权限控制
+        policy: 'AbpTenantManagement.Tenants'
+      }
+      // meta: { title: '版本', policy: 'AbpTenantManagement.Editions' }
     }
   ]
 }
-export default tenantRouter
+export default sassRouter

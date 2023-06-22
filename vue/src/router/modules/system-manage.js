@@ -151,34 +151,16 @@ const SystemManageRouter = {
             icon: 'el-icon-notebook-1'
             // policy: 'SettingUi.ShowSettingPage'
           }
-        }
-      ]
-    },
-    {
-      path: '/test',
-      name: '测试',
-      meta: { title: '测试', icon: 'el-icon-coffee', policy: 'SettingUi.ShowSettingPage' },
-      component: Layout,
-      redirect: '/vue2',
-      // 这里开始对应的路由都会显示在app-main中 如上图所示
-      children: [
-        {
-          path: 'vue2',
-          name: 'vue2',
-          component: () => import('@/views/vue2.0/index'),
-          meta: { title: 'vue2' }
         },
         {
-          path: 'vue2/componet',
-          name: 'vue2-componet',
-          component: () => import('@/views/vue2.0/component'),
-          meta: { title: 'vue2组件' }
-        },
-        {
-          path: 'vue2/element-ui',
-          name: 'element-ui',
-          component: () => import('@/views/vue2.0/element-ui'),
-          meta: { title: 'element-ui' }
+          path: '/cache/index',
+          name: 'server-monitoring',
+          component: () => import('@/views/system-manage/infrastructure/cache/index'),
+          meta: {
+            title: '缓存监控',
+            icon: 'el-icon-notebook-1'
+            // policy: 'SettingUi.ShowSettingPage'
+          }
         }
       ]
     }

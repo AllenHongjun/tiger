@@ -257,7 +257,7 @@ namespace Tiger.Volo.Abp.Identity
 
         #endregion
 
-
+        #region 账号安全
         /// <summary>
         /// 修改用户密码
         /// </summary>
@@ -347,7 +347,8 @@ namespace Tiger.Volo.Abp.Identity
             var user = await UserManager.GetByIdAsync(id);
 
             return user;
-        }
+        } 
+        #endregion
 
     }
 }

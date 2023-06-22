@@ -6,8 +6,6 @@ export function fetchList(query) {
     url: '/article/list',
     method: 'get',
     params: query
-    // baseURL: process.env.BASE_API2 // 直接通过覆盖的方式
-    // baseURL: 'dev-api' // 直接通过覆盖的方式
   })
 }
 
