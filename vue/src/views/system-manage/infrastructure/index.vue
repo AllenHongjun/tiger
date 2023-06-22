@@ -1,13 +1,13 @@
 <template>
-  <div class="identity">
+  <div class="page">
     <router-view />
   </div>
 </template>
 
 <style scoped>
-.identity {
+.page {
   /*50 = navbar  */
-  min-height: calc(100vh - 50px - 30px);
+  min-height: calc(100vh - 85px);
   width: 100%;
   position: relative;
   overflow: hidden;

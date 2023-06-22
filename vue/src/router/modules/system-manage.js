@@ -123,7 +123,7 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'https://localhost:44306/index.html',
+          path: 'https://localhost:44306/index1.html',
           component: Layout,
           name: 'code-generation',
           meta: {
@@ -133,7 +133,7 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'https://localhost:44306/index.html',
+          path: 'https://localhost:44306/index2.html',
           component: Layout,
           name: 'code-generation1',
           meta: {
@@ -143,13 +143,13 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'https://localhost:44306/index.html',
-          component: Layout,
-          name: 'code-generation2',
+          path: '/server-monitoring/list',
+          name: 'server-monitoring',
+          component: () => import('@/views/system-manage/infrastructure/server-monitoring/index'),
           meta: {
-            title: '服务器信息',
-            icon: 'el-icon-notebook-1',
-            policy: 'SettingUi.ShowSettingPage'
+            title: '服务监控',
+            icon: 'el-icon-notebook-1'
+            // policy: 'SettingUi.ShowSettingPage'
           }
         }
       ]
