@@ -80,37 +80,79 @@ const SystemManageRouter = {
         policy: 'SettingUi.ShowSettingPage'
       }
     },
-    // 添加外链
+    // 基础设置
     {
-      path: 'https://localhost:44306/index.html',
-      component: Layout,
-      name: 'swagger-api',
+      path: '/infrastructure',
+      component: () => import('@/views/system-manage/infrastructure/index'), // Parent router-view
+      name: 'infrastructure',
       meta: {
-        title: '接口文档',
-        icon: 'el-icon-notebook-1',
-        policy: 'SettingUi.ShowSettingPage'
-      }
-    },
-    {
-      path: 'https://localhost:44306/hangfire/',
-      component: Layout,
-      url: 'http://www.baidu.com',
-      name: 'background-job',
-      meta: {
-        title: '后台作业',
-        icon: 'el-icon-message',
-        policy: 'SettingUi.ShowSettingPage'
-      }
-    },
-    {
-      path: 'https://localhost:44306/quartz',
-      component: Layout,
-      name: 'background-worker',
-      meta: {
-        title: '定时任务',
-        icon: 'el-icon-timer',
-        policy: 'SettingUi.ShowSettingPage'
-      }
+        title: '基础设施',
+        icon: 'el-icon-user-solid',
+        policy: ''
+      },
+      children: [
+        {
+          path: 'https://localhost:44306/index.html',
+          component: Layout,
+          name: 'swagger-api',
+          meta: {
+            title: '接口文档',
+            icon: 'el-icon-notebook-1',
+            policy: 'SettingUi.ShowSettingPage'
+          }
+        },
+        {
+          path: 'https://localhost:44306/hangfire/',
+          component: Layout,
+          url: 'http://www.baidu.com',
+          name: 'background-job',
+          meta: {
+            title: '后台作业',
+            icon: 'el-icon-message',
+            policy: 'SettingUi.ShowSettingPage'
+          }
+        },
+        {
+          path: 'https://localhost:44306/quartz',
+          component: Layout,
+          name: 'background-worker',
+          meta: {
+            title: '定时任务',
+            icon: 'el-icon-timer',
+            policy: 'SettingUi.ShowSettingPage'
+          }
+        },
+        {
+          path: 'https://localhost:44306/index.html',
+          component: Layout,
+          name: 'code-generation',
+          meta: {
+            title: '代码生成',
+            icon: 'el-icon-notebook-1',
+            policy: 'SettingUi.ShowSettingPage'
+          }
+        },
+        {
+          path: 'https://localhost:44306/index.html',
+          component: Layout,
+          name: 'code-generation1',
+          meta: {
+            title: '表单构建',
+            icon: 'el-icon-notebook-1',
+            policy: 'SettingUi.ShowSettingPage'
+          }
+        },
+        {
+          path: 'https://localhost:44306/index.html',
+          component: Layout,
+          name: 'code-generation2',
+          meta: {
+            title: '服务器信息',
+            icon: 'el-icon-notebook-1',
+            policy: 'SettingUi.ShowSettingPage'
+          }
+        }
+      ]
     },
     {
       path: '/test',
