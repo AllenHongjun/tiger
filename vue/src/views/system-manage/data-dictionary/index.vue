@@ -252,8 +252,8 @@
         <el-button
           type="primary"
           @click="dialogStatus==='create'?
-           createData() :
-           updateData() "
+            createData() :
+            updateData() "
         >
           {{ $t("AbpDataDictionary['Save']") }}
         </el-button>
@@ -302,8 +302,8 @@
         <el-button
           type="primary"
           @click="dialogDetailStatus==='create'?
-           createDetailData() :
-           updateDetailData() "
+            createDetailData() :
+            updateDetailData() "
         >
           {{ $t("AbpDataDictionary['Save']") }}
         </el-button>

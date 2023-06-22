@@ -57,8 +57,6 @@ export function UnLock(id) {
   })
 }
 
-
-
 export function deleteUser(id) {
   return request({
     url: `/api/identity/users/${id}`,
@@ -92,7 +90,7 @@ export function getRolesByUserId(id) {
   })
 }
 
-// 
+//
 export function getAssignableRoles() {
   return request({
     url: '/api/identity/users/assignable-roles',

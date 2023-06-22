@@ -1,6 +1,5 @@
 import request from '@/utils/request'
 import qs from 'querystring'
-import { transformAbpListQuery } from '@/utils/abp'
 
 export function login(data) {
   return request({
@@ -34,14 +33,13 @@ export function getApplicationConfiguration(name) {
   })
 }
 
-// profile 
+// profile
 export function getInfo() {
   return request({
     url: '/api/identity/my-profile',
     method: 'get'
   })
 }
-
 
 export function setUserInfo(data) {
   return request({
@@ -58,8 +56,6 @@ export function changePassword(payload) {
     data: payload
   })
 }
-
-
 
 // permission
 export function getPermissions(query) {
@@ -78,5 +74,4 @@ export function updatePermissions(query, payload) {
     data: payload
   })
 }
-
 

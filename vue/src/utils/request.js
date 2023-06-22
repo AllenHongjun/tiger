@@ -4,8 +4,9 @@ import store from '@/store'
 // import { getToken } from '@/utils/auth'
 import { param as encodeParam } from '@/utils'
 
-//axios官网 https://axios-http.com/zh/
+// axios官网 https://axios-http.com/zh/
 
+// 统一做了超时处理
 var timeout = 5000
 if (process.env.NODE_ENV === 'production') {
   timeout = 5000 // request timeout
@@ -13,14 +14,12 @@ if (process.env.NODE_ENV === 'production') {
   timeout = 50000 // 开发环境增加调试请求时间
 }
 
-// create an axios instance
+// create an axios instance  baseURL设置
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_LOCAL, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: timeout // request timeout
 })
-
-
 
 // request interceptor 请求拦截器
 service.interceptors.request.use(
@@ -50,7 +49,7 @@ service.interceptors.request.use(
   }
 )
 
-// response interceptor
+// response interceptor response拦截器
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
@@ -65,10 +64,10 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     return res
-    
   },
+  // 统一的错误处理
   error => {
-    console.log("error", error) // for debug
+    console.log('error', error) // for debug
     if (error.status === 401) {
       // to re-login
       MessageBox.confirm(
@@ -86,19 +85,17 @@ service.interceptors.response.use(
       })
     }
     let message = ''
-    if(error.response && error.response.data && error.response.data.error && error.response.data.error.validationErrors){
+    if (error.response && error.response.data && error.response.data.error && error.response.data.error.validationErrors) {
       error.response.data.error.validationErrors.forEach(element => {
         message += element.message + '\n'
-      });
-    }
-    else if(error.response && error.response.data && error.response.data.error) {
+      })
+    } else if (error.response && error.response.data && error.response.data.error) {
       // TODO: 优化错误处理的提醒方式
-      if(error.response.data.error_description){
+      if (error.response.data.error_description) {
         message += error.response.data.error_description
-      }else{
-        message = error.response.data.error.message 
+      } else {
+        message = error.response.data.error.message
       }
-      
     } else {
       message = error.message
     }
@@ -110,7 +107,6 @@ service.interceptors.response.use(
     })
 
     return Promise.reject(error)
-    
   }
 )
 

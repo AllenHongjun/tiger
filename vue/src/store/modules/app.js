@@ -10,7 +10,7 @@ const state = {
   device: 'desktop',
   size: Cookies.get('size') || 'mini',
   language: getLanguage(),
-  abpConfig: null  // TODO: 添加读取这个配置会无法登录
+  abpConfig: null // TODO: 添加读取这个配置会无法登录
 }
 
 const mutations = {
@@ -68,14 +68,14 @@ const actions = {
           const language = response.localization.currentCulture.cultureName
           const values = response.localization.values
           setLocale(language, values)
-          
+
           resolve(response)
         })
         .catch(error => {
           reject(error)
         })
     })
-  },
+  }
 }
 
 export default {

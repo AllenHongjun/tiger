@@ -7,7 +7,7 @@
     "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
     "build:prod": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
     "build:stage": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build --mode staging",
-    "preview": "node build/index.js --preview",
+    "preview": "SET NODE_OPTIONS=--openssl-legacy-provider && node build/index.js --preview",
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
     "lint": "eslint --ext .js,.vue src",
     "test:unit": "jest --clearCache && vue-cli-service test:unit",

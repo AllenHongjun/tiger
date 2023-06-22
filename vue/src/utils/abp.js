@@ -18,7 +18,7 @@ export const Url = {
   baseUrl: baseUrl
 }
 
-//定义基础查询参数
+// 定义基础查询参数
 const baseListQuery = {
   page: 1,
   limit: 10,

@@ -58,7 +58,7 @@ export default {
           {
             name: '日志中的错误率',
             type: 'pie',
-            // roseType: 'radius', 
+            // roseType: 'radius',
             radius: [15, 95],
             center: ['50%', '42%'],
             data: [

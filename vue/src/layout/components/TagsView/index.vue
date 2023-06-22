@@ -45,7 +45,6 @@ export default {
       return this.$store.state.tagsView.visitedViews
     },
     routes() {
-
       // 获取有权限的路由
       return this.$store.state.permission.routes
 

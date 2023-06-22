@@ -1,13 +1,11 @@
 <template>
-<div class="navbar">
+  <div class="navbar">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <breadcrumb class="breadcrumb-container" />
 
-    
-
     <div class="right-menu">
-    <template v-if="device!=='mobile'">
+      <template v-if="device!=='mobile'">
         <search id="header-search" class="right-menu-item" />
 
         <error-log class="errLog-container right-menu-item hover-effect" />
@@ -19,41 +17,41 @@
         </el-tooltip>
 
       </template>
-        <el-dropdown class="avatar-container" trigger="click">
-            <div class="avatar-wrapper">
-                <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-                <i class="el-icon-caret-bottom" />
-            </div>
-            <el-dropdown-menu slot="dropdown" class="user-dropdown">
-                <router-link to="/">
-                    <el-dropdown-item>
-                        首页
-                    </el-dropdown-item>
-                </router-link>
-                <router-link to="/profile/index">
-                    <el-dropdown-item>
-                        我的账号
-                    </el-dropdown-item>
-                </router-link>
+      <el-dropdown class="avatar-container" trigger="click">
+        <div class="avatar-wrapper">
+          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <i class="el-icon-caret-bottom" />
+        </div>
+        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+          <router-link to="/">
+            <el-dropdown-item>
+              首页
+            </el-dropdown-item>
+          </router-link>
+          <router-link to="/profile/index">
+            <el-dropdown-item>
+              我的账号
+            </el-dropdown-item>
+          </router-link>
 
-                <router-link v-if="checkPermission('AbpIdentity.IdentitySecurityLogs')" to="/security-log/list">
-                    <el-dropdown-item>
-                        安全日志
-                    </el-dropdown-item>
-                </router-link>
-                
-                <el-dropdown-item divided @click.native="handelLogout">
-                    <span style="display:block;">注 销</span>
-                </el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
+          <router-link v-if="checkPermission('AbpIdentity.IdentitySecurityLogs')" to="/security-log/list">
+            <el-dropdown-item>
+              安全日志
+            </el-dropdown-item>
+          </router-link>
+
+          <el-dropdown-item divided @click.native="handelLogout">
+            <span style="display:block;">注 销</span>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import {
-    mapGetters
+  mapGetters
 } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
@@ -62,45 +60,44 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 import {
-    logout
+  logout
 } from '@/api/user'
 import {
-    baseListQuery,
-    checkPermission
+  baseListQuery,
+  checkPermission
 } from '@/utils/abp'
 
 export default {
-    components: {
-        Breadcrumb,
-        Hamburger,
-        ErrorLog,
-        Screenfull,
-        SizeSelect,
-        Search
+  components: {
+    Breadcrumb,
+    Hamburger,
+    ErrorLog,
+    Screenfull,
+    SizeSelect,
+    Search
+  },
+  computed: {
+    ...mapGetters([
+      'sidebar',
+      'avatar',
+      'device'
+    ])
+  },
+  methods: {
+    checkPermission,
+    toggleSideBar() {
+      this.$store.dispatch('app/toggleSideBar')
     },
-    computed: {
-        ...mapGetters([
-            'sidebar',
-            'avatar',
-            'device'
-        ])
-    },
-    methods: {
-        checkPermission,
-        toggleSideBar() {
-            this.$store.dispatch('app/toggleSideBar')
-        },
-        async handelLogout() {
-            logout().then((response) => {
-                console.log(response)
-            });
-            await this.$store.dispatch('user/logout')
-            this.$router.push(`/login?redirect=${this.$route.fullPath}`)
-        }
+    async handelLogout() {
+      logout().then((response) => {
+        console.log(response)
+      })
+      await this.$store.dispatch('user/logout')
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
+  }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .navbar {

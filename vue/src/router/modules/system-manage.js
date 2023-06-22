@@ -64,8 +64,8 @@ const SystemManageRouter = {
       component: () => import('@/views/system-manage/auditing/index'), // Parent router-view
       name: 'audit-log-list',
       meta: {
-        title: '请求日志',               //the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-document', //the icon show in the sidebar
+        title: '请求日志', // the name show in sidebar and breadcrumb (recommend set)
+        icon: 'el-icon-document', // the icon show in the sidebar
         policy: 'Auditing.AuditingLog'
         // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
       }
@@ -94,7 +94,7 @@ const SystemManageRouter = {
     {
       path: 'https://localhost:44306/hangfire/',
       component: Layout,
-      url: "http://www.baidu.com",
+      url: 'http://www.baidu.com',
       name: 'background-job',
       meta: {
         title: '后台作业',

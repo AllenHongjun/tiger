@@ -34,9 +34,9 @@ export function getOrganizations(query) {
 }
 
 /**
- * 
- * @param {object} query 
- * @returns 
+ *
+ * @param {object} query
+ * @returns
  */
 export function getOrganizationsAllTree(query) {
   return request({
@@ -46,10 +46,9 @@ export function getOrganizationsAllTree(query) {
   })
 }
 
-
 /**
  * 获取组织根节点
- * @returns 
+ * @returns
  */
 export function getOrganizationsRoot() {
   return request({
@@ -82,22 +81,13 @@ export function getOrganizationDetailTree(id) {
   })
 }
 
-
-
-
-
-
-
-
-
 export function getOrganizationChildren(pid) {
   return request({
     url: `/api/identity/organizations/children/${pid}`,
     method: 'get'
-    
+
   })
 }
-
 
 export function getOrganizationsAllWithDetails(query) {
   return request({
@@ -119,8 +109,6 @@ export function getOrganizationsWithDetails(query) {
     params: transformAbpListQuery(query)
   })
 }
-
-
 
 export function getOrganizationSingleWithDetails(id) {
   return request({
@@ -213,5 +201,4 @@ export function removeUser(id, payload) {
     params: payload
   })
 }
-
 

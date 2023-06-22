@@ -1,6 +1,6 @@
 // 进行多语言支持配置
 import Vue from 'vue'
-import VueI18n from 'vue-i18n'  // 引入国际化的插件包
+import VueI18n from 'vue-i18n' // 引入国际化的插件包
 import Cookies from 'js-cookie' // 引入 Cookies 保存当前默认语言选项
 import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang element-ui 英文包
 import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN' // element-ui lang element-ui 中文包
@@ -9,7 +9,7 @@ import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN' // element-ui lan
 import helloAbpEnLocale from './en'
 import helloAbpZhLocale from './zh'
 
-Vue.use(VueI18n)  // 全局注册国际化包
+Vue.use(VueI18n) // 全局注册国际化包
 
 const messages = {
   en: {

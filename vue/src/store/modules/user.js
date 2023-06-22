@@ -11,15 +11,14 @@ const clientSetting = {
   scope: 'Tiger',
   username: '',
   password: '',
-  client_id: 'Tiger_App',  // 客户端id
-  client_secret: '1q2w3e*'   // 客户端secert
+  client_id: 'Tiger_App', // 客户端id
+  client_secret: '1q2w3e*' // 客户端secert
 }
-
 
 const getDefaultState = () => {
   return {
     token: getToken(),
-    surname:'',
+    surname: '',
     name: '',
     userName: '',
     avatar: '',
@@ -39,7 +38,7 @@ const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_SURNAME:(state, surname) => {
+  SET_SURNAME: (state, surname) => {
     state.surname = surname
   },
   SET_NAME: (state, name) => {
@@ -85,7 +84,6 @@ const actions = {
     clientSetting.password = password
     return new Promise((resolve, reject) => {
       login(clientSetting).then(response => {
-        
         commit('SET_TOKEN', response.access_token)
         setToken(response.access_token).then(() => {
           resolve()

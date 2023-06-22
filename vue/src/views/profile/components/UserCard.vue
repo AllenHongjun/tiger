@@ -1,28 +1,28 @@
 <template>
-<el-card style="margin-bottom:20px;">
+  <el-card style="margin-bottom:20px;">
     <div slot="header" class="clearfix">
-        <span>关于我</span>
+      <span>关于我</span>
     </div>
 
     <div class="user-profile">
-        <div class="box-center">
-            <pan-thumb :image="getFilePathByName(user.avatar)" :height="'100px'" :width="'100px'" :hoverable="false">
-                <div>欢迎</div>
-                {{ user.userName }}
-            </pan-thumb>
+      <div class="box-center">
+        <pan-thumb :image="getFilePathByName(user.avatar)" :height="'100px'" :width="'100px'" :hoverable="false">
+          <div>欢迎</div>
+          {{ user.userName }}
+        </pan-thumb>
+      </div>
+      <div />
+      <div class="box-center">
+        <div class="user-name text-center">{{ user.name }}</div>
+        <div class="user-role text-center text-muted">
+          {{ user.role }}
         </div>
-        <div />
-        <div class="box-center">
-            <div class="user-name text-center">{{  user.name }}</div>
-            <div class="user-role text-center text-muted">
-                {{ user.role  }}
-            </div>
-        </div>
-        <div class="box-center">
-            <el-upload action name="file" :before-upload="beforeUpload" :http-request="uploadAvatar" :show-file-list="false">
-                <el-button type="primary" icon="el-icon-upload">修改头像</el-button>
-            </el-upload>
-        </div>
+      </div>
+      <div class="box-center">
+        <el-upload action name="file" :before-upload="beforeUpload" :http-request="uploadAvatar" :show-file-list="false">
+          <el-button type="primary" icon="el-icon-upload">修改头像</el-button>
+        </el-upload>
+      </div>
     </div>
     <!-- <div class="user-bio">
         <div class="user-education user-bio-section">
@@ -37,79 +37,79 @@
             </div>
         </div>
     </div> -->
-</el-card>
+  </el-card>
 </template>
 
 <script>
 import PanThumb from '@/components/PanThumb'
 import {
-    createFile
+  createFile
 } from '@/api/file-management.js'
 import {
-    getFilePathByName
+  getFilePathByName
 } from '@/utils/abp'
 export default {
-    components: {
-        PanThumb
-    },
-    props: {
-        user: {
-            type: Object,
-            default: () => {
-                return {
-                    surname:'',
-                    name: '',
-                    userName: '',
-                    email: '',
-                    avatar: '',
-                    role: 'admin',
-                    phoneNumber: '',
-                    introduction: ''
-                }
-            }
-        }
-    },
-    data() {
+  components: {
+    PanThumb
+  },
+  props: {
+    user: {
+      type: Object,
+      default: () => {
         return {
-            loading: false
+          surname: '',
+          name: '',
+          userName: '',
+          email: '',
+          avatar: '',
+          role: 'admin',
+          phoneNumber: '',
+          introduction: ''
         }
-    },
-    mounted() {},
-    methods: {
-        getFilePathByName,
-        beforeUpload(file) {
-            // TODO: Image format verification
-
-        },
-        uploadAvatar(data) {
-            const fd = new FormData()
-            fd.append('file', data.file)
-            createFile(fd).then(resData => {
-                this.user.avatar = resData
-                const userInfo = {
-                    surname:this.user.surname,
-                    userName: this.user.userName,
-                    email: this.user.email,
-                    name: this.user.name,
-                    phoneNumber: this.user.phoneNumber,
-                    extraProperties: {
-                        Avatar: resData,
-                        Introduction: this.user.introduction
-                    }
-                }
-                this.loading = true
-                this.$store.dispatch('user/setUserInfo', userInfo).then(res => {
-                    this.loading = false
-                    this.$notify({
-                        title: '成功',
-                        message: '操作成功',
-                        type: 'success',
-                        duration: 2000
-                    })
-                })
-            })
-        }
+      }
     }
+  },
+  data() {
+    return {
+      loading: false
+    }
+  },
+  mounted() {},
+  methods: {
+    getFilePathByName,
+    beforeUpload(file) {
+      // TODO: Image format verification
+
+    },
+    uploadAvatar(data) {
+      const fd = new FormData()
+      fd.append('file', data.file)
+      createFile(fd).then(resData => {
+        this.user.avatar = resData
+        const userInfo = {
+          surname: this.user.surname,
+          userName: this.user.userName,
+          email: this.user.email,
+          name: this.user.name,
+          phoneNumber: this.user.phoneNumber,
+          extraProperties: {
+            Avatar: resData,
+            Introduction: this.user.introduction
+          }
+        }
+        this.loading = true
+        this.$store.dispatch('user/setUserInfo', userInfo).then(res => {
+          this.loading = false
+          this.$notify({
+            title: '成功',
+            message: '操作成功',
+            type: 'success',
+            duration: 2000
+          })
+        })
+      })
+    }
+  }
 }
 </script>
 

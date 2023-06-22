@@ -1,7 +1,7 @@
 <template>
-<div class="layout">
+  <div class="layout">
     <router-view />
-</div>
+  </div>
 </template>
 
 <style scoped>
