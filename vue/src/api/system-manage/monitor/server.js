@@ -1,10 +1,34 @@
 import request from '@/utils/requestMock'
 
-export function getServerInfo(query) {
+// 查询服务器信息
+export function getServerInfo() {
   return request({
-    url: `/api/minitor/server-info`,
-    method: 'get',
-    params: query
+    url: `/api/monitor/server-info`,
+    method: 'get'
+  })
+}
+
+// 查询.NET运行时信息
+export function getCLRInfo() {
+  return request({
+    url: `/api/monitor/clr-info`,
+    method: 'get'
+  })
+}
+
+// 获取系统使用信息
+export function getSystemUsedInfo() {
+  return request({
+    url: `/api/monitor/system-used-info`,
+    method: 'get'
+  })
+}
+
+// 获取服务器磁盘信息
+export function getDiskInfo() {
+  return request({
+    url: '/api/monitor/disk-info',
+    method: 'get'
   })
 }
 
@@ -44,5 +68,52 @@ export function fetchComments(id) {
   return request({
     url: `/article/${id}/comments`,
     method: 'get'
+  })
+}
+
+// role
+export function getRoleList(params) {
+  return request({
+    url: '/api/identity/roles/search',
+    method: 'get'
+    // params: transformAbpListQuery(params)
+  })
+}
+
+export function getRole(id) {
+  return request({
+    url: `/api/identity/roles/${id}`,
+    method: 'get'
+  })
+}
+
+export function createRole(payload) {
+  return request({
+    url: '/api/identity/roles',
+    method: 'post',
+    data: payload
+  })
+}
+
+export function updateRole(id, payload) {
+  return request({
+    url: `/api/identity/roles/${id}`,
+    method: 'put',
+    data: payload
+  })
+}
+
+export function deleteRole(id) {
+  return request({
+    url: `/api/identity/roles/${id}`,
+    method: 'delete'
+  })
+}
+
+export function createRoleToOrg(payload) {
+  return request({
+    url: '/api/identity/roles/create-to-organization',
+    method: 'post',
+    data: payload
   })
 }

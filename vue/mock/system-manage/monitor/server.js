@@ -1,167 +1,62 @@
+const { config } = require('@vue/test-utils')
 const Mock = require('mockjs')
 
 const List = []
+const diskList = []
 const count = 100
-// console.log('mock1')
-const baseContent = '<p>I am testing data, I am testing data.</p><p><img src="https://wpimg.wallstcn.com/4c69009c-0fd4-4153-b112-6cb53d1cf943"></p>'
-const image_uri = 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
 
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
     name: '@cWord(4)',
-    value: '@sentence(5, 10)',
-    timestamp: +Mock.Random.date('T'),
-    author: '@first',
-    reviewer: '@first',
-    title: '@title(5, 10)',
-    content_short: 'mock data',
-    content: baseContent,
-    forecast: '@float(0, 100, 2, 2)',
-    importance: '@integer(1, 3)',
-    'type|1': ['CN', 'US', 'JP', 'EU'],
-    'status|1': ['published', 'draft'],
-    display_time: '@datetime',
-    comment_disabled: true,
-    pageviews: '@integer(300, 5000)',
-    image_uri,
-    platforms: ['a-platform']
+    value: '@sentence(3, 6)'
+  }))
+}
+
+for (let i = 0; i < 5; i++) {
+  diskList.push(Mock.mock({
+    dirName: '/',
+    sysTypeName: 'ext4',
+    typeName: '/',
+    // 生成0到100之间的浮点数,小数点后尾数为0到2位
+    total: '@float(0, 100, 2, 2) GB',
+    free: '@float(0, 100, 2, 2) GB',
+    used: '@float(0, 100, 2, 2) GB',
+    usage: '@float(0, 100, 2, 2)'
   }))
 }
 
 module.exports = [
+  // 服务器信息
   {
-    url: '/api/minitor/server-info',
+    url: '/api/monitor/server-info',
     type: 'get',
     response: config => {
-      const { importance, type, title, page = 1, limit = 20, sort } = config.query
-
-      let mockList = List.filter(item => {
-        if (importance && item.importance !== +importance) return false
-        if (type && item.type !== type) return false
-        if (title && item.title.indexOf(title) < 0) return false
-        return true
-      })
-
-      if (sort === '-id') {
-        mockList = mockList.reverse()
-      }
-
-      const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
-
-      return {
-        code: 20000,
-        data: {
-          total: mockList.length,
-          items: pageList
-        }
-      }
+      return List.slice(0, 10)
     }
   },
+  // 获取clr信息
   {
-    url: '/article/list',
+    url: '/api/monitor/clr-info',
     type: 'get',
     response: config => {
-      // console.log('mock')
-      // console.log('mock1')
-      const { importance, type, title, page = 1, limit = 20, sort } = config.query
-
-      let mockList = List.filter(item => {
-        if (importance && item.importance !== +importance) return false
-        if (type && item.type !== type) return false
-        if (title && item.title.indexOf(title) < 0) return false
-        return true
-      })
-
-      if (sort === '-id') {
-        mockList = mockList.reverse()
-      }
-
-      const pageList = mockList.filter((item, index) => index < limit * page && index >= limit * (page - 1))
-
-      return {
-        code: 20000,
-        data: {
-          total: mockList.length,
-          items: pageList
-        }
-      }
+      return List.slice(0, 10)
     }
   },
-
+  // 获取系统使用信息
   {
-    url: '/vue-element-template/article/detail',
+    url: '/api/monitor/system-used-info',
     type: 'get',
     response: config => {
-      const { id } = config.query
-      for (const article of List) {
-        if (article.id === +id) {
-          return {
-            code: 20000,
-            data: article
-          }
-        }
-      }
+      return List.slice(0, 6)
     }
   },
-
+  // 获取磁盘使用信息
   {
-    url: '/vue-element-template/article/pv',
+    url: '/api/monitor/disk-info',
     type: 'get',
-    response: _ => {
-      return {
-        code: 20000,
-        data: {
-          pvData: [
-            { key: 'PC', pv: 1024 },
-            { key: 'mobile', pv: 1024 },
-            { key: 'ios', pv: 1024 },
-            { key: 'android', pv: 1024 }
-          ]
-        }
-      }
-    }
-  },
-
-  {
-    url: '/vue-element-template/article/create',
-    type: 'post',
-    response: _ => {
-      return {
-        code: 20000,
-        data: 'success'
-      }
-    }
-  },
-
-  {
-    url: '/vue-element-template/article/update',
-    type: 'post',
-    response: _ => {
-      return {
-        code: 20000,
-        data: 'success'
-      }
-    }
-  },
-
-  // fetchComments 的 mock
-  {
-  // url 必须能匹配你的接口路由
-  // 比如 fetchComments 对应的路由可能是 /article/1/comments 或者 /article/2/comments
-  // 所以你需要通过正则来进行匹配
-    url: '/article/[A-Za-z0-9]/comments',
-    type: 'get', // 必须和你接口定义的类型一样
-    response: (req, res) => {
-    // 返回的结果
-    // req and res detail see
-    // https://expressjs.com/zh-cn/api.html#req
-      return {
-        code: 20000,
-        data: {
-          status: 'success'
-        }
-      }
+    response: config => {
+      return diskList
     }
   }
 ]

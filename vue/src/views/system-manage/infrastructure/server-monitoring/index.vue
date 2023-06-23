@@ -6,12 +6,9 @@
         <div class="grid-content bg-purple">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>系统信息</span>
+              <span>服务器信息</span>
             </div>
-            <el-table ref="dragTable" v-loading="listLoading" :data="list" row-key="id" border fit highlight-current-row style="width: 100%">
-              <!-- <el-table-column prop="name" label="名称" width="180" />
-              <el-table-column prop="value" label="信息" /> -->
-
+            <el-table v-loading="listLoading" :data="systemData" row-key="id" border fit highlight-current-row style="width: 100%">
               <el-table-column min-width="300px" label="名称" width="180">
                 <template slot-scope="{row}">
                   <span>{{ row.name }}</span>
@@ -43,13 +40,13 @@
       </el-col>
     </el-row>
     <el-row :gutter="10">
-      <el-col :span="6">
+      <el-col :span="8">
         <div class="grid-content bg-purple-light">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>系统使用信息</span>
             </div>
-            <el-table :data="systemUseData" style="width: 100%">
+            <el-table :data="systemUsedData" style="width: 100%">
               <el-table-column prop="name" label="名称" width="180" />
               <el-table-column prop="value" label="信息" />
             </el-table>
@@ -57,7 +54,7 @@
         </div>
       </el-col>
 
-      <el-col :span="18">
+      <el-col :span="16">
         <div class="grid-content bg-purple-light">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
@@ -91,10 +88,7 @@
 </template>
 
 <script>
-// import { fetchList } from '@/api/article'
-import { fetchList, getFeatures } from '@/api/sass/features'
-import { getServerInfo } from '@/api/system-manage/monitor/server'
-import Sortable from 'sortablejs'
+import { getServerInfo, getCLRInfo, getSystemUsedInfo, getDiskInfo } from '@/api/system-manage/monitor/server'
 
 export default {
   name: 'DragTable',
@@ -103,66 +97,10 @@ export default {
       blank: {
 
       },
-      // 系统信息
-      systemData: [{
-        name: '服务器名称',
-        value: 'iZwz90rjtrmd83mt2s0df8Z'
-      },
-      {
-        name: '操作系统',
-        value: 'Linux 5.4.0-131-generic #147-Ubuntu SMP Fri Oct 14 17:07:22 UTC 2022'
-      },
-      {
-        name: '系统架构',
-        value: 'Unix X64'
-      },
-      {
-        name: 'CPU核数',
-        value: '4 核'
-      },
-      {
-        name: '总内存',
-        value: '7.31G'
-      },
-      {
-        name: '总磁盘',
-        value: '69.31G'
-      },
-      {
-        name: '运行时长',
-        value: '185 天 17 小时 38 分 08 秒'
-      },
-      {
-        name: '外网地址',
-        value: '118.190.161.209 中国 山东 青岛 阿里云'
-      },
-      {
-        name: '内网地址',
-        value: '::ffff:127.0.0.1'
-      },
-      {
-        name: '运行框架',
-        value: '.NET 6.0.11'
-      }
-      ],
-      // 系统使用星系
-      systemUseData: [{
-        name: '启动时间',
-        value: '2023-06-22 03:00:03'
-      },
-      {
-        name: '运行时长',
-        value: '00 天 13 小时 47 分 43 秒'
-      },
-      {
-        name: '网站目录',
-        value: '/wwwroot/smart_prison_core/wwwroot'
-      },
-      {
-        name: '开发环境',
-        value: 'Production'
-      }
-      ],
+      // 系统信息 必须是数组类型不然会报错
+      systemData: [],
+      // 系统使用信息
+      systemUsedData: [],
       // dotnet运行时
       CLRData: [{
         name: '.NET名称',
@@ -194,80 +132,23 @@ export default {
       }
       ],
       // 磁盘信息
-      diskData: [{
-        dirName: '/',
-        sysTypeName: 'ext4',
-        typeName: '/',
-        total: '39.2 GB',
-        free: '25.1 GB',
-        used: '14.1 GB',
-        usage: 35.87
-      },
-      {
-        dirName: 'C:',
-        sysTypeName: 'ext4',
-        typeName: '/',
-        total: '45.2 GB',
-        free: '33.1 GB',
-        used: '5.1 GB',
-        usage: 15.87
-      }
-      ],
+      diskData: [],
       list: null,
       total: null,
-      listLoading: true,
-      listQuery: {
-        page: 1,
-        limit: 10
-      },
-      sortable: null,
-      oldList: [],
-      newList: []
+      listLoading: true
     }
   },
   created() {
-    this.getList()
+    this.fetchData()
   },
   methods: {
-    async getList() {
+    async fetchData() {
       this.listLoading = true
-      const { data } = await getServerInfo(this.listQuery)
-      this.list = data.items
-      this.total = data.total
+      this.systemData = await getServerInfo()
+      this.systemUsedData = await getSystemUsedInfo()
+      this.CLRData = await getCLRInfo()
+      this.diskData = await getDiskInfo()
       this.listLoading = false
-      this.oldList = this.list.map(v => v.id)
-      this.newList = this.oldList.slice()
-      this.$nextTick(() => {
-        this.setSort()
-      })
-    },
-    setSort() {
-      const el = this.$refs.dragTable.$el.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]
-      this.sortable = Sortable.create(el, {
-        ghostClass: 'sortable-ghost', // Class name for the drop placeholder,
-        setData: function(dataTransfer) {
-          // to avoid Firefox bug
-          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-          dataTransfer.setData('Text', '')
-        },
-        onEnd: evt => {
-          const targetRow = this.list.splice(evt.oldIndex, 1)[0]
-          this.list.splice(evt.newIndex, 0, targetRow)
-
-          // for show the changes, you can delete in you code
-          const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
-          this.newList.splice(evt.newIndex, 0, tempIndex)
-        }
-      })
-    },
-    onSubmit() {
-      this.$message('submit!')
-    },
-    onCancel() {
-      this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
     }
   }
 }
