@@ -14,13 +14,13 @@
 
               <el-table-column min-width="300px" label="名称" width="180">
                 <template slot-scope="{row}">
-                  <span>{{ row.author }}</span>
+                  <span>{{ row.name }}</span>
                 </template>
               </el-table-column>
 
-              <el-table-column align="center" label="信息">
+              <el-table-column align="left" label="信息">
                 <template slot-scope="{row}">
-                  <span>{{ row.content_short }}</span>
+                  <span>{{ row.value }}</span>
                 </template>
               </el-table-column>
             </el-table>
@@ -93,6 +93,7 @@
 <script>
 // import { fetchList } from '@/api/article'
 import { fetchList, getFeatures } from '@/api/sass/features'
+import { getServerInfo } from '@/api/system-manage/monitor/server'
 import Sortable from 'sortablejs'
 
 export default {
@@ -230,7 +231,7 @@ export default {
   methods: {
     async getList() {
       this.listLoading = true
-      const { data } = await getFeatures(this.listQuery)
+      const { data } = await getServerInfo(this.listQuery)
       this.list = data.items
       this.total = data.total
       this.listLoading = false

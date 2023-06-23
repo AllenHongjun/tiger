@@ -1,14 +1,22 @@
 const Mock = require('mockjs')
 const { param2Obj } = require('./utils')
 
+// 还需要引入其他的mock文件
+
 const user = require('./user')
+const role = require('./role')
 const table = require('./table')
 const article = require('./article')
+const search = require('./remote-search')
+const minitorServer = require('./system-manage/monitor/server')
 
 const mocks = [
   ...user,
+  ...role,
   ...table,
-  ...article
+  ...article,
+  ...search,
+  ...minitorServer
 ]
 
 // for front mock
