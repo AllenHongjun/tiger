@@ -4,7 +4,8 @@
     <el-row :gutter="32">
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <pie-chart />
+          <!-- 通过属性给组件传值 -->
+          <pie-chart :chart-data="lineChartData" />
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
@@ -12,6 +13,10 @@
           <bar-chart />
         </div>
       </el-col>
+
+    </el-row>
+    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
+      <line-chart :chart-data="lineChartData" />
     </el-row>
 
   </div>
@@ -28,6 +33,7 @@ import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
+// 有这个图表想要的数据
 const lineChartData = {
   newVisitis: {
     expectedData: [100, 120, 161, 134, 105, 160, 165],

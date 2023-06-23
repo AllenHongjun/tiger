@@ -24,6 +24,14 @@ export function getSystemUsedInfo() {
   })
 }
 
+// 获取服务器使用率
+export function getServerUsedRate() {
+  return request({
+    url: `/api/monitor/server-used-rate`,
+    method: 'get'
+  })
+}
+
 // 获取服务器磁盘信息
 export function getDiskInfo() {
   return request({

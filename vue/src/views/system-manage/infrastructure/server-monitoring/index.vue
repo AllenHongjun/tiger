@@ -58,10 +58,26 @@
         <div class="grid-content bg-purple-light">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>系统率</span>
+              <span>使用率</span>
             </div>
-            此处改为使用占比的图表显示
+            <el-row :gutter="32">
+              <el-col :xs="24" :sm="24" :lg="8">
+                <div class="chart-wrapper">
+                  <pie-chart :chart-data="cpuChartData" />
+                </div>
+              </el-col>
+              <el-col :xs="24" :sm="24" :lg="8">
+                <div class="chart-wrapper">
+                  <pie-chart :chart-data="ramChartData" />
+                </div>
+              </el-col>
 
+              <el-col :xs="24" :sm="24" :lg="8">
+                <div class="chart-wrapper">
+                  <pie-chart :chart-data="diskChartData" />
+                </div>
+              </el-col>
+            </el-row>
           </el-card>
         </div>
       </el-col>
@@ -88,10 +104,14 @@
 </template>
 
 <script>
-import { getServerInfo, getCLRInfo, getSystemUsedInfo, getDiskInfo } from '@/api/system-manage/monitor/server'
+import { getServerInfo, getCLRInfo, getSystemUsedInfo, getDiskInfo, getServerUsedRate } from '@/api/system-manage/monitor/server'
+import PieChart from './components/PieChart'
 
 export default {
-  name: 'DragTable',
+  name: 'ServerMonitor',
+  components: {
+    PieChart
+  },
   data() {
     return {
       blank: {
@@ -133,13 +153,15 @@ export default {
       ],
       // 磁盘信息
       diskData: [],
-      list: null,
-      total: null,
+      cpuChartData: {},
+      ramChartData: {},
+      diskChartData: {},
       listLoading: true
     }
   },
   created() {
     this.fetchData()
+    this.handleSetPieChartData()
   },
   methods: {
     async fetchData() {
@@ -149,7 +171,31 @@ export default {
       this.CLRData = await getCLRInfo()
       this.diskData = await getDiskInfo()
       this.listLoading = false
+    },
+    handleSetPieChartData() {
+      getServerUsedRate().then(response => {
+        this.cpuChartData = {
+          name: 'CPU使用率',
+          rate: response.cpuRate,
+          pieData: [response.cpuRate, 100]
+        }
+
+        this.ramChartData = {
+          name: '内存使用率',
+          rate: response.ramRate,
+          pieData: [response.freeRam, response.totalRam]
+        }
+
+        this.diskChartData = {
+          name: '磁盘使用率',
+          rate: response.diskRate,
+          pieData: [response.freeDisk, response.totalDisk]
+        }
+        // console.log('this.cpuChartData', this.cpuChartData)
+        // console.log('this.ramChartData', this.ramChartData)
+      })
     }
+
   }
 }
 </script>
