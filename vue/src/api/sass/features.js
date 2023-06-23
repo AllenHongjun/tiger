@@ -1,5 +1,13 @@
-// import request from '@/utils/request'
 import request from '@/utils/requestMock'
+
+export function fetchList(query) {
+  console.log('process.env.BASE_API2', process.env.BASE_API2)
+  return request({
+    url: '/article/list',
+    method: 'get',
+    params: query
+  })
+}
 
 export function getFeatures(params) {
   return request({
