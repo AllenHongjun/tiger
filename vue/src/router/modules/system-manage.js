@@ -154,10 +154,20 @@ const SystemManageRouter = {
         },
         {
           path: '/cache/index',
-          name: 'server-monitoring',
+          name: 'cache-monitoring',
           component: () => import('@/views/system-manage/infrastructure/cache/index'),
           meta: {
             title: '缓存监控',
+            icon: 'el-icon-notebook-1'
+            // policy: 'SettingUi.ShowSettingPage'
+          }
+        },
+        {
+          path: '/cache/manage',
+          name: 'cache-manage',
+          component: () => import('@/views/system-manage/infrastructure/cache/manage'),
+          meta: {
+            title: '缓存管理',
             icon: 'el-icon-notebook-1'
             // policy: 'SettingUi.ShowSettingPage'
           }

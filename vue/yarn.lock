@@ -11404,6 +11404,13 @@ vue-jest@^3.0.5:
     tsconfig "^7.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
+vue-json-viewer@^2.2.22:
+  version "2.2.22"
+  resolved "https://registry.npmmirror.com/vue-json-viewer/-/vue-json-viewer-2.2.22.tgz"
+  integrity sha512-3oPH5BxoUWva/qp7wNJj+15FBXyi9Yu5VDW4mCWivjHR1pUpMv34fjqqxML7jh2uOqm1S/3Xks5nQ5JjC5+OWw==
+  dependencies:
+    clipboard "^2.0.4"
+
 vue-loader@^15.9.2:
   version "15.9.8"
   resolved "https://registry.nlark.com/vue-loader/download/vue-loader-15.9.8.tgz?cache=0&sync_timestamp=1628666727543&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue-loader%2Fdownload%2Fvue-loader-15.9.8.tgz"
@@ -11452,7 +11459,7 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
-"vue@^2 || ^3.0.0-0", vue@^2.5.17, vue@^2.6.10, vue@^2.x, vue@2.6.10, vue@2.x:
+"vue@^2 || ^3.0.0-0", vue@^2.5.17, vue@^2.6.10, vue@^2.6.9, vue@^2.x, vue@2.6.10, vue@2.x:
   version "2.6.10"
   resolved "https://registry.nlark.com/vue/download/vue-2.6.10.tgz?cache=0&sync_timestamp=1631143104265&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue%2Fdownload%2Fvue-2.6.10.tgz"
   integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=

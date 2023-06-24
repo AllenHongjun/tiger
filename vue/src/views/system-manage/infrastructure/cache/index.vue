@@ -11,7 +11,7 @@
           </el-radio-group>
           <el-divider />
 
-          <el-descriptions class="margin-top" title=" cache基本信息" :column="3" :size="size" border>
+          <el-descriptions class="margin-top" title=" 缓存基本信息" :column="3" :size="size" border>
             <!-- <template slot="extra">
               <el-button type="primary" size="small">操作</el-button>
             </template> -->
@@ -118,20 +118,50 @@
       </el-col>
     </el-row>
     <el-row :gutter="10">
-      <el-col :span="12"><div class="grid-content bg-purple">2</div></el-col>
-      <el-col :span="12"><div class="grid-content bg-purple-light">3</div></el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>命令统计</span>
+            </div>
+            <!-- 通过属性给组件传值 -->
+            <pie-chart :chart-data="pieChartData" />
+          </el-card>
+
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple-light">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>内存信息</span>
+            </div>
+            <!-- 通过属性给组件传值 -->
+            <gauge-chart :chart-data="pieChartData" />
+          </el-card>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+// 引入组件不能添加括号，需要单个引入
+import PieChart from '@/components/Charts/PieChart'
+import GaugeChart from '@/components/Charts/GaugeChart'
 export default {
+  name: 'CacheMonitor',
+  components: {
+    PieChart,
+    GaugeChart
+  },
   data() {
     return {
       blank: {
 
       },
-      size: ''
+      size: '',
+      pieChartData: {}
     }
   },
   methods: {
@@ -149,35 +179,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.line{
-  text-align: center;
+.line {
+    text-align: center;
 }
 
 .el-row {
-  margin-bottom: 20px;
-  &:last-child {
-    margin-bottom: 0;
-  }
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
+
 .el-col {
-  border-radius: 4px;
+    border-radius: 4px;
 }
+
 .bg-purple-dark {
-  background: #99a9bf;
+    background: #99a9bf;
 }
+
 .bg-purple {
-  background: #d3dce6;
+    background: #d3dce6;
 }
+
 .bg-purple-light {
-  background: #e5e9f2;
+    background: #e5e9f2;
 }
+
 .grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+    border-radius: 4px;
+    min-height: 36px;
 }
+
 .row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
+    padding: 10px 0;
+    background-color: #f9fafc;
 }
 </style>
-
