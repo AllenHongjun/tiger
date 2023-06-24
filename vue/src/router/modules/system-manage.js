@@ -23,7 +23,7 @@ const SystemManageRouter = {
       },
       children: [
         {
-          path: 'organization-units/list',
+          path: '/organization-units/list',
           component: () => import('@/views/system-manage/identity/organization-units/index'),
           name: 'organization-units',
           meta: {
@@ -32,7 +32,17 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'role/list',
+          path: '/post/list',
+          component: () => import('@/views/system-manage/identity/post/list'),
+          name: 'post',
+          meta: {
+            title: '岗位管理',
+            icon: 'el-icon-user'
+            // policy: 'AbpIdentity.OrganizationUnits'
+          }
+        },
+        {
+          path: '/role/list',
           component: () => import('@/views/system-manage/identity/roles/index'),
           name: 'role',
           meta: { title: '角色', policy: 'AbpIdentity.Roles' }
@@ -40,8 +50,14 @@ const SystemManageRouter = {
         {
           path: '/user/list',
           component: () => import('@/views/system-manage/identity/users/index'),
-          name: 'user_list',
+          name: 'user-list',
           meta: { title: '用户', policy: 'AbpIdentity.Users' }
+        },
+        {
+          path: '/menu/list',
+          component: () => import('@/views/system-manage/identity/menu/index'),
+          name: 'menu-list',
+          meta: { title: '菜单管理', icon: 'el-icon-menu', policy: 'AbpIdentity.Users' }
         },
         {
           path: '/claim-type/list',
