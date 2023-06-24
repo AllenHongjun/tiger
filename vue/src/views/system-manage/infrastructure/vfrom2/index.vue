@@ -1,12 +1,17 @@
 <template>
   <div class="app-container">
-    这是一个故意的空白页面
+    <v-form-designer />
   </div>
 </template>
 
 <script>
+// import VForm from 'vform-builds' // 引入VForm库
+// import countTo from 'vue-count-to'
+
+// 需要全局引入组件 不然没有效果
 export default {
-  name: 'CN',
+  name: 'Vfrom',
+
   data() {
     return {
       blank: {
@@ -28,9 +33,9 @@ export default {
 }
 </script>
 
-<style scoped>
-.line{
-  text-align: center;
+<style lang="scss">
+body {
+  margin: 0;  /* 如果页面出现垂直滚动条，则加入此行CSS以消除之 */
 }
 </style>
 

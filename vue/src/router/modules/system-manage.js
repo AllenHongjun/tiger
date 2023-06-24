@@ -133,13 +133,13 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'https://localhost:44306/index2.html',
-          component: Layout,
-          name: 'code-generation1',
+          path: '/dev-tool/vfrom2',
+          component: () => import('@/views/system-manage/infrastructure/vfrom2/index'),
+          name: 'vfrom',
           meta: {
             title: '表单构建',
-            icon: 'el-icon-notebook-1',
-            policy: 'SettingUi.ShowSettingPage'
+            icon: 'el-icon-notebook-1'
+            // policy: 'SettingUi.ShowSettingPage'
           }
         },
         {

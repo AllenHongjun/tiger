@@ -11349,6 +11349,11 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+vform-builds@^2.2.9:
+  version "2.2.9"
+  resolved "https://registry.npmmirror.com/vform-builds/-/vform-builds-2.2.9.tgz"
+  integrity sha512-fAGIc12G9+S973JCu3DonVChyojDepQT0ZZcBk28Er2AFplKCZ8QKPHsqAFTAseWOVSNEqnC75oT5iPfbtBGAQ==
+
 vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.nlark.com/vm-browserify/download/vm-browserify-1.1.2.tgz"
