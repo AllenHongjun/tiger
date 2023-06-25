@@ -27,33 +27,33 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="职位名称" min-width="150px">
+      <el-table-column label="职位名称" width="150px">
         <template slot-scope="{row}">
-          <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
-          <el-tag>{{ row.type | typeFilter }}</el-tag>
+          <span class="link-type" @click="handleUpdate(row)">{{ row.postName }}</span>
+          <!-- <el-tag>{{ row.type | typeFilter }}</el-tag> -->
         </template>
       </el-table-column>
 
       <el-table-column label="职位编码" width="110px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.author }}</span>
+          <span>{{ row.postCode }}</span>
         </template>
       </el-table-column>
       <el-table-column label="状态" class-name="status-col" width="100">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
-            {{ row.status }}
+            {{ row.status == '1' ? '正常' : '禁用' }}
           </el-tag>
         </template>
       </el-table-column>
 
       <el-table-column label="修改日期" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.lastModificationTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column label="备注" width="110px" align="center">
+      <el-table-column label="备注" align="left">
         <template slot-scope="{row}">
           <span>{{ row.remark }}</span>
         </template>
@@ -76,28 +76,26 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="90px" style="margin-left:50px;">
 
-        <el-form-item label="职位名称" prop="title">
-          <el-input v-model="temp.title" />
+        <el-form-item label="职位名称" prop="postName">
+          <el-input v-model="temp.postName" />
         </el-form-item>
-        <el-form-item label="职位编码" prop="title">
-          <el-input v-model="temp.author" />
+        <el-form-item label="职位编码" prop="postCode">
+          <el-input v-model="temp.postCode" />
         </el-form-item>
 
         <el-row>
-          <el-col :span="12"><div class="grid-content bg-purple"><el-form-item label="启用">
-            <el-radio-group>
-              <el-radio v-model="temp.enable" label="是" />
-              <el-radio v-model="temp.enable" label="否" />
-            </el-radio-group>
+          <el-col :span="12"><div class="grid-content bg-purple"><el-form-item label="状态">
+            <el-radio v-model="temp.status" label="1">正常</el-radio>
+            <el-radio v-model="temp.status" label="0">禁用</el-radio>
           </el-form-item></div></el-col>
           <el-col :span="12"><div class="grid-content bg-purple-light">
             <el-form-item label="排序">
-              <el-input-number v-model="temp.num" :min="1" :max="10" label="描述文字" />
+              <el-input-number v-model="temp.postSort" :min="1" :max="100000" label="排序" />
             </el-form-item></div></el-col>
         </el-row>
 
         <el-form-item label="备注">
-          <el-input v-model="temp.remark" type="textarea" placeholder="Please input" />
+          <el-input v-model="temp.remark" type="textarea" placeholder="请输入备注" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -129,6 +127,14 @@ import {
   createArticle,
   updateArticle
 } from '@/api/article'
+
+import {
+  getPostList,
+  createPost,
+  updatePost,
+  deletePost
+} from '@/api/system-manage/identity/post'
+
 import waves from '@/directive/waves' // waves directive
 import {
   parseTime
@@ -160,7 +166,8 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
+  // 职位管理
+  name: 'Post',
   components: {
     Pagination
   },
@@ -170,9 +177,8 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
+        1: 'success',
+        0: 'danger'
       }
       return statusMap[status]
     },
@@ -189,10 +195,8 @@ export default {
       listQuery: {
         page: 1,
         limit: 10,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
+        filter: '',
+        sorting: 'name desc'
       },
       importanceOptions: [1, 2, 3],
       calendarTypeOptions,
@@ -203,18 +207,17 @@ export default {
         label: 'ID Descending',
         key: '-id'
       }],
-      statusOptions: ['published', 'draft', 'deleted'],
+      statusOptions: ['正常', '禁用'],
       showReviewer: false,
       temp: {
         id: undefined,
-        num: 10,
-        importance: 1,
-        enable: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        type: '',
-        status: 'published'
+        postId: 1,
+        postCode: '',
+        postName: '',
+        postSort: 100,
+        status: 1,
+        flag: false,
+        remark: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -225,20 +228,19 @@ export default {
       dialogPvVisible: false,
       pvData: [],
       rules: {
-        type: [{
+        status: [{
           required: true,
-          message: 'type is required',
+          message: '请选择状态',
           trigger: 'change'
         }],
-        timestamp: [{
-          type: 'date',
+        postCode: [{
           required: true,
-          message: 'timestamp is required',
-          trigger: 'change'
+          message: '请输入职位编码',
+          trigger: 'blur'
         }],
-        title: [{
+        postName: [{
           required: true,
-          message: 'title is required',
+          message: '请输入职位名称',
           trigger: 'blur'
         }]
       },
@@ -251,10 +253,9 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+      getPostList(this.listQuery).then(response => {
         this.list = response.data.items
-        this.total = response.data.total
-
+        this.total = response.data.totalCount
         // Just to simulate the time of the request
         setTimeout(() => {
           this.listLoading = false
@@ -292,12 +293,13 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        importance: 1,
-        remark: '',
-        timestamp: new Date(),
-        title: '',
-        status: 'published',
-        type: ''
+        postId: 1,
+        postCode: '',
+        postName: '',
+        postSort: 100,
+        status: '1',
+        flag: false,
+        remark: ''
       }
     },
     handleCreate() {
@@ -313,12 +315,12 @@ export default {
         if (valid) {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
           this.temp.author = 'vue-element-admin'
-          createArticle(this.temp).then(() => {
+          createPost(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Created Successfully',
+              title: '成功',
+              message: '创建成功',
               type: 'success',
               duration: 2000
             })
@@ -340,13 +342,13 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updateArticle(tempData).then(() => {
+          updatePost(tempData).then(() => {
             const index = this.list.findIndex(v => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
             this.$notify({
-              title: 'Success',
-              message: 'Update Successfully',
+              title: '成功',
+              message: '更新成功',
               type: 'success',
               duration: 2000
             })
@@ -356,8 +358,8 @@ export default {
     },
     handleDelete(row, index) {
       this.$notify({
-        title: 'Success',
-        message: 'Delete Successfully',
+        title: '成功',
+        message: '删除成功',
         type: 'success',
         duration: 2000
       })

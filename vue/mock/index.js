@@ -9,6 +9,7 @@ const table = require('./table')
 const article = require('./article')
 const search = require('./remote-search')
 const minitorServer = require('./system-manage/monitor/server')
+const post = require('./system-manage/identity/post')
 
 const mocks = [
   ...user,
@@ -16,7 +17,8 @@ const mocks = [
   ...table,
   ...article,
   ...search,
-  ...minitorServer
+  ...minitorServer,
+  ...post
 ]
 
 // for front mock
