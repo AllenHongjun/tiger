@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="职位名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-
-      <!-- <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
+      <el-input v-model="listQuery.title" placeholder="公告标题" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
         <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
       </el-select>
-      <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
+
+      <!-- <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select> -->
       <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
@@ -27,14 +27,14 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="职位名称" min-width="150px">
+      <el-table-column label="公告标题" min-width="150px">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.title }}</span>
           <el-tag>{{ row.type | typeFilter }}</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column label="职位编码" width="110px" align="center">
+      <el-table-column label="公告类型" width="110px" align="center">
         <template slot-scope="{row}">
           <span>{{ row.author }}</span>
         </template>
@@ -46,16 +46,14 @@
           </el-tag>
         </template>
       </el-table-column>
-
-      <el-table-column label="修改日期" width="150px" align="center">
+      <el-table-column label="创建者" width="110px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ row.author }}</span>
         </template>
       </el-table-column>
-
-      <el-table-column label="备注" width="110px" align="center">
+      <el-table-column label="创建日期" width="150px" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.remark }}</span>
+          <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
@@ -76,28 +74,26 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="90px" style="margin-left:50px;">
 
-        <el-form-item label="职位名称" prop="title">
+        <el-form-item label="公告标题" prop="title">
           <el-input v-model="temp.title" />
         </el-form-item>
-        <el-form-item label="职位编码" prop="title">
+
+        <el-form-item label="公告类型" prop="title">
           <el-input v-model="temp.author" />
         </el-form-item>
 
         <el-row>
-          <el-col :span="12"><div class="grid-content bg-purple"><el-form-item label="启用">
+          <el-col :span="12"><div class="grid-content bg-purple"><el-form-item label="状态">
             <el-radio-group>
-              <el-radio v-model="temp.enable" label="是" />
-              <el-radio v-model="temp.enable" label="否" />
+              <el-radio v-model="temp.enable" label="正常" />
+              <el-radio v-model="temp.enable" label="关闭" />
             </el-radio-group>
-          </el-form-item></div></el-col>
-          <el-col :span="12"><div class="grid-content bg-purple-light">
-            <el-form-item label="排序">
-              <el-input-number v-model="temp.num" :min="1" :max="10" label="描述文字" />
-            </el-form-item></div></el-col>
+          </el-form-item></div>
+          </el-col>
         </el-row>
 
         <el-form-item label="备注">
-          <el-input v-model="temp.remark" type="textarea" placeholder="Please input" />
+          <el-input v-model="temp.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -110,15 +106,6 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogPvVisible" title="Reading statistics">
-      <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
-        <el-table-column prop="key" label="Channel" />
-        <el-table-column prop="pv" label="Pv" />
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogPvVisible = false">确定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -160,7 +147,7 @@ const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
 }, {})
 
 export default {
-  name: 'ComplexTable',
+  name: 'FileUpload',
   components: {
     Pagination
   },

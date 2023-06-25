@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import Layout from '@/layout'
 
 /* Router Modules */
-import SystemManageRouter from './modules/system-manage'
+import SystemManageRouter from './modules/system'
 import SassRouter from './modules/sass'
 // import componentsRouter from './modules/components'
 // import chartsRouter from './modules/charts'
