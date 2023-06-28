@@ -302,6 +302,14 @@ export default {
         maxExecutionDuration: undefined
       }, baseListQuery)
     },
+    // 刷新页面
+    handleRefresh() {
+      this.handleFilter()
+    },
+    handleFilter() {
+      this.queryForm.page = 1
+      this.getList()
+    },
     datePickerChange(value) {
       if (!value) {
         // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
@@ -327,11 +335,7 @@ export default {
       this.queryForm.page = 1
       this.getList()
     },
-    // 刷新页面
-    handleRefresh() {
-      //  在history记录中前进或者后退val步，当val为0时刷新当前页面。
-      this.$router.go(0)
-    },
+
     // 查看详情
     handleDetail(row) {
       this.$refs['auditLogDetailsDialog'].createLogInfo(row)

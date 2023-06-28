@@ -1,24 +1,28 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.title" placeholder="职位名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-
-      <!-- <el-select v-model="listQuery.type" placeholder="Type" clearable class="filter-item" style="width: 130px">
-        <el-option v-for="item in calendarTypeOptions" :key="item.key" :label="item.display_name+'('+item.key+')'" :value="item.key" />
+      <el-input v-model="listQuery.filter" placeholder="职位名称" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-select v-model="listQuery.status" placeholder="状态" clearable style="width:130px;" class="filter-item" @clear="listQuery.status=undefined">
+        <el-option label="正常" value="1" />
+        <el-option label="禁用" value="0" />
       </el-select>
-      <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
-        <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
-      </el-select> -->
-      <el-button v-waves class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
-        查询
-      </el-button>
+      <el-button-group class="filter-item">
+        <el-button type="primary" icon="el-icon-search" @click="handleFilter">
+          查询
+        </el-button>
+        <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
+          重置
+        </el-button>
+        <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
+          刷新
+        </el-button>
+      </el-button-group>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
         创建
       </el-button>
       <el-button v-waves :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">
         导出
       </el-button>
-
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" @sort-change="sortChange">
@@ -27,19 +31,18 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="职位名称" width="150px">
+      <el-table-column label="职位名称" align="center">
         <template slot-scope="{row}">
           <span class="link-type" @click="handleUpdate(row)">{{ row.postName }}</span>
-          <!-- <el-tag>{{ row.type | typeFilter }}</el-tag> -->
         </template>
       </el-table-column>
 
-      <el-table-column label="职位编码" width="110px" align="center">
+      <el-table-column label="职位编码" align="center">
         <template slot-scope="{row}">
           <span>{{ row.postCode }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="状态" class-name="status-col" width="100">
+      <el-table-column label="状态" class-name="status-col">
         <template slot-scope="{row}">
           <el-tag :type="row.status | statusFilter">
             {{ row.status == '1' ? '正常' : '禁用' }}
@@ -47,15 +50,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="修改日期" width="150px" align="center">
+      <el-table-column label="修改日期" align="center">
         <template slot-scope="{row}">
           <span>{{ row.lastModificationTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="备注" align="left">
-        <template slot-scope="{row}">
-          <span>{{ row.remark }}</span>
         </template>
       </el-table-column>
 
@@ -108,25 +105,10 @@
       </div>
     </el-dialog>
 
-    <el-dialog :visible.sync="dialogPvVisible" title="Reading statistics">
-      <el-table :data="pvData" border fit highlight-current-row style="width: 100%">
-        <el-table-column prop="key" label="Channel" />
-        <el-table-column prop="pv" label="Pv" />
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogPvVisible = false">确定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import {
-  fetchList,
-  fetchPv,
-  createArticle,
-  updateArticle
-} from '@/api/article'
 
 import {
   getPostList,
@@ -140,30 +122,7 @@ import {
   parseTime
 } from '@/utils'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-
-const calendarTypeOptions = [{
-  key: 'CN',
-  display_name: 'China'
-},
-{
-  key: 'US',
-  display_name: 'USA'
-},
-{
-  key: 'JP',
-  display_name: 'Japan'
-},
-{
-  key: 'EU',
-  display_name: 'Eurozone'
-}
-]
-
-// arr to obj, such as { CN : "China", US : "USA" }
-const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
-  acc[cur.key] = cur.display_name
-  return acc
-}, {})
+import baseListQuery from '@/utils/abp'
 
 export default {
   // 职位管理
@@ -181,9 +140,6 @@ export default {
         0: 'danger'
       }
       return statusMap[status]
-    },
-    typeFilter(type) {
-      return calendarTypeKeyValue[type]
     }
   },
   data() {
@@ -195,20 +151,12 @@ export default {
       listQuery: {
         page: 1,
         limit: 10,
+        status: undefined,
         filter: '',
         sorting: 'name desc'
       },
-      importanceOptions: [1, 2, 3],
-      calendarTypeOptions,
-      sortOptions: [{
-        label: 'ID Ascending',
-        key: '+id'
-      }, {
-        label: 'ID Descending',
-        key: '-id'
-      }],
+
       statusOptions: ['正常', '禁用'],
-      showReviewer: false,
       temp: {
         id: undefined,
         postId: 1,
@@ -225,8 +173,6 @@ export default {
         update: '编辑',
         create: '创建'
       },
-      dialogPvVisible: false,
-      pvData: [],
       rules: {
         status: [{
           required: true,
@@ -262,16 +208,19 @@ export default {
         }, 1.5 * 1000)
       })
     },
+    // 重置查询参数
+    resetQueryForm() {
+      this.listQuery = Object.assign({
+        status: undefined
+      }, baseListQuery)
+    },
+    // 刷新页面
+    handleRefresh() {
+      this.handleFilter()
+    },
     handleFilter() {
       this.listQuery.page = 1
       this.getList()
-    },
-    handleModifyStatus(row, status) {
-      this.$message({
-        message: '操作Success',
-        type: 'success'
-      })
-      row.status = status
     },
     sortChange(data) {
       const {
@@ -314,7 +263,6 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-          this.temp.author = 'vue-element-admin'
           createPost(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
@@ -342,7 +290,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
           tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-          updatePost(tempData).then(() => {
+          updatePost(tempData.id, tempData).then(() => {
             const index = this.list.findIndex(v => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
@@ -357,30 +305,46 @@ export default {
       })
     },
     handleDelete(row, index) {
-      this.$notify({
-        title: '成功',
-        message: '删除成功',
-        type: 'success',
-        duration: 2000
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deletePost(row.id)
+          .then((response) => {
+            const index = this.list.findIndex((v) => v.id === row.id)
+            this.list.splice(index, 1)
+            this.$message({
+              title: this.$i18n.t("TigerUi['Success']"),
+              message: this.$i18n.t("TigerUi['SuccessMessage']"),
+              type: 'success',
+              duration: 2000
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
       })
-      this.list.splice(index, 1)
     },
-    handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
-        this.pvData = response.data.pvData
-        this.dialogPvVisible = true
-      })
-    },
+    // 导出
     handleDownload() {
       this.downloadLoading = true
+      // 使用懒加载
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['timestamp', 'title', 'type', 'importance', 'status']
-        const filterVal = ['timestamp', 'title', 'type', 'importance', 'status']
+        // 表头
+        const tHeader = ['id', 'createBy', 'creationTime', 'updateBy', 'lastModificationTime', 'remark', 'postCode', 'postName', 'postSort']
+        const filterVal = ['id', 'createBy', 'creationTime', 'updateBy', 'lastModificationTime', 'remark', 'postCode', 'postName', 'postSort']
+        // 具体数据
         const data = this.formatJson(filterVal)
         excel.export_json_to_excel({
           header: tHeader,
           data,
-          filename: 'table-list'
+          filename: 'post-list'
         })
         this.downloadLoading = false
       })

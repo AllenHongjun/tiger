@@ -134,19 +134,19 @@
       <el-table-column label="锁定结束时间" align="center" width="200">
         <template slot-scope="scope">
           <!-- 过滤器用括号会不识别。把全局过滤器当作方法一样使用  -->
-          {{ scope.row.lockoutEnd == null ? '' : $options.filters.formatDate(scope.row.lockoutEnd) }}
+          {{ scope.row.lockoutEnd | moment }}
         </template>
       </el-table-column>
 
       <el-table-column label="创建时间" align="center" width="200" prop="creationTime" sortable="custom">
         <template slot-scope="scope">
-          {{ scope.row.creationTime | formatDate }}
+          {{ scope.row.creationTime | moment }}
 
         </template>
       </el-table-column>
       <el-table-column label="最后修改时间" align="center" width="200" prop="creationTime" sortable="custom">
         <template slot-scope="scope">
-          {{ scope.row.lastModificationTime | formatDate }}
+          {{ scope.row.lastModificationTime | moment }}
         </template>
       </el-table-column>
 

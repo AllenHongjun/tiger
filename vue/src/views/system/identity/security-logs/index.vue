@@ -160,8 +160,7 @@ export default {
   components: {
     Pagination
   },
-  filters: {
-  },
+  filters: {},
   data() {
     return {
       tableKey: 0,

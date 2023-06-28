@@ -220,20 +220,31 @@ export default {
       })
     },
     deleteData(row) {
-      deleteRole(row.id)
-        .then((response) => {
-          const index = this.list.findIndex((v) => v.id === row.id)
-          this.list.splice(index, 1)
-          this.$message({
-            title: this.$i18n.t("TigerUi['Success']"),
-            message: this.$i18n.t("TigerUi['SuccessMessage']"),
-            type: 'success',
-            duration: 2000
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteRole(row.id)
+          .then((response) => {
+            const index = this.list.findIndex((v) => v.id === row.id)
+            this.list.splice(index, 1)
+            this.$message({
+              title: this.$i18n.t("TigerUi['Success']"),
+              message: this.$i18n.t("TigerUi['SuccessMessage']"),
+              type: 'success',
+              duration: 2000
+            })
           })
+          .catch((err) => {
+            console.log(err)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
         })
-        .catch((err) => {
-          console.log(err)
-        })
+      })
     },
     handleUpdatePermission(row) {
       this.$refs['permissionDialog'].handleUpdatePermission(row)

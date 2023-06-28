@@ -2,7 +2,6 @@
 import { transformAbpListQuery } from '@/utils/abp'
 import request from '@/utils/requestMock'
 
-// post
 export function getPostList(params) {
   return request({
     url: '/api/identity/post/search',

@@ -6,24 +6,6 @@ const count = 100
 const baseContent = '<p>I am testing data, I am testing data.</p><p><img src="https://wpimg.wallstcn.com/4c69009c-0fd4-4153-b112-6cb53d1cf943"></p>'
 const image_uri = 'https://wpimg.wallstcn.com/e4558086-631c-425c-9430-56ffb46e70b3'
 
-/**
- *
- * {
-            "createBy": "admin",
-            "creationTime": "2023-04-23 16:11:40",
-            "updateBy": null,
-            "lastModificationTime": null,
-            "remark": "",
-            "postId": 2,
-            "postCode": "se",
-            "postName": "项目经理",
-            "postSort": 2,
-            "status": "0",
-            "flag": false
-        },
- *
- */
-
 for (let i = 0; i < count; i++) {
   List.push(Mock.mock({
     id: '@increment',
@@ -38,22 +20,6 @@ for (let i = 0; i < count; i++) {
     postSort: '@Integer(1,100)',
     'status|1': ['0', '1'],
     flag: false
-
-    // timestamp: +Mock.Random.date('T'),
-    // author: '@first',
-    // reviewer: '@first',
-    // title: '@cWord(5, 10)',
-    // content_short: 'mock data',
-    // content: baseContent,
-    // forecast: '@float(0, 100, 2, 2)',
-    // importance: '@integer(1, 3)',
-    // 'type|1': ['CN', 'US', 'JP', 'EU'],
-    // 'status|1': ['published', 'draft'],
-    // display_time: '@datetime',
-    // comment_disabled: true,
-    // pageviews: '@integer(300, 5000)',
-    // image_uri,
-    // platforms: ['a-platform']
   }))
 }
 
@@ -65,11 +31,10 @@ module.exports = [
     response: config => {
       console.log('mock')
       // console.log('config', config)
-      const { importance, type, filter, page = 1, limit = 10, sort } = config.query
+      const { status, filter, page = 1, limit = 10, sort } = config.query
 
       let mockList = List.filter(item => {
-        // if (importance && item.importance !== +importance) return false
-        // if (type && item.type !== type) return false
+        if (status && item.status !== status) return false
         if (filter && item.postName.indexOf(filter) < 0) return false
         return true
       })
@@ -106,23 +71,6 @@ module.exports = [
     }
   },
 
-  {
-    url: '/vue-element-template/article/pv',
-    type: 'get',
-    response: _ => {
-      return {
-        code: 20000,
-        data: {
-          pvData: [
-            { key: 'PC', pv: 1024 },
-            { key: 'mobile', pv: 1024 },
-            { key: 'ios', pv: 1024 },
-            { key: 'android', pv: 1024 }
-          ]
-        }
-      }
-    }
-  },
   // 创建
   {
     url: '/api/identity/post',
@@ -136,8 +84,20 @@ module.exports = [
   },
   // 更新
   {
-    url: `/api/identity/post/[A-Za-z0-9]`,
-    type: 'post',
+    url: '/api/identity/post/[A-Za-z0-9]',
+    type: 'put',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
+      }
+    }
+  },
+
+  // 删除
+  {
+    url: '/api/identity/post/[A-Za-z0-9]',
+    type: 'delete',
     response: _ => {
       return {
         code: 20000,
