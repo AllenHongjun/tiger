@@ -202,6 +202,13 @@ export default {
         this.listLoading = false
       })
     },
+    handleFilter() {
+      this.queryForm.page = 1
+      this.getList()
+    },
+    handleRefresh() {
+      this.handleFilter()
+    },
     // 重置查询参数
     resetQueryForm() {
       this.queryDateTime = undefined
@@ -240,11 +247,6 @@ export default {
       }
       this.queryForm.page = 1
       this.getList()
-    },
-    // 刷新页面
-    handleRefresh() {
-      //  在history记录中前进或者后退val步，当val为0时刷新当前页面。
-      this.$router.go(0)
     },
     // 查看详情
     handleDetail(row) {
