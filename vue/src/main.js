@@ -9,6 +9,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 import i18n from './lang' // internationalization
 
+// 注意事项:图标引入的坑 https://blog.csdn.net/Evn_484/article/details/131069458
+import eIconPicker from 'e-icon-picker'
+import 'e-icon-picker/lib/symbol.js' // 基本彩色图标库
+import 'e-icon-picker/lib/index.css' // 基本样式，包含基本图标
+import 'font-awesome/css/font-awesome.min.css' // font-awesome 图标库
+import 'element-ui/lib/theme-chalk/icon.css' // element-ui 图标库
+
 import '@/styles/index.scss' // global css
 
 import 'vform-builds/dist/VFormDesigner.css' // 引入VForm样式
@@ -51,6 +58,10 @@ Vue.use(ElementUI, {
 
 Vue.config.productionTip = false
 Vue.use(VForm) // 全局注册VForm(同时注册了v-form-designer和v-form-render组件)
+
+// 全局删除增加图标
+
+Vue.use(eIconPicker, { eIcon: true, ElementUI: true, FontAwesome: true, eIconSymbol: true, addIconList: [], removeIconList: [], zIndex: 99999 })
 
 // Vue.use(
 //   ElementUI, { size: 'mini', zIndex: 3000 }

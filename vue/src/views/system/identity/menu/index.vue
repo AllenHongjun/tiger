@@ -82,8 +82,8 @@
             </el-col>
             <el-col :span="12">
               <div class="grid-content bg-purple-light">
-                <el-form-item label="路由名称" aria-placeholder="路由名称" prop="title">
-                  <el-input v-model="dataForm.title" />
+                <el-form-item label="路由名称" aria-placeholder="路由名称" prop="pathName">
+                  <el-input v-model="dataForm.pathName" />
                 </el-form-item>
               </div>
             </el-col>
@@ -110,7 +110,7 @@
             <el-col :span="12">
               <div class="grid-content bg-purple">
                 <el-form-item label="菜单图标" placeholder="菜单图标" prop="icon">
-                  <el-input v-model="dataForm.icon" prefix-icon="el-icon-search" />
+                  <e-icon-picker v-model="dataForm.icon" />
                 </el-form-item>
               </div>
             </el-col>
@@ -144,27 +144,26 @@
             <el-col :span="12">
               <div class="grid-content bg-purple">
                 <el-form-item label="状态" prop="status">
-                  <el-radio-group v-model="dataForm.status">
-                    <el-radio label="正常" />
-                    <el-radio label="禁用" />
-                  </el-radio-group>
+                  <template>
+                    <el-radio v-model="dataForm.status" :label="1">正常</el-radio>
+                    <el-radio v-model="dataForm.status" :label="0">禁用</el-radio>
+                  </template>
                 </el-form-item>
               </div>
             </el-col>
             <el-col :span="12">
               <div class="grid-content bg-purple-light">
                 <el-form-item label="固定" prop="isAffix">
-                  <el-radio-group v-model="dataForm.isAffix">
-                    <el-radio label="是" />
-                    <el-radio label="否" />
-                  </el-radio-group>
+                  <!-- label绑定数字和bool 前面需要加: https://blog.csdn.net/a772116804/article/details/127230949 -->
+                  <el-radio v-model="dataForm.isAffix" :label="true">是</el-radio>
+                  <el-radio v-model="dataForm.isAffix" :label="false">否</el-radio>
                 </el-form-item>
               </div>
             </el-col>
           </el-row>
 
-          <el-form-item label="备注" prop="desc">
-            <el-input v-model="dataForm.desc" type="textarea" />
+          <el-form-item label="备注" prop="remark">
+            <el-input v-model="dataForm.remark" type="textarea" />
           </el-form-item>
         </el-form>
       </el-row>
@@ -179,6 +178,7 @@
 </template>
 
 <script>
+import { EIcon, EIconPicker } from 'e-icon-picker'
 import {
   baseListQuery,
   checkPermission
@@ -186,6 +186,7 @@ import {
 
 export default {
   name: 'Menu',
+  components: { EIconPicker, EIcon },
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -3348,25 +3349,22 @@ export default {
         name: '',
         pid: 1310000000701,
         type: 2,
-        path: '/doc/element',
-        component: 'layout/routerView/link',
+        pathName: '',
+        path: '',
+        component: '',
         redirect: null,
         permission: null,
-        title: '前端教程',
-        icon: 'ele-Position',
+        title: '',
+        icon: '',
         isIframe: false,
-        outLink: 'https://element-plus.gitee.io/zh-CN/',
+        outLink: '',
         isHide: false,
         isKeepAlive: false,
         isAffix: false,
-        orderNo: 110,
+        orderNo: undefined,
         status: 1,
         remark: null,
         children: [],
-        createTime: '2023-03-22 09:58:07',
-        updateTime: null,
-        createUserId: null,
-        updateUserId: null,
         isDelete: false,
         id: 1310000000712
       },
@@ -3389,40 +3387,19 @@ export default {
           message: '请输入路由路径',
           trigger: 'blur'
         }],
-        // region: [{
-        //   required: true,
-        //   message: '请选择活动区域',
-        //   trigger: 'change'
-        // }],
-        // date1: [{
-        //   type: 'date',
-        //   required: true,
-        //   message: '请选择日期',
-        //   trigger: 'change'
-        // }],
-        // date2: [{
-        //   type: 'date',
-        //   required: true,
-        //   message: '请选择时间',
-        //   trigger: 'change'
-        // }],
-        // type: [{
-        //   type: 'array',
-        //   required: true,
-        //   message: '请至少选择一个活动性质',
-        //   trigger: 'change'
-        // }],
-        // resource: [{
-        //   required: true,
-        //   message: '请选择活动资源',
-        //   trigger: 'change'
-        // }],
-        desc: [{
+        pathName: [{
           required: true,
-          message: '请填写活动形式',
+          message: '请输入路由名称',
+          trigger: 'blur'
+        }],
+        component: [{
+          required: true,
+          message: '请输入组件路径',
           trigger: 'blur'
         }]
       },
+      icon: '',
+
       num: 10,
       dialogStatus: '',
       dialogFormVisible: false
@@ -3479,8 +3456,33 @@ export default {
         }
       })
     },
+    resetTemp() {
+      this.dataForm = {
+        name: '',
+        pid: 1310000000701,
+        type: 2,
+        pathName: '',
+        path: '',
+        component: '',
+        redirect: null,
+        permission: null,
+        title: '',
+        icon: '',
+        isIframe: false,
+        outLink: '',
+        isHide: false,
+        isKeepAlive: false,
+        isAffix: false,
+        orderNo: undefined,
+        status: 1,
+        remark: null,
+        children: [],
+        isDelete: false,
+        id: 1310000000712
+      }
+    },
     handleCreate() {
-      // this.resetTemp()
+      this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -3564,7 +3566,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="css" scoped>
+
+/*
 .el-row {
     margin-bottom: 20px;
 
@@ -3581,14 +3585,6 @@ export default {
     background: #99a9bf;
 }
 
-.bg-purple {
-    /*background: #d3dce6;*/
-}
-
-.bg-purple-light {
-    /*background: #e5e9f2;*/
-}
-
 .grid-content {
     border-radius: 4px;
     min-height: 36px;
@@ -3597,5 +3593,5 @@ export default {
 .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
-}
+}*/
 </style>
