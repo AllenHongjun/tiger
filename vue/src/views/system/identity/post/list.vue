@@ -58,11 +58,11 @@
 
       <el-table-column label="操作" align="left" width="250" class-name="small-padding fixed-width">
         <template slot-scope="{row,$index}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">
-            编辑
+          <el-button type="primary" @click="handleUpdate(row)">
+            {{ $t("AbpUi['Edit']") }}
           </el-button>
-          <el-button v-if="row.status!='deleted'" size="mini" type="danger" @click="handleDelete(row,$index)">
-            删除
+          <el-button v-if="row.status!='deleted'" type="danger" @click="handleDelete(row,$index)">
+            {{ $t("AbpUi['Delete']") }}
           </el-button>
         </template>
       </el-table-column>

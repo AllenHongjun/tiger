@@ -10,6 +10,7 @@ const article = require('./article')
 const search = require('./remote-search')
 const minitorServer = require('./system-manage/monitor/server')
 const post = require('./system-manage/identity/post')
+const edition = require('./sass/edition')
 
 const mocks = [
   ...user,
@@ -18,7 +19,8 @@ const mocks = [
   ...article,
   ...search,
   ...minitorServer,
-  ...post
+  ...post,
+  ...edition
 ]
 
 // for front mock
