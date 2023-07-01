@@ -8,7 +8,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 namespace Tiger.Volo.Abp.Sass.Editions
 {   
     /// <summary>
-    /// 版本
+    /// 版本模型
     /// </summary>
     public class Edition :FullAuditedAggregateRoot<Guid>
     {
@@ -25,6 +25,10 @@ namespace Tiger.Volo.Abp.Sass.Editions
             SetDisplayName(displayName);
         }
 
+        /// <summary>
+        /// 设置名称
+        /// </summary>
+        /// <param name="displayName"></param>
         protected internal virtual void SetDisplayName([NotNull] string displayName)
         {
             DisplayName = Check.NotNullOrWhiteSpace(

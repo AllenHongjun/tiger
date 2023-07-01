@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Tiger.Volo.Abp.Sass.Editions
 {
-    internal class EditionEto
+    [Serializable]
+    public class EditionEto
     {
+        public Guid Id { get;set; }
+
+        public string DisplayName { get; set; }
     }
 }

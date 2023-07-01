@@ -112,7 +112,6 @@
     <Folder Include="Deployment\" />
     <Folder Include="Volo\Abp\Auditing\" />
     <Folder Include="Volo\Abp\IdentityServer\Devices\" />
-    <Folder Include="Volo\Abp\Sass\Tenants\" />
   </ItemGroup>
 
 </Project>

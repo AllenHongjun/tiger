@@ -8,12 +8,12 @@
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" @sort-change="sortChange">
-      <el-table-column :label="$t('AbpTenantManagement[\'TenantName\']')" prop="name" sortable align="center">
+      <el-table-column :label="$t('AbpTenantManagement[\'TenantName\']')" prop="name" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpTenantManagement[\'Actions\']')" align="center" width="500" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpTenantManagement[\'Actions\']')" align="left" width="500" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
           <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Update')" type="primary" size="mini" @click="handleUpdate(row)">
             {{ $t("AbpTenantManagement['Edit']") }}

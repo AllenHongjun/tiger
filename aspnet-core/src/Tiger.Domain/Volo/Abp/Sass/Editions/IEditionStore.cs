@@ -4,10 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Tiger.Volo.Abp.Sass.Editions
-{   
-
-    public interface IEditionDataSeeder
+{
+    public interface IEditionStore
     {
-        Task SeedDefaultEditionAsync();
+        Task<EditionInfo> FindByTenantAsync(Guid tenantId);
     }
 }

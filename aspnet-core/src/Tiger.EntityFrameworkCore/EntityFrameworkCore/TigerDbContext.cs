@@ -6,6 +6,8 @@ using Tiger.Books;
 using Tiger.Business.Demo;
 using Tiger.CoreModule.DataFiltiering;
 using Tiger.Users;
+using Tiger.Volo.Abp.Sass.Editions;
+using Tiger.Volo.Abp.Sass.Tenants;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -47,6 +49,10 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Author> Authors { get; set; } 
         #endregion
 
+
+        public  DbSet<Edition> Editions { get; set; }
+
+        public DbSet<Tenant> Tenants { get; set; }
 
         
 

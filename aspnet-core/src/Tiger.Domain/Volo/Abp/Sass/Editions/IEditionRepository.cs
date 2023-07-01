@@ -13,13 +13,40 @@ namespace Tiger.Volo.Abp.Sass.Editions
     public interface IEditionRepository :IBasicRepository<Edition,Guid>
     {
 
+        /// <summary>
+        /// 查询是否关联租户
+        /// </summary>
+        /// <param name="tenantId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<bool> CheckUsedByTenantAsync(
             Guid tenantId, CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// 根据名称查询
+        /// </summary>
+        /// <param name="displayName"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<Edition> FindByDisplayNameAsync(string displayName, CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// 根据租户id查询
+        /// </summary>
+        /// <param name="tenantId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<Edition> FindByTenantIdAsync(Guid tenantId, CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// 查询版本列表
+        /// </summary>
+        /// <param name="sorting"></param>
+        /// <param name="maxResultCount"></param>
+        /// <param name="skipCount"></param>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<List<Edition>> GetListAsync(
             string sorting = null,
             int maxResultCount = 50,
@@ -27,7 +54,15 @@ namespace Tiger.Volo.Abp.Sass.Editions
             string filter = null,
             CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// 查询版本数量
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task<long> GetCountAsync(string filter = null, 
             CancellationToken cancellationToken= default);
+
+       
     }
 }

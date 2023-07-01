@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Tiger.Volo.Abp.Sass.Tenants
 {
-    internal class TenantEto
+    [Serializable]
+    public class TenantEto
     {
+        public Guid Id { get; set; }
+
+        public string Name { get; set; }
     }
 }
