@@ -30,6 +30,7 @@ using Volo.Abp.Caching;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Emailing;
+using Volo.Abp.Features;
 using Volo.Abp.Settings;
 
 namespace Tiger.Books
@@ -41,7 +42,7 @@ namespace Tiger.Books
     [RemoteService(true)]
     [ApiExplorerSettings(GroupName = "admin")]  
     // 增加授权
-    [Authorize(BookStorePermissions.Books.Default)]
+    //[Authorize(BookStorePermissions.Books.Default)]
     public class BookAppService :
         CrudAppService<
             Book, //The Book entity
@@ -64,6 +65,7 @@ namespace Tiger.Books
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
         private readonly ISettingEncryptionService _settingEncryptionService;
+        private readonly IFeatureChecker _featureChecker;
 
 
         //BookAppService注入IRepository <Book,Guid>,这是Book实体的默认仓储. ABP自动为每个聚合根(或实体)创建默认仓储. 
@@ -78,7 +80,8 @@ namespace Tiger.Books
             IConfiguration configuration,
             IEmailSender emailSender,
             ISettingEncryptionService settingEncryptionService
-            
+,
+            IFeatureChecker featureChecker
         ) : base(repository)
         {
             #region 授权-在构造函数中使用
@@ -100,7 +103,7 @@ namespace Tiger.Books
             _configuration = configuration;
             _emailSender = emailSender;
             _settingEncryptionService = settingEncryptionService;
-            
+            _featureChecker=featureChecker;
         }
 
         #region 书籍模块crud基础业务
@@ -588,7 +591,26 @@ namespace Tiger.Books
                 }
             }
             return list;
-        } 
+        }
         #endregion
+
+
+        public async Task<object> GetPdfReportAsync()
+        {
+            if (await _featureChecker.IsEnabledAsync("MyApp.PdfReporting"))
+            {
+                return new
+                {
+                    code = 100,
+                };
+            }
+            else
+            {
+                return new
+                {
+                    code = -100,
+                };
+            }
+        }
     }
 }
