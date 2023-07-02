@@ -26,7 +26,6 @@
     <Compile Remove="Business\Purchase\**" />
     <Compile Remove="Business\Stat\**" />
     <Compile Remove="Business\Stock\**" />
-    <Compile Remove="Module\**" />
     <Compile Remove="Security\**" />
     <Compile Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
     <EmbeddedResource Remove="Business\Finance\**" />
@@ -34,7 +33,6 @@
     <EmbeddedResource Remove="Business\Purchase\**" />
     <EmbeddedResource Remove="Business\Stat\**" />
     <EmbeddedResource Remove="Business\Stock\**" />
-    <EmbeddedResource Remove="Module\**" />
     <EmbeddedResource Remove="Security\**" />
     <EmbeddedResource Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
     <None Remove="Business\Finance\**" />
@@ -42,7 +40,6 @@
     <None Remove="Business\Purchase\**" />
     <None Remove="Business\Stat\**" />
     <None Remove="Business\Stock\**" />
-    <None Remove="Module\**" />
     <None Remove="Security\**" />
     <None Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
   </ItemGroup>

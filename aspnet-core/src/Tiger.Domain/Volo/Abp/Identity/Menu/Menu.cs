@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Module
-{   
+namespace Tiger.Volo.Abp.Identity.Menu
+{
     /// <summary>
     /// 菜单
     /// </summary>
