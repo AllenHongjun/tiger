@@ -49,7 +49,7 @@ namespace Tiger.Volo.Abp.Sass.Tenants
         /// <param name="filter"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<long> GetCountAsync(
+        Task<int> GetCountAsync(
             string filter = null,
             CancellationToken cancellationToken = default);
 

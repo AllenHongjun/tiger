@@ -321,7 +321,7 @@
             此类通常在解决方案的项目中创建。Application.Contracts
             </remarks>
         </member>
-        <member name="M:Tiger.Infrastructure.Features.ReportingAppService.GetPdfReportAsync">
+        <member name="M:Tiger.Infrastructure.Features.ReportingAppService.GetPdfReportAsync(System.Int32)">
             <summary>
             功能特性使用demo
             </summary>
@@ -828,6 +828,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.Sass.Editions.EditionAppService">
+            <summary>
+            版本服务
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService">
             <summary>
             邮件设置服务
@@ -906,19 +911,6 @@
             <summary>
             测试将设置保存到数据库中
             </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Volo.Abp.TenantManagement.TigerTenantManagement">
-            <summary>
-            租户管理
-            </summary>
-        </member>
-        <member name="M:Tiger.Volo.Abp.TenantManagement.TigerTenantManagement.FindById(System.Guid,System.Boolean)">
-            <summary>
-            根据id获取租户信息
-            </summary>
-            <param name="id">租户id</param>
-            <param name="includeDetails">includeDetails</param>
             <returns></returns>
         </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogAppService">

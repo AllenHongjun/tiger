@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Tiger.Books;
+using Tiger.Volo.Abp.Sass.Editions;
+using Tiger.Volo.Abp.Sass;
 using TigerAdmin.Books;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Volo.Abp.TenantManagement;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -72,11 +75,59 @@ namespace Tiger.EntityFrameworkCore
                 b.HasIndex(x => x.Name);
 
 
+            });
+            #endregion
+
+
+
+            #region Sass
+            //if (builder.IsTenantOnlyDatabase())
+            //{
+            //    return;
+            //}
+            builder.Entity<Edition>(b =>
+            {
+                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Editions", AbpSaasDbProperties.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.Property(t => t.DisplayName)
+                    .HasMaxLength(EditionConsts.MaxDisplayNameLength)
+                    .IsRequired();
+
+                b.HasIndex(u => u.DisplayName);
+
+                //b.ApplyObjectExtensionMappings();
+            });
+            builder.Entity<Tiger.Volo.Abp.Sass.Tenants.Tenant>(b =>
+            {
+                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Tenants", AbpSaasDbProperties.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.Property(t => t.Name).IsRequired().HasMaxLength(TenantConsts.MaxNameLength);
+
+                b.HasMany(u => u.ConnectionStrings).WithOne().HasForeignKey(uc => uc.TenantId).IsRequired();
+
+                b.HasIndex(u => u.Name);
+
+                //b.ApplyObjectExtensionMappings();
+            });
+            builder.Entity<TenantConnectionString>(b =>
+            {
+                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "TenantConnectionStrings", AbpSaasDbProperties.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.HasKey(x => new { x.TenantId, x.Name });
+
+                b.Property(cs => cs.Name).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxNameLength);
+                b.Property(cs => cs.Value).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxValueLength);
+
+                //b.ApplyObjectExtensionMappings();
             }); 
             #endregion
 
-            
-            
         }
     }
 }

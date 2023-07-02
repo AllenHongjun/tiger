@@ -299,6 +299,10 @@ namespace Tiger
             context.Services.AddSwaggerGen(
                 options =>
                 {
+                    // https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/1607
+                    // CustomSchemaIds方法用于自定义SchemaId，Swashbuckle中的每个Schema都有唯一的Id，框架会使用这个Id匹配引用类型，因此这个Id不能重复。 默认情况下，这个Id是根据类名得到的（不包含命名空间）
+                    options.CustomSchemaIds(type => type.ToString());
+
                     options.SwaggerDoc("api", new OpenApiInfo
                     {
                         Title = "Tiger API接口",

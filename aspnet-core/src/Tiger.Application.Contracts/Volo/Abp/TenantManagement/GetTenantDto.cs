@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Volo.Abp.TenantManagement
 {
-    public class GetTenantDto: PagedAndSortedResultRequestDto
-    {
-    }
+    //public class GetTenantDto: PagedAndSortedResultRequestDto
+    //{
+    //}
 }

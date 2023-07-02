@@ -30,11 +30,11 @@ namespace Tiger.Infrastructure.Features
         /// 
         /// 拦截的方法要遵循规则
         /// </remarks>
-        [RequiresFeature("MyApp.PdfReporting")]
-        public async Task GetPdfReportAsync()
-        {
-            //TODO...
-        }
+        //[RequiresFeature("MyApp.PdfReporting")]
+        //public async Task GetPdfReportAsync()
+        //{
+        //    //TODO...
+        //}
 
 
 

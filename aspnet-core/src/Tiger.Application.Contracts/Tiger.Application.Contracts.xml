@@ -846,6 +846,31 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.Sass.Permissions.AbpSaasPermissions">
+            <summary>
+            权限定义
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.Sass.Permissions.AbpSaasPermissions.Tenants.ManageFeatures">
+            <summary>
+            管理功能
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.Sass.Permissions.AbpSaasPermissions.Tenants.ManageConnectionStrings">
+            <summary>
+            关联连接字符串
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Sass.Tenants.TenantCreateDto.UseSharedDatabase">
+            <summary>
+            使用共享数据库
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Sass.Tenants.TenantCreateDto.DefaultConnectionString">
+            <summary>
+            默认数据库连接字符串
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.SettingManagementAppService.IdentitySettingsDto">
             <summary>
             身份标识管理
@@ -1128,14 +1153,6 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:TigerAdmin.Volo.Abp.TenantManagement.ITigerTenantAppService.FindById(System.Guid,System.Boolean)">
-            <summary>
-            根据id获取租户信息
-            </summary>
-            <param name="id">租户id</param>
-            <param name="includeDetails">includeDetails</param>
-            <returns></returns>
-        </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogPermissions">
             <summary>
             审计日志权限配置
@@ -1170,6 +1187,12 @@
             <summary>
             身份认证模块权限常量
             </summary>
+        </member>
+        <member name="M:Volo.Abp.Identity.TigerIdentityPermissions.GetAll">
+            <summary>
+            获取指定类型（包括基类型）的所有常量值。
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

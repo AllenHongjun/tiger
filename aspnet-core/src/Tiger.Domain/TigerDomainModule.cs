@@ -1,10 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Tiger.MultiTenancy;
+using Tiger.Volo.Abp.Sass.Editions;
+using Tiger.Volo.Abp.Sass;
 using Volo.Abp.AuditLogging;
+using Volo.Abp.AutoMapper;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BackgroundJobs.Quartz;
 using Volo.Abp.BackgroundWorkers.Quartz;
+using Volo.Abp.Domain.Entities.Events.Distributed;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -48,6 +52,25 @@ namespace Tiger
             {
                 options.IsEnabled = MultiTenancyConsts.IsEnabled;
             });
+            context.Services.AddAutoMapperObjectMapper<TigerDomainModule>();
+
+            #region Saas
+
+            // 配置Domain模块使用automapper
+            Configure<AbpAutoMapperOptions>(options =>
+                {
+                    options.AddProfile<AbpSaasDomainMappingProfile>(validate: true);
+                });
+
+            Configure<AbpDistributedEntityEventOptions>(options =>
+            {
+                options.EtoMappings.Add<Edition, EditionEto>();
+                options.EtoMappings.Add<Tenant, TenantEto>();
+
+                options.AutoEventSelectors.Add<Edition>();
+                options.AutoEventSelectors.Add<Tenant>();
+            }); 
+            #endregion
 
 #if DEBUG
             //NullEmailSender 是实现 IEmailSender 的内置类，但将电子邮件内容写入 标准日志系统，而不是实际发送电子邮件。

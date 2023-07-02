@@ -7,7 +7,7 @@ namespace Tiger.Volo.Abp.Sass
     /// <summary>
     /// Sass 模块错误编码
     /// </summary>
-    public class AbpSassErrorCodes
+    public class AbpSaasErrorCodes
     {
         public const string Namespace = "Sass";
 

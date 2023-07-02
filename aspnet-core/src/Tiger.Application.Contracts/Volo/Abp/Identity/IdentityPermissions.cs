@@ -50,6 +50,10 @@ namespace Volo.Abp.Identity
             public const string Delete  = Default + ".Delete";
         }
 
+        /// <summary>
+        /// 获取指定类型（包括基类型）的所有常量值。
+        /// </summary>
+        /// <returns></returns>
         public static string[] GetAll()
         {
             return ReflectionHelper.GetPublicConstantsRecursively(typeof(IdentityPermissions));

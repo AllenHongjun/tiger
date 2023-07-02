@@ -61,7 +61,7 @@ namespace Tiger.Volo.Abp.Sass.Editions
         {
             if (await EditionRepository.CheckUsedByTenantAsync(edition.Id))
             {
-                throw new BusinessException(AbpSassErrorCodes.DeleteUsedEdition)
+                throw new BusinessException(AbpSaasErrorCodes.DeleteUsedEdition)
                     .WithData(nameof(Edition.DisplayName), edition.DisplayName);
             }
             else
@@ -75,7 +75,7 @@ namespace Tiger.Volo.Abp.Sass.Editions
         {
             var edition = await EditionRepository.FindByDisplayNameAsync(displayName);
             if (edition == null && edition.Id != expectedId) {
-                throw new BusinessException(AbpSassErrorCodes.DuplicateEditionDisplayName)
+                throw new BusinessException(AbpSaasErrorCodes.DuplicateEditionDisplayName)
                 .WithData(nameof(Edition.DisplayName), displayName);
             }
         }

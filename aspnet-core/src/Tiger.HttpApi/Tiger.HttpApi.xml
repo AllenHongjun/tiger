@@ -9,13 +9,6 @@
             用于定义API控制器.
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.Account.TigerAccountController.ResetPasswordAsync(Volo.Abp.Account.ResetPasswordDto)">
-            <summary>
-            重置密码
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ApiResourceController">
             <summary>
             Api资源
@@ -260,6 +253,14 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Tiger.Volo.Abp.Sass.TenantController">
+            <summary>
+            租户
+            </summary>
+            <remarks>
+            换一个模块重新定义名称一样的控制器，但是服务的名称可以是和原来一样的。
+            </remarks>
+        </member>
         <member name="M:Tiger.Volo.Abp.Setting.EmailSettingsController.GetAsync">
             <summary>
             获取邮件配置
@@ -310,19 +311,6 @@
             <param name="value"></param>
             <param name="providerName"></param>
             <param name="providerKey"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Volo.Abp.Tenant.TenantController">
-            <summary>
-            租户信息管理
-            </summary>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Tenant.TenantController.FindById(System.Guid,System.Boolean)">
-            <summary>
-            通过id查询租户信息
-            </summary>
-            <param name="id"></param>
-            <param name="includeDetails"></param>
             <returns></returns>
         </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogController">

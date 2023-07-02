@@ -23,7 +23,7 @@ namespace Tiger.Volo.Abp.Sass.Tenants
 
         public virtual string Name { get; protected set; }
 
-        public virtual bool IsActive { get; protected set; }
+        public virtual bool IsActive { get; set; }
 
         public virtual DateTime? EnableTime { get; protected set; }
 
@@ -58,7 +58,7 @@ namespace Tiger.Volo.Abp.Sass.Tenants
             EnableTime = enableTime;
         }
 
-        public virtual void SetDisableTIme(DateTime? disableTime = null)
+        public virtual void SetDisableTime(DateTime? disableTime = null)
         {
             DisableTime = disableTime;
         }

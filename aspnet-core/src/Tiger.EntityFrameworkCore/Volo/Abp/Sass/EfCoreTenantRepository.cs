@@ -17,6 +17,9 @@ namespace Tiger.Volo.Abp.Sass
     /// <summary>
     /// 租户 仓储实现
     /// </summary>
+    /// <remarks>
+    /// Ef core 迁移文档里面 有如何
+    /// </remarks>
     public class EfCoreTenantRepository : EfCoreRepository<TigerDbContext, Tenant, Guid>, ITenantRepository
     {
         public EfCoreTenantRepository(
@@ -61,15 +64,47 @@ namespace Tiger.Volo.Abp.Sass
                 .FirstOrDefaultAsync(t => t.Id == id, GetCancellationToken(cancellationToken));
         }
 
-        public Task<Tenant> FindByNameAsync(string name, bool includeDetails = true, CancellationToken cancellationToken = default)
+        public async virtual Task<Tenant> FindByNameAsync(string name, bool includeDetails = true, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var dbContext =  DbContext;
+            var tenantDbSet = dbContext.Set<Tenant>();
+
+            if (includeDetails)
+            {
+                var editionDbSet = dbContext.Set<Edition>();
+                var queryable = from tenant in tenantDbSet
+                                join edition in editionDbSet on tenant.EditionId equals edition.Id into eg
+                                from e in eg.DefaultIfEmpty()
+                                where tenant.Name.Equals(name)
+                                orderby tenant.Id
+                                select new
+                                {
+                                    Tenant = tenant,
+                                    Edition = e,
+                                };
+                var result = await queryable
+                    .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
+                if (result != null && result.Tenant != null)
+                {
+                    result.Tenant.Edition = result.Edition;
+                }
+
+                return result?.Tenant;
+            }
+
+            return await tenantDbSet
+                .OrderBy(t => t.Id)
+                .FirstOrDefaultAsync(t => t.Name == name, GetCancellationToken(cancellationToken));
         }
 
-        public async Task<long> GetCountAsync(string filter = null, CancellationToken cancellationToken = default)
+        public  async Task<int> GetCountAsync(string filter = null, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
-            //return await( await GetQueryableAsync())
+            return await DbContext.Set<Tenant>().Include(x => x.Edition)
+            .WhereIf(
+                !filter.IsNullOrWhiteSpace(),
+                u =>
+                    u.Name.Contains(filter)
+            ).CountAsync(cancellationToken: cancellationToken);
         }
 
         public async Task<List<Tenant>> GetListAsync(
