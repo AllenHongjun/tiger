@@ -1,3 +1,4 @@
+using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Tiger.Books;
@@ -17,7 +18,7 @@ using Volo.Abp.TenantManagement.EntityFrameworkCore;
 namespace Tiger.EntityFrameworkCore
 {
     /// <summary>
-    /// ÕâÊÇ¼¯³ÉEF CoreµÄÏîÄ¿. Ëü¶¨ÒåÁË DbContext ²¢ÊµÏÖ .Domain ÏîÄ¿ÖÐ¶¨ÒåµÄ²Ö´¢½Ó¿Ú.
+    /// ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½EF Coreï¿½ï¿½ï¿½ï¿½Ä¿. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DbContext ï¿½ï¿½Êµï¿½ï¿½ .Domain ï¿½ï¿½Ä¿ï¿½Ð¶ï¿½ï¿½ï¿½Ä²Ö´ï¿½ï¿½Ó¿ï¿½.
     /// </summary>
     [DependsOn(
         typeof(TigerDomainModule),
@@ -46,20 +47,21 @@ namespace Tiger.EntityFrameworkCore
                  * default repositories only for aggregate roots */
                 options.AddDefaultRepositories(includeAllEntities: true);
 
-                //½«Ä¬ÈÏ²Ö´¢ÊµÏÖÌæ»»Îª×Ô¶¨Òå²Ö´¢ÊµÏÖ
+                //ï¿½ï¿½Ä¬ï¿½Ï²Ö´ï¿½Êµï¿½ï¿½ï¿½æ»»Îªï¿½Ô¶ï¿½ï¿½ï¿½Ö´ï¿½Êµï¿½ï¿½
                 options.AddRepository<Book, BookRepository>();
                 
+            options.AddRepository<Post, PostRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>
             {
-                #region ÅäÖÃÎªÓ¦ÓÃ³ÌÐòµÄËùÓÐ DbContextÊ¹ÓÃSQL Server×÷ÎªÄ¬ÈÏDBMS
+                #region ï¿½ï¿½ï¿½ï¿½ÎªÓ¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DbContextÊ¹ï¿½ï¿½SQL Serverï¿½ï¿½ÎªÄ¬ï¿½ï¿½DBMS
                 /* The main point to change your DBMS.
                          * See also TigerMigrationsDbContextFactory for EF Core tooling. */
-                // ¼ò»¯Ð´·¨
+                // ï¿½ï¿½Ð´ï¿½ï¿½
                 options.UseSqlServer();
 
-                //// Ê¹ÓÃSqlserverÁíÍâÒ»ÖÖÐ´·¨
+                //// Ê¹ï¿½ï¿½Sqlserverï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ð´ï¿½ï¿½
                 //Configure<AbpDbContextOptions>(options =>
                 //{
                 //    options.Configure(opts =>
@@ -70,14 +72,14 @@ namespace Tiger.EntityFrameworkCore
                 #endregion
 
 
-                //// ÉèÖÃ DbContextOptions (EF Core×ÔÓÐµÄÅäÖÃ)
+                //// ï¿½ï¿½ï¿½ï¿½ DbContextOptions (EF Coreï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½)
                 //options.Configure(opts =>
                 //{
                 //    opts.DbContextOptions.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 //});
 
 
-                //// ÎªÆäËûµÄDbContext Ê¹ÓÃÒ»¸öÌØÊâÅäÖÃ
+                //// Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DbContext Ê¹ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 //options.Configure<MyOtherDbContext>(opts =>
                 //{
                 //    opts.UseMySQL();

@@ -1,3 +1,4 @@
+using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
 using Tiger.Books;
 using Tiger.Volo.Abp.Sass.Editions;
@@ -128,6 +129,16 @@ namespace Tiger.EntityFrameworkCore
             }); 
             #endregion
 
+
+
+        builder.Entity<Post>(b =>
+        {
+            b.ToTable(TigerConsts.DbTablePrefix + "Posts", TigerConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
         }
     }
 }
