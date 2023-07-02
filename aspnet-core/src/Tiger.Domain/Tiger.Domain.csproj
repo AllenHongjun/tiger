@@ -20,7 +20,6 @@
     <Compile Remove="Business\Stocks\**" />
     <Compile Remove="CoreModule\**" />
     <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
-    <Compile Remove="Module\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
@@ -36,7 +35,6 @@
     <EmbeddedResource Remove="Business\Stocks\**" />
     <EmbeddedResource Remove="CoreModule\**" />
     <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
-    <EmbeddedResource Remove="Module\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
@@ -52,7 +50,6 @@
     <None Remove="Business\Stocks\**" />
     <None Remove="CoreModule\**" />
     <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
-    <None Remove="Module\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <None Remove="PlatfromSdk\PayPalApi\**" />
@@ -108,7 +105,6 @@
     <Folder Include="Infrastructure\Validation\" />
     <Folder Include="Infrastructure\Authorization\" />
     <Folder Include="Infrastructure\ObjectExtensions\" />
-    <Folder Include="SignalR\" />
     <Folder Include="Deployment\" />
     <Folder Include="Volo\Abp\Auditing\" />
     <Folder Include="Volo\Abp\IdentityServer\Devices\" />

@@ -18,6 +18,7 @@ namespace Tiger.Volo.Abp.Identity.Post
         /// </summary>
         public string Remark { get; set; }
 
+
         /// <summary>
         /// 职位编码
         /// </summary>
