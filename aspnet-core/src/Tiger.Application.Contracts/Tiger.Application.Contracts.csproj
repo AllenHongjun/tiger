@@ -84,10 +84,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modules\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Tiger.Application.Contracts.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -175,6 +175,26 @@
             权限名称具有层次结构. 例如, "创建图书" 权限被定义为 `BookStore.Books.Create`. 
             </remarks>
         </member>
+        <member name="T:Tiger.Modules.System.Cache.CacheRefreshInput">
+            <summary>
+            缓存刷新输入参数
+            </summary>
+        </member>
+        <member name="P:Tiger.Modules.System.Cache.CacheValueDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Modules.System.Cache.CacheValueDto.Expiration">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="T:Tiger.Modules.System.Cache.ICacheAppService">
+            <summary>
+            缓存管理接口
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Permissions.TigerPermissionDefinitionProvider" -->
         <member name="T:Tiger.TigerApplicationContractsModule">
             <summary>

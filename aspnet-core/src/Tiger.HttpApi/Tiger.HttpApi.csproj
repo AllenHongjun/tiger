@@ -15,15 +15,12 @@
   <ItemGroup>
     <Compile Remove="Controllers\Admin\**" />
     <Compile Remove="Controllers\WebApp\**" />
-    <Compile Remove="Modules\**" />
     <Compile Remove="Volo\Abp\AuditLogging\**" />
     <EmbeddedResource Remove="Controllers\Admin\**" />
     <EmbeddedResource Remove="Controllers\WebApp\**" />
-    <EmbeddedResource Remove="Modules\**" />
     <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
     <None Remove="Controllers\Admin\**" />
     <None Remove="Controllers\WebApp\**" />
-    <None Remove="Modules\**" />
     <None Remove="Volo\Abp\AuditLogging\**" />
   </ItemGroup>
 

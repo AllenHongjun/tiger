@@ -107,10 +107,8 @@
     <Folder Include="Infrastructure\ObjectExtensions\" />
     <Folder Include="Deployment\" />
     <Folder Include="Module\System\Message\Email\" />
-    <Folder Include="Module\File\" />
     <Folder Include="Module\System\Message\Chat\" />
-    <Folder Include="Module\System\Monitor\Cache\" />
-    <Folder Include="Module\System\Monitor\Server\" />
+    <Folder Include="Module\System\Server\" />
     <Folder Include="Volo\Abp\Auditing\" />
     <Folder Include="Volo\Abp\IdentityServer\Devices\" />
   </ItemGroup>

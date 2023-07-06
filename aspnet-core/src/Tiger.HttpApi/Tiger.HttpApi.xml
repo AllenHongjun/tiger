@@ -4,6 +4,11 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Module.System.Cache.CacheController">
+            <summary>
+            缓存管理
+            </summary>
+        </member>
         <member name="T:Tiger.TigerHttpApiModule">
             <summary>
             用于定义API控制器.
