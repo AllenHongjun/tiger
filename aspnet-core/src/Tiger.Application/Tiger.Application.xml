@@ -450,17 +450,74 @@
             七牛 oss对象存储  https://developer.qiniu.com/kodo/1237/csharp  
             </summary>
         </member>
+        <member name="T:Tiger.Module.System.Cache.CacheAppService">
+            <summary>
+            缓存管理服务
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.TextTemplate.TextTemplateAppService">
+            <summary>
+            文本模板服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplate.TextTemplateAppService.GetAsync(System.String)">
+            <summary>
+            根据文本模板名称获取定义内容
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplate.TextTemplateAppService.GetContentAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateContentGetInput)">
+            <summary>
+            获取文本模板内容
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplate.TextTemplateAppService.GetListAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateGetListInput)">
+            <summary>
+            获取所有的文本模板内容
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <remarks>
+            abp的文本模板作为资源定义在文件中 从文件中读取出来展示
+            </remarks>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplate.TextTemplateAppService.RestoreToDefaultAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateRestoreInput)">
+            <summary>
+            重置默认值
+            </summary>
+            <param name="restoreInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplate.TextTemplateAppService.UpdateAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateUpdateInput)">
+            <summary>
+            更新文本模板内容
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplate.TextTemplateAppService.GetTemplateDefinition(System.String)">
+            <summary>
+            根据名称获取模板定义
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+            <remarks>
+            TemplateDefinition abp的定义模板获取  使用之前需要先定义
+            详细见文档 https://docs.abp.io/en/abp/latest/Text-Templating-Razor
+            </remarks>
+        </member>
         <member name="M:Tiger.Utilities.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)
             </summary>
             <param name="file"></param>
             <returns></returns>
-        </member>
-        <member name="T:Tiger.Modules.System.Cache.CacheAppService">
-            <summary>
-            缓存管理服务
-            </summary>
         </member>
         <member name="T:Tiger.TigerApplicationModule">
             <summary>

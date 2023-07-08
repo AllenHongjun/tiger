@@ -175,24 +175,69 @@
             权限名称具有层次结构. 例如, "创建图书" 权限被定义为 `BookStore.Books.Create`. 
             </remarks>
         </member>
-        <member name="T:Tiger.Modules.System.Cache.CacheRefreshInput">
+        <member name="T:Tiger.Module.System.Cache.CacheRefreshInput">
             <summary>
             缓存刷新输入参数
             </summary>
         </member>
-        <member name="P:Tiger.Modules.System.Cache.CacheValueDto.Type">
+        <member name="P:Tiger.Module.System.Cache.CacheValueDto.Type">
             <summary>
             类型
             </summary>
         </member>
-        <member name="P:Tiger.Modules.System.Cache.CacheValueDto.Expiration">
+        <member name="P:Tiger.Module.System.Cache.CacheValueDto.Expiration">
             <summary>
             过期时间
             </summary>
         </member>
-        <member name="T:Tiger.Modules.System.Cache.ICacheAppService">
+        <member name="T:Tiger.Module.System.Cache.ICacheAppService">
             <summary>
             缓存管理接口
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto">
+            <summary>
+            文本模板定义实体
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto.DisplayName">
+            <summary>
+            展示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto.DefaultCultureName">
+            <summary>
+            默认文化名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto.IsInlineLocalized">
+            <summary>
+            内联本地化
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto.IsLayout">
+            <summary>
+            是否布局页
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto.Layout">
+            <summary>
+            布局页
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.TextTemplate.Permissions.AbpTextTemplatePermissionDefinitionProvider">
+            <summary>
+            定义文本模板权限
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.TextTemplate.Permissions.AbpTextTemplatePermissions">
+            <summary>
+            文本模板权限常量
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Permissions.TigerPermissionDefinitionProvider" -->

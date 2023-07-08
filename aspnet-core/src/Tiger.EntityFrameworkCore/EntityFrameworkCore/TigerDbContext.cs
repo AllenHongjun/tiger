@@ -14,6 +14,7 @@ using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
 using Tiger.Volo.Abp.Identity.Post;
+using Tiger.Module.System.TextTemplate;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -56,7 +57,8 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Tenant> Tenants { get; set; }
 
         
-    public DbSet<Post> Posts { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<TextTemplate> TextTemplates { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

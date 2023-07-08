@@ -23,7 +23,6 @@
     <Compile Remove="Business\Purchases\**" />
     <Compile Remove="Business\Stat\**" />
     <Compile Remove="Business\Stocks\**" />
-    <Compile Remove="Module\**" />
     <Compile Remove="Volo\Abp\BackgroundJobs\**" />
     <Compile Remove="Volo\Abp\Blogging\**" />
     <Compile Remove="Volo\Abp\CmsKit\**" />
@@ -40,7 +39,6 @@
     <EmbeddedResource Remove="Business\Purchases\**" />
     <EmbeddedResource Remove="Business\Stat\**" />
     <EmbeddedResource Remove="Business\Stocks\**" />
-    <EmbeddedResource Remove="Module\**" />
     <EmbeddedResource Remove="Volo\Abp\BackgroundJobs\**" />
     <EmbeddedResource Remove="Volo\Abp\Blogging\**" />
     <EmbeddedResource Remove="Volo\Abp\CmsKit\**" />
@@ -57,7 +55,6 @@
     <None Remove="Business\Purchases\**" />
     <None Remove="Business\Stat\**" />
     <None Remove="Business\Stocks\**" />
-    <None Remove="Module\**" />
     <None Remove="Volo\Abp\BackgroundJobs\**" />
     <None Remove="Volo\Abp\Blogging\**" />
     <None Remove="Volo\Abp\CmsKit\**" />

@@ -42,7 +42,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Modules\" />
     <Folder Include="Volo\Abp\Users\" />
   </ItemGroup>
 

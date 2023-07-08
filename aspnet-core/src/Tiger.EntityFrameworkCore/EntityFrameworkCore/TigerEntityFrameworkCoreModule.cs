@@ -1,3 +1,4 @@
+using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,7 +51,8 @@ namespace Tiger.EntityFrameworkCore
                 //��Ĭ�ϲִ�ʵ���滻Ϊ�Զ���ִ�ʵ��
                 options.AddRepository<Book, BookRepository>();
                 
-            options.AddRepository<Post, PostRepository>();
+                options.AddRepository<Post, PostRepository>();
+                options.AddRepository<TextTemplate, TextTemplateRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

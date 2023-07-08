@@ -1,3 +1,4 @@
+using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
 using Tiger.Books;
@@ -134,6 +135,16 @@ namespace Tiger.EntityFrameworkCore
         builder.Entity<Post>(b =>
         {
             b.ToTable(TigerConsts.DbTablePrefix + "Posts", TigerConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<TextTemplate>(b =>
+        {
+            b.ToTable(TigerConsts.DbTablePrefix + "TextTemplates", TigerConsts.DbSchema);
             b.ConfigureByConvention(); 
             
 

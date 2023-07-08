@@ -4,10 +4,37 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
-        <member name="T:Tiger.Module.System.Cache.CacheController">
+        <member name="T:Tiger.Module.System.CacheController">
             <summary>
             缓存管理
             </summary>
+        </member>
+        <member name="T:Tiger.Module.System.TextTemplateController">
+            <summary>
+            文本模板
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplateController.GetAsync(System.String)">
+            <summary>
+            获取文本模板定义
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplateController.GetContentAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateContentGetInput)">
+            <summary>
+            获取文本模板内容
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplateController.UpdateAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateUpdateInput)">
+            <summary>
+            更新文本模板定义
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.TigerHttpApiModule">
             <summary>
