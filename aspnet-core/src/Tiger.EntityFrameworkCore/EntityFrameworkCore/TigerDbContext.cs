@@ -15,6 +15,7 @@ using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
 using Tiger.Volo.Abp.Identity.Post;
 using Tiger.Module.System.TextTemplate;
+using Tiger.Module.System.Localization;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -59,6 +60,9 @@ namespace Tiger.EntityFrameworkCore
         
         public DbSet<Post> Posts { get; set; }
         public DbSet<TextTemplate> TextTemplates { get; set; }
+    public DbSet<Language> Languages { get; set; }
+    public DbSet<Resource> Resources { get; set; }
+    public DbSet<LanguageText> Texts { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

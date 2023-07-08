@@ -1,3 +1,4 @@
+using Tiger.Module.System.Localization;
 using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,9 @@ namespace Tiger.EntityFrameworkCore
                 
                 options.AddRepository<Post, PostRepository>();
                 options.AddRepository<TextTemplate, TextTemplateRepository>();
+            options.AddRepository<Language, LanguageRepository>();
+            options.AddRepository<Resource, ResourceRepository>();
+            options.AddRepository<LanguageText, LanguageTextRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

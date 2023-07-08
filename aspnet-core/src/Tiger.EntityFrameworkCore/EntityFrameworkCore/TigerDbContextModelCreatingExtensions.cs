@@ -1,3 +1,4 @@
+using Tiger.Module.System.Localization;
 using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
@@ -127,29 +128,72 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(cs => cs.Value).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxValueLength);
 
                 //b.ApplyObjectExtensionMappings();
-            }); 
+            });
             #endregion
 
 
 
-        builder.Entity<Post>(b =>
-        {
-            b.ToTable(TigerConsts.DbTablePrefix + "Posts", TigerConsts.DbSchema);
-            b.ConfigureByConvention(); 
-            
-
-            /* Configure more properties here */
-        });
+            builder.Entity<Post>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Posts", TigerConsts.DbSchema);
+                b.ConfigureByConvention();
 
 
-        builder.Entity<TextTemplate>(b =>
-        {
-            b.ToTable(TigerConsts.DbTablePrefix + "TextTemplates", TigerConsts.DbSchema);
-            b.ConfigureByConvention(); 
-            
+                /* Configure more properties here */
+            });
 
-            /* Configure more properties here */
-        });
+
+            builder.Entity<TextTemplate>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TextTemplates", TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+
+
+                /* Configure more properties here */
+            });
+
+
+            #region Localization Language
+            builder.Entity<Language>(b =>
+                {
+                    b.ToTable(TigerConsts.DbTablePrefix + "Languages", TigerConsts.DbSchema);
+                    b.Property(e => e.CultureName).IsRequired().HasMaxLength(128).HasComment("语言名称");
+                    b.Property(e => e.UiCultureName).IsRequired().HasMaxLength(128).HasComment("Ui语言名称");
+                    b.Property(e => e.DisplayName).IsRequired().HasMaxLength(128).HasComment("显示名称");
+                    b.Property(e => e.FlagIcon).HasMaxLength(128).HasComment("图标");
+                    b.Property<bool>(x => x.IsEnabled).IsRequired();
+                    b.HasIndex(e => e.CultureName).IsUnique();
+                    b.ConfigureByConvention();
+
+
+                    /* Configure more properties here */
+                });
+
+
+            builder.Entity<Resource>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Resources", TigerConsts.DbSchema);
+                b.ConfigureByConvention();
+
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<LanguageText>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "LanguageTexts", TigerConsts.DbSchema);
+                b.Property(e => e.ResourceName).IsRequired().HasMaxLength(128).HasComment("资源名称");
+                b.Property(e => e.CultrueName).IsRequired().HasMaxLength(128).HasComment("语言名称");
+                b.Property(e => e.Key).IsRequired().HasMaxLength(256).HasComment("键名称");
+                b.Property(e => e.Value).IsRequired().HasMaxLength(256).HasComment("值");
+                b.HasIndex(x => new { x.TenantId, x.ResourceName, x.CultrueName });
+                b.ConfigureByConvention();
+
+
+                /* Configure more properties here */
+            }); 
+            #endregion
         }
     }
 }

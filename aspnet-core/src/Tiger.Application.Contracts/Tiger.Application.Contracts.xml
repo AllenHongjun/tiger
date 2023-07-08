@@ -195,6 +195,151 @@
             缓存管理接口
             </summary>
         </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageDto.ResourceName">
+            <summary>
+            资源名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageDto.CultureName">
+            <summary>
+            语言名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageDto.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageTextDto.ResourceName">
+            <summary>
+            资源名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageTextDto.CultureName">
+            <summary>
+            语言名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageTextDto.Key">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageTextDto.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextDto.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextDto.CultureName">
+            <summary>
+            语言名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextDto.UiCultureName">
+            <summary>
+            Ui语言名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextDto.FlagIcon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextDto.IsDefault">
+            <summary>
+            是否默认语言
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageText.ResourceName">
+            <summary>
+            资源名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageText.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageText.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextGetListInput.CultureName">
+            <summary>
+            语言
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextGetListInput.ResourceName">
+            <summary>
+            资源
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.LanguageTextGetListInput.Filter">
+            <summary>
+            查询条件 name or value
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.UpdateLanguageDto.CultureName">
+            <summary>
+            语言名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.UpdateLanguageDto.IsEnabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.UpdateLanguageTextDto.ResourceName">
+            <summary>
+            资源名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.UpdateLanguageTextDto.CultureName">
+            <summary>
+            语言名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.UpdateLanguageTextDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Localization.Dtos.UpdateLanguageTextDto.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.Localization.ILanguageAppService">
+            <summary>
+            语言管理服务接口
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.Localization.Permissions.LocalizationPermissionDefinitionProvider">
+            <summary>
+            本地化权限定义
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.Localization.Permissions.LocalizationPermissions">
+            <summary>
+            本地化管理权限常量
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto">
             <summary>
             文本模板定义实体

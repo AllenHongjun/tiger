@@ -455,6 +455,41 @@
             缓存管理服务
             </summary>
         </member>
+        <member name="T:Tiger.Module.System.Localization.LanguageAppService">
+            <summary>
+            语言管理服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.Localization.LanguageAppService.GetListAsync(Tiger.Module.System.Localization.Dtos.LanguageGetListInput)">
+            <summary>
+            分页查询语言
+            </summary>     
+        </member>
+        <member name="M:Tiger.Module.System.Localization.LanguageAppService.CreateAsync(Tiger.Module.System.Localization.Dtos.LanguageTextDto)">
+            <summary>
+            创建语言
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.Localization.LanguageAppService.UpdateAsync(System.Guid,Tiger.Module.System.Localization.Dtos.UpdateLanguageDto)">
+            <summary>
+            编辑语言
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.Localization.LanguageAppService.DeleteAsync(System.Guid)">
+            <summary>W
+            删除语言
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.Localization.LanguageAppService.SetDefaultAsync(System.Guid)">
+            <summary>
+            设置默认语言
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.Localization.LanguageTextAppService">
+            <summary>
+            语言文本
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.TextTemplate.TextTemplateAppService">
             <summary>
             文本模板服务

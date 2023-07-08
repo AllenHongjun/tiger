@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -31,5 +31,23 @@ namespace Tiger.Module.System.Localization
         public virtual string Description { get;set; }
 
 
+
+    protected Resource()
+    {
+    }
+
+    public Resource(
+        Guid id,
+        bool enable,
+        bool name,
+        string displayName,
+        string description
+    ) : base(id)
+    {
+        Enable = enable;
+        Name = name;
+        DisplayName = displayName;
+        Description = description;
+    }
     }
 }
