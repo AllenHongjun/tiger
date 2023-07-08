@@ -57,6 +57,11 @@ namespace Tiger.Module.System
             return TextTemplateAppService.GetContentAsync(input);
         }
 
+        /// <summary>
+        /// 获取文本模板分页列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         public Task<PagedResultDto<TextTemplateDefinitionDto>> GetListAsync(TextTemplateGetListInput input)
         {
@@ -64,6 +69,11 @@ namespace Tiger.Module.System
         }
 
 
+        /// <summary>
+        /// 重置默认值
+        /// </summary>
+        /// <param name="restoreInput"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("restore-to-default")]
         [Authorize(AbpTextTemplatePermissions.TextTemplate.Delete)]

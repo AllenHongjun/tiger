@@ -13,10 +13,15 @@ namespace Tiger.Module.System.TextTemplate.Permissions
     public class AbpTextTemplatePermissionDefinitionProvider: PermissionDefinitionProvider
     {
         public override void Define(IPermissionDefinitionContext context)
-        {
-            var textTemplatingGroup = context.AddGroup(AbpTextTemplatePermissions.GroupName, L("Permission:TextTemplating"));
+        {   
+            // 文本模板权限组
+            var textTemplatingGroup = context
+                .AddGroup(AbpTextTemplatePermissions.GroupName, L("Permission:TextTemplating"));
 
-            var textTemplatePermission = textTemplatingGroup.AddPermission(AbpTextTemplatePermissions.TextTemplate.Default, L("Permission:TextTemplates"));
+            // 文本模板管理权限
+            var textTemplatePermission = textTemplatingGroup
+                .AddPermission(AbpTextTemplatePermissions.TextTemplate.Default, L("Permission:TextTemplates"));
+            // 文本模板管理子权限 增删改查
             textTemplatePermission.AddChild(AbpTextTemplatePermissions.TextTemplate.Create, L("Permission:Create"));
             textTemplatePermission.AddChild(AbpTextTemplatePermissions.TextTemplate.Update, L("Permission:Edit"));
             textTemplatePermission.AddChild(AbpTextTemplatePermissions.TextTemplate.Delete, L("Permission:Delete"));

@@ -81,8 +81,6 @@ namespace Tiger.EntityFrameworkCore
             });
             #endregion
 
-
-
             #region Sass
             //if (builder.IsTenantOnlyDatabase())
             //{
@@ -96,7 +94,8 @@ namespace Tiger.EntityFrameworkCore
 
                 b.Property(t => t.DisplayName)
                     .HasMaxLength(EditionConsts.MaxDisplayNameLength)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasComment("显示名称");
 
                 b.HasIndex(u => u.DisplayName);
 
@@ -108,7 +107,7 @@ namespace Tiger.EntityFrameworkCore
 
                 b.ConfigureByConvention();
 
-                b.Property(t => t.Name).IsRequired().HasMaxLength(TenantConsts.MaxNameLength);
+                b.Property(t => t.Name).IsRequired().HasMaxLength(TenantConsts.MaxNameLength).HasComment("租户名称");
 
                 b.HasMany(u => u.ConnectionStrings).WithOne().HasForeignKey(uc => uc.TenantId).IsRequired();
 
@@ -146,10 +145,11 @@ namespace Tiger.EntityFrameworkCore
             builder.Entity<TextTemplate>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "TextTemplates", TigerConsts.DbSchema);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(256).HasComment("名称");
+                b.Property(x => x.DisplayName).HasMaxLength(256).HasComment("显示名称");
+                b.Property(x => x.Content).HasMaxLength(1024 * 4).HasComment("模板内容");
+                b.Property(x => x.Culture).HasMaxLength(256).HasComment("文化名称");
                 b.ConfigureByConvention();
-
-
-                /* Configure more properties here */
             });
 
 

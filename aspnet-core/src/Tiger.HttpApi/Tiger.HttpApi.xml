@@ -68,6 +68,20 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="M:Tiger.Module.System.TextTemplateController.GetListAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateGetListInput)">
+            <summary>
+            获取文本模板分页列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.TextTemplateController.RestoreToDefaultAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateRestoreInput)">
+            <summary>
+            重置默认值
+            </summary>
+            <param name="restoreInput"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.System.TextTemplateController.UpdateAsync(Tiger.Module.System.TextTemplate.Dtos.TextTemplateUpdateInput)">
             <summary>
             更新文本模板定义

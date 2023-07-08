@@ -22,15 +22,13 @@ namespace Tiger.Module.System.TextTemplate;
 public class TextTemplateAppService : ApplicationService,
     ITextTemplateAppService
 {
-    
-
-    protected  ITextTemplateRepository TextTemplateRepository { get; }
+    protected ITextTemplateRepository TextTemplateRepository { get; }
     protected ITemplateContentProvider TextTemplateContentProvider { get; }
     protected ITemplateDefinitionManager TemplateDefinitionManager { get; }
 
     public TextTemplateAppService(
-        ITextTemplateRepository textTemplateRepository, 
-        ITemplateDefinitionManager templateDefinitionManager, 
+        ITextTemplateRepository textTemplateRepository,
+        ITemplateDefinitionManager templateDefinitionManager,
         ITemplateContentProvider textTemplateContentProvider)
     {
         TextTemplateRepository = textTemplateRepository;
@@ -45,14 +43,14 @@ public class TextTemplateAppService : ApplicationService,
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     public Task<TextTemplateDefinitionDto> GetAsync(string name)
-    {   
+    {
         //获取文本模板定义的内容
         var templateDefinition = GetTemplateDefinition(name);
 
         // 判断布局页是否存在
         var layout = templateDefinition.Layout;
         if (!layout.IsNullOrWhiteSpace())
-        {   
+        {
             // 获取布局页名称
             var layoutDefinition = GetTemplateDefinition(templateDefinition.Layout);
             // 本地化显示
@@ -101,7 +99,7 @@ public class TextTemplateAppService : ApplicationService,
     /// abp的文本模板作为资源定义在文件中 从文件中读取出来展示
     /// </remarks>
     public Task<PagedResultDto<TextTemplateDefinitionDto>> GetListAsync(TextTemplateGetListInput input)
-    {   
+    {
         var templates = new List<TextTemplateDefinitionDto>();
 
         // 使用abp自定义的方法获取所有定义的文本模板
@@ -111,7 +109,7 @@ public class TextTemplateAppService : ApplicationService,
             .Skip(input.SkipCount)
             .Take(input.MaxResultCount);
 
-        foreach ( var templateDefinition in filterTemplates )
+        foreach (var templateDefinition in filterTemplates)
         {
             var layout = templateDefinition.Layout;
             if (!layout.IsNullOrWhiteSpace())
@@ -146,9 +144,9 @@ public class TextTemplateAppService : ApplicationService,
     {
         var templateDefinition = GetTemplateDefinition(restoreInput.Name);
 
-        var templates =  TextTemplateRepository
+        var templates = TextTemplateRepository
             .Where(x => x.Name == templateDefinition.Name && x.Culture == restoreInput.Culture).ToList();
-        foreach ( var template in templates )
+        foreach (var template in templates)
         {
             // DeleteManyAsync 这个3.2.1 版本没有这个方法
             await TextTemplateRepository.DeleteAsync(template);
@@ -167,7 +165,7 @@ public class TextTemplateAppService : ApplicationService,
         var templateDefinition = GetTemplateDefinition(input.Name);
         var template = await TextTemplateRepository.FindByNameAsync(input.Name, input.Culture);
 
-        if (template == null) 
+        if (template == null)
         {
             template = new TextTemplate(
                 GuidGenerator.Create(),
@@ -176,7 +174,8 @@ public class TextTemplateAppService : ApplicationService,
                 input.Content,
                 input.Culture);
             await TextTemplateRepository.InsertAsync(template);
-        }else 
+        }
+        else
         {
             template.SetContent(input.Content);
             await TextTemplateRepository.UpdateAsync(template);

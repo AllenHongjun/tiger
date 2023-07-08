@@ -5,7 +5,7 @@ using System.Text;
 namespace Tiger.Module.System.TextTemplate
 {
     /// <summary>
-    /// 文本模板内容缓存
+    /// 文本模板内容缓存项
     /// </summary>
     public class TemplateContentCacheItem
     {

@@ -2,7 +2,7 @@
 
 namespace Tiger.Module.System.TextTemplate.Localization;
 
-[LocalizationResourceName("AbpTextTemplating")]
+[LocalizationResourceName("AbpTextTemplate")]
 public class AbpTextTemplateResource
 {
 }

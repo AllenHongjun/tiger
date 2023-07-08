@@ -1,4 +1,5 @@
 ﻿using Tiger.Localization;
+using Tiger.Module.System.TextTemplate.Localization;
 using Tiger.Volo.Abp.Identity;
 using Tiger.Volo.Abp.SettingUi.Localization;
 using Volo.Abp.AuditLogging;
@@ -51,6 +52,7 @@ namespace Tiger
                 options.FileSets.AddEmbedded<TigerDomainSharedModule>();
             });
 
+            // 定义新的资源类 需要在模块中引入配置
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
@@ -73,6 +75,10 @@ namespace Tiger
                        .Add<SettingUiResource>("en")
                        .AddBaseTypes(typeof(AbpSettingManagementResource))
                        .AddVirtualJson("/Volo/Abp/SettingUi/Localization/SettingUi");
+
+                options.Resources
+                       .Add<AbpTextTemplateResource>("zh-Hans")
+                       .AddVirtualJson("/Module/System/TextTemplate/Localization/Resources");
 
                 options.DefaultResourceType = typeof(TigerResource);
             });
