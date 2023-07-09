@@ -186,9 +186,10 @@ namespace Tiger.Books.Demo
         /// </summary>
         /// <returns></returns>
         public async Task TestEmailSendWithTemplateRenderer()
-        {
+        {   
+            // 使用邮件模板 发送邮件
             var body = await _templateRenderer.RenderAsync(
-                StandardEmailTemplates.Message,
+                StandardEmailTemplates.Message,  // 这是模板名称
                 new
                 {
                     message = "这是一封使用模板渲染发送的邮件"
