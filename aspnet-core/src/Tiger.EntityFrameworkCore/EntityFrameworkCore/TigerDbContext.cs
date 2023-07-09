@@ -27,7 +27,7 @@ namespace Tiger.EntityFrameworkCore
     /// 
 
     // 配置连接字符串选择
-    [ConnectionStringName("Default")]  
+    [ConnectionStringName("Default")]
     public class TigerDbContext : AbpDbContext<TigerDbContext>
     {
 
@@ -49,20 +49,20 @@ namespace Tiger.EntityFrameworkCore
         //3.EF Core需要你将实体和 DbContext 建立关联.最简单的做法是在Acme.BookStore.EntityFrameworkCore项目的BookStoreDbContext类中添加DbSet属性.如下所示:
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<Author> Authors { get; set; } 
+        public DbSet<Author> Authors { get; set; }
         #endregion
 
 
-        public  DbSet<Edition> Editions { get; set; }
+        public DbSet<Edition> Editions { get; set; }
 
         public DbSet<Tenant> Tenants { get; set; }
 
-        
+
         public DbSet<Post> Posts { get; set; }
         public DbSet<TextTemplate> TextTemplates { get; set; }
-    public DbSet<Language> Languages { get; set; }
-    public DbSet<Resource> Resources { get; set; }
-    public DbSet<LanguageText> Texts { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<Resource> Resources { get; set; }
+        public DbSet<LanguageText> LanguageTexts { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)
@@ -93,7 +93,7 @@ namespace Tiger.EntityFrameworkCore
             builder.Entity<AppUser>(b =>
             {
                 b.ToTable(AbpIdentityDbProperties.DbTablePrefix + "Users"); //Sharing the same table "AbpUsers" with the IdentityUser
-                
+
                 b.ConfigureByConvention();
                 b.ConfigureAbpUser();
 
@@ -146,7 +146,7 @@ namespace Tiger.EntityFrameworkCore
                     : CombineExpressions(expression, isActiveFilter);
             }
             return expression;
-        } 
+        }
         #endregion
 
     }
