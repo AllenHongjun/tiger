@@ -108,7 +108,6 @@
     <Folder Include="Deployment\" />
     <Folder Include="Module\System\Message\Email\" />
     <Folder Include="Module\System\Message\Chat\" />
-    <Folder Include="Module\System\Server\" />
     <Folder Include="Volo\Abp\Auditing\" />
     <Folder Include="Volo\Abp\IdentityServer\Devices\" />
   </ItemGroup>

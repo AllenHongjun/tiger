@@ -50,7 +50,6 @@ namespace Tiger.Module.System.Cache
         static StackExchangeRedisCacheManager()
         {
             var type = typeof(AbpRedisCache);
-
             ConnectAsyncMethod = type.GetMethod("ConnectAsync", BindingFlags.Instance | BindingFlags.NonPublic);
             GetRedisDatabaseMethod = type.GetMethod("GetRedisDatabase", BindingFlags.Instance | BindingFlags.NonPublic);
         }

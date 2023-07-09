@@ -9,6 +9,7 @@ namespace Tiger.Module.System.Area
     /// 地区表
     /// </summary>
     /// <remarks>
+    /// 
     /// </remarks>
     public class Region :FullAuditedAggregateRoot<Guid>
     {   

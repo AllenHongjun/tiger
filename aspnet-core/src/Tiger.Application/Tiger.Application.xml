@@ -490,6 +490,24 @@
             语言文本
             </summary>
         </member>
+        <member name="M:Tiger.Module.System.Server.ServerAppService.GetServerBase">
+            <summary>
+            获取服务器配置信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Server.ServerAppService.GetServerUsed">
+            <summary>
+            获取服务器使用信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Server.ServerAppService.GetServerDisk">
+            <summary>
+            获取服务器磁盘信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.System.TextTemplate.TextTemplateAppService">
             <summary>
             文本模板服务
