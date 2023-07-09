@@ -1,15 +1,21 @@
 <template>
   <el-dialog :title="dialogStatus == 'create'? $t('AbpTextTemplate[\'Permission:Create\']'): $t('AbpTextTemplate[\'Permission:Edit\']')" :visible.sync="dialogFormVisible">
-    <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="180px">
-      <el-form-item :label="$t('AbpTextTemplate[\'DisplayName:DisplayName\']')">
-        <span> {{ temp.displayName }}</span>
+    <el-form ref="dataForm" :model="temp" label-position="right" label-width="180px">
+      <el-form-item :label="$t('AbpTextTemplate[\'DisplayName:Name\']')">
+        <span> {{ temp.name }}</span>
       </el-form-item>
+      <!-- <el-form-item :label="$t('AbpTextTemplate[\'DisplayName:DisplayName\']')">
+        <span> {{ temp.displayName }}</span>
+      </el-form-item> -->
       <el-form-item :label="$t('AbpTextTemplate[\'DisplayName:Content\']')">
 
         <el-input v-model="temp.content" type="textarea" :autosize="{ minRows: 15, maxRows: 25}" placeholder="请输入内容" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
+      <el-button type="danger" @click="restore()">
+        {{ $t("AbpTextTemplate['RestoreToDefault']") }}
+      </el-button>
       <el-button @click="dialogFormVisible = false">
         {{ $t("AbpUi['Cancel']") }}
       </el-button>
@@ -23,7 +29,6 @@
 <script>
 
 import {
-  getTextTemplateByName,
   getTextTemplateContentByName,
   updateTextTemplate,
   restoreToDefault
@@ -81,7 +86,37 @@ export default {
           })
         }
       })
+    },
+    restore(row) {
+      row = this.temp
+      this.$confirm('注意，此操作将还原模板为默认值', '确定吗？', {
+        confirmButtonText: this.$i18n.t("TigerUi['Yes']"),
+        cancelButtonText: this.$i18n.t("TigerUi['Cancel']"),
+        type: 'warning'
+      })
+        .then(() => {
+          restoreToDefault(this.temp)
+            .then((response) => {
+              this.dialogFormVisible = false
+              this.$message({
+                title: this.$i18n.t("TigerUi['Success']"),
+                message: this.$i18n.t("TigerUi['SuccessMessage']"),
+                type: 'success',
+                duration: 2000
+              })
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     }
+
   }
 }
 </script>

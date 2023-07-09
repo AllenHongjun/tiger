@@ -87,6 +87,12 @@ namespace Tiger
             {
                 options.MapCodeNamespace("Tiger", typeof(TigerResource));
             });
+
+            // The [Virtual File System](Virtual-File-System.md) requires to add your files in the `ConfigureServices` method of your [module](Module-Development-Basics.md) class:
+            Configure<AbpVirtualFileSystemOptions>(options =>
+            {
+                options.FileSets.AddEmbedded<TigerDomainSharedModule>("Tiger");
+            });
         }
     }
 }

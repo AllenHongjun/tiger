@@ -7,6 +7,11 @@
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" @sort-change="sortChange">
+      <el-table-column :label="$t('AbpTextTemplate[\'DisplayName:Name\']')" prop="name" sortable align="left">
+        <template slot-scope="{ row }">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('AbpTextTemplate[\'DisplayName:DisplayName\']')" prop="name" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>

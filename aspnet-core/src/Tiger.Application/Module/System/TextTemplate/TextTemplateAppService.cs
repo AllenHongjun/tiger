@@ -78,16 +78,30 @@ public class TextTemplateAppService : ApplicationService,
     /// <exception cref="NotImplementedException"></exception>
     public async Task<TextTemplateContentDto> GetContentAsync(TextTemplateContentGetInput input)
     {
-        var templateDefinition = GetTemplateDefinition(input.Name);
-
-        var content = await TextTemplateContentProvider.GetContentOrNullAsync(templateDefinition, input.Culture);
-
-        return new TextTemplateContentDto
+        var textTemplateContent = new TextTemplateContentDto();
+        // 先从数据中查找文本模板内容
+        var template = await TextTemplateRepository.FindByNameAsync(input.Name, input.Culture);
+        if (template == null)
         {
-            Name = templateDefinition.Name,
-            Culture = input.Culture,
-            Content = content,
-        };
+            var templateDefinition = GetTemplateDefinition(input.Name);
+            var content = await TextTemplateContentProvider.GetContentOrNullAsync(templateDefinition, input.Culture);
+            textTemplateContent =  new TextTemplateContentDto
+            {
+                Name = templateDefinition.Name,
+                Culture = input.Culture,
+                Content = content,
+            };
+        }
+        else
+        {
+            textTemplateContent =  new TextTemplateContentDto
+            {
+                Name = template.Name,
+                Culture = template.Culture,
+                Content = template.Content,
+            };
+        }
+        return textTemplateContent;
     }
 
     /// <summary>
@@ -105,9 +119,10 @@ public class TextTemplateAppService : ApplicationService,
         // 使用abp自定义的方法获取所有定义的文本模板
         var templateDefinitions = TemplateDefinitionManager.GetAll();
         var filterTemplates = templateDefinitions
-            .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter) || x.Layout.Contains(input.Filter))
+            .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter) )
             .Skip(input.SkipCount)
-            .Take(input.MaxResultCount);
+            .Take(input.MaxResultCount)
+            .ToList();
 
         foreach (var templateDefinition in filterTemplates)
         {

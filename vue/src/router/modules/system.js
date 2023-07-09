@@ -79,7 +79,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/text-template/text-template-table'), // Parent router-view
       name: 'text-template',
       meta: {
-        title: '文件模板', // the name show in sidebar and breadcrumb (recommend set)
+        title: '文本模板', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document-copy', // the icon show in the sidebar
         policy: 'AbpTextTemplating.TextTemplates'
       }
