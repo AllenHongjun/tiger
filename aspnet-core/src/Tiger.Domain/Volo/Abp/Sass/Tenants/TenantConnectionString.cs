@@ -2,10 +2,11 @@
 using System;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Volo.Abp.Sass.Tenants;
 
-public class TenantConnectionString : Entity
+public class TenantConnectionString : Entity<Guid>
 {
     public virtual Guid TenantId { get; protected set; }
 

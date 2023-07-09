@@ -86,48 +86,48 @@ namespace Tiger.EntityFrameworkCore
             //{
             //    return;
             //}
-            builder.Entity<Edition>(b =>
-            {
-                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Editions", AbpSaasDbProperties.DbSchema);
+            //builder.Entity<Edition>(b =>
+            //{
+            //    b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Editions", AbpSaasDbProperties.DbSchema);
 
-                b.ConfigureByConvention();
+            //    b.ConfigureByConvention();
 
-                b.Property(t => t.DisplayName)
-                    .HasMaxLength(EditionConsts.MaxDisplayNameLength)
-                    .IsRequired()
-                    .HasComment("显示名称");
+            //    b.Property(t => t.DisplayName)
+            //        .HasMaxLength(EditionConsts.MaxDisplayNameLength)
+            //        .IsRequired()
+            //        .HasComment("显示名称");
 
-                b.HasIndex(u => u.DisplayName);
+            //    b.HasIndex(u => u.DisplayName);
 
-                //b.ApplyObjectExtensionMappings();
-            });
-            builder.Entity<Tiger.Volo.Abp.Sass.Tenants.Tenant>(b =>
-            {
-                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Tenants", AbpSaasDbProperties.DbSchema);
+            //    //b.ApplyObjectExtensionMappings();
+            //});
+            //builder.Entity<Tiger.Volo.Abp.Sass.Tenants.Tenant>(b =>
+            //{
+            //    b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Tenants", AbpSaasDbProperties.DbSchema);
 
-                b.ConfigureByConvention();
+            //    b.ConfigureByConvention();
 
-                b.Property(t => t.Name).IsRequired().HasMaxLength(TenantConsts.MaxNameLength).HasComment("租户名称");
+            //    b.Property(t => t.Name).IsRequired().HasMaxLength(TenantConsts.MaxNameLength).HasComment("租户名称");
 
-                b.HasMany(u => u.ConnectionStrings).WithOne().HasForeignKey(uc => uc.TenantId).IsRequired();
+            //    b.HasMany(u => u.ConnectionStrings).WithOne().HasForeignKey(uc => uc.TenantId).IsRequired();
 
-                b.HasIndex(u => u.Name);
+            //    b.HasIndex(u => u.Name);
 
-                //b.ApplyObjectExtensionMappings();
-            });
-            builder.Entity<TenantConnectionString>(b =>
-            {
-                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "TenantConnectionStrings", AbpSaasDbProperties.DbSchema);
+            //    //b.ApplyObjectExtensionMappings();
+            //});
+            //builder.Entity<TenantConnectionString>(b =>
+            //{
+            //    b.ToTable(AbpSaasDbProperties.DbTablePrefix + "TenantConnectionStrings", AbpSaasDbProperties.DbSchema);
 
-                b.ConfigureByConvention();
+            //    b.ConfigureByConvention();
 
-                b.HasKey(x => new { x.TenantId, x.Name });
+            //    b.HasKey(x => new { x.TenantId, x.Name });
 
-                b.Property(cs => cs.Name).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxNameLength);
-                b.Property(cs => cs.Value).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxValueLength);
+            //    b.Property(cs => cs.Name).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxNameLength);
+            //    b.Property(cs => cs.Value).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxValueLength);
 
-                //b.ApplyObjectExtensionMappings();
-            });
+            //    //b.ApplyObjectExtensionMappings();
+            //});
             #endregion
 
 
