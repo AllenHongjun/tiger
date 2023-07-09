@@ -75,6 +75,16 @@ const SystemManageRouter = {
 
     },
     {
+      path: 'text-template/list',
+      component: () => import('@/views/system/text-template/text-template-table'), // Parent router-view
+      name: 'text-template',
+      meta: {
+        title: '文件模板', // the name show in sidebar and breadcrumb (recommend set)
+        icon: 'el-icon-document-copy', // the icon show in the sidebar
+        policy: 'AbpTextTemplating.TextTemplates'
+      }
+    },
+    {
       path: 'audit-log/list',
       component: () => import('@/views/system/auditing/index'), // Parent router-view
       name: 'audit-log-list',
