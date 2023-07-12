@@ -412,6 +412,21 @@
             手机号注册
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.Account.Dto.PhoneResetPasswordDto.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Account.Dto.PhoneResetPasswordDto.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.Account.Dto.PhoneResetPasswordDto.Code">
+            <summary>
+            短信验证码
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Account.ITigerProfileAppService">
             <summary>
             针对每个帐户的 数据存储 
@@ -1328,7 +1343,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.ResetPasswordAsync(Tiger.Volo.Abp.Account.Dto.PhoneRestPasswordDto)">
+        <member name="M:TigerAdmin.Volo.Abp.Account.ITigerAccountAppService.ResetPasswordAsync(Tiger.Volo.Abp.Account.Dto.PhoneResetPasswordDto)">
             <summary>
             通过手机号重置用户密码
             </summary>

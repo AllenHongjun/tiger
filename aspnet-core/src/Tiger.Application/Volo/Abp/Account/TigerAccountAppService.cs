@@ -184,7 +184,7 @@ namespace Tiger.Volo.Abp.Account
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task ResetPasswordAsync(PhoneRestPasswordDto input)
+        public async Task ResetPasswordAsync(PhoneResetPasswordDto input)
         {
             var securityTokenCacheKey = SecurityTokenCacheItem.CalculateSmsCacheKey(input.PhoneNumber,
                 "SmsVerifyCode");

@@ -592,7 +592,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.ResetPasswordAsync(Tiger.Volo.Abp.Account.Dto.PhoneRestPasswordDto)">
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.ResetPasswordAsync(Tiger.Volo.Abp.Account.Dto.PhoneResetPasswordDto)">
             <summary>
             通过手机验证码重置密码
             </summary>

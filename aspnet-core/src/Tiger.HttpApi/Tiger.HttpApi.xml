@@ -94,6 +94,53 @@
             用于定义API控制器.
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.Account.AccountController">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.AccountController.RegisterAsync(Tiger.Volo.Abp.Account.Dto.PhoneRegisterDto)">
+            <summary>
+            通过手机号注册
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.AccountController.SendPhoneRegisterCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneRegisterCodeDto)">
+            <summary>
+            发送手机号注册验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.AccountController.SendPhoneSigninCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneSigninCodeDto)">
+            <summary>
+            发送手机号登录验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.AccountController.SendPhoneResetPasswordCodeAsync(Tiger.Volo.Abp.Account.Dto.SendPhoneResetPasswordCode)">
+            <summary>
+            发送手机号密码重置验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.AccountController.ResetPasswordAsync(Tiger.Volo.Abp.Account.Dto.PhoneResetPasswordDto)">
+            <summary>
+            通过手机号重置密码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.AccountController.SendEmailSigninCodeAsync(Tiger.Volo.Abp.Account.Dto.SendEmailSigninCodeDto)">
+            <summary>
+            发送邮件登录验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ApiResourceController">
             <summary>
             Api资源

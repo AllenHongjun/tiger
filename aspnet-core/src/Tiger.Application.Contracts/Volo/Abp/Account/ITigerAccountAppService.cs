@@ -24,7 +24,7 @@ namespace TigerAdmin.Volo.Abp.Account
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task ResetPasswordAsync(PhoneRestPasswordDto input);
+        Task ResetPasswordAsync(PhoneResetPasswordDto input);
 
 
         /// <summary>

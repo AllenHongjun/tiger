@@ -6,18 +6,27 @@ using Volo.Abp.Auditing;
 
 namespace Tiger.Volo.Abp.Account.Dto
 {
-    public class PhoneRestPasswordDto
+    public class PhoneResetPasswordDto
     {
 
+        /// <summary>
+        /// 手机号
+        /// </summary>
         [Required]
         [Phone]
         public string PhoneNumber { get; set; }
 
+        /// <summary>
+        /// 新密码
+        /// </summary>
         [Required]
         [DataType(DataType.Password)]
         [DisableAuditing]
         public string NewPassword { get; set; }
 
+        /// <summary>
+        /// 短信验证码
+        /// </summary>
         [Required]
         [StringLength(6)]
         [DisableAuditing]
