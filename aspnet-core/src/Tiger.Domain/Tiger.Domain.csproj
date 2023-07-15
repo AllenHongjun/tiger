@@ -20,6 +20,7 @@
     <Compile Remove="Business\Stocks\**" />
     <Compile Remove="CoreModule\**" />
     <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
+    <Compile Remove="Module\OssManagement\Tencent\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
@@ -35,6 +36,7 @@
     <EmbeddedResource Remove="Business\Stocks\**" />
     <EmbeddedResource Remove="CoreModule\**" />
     <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
+    <EmbeddedResource Remove="Module\OssManagement\Tencent\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
@@ -50,6 +52,7 @@
     <None Remove="Business\Stocks\**" />
     <None Remove="CoreModule\**" />
     <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
+    <None Remove="Module\OssManagement\Tencent\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <None Remove="PlatfromSdk\PayPalApi\**" />
@@ -67,6 +70,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.10" />
+    <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
     <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.100.19" />
     <PackageReference Include="AWSSDK.SQS" Version="3.7.100.19" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.18" />
@@ -96,6 +101,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\CloudAliyun\Sms.Aliyun\" />
+    <Folder Include="Infrastructure\CloudTencent\Sms.Tencent\" />
+    <Folder Include="Infrastructure\CloudTencent\Tencent\" />
+    <Folder Include="Infrastructure\CloudTencent\BlobStoring.Tencent\" />
+    <Folder Include="Infrastructure\CloudTencent\QQ.Tencent\" />
     <Folder Include="Infrastructure\EventBus\DistributedEventBusRabbitMQTest\" />
     <Folder Include="Infrastructure\EventBus\DistributedEventBusKafka\" />
     <Folder Include="Infrastructure\ObjectMapping\新文件夹\" />

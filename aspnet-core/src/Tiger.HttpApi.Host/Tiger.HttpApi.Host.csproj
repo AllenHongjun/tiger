@@ -71,4 +71,8 @@
     <Folder Include="Files\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Pages\Account\Components\ProfileManagementGroup\PersonalInfo\Default.cshtml" />
+  </ItemGroup>
+
 </Project>
