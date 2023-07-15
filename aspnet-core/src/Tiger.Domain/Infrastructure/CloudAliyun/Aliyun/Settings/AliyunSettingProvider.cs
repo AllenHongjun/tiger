@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Infrastructure.CloudAliyun.Aliyun.Localization;
 using Volo.Abp.Localization;
 using Volo.Abp.Settings;
 
