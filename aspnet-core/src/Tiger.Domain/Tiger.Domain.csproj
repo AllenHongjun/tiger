@@ -119,6 +119,7 @@
     <Folder Include="Module\System\Message\Chat\" />
     <Folder Include="Volo\Abp\Auditing\" />
     <Folder Include="Volo\Abp\IdentityServer\Devices\" />
+    <Folder Include="ATemp\" />
   </ItemGroup>
 
 </Project>
