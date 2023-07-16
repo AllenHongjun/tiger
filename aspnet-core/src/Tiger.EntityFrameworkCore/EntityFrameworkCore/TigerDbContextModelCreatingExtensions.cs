@@ -1,3 +1,4 @@
+using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
@@ -192,8 +193,68 @@ namespace Tiger.EntityFrameworkCore
 
 
                 /* Configure more properties here */
-            }); 
+            });
             #endregion
+
+            #region Data
+            //builder.Entity<Data>(x =>
+            //    {
+            //        x.ToTable(options.TablePrefix + "Datas");
+
+            //        x.Property(p => p.Code)
+            //            .HasMaxLength(DataConsts.MaxCodeLength)
+            //            .HasColumnName(nameof(Data.Code))
+            //            .IsRequired();
+            //        x.Property(p => p.Name)
+            //            .HasMaxLength(DataConsts.MaxNameLength)
+            //            .HasColumnName(nameof(Data.Name))
+            //            .IsRequired();
+            //        x.Property(p => p.DisplayName)
+            //           .HasMaxLength(DataConsts.MaxDisplayNameLength)
+            //           .HasColumnName(nameof(Data.DisplayName))
+            //           .IsRequired();
+            //        x.Property(p => p.Description)
+            //            .HasMaxLength(DataConsts.MaxDescriptionLength)
+            //            .HasColumnName(nameof(Data.Description));
+
+            //        x.ConfigureByConvention();
+
+            //        x.HasMany(p => p.Items)
+            //            .WithOne()
+            //            .HasForeignKey(fk => fk.DataId)
+            //            .IsRequired();
+
+            //        x.HasIndex(i => new { i.Name });
+            //    });
+
+            //builder.Entity<DataItem>(x =>
+            //{
+            //    x.ToTable(options.TablePrefix + "DataItems");
+
+            //    x.Property(p => p.DefaultValue)
+            //        .HasMaxLength(DataItemConsts.MaxValueLength)
+            //        .HasColumnName(nameof(DataItem.DefaultValue));
+            //    x.Property(p => p.Name)
+            //        .HasMaxLength(DataItemConsts.MaxNameLength)
+            //        .HasColumnName(nameof(DataItem.Name))
+            //        .IsRequired();
+            //    x.Property(p => p.DisplayName)
+            //       .HasMaxLength(DataItemConsts.MaxDisplayNameLength)
+            //       .HasColumnName(nameof(DataItem.DisplayName))
+            //       .IsRequired();
+            //    x.Property(p => p.Description)
+            //        .HasMaxLength(DataItemConsts.MaxDescriptionLength)
+            //        .HasColumnName(nameof(DataItem.Description));
+
+            //    x.Property(p => p.AllowBeNull).HasDefaultValue(true);
+
+            //    x.ConfigureByConvention();
+
+            //    x.HasIndex(i => new { i.Name });
+            //}); 
+            #endregion
+
+            
         }
     }
 }

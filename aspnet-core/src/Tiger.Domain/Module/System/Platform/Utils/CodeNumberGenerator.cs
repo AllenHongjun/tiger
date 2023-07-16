@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Tiger.Module.System.Platform;
 
-namespace Tiger.Utils
-{   
+namespace Tiger.Module.System.Platform.Utils
+{
     /// <summary>
     /// 
     /// </summary>
     /// <remarks>
-    /// 这个静态方法 如果别的模块会依赖 会增加耦合性
+    /// 只有平台模块的方法会依赖这个类库
     /// </remarks>
     public static class CodeNumberGenerator
     {
-        //public static string CreateCode(params int[] numbers)
-        //{
-        //    if (numbers.IsNullOrEmpty())
-        //    {
-        //        return null;
-        //    }
+        public static string CreateCode(params int[] numbers)
+        {
+            if (numbers.IsNullOrEmpty())
+            {
+                return null;
+            }
 
-        //    return numbers.Select(number => number.ToString(new string(PlatformConsts.CodePrefix, PlatformConsts.CodeUnitLength))).JoinAsString(".");
-        //}
+            return numbers.Select(number => number.ToString(new string(PlatformConsts.CodePrefix, PlatformConsts.CodeUnitLength))).JoinAsString(".");
+        }
 
         public static string AppendCode(string parentCode, string childCode)
         {
@@ -58,18 +59,18 @@ namespace Tiger.Utils
             return code.Substring(parentCode.Length + 1);
         }
 
-        //public static string CalculateNextCode(string code)
-        //{
-        //    if (code.IsNullOrEmpty())
-        //    {
-        //        throw new ArgumentNullException(nameof(code), "code can not be null or empty.");
-        //    }
+        public static string CalculateNextCode(string code)
+        {
+            if (code.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(code), "code can not be null or empty.");
+            }
 
-        //    var parentCode = GetParentCode(code);
-        //    var lastUnitCode = GetLastCode(code);
+            var parentCode = GetParentCode(code);
+            var lastUnitCode = GetLastCode(code);
 
-        //    return AppendCode(parentCode, CreateCode(Convert.ToInt32(lastUnitCode) + 1));
-        //}
+            return AppendCode(parentCode, CreateCode(Convert.ToInt32(lastUnitCode) + 1));
+        }
 
         public static string GetLastCode(string code)
         {
