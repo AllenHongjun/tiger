@@ -1,41 +1,39 @@
-﻿using System;
+﻿using Aliyun.OSS;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.CloudAliyun.BlobStoring.Aliyun;
 using Tiger.Module.OssManagement.Dto;
 using Volo.Abp.MultiTenancy;
-using Volo.Abp.Timing;
 using Volo.Abp;
+using System.Linq;
 
-namespace Tiger.Module.OssManagement.Tencent
+namespace Tiger.Module.OssManagement.Aliyun
 {
     /// <summary>
-    /// Oss容器的腾讯云实现
+    /// Oss容器的阿里云实现
     /// </summary>
-    internal class TencentOssContainer : IOssContainer
+    internal class AliyunOssContainer : IOssContainer
     {
-        protected IClock Clock { get; }
         protected ICurrentTenant CurrentTenant { get; }
-        protected ICosClientFactory CosClientFactory { get; }
-        public TencentOssContainer(
-            IClock clock,
+        protected IOssClientFactory OssClientFactory { get; }
+        public AliyunOssContainer(
             ICurrentTenant currentTenant,
-            ICosClientFactory cosClientFactory)
+            IOssClientFactory ossClientFactory)
         {
-            Clock = clock;
             CurrentTenant = currentTenant;
-            CosClientFactory = cosClientFactory;
+            OssClientFactory = ossClientFactory;
         }
         public async virtual Task BulkDeleteObjectsAsync(BulkDeleteObjectRequest request)
         {
             var ossClient = await CreateClientAsync();
 
             var path = GetBasePath(request.Path);
-            var deleteRequest = new DeleteMultiObjectRequest(request.Bucket);
-            deleteRequest.SetObjectKeys(request.Objects.Select(x => x += path).ToList());
+            var aliyunRequest = new DeleteObjectsRequest(request.Bucket, request.Objects.Select(x => x += path).ToList());
 
-            ossClient.DeleteMultiObjects(deleteRequest);
+            ossClient.DeleteObjects(aliyunRequest);
         }
 
         public async virtual Task<OssContainer> CreateAsync(string name)
@@ -47,18 +45,17 @@ namespace Tiger.Module.OssManagement.Tencent
                 throw new BusinessException(code: OssManagementErrorCodes.ContainerAlreadyExists);
             }
 
-            var putBucketRequest = new PutBucketRequest(name);
-            var bucketResult = ossClient.PutBucket(putBucketRequest);
+            var bucket = ossClient.CreateBucket(name);
 
             return new OssContainer(
-                bucketResult.Key,
-                Clock.Now,
+                bucket.Name,
+                bucket.CreationDate,
                 0L,
-                Clock.Now,
+                bucket.CreationDate,
                 new Dictionary<string, string>
                 {
-                    { "Id", bucketResult.Key },
-                    { "DisplayName", bucketResult.Key }
+                    { "Id", bucket.Owner?.Id },
+                    { "DisplayName", bucket.Owner?.DisplayName }
                 });
         }
 
@@ -83,7 +80,7 @@ namespace Tiger.Module.OssManagement.Tencent
                 request.Content.IsNullOrEmpty())
             {
                 var emptyStream = new MemoryStream();
-                var emptyData = System.Text.Encoding.UTF8.GetBytes("");
+                var emptyData = Encoding.UTF8.GetBytes("");
                 await emptyStream.WriteAsync(emptyData, 0, emptyData.Length);
                 request.SetContent(emptyStream);
             }
@@ -91,43 +88,31 @@ namespace Tiger.Module.OssManagement.Tencent
             // 没有bucket则创建
             if (!BucketExists(ossClient, request.Bucket))
             {
-                var putBucketRequest = new PutBucketRequest(request.Bucket);
-                ossClient.PutBucket(putBucketRequest);
+                ossClient.CreateBucket(request.Bucket);
             }
 
-            var contentLength = request.Content.Length;
-            var putObjectRequest = new PutObjectRequest(request.Bucket, objectName, request.Content);
-
-            var objectResult = ossClient.PutObject(putObjectRequest);
-
-            if (objectResult.IsSuccessful() && request.ExpirationTime.HasValue)
+            var aliyunObjectRequest = new PutObjectRequest(request.Bucket, objectName, request.Content)
             {
-                var putBuckerLifeRequest = new PutBucketLifecycleRequest(request.Bucket);
-
-                var rule = new COSXML.Model.Tag.LifecycleConfiguration.Rule();
-                rule.id = "lfiecycleConfigureId";
-                rule.status = "Enabled"; //Enabled，Disabled
-
-                rule.filter = new COSXML.Model.Tag.LifecycleConfiguration.Filter();
-                // TODO: 需要测试
-                rule.filter.prefix = objectName;
-
-                putBuckerLifeRequest.SetRule(rule);
-
-                ossClient.PutBucketLifecycle(putBuckerLifeRequest);
+                Metadata = new ObjectMetadata()
+            };
+            if (request.ExpirationTime.HasValue)
+            {
+                aliyunObjectRequest.Metadata.ExpirationTime = DateTime.Now.Add(request.ExpirationTime.Value);
             }
+
+            var aliyunObject = ossClient.PutObject(aliyunObjectRequest);
 
             var ossObject = new OssObject(
                !objectPath.IsNullOrWhiteSpace()
                     ? objectName.Replace(objectPath, "")
                     : objectName,
                 objectPath,
-                objectResult.eTag,
+                aliyunObject.ETag,
                 DateTime.Now,
-                contentLength,
+                aliyunObject.ContentLength,
                 DateTime.Now,
-                new Dictionary<string, string>(),
-                objectName.EndsWith("/") // 名称结尾是 / 符号的则为目录：https://cloud.tencent.com/document/product/436/13324
+                aliyunObject.ResponseMetadata,
+                objectName.EndsWith("/") // 名称结尾是 / 符号的则为目录：https://help.aliyun.com/document_detail/31910.html
                 )
             {
                 FullName = objectName
@@ -149,8 +134,7 @@ namespace Tiger.Module.OssManagement.Tencent
 
             if (BucketExists(ossClient, name))
             {
-                var deleteBucketRequest = new DeleteBucketRequest(name);
-                ossClient.DeleteBucket(deleteBucketRequest);
+                ossClient.DeleteBucket(name);
             }
         }
 
@@ -167,16 +151,14 @@ namespace Tiger.Module.OssManagement.Tencent
             if (BucketExists(ossClient, request.Bucket) &&
                 ObjectExists(ossClient, request.Bucket, objectName))
             {
-                var getBucketRequest = new GetBucketRequest(request.Bucket);
-
-                var getBucketResult = ossClient.GetBucket(getBucketRequest);
-                if (getBucketResult.listBucket.commonPrefixesList.Any() ||
-                    getBucketResult.listBucket.contentsList.Any())
+                var objectListing = ossClient.ListObjects(request.Bucket, objectName);
+                if (objectListing.CommonPrefixes.Any() ||
+                    objectListing.ObjectSummaries.Any())
                 {
                     throw new BusinessException(code: OssManagementErrorCodes.ObjectDeleteWithNotEmpty);
+                    // throw new ObjectDeleteWithNotEmptyException("00201", $"Can't not delete oss object {request.Object}, because it is not empty!");
                 }
-                var deleteObjectRequest = new DeleteObjectRequest(request.Bucket, objectName);
-                ossClient.DeleteObject(deleteObjectRequest);
+                ossClient.DeleteObject(request.Bucket, objectName);
             }
         }
 
@@ -195,18 +177,17 @@ namespace Tiger.Module.OssManagement.Tencent
                 throw new BusinessException(code: OssManagementErrorCodes.ContainerNotFound);
                 // throw new ContainerNotFoundException($"Can't not found container {name} in aliyun blob storing");
             }
-            var getBucketRequest = new GetBucketRequest(name);
-            var bucket = ossClient.GetBucket(getBucketRequest);
+            var bucket = ossClient.GetBucketInfo(name);
 
             return new OssContainer(
-                bucket.Key,
-                new DateTime(1970, 1, 1, 0, 0, 0), // TODO: 从header获取? 需要测试
+                bucket.Bucket.Name,
+                bucket.Bucket.CreationDate,
                 0L,
-                null,
+                bucket.Bucket.CreationDate,
                 new Dictionary<string, string>
                 {
-                    { "Id", bucket.Key },
-                    { "DisplayName", bucket.Key }
+                    { "Id", bucket.Bucket.Owner?.Id },
+                    { "DisplayName", bucket.Bucket.Owner?.DisplayName }
                 });
         }
 
@@ -230,33 +211,26 @@ namespace Tiger.Module.OssManagement.Tencent
                 // throw new ContainerNotFoundException($"Can't not found object {objectName} in container {request.Bucket} with aliyun blob storing");
             }
 
-            var getObjectRequest = new GetObjectBytesRequest(request.Bucket, objectName);
-            if (!request.Process.IsNullOrWhiteSpace())
-            {
-                getObjectRequest.SetQueryParameter(request.Process, null);
-            }
-            var objectResult = ossClient.GetObject(getObjectRequest);
+            var aliyunOssObjectRequest = new GetObjectRequest(request.Bucket, objectName, request.Process);
+            var aliyunOssObject = ossClient.GetObject(aliyunOssObjectRequest);
             var ossObject = new OssObject(
                 !objectPath.IsNullOrWhiteSpace()
-                    ? objectResult.Key.Replace(objectPath, "")
-                    : objectResult.Key,
+                    ? aliyunOssObject.Key.Replace(objectPath, "")
+                    : aliyunOssObject.Key,
                 request.Path,
-                objectResult.eTag,
-                null,
-                objectResult.content.Length,
-                null,
-                new Dictionary<string, string>(),
-                objectResult.Key.EndsWith("/"))
+                aliyunOssObject.Metadata.ETag,
+                aliyunOssObject.Metadata.LastModified,
+                aliyunOssObject.Metadata.ContentLength,
+                aliyunOssObject.Metadata.LastModified,
+                aliyunOssObject.Metadata.UserMetadata,
+                aliyunOssObject.Key.EndsWith("/"))
             {
-                FullName = objectResult.Key
+                FullName = aliyunOssObject.Key
             };
 
-            if (objectResult.content.Length > 0)
+            if (aliyunOssObject.IsSetResponseStream())
             {
-                var memoryStream = new MemoryStream();
-                await memoryStream.WriteAsync(objectResult.content, 0, objectResult.content.Length);
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                ossObject.SetContent(memoryStream);
+                ossObject.SetContent(aliyunOssObject.Content);
             }
 
             return ossObject;
@@ -266,25 +240,30 @@ namespace Tiger.Module.OssManagement.Tencent
         {
             var ossClient = await CreateClientAsync();
 
-            // TODO: 腾讯云直接返回所有列表?
-            var getBucketRequest = new GetServiceRequest();
-            var bucket = ossClient.GetService(getBucketRequest);
+            // TODO: 阿里云的分页差异需要前端来弥补,传递Marker, 按照Oss控制台的逻辑,直接把MaxKeys设置较大值就行了
+            var aliyunRequest = new ListBucketsRequest
+            {
+                Marker = request.Marker,
+                Prefix = request.Prefix,
+                MaxKeys = request.MaxKeys
+            };
+            var bucketsResponse = ossClient.ListBuckets(aliyunRequest);
 
             return new GetOssContainersResponse(
-                request.Prefix,
-                request.Marker,
-                null,
-                bucket.listAllMyBuckets.buckets.Count,
-                bucket.listAllMyBuckets.buckets
+                bucketsResponse.Prefix,
+                bucketsResponse.Marker,
+                bucketsResponse.NextMaker,
+                bucketsResponse.MaxKeys ?? 0,
+                bucketsResponse.Buckets
                        .Select(x => new OssContainer(
-                           x.name,
-                           DateTime.TryParse(x.createDate, out var time) ? time : new DateTime(1970, 1, 1),
+                           x.Name,
+                           x.CreationDate,
                            0L,
-                           null,
+                           x.CreationDate,
                            new Dictionary<string, string>
                            {
-                               { "Id", x.name },
-                               { "DisplayName", x.name }
+                               { "Id", x.Owner?.Id },
+                               { "DisplayName", x.Owner?.DisplayName }
                            }))
                        .ToList());
         }
@@ -300,44 +279,44 @@ namespace Tiger.Module.OssManagement.Tencent
                 : request.Marker;
 
             // TODO: 阿里云的分页差异需要前端来弥补,传递Marker, 按照Oss控制台的逻辑,直接把MaxKeys设置较大值就行了
+            var aliyunRequest = new ListObjectsRequest(request.BucketName)
+            {
+                Marker = !marker.IsNullOrWhiteSpace() ? objectPath + marker : marker,
+                Prefix = objectPath,
+                MaxKeys = request.MaxKeys,
+                EncodingType = request.EncodingType,
+                Delimiter = request.Delimiter
+            };
+            var objectsResponse = ossClient.ListObjects(aliyunRequest);
 
-            var getBucketRequest = new GetBucketRequest(request.BucketName);
-            getBucketRequest.SetMarker(!marker.IsNullOrWhiteSpace() ? objectPath + marker : marker);
-            getBucketRequest.SetMaxKeys(request.MaxKeys?.ToString() ?? "10");
-            getBucketRequest.SetPrefix(objectPath);
-            getBucketRequest.SetDelimiter(request.Delimiter);
-            getBucketRequest.SetEncodingType(request.EncodingType);
-
-            var getBucketResult = ossClient.GetBucket(getBucketRequest);
-
-            var ossObjects = getBucketResult.listBucket.contentsList
-                               .Where(x => !x.key.Equals(objectPath))// 过滤当前的目录返回值
+            var ossObjects = objectsResponse.ObjectSummaries
+                               .Where(x => !x.Key.Equals(objectsResponse.Prefix))// 过滤当前的目录返回值
                                .Select(x => new OssObject(
-                                   !objectPath.IsNullOrWhiteSpace() && !x.key.Equals(objectPath)
-                                    ? x.key.Replace(objectPath, "")
-                                    : x.key, // 去除目录名称
+                                   !objectPath.IsNullOrWhiteSpace() && !x.Key.Equals(objectPath)
+                                    ? x.Key.Replace(objectPath, "")
+                                    : x.Key, // 去除目录名称
                                    request.Prefix,
-                                   x.eTag,
-                                   DateTime.TryParse(x.lastModified, out var ctime) ? ctime : null,
-                                   x.size,
-                                   DateTime.TryParse(x.lastModified, out var mtime) ? mtime : null,
+                                   x.ETag,
+                                   x.LastModified,
+                                   x.Size,
+                                   x.LastModified,
                                    new Dictionary<string, string>
                                    {
-                                       { "Id", x.key },
-                                       { "DisplayName", x.key }
+                                       { "Id", x.Owner?.Id },
+                                       { "DisplayName", x.Owner?.DisplayName }
                                    },
-                                   x.key.EndsWith("/"))
+                                   x.Key.EndsWith("/"))
                                {
-                                   FullName = x.key
+                                   FullName = x.Key
                                })
                                .ToList();
             // 当 Delimiter 为 / 时, objectsResponse.CommonPrefixes 可用于代表层级目录
-            if (getBucketResult.listBucket.commonPrefixesList.Any())
+            if (objectsResponse.CommonPrefixes.Any())
             {
                 ossObjects.InsertRange(0,
-                    getBucketResult.listBucket.commonPrefixesList
+                    objectsResponse.CommonPrefixes
                         .Select(x => new OssObject(
-                            x.prefix.Replace(objectPath, ""),
+                            x.Replace(objectPath, ""),
                             request.Prefix,
                             "",
                             null,
@@ -351,14 +330,14 @@ namespace Tiger.Module.OssManagement.Tencent
             ossObjects.Sort(new OssObjectComparer());
 
             return new GetOssObjectsResponse(
-                getBucketResult.Key,
+                objectsResponse.BucketName,
                 request.Prefix,
                 marker,
-                !objectPath.IsNullOrWhiteSpace() && !getBucketResult.listBucket.nextMarker.IsNullOrWhiteSpace()
-                    ? getBucketResult.listBucket.nextMarker.Replace(objectPath, "")
-                    : getBucketResult.listBucket.nextMarker,
-                getBucketResult.listBucket.delimiter,
-                getBucketResult.listBucket.maxKeys,
+                !objectPath.IsNullOrWhiteSpace() && !objectsResponse.NextMarker.IsNullOrWhiteSpace()
+                    ? objectsResponse.NextMarker.Replace(objectPath, "")
+                    : objectsResponse.NextMarker,
+                objectsResponse.Delimiter,
+                objectsResponse.MaxKeys,
                 ossObjects);
         }
 
@@ -379,21 +358,19 @@ namespace Tiger.Module.OssManagement.Tencent
             return objectPath.EnsureEndsWith('/');
         }
 
-        protected virtual bool BucketExists(CosXml cos, string bucketName)
+        protected virtual bool BucketExists(IOss client, string bucketName)
         {
-            var request = new DoesBucketExistRequest(bucketName);
-            return cos.DoesBucketExist(request);
+            return client.DoesBucketExist(bucketName);
         }
 
-        protected virtual bool ObjectExists(CosXml cos, string bucketName, string objectName)
+        protected virtual bool ObjectExists(IOss client, string bucketName, string objectName)
         {
-            var request = new DoesObjectExistRequest(bucketName, objectName);
-            return cos.DoesObjectExist(request);
+            return client.DoesObjectExist(bucketName, objectName);
         }
 
-        protected async virtual Task<CosXml> CreateClientAsync()
+        protected async virtual Task<IOss> CreateClientAsync()
         {
-            return await CosClientFactory.CreateAsync<AbpOssManagementContainer>();
+            return await OssClientFactory.CreateAsync<AbpOssManagementContainer>();
         }
     }
 }

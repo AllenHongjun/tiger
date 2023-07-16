@@ -450,6 +450,39 @@
             七牛 oss对象存储  https://developer.qiniu.com/kodo/1237/csharp  
             </summary>
         </member>
+        <member name="M:Tiger.Module.OssManagement.FileAppServiceBase.UploadAsync(Tiger.Module.OssManagement.Dtos.UploadFileChunkInput)">
+            <summary>
+            文件直接上传
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.FileAppServiceBase.UploadAsync(Tiger.Module.OssManagement.Dtos.UploadFileInput)">
+            <summary>
+            文件分片上传
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.FileUploadMerger.MergeAsync(Tiger.Module.OssManagement.Dtos.CreateOssObjectInput)">
+            <summary>
+            合并文件
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Module.OssManagement.PrivateFileAppService">
+            <summary>
+            所有登录用户访问私有文件服务接口
+            bucket限制在users
+            path限制在用户id
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.OssManagement.StaticFilesAppService">
+            <summary>
+            静态文件上传服务
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.Cache.CacheAppService">
             <summary>
             缓存管理服务

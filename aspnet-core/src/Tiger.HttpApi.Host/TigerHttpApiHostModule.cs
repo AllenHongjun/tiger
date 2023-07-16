@@ -348,19 +348,13 @@ namespace Tiger
                         Description = "IdentityServer接口",
                     });
 
-                    options.SwaggerDoc("admin-basic", new OpenApiInfo
+                    options.SwaggerDoc("oss-management", new OpenApiInfo
                     {
                         Version = "v1",
-                        Title = "Tiger Basic接口",
-                        Description = "Tiger 后台 Basic接口",
+                        Title = "Oss Management接口",
+                        Description = "Oss管理接口",
                     });
-
-                    options.SwaggerDoc("admin-erp", new OpenApiInfo
-                    {
-                        Version = "v1",
-                        Title = "进销存",
-                        Description = "采购库存相关接口",
-                    });
+                    
 
 
 
@@ -594,8 +588,8 @@ namespace Tiger
                 //options.InjectStylesheet("/swagger-ui/custom.css");
                 options.SwaggerEndpoint("/swagger/admin/swagger.json", "SystemSettings");
                 options.SwaggerEndpoint("/swagger/identity-server/swagger.json", "IdentityServer");
-                
-                //options.SwaggerEndpoint("/swagger/admin-basic/swagger.json", "Admin-订单商品营销");
+                options.SwaggerEndpoint("/swagger/oss-management/swagger.json", "OssManagement");
+
                 //options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
                 //options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");
 

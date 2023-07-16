@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Text;
+using Volo.Abp.Auditing;
+using Volo.Abp.Validation;
+//using Volo.Abp.Content;
+
+namespace Tiger.Module.OssManagement.Dtos
+{
+    public class UploadFileChunkInput:UploadFile
+    {
+        public string Bucket { get; set; }
+        public string Path { get; set; }
+
+        #region 配合Uplaoder 分块传输
+        /// <summary>
+        /// 常规块大小
+        /// </summary>
+        [Required]
+        public long ChunkSize { get; set; }
+        /// <summary>
+        /// 当前块大小
+        /// </summary>
+        [Required]
+        public long CurrentChunkSize { get; set; }
+        /// <summary>
+        /// 当前上传中块的索引
+        /// </summary>
+        [Required]
+        public int ChunkNumber { get; set; }
+        /// <summary>
+        /// 块总数
+        /// </summary>
+        [Required]
+        public int TotalChunks { get; set; }
+
+        #endregion
+
+        [DisableAuditing]
+        [DisableValidation]
+        public Stream File { get; set; }
+    }
+}

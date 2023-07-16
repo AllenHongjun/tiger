@@ -10,5 +10,7 @@ namespace Tiger
     public class ApiExplorerConsts
     {
         public const string IdentityServerGroupName = "identity-server";
+
+        public const string OssManagementGroupName = "oss-management";
     }
 }

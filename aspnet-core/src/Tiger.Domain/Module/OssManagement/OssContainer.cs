@@ -16,5 +16,18 @@ namespace Tiger.Module.OssManagement
         public DateTime? LastModifiedDate { get; }
         public IDictionary<string, string> Metadata { get; }
 
+        public OssContainer(
+            string name,
+            DateTime creationDate,
+            long size = 0,
+            DateTime? lastModifiedDate = null,
+            IDictionary<string, string> metadata = null)
+        {
+            Name = name;
+            CreationDate = creationDate;
+            LastModifiedDate = lastModifiedDate;
+            Size = size;
+            Metadata = metadata ?? new Dictionary<string, string>();
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace Tiger.Module.OssManagement
 
         public string Name { get; }
 
-        public string FullName { get; }
+        public string FullName { get; set; }
 
         public string Prefix { get; }
 
@@ -28,5 +28,34 @@ namespace Tiger.Module.OssManagement
         public DateTime? CreationDate { get; }
         public DateTime? LastModifiedDate { get; }
         public IDictionary<string, string> Metadata { get; }
+
+        public OssObject(
+           string name,
+           string prefix,
+           string md5,
+           DateTime? creationDate = null,
+           long size = 0,
+           DateTime? lastModifiedDate = null,
+           IDictionary<string, string> metadata = null,
+           bool isFolder = false)
+        {
+            Name = name;
+            Prefix = prefix;
+            MD5 = md5;
+            CreationDate = creationDate;
+            LastModifiedDate = lastModifiedDate;
+            Size = size;
+            IsFolder = isFolder;
+            Metadata = metadata ?? new Dictionary<string, string>();
+        }
+
+        public void SetContent(Stream stream)
+        {
+            _content = stream;
+            if (!_content.IsNullOrEmpty())
+            {
+                _content.Seek(0, SeekOrigin.Begin);
+            }
+        }
     }
 }
