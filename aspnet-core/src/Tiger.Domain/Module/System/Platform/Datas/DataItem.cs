@@ -13,12 +13,24 @@ namespace Tiger.Module.System.Platform.Datas
     /// </summary>
     public class DataItem : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        /// <summary>
+        /// 租户标识
+        /// </summary>
         public Guid? TenantId {get; set;}
 
+        /// <summary>
+        /// 字典数据名称
+        /// </summary>
         public virtual string Name { get; set;}
 
+        /// <summary>
+        /// 字典数据显示名称
+        /// </summary>
         public virtual string DisplayName { get; set;}
 
+        /// <summary>
+        /// 字典数据描述
+        /// </summary>
         public virtual string Description { get; set;}  
 
         /// <summary>
@@ -36,6 +48,9 @@ namespace Tiger.Module.System.Platform.Datas
         /// </summary>
         public virtual bool IsStatic { get; set;}
 
+        /// <summary>
+        /// 数据类型
+        /// </summary>
         public virtual ValueType ValueType { get; protected set;}
 
         public virtual Guid DataId { get; protected set; }

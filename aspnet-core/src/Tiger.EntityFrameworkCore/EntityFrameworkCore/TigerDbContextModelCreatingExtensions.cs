@@ -27,13 +27,7 @@ namespace Tiger.EntityFrameworkCore
             Check.NotNull(builder, nameof(builder));
 
             /* Configure your own tables/entities inside here */
-
-            //builder.Entity<YourEntity>(b =>
-            //{
-            //    b.ToTable(TigerConsts.DbTablePrefix + "YourEntities", TigerConsts.DbSchema);
-            //    b.ConfigureByConvention(); //auto configure for the base class props
-            //    //...
-            //});
+            
 
             #region BookStore
             // 添加 Book 实体的映射代码 自动根据代码生成数据表 将Book实体映射到数据库表
@@ -131,16 +125,15 @@ namespace Tiger.EntityFrameworkCore
             //});
             #endregion
 
-
-
+            #region System
             builder.Entity<Post>(b =>
-            {
-                b.ToTable(TigerConsts.DbTablePrefix + "Posts", TigerConsts.DbSchema);
-                b.ConfigureByConvention();
+                {
+                    b.ToTable(TigerConsts.DbTablePrefix + "Posts", TigerConsts.DbSchema);
+                    b.ConfigureByConvention();
 
 
-                /* Configure more properties here */
-            });
+                    /* Configure more properties here */
+                });
 
 
             builder.Entity<TextTemplate>(b =>
@@ -156,19 +149,19 @@ namespace Tiger.EntityFrameworkCore
 
             #region Localization Language
             builder.Entity<Language>(b =>
-                {
-                    b.ToTable(TigerConsts.DbTablePrefix + "Languages", TigerConsts.DbSchema);
-                    b.Property(e => e.CultureName).IsRequired().HasMaxLength(128).HasComment("语言名称");
-                    b.Property(e => e.UiCultureName).IsRequired().HasMaxLength(128).HasComment("Ui语言名称");
-                    b.Property(e => e.DisplayName).IsRequired().HasMaxLength(128).HasComment("显示名称");
-                    b.Property(e => e.FlagIcon).HasMaxLength(128).HasComment("图标");
-                    b.Property<bool>(x => x.IsEnabled).IsRequired();
-                    b.HasIndex(e => e.CultureName).IsUnique();
-                    b.ConfigureByConvention();
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Languages", TigerConsts.DbSchema);
+                b.Property(e => e.CultureName).IsRequired().HasMaxLength(128).HasComment("语言名称");
+                b.Property(e => e.UiCultureName).IsRequired().HasMaxLength(128).HasComment("Ui语言名称");
+                b.Property(e => e.DisplayName).IsRequired().HasMaxLength(128).HasComment("显示名称");
+                b.Property(e => e.FlagIcon).HasMaxLength(128).HasComment("图标");
+                b.Property<bool>(x => x.IsEnabled).IsRequired();
+                b.HasIndex(e => e.CultureName).IsUnique();
+                b.ConfigureByConvention();
 
 
-                    /* Configure more properties here */
-                });
+                /* Configure more properties here */
+            });
 
 
             builder.Entity<Resource>(b =>
@@ -195,66 +188,75 @@ namespace Tiger.EntityFrameworkCore
                 /* Configure more properties here */
             });
             #endregion
-
-            #region Data
-            //builder.Entity<Data>(x =>
-            //    {
-            //        x.ToTable(options.TablePrefix + "Datas");
-
-            //        x.Property(p => p.Code)
-            //            .HasMaxLength(DataConsts.MaxCodeLength)
-            //            .HasColumnName(nameof(Data.Code))
-            //            .IsRequired();
-            //        x.Property(p => p.Name)
-            //            .HasMaxLength(DataConsts.MaxNameLength)
-            //            .HasColumnName(nameof(Data.Name))
-            //            .IsRequired();
-            //        x.Property(p => p.DisplayName)
-            //           .HasMaxLength(DataConsts.MaxDisplayNameLength)
-            //           .HasColumnName(nameof(Data.DisplayName))
-            //           .IsRequired();
-            //        x.Property(p => p.Description)
-            //            .HasMaxLength(DataConsts.MaxDescriptionLength)
-            //            .HasColumnName(nameof(Data.Description));
-
-            //        x.ConfigureByConvention();
-
-            //        x.HasMany(p => p.Items)
-            //            .WithOne()
-            //            .HasForeignKey(fk => fk.DataId)
-            //            .IsRequired();
-
-            //        x.HasIndex(i => new { i.Name });
-            //    });
-
-            //builder.Entity<DataItem>(x =>
-            //{
-            //    x.ToTable(options.TablePrefix + "DataItems");
-
-            //    x.Property(p => p.DefaultValue)
-            //        .HasMaxLength(DataItemConsts.MaxValueLength)
-            //        .HasColumnName(nameof(DataItem.DefaultValue));
-            //    x.Property(p => p.Name)
-            //        .HasMaxLength(DataItemConsts.MaxNameLength)
-            //        .HasColumnName(nameof(DataItem.Name))
-            //        .IsRequired();
-            //    x.Property(p => p.DisplayName)
-            //       .HasMaxLength(DataItemConsts.MaxDisplayNameLength)
-            //       .HasColumnName(nameof(DataItem.DisplayName))
-            //       .IsRequired();
-            //    x.Property(p => p.Description)
-            //        .HasMaxLength(DataItemConsts.MaxDescriptionLength)
-            //        .HasColumnName(nameof(DataItem.Description));
-
-            //    x.Property(p => p.AllowBeNull).HasDefaultValue(true);
-
-            //    x.ConfigureByConvention();
-
-            //    x.HasIndex(i => new { i.Name });
-            //}); 
             #endregion
 
-            
+            #region Data
+            builder.Entity<Data>(x =>
+                {
+                    x.ToTable(TigerConsts.DbTablePrefix + "Datas", TigerConsts.DbSchema);
+
+                    x.Property(p => p.Code)
+                        .HasMaxLength(DataConsts.MaxCodeLength)
+                        .HasColumnName(nameof(Data.Code))
+                        .IsRequired()
+                        .HasComment("编码");
+                    x.Property(p => p.Name)
+                        .HasMaxLength(DataConsts.MaxNameLength)
+                        .HasColumnName(nameof(Data.Name))
+                        .IsRequired()
+                        .HasComment("数据字典名称");
+                    x.Property(p => p.DisplayName)
+                       .HasMaxLength(DataConsts.MaxDisplayNameLength)
+                       .HasColumnName(nameof(Data.DisplayName))
+                       .IsRequired()
+                       .HasComment("数据字典显示名称");
+                    x.Property(p => p.Description)
+                        .HasMaxLength(DataConsts.MaxDescriptionLength)
+                        .HasColumnName(nameof(Data.Description))
+                        .HasComment("数据字典描述");
+
+                    x.ConfigureByConvention();
+
+                    x.HasMany(p => p.Items)
+                        .WithOne()
+                        .HasForeignKey(fk => fk.DataId)
+                        .IsRequired();
+
+                    x.HasIndex(i => new { i.Name });
+                });
+
+            builder.Entity<DataItem>(x =>
+            {
+                x.ToTable(TigerConsts.DbTablePrefix + "DataItems", TigerConsts.DbSchema);
+
+                x.Property(p => p.DefaultValue)
+                    .HasMaxLength(DataItemConsts.MaxValueLength)
+                    .HasColumnName(nameof(DataItem.DefaultValue))
+                    .HasComment("默认值");
+                x.Property(p => p.Name)
+                    .HasMaxLength(DataItemConsts.MaxNameLength)
+                    .HasColumnName(nameof(DataItem.Name))
+                    .IsRequired()
+                    .HasComment("字典数据名称");
+                x.Property(p => p.DisplayName)
+                   .HasMaxLength(DataItemConsts.MaxDisplayNameLength)
+                   .HasColumnName(nameof(DataItem.DisplayName))
+                   .IsRequired()
+                   .HasComment("显示名称");
+                x.Property(p => p.Description)
+                    .HasMaxLength(DataItemConsts.MaxDescriptionLength)
+                    .HasColumnName(nameof(DataItem.Description))
+                    .HasComment("描述");
+
+                x.Property(p => p.AllowBeNull).HasDefaultValue(true);
+
+                x.ConfigureByConvention();
+
+                x.HasIndex(i => new { i.Name });
+            });
+            #endregion
+
+
         }
     }
 }

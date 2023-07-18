@@ -16,6 +16,9 @@ namespace Tiger.Module.System.Platform.Datas
     /// </summary>
     public class Data : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        /// <summary>
+        /// 租户标识
+        /// </summary>
         public Guid? TenantId { get; set; }
 
         /// <summary>

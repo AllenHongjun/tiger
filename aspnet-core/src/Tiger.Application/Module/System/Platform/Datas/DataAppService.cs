@@ -17,7 +17,7 @@ namespace Tiger.Module.System.Platform.Datas;
 /// <summary>
 /// Êý¾Ý×Öµä
 /// </summary>
-[Authorize(PlatformPermissions.DataDictionary.Default)]
+//[Authorize(PlatformPermissions.DataDictionary.Default)]
 [RemoteService(IsEnabled = false)]
 public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInput, CreateUpdateDataDto, CreateUpdateDataDto>,
     IDataAppService
@@ -239,7 +239,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
     /// <param name="id"></param>
     /// <param name="name"></param>
     /// <returns></returns>
-    [Authorize(PlatformPermissions.DataDictionary.ManageItems)]
+    //[Authorize(PlatformPermissions.DataDictionary.ManageItems)]
     public async virtual Task DeleteItemAsync(Guid id, string name)
     {
         var data = await DataRepository.GetAsync(id);

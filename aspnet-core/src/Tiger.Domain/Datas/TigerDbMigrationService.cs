@@ -8,7 +8,7 @@ using Volo.Abp.DependencyInjection;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.TenantManagement;
 
-namespace Tiger.Data
+namespace Tiger.Datas
 {
     public class TigerDbMigrationService : ITransientDependency
     {

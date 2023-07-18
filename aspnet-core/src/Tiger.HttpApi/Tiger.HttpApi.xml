@@ -9,6 +9,93 @@
             缓存管理
             </summary>
         </member>
+        <member name="T:Tiger.Module.System.DataController">
+            <summary>
+            数据字典
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.CreateAsync(Tiger.Module.System.Platform.Datas.Dtos.DataCreateDto)">
+            <summary>
+            创建数据字典
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.DeleteAsync(System.Guid)">
+            <summary>
+            删除数据字典
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.GetAsync(System.String)">
+            <summary>
+            根据名称查询数据字典
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.GetAsync(System.Guid)">
+            <summary>
+            根据id查询
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.GetAllAsync">
+            <summary>
+            查询所有数据字典
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.GetListAsync(Tiger.Module.System.Platform.Datas.Dtos.DataGetListInput)">
+            <summary>
+            查询数据字典列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.MoveAsync(System.Guid,Tiger.Module.System.Platform.Datas.Dtos.DataMoveDto)">
+            <summary>
+            移动数据字典
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.UpdateAsync(System.Guid,Tiger.Module.System.Platform.Datas.Dtos.DataUpdateDto)">
+            <summary>
+            更新数据字典
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.CreateItemAsync(System.Guid,Tiger.Module.System.Platform.Datas.Dtos.DataItemCreateDto)">
+            <summary>
+            创建字典数据
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.DeleteItemAsync(System.Guid,System.String)">
+            <summary>
+            删除字典数据
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.DataController.UpdateItemAsync(System.Guid,System.String,Tiger.Module.System.Platform.Datas.Dtos.DataItemUpdateDto)">
+            <summary>
+            修改字典数据
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.System.LanguageController">
             <summary>
             语言管理

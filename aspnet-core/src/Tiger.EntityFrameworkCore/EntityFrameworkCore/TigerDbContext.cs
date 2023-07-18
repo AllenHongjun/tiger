@@ -64,7 +64,7 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Language> Languages { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<LanguageText> LanguageTexts { get; set; }
-        public DbSet<Tiger.Module.System.Platform.Datas.Data> Datas { get; set; }
+        public DbSet<Data> Datas { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

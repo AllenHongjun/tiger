@@ -12,20 +12,47 @@ namespace Tiger.Module.OssManagement
     {
         private Stream _content;
 
+        /// <summary>
+        /// 是否文件夹
+        /// </summary>
         public bool IsFolder { get; }
 
+        /// <summary>
+        /// 名称
+        /// </summary>
         public string Name { get; }
 
+        /// <summary>
+        /// 全称
+        /// </summary>
         public string FullName { get; set; }
 
+        /// <summary>
+        /// 前缀
+        /// </summary>
         public string Prefix { get; }
 
+        /// <summary>
+        /// MD5值
+        /// </summary>
         public string MD5 { get; }
 
+        /// <summary>
+        /// 文件大小
+        /// </summary>
         public long Size { get; }
 
         public Stream Content => _content;
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
         public DateTime? CreationDate { get; }
+
+
+        /// <summary>
+        /// 修改时间
+        /// </summary>
         public DateTime? LastModifiedDate { get; }
         public IDictionary<string, string> Metadata { get; }
 

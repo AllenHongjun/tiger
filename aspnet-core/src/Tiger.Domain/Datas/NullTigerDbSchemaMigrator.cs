@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 
-namespace Tiger.Data
+namespace Tiger.Datas
 {
     /* This is used if database provider does't define
      * ITigerDbSchemaMigrator implementation.

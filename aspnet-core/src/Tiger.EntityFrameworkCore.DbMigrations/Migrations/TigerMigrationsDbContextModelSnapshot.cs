@@ -331,6 +331,195 @@ namespace Tiger.Migrations
                     b.ToTable("AppResources");
                 });
 
+            modelBuilder.Entity("Tiger.Module.System.Platform.Datas.Data", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnName("Code")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("编码")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnName("Description")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("数据字典描述")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnName("DisplayName")
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("数据字典显示名称")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsStatic")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("Name")
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("数据字典名称")
+                        .HasMaxLength(30);
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("AppDatas");
+                });
+
+            modelBuilder.Entity("Tiger.Module.System.Platform.Datas.DataItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("AllowBeNull")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DataId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DefaultValue")
+                        .HasColumnName("DefaultValue")
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("默认值")
+                        .HasMaxLength(128);
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnName("Description")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("描述")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnName("DisplayName")
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("显示名称")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsStatic")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("Name")
+                        .HasColumnType("nvarchar(30)")
+                        .HasComment("字典数据名称")
+                        .HasMaxLength(30);
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ValueType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DataId");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("AppDataItems");
+                });
+
             modelBuilder.Entity("Tiger.Module.System.TextTemplate.TextTemplate", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2217,6 +2406,15 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Business.Demo.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId1");
+                });
+
+            modelBuilder.Entity("Tiger.Module.System.Platform.Datas.DataItem", b =>
+                {
+                    b.HasOne("Tiger.Module.System.Platform.Datas.Data", null)
+                        .WithMany("Items")
+                        .HasForeignKey("DataId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
