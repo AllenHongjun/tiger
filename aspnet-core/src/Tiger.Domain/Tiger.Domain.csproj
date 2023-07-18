@@ -63,6 +63,7 @@
     <Compile Remove="Business\Demo\Order.cs" />
     <Compile Remove="Business\Demo\OrderLine.cs" />
     <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />
+    <Compile Remove="Module\OssManagement\OssStaticContainerDataSeedContributor.cs" />
   </ItemGroup>
 
   <ItemGroup>
