@@ -96,7 +96,7 @@ namespace Tiger.Module.System.Platform.Menus
         /// <param name="framework"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Menu> GetRoleMenusAsync(
+        Task<List<Menu>> GetRoleMenusAsync(
             string roles,
             string framework = "",
             CancellationToken cancellationToken = default);
@@ -130,7 +130,7 @@ namespace Tiger.Module.System.Platform.Menus
         /// <param name="maxResultCount"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<int> GetListAsync(
+        Task<List<Menu>> GetListAsync(
             string filter = "",
             string sorting = nameof(Menu.Code),
             bool reverse = false,

@@ -12,10 +12,11 @@ namespace Tiger.Module.System.Platform.Menus
     public class RoleMenu:AuditedEntity<Guid>, IMultiTenant
     {
         public RoleMenu(
-            Guid id, 
-            Guid? tenantId, 
-            Guid menuId, 
-            string roleName) : base(id)
+            Guid id,
+            Guid menuId,
+            string roleName,
+            Guid? tenantId
+            ) : base(id)
         {
             TenantId=tenantId;
             MenuId=menuId;

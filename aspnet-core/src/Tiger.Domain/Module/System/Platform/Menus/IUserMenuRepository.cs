@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Module.System.Platform.Menus
 {
-    public interface IUserMenuRepository
+    public interface IUserMenuRepository : IBasicRepository<UserMenu, Guid>
     {
         /// <summary>
         /// 用户是否拥有菜单

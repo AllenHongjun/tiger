@@ -23,12 +23,32 @@ namespace Tiger.Module.System.Platform.Menus
             RoleMenuRepository=roleMenuRepository;
         }
 
-        //protected IUnitOfWorkManager UnitOfWorkManager => LazyServiceProvider.LazyGetRequiredService<IUnitOfWorkManager>();
+        // TODO: 获取 UnitOfWorkManager
+        protected IUnitOfWorkManager UnitOfWorkManager { get; set; } 
+        //=> LazyGetRequiredService<IUnitOfWorkManager>(ref UnitOfWorkManager);
 
         protected IMenuRepository MenuRepository { get; }
         protected IUserMenuRepository UserMenuRepository { get; }
         protected IRoleMenuRepository RoleMenuRepository { get; }
 
+        /// <summary>
+        /// 创建菜单
+        /// </summary>
+        /// <param name="layout"></param>
+        /// <param name="id"></param>
+        /// <param name="path"></param>
+        /// <param name="name"></param>
+        /// <param name="component"></param>
+        /// <param name="displayName"></param>
+        /// <param name="redirect"></param>
+        /// <param name="description"></param>
+        /// <param name="parentId"></param>
+        /// <param name="tenantId"></param>
+        /// <param name="isPublic"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// TODO: 增加一个菜单关联的权限字段，根据权限判断是否用户拥有菜单，减少复杂度
+        /// </remarks>
         [UnitOfWork]
         public async virtual Task<Menu> CreateAsync(
             Layout layout,
@@ -123,6 +143,120 @@ namespace Tiger.Module.System.Platform.Menus
             }
         }
 
+        /// <summary>
+        /// 设置用户的菜单
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="menuIds"></param>
+        /// <returns></returns>
+        public async virtual Task SetUserMenuAsync(Guid userId, IEnumerable<Guid> menuIds)
+        {
+            using(var unitOfWork = UnitOfWorkManager.Begin())
+            {
+                var userMenus = await UserMenuRepository.GetListByUserIdAsycn(userId);
+
+                var dels = userMenus.Where(x => !menuIds.Contains(x.Id));
+                if (dels.Any())
+                {
+                    foreach (var del in dels)
+                    {
+                        await UserMenuRepository.DeleteAsync(del);
+                    }
+                }
+
+                var adds = menuIds.Where(menuId => !userMenus.Any(x => x.MenuId == menuId));
+                if (adds.Any())
+                {
+                    var addInMenus = adds.Select(menuId => new UserMenu(GuidGenerator.Create(), menuId, userId, CurrentTenant.Id));
+
+                    foreach (var add in addInMenus)
+                    {
+                        await UserMenuRepository.InsertAsync(add);
+                    }
+                }
+
+                await unitOfWork.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// 设置用户启动菜单
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
+        public async virtual Task SetUserStartupMenuAsync(Guid userId, Guid menuId)
+        {
+            using(var unitOfWork = UnitOfWorkManager.Begin())
+            {
+                var userMenus = await UserMenuRepository.GetListByUserIdAsycn(userId);
+
+                foreach (var menu in userMenus)
+                {
+                    menu.Startup = false;
+                    if (menu.MenuId.Equals(menuId))
+                    {
+                        menu.Startup = true;
+                    }
+                    await UserMenuRepository.UpdateAsync(menu);
+                }
+                // ABP 6.0 之后才支持 UpdateMany的方法
+                await unitOfWork.SaveChangesAsync();
+            }
+        }
+
+        public async virtual Task SetRoleStartupMenuAsync(string roleName, Guid menuId)
+        {
+            using (var unitOfWork = UnitOfWorkManager.Begin())
+            {
+                var roleMenus = await RoleMenuRepository.GetListByRoleNameAsync(roleName);
+
+                foreach (var menu in roleMenus)
+                {
+                    menu.Startup = false;
+                    if (menu.MenuId.Equals(menuId))
+                    {
+                        menu.Startup = true;
+                    }
+                    await RoleMenuRepository.UpdateAsync(menu);
+                }
+
+                await unitOfWork.SaveChangesAsync();
+            }
+        }
+
+        public async virtual Task SetRoleMenusAsync(string roleName, IEnumerable<Guid> menuIds)
+        {
+            using (var unitOfWork = UnitOfWorkManager.Begin())
+            {
+                var roleMenus = await RoleMenuRepository.GetListByRoleNameAsync(roleName);
+
+                // 移除不存在的菜单
+                // TODO: 升级框架版本解决未能删除不需要菜单的问题
+                // roleMenus.RemoveAll(x => !menuIds.Contains(x.MenuId));
+                var dels = roleMenus.Where(x => !menuIds.Contains(x.MenuId));
+                if (dels.Any())
+                {
+                    foreach (var del in dels)
+                    {
+                        await RoleMenuRepository.DeleteAsync(del);
+                    }
+                   
+                }
+
+                var adds = menuIds.Where(menuId => !roleMenus.Any(x => x.MenuId == menuId));
+                if (adds.Any())
+                {
+                    var addInMenus = adds.Select(menuId => new RoleMenu(GuidGenerator.Create(), menuId, roleName, CurrentTenant.Id));
+                    foreach (var add in addInMenus)
+                    {
+                        await RoleMenuRepository.InsertAsync(add);
+                    }
+                }
+
+                await unitOfWork.SaveChangesAsync();
+            }
+        }
 
 
 
@@ -143,7 +277,7 @@ namespace Tiger.Module.System.Platform.Menus
                 CodeNumberGenerator.CreateCode(1));
         }
 
-        protected async virtual Task<string> GetCodeOrDefaultAsync(Guid id)
+        public async virtual Task<string> GetCodeOrDefaultAsync(Guid id)
         {
             var menu = await MenuRepository.GetAsync(id);
             return menu?.Code;
@@ -161,7 +295,7 @@ namespace Tiger.Module.System.Platform.Menus
             return children.OrderBy(x => x.Code).LastOrDefault();
         }
 
-        protected async Task<List<Menu>> FindChildrenAsync(Guid? parentId, bool recursive = false)
+        public async Task<List<Menu>> FindChildrenAsync(Guid? parentId, bool recursive = false)
         {
             if (!recursive)
             {
@@ -185,7 +319,7 @@ namespace Tiger.Module.System.Platform.Menus
                 .Where(x => x.Id != menu.Id)
                 .ToList();
 
-            if (siblings.Any(x => x.Name == menu.Name)
+            if (siblings.Any(x => x.Name == menu.Name))
             {
                 throw new BusinessException(PlatformErrorCodes.DuplicateMenu)
                     .WithData("Name", menu.Name);
