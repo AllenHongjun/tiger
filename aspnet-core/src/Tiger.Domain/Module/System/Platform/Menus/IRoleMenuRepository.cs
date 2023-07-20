@@ -25,7 +25,7 @@ namespace Tiger.Module.System.Platform.Menus
             string roleName,
             CancellationToken cancellationToken = default);
 
-        Task<Menu> GetStartupMenuAsync(
+        Task<Menu> GetStartUpMenuAsync(
             IEnumerable<string> roleNames,
             CancellationToken cancellationToken = default);
     }

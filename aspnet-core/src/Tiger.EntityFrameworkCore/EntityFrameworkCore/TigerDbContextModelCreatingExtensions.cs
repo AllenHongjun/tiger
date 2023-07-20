@@ -10,6 +10,10 @@ using TigerAdmin.Books;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.TenantManagement;
+using Tiger.Module.System.Platform.Menus;
+using Tiger.Module.System.Platform.Routes;
+using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -126,6 +130,56 @@ namespace Tiger.EntityFrameworkCore
             #endregion
 
             #region System
+
+
+            #region Menu
+            builder.Entity<Menu>(b =>
+                {
+                    b.ToTable(TigerConsts.DbTablePrefix + "Menus", TigerConsts.DbSchema);
+
+                    b.ConfigureRoute();
+
+                    b.Property(p => p.Framework)
+                        .HasMaxLength(LayoutConsts.MaxFrameworkLength)
+                        .HasColumnName(nameof(Menu.Framework))
+                        .IsRequired()
+                        .HasComment("框架");
+                    b.Property(p => p.Component)
+                        .HasMaxLength(MenuConsts.MaxComponentLength)
+                        .HasColumnName(nameof(Menu.Component))
+                        .IsRequired()
+                        .HasComment("组件");
+                    b.Property(p => p.Code)
+                        .HasMaxLength(MenuConsts.MaxCodeLength)
+                        .HasColumnName(nameof(Menu.Code))
+                        .IsRequired()
+                        .HasComment("菜单编码");
+                });
+
+            builder.Entity<RoleMenu>(x =>
+            {
+                x.ToTable(TigerConsts.DbTablePrefix  +  "RoleMenus", TigerConsts.DbSchema);
+
+                x.Property(p => p.RoleName)
+                    .IsRequired()
+                    .HasMaxLength(RoleRouteConsts.MaxRoleNameLength)
+                    .HasColumnName(nameof(RoleMenu.RoleName));
+
+                x.ConfigureByConvention();
+
+                x.HasIndex(i => new { i.RoleName, i.MenuId });
+            });
+
+            builder.Entity<UserMenu>(x =>
+            {
+                x.ToTable(TigerConsts.DbTablePrefix  + "UserMenus", TigerConsts.DbSchema);
+
+                x.ConfigureByConvention();
+
+                x.HasIndex(i => new { i.UserId, i.MenuId });
+            }); 
+            #endregion
+
             builder.Entity<Post>(b =>
                 {
                     b.ToTable(TigerConsts.DbTablePrefix + "Posts", TigerConsts.DbSchema);
@@ -257,6 +311,67 @@ namespace Tiger.EntityFrameworkCore
             #endregion
 
 
+        }
+
+
+
+        public static EntityTypeBuilder<TRoute> ConfigureRoute<TRoute>(
+            this EntityTypeBuilder<TRoute> builder)
+            where TRoute : Route
+        {
+            builder
+                .Property(p => p.DisplayName)
+                .HasMaxLength(RouteConsts.MaxDisplayNameLength)
+                .HasColumnName(nameof(Route.DisplayName))
+                .IsRequired();
+            builder
+                .Property(p => p.Name)
+                .HasMaxLength(RouteConsts.MaxNameLength)
+                .HasColumnName(nameof(Route.Name))
+                .IsRequired();
+            builder
+                .Property(p => p.Path)
+                .HasMaxLength(RouteConsts.MaxPathLength)
+                .HasColumnName(nameof(Route.Path));
+            builder
+                .Property(p => p.Redirect)
+                .HasMaxLength(RouteConsts.MaxRedirectLength)
+                .HasColumnName(nameof(Route.Redirect));
+
+            builder.ConfigureByConvention();
+
+            return builder;
+        }
+
+        public static OwnedNavigationBuilder<TEntity, TRoute> ConfigureRoute<TEntity, TRoute>(
+            [NotNull] this OwnedNavigationBuilder<TEntity, TRoute> builder,
+            [CanBeNull] string tablePrefix = "",
+            [CanBeNull] string schema = null)
+            where TEntity : class
+            where TRoute : Route
+        {
+            builder.ToTable(tablePrefix + "Routes", schema);
+
+            builder
+                .Property(p => p.DisplayName)
+                .HasMaxLength(RouteConsts.MaxDisplayNameLength)
+                .HasColumnName(nameof(Route.DisplayName))
+                .IsRequired();
+            builder
+                .Property(p => p.Name)
+                .HasMaxLength(RouteConsts.MaxNameLength)
+                .HasColumnName(nameof(Route.Name))
+                .IsRequired();
+            builder
+                .Property(p => p.Path)
+                .HasMaxLength(RouteConsts.MaxPathLength)
+                .HasColumnName(nameof(Route.Path));
+            builder
+                .Property(p => p.Redirect)
+                .HasMaxLength(RouteConsts.MaxRedirectLength)
+                .HasColumnName(nameof(Route.Redirect));
+
+            return builder;
         }
     }
 }

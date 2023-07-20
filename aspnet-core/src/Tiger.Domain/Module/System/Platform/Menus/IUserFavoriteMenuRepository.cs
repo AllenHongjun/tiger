@@ -20,7 +20,7 @@ namespace Tiger.Module.System.Platform.Menus
             Guid menuId,
             CancellationToken cancellationToken = default);
 
-        Task<List<UserFavoriteMenu>> GetListByMenuIdAsycn(
+        Task<List<UserFavoriteMenu>> GetListByMenuIdAsync(
             Guid menuId,
             CancellationToken cancellationToken = default);
 

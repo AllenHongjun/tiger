@@ -82,7 +82,7 @@ namespace Tiger.Module.System.Platform.Menus
         /// <param name="framework"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Menu> GetUserMenusAsync(
+        Task<List<Menu>> GetUserMenusAsync(
             Guid userId,
             string[] roles,
             string framework = "",
@@ -97,7 +97,7 @@ namespace Tiger.Module.System.Platform.Menus
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<List<Menu>> GetRoleMenusAsync(
-            string roles,
+            string[] roles,
             string framework = "",
             CancellationToken cancellationToken = default);
 

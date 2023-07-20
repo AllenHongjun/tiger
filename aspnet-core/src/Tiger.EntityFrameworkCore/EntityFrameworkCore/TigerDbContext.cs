@@ -17,6 +17,7 @@ using Tiger.Volo.Abp.Identity.Post;
 using Tiger.Module.System.TextTemplate;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Datas;
+using Tiger.Module.System.Platform.Menus;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -65,6 +66,7 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Resource> Resources { get; set; }
         public DbSet<LanguageText> LanguageTexts { get; set; }
         public DbSet<Data> Datas { get; set; }
+        public DbSet<Menu> Menus { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

@@ -144,7 +144,7 @@ namespace Tiger.Module.System.Platform.Menus
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<List<Menu>> GetRoleMenusAsync(string roles, string framework = "", CancellationToken cancellationToken = default)
+        public async Task<List<Menu>> GetRoleMenusAsync(string[] roles, string framework = "", CancellationToken cancellationToken = default)
         {   
             // 查询当前布局的菜单
             var menuQuery =  DbSet
@@ -163,7 +163,7 @@ namespace Tiger.Module.System.Platform.Menus
                            .ToListAsync(GetCancellationToken(cancellationToken));
         }
 
-        public Task<Menu> GetUserMenusAsync(Guid userId, string[] roles, string framework = "", CancellationToken cancellationToken = default)
+        public Task<List<Menu>> GetUserMenusAsync(Guid userId, string[] roles, string framework = "", CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

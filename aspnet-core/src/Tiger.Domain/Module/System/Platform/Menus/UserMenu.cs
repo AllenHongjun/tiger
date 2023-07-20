@@ -31,6 +31,10 @@ namespace Tiger.Module.System.Platform.Menus
             TenantId = tenantId;
         }
 
+        public UserMenu()
+        {
+        }
+
         public override object[] GetKeys()
         {
             return new object[] { MenuId, UserId };
