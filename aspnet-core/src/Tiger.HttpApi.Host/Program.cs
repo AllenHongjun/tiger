@@ -25,7 +25,7 @@ namespace Tiger
         {
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
-                 #region Serilog日志代码配置
+            #region Serilog日志代码配置
                 //.Enrich.FromLogContext()
                 //.MinimumLevel.Debug()
                 //.WriteTo.Debug()
@@ -47,12 +47,12 @@ namespace Tiger
                 //        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
                 //        rollingInterval: RollingInterval.Day,
                 //        restrictedToMinimumLevel: LogEventLevel.Fatal) 
-                 #endregion
+            #endregion
                 .CreateLogger();
 
             try
-            {   
-                
+            {
+
                 Log.Information("Starting web host");
                 CreateHostBuilder(args).Build().Run();
                 return 0;

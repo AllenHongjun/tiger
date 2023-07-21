@@ -9,7 +9,7 @@ namespace Tiger.Module.System.Platform.Versions
     /// <summary>
     /// 版本文件
     /// </summary>
-    public class VersionFile:AuditedEntity<int>, IMultiTenant
+    public class VersionFile : AuditedEntity<int>, IMultiTenant
     {
         /// <summary>
         /// 租户Id
@@ -19,7 +19,7 @@ namespace Tiger.Module.System.Platform.Versions
         /// <summary>
         /// 文件路径
         /// </summary>
-        public virtual string Path { get;set; }
+        public virtual string Path { get; set; }
 
         /// <summary>
         /// 文件名称
