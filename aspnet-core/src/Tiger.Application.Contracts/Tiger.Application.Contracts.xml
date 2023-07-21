@@ -519,6 +519,127 @@
             路由的一些辅助元素,取决于数据字典的设计
             </summary>
         </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionCreateDto.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionCreateDto.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionCreateDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionCreateDto.PlatformType">
+            <summary>
+            适应平台
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionCreateDto.Level">
+            <summary>
+            重要级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionDto.CreationTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionDto.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionDto.Version">
+            <summary>
+            版本号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionDto.Level">
+            <summary>
+            重要级别
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionDto.Files">
+            <summary>
+            文件列表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto.FileName">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto.FileVersion">
+            <summary>
+            文件版本
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto.CurrentByte">
+            <summary>
+            当前字节数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto.TotalByte">
+            <summary>
+            最大字节数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto.FileType">
+            <summary>
+            文件类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto.SHA256">
+            <summary>
+            文件指纹
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileDto.Path">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileDto.Name">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileDto.Version">
+            <summary>
+            文件版本
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileDto.SHA256">
+            <summary>
+            文件SHA256编码
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileDto.Size">
+            <summary>
+            文件大小
+            单位b
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Versions.Dto.VersionFileDto.FileType">
+            <summary>
+            文件类型
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto">
             <summary>
             文本模板定义实体

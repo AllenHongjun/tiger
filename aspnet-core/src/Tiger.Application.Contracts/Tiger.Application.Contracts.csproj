@@ -86,4 +86,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Module\System\Platform\Layouts\" />
+  </ItemGroup>
+
 </Project>

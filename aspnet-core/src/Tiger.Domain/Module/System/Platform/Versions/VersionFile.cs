@@ -87,6 +87,14 @@ namespace Tiger.Module.System.Platform.Versions
             DownloadCount += 1;
         }
 
+        /// <summary>
+        /// 规范化BlobName名称
+        /// </summary>
+        /// <param name="appVersion"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileVersion"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static string NormalizeBlobName(string appVersion, string fileName, string fileVersion,
             string filePath = "")
         {
