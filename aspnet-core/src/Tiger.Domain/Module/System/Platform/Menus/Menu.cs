@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Tiger.Module.System.Platform.Routes;
+using Volo.Abp;
 
-namespace Tiger.Module.System.Platform.Menu
+namespace Tiger.Module.System.Platform.Menus
 {
     /// <summary>
     /// 菜单
@@ -14,6 +16,36 @@ namespace Tiger.Module.System.Platform.Menu
     /// </remarks>
     public class Menu:Route
     {
+        public Menu()
+        {
+        }
+
+        public Menu(
+            [NotNull] Guid id,
+            [NotNull] Guid layoutId,
+            [NotNull] string path,
+            [NotNull] string name,
+            [NotNull] string code, 
+            [NotNull] string component, 
+            [NotNull] string displayName,
+            [NotNull] string framework,
+            string redirect = "",
+            string description = "",
+            Guid? parentId = null,
+            Guid? tenantId = null
+            ): base(id, path, name, displayName, redirect, description, tenantId)
+        {
+            Check.NotNullOrWhiteSpace(code, nameof(code));
+
+            LayoutId = layoutId;
+            Code = code;
+            Component = component;// 下属的一级菜单的Component应该是布局页, 例如vue-admin中的 component: Layout, 其他前端框架雷同, 此处应传递布局页的路径让前端import
+            Framework = framework;
+            ParentId = parentId;
+
+            IsPublic = false;
+        }
+
         /// <summary>
         /// 框架
         /// </summary>

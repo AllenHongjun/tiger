@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Module.System.Platform.Routes;
 
 namespace Tiger.Module.System.Platform.Layouts
 {
     /// <summary>
     /// 布局视图
     /// </summary>
-    public class Layout
+    public class Layout:Route
     {
         /// <summary>
         /// 框架

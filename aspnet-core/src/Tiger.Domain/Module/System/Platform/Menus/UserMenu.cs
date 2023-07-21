@@ -18,5 +18,26 @@ namespace Tiger.Module.System.Platform.Menus
         public virtual Guid UserId { get; protected set; }  
 
         public virtual bool Startup { get; set; }
+
+        public UserMenu(
+            Guid id,
+            Guid menuId,
+            Guid userId,
+            Guid? tenantId = null)
+            : base(id)
+        {
+            MenuId = menuId;
+            UserId = userId;
+            TenantId = tenantId;
+        }
+
+        public UserMenu()
+        {
+        }
+
+        public override object[] GetKeys()
+        {
+            return new object[] { MenuId, UserId };
+        }
     }
 }

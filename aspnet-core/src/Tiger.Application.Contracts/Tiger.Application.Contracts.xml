@@ -444,9 +444,79 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.Code">
+            <summary>
+            菜单编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.Component">
+            <summary>
+            菜单布局页
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.Framework">
+            <summary>
+            框架
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.ParentId">
+            <summary>
+            父节点
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.LayoutId">
+            <summary>
+            所属布局标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuItemDto.Code">
+            <summary>
+            菜单编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuItemDto.Component">
+            <summary>
+            菜单组件
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuItemDto.Children">
+            <summary>
+            子菜单列表
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.Platform.Permissions.PlatformPermissions.FileSystem">
             <summary>
             文件系统
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.Path">
+            <summary>
+            路径
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.Redirect">
+            <summary>
+            重定向路径
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.Meta">
+            <summary>
+            路由的一些辅助元素,取决于数据字典的设计
             </summary>
         </member>
         <member name="T:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto">
