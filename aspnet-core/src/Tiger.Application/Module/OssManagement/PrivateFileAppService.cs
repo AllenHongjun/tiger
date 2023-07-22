@@ -12,6 +12,7 @@ using Tiger.Module.OssManagement.Features;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Caching;
+using Volo.Abp.Content;
 using Volo.Abp.Features;
 using Volo.Abp.IO;
 using Volo.Abp.Users;
@@ -49,7 +50,7 @@ namespace Tiger.Module.OssManagement
         //    AbpOssManagementFeatureNames.OssObject.DownloadLimit,
         //    AbpOssManagementFeatureNames.OssObject.DownloadInterval,
         //    LimitPolicy.Month)]
-        public override async Task<Stream> GetAsync(GetPublicFileInput input)
+        public override async Task<IRemoteStreamContent> GetAsync(GetPublicFileInput input)
         {
             var ossObjectRequest = new GetOssObjectRequest(
                  GetCurrentBucket(),
@@ -66,7 +67,7 @@ namespace Tiger.Module.OssManagement
             var ossContainer = OssContainerFactory.Create();
             var ossObject = await ossContainer.GetObjectAsync(ossObjectRequest);
 
-            return ossObject.Content;
+            return new RemoteStreamContent(ossObject.Content, ossObject.Name);
         }
 
         [Authorize]

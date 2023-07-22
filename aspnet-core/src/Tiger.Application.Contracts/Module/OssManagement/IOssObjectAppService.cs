@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiger.Module.OssManagement.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Content;
 
 namespace Tiger.Module.OssManagement
 {
@@ -14,7 +15,7 @@ namespace Tiger.Module.OssManagement
 
         Task<OssObjectDto> GetAsync(GetOssObjectInput input);
 
-        Task<Stream> GetContentAsync(GetOssObjectInput input);
+        Task<IRemoteStreamContent> GetContentAsync(GetOssObjectInput input);
 
         Task DeleteAsync(GetOssObjectInput input);
 

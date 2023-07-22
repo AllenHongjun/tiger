@@ -11,6 +11,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
 using Volo.Abp;
 using System.IO;
+using Volo.Abp.Content;
 
 namespace Tiger.Module.OssManagement
 {
@@ -55,7 +56,7 @@ namespace Tiger.Module.OssManagement
         [Route("{Name}/{Process}")]
         [Route("p/{Path}/{Name}")]
         [Route("p/{Path}/{Name}/{Process}")]
-        public async virtual Task<Stream> GetAsync([FromRoute] GetPublicFileInput input)
+        public async virtual Task<IRemoteStreamContent> GetAsync([FromRoute] GetPublicFileInput input)
         {
             return await _service.GetAsync(input);
         }

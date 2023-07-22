@@ -21,6 +21,23 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Tiger.Module.OssManagement.Aliyun;
 using Tiger.Module.OssManagement;
+using Tiger.Module.OssManagement.Localization;
+using Tiger.Localization;
+using Tiger.Module.System.Platform.Localization;
+using Tiger.Module.System.TextTemplate.Localization;
+using Tiger.Volo.Abp.SettingUi.Localization;
+using Volo.Abp.AuditLogging.Localization;
+using Volo.Abp.Localization.ExceptionHandling;
+using Volo.Abp.Localization;
+using Volo.Abp.SettingManagement.Localization;
+using Volo.Abp.Validation.Localization;
+using Tiger.Infrastructure.CloudAliyun.Aliyun.Localization;
+using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.BlobStoring;
+using Tiger.Infrastructure.CloudAliyun.BlobStoring.Aliyun;
+using System;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace Tiger
 {
@@ -74,7 +91,44 @@ namespace Tiger
             });
             #endregion
 
-            
+            #region Rescource 资源配置
+            Configure<AbpVirtualFileSystemOptions>(options =>
+            {
+                // "TigerDomainSharedModule" 是项目的根命名空间名字. 如果你的项目的根命名空间名字为空,则无需传递此参数.
+                options.FileSets.AddEmbedded<TigerDomainModule>();
+            });
+
+            // 定义新的资源类 需要在模块中引入配置
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                options.Resources
+                    // 添加了一个新的本地化资源, 使用"zh-Hans"（英语）作为默认的本地化.
+                    .Add<AliyunResource>("zh-Hans")
+                    .AddVirtualJson("/Infrastructure/CloudAliyun/Aliyun/Localization/Resources");// 用JSON文件存储本地化字符串. 使用虚拟文件系统 将JSON文件嵌入到程序集中.
+                //options.DefaultResourceType = typeof(AliyunResource);
+            });
+
+
+            #endregion
+
+            #region 读取阿里云oss对象存储配置 按需引用
+            var configuration = context.Services.GetConfiguration();
+
+            Configure<AbpBlobStoringOptions>(options =>
+            {
+                context.Services.ExecutePreConfiguredActions(options);
+                options.Containers.ConfigureAll((containerName, containerConfiguration) =>
+                {
+                    containerConfiguration.UseAliyun(aliyun =>
+                    {
+                        aliyun.BucketName = configuration[AliyunBlobProviderConfigurationNames.BucketName] ?? "";
+                        aliyun.CreateBucketIfNotExists = configuration.GetSection(AliyunBlobProviderConfigurationNames.CreateBucketIfNotExists).Get<bool>();
+                        aliyun.CreateBucketReferer = configuration.GetSection(AliyunBlobProviderConfigurationNames.CreateBucketReferer).Get<List<string>>();
+                        aliyun.Endpoint = configuration[AliyunBlobProviderConfigurationNames.Endpoint];
+                    });
+                });
+            }); 
+            #endregion
 
 #if DEBUG
             //NullEmailSender 是实现 IEmailSender 的内置类，但将电子邮件内容写入 标准日志系统，而不是实际发送电子邮件。

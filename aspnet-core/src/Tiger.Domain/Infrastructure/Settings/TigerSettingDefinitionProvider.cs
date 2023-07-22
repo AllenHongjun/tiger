@@ -50,83 +50,83 @@ namespace Tiger.Settings
             #endregion
 
             #region 阿里云对象存储
-            context.Add(
-                    new SettingDefinition(
-                        name: TigerSettings.Aliyun.Oss.AccessKeyId,
-                        defaultValue: "",
-                        displayName: L("DisplayName:Aliyun.Oss.AccessKeyId"),
-                        description: L("Description:Aliyun.Oss.AccessKeyId"),
-                        isVisibleToClients: true)
-                    .WithProviders(
-                        DefaultValueSettingValueProvider.ProviderName,
-                        ConfigurationSettingValueProvider.ProviderName,
-                        GlobalSettingValueProvider.ProviderName,
-                        TenantSettingValueProvider.ProviderName),
+            //context.Add(
+            //        new SettingDefinition(
+            //            name: TigerSettings.Aliyun.Oss.AccessKeyId,
+            //            defaultValue: "",
+            //            displayName: L("DisplayName:Aliyun.Oss.AccessKeyId"),
+            //            description: L("Description:Aliyun.Oss.AccessKeyId"),
+            //            isVisibleToClients: true)
+            //        .WithProviders(
+            //            DefaultValueSettingValueProvider.ProviderName,
+            //            ConfigurationSettingValueProvider.ProviderName,
+            //            GlobalSettingValueProvider.ProviderName,
+            //            TenantSettingValueProvider.ProviderName),
 
-                    new SettingDefinition(
-                        name: TigerSettings.Aliyun.Oss.AccessKeySecret,
-                        defaultValue: "",
-                        displayName: L("DisplayName:Aliyun.Oss.AccessKeySecret"),
-                        description: L("Description:Aliyun.Oss.AccessKeySecret"),
-                        isVisibleToClients: true)
-                    .WithProviders(
-                        DefaultValueSettingValueProvider.ProviderName,
-                        ConfigurationSettingValueProvider.ProviderName,
-                        GlobalSettingValueProvider.ProviderName,
-                        TenantSettingValueProvider.ProviderName),
+            //        new SettingDefinition(
+            //            name: TigerSettings.Aliyun.Oss.AccessKeySecret,
+            //            defaultValue: "",
+            //            displayName: L("DisplayName:Aliyun.Oss.AccessKeySecret"),
+            //            description: L("Description:Aliyun.Oss.AccessKeySecret"),
+            //            isVisibleToClients: true)
+            //        .WithProviders(
+            //            DefaultValueSettingValueProvider.ProviderName,
+            //            ConfigurationSettingValueProvider.ProviderName,
+            //            GlobalSettingValueProvider.ProviderName,
+            //            TenantSettingValueProvider.ProviderName),
 
-                    new SettingDefinition(
-                        name: TigerSettings.Aliyun.Oss.Endpoint,
-                        defaultValue: "",
-                        displayName: L("DisplayName:Aliyun.Oss.Endpoint"),
-                        description: L("Description:Aliyun.Oss.Endpoint"),
-                        isVisibleToClients: true)
-                    .WithProviders(
-                        DefaultValueSettingValueProvider.ProviderName,
-                        ConfigurationSettingValueProvider.ProviderName,
-                        GlobalSettingValueProvider.ProviderName,
-                        TenantSettingValueProvider.ProviderName)
-                    );
+            //        new SettingDefinition(
+            //            name: TigerSettings.Aliyun.Oss.Endpoint,
+            //            defaultValue: "",
+            //            displayName: L("DisplayName:Aliyun.Oss.Endpoint"),
+            //            description: L("Description:Aliyun.Oss.Endpoint"),
+            //            isVisibleToClients: true)
+            //        .WithProviders(
+            //            DefaultValueSettingValueProvider.ProviderName,
+            //            ConfigurationSettingValueProvider.ProviderName,
+            //            GlobalSettingValueProvider.ProviderName,
+            //            TenantSettingValueProvider.ProviderName)
+            //        );
             #endregion
 
             #region 阿里云短信服务
-            context.Add(
-                        new SettingDefinition(
-                            name: TigerSettings.Aliyun.Sms.AccessKeyId,
-                            defaultValue: "",
-                            displayName: L("DisplayName:Aliyun.Sms.AccessKeyId"),
-                            description: L("Description:Aliyun.Sms.AccessKeyId"),
-                            isVisibleToClients: true)
-                        .WithProviders(
-                            DefaultValueSettingValueProvider.ProviderName,
-                            ConfigurationSettingValueProvider.ProviderName,
-                            GlobalSettingValueProvider.ProviderName,
-                            TenantSettingValueProvider.ProviderName),
+            //context.Add(
+            //            new SettingDefinition(
+            //                name: TigerSettings.Aliyun.Sms.AccessKeyId,
+            //                defaultValue: "",
+            //                displayName: L("DisplayName:Aliyun.Sms.AccessKeyId"),
+            //                description: L("Description:Aliyun.Sms.AccessKeyId"),
+            //                isVisibleToClients: true)
+            //            .WithProviders(
+            //                DefaultValueSettingValueProvider.ProviderName,
+            //                ConfigurationSettingValueProvider.ProviderName,
+            //                GlobalSettingValueProvider.ProviderName,
+            //                TenantSettingValueProvider.ProviderName),
 
-                        new SettingDefinition(
-                            name: TigerSettings.Aliyun.Sms.AccessKeySecret,
-                            defaultValue: "",
-                            displayName: L("DisplayName:Aliyun.Sms.AccessKeySecret"),
-                            description: L("Description:Aliyun.Sms.AccessKeySecret"),
-                            isVisibleToClients: true)
-                        .WithProviders(
-                            DefaultValueSettingValueProvider.ProviderName,
-                            ConfigurationSettingValueProvider.ProviderName,
-                            GlobalSettingValueProvider.ProviderName,
-                            TenantSettingValueProvider.ProviderName),
+            //            new SettingDefinition(
+            //                name: TigerSettings.Aliyun.Sms.AccessKeySecret,
+            //                defaultValue: "",
+            //                displayName: L("DisplayName:Aliyun.Sms.AccessKeySecret"),
+            //                description: L("Description:Aliyun.Sms.AccessKeySecret"),
+            //                isVisibleToClients: true)
+            //            .WithProviders(
+            //                DefaultValueSettingValueProvider.ProviderName,
+            //                ConfigurationSettingValueProvider.ProviderName,
+            //                GlobalSettingValueProvider.ProviderName,
+            //                TenantSettingValueProvider.ProviderName),
 
-                        new SettingDefinition(
-                            name: TigerSettings.Aliyun.Sms.Endpoint,
-                            defaultValue: "",
-                            displayName: L("DisplayName:Aliyun.Sms.Endpoint"),
-                            description: L("Description:Aliyun.Sms.Endpoint"),
-                            isVisibleToClients: true)
-                        .WithProviders(
-                            DefaultValueSettingValueProvider.ProviderName,
-                            ConfigurationSettingValueProvider.ProviderName,
-                            GlobalSettingValueProvider.ProviderName,
-                            TenantSettingValueProvider.ProviderName)
-                        ); 
+            //            new SettingDefinition(
+            //                name: TigerSettings.Aliyun.Sms.Endpoint,
+            //                defaultValue: "",
+            //                displayName: L("DisplayName:Aliyun.Sms.Endpoint"),
+            //                description: L("Description:Aliyun.Sms.Endpoint"),
+            //                isVisibleToClients: true)
+            //            .WithProviders(
+            //                DefaultValueSettingValueProvider.ProviderName,
+            //                ConfigurationSettingValueProvider.ProviderName,
+            //                GlobalSettingValueProvider.ProviderName,
+            //                TenantSettingValueProvider.ProviderName)
+            //            ); 
             #endregion
 
 

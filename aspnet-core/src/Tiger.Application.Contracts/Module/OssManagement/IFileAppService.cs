@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tiger.Module.OssManagement.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Content;
 
 namespace Tiger.Module.OssManagement
 {
@@ -13,7 +14,7 @@ namespace Tiger.Module.OssManagement
     {
         Task<OssObjectDto> UploadAsync(UploadFileInput input);
 
-        Task<Stream> GetAsync(GetPublicFileInput input);
+        Task<IRemoteStreamContent> GetAsync(GetPublicFileInput input);
 
         Task<ListResultDto<OssObjectDto>> GetListAsync(GetFilesInput input);
 

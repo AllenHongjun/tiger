@@ -49,13 +49,14 @@ namespace Tiger
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            #region Rescource 资源配置
+
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
                 // "TigerDomainSharedModule" 是项目的根命名空间名字. 如果你的项目的根命名空间名字为空,则无需传递此参数.
                 options.FileSets.AddEmbedded<TigerDomainSharedModule>();
             });
 
-            #region Rescource 资源配置
             // 定义新的资源类 需要在模块中引入配置
             Configure<AbpLocalizationOptions>(options =>
             {

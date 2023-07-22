@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Volo.Abp.Auditing;
+using Volo.Abp.Content;
 using Volo.Abp.Validation;
 
 namespace Tiger.Module.OssManagement.Dtos
@@ -16,14 +17,14 @@ namespace Tiger.Module.OssManagement.Dtos
 
         [DisableAuditing]
         [DisableValidation]
-        public Stream File { get; set; }
+        public IRemoteStreamContent File { get; set; }
 
         public TimeSpan? ExpirationTime { get; set; }
 
         public void SetContent(Stream content)
         {
             content.Seek(0, SeekOrigin.Begin);
-            File = content;
+            File = new RemoteStreamContent(content); ;
         }
     }
 }

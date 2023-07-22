@@ -11,6 +11,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Auditing;
 using Volo.Abp;
 using System.IO;
+using Volo.Abp.Content;
 
 namespace Tiger.Module.OssManagement
 {
@@ -67,7 +68,7 @@ namespace Tiger.Module.OssManagement
 
         [HttpGet]
         [Route("download")]
-        public async virtual Task<Stream> GetContentAsync(GetOssObjectInput input)
+        public async virtual Task<IRemoteStreamContent> GetContentAsync(GetOssObjectInput input)
         {
             return await OssObjectAppService.GetContentAsync(input);
         }

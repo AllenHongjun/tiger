@@ -9,6 +9,7 @@ using Tiger.Module.OssManagement.Dto;
 using Tiger.Module.OssManagement.Dtos;
 using Tiger.Module.OssManagement.Permissions;
 using Volo.Abp;
+using Volo.Abp.Content;
 
 namespace Tiger.Module.OssManagement
 {
@@ -76,14 +77,13 @@ namespace Tiger.Module.OssManagement
             return ObjectMapper.Map<OssObject, OssObjectDto>(ossObject);
         }
 
-        public async virtual Task<Stream> GetContentAsync(GetOssObjectInput input)
+        public async virtual Task<IRemoteStreamContent> GetContentAsync(GetOssObjectInput input)
         {
             var oss = CreateOssContainer();
 
             var ossObject = await oss.GetObjectAsync(input.Bucket, input.Object, input.Path, input.MD5);
 
-            //return new Stream(ossObject.Content, ossObject.Name);
-            return ossObject.Content;
+            return new RemoteStreamContent(ossObject.Content, ossObject.Name);
         }
 
         protected virtual IOssContainer CreateOssContainer()

@@ -8,6 +8,7 @@ using Tiger.Module.OssManagement.Dto;
 using Tiger.Module.OssManagement.Dtos;
 using Tiger.Module.OssManagement.Features;
 using Volo.Abp;
+using Volo.Abp.Content;
 using Volo.Abp.Features;
 
 namespace Tiger.Module.OssManagement
@@ -46,6 +47,11 @@ namespace Tiger.Module.OssManagement
             var ossObject = await ossContainer.GetObjectAsync(ossObjectRequest);
 
             return ossObject.Content;
+        }
+
+        Task<IRemoteStreamContent> IStaticFilesAppService.GetAsync(GetStaticFileInput input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

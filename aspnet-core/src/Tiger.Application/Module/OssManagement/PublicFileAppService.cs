@@ -9,6 +9,7 @@ using Tiger.Module.OssManagement.Features;
 using Tiger.Module.OssManagement.Permissions;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Content;
 using Volo.Abp.Features;
 
 namespace Tiger.Module.OssManagement
@@ -68,7 +69,7 @@ namespace Tiger.Module.OssManagement
         //    AbpOssManagementFeatureNames.OssObject.DownloadLimit,
         //    AbpOssManagementFeatureNames.OssObject.DownloadInterval,
         //    LimitPolicy.Month)]
-        public override async Task<Stream> GetAsync(GetPublicFileInput input)
+        public override async Task<IRemoteStreamContent> GetAsync(GetPublicFileInput input)
         {
             await CheckPublicAccessAsync();
             await FeatureChecker.CheckEnabledAsync(AbpOssManagementFeatureNames.OssObject.DownloadFile);

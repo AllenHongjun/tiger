@@ -1,4 +1,5 @@
 {
+  //系统
   "Abp.Localization.DefaultLanguage": {
     "Group1": "System",
     "Group2": "Localization",
@@ -74,6 +75,31 @@
     "Group2": "User",
     "Type": "checkbox"
   },
+  "Abp.Identity.User.SmsPhoneNumberConfirmed": {
+    "Group1": "System",
+    "Group2": "User",
+    "Type": "text"
+  },
+  "Abp.Identity.User.SmsNewUserRegister": {
+    "Group1": "System",
+    "Group2": "User",
+    "Type": "text"
+  },
+  "Abp.Identity.User.SmsUserSignin": {
+    "Group1": "System",
+    "Group2": "User",
+    "Type": "text"
+  },
+  "Abp.Identity.User.SmsResetPassword": {
+    "Group1": "System",
+    "Group2": "User",
+    "Type": "text"
+  },
+  "Abp.Identity.User.SmsRepetInterval": {
+    "Group1": "System",
+    "Group2": "User",
+    "Type": "text"
+  },
   "Abp.Identity.OrganizationUnit.MaxUserMembershipCount": {
     "Group1": "System",
     "Group2": "OrganizationUnit",
@@ -100,6 +126,7 @@
     "Group2": "Account",
     "Type": "checkbox"
   },
+  //邮件配置
   "Abp.Mailing.Smtp.Host": {
     "Group1": "Mail",
     "Group2": "Smtp",
@@ -145,6 +172,7 @@
     "Group2": "Others",
     "Type": "text"
   },
+  //七牛Oss配置
   "Tiger.Qiniu.Oss.AccessKey": {
     "Group1": "Oss",
     "Group2": "Qiniu",
@@ -160,39 +188,133 @@
     "Group2": "Qiniu",
     "Type": "text"
   },
-  "Tiger.Aliyun.Oss.AccessKeyId": {
+  "Abp.OssManagement.DownloadPackageSize": {
     "Group1": "Oss",
+    "Group2": "OssManagement",
+    "Type": "text"
+  },
+  "Abp.OssManagement.FileLimitLength": {
+    "Group1": "Oss",
+    "Group2": "OssManagement",
+    "Type": "text"
+  },
+  "Abp.OssManagement.AllowFileExtensions": {
+    "Group1": "Oss",
+    "Group2": "OssManagement",
+    "Type": "text"
+  },
+  "Abp.OssManagement.DefaultAllowFileExtensions": {
+    "Group1": "Oss",
+    "Group2": "OssManagement",
+    "Type": "text"
+  },
+  //阿里云oss
+  //"Tiger.Aliyun.Oss.AccessKeyId": {
+  //  "Group1": "Oss",
+  //  "Group2": "Aliyun",
+  //  "Type": "text"
+  //},
+  //"Tiger.Aliyun.Oss.AccessKeySecret": {
+  //  "Group1": "Oss",
+  //  "Group2": "Aliyun",
+  //  "Type": "text"
+  //},
+  //"Tiger.Aliyun.Oss.Endpoint": {
+  //  "Group1": "Oss",
+  //  "Group2": "Aliyun",
+  //  "Type": "text"
+  //},
+  // 阿里云 认证方式配置
+  "Abp.Aliyun.Authorization.RegionId": {
+    "Group1": "Cloud",
     "Group2": "Aliyun",
     "Type": "text"
   },
-  "Tiger.Aliyun.Oss.AccessKeySecret": {
-    "Group1": "Oss",
+  "Abp.Aliyun.Authorization.AccessKeyId": {
+    "Group1": "Cloud",
     "Group2": "Aliyun",
     "Type": "text"
   },
-  "Tiger.Aliyun.Oss.Endpoint": {
-    "Group1": "Oss",
+  "Abp.Aliyun.Authorization.AccessKeySecret": {
+    "Group1": "Cloud",
     "Group2": "Aliyun",
     "Type": "text"
   },
-  "Tiger.Aliyun.Sms.AccessKeyId": {
+  "Abp.Aliyun.Authorization.UseSecurityTokenService": {
+    "Group1": "Cloud",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Abp.Aliyun.Authorization.RamRoleArn": {
+    "Group1": "Cloud",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Abp.Aliyun.Authorization.RoleSessionName": {
+    "Group1": "Cloud",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Abp.Aliyun.Authorization.DurationSeconds": {
+    "Group1": "Cloud",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Abp.Aliyun.Authorization.Policy": {
+    "Group1": "Cloud",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  // Aliyun短信服务
+  "Abp.Aliyun.Sms.Domain": {
     "Group1": "Sms",
     "Group2": "Aliyun",
     "Type": "text"
   },
-  "Tiger.Aliyun.Sms.AccessKeySecret": {
+  "Abp.Aliyun.Sms.ActionName": {
     "Group1": "Sms",
     "Group2": "Aliyun",
     "Type": "text"
   },
-  "Tiger.Aliyun.Sms.Endpoint": {
+  "Abp.Aliyun.Sms.Version": {
     "Group1": "Sms",
     "Group2": "Aliyun",
     "Type": "text"
   },
-  "Abp.Timing.TimeZone": {
-    "Group1": "System",
-    "Group2": "TimeZone",
+  "Abp.Aliyun.Sms.DefaultSignName": {
+    "Group1": "Sms",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Abp.Aliyun.Sms.DefaultTemplateCode": {
+    "Group1": "Sms",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Abp.Aliyun.Sms.DefaultPhoneNumber": {
+    "Group1": "Sms",
+    "Group2": "Aliyun",
+    "Type": "text"
+  },
+  "Abp.Aliyun.Sms.VisableErrorToClient": {
+    "Group1": "Sms",
+    "Group2": "Aliyun",
     "Type": "text"
   }
+
+  //"Tiger.Aliyun.Sms.AccessKeySecret": {
+  //  "Group1": "Sms",
+  //  "Group2": "Aliyun",
+  //  "Type": "text"
+  //},
+  //"Tiger.Aliyun.Sms.Endpoint": {
+  //  "Group1": "Sms",
+  //  "Group2": "Aliyun",
+  //  "Type": "text"
+  //},
+  //"Abp.Timing.TimeZone": {
+  //  "Group1": "System",
+  //  "Group2": "TimeZone",
+  //  "Type": "text"
+  //}
 }

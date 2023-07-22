@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text;
 using Volo.Abp.Auditing;
+using Volo.Abp.Content;
 using Volo.Abp.Validation;
 //using Volo.Abp.Content;
 
@@ -40,6 +41,6 @@ namespace Tiger.Module.OssManagement.Dtos
 
         [DisableAuditing]
         [DisableValidation]
-        public Stream File { get; set; }
+        public IRemoteStreamContent File { get; set; }
     }
 }

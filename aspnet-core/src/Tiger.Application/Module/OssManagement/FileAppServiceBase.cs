@@ -9,6 +9,7 @@ using Tiger.Module.OssManagement.Dto;
 using Tiger.Module.OssManagement.Dtos;
 using Tiger.Module.OssManagement.Features;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Content;
 using Volo.Abp.Features;
 using Volo.Abp.Validation;
 
@@ -56,14 +57,14 @@ namespace Tiger.Module.OssManagement
         //    LimitPolicy.Month)]
         public async virtual Task<OssObjectDto> UploadAsync(UploadFileInput input)
         {
-            if (input.File == null || input.File.Length > 0)
+            if (input.File == null || input.File.ContentLength.Value > 0)
             {
                 ThrowValidationException(L["FileNotBeNullOrEmpty"], "File");
             }
 
             await FileValidater.ValidationAsync(new UploadFile
             {
-                TotalSize = input.File.Length,
+                TotalSize = input.File.ContentLength.Value,
                 FileName = input.Object
             });
 
@@ -72,7 +73,7 @@ namespace Tiger.Module.OssManagement
             var createOssObjectRequest = new CreateOssObjectRequest(
                  GetCurrentBucket(),
                  HttpUtility.UrlDecode(input.Object),
-                 input.File,
+                 input.File.GetStream(),
                  GetCurrentPath(HttpUtility.UrlDecode(input.Path)))
             {
                 Overwrite = input.Overwrite
@@ -100,7 +101,7 @@ namespace Tiger.Module.OssManagement
         //[RequiresFeature(
         //    AbpOssManagementFeatureNames.OssObject.DownloadLimit,
         //    AbpOssManagementFeatureNames.OssObject.DownloadInterval)]
-        public async virtual Task<Stream> GetAsync(GetPublicFileInput input)
+        public async virtual Task<IRemoteStreamContent> GetAsync(GetPublicFileInput input)
         {
             var ossObjectRequest = new GetOssObjectRequest(
                 GetCurrentBucket(),
@@ -115,7 +116,7 @@ namespace Tiger.Module.OssManagement
             var ossContainer = OssContainerFactory.Create();
             var ossObject = await ossContainer.GetObjectAsync(ossObjectRequest);
 
-            return ossObject.Content;
+            return new RemoteStreamContent(ossObject.Content, ossObject.Name);
         }
 
         public async virtual Task DeleteAsync(GetPublicFileInput input)
