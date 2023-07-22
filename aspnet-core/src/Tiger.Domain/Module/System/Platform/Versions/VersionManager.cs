@@ -8,11 +8,12 @@ using Volo.Abp;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Services;
+using Volo.Abp.Uow;
 
 namespace Tiger.Module.System.Platform.Versions
 {   
     /// <summary>
-    /// 版本管理
+    /// 版本及版本文件管理
     /// </summary>
     [Dependency(Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient)]
     [ExposeServices(typeof(IVersionFileManager), typeof(VersionManager))]
@@ -56,7 +57,21 @@ namespace Tiger.Module.System.Platform.Versions
         }
 
         /// <summary>
-        /// 保存文件
+        /// 获取版本文件
+        /// </summary>
+        /// <param name="versionFile"></param>
+        /// <returns></returns>
+        public async virtual Task<Stream> GetFileAsync(VersionFile versionFile)
+        {
+            versionFile.Download();
+            return await VersionBlobContainer.GetAsync(
+                VersionFile.NormalizeBlobName(versionFile.AppVersion.Version, versionFile.Name, versionFile.Version, versionFile.Path));
+        }
+
+
+
+        /// <summary>
+        /// 保存(添加)文件
         /// </summary>
         /// <param name="version"></param>
         /// <param name="filePath"></param>
@@ -78,12 +93,68 @@ namespace Tiger.Module.System.Platform.Versions
 
 
 
-        //public async virtual Task AppendFileAsync(Guid versionId, string fileSha256,
-        //    string fileName, string fileVersion,
-        //    long fileSize, string filePath = "",
-        //    FileType )
 
+        /// <summary>
+        /// 添加版本文件
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="fileSha256"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileVersion"></param>
+        /// <param name="fileSize"></param>
+        /// <param name="filePath"></param>
+        /// <param name="fileType"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public async virtual Task AppendFileAsync(Guid versionId, string fileSha256,
+            string fileName, string fileVersion,
+            long fileSize, string filePath = "",
+            FileType fileType = FileType.Stream)
+        {
+            var appVersion = await VersionRepository.GetAsync(versionId);
+            if (appVersion.FileExists(fileName))
+            {
+                appVersion.RemoveFile(fileName);
+            }
+            appVersion.AppendFile(fileName, fileVersion, fileSize, fileSha256, filePath,fileType);
+        }
 
+        /// <summary>
+        /// 删除一个版本文件
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        [UnitOfWork]
+        public async virtual Task RemoveFileAsync(Guid versionId, string fileName)
+        {
+            var appVersion = await VersionRepository.GetAsync(versionId);
+            var versionFile = appVersion.FindFile(fileName);
+            if (versionFile != null)
+            {
+                // 从oss对象存储当中删除文件
+                await VersionBlobContainer
+                    .DeleteAsync(VersionFile.NormalizeBlobName(appVersion.Version, versionFile.Name,
+                    versionFile.Version));
+                appVersion.RemoveFile(fileName);
+            }
+        }
+
+        /// <summary>
+        /// 删除版本对应的所有文件
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public async virtual Task RemoveAllFileAsync(Guid versionId)
+        {
+            var appVersion = await VersionRepository.GetAsync(versionId);
+            foreach(var versionFile in appVersion.Files)
+            {
+                await VersionBlobContainer
+                    .DeleteAsync(VersionFile.NormalizeBlobName(appVersion.Version, versionFile.Name, versionFile.Version));
+            }
+            appVersion.RemoveAllFile();
+        }
 
     }
 }

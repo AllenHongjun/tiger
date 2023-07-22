@@ -665,6 +665,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Module.System.Platform.Versions.VersionAppService">
+            <summary>
+            版本文件管理
+            </summary>
+        </member>
         <member name="M:Tiger.Module.System.Server.ServerAppService.GetServerBase">
             <summary>
             获取服务器配置信息

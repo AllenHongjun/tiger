@@ -259,6 +259,33 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Module.System.VersionController">
+            <summary>
+            版本文件管理
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.VersionController.AppendFileAsync(Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto)">
+            <summary>
+            添加版本文件
+            </summary>
+            <param name="versionFileCreate"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.VersionController.DownloadFileAsync(Tiger.Module.System.Platform.Versions.Dto.VersionFileGetDto)">
+            <summary>
+            下载文件
+            </summary>
+            <param name="versionFileGet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.VersionController.RemoveFileAsync(Tiger.Module.System.Platform.Versions.Dto.VersionFileDeleteDto)">
+            <summary>
+            移除版本文件
+            </summary>
+            <param name="versionFileDelete"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.TigerHttpApiModule">
             <summary>
             用于定义API控制器.

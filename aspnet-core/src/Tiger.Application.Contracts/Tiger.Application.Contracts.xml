@@ -444,6 +444,16 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutDto.Framework">
+            <summary>
+            框架
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutDto.DataId">
+            <summary>
+            约定的Meta采用哪种数据字典,主要是约束路由必须字段的一致性
+            </summary>
+        </member>
         <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.Code">
             <summary>
             菜单编号
@@ -639,6 +649,25 @@
             <summary>
             文件类型
             </summary>
+        </member>
+        <member name="T:Tiger.Module.System.Platform.Versions.IVersionAppService">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.Platform.Versions.IVersionAppService.DeleteAsync(Tiger.Module.System.Platform.Versions.Dto.VersionDeleteDto)">
+            <summary>
+            删除版本
+            </summary>
+            <param name="versionDelete"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Platform.Versions.IVersionAppService.AppendFileAsync(Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto)">
+            <summary>
+            添加版本文件
+            </summary>
+            <param name="versionFileCreate"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Module.System.TextTemplate.Dtos.TextTemplateDefinitionDto">
             <summary>

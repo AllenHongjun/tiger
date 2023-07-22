@@ -15,7 +15,7 @@ namespace Tiger.Module.System.Platform.Versions
     {
         Task<VersionDto> GetLastestAsync(PlatformType platformType);
 
-        Task<PagedResultDto<VersionDto>> GetAsync(VersionGetByPagedDto input);
+        Task<PagedResultDto<VersionDto>> GetListAsync(VersionGetByPagedDto input);
 
         Task<VersionDto> GetAsync(VersionGetByIdDto versionGetById);
 

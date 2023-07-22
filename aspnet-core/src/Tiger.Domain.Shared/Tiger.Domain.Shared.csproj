@@ -63,6 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Module\System\Platform\Settings\" />
     <Folder Include="Volo\Abp\SettingUi\" />
   </ItemGroup>
 
