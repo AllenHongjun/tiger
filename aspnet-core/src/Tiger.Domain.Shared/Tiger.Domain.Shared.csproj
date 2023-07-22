@@ -64,6 +64,7 @@
 
   <ItemGroup>
     <Folder Include="Module\System\Platform\Settings\" />
+    <Folder Include="Module\System\Cache\" />
     <Folder Include="Volo\Abp\SettingUi\" />
   </ItemGroup>
 

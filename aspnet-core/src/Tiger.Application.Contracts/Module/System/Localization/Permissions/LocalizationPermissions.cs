@@ -19,7 +19,7 @@ namespace Tiger.Module.System.Localization.Permissions
 
             public const string Create = GroupName + ".LanguageTexts.Create";
 
-            public const string Edit = GroupName + ".LanguageTexts.Edit";
+            public const string Update = GroupName + ".LanguageTexts.Update";
 
             public const string Delete = GroupName + ".LanguageTexts.Delete";
         }
@@ -28,7 +28,7 @@ namespace Tiger.Module.System.Localization.Permissions
         {
             public const string Default = GroupName + ".Languages";
 
-            public const string Edit = GroupName + ".Languages.Edit";
+            public const string Update = GroupName + ".Languages.Update";
 
             public const string Create = GroupName + ".Languages.Create";
 

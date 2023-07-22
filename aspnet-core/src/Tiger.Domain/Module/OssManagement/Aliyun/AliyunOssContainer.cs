@@ -15,7 +15,7 @@ namespace Tiger.Module.OssManagement.Aliyun
     /// <summary>
     /// Oss容器的阿里云实现
     /// </summary>
-    internal class AliyunOssContainer : IOssContainer
+    public class AliyunOssContainer : IOssContainer
     {
         protected ICurrentTenant CurrentTenant { get; }
         protected IOssClientFactory OssClientFactory { get; }

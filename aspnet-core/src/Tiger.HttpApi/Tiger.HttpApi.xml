@@ -4,6 +4,11 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Module.OssManagement.OssContainerController">
+            <summary>
+            Oss对象存储
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.CacheController">
             <summary>
             缓存管理

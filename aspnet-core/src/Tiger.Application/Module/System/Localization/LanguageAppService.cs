@@ -72,7 +72,7 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
     /// <summary>
     /// ±‡º≠”Ô—‘
     /// </summary>
-    [Authorize(LocalizationPermissions.Languages.Edit)]
+    [Authorize(LocalizationPermissions.Languages.Update)]
     public async Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageDto input)
     {
         var language = await LanguageRepository.GetAsync(id);

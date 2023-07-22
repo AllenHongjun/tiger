@@ -19,6 +19,8 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.IdentityServer;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Tiger.Module.OssManagement.Aliyun;
+using Tiger.Module.OssManagement;
 
 namespace Tiger
 {
@@ -69,8 +71,10 @@ namespace Tiger
 
                 options.AutoEventSelectors.Add<Edition>();
                 options.AutoEventSelectors.Add<Tenant>();
-            }); 
+            });
             #endregion
+
+            
 
 #if DEBUG
             //NullEmailSender 是实现 IEmailSender 的内置类，但将电子邮件内容写入 标准日志系统，而不是实际发送电子邮件。

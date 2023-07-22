@@ -1,4 +1,7 @@
 ﻿using Tiger.Localization;
+using Tiger.Module.OssManagement.Localization;
+using Tiger.Module.System.Localization;
+using Tiger.Module.System.Platform.Localization;
 using Tiger.Module.System.TextTemplate.Localization;
 using Tiger.Volo.Abp.Identity;
 using Tiger.Volo.Abp.SettingUi.Localization;
@@ -52,6 +55,7 @@ namespace Tiger
                 options.FileSets.AddEmbedded<TigerDomainSharedModule>();
             });
 
+            #region Rescource 资源配置
             // 定义新的资源类 需要在模块中引入配置
             Configure<AbpLocalizationOptions>(options =>
             {
@@ -62,14 +66,25 @@ namespace Tiger
                     .AddVirtualJson("/Localization/Tiger");// 用JSON文件存储本地化字符串. 使用虚拟文件系统 将JSON文件嵌入到程序集中.
 
                 options.Resources
+                       .Add<AbpOssManagementResource>("zh-Hans")
+                       .AddVirtualJson("/Module/OssManagement/Localization/Resources");
+
+                options.Resources
+                       .Add<PlatformResource>("zh-Hans")
+                       .AddVirtualJson("/Module/System/Platform/Localization/Resources");
+
+                options.Resources
+                       .Add<AbpLocalizationResource>("zh-Hans")
+                       //.AddBaseTypes(typeof(TigerResource))//资源可以从其他资源继承,这使得可以在不引用现有资源的情况下重用现有的本地化字符串 Inherit from an existin
+                       .AddVirtualJson("/Module/System/Localization/Resources");
+
+                options.Resources
                     .Get<IdentityResource>()  // 扩展现有资源(和abp框架默认的资源路径相同就会覆盖)
                     .AddVirtualJson("/Volo/Abp/Identity/Localization/Extensions");
 
                 options.Resources
                     .Get<AuditLoggingResource>() // 扩展现有的资源
                     .AddVirtualJson("/Volo/Abp/AuditLogging/Localization/Extensions");
-
-                //Configure<AbpVirtualFileSystemOptions>(options => { options.FileSets.AddEmbedded<AbpSettingUiDomainSharedModule>(); });
 
                 options.Resources
                        .Add<SettingUiResource>("en")
@@ -86,7 +101,8 @@ namespace Tiger
             Configure<AbpExceptionLocalizationOptions>(options =>
             {
                 options.MapCodeNamespace("Tiger", typeof(TigerResource));
-            });
+            }); 
+            #endregion
 
             // The [Virtual File System](Virtual-File-System.md) requires to add your files in the `ConfigureServices` method of your [module](Module-Development-Basics.md) class:
             Configure<AbpVirtualFileSystemOptions>(options =>

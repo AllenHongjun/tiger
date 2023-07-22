@@ -62,7 +62,7 @@ public class LanguageTextAppService : ApplicationService,ILanguageTextAppService
         return  new PagedResultDto<LanguageTextDto>(totalCount,ObjectMapper.Map<List<LanguageText>,List<LanguageTextDto>>(list));
     }
 
-    [Authorize(LocalizationPermissions.LanguageTexts.Edit)]
+    [Authorize(LocalizationPermissions.LanguageTexts.Update)]
     public Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageTextDto input)
     {
         throw new NotImplementedException();

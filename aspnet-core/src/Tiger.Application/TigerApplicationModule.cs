@@ -6,6 +6,8 @@ using System;
 using System.Collections.Specialized;
 using Tiger.Blob.Qinui;
 using Tiger.BlobDemo;
+using Tiger.Module.OssManagement.Aliyun;
+using Tiger.Module.OssManagement;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BackgroundJobs;
@@ -121,6 +123,11 @@ namespace Tiger
                     //    // customize exception handling
                     //};
                 });
+            #endregion
+
+            #region 阿里云容器实现注入
+            // 在模块中依赖注入阿里云容器的实现（这个不能命名的类不知自动注入）
+            context.Services.AddTransient<IOssContainerFactory, AliyunOssContainerFactory>(); 
             #endregion
 
 

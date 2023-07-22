@@ -18,19 +18,19 @@ namespace Tiger.Module.System.Localization.Permissions
 
             var languages = localizationGroup.AddPermission(LocalizationPermissions.Languages.Default, L("Permission:Languages"));
             languages.AddChild(LocalizationPermissions.Languages.Create, L("Permission:Create"));
-            languages.AddChild(LocalizationPermissions.Languages.Edit, L("Permission:Edit"));
+            languages.AddChild(LocalizationPermissions.Languages.Update, L("Permission:Update"));
             languages.AddChild(LocalizationPermissions.Languages.Delete, L("Permission:Delete"));
             languages.AddChild(LocalizationPermissions.Languages.ChangeDefault, L("Permission:LanguagesChangeDefault"));
 
 
             var languageTexts = localizationGroup.AddPermission(LocalizationPermissions.LanguageTexts.Default, L("Permission:LanguageTexts"));
-            languageTexts.AddChild(LocalizationPermissions.LanguageTexts.Edit, L("Permission:Edit"));
+            languageTexts.AddChild(LocalizationPermissions.LanguageTexts.Update, L("Permission:Update"));
             languageTexts.AddChild(LocalizationPermissions.LanguageTexts.Create, L("Permission:Create"));
         }
 
         private static LocalizableString L(string name)
         {
-            return LocalizableString.Create<LocalizationResource>(name);
+            return LocalizableString.Create<AbpLocalizationResource>(name);
         }
     }
 }

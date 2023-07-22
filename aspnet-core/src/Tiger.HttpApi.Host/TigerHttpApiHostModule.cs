@@ -586,9 +586,9 @@ namespace Tiger
             {
                 // 配置自定义的样式
                 //options.InjectStylesheet("/swagger-ui/custom.css");
+                options.SwaggerEndpoint("/swagger/oss-management/swagger.json", "OssManagement");
                 options.SwaggerEndpoint("/swagger/admin/swagger.json", "SystemSettings");
                 options.SwaggerEndpoint("/swagger/identity-server/swagger.json", "IdentityServer");
-                options.SwaggerEndpoint("/swagger/oss-management/swagger.json", "OssManagement");
 
                 //options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
                 //options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");

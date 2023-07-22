@@ -9,7 +9,10 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp;
 
 namespace Tiger.Module.OssManagement
-{
+{   
+    /// <summary>
+    /// Oss对象存储
+    /// </summary>
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.OssManagementGroupName)]
     [RemoteService(Name = OssManagementRemoteServiceConsts.RemoteServiceName)]
     [Area("oss-management")]
