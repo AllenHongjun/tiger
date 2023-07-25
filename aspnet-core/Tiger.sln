@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C2D49CB9-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Site", "Site", "{82F40896-E4F2-4708-9F19-CABC9F33D4EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tiger.BackgroundWorker", "src\Tiger.BackgroundWorker\Tiger.BackgroundWorker.csproj", "{106F09A4-411A-441A-B018-B60D653CFDA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{748584B1-BA69-4F6A-81AA-F4BDE6BCE29D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{106F09A4-411A-441A-B018-B60D653CFDA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{106F09A4-411A-441A-B018-B60D653CFDA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{106F09A4-411A-441A-B018-B60D653CFDA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{106F09A4-411A-441A-B018-B60D653CFDA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +141,7 @@ Global
 		{F8FDD73B-305F-4C33-A1E8-3A91B3CD877A} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{C2D49CB9-615F-4EAC-98AE-0CAFF9504B83} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{82F40896-E4F2-4708-9F19-CABC9F33D4EF} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
+		{106F09A4-411A-441A-B018-B60D653CFDA9} = {82F40896-E4F2-4708-9F19-CABC9F33D4EF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

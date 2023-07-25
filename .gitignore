@@ -254,6 +254,7 @@ paket-files/
 # Tiger
 aspnet-core/src/Tiger.Web/Logs/*
 aspnet-core/src/Tiger.Web.Host/Logs/*
+aspnet-core/src/Tiger.BackgroundWorker/Logs/*
 aspnet-core/src/Tiger.IdentityServer/Logs/*
 aspnet-core/src/Tiger.HttpApi.Host/Logs/*
 aspnet-core/src/Tiger.HttpApi.Host/Logs/*
