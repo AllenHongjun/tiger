@@ -31,8 +31,8 @@ namespace Tiger.Module.OssManagement
         [Authorize(AbpOssManagementPermissions.OssObject.Create)]
         public async virtual Task<OssObjectDto> CreateAsync(CreateOssObjectInput input)
         {
-            // 内容为空时建立目录 || !input.File.ContentLength.HasValue
-            if (input.File == null )
+            // 内容为空时建立目录 
+            if (input.File.Length <= 0)
             {
                 var oss = CreateOssContainer();
                 var request = new CreateOssObjectRequest(
@@ -77,7 +77,7 @@ namespace Tiger.Module.OssManagement
             return ObjectMapper.Map<OssObject, OssObjectDto>(ossObject);
         }
 
-        public async virtual Task<IRemoteStreamContent> GetContentAsync(GetOssObjectInput input)
+        public async virtual Task<IFormFile> GetContentAsync(GetOssObjectInput input)
         {
             var oss = CreateOssContainer();
 

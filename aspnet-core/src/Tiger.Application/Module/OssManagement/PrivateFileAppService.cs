@@ -50,7 +50,7 @@ namespace Tiger.Module.OssManagement
         //    AbpOssManagementFeatureNames.OssObject.DownloadLimit,
         //    AbpOssManagementFeatureNames.OssObject.DownloadInterval,
         //    LimitPolicy.Month)]
-        public override async Task<IRemoteStreamContent> GetAsync(GetPublicFileInput input)
+        public override async Task<IFormFile> GetAsync(GetPublicFileInput input)
         {
             var ossObjectRequest = new GetOssObjectRequest(
                  GetCurrentBucket(),

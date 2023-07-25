@@ -69,7 +69,7 @@ namespace Tiger.Module.OssManagement
         //    AbpOssManagementFeatureNames.OssObject.DownloadLimit,
         //    AbpOssManagementFeatureNames.OssObject.DownloadInterval,
         //    LimitPolicy.Month)]
-        public override async Task<IRemoteStreamContent> GetAsync(GetPublicFileInput input)
+        public override async Task<IFormFile> GetAsync(GetPublicFileInput input)
         {
             await CheckPublicAccessAsync();
             await FeatureChecker.CheckEnabledAsync(AbpOssManagementFeatureNames.OssObject.DownloadFile);

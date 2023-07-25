@@ -18,6 +18,6 @@ namespace Tiger.Module.OssManagement.Dtos
         [Required]
         [DisableAuditing]
         [DisableValidation]
-        public IRemoteStreamContent File { get; set; }
+        public IFormFile File { get; set; }
     }
 }

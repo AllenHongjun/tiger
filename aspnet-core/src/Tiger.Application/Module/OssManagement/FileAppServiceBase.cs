@@ -101,7 +101,7 @@ namespace Tiger.Module.OssManagement
         //[RequiresFeature(
         //    AbpOssManagementFeatureNames.OssObject.DownloadLimit,
         //    AbpOssManagementFeatureNames.OssObject.DownloadInterval)]
-        public async virtual Task<IRemoteStreamContent> GetAsync(GetPublicFileInput input)
+        public async virtual Task<IFormFile> GetAsync(GetPublicFileInput input)
         {
             var ossObjectRequest = new GetOssObjectRequest(
                 GetCurrentBucket(),

@@ -2,13 +2,13 @@
 
 namespace Volo.Abp.Content;
 
-public class RemoteStreamContent : IRemoteStreamContent
+public class RemoteStreamContent : IFormFile
 {
     private readonly Stream _stream;
     private readonly bool _disposeStream;
     private bool _disposed;
 
-    public virtual string? FileName { get; }
+    public virtual string FileName { get; }
 
     public virtual string ContentType { get; } = "application/octet-stream";
 

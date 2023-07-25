@@ -49,7 +49,7 @@ namespace Tiger.Module.OssManagement
             return ossObject.Content;
         }
 
-        Task<IRemoteStreamContent> IStaticFilesAppService.GetAsync(GetStaticFileInput input)
+        Task<IFormFile> IStaticFilesAppService.GetAsync(GetStaticFileInput input)
         {
             throw new NotImplementedException();
         }

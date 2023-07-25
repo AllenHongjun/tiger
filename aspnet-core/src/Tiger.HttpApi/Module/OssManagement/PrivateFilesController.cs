@@ -32,14 +32,14 @@ namespace Tiger.Module.OssManagement
         }
 
         [HttpPost]
-        public async virtual Task<OssObjectDto> UploadAsync([FromForm] UploadFileInput input)
+        public async virtual Task<OssObjectDto> UploadAsync([FromForm]UploadFileInput input)
         {
             return await _service.UploadAsync(input);
         }
 
         [HttpPost]
         [Route("upload")]
-        public async virtual Task UploadAsync([FromForm] UploadFileChunkInput input)
+        public async virtual Task UploadAsync([FromForm]UploadFileChunkInput input)
         {
             await _service.UploadAsync(input);
         }
@@ -56,7 +56,7 @@ namespace Tiger.Module.OssManagement
         [Route("{Name}/{Process}")]
         [Route("p/{Path}/{Name}")]
         [Route("p/{Path}/{Name}/{Process}")]
-        public async virtual Task<IRemoteStreamContent> GetAsync([FromRoute] GetPublicFileInput input)
+        public async virtual Task<IFormFile> GetAsync([FromRoute] GetPublicFileInput input)
         {
             return await _service.GetAsync(input);
         }

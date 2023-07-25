@@ -175,6 +175,14 @@
             权限名称具有层次结构. 例如, "创建图书" 权限被定义为 `BookStore.Books.Create`. 
             </remarks>
         </member>
+        <member name="P:Tiger.Module.OssManagement.Dtos.CreateOssObjectInput.File">
+            <summary>
+            文件
+            </summary>
+            <remarks>
+            RemoteStreamContent 无法直接在swaggerUi中生成 文件上传图标
+            </remarks>
+        </member>
         <member name="P:Tiger.Module.OssManagement.Dtos.UploadFile.TotalSize">
             <summary>
             总文件大小

@@ -15,7 +15,7 @@ namespace Tiger.Module.OssManagement
 
         Task<OssObjectDto> GetAsync(GetOssObjectInput input);
 
-        Task<IRemoteStreamContent> GetContentAsync(GetOssObjectInput input);
+        Task<IFormFile> GetContentAsync(GetOssObjectInput input);
 
         Task DeleteAsync(GetOssObjectInput input);
 

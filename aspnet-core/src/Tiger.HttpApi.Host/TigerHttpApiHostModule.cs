@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using Tiger.BackgroundWorker;
 using Tiger.EntityFrameworkCore;
 using Tiger.Infrastructure.BackgroundWorker;
+using Tiger.Module.OssManagement;
 using Tiger.MultiTenancy;
 using Volo.Abp;
 using Volo.Abp.Account;
@@ -392,6 +393,9 @@ namespace Tiger
                     //{
                     //    { "Bearer", Enumerable.Empty<string>() }
                     // });
+
+                    // 给自定义的类添加文件上传按钮
+                    options.OperationFilter<FileUploadOperation>();
 
 
                     // 为 Swagger JSON and UI设置xml文档注释路径

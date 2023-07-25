@@ -11,6 +11,6 @@ namespace Tiger.Module.OssManagement
 {
     public interface IStaticFilesAppService : IApplicationService
     {
-        Task<IRemoteStreamContent> GetAsync(GetStaticFileInput input);
+        Task<IFormFile> GetAsync(GetStaticFileInput input);
     }
 }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Volo.Abp.Content;
 
-public interface IRemoteStreamContent : IDisposable
+public interface IFormFile : IDisposable
 {
     string? FileName { get; }
 

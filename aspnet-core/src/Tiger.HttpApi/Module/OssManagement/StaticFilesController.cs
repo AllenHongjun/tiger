@@ -47,7 +47,7 @@ namespace Tiger.Module.OssManagement
         [Route("{Bucket}/{Name}/{Process}")]
         [Route("{Bucket}/p/{Path}/{Name}")]
         [Route("{Bucket}/p/{Path}/{Name}/{Process}")]
-        public async virtual Task<IRemoteStreamContent> GetAsync([FromRoute] GetStaticFileInput input)
+        public async virtual Task<IFormFile> GetAsync([FromRoute] GetStaticFileInput input)
         {
             return await _staticFilesAppServic.GetAsync(input);
         }

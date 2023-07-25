@@ -60,7 +60,7 @@ namespace Tiger.Module.OssManagement
         [Route("{Name}/{Process}")]
         [Route("p/{Path}/{Name}")]
         [Route("p/{Path}/{Name}/{Process}")]
-        public async virtual Task<IRemoteStreamContent> GetAsync([FromRoute] GetPublicFileInput input)
+        public async virtual Task<IFormFile> GetAsync([FromRoute] GetPublicFileInput input)
         {
             return await _publicFileAppService.GetAsync(input);
         }

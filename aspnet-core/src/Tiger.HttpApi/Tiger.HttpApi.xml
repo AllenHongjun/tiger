@@ -4,6 +4,28 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Module.OssManagement.FileUploadOperation">
+            <summary>
+            Add extra parameters for uploading files in swagger.
+            
+            </summary>
+            <remarks>
+            https://stackoverflow.com/questions/50172268/how-can-i-add-an-upload-button-to-swagger-ui-in-net-core-web-api?rq=3
+            </remarks>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.FileUploadOperation.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Applies the specified operation.
+            </summary>
+            <param name="operation">The operation.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:Tiger.Module.OssManagement.FileUploadOperation.FileContentType">
+            <summary>
+            Indicates swashbuckle should consider the parameter as a file upload
+            指示 swashbuckle 应将参数视为文件上传
+            </summary>
+        </member>
         <member name="T:Tiger.Module.OssManagement.OssContainerController">
             <summary>
             Oss对象存储
