@@ -25,6 +25,7 @@
     <Compile Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
     <Compile Remove="PlatfromSdk\SpotifyAPI.Web\**" />
+    <Compile Remove="Tiger.Task\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
     <EmbeddedResource Remove="Business\Finances\**" />
@@ -41,6 +42,7 @@
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
     <EmbeddedResource Remove="PlatfromSdk\SpotifyAPI.Web\**" />
+    <EmbeddedResource Remove="Tiger.Task\**" />
     <None Remove="Business\Basic\**" />
     <None Remove="Business\Customers\**" />
     <None Remove="Business\Finances\**" />
@@ -57,6 +59,7 @@
     <None Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <None Remove="PlatfromSdk\PayPalApi\**" />
     <None Remove="PlatfromSdk\SpotifyAPI.Web\**" />
+    <None Remove="Tiger.Task\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CrystalQuartz.AspNetCore" Version="7.1.0" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="3.2.1" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tiger.Application\Tiger.Application.csproj" />
+    <ProjectReference Include="..\Tiger.EntityFrameworkCore.DbMigrations\Tiger.EntityFrameworkCore.DbMigrations.csproj" />
+    <ProjectReference Include="..\Tiger.HttpApi\Tiger.HttpApi.csproj" />
+  </ItemGroup>
+
+</Project>

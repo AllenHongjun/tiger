@@ -622,6 +622,7 @@ namespace Tiger
 
             #region 后台工作者 CrystalQuartz控制面板
             //// 组件地址: https://github.com/guryanovev/CrystalQuartz
+            ///  https://xxx.sss.com:端口/quartz
 
             //// 获取Abp 框架的IScheduler
             var scheduler = context.ServiceProvider
