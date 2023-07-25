@@ -79,15 +79,17 @@ namespace Tiger.Module.OssManagement
 
         protected override string GetCurrentBucket()
         {
-            return "public";
+            return "tiger-blob-public";
         }
 
-        protected async virtual Task CheckPublicAccessAsync()
-        {
-            if (!CurrentUser.IsAuthenticated)
-            {
-                await FeatureChecker.CheckEnabledAsync(AbpOssManagementFeatureNames.PublicAccess);
-            }
+        protected  virtual Task CheckPublicAccessAsync()
+        {   
+            return Task.CompletedTask;
+
+            //if (!CurrentUser.IsAuthenticated)
+            //{
+            //    await FeatureChecker.CheckEnabledAsync(AbpOssManagementFeatureNames.PublicAccess);
+            //}
         }
     }
 }

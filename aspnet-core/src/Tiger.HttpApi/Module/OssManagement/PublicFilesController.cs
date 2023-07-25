@@ -34,14 +34,25 @@ namespace Tiger.Module.OssManagement
         }
 
 
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
+        [Route("upload")]
         public async virtual Task<OssObjectDto> UploadAsync([FromForm] UploadFileInput input)
         {
             return await _publicFileAppService.UploadAsync(input);
         }
 
+        /// <summary>
+        /// 上传文件（分片）
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
-        [Route("upload")]
+        [Route("upload-chuck")]
         public async virtual Task UploadAsync([FromForm] UploadFileChunkInput input)
         {
             await _publicFileAppService.UploadAsync(input);

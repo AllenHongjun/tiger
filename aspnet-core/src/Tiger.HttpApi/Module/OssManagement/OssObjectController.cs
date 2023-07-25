@@ -33,7 +33,7 @@ namespace Tiger.Module.OssManagement
         }
 
         [HttpPost]
-        public async virtual Task<OssObjectDto> CreateAsync([FromForm]CreateOssObjectInput input)
+        public async virtual Task<OssObjectDto> CreateAsync([FromForm] CreateOssObjectInput input)
         {
             return await OssObjectAppService.CreateAsync(input);
         }
@@ -41,9 +41,8 @@ namespace Tiger.Module.OssManagement
         [HttpPost]
         [Route("upload")]
         [DisableAuditing]
-        [FileUploadOperation.FileContentType]
         [Authorize(AbpOssManagementPermissions.OssObject.Create)]
-        public async virtual Task UploadAsync([FromForm]UploadFileChunkInput input)
+        public async virtual Task UploadAsync([FromForm] UploadFileChunkInput input)
         {
             await FileUploader.UploadAsync(input);
         }

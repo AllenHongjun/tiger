@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Text;
 using Volo.Abp.Auditing;
-using Volo.Abp.Content;
 using Volo.Abp.Validation;
 
 namespace Tiger.Module.OssManagement.Dtos

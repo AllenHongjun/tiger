@@ -228,10 +228,11 @@ namespace Tiger.Module.OssManagement.Aliyun
                 FullName = aliyunOssObject.Key
             };
 
-            if (aliyunOssObject.IsSetResponseStream())
-            {
-                ossObject.SetContent(aliyunOssObject.Content);
-            }
+            // TODO: Exception  NotSupportedException: HashStream does not support seeking
+            //if (aliyunOssObject.IsSetResponseStream())
+            //{
+            //    ossObject.SetContent(aliyunOssObject.Content);
+            //}
 
             return ossObject;
         }

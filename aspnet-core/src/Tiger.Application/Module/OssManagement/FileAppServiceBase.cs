@@ -57,14 +57,14 @@ namespace Tiger.Module.OssManagement
         //    LimitPolicy.Month)]
         public async virtual Task<OssObjectDto> UploadAsync(UploadFileInput input)
         {
-            if (input.File == null || input.File.ContentLength.Value > 0)
+            if (input.File == null || input.File.Length <= 0)
             {
                 ThrowValidationException(L["FileNotBeNullOrEmpty"], "File");
             }
 
             await FileValidater.ValidationAsync(new UploadFile
             {
-                TotalSize = input.File.ContentLength.Value,
+                TotalSize = input.File.Length,
                 FileName = input.Object
             });
 
@@ -73,7 +73,7 @@ namespace Tiger.Module.OssManagement
             var createOssObjectRequest = new CreateOssObjectRequest(
                  GetCurrentBucket(),
                  HttpUtility.UrlDecode(input.Object),
-                 input.File.GetStream(),
+                 input.File.OpenReadStream(),
                  GetCurrentPath(HttpUtility.UrlDecode(input.Path)))
             {
                 Overwrite = input.Overwrite

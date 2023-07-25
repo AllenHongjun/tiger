@@ -53,7 +53,7 @@ namespace Tiger.Module.OssManagement
                     using (var fs = new FileStream(tempSavedFile, FileMode.Create, FileAccess.Write))
                     {
                         // 写入当前分片文件
-                        await input.File.GetStream().CopyToAsync(fs);
+                        await input.File.CopyToAsync(fs);
                     }
                 }
 
