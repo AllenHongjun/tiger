@@ -20,15 +20,10 @@ namespace Tiger.Infrastructure.BackgroundWorker
     /// </summary>
     public class PassiveUserCheckerWorker : QuartzBackgroundWorkerBase, ISingletonDependency
     {
-        private readonly IIdentityUserRepository _identityUserRepository;
 
-        public PassiveUserCheckerWorker(IIdentityUserRepository identityUserRepository)
+        public PassiveUserCheckerWorker()
         {   
-            // 不能直接这么获取
-            _identityUserRepository=identityUserRepository;
-
-
-            JobDetail = JobBuilder.Create<DailySalesWorker>()
+            JobDetail = JobBuilder.Create<PassiveUserCheckerWorker>()
                 .WithIdentity("Passive User Checker", "Report")
                 .Build();
 
@@ -56,7 +51,6 @@ namespace Tiger.Infrastructure.BackgroundWorker
             
 
             Logger.LogInformation($"user info -- {user.Name}");
-            var user1 =  await _identityUserRepository.FindByNormalizedUserNameAsync("admin");
 
             ////Do the work
             //await userRepository.UpdateInactiveUserStatusesAsync();
