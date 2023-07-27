@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Tiger.HttpApi\Tiger.HttpApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BackgroundJob\" />
+  </ItemGroup>
+
 </Project>
