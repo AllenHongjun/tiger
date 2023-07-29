@@ -9,7 +9,6 @@ using Volo.Abp.Users;
 namespace Tiger.CoreModule.AuditLog
 {
     /// <summary>
-    /// 
     /// 扩展审计系统的方法
     /// </summary>
     public class MyAuditLogContributor : AuditLogContributor

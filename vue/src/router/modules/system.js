@@ -72,7 +72,38 @@ const SystemManageRouter = {
           meta: { title: '安全日志', policy: 'AbpIdentity.IdentitySecurityLogs' }
         }
       ]
-
+    },
+    {
+      path: '/platform',
+      component: () => import('@/views/system/index'),
+      name: 'platform',
+      meta: {
+        title: '平台管理', // the name show in sidebar and breadcrumb (recommend set)
+        icon: 'el-icon-document-copy' // the icon show in the sidebar
+        // policy: 'AbpTextTemplating.TextTemplates'
+      },
+      children: [
+        {
+          path: 'data/list',
+          component: () => import('@/views/system/platform/data/index'), // Parent router-view
+          name: 'data',
+          meta: {
+            title: '数据字典' // the name show in sidebar and breadcrumb (recommend set)
+            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            // policy: 'AbpTextTemplating.TextTemplates'
+          }
+        },
+        {
+          path: 'menu/list',
+          component: () => import('@/views/system/platform/data/index'), // Parent router-view
+          name: 'menu',
+          meta: {
+            title: '菜单管理' // the name show in sidebar and breadcrumb (recommend set)
+            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            // policy: 'AbpTextTemplating.TextTemplates'
+          }
+        }
+      ]
     },
     {
       path: 'text-template/list',

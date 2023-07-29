@@ -64,14 +64,6 @@
 //        }
 
 
-
-
-
-
-
-
-
-
 //        protected virtual async Task<IQueryable<AuditLog>> GetListQueryAsync(
 //        DateTime? startTime = null,
 //        DateTime? endTime = null,
