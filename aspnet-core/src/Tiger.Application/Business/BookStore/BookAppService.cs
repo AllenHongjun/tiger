@@ -146,7 +146,7 @@ namespace Tiger.Books
         public override async Task<PagedResultDto<BookDto>>
             GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            await CheckGetListPolicyAsync();
+            //await CheckGetListPolicyAsync();
 
             //Prepare a query to join books and authors
             var query = from book in Repository
@@ -171,6 +171,7 @@ namespace Tiger.Books
 
             //Get the total count with another query
             var totalCount = await Repository.GetCountAsync();
+            _cache.Set("test1", new BookCacheItem() { Name = "名字1", Price = 10.9f });
 
             return new PagedResultDto<BookDto>(
                 totalCount,

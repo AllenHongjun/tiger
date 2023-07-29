@@ -13,13 +13,13 @@ using Volo.Abp.MultiTenancy;
 using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
 using Volo.Abp;
+using Microsoft.Extensions.Options;
 
 namespace Tiger.Module.System.Cache
 {
     /// <summary>
     /// StackExchangeRedis缓存管理实现
     /// </summary>
-    //[Dependency(ReplaceServices = true)]
     public class StackExchangeRedisCacheManager : ICacheManager, ISingletonDependency
     {
         private readonly static MethodInfo GetRedisDatabaseMethod;
@@ -36,13 +36,13 @@ namespace Tiger.Module.System.Cache
         private IDatabase _redisDatabase;
 
         public StackExchangeRedisCacheManager(
-            RedisCacheOptions redisCacheOptions, 
-            AbpDistributedCacheOptions cacheOptions, 
             ICurrentTenant currentTenant, 
-            IDistributedCache distributedCache)
+            IDistributedCache distributedCache,
+            IOptions<AbpDistributedCacheOptions> cacheOptions,
+            IOptions<RedisCacheOptions> redisCacheOptions)
         {
-            RedisCacheOptions=redisCacheOptions;
-            CacheOptions=cacheOptions;
+            RedisCacheOptions=redisCacheOptions.Value;
+            CacheOptions=cacheOptions.Value;
             CurrentTenant=currentTenant;
             DistributedCache=distributedCache;
         }
@@ -107,7 +107,7 @@ namespace Tiger.Module.System.Cache
             // scan 0 match * count 50000
             // redis有自定义的key排序,由传递的marker来确定下一次检索起始位
 
-            var args = new object[] { request.Marker ?? "0", "match", match, "count", 50000 };
+            var args = new object[] { request.Marker ?? "0", "match", match, "count", 10 };
 
             var result = await RedisDatabase.ExecuteAsync("scan", args);
 
@@ -120,6 +120,8 @@ namespace Tiger.Module.System.Cache
                 (string)results[0],
                 (string[])results[1]);
         }
+
+        //TODO: 增加返回树型缓存列表数据
 
         public async Task<CacheValueResponse> GetValueAsync(string key, CancellationToken cancellationToken = default)
         {

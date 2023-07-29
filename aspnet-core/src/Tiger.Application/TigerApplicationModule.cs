@@ -24,6 +24,7 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.Quartz;
 using Volo.Abp.Sms;
 using Volo.Abp.TenantManagement;
+using Tiger.Module.System.Cache;
 
 namespace Tiger
 {
@@ -127,8 +128,11 @@ namespace Tiger
 
             #region 阿里云容器实现注入
             // 在模块中依赖注入阿里云容器的实现（这个不能命名的类不知自动注入）
-            context.Services.AddTransient<IOssContainerFactory, AliyunOssContainerFactory>(); 
+            context.Services.AddTransient<IOssContainerFactory, AliyunOssContainerFactory>();
             #endregion
+
+            // 注入StackExchangeRedis缓存管理实现
+            //context.Services.AddSingleton<ICacheManager, StackExchangeRedisCacheManager>();
 
 
         }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz;
 using Quartz.Impl;
+using StackExchange.Redis;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
@@ -43,6 +45,8 @@ using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.BackgroundWorkers.Quartz;
+using Volo.Abp.Caching;
+using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Data;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -66,6 +70,7 @@ namespace Tiger
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpAccountWebIdentityServerModule),
         //typeof(AbpAspNetCoreSerilogModule),  // 设置依赖于 SerilogModule 日志组件
+        typeof(AbpCachingStackExchangeRedisModule), // 依赖StackExchangeReids缓存处理模块
         typeof(AbpBackgroundJobsHangfireModule), //Hangfire 定时作业模块依赖
         //typeof(AbpBackgroundWorkersModule),  // ABP默认后台工作者
         typeof(AbpBackgroundWorkersQuartzModule) //Quartz 定时任务(abp叫后台工作者)
@@ -151,6 +156,7 @@ namespace Tiger
             ConfigureSwaggerServices(context);
             ConfigureHangfire(context, configuration);
             ConfigureTiming(context, configuration);
+            ConfigureCaching(context,configuration);
 
             #region 配置Abp  请求异常信息
             // Abp项目默认会启动内置的异常处理，默认不将异常信息发送到客户端。
@@ -182,6 +188,7 @@ namespace Tiger
             Configure<KestrelServerOptions>(x => x.AllowSynchronousIO = true);
             Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
             #endregion
+
 
         }
 
@@ -521,6 +528,23 @@ namespace Tiger
                 config.UseSqlServerStorage(configuration.GetConnectionString("Hangfire"));
             });
         }
+        #endregion
+
+        #region Reis缓存配置
+        private void ConfigureCaching(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            Configure<AbpDistributedCacheOptions>(options =>
+            {
+                configuration.GetSection("DistributedCache").Bind(options);
+            });
+
+            Configure<RedisCacheOptions>(options =>
+            {
+                var redisConfig = ConfigurationOptions.Parse(options.Configuration);
+                options.ConfigurationOptions = redisConfig;
+                options.InstanceName = configuration["Redis:InstanceName"];
+            });
+        } 
         #endregion
 
         #region 配置时区

@@ -21,7 +21,7 @@ namespace Tiger.Infrastructure.BackgroundWorker
                 .WithIdentity("log_trigger", "Maintenance")
                 .ForJob(JobDetail)
                 .StartNow()
-                .WithCronSchedule("0 0/15 * ? * *")
+                .WithCronSchedule("0 0 0/15 ? * *")
                 .Build();
 
         }
