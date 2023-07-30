@@ -11,7 +11,10 @@ namespace Tiger.Module.System.Platform.Datas.Dtos
     /// 有些参数很少的几个 就不要创建实体类
     /// </remarks>
     public class DataMoveDto
-    {
+    {   
+        /// <summary>
+        /// 字典父级id
+        /// </summary>
         public Guid? ParentId { get; set; }
     }
 }

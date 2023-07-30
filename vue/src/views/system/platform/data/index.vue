@@ -8,7 +8,10 @@
       </el-button>
     </div>
 
-    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" @sort-change="sortChange">
+    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+
+      <!-- 使用table自带的序号 -->
+      <el-table-column type="index" width="80" />
       <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
@@ -29,13 +32,20 @@
           <span>{{ row.description }}</span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="left">
+        <template slot-scope="{ row }">
+          <span>{{ row.creationTime | moment }}</span>
+        </template>
+      </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="180" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="240" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
           <el-button v-if="checkPermission('Platform.DataDictionary.Update')" type="primary" size="mini" @click="handleUpdate(row)">
             {{ $t("AppPlatform['Data:Edit']") }}
           </el-button>
-
+          <el-button v-if="checkPermission('Platform.DataDictionary.Update')" type="primary" size="mini" @click="handleDataItem(row)">
+            字典项目
+          </el-button>
           <el-button v-if="checkPermission('Platform.DataDictionary.Delete')" size="mini" type="danger" @click="handleDelete(row, $index)">
             {{ $t("AppPlatform['Data:Delete']") }}
           </el-button>
@@ -46,6 +56,7 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <data-dialog ref="dataDialog" @handleFilter="handleFilter" />
+    <data-item-dialog ref="dataItemDialog" @handleFilter="handleFilter" />
   </div>
 </template>
 
@@ -60,12 +71,14 @@ import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
 import DataDialog from './components/data-dialog'
+import DataItemDialog from './components/data-item-dialog'
 
 export default {
   name: 'DataDictionary',
   components: {
     Pagination,
-    DataDialog
+    DataDialog,
+    DataItemDialog
   },
   data() {
     return {
@@ -106,6 +119,9 @@ export default {
     },
     handleUpdate(row) {
       this.$refs['dataDialog'].handleUpdate(row)
+    },
+    handleDataItem(row) {
+      this.$refs['dataItemDialog'].getList(row)
     },
     handleDelete(row, index) {
       this.$confirm(

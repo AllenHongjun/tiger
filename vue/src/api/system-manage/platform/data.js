@@ -43,7 +43,7 @@ export function deleteData(id) {
 
 export function getDataByName(name) {
   return request({
-    url: `/api/platform/datas/${name}`,
+    url: `/api/platform/datas/by-name/${name}`,
     method: 'get'
   })
 }
@@ -67,7 +67,7 @@ export function MoveData(id) {
 
 export function createDataItem(id, payload) {
   return request({
-    url: `/api/platform/datas${id}/items`,
+    url: `/api/platform/datas/${id}/items`,
     method: 'post',
     data: payload
   })

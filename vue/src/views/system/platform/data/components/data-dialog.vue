@@ -13,7 +13,6 @@
       <el-form-item :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description">
         <el-input v-model="temp.description" />
       </el-form-item>
-
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">
@@ -39,11 +38,62 @@ export default {
   data() {
     return {
       temp: {
-        name: ''
+        id: undefined,
+        parentId: undefined,
+        name: '',
+        displayName: '',
+        description: ''
+      },
+      rules: {
+        name: [
+          {
+            required: true,
+            // 表单验证可以 扩展 AbpValidation 这个基类的资源，添加需要的验证
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AppPlatform['DisplayName:Name']")
+            ]),
+            trigger: 'blur'
+          },
+          {
+            max: 30,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AppPlatform['DisplayName:Name']"), '30']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        displayName: [
+          {
+            required: true,
+            // 表单验证可以 扩展 AbpValidation 这个基类的资源，添加需要的验证
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AppPlatform['DisplayName:DisplayName']")
+            ]),
+            trigger: 'blur'
+          },
+          {
+            max: 128,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AppPlatform['DisplayName:DisplayName']"), '128']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        description: [
+          {
+            max: 1024,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AppPlatform['DisplayName:DisplayName']"), '1024']
+            ),
+            trigger: 'blur'
+          }
+        ]
       },
       dialogStatus: '',
       dialogFormVisible: false
-
     }
   },
   methods: {

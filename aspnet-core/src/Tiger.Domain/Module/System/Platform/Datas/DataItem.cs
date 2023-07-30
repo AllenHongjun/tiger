@@ -51,7 +51,7 @@ namespace Tiger.Module.System.Platform.Datas
         /// <summary>
         /// 数据类型
         /// </summary>
-        public virtual ValueType ValueType { get; protected set;}
+        public virtual ValueType ValueType { get; set;}
 
         public virtual Guid DataId { get; protected set; }
 

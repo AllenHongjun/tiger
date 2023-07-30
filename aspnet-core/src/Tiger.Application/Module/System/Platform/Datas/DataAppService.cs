@@ -228,6 +228,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
         dataItem.DisplayName = input.DisplayName;
         dataItem.Description = input.Description;
         dataItem.AllowBeNull = input.AllowBeNull;
+        dataItem.ValueType = input.ValueType;
 
         await DataRepository.UpdateAsync(data);
         await CurrentUnitOfWork.SaveChangesAsync();
@@ -242,7 +243,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
     //[Authorize(PlatformPermissions.DataDictionary.ManageItems)]
     public async virtual Task DeleteItemAsync(Guid id, string name)
     {
-        var data = await DataRepository.GetAsync(id);
+        var data = await DataRepository.GetAsync(id, true);
         data.RemoveItem(name);
 
         await DataRepository.UpdateAsync(data);

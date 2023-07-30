@@ -47,10 +47,10 @@
             <el-form-item :label="$t('AbpIdentity[\'RoleName\']')" prop="name">
               <el-input v-model="temp.name" />
             </el-form-item>
-            <el-form-item :label="$t('AbpIdentity[\'DisplayName:IsDefault\']')" prop="title">
+            <el-form-item :label="$t('AbpIdentity[\'DisplayName:IsDefault\']')" prop="isDefault">
               <el-checkbox v-model="temp.isDefault" />
             </el-form-item>
-            <el-form-item :label="$t('AbpIdentity[\'DisplayName:IsPublic\']')" prop="title">
+            <el-form-item :label="$t('AbpIdentity[\'DisplayName:IsPublic\']')" prop="isPublic">
               <el-checkbox v-model="temp.isPublic" />
             </el-form-item>
           </el-form>

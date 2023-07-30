@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.Business.Demo;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -100,5 +101,17 @@ public class DataRepository : EfCoreRepository<TigerDbContext, Data, Guid>, IDat
             .PageBy(skipCount, maxResultCount)
             .ToListAsync(GetCancellationToken(cancellationToken));
     }
-    
+
+    /// <summary>
+    /// 包含子集
+    /// </summary>
+    /// <remarks>
+    /// 重写父类方法，不然会获取不到
+    /// </remarks>
+    /// <returns></returns>
+    public override IQueryable<Data> WithDetails()
+    {
+        return GetQueryable().IncludeDetails(); // Uses the extension method defined above
+    }
+
 }
