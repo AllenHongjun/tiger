@@ -178,7 +178,7 @@
         </member>
         <member name="T:Tiger.Module.System.MenuController">
             <summary>
-            菜单
+            菜单管理
             </summary>
         </member>
         <member name="M:Tiger.Module.System.MenuController.GetCurrentUserMenuListAsync(Tiger.Module.System.Platform.Menus.Dto.GetMenuInput)">
@@ -304,6 +304,13 @@
             <summary>
             版本文件管理
             </summary>
+        </member>
+        <member name="M:Tiger.Module.System.VersionController.CreateAsync(Tiger.Module.System.Platform.Versions.Dto.VersionCreateDto)">
+            <summary>
+            创建版本
+            </summary>
+            <param name="versionCreate"></param>
+            <returns></returns>
         </member>
         <member name="M:Tiger.Module.System.VersionController.AppendFileAsync(Tiger.Module.System.Platform.Versions.Dto.VersionFileCreateDto)">
             <summary>

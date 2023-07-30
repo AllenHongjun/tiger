@@ -563,6 +563,51 @@
             约定的Meta采用哪种数据字典,主要是约束路由必须字段的一致性
             </summary>
         </member>
+        <member name="T:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto">
+            <summary>
+            菜单
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.Path">
+            <summary>
+            路径
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.Redirect">
+            <summary>
+            跳转路径
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.Component">
+            <summary>
+            组件
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuCreateOrUpdateDto.IsPublic">
+            <summary>
+            是否公开
+            </summary>
+        </member>
         <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.Code">
             <summary>
             菜单编号
@@ -586,6 +631,46 @@
         <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuDto.LayoutId">
             <summary>
             所属布局标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetAllInput.Framework">
+            <summary>
+            框架
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetAllInput.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetAllInput.Sorting">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetAllInput.LayoutId">
+            <summary>
+            布局id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetListInput.Framework">
+            <summary>
+            框架
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetListInput.Filter">
+            <summary>
+            查询关键子
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetListInput.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuGetListInput.LayoutId">
+            <summary>
+            布局id
             </summary>
         </member>
         <member name="P:Tiger.Module.System.Platform.Menus.Dto.MenuItemDto.Code">

@@ -32,7 +32,7 @@
           <span>{{ row.description }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="left">
+      <el-table-column :label="$t('TigerUi[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.creationTime | moment }}</span>
         </template>
@@ -126,10 +126,10 @@ export default {
     handleDelete(row, index) {
       this.$confirm(
         this.$i18n.t(
-          "AppPlatform['TenantDeletionConfirmationMessage']",
+          "AbpUi['ItemWillBeDeletedMessageWithFormat']",
           [row.name]
         ),
-        this.$i18n.t("AppPlatform['AreYouSure']"), {
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']"), {
           confirmButtonText: this.$i18n.t("AbpUi['Yes']"),
           cancelButtonText: this.$i18n.t("AbpUi['Cancel']"),
           type: 'warning'

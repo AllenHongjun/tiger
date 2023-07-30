@@ -13,6 +13,8 @@
     "Error": "错误",
     "ErrorMessage": "操作失败！",
 
+    "DisplayName:CreationTime": "创建时间",
+
     "Feature:SocialLogins": "社交登录",
     "Feature:UserCount": "用户数量",
 

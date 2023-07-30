@@ -16,7 +16,7 @@ namespace Tiger.Module.System
 {
 
     /// <summary>
-    /// 菜单
+    /// 菜单管理
     /// </summary>
     [RemoteService(Name = PlatformRemoteServiceConsts.RemoteServiceName)]
     [Area("platform")]

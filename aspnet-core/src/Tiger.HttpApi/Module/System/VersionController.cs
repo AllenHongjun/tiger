@@ -29,7 +29,11 @@ namespace Tiger.Module.System
         private readonly IVersionAppService _versionAppService;
         private readonly ISettingProvider _settingProvider;
 
-        
+        /// <summary>
+        /// 创建版本
+        /// </summary>
+        /// <param name="versionCreate"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<VersionDto> CreateAsync(VersionCreateDto versionCreate)
         {

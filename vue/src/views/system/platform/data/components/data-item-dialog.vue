@@ -29,7 +29,9 @@
         </el-table-column>
         <el-table-column :label="$t('AppPlatform[\'DisplayName:AllowBeNull\']')" prop="allowBeNull" align="left">
           <template slot-scope="{ row }">
-            <span>{{ row.allowBeNull }}</span>
+            <el-tag :type="( row.allowBeNull ? 'success' : 'danger')">
+              {{ row.allowBeNull ? '是' : '否' }}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column :label="$t('AppPlatform[\'DisplayName:ValueType\']')" prop="valueType" align="left">
@@ -337,10 +339,10 @@ export default {
       var that = this
       this.$confirm(
         this.$i18n.t(
-          "AppPlatform['TenantDeletionConfirmationMessage']",
+          "AbpUi['ItemWillBeDeletedMessageWithFormat']",
           [row.name]
         ),
-        this.$i18n.t("AppPlatform['AreYouSure']"), {
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']"), {
           confirmButtonText: this.$i18n.t("AbpUi['Yes']"),
           cancelButtonText: this.$i18n.t("AbpUi['Cancel']"),
           type: 'warning'
@@ -365,7 +367,6 @@ export default {
 .data-item-dialog
 {
     overflow: hidden;
-
     ::v-deep .el-dialog {
         height: 70%;
         overflow: hidden;
