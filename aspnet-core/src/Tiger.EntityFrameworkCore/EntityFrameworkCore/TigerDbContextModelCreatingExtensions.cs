@@ -14,6 +14,7 @@ using Tiger.Module.System.Platform.Menus;
 using Tiger.Module.System.Platform.Routes;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Tiger.Module.System.Platform.Layouts;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -131,6 +132,19 @@ namespace Tiger.EntityFrameworkCore
 
             #region System
 
+
+
+            builder.Entity<Layout>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Layouts", TigerConsts.DbSchema);
+
+                b.Property(p => p.Framework)
+                    .HasMaxLength(LayoutConsts.MaxFrameworkLength)
+                    .HasColumnName(nameof(Layout.Framework))
+                    .IsRequired();
+
+                b.ConfigureRoute();
+            });
 
             #region Menu
             builder.Entity<Menu>(b =>

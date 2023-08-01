@@ -553,6 +553,31 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutCreateOrUpdateDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutCreateOrUpdateDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutCreateOrUpdateDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutCreateOrUpdateDto.Path">
+            <summary>
+            路径
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutCreateOrUpdateDto.Redirect">
+            <summary>
+            重定向路径
+            </summary>
+        </member>
         <member name="P:Tiger.Module.System.Platform.Layouts.Dto.LayoutDto.Framework">
             <summary>
             框架

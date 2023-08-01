@@ -95,7 +95,7 @@ const SystemManageRouter = {
         },
         {
           path: 'menu/list',
-          component: () => import('@/views/system/platform/data/index'), // Parent router-view
+          component: () => import('@/views/system/platform/menu/index'), // Parent router-view
           name: 'menu',
           meta: {
             title: '菜单管理' // the name show in sidebar and breadcrumb (recommend set)

@@ -609,6 +609,49 @@
             <param name="name"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Module.System.Platform.Layouts.LayoutAppService">
+            <summary>
+            布局
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.Platform.Layouts.LayoutAppService.CreateAsync(Tiger.Module.System.Platform.Layouts.Dto.LayoutCreateDto)">
+            <summary>
+            创建布局
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.Platform.Layouts.LayoutAppService.GetAllListAsync">
+            <summary>
+            获取所有布局
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Platform.Layouts.LayoutAppService.GetAsync(System.Guid)">
+            <summary>
+            根据id获取布局
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.Platform.Layouts.LayoutAppService.GetListAsync(Tiger.Module.System.Platform.Layouts.Dto.GetLayoutListInput)">
+            <summary>
+            分页查询布局列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.Platform.Layouts.LayoutAppService.UpdateAsync(System.Guid,Tiger.Module.System.Platform.Layouts.Dto.LayoutUpdateDto)">
+            <summary>
+            更新布局
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.System.Platform.Menus.MenuAppService">
             <summary>
             菜单

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,19 +29,19 @@ namespace Tiger.Module.System.Platform
                 return queryable;
             }
 
-            return queryable;
+            return queryable
+               ;
         }
 
-        //public static IQueryable<Data> IncludeDetails(this IQueryable<Data> queryable, bool include = true)
-        //{
-        //    if (!include)
-        //    {
-        //        return queryable;
-        //    }
+        public static IQueryable<Data> IncludeDetails(this IQueryable<Data> queryable, bool include = true)
+        {
+            if (!include)
+            {
+                return queryable;
+            }
 
-        //    return queryable
-        //        //.AsSplitQuery()
-        //        .Include(x => x.Items);
-        //}
+            return queryable
+                .Include(x => x.Items);
+        }
     }
 }

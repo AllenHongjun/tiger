@@ -119,6 +119,7 @@
     <Folder Include="Infrastructure\Validation\" />
     <Folder Include="Infrastructure\Authorization\" />
     <Folder Include="Infrastructure\ObjectExtensions\" />
+    <Folder Include="Infrastructure\UI.Navication\" />
     <Folder Include="Module\System\Message\Email\" />
     <Folder Include="Module\System\Message\Chat\" />
     <Folder Include="Volo\Abp\Auditing\" />
