@@ -1,48 +1,48 @@
 import request from '@/utils/request'
 import { transformAbpListQuery } from '@/utils/abp'
 
-export function getMenuList(params) {
+export function getLayouts(params) {
   return request({
-    url: '/api/platform/menus/search',
+    url: '/api/platform/layouts',
     method: 'get',
     params: transformAbpListQuery(params)
   })
 }
 
-export function getMenu(id) {
+export function getLayout(id) {
   return request({
-    url: `/api/platform/menus/${id}`,
+    url: `/api/platform/layouts/${id}`,
     method: 'get'
   })
 }
 
-export function getAllMenu(params) {
+export function getAllLayout(params) {
   return request({
-    url: `/api/platform/menus/all`,
+    url: `/api/platform/layouts/all`,
     method: 'get',
     params: transformAbpListQuery(params)
   })
 }
 
-export function createMenu(payload) {
+export function createLayout(payload) {
   return request({
-    url: '/api/platform/menus',
+    url: '/api/platform/layouts',
     method: 'post',
     data: payload
   })
 }
 
-export function updateMenu(id, payload) {
+export function updateLayout(id, payload) {
   return request({
-    url: `/api/platform/menus/${id}`,
+    url: `/api/platform/layouts/${id}`,
     method: 'put',
     data: payload
   })
 }
 
-export function deleteMenu(id) {
+export function deleteLayout(id) {
   return request({
-    url: `/api/platform/menus/${id}`,
+    url: `/api/platform/layouts/${id}`,
     method: 'delete'
   })
 }

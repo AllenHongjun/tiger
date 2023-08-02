@@ -11,6 +11,6 @@ namespace Tiger.Module.System.Platform.Layouts.Dto
 
         [Required]
         [DynamicStringLength(typeof(LayoutConsts), nameof(LayoutConsts.MaxFrameworkLength))]
-        public string Framework { get; set; }
+        public string Freamwork { get; set; }
     }
 }

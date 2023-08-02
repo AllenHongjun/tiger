@@ -44,9 +44,9 @@ namespace Tiger.Module.System.Platform.Layouts
                 GuidGenerator.Create(),
                 input.Path,
                 input.Name,
-                input.Description,
+                input.DisplayName,
                 input.DataId,
-                input.Framework,
+                input.Freamwork,
                 input.Redirect,
                 input.Description,
                 CurrentTenant.Id

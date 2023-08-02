@@ -18,7 +18,6 @@ namespace Tiger.Module.System
     [RemoteService(Name = PlatformRemoteServiceConsts.RemoteServiceName)]
     [Area("platform")]
     [Route("api/platform/layouts")]
-    
     public class LayoutController:AbpController, ILayoutAppService
     {
         public LayoutController(ILayoutAppService layoutAppService)
@@ -46,6 +45,7 @@ namespace Tiger.Module.System
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Route("{id}")]
         public Task DeleteAsync(Guid id)
         {
             return LayoutAppService.DeleteAsync(id);

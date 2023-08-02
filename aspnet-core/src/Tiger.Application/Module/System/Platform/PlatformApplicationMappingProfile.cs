@@ -8,6 +8,8 @@ using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Platform.Menus;
 using Tiger.Module.System.Platform.Versions;
 using Tiger.Module.System.Platform.Menus.Dto;
+using Tiger.Module.System.Platform.Layouts;
+using Tiger.Module.System.Platform.Layouts.Dto;
 
 namespace Tiger.Module.System.Platform
 {
@@ -23,8 +25,8 @@ namespace Tiger.Module.System.Platform
             CreateMap<Menu, MenuDto>()
                 .ForMember(dto => dto.Meta, map => map.MapFrom(src => src.ExtraProperties))
                 .ForMember(dto => dto.Startup, map => map.Ignore());
-            //CreateMap<Layout, LayoutDto>()
-            //    .ForMember(dto => dto.Meta, map => map.MapFrom(src => src.ExtraProperties));
+            CreateMap<Layout, LayoutDto>()
+                .ForMember(dto => dto.Meta, map => map.MapFrom(src => src.ExtraProperties));
             //CreateMap<UserFavoriteMenu, UserFavoriteMenuDto>();
         }
 

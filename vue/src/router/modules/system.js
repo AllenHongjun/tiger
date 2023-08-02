@@ -53,12 +53,6 @@ const SystemManageRouter = {
           meta: { title: '用户管理', policy: 'AbpIdentity.Users' }
         },
         {
-          path: '/menu/list',
-          component: () => import('@/views/system/identity/menu/index'),
-          name: 'menu-list',
-          meta: { title: '菜单管理', policy: 'AbpIdentity.Users' }
-        },
-        {
           path: '/claim-type/list',
           component: () => import('@/views/system/identity/claim-types/index'),
           name: 'claim-type',
@@ -99,6 +93,16 @@ const SystemManageRouter = {
           name: 'menu',
           meta: {
             title: '菜单管理' // the name show in sidebar and breadcrumb (recommend set)
+            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            // policy: 'AbpTextTemplating.TextTemplates'
+          }
+        },
+        {
+          path: 'layout/list',
+          component: () => import('@/views/system/platform/layout/index'), // Parent router-view
+          name: 'layout',
+          meta: {
+            title: '布局管理' // the name show in sidebar and breadcrumb (recommend set)
             // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }
