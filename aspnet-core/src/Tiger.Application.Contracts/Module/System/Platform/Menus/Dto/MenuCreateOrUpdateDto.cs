@@ -61,6 +61,16 @@ namespace Tiger.Module.System.Platform.Menus.Dto
         /// </summary>
         public bool IsPublic { get; set; }
 
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public bool Status { get; set; }
+
+        /// <summary>
+        /// 图标
+        /// </summary>
+        public string Icon { get; set; }
+
         public Dictionary<string, object> Meta { get; set; } = new Dictionary<string, object>();
     }
 }

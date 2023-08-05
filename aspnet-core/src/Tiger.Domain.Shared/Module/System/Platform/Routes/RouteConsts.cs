@@ -12,7 +12,7 @@ namespace Tiger.Module.System.Platform.Routes
         public static int MaxDescriptionLength { get; set; } = 256;
         public static int MaxIconLength { get; set; } = 128;
         public static int MaxPathLength { get; set; } = 256;
-        public static int MaxRedirectLength { get; set; } = 255;
+        public static int MaxRedirectLength { get; set; } = 256;
 
         /// <summary>
         /// 层级深度

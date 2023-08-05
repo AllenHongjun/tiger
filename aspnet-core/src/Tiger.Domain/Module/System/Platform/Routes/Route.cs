@@ -46,6 +46,16 @@ namespace Tiger.Module.System.Platform.Routes
         /// </summary>
         public virtual string Redirect { get; set; }
 
+        /// <summary>
+        /// 状态 启用；禁用
+        /// </summary>
+        public virtual bool Status { get; set; }
+
+        /// <summary>
+        /// 图标
+        /// </summary>
+        public virtual string Icon { get; set; }
+
         protected Route() { }
 
         protected Route(
@@ -55,6 +65,8 @@ namespace Tiger.Module.System.Platform.Routes
             [NotNull] string displayName,
             [CanBeNull] string redirect = "",
             [CanBeNull] string description = "",
+            [NotNull] bool status = true,
+            [CanBeNull] string icon = "",
             [CanBeNull] Guid? tenantId = null)
             : base(id)
         {
@@ -67,6 +79,8 @@ namespace Tiger.Module.System.Platform.Routes
             DisplayName = displayName;
             Redirect = redirect;
             Description = description;
+            Status = status;
+            Icon = icon;
             TenantId = tenantId;
         }
 

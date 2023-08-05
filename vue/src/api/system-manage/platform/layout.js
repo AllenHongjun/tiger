@@ -16,11 +16,10 @@ export function getLayout(id) {
   })
 }
 
-export function getAllLayout(params) {
+export function getAllLayout() {
   return request({
     url: `/api/platform/layouts/all`,
-    method: 'get',
-    params: transformAbpListQuery(params)
+    method: 'get'
   })
 }
 

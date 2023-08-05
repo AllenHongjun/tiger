@@ -58,7 +58,7 @@ namespace Tiger.Module.System.Platform.Menus
         public async Task<MenuDto> CreateAsync(MenuCreateDto input)
         {
             var layout = await LayoutRepository.GetAsync(input.LayoutId);
-            var data = await DataRepository.GetAsync(layout.DataId);
+            //var data = await DataRepository.GetAsync(layout.DataId);
 
             var menu = await MenuManager.CreateAsync(
                 layout,
@@ -70,31 +70,110 @@ namespace Tiger.Module.System.Platform.Menus
                 input.Redirect,
                 input.Description,
                 input.ParentId,
+                input.Status,
+                input.Icon,
                 CurrentTenant.Id,
                 input.IsPublic);
 
-            // 利用布局约定的数据字典来校验必须的路由元数据,元数据的加入是为了适配多端路由
-            foreach (var dataItem in data.Items)
-            {
-                if (!input.Meta.TryGetValue(dataItem.Name, out object meta))
-                {
-                    if (!dataItem.AllowBeNull)
-                    {
-                        throw new BusinessException(PlatformErrorCodes.MenuMissingMetadata)
-                            .WithData("Name", dataItem.DisplayName)
-                            .WithData("DataName", data.DisplayName);
-                    }
-                    // 是否需要设定默认值
-                    menu.SetProperty(dataItem.Name, dataItem.DefaultValue);
-                }
-                else
-                {
-                    //// 需要检查参数是否有效
-                    //menu.SetProperty(dataItem.Name, DataItemMapping.MapToString(dataItem.ValueType, meta));
-                }
-            }
+            //// 利用布局约定的数据字典来校验必须的路由元数据,元数据的加入是为了适配多端路由
+            //foreach (var dataItem in data.Items)
+            //{
+            //    if (!input.Meta.TryGetValue(dataItem.Name, out object meta))
+            //    {
+            //        if (!dataItem.AllowBeNull)
+            //        {
+            //            throw new BusinessException(PlatformErrorCodes.MenuMissingMetadata)
+            //                .WithData("Name", dataItem.DisplayName)
+            //                .WithData("DataName", data.DisplayName);
+            //        }
+            //        // 是否需要设定默认值
+            //        menu.SetProperty(dataItem.Name, dataItem.DefaultValue);
+            //    }
+            //    else
+            //    {
+            //        //// 需要检查参数是否有效
+            //        //menu.SetProperty(dataItem.Name, DataItemMapping.MapToString(dataItem.ValueType, meta));
+            //    }
+            //}
 
             await CurrentUnitOfWork.SaveChangesAsync();
+            return ObjectMapper.Map<Menu, MenuDto>(menu);
+        }
+
+        /// <summary>
+        /// 更新菜单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [Authorize(PlatformPermissions.Menu.Update)]
+        public async Task<MenuDto> UpdateAsync(Guid id, MenuUpdateDto input)
+        {
+            var menu = await MenuRepository.GetAsync(id);
+
+            #region 关联数据字典
+            // 利用布局约定的数据字典来校验必须的路由元数据,元数据的加入是为了适配多端路由
+            var layout = await LayoutRepository.GetAsync(menu.LayoutId);
+            //var data = await DataRepository.GetAsync(layout.DataId);
+            //foreach (var dataItem in data.Items)
+            //{
+            //    if (!input.Meta.TryGetValue(dataItem.Name, out object meta))
+            //    {
+            //        if (!dataItem.AllowBeNull)
+            //        {
+            //            throw new BusinessException(PlatformErrorCodes.MenuMissingMetadata)
+            //                .WithData("Name", dataItem.DisplayName)
+            //                .WithData("DataName", data.DisplayName);
+            //        }
+            //        // 是否需要设定默认值?
+            //        menu.SetProperty(dataItem.Name, dataItem.DefaultValue);
+            //    }
+            //    else
+            //    {
+            //        // 与现有的数据做对比
+            //        var menuMeta = menu.GetProperty(dataItem.Name);
+            //        if (menuMeta != null && menuMeta.Equals(meta))
+            //        {
+            //            continue;
+            //        }
+            //        //// 需要检查参数是否有效
+            //        //menu.SetProperty(dataItem.Name, DataItemMapping.MapToString(dataItem.ValueType, meta));
+            //    }
+            //} 
+            #endregion
+
+            if (!string.Equals(menu.Name, input.Name, StringComparison.InvariantCultureIgnoreCase))
+            {
+                menu.Name = input.Name;
+            }
+            if (!string.Equals(menu.DisplayName, input.DisplayName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                menu.DisplayName = input.DisplayName;
+            }
+            if (!string.Equals(menu.Description, input.Description, StringComparison.InvariantCultureIgnoreCase))
+            {
+                menu.Description = input.Description;
+            }
+            if (!string.Equals(menu.Path, input.Path, StringComparison.InvariantCultureIgnoreCase))
+            {
+                menu.Path = input.Path;
+            }
+            if (!string.Equals(menu.Redirect, input.Redirect, StringComparison.InvariantCultureIgnoreCase))
+            {
+                menu.Redirect = input.Redirect;
+            }
+            if (!string.Equals(menu.Component, input.Component, StringComparison.InvariantCultureIgnoreCase))
+            {
+                menu.Component = input.Component;
+            }
+            menu.ParentId = input.ParentId;
+            menu.Status = input.Status;
+            menu.Icon = input.Icon;
+            menu.IsPublic = input.IsPublic;
+
+            await MenuManager.UpdateAsync(menu);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
             return ObjectMapper.Map<Menu, MenuDto>(menu);
         }
 
@@ -252,78 +331,6 @@ namespace Tiger.Module.System.Platform.Menus
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// 更新菜单
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [Authorize(PlatformPermissions.Menu.Update)]
-        public async Task<MenuDto> UpdateAsync(Guid id, MenuUpdateDto input)
-        {
-            var menu = await MenuRepository.GetAsync(id);
-
-            // 利用布局约定的数据字典来校验必须的路由元数据,元数据的加入是为了适配多端路由
-            var layout = await LayoutRepository.GetAsync(menu.LayoutId);
-            var data = await DataRepository.GetAsync(layout.DataId);
-            foreach (var dataItem in data.Items)
-            {
-                if (!input.Meta.TryGetValue(dataItem.Name, out object meta))
-                {
-                    if (!dataItem.AllowBeNull)
-                    {
-                        throw new BusinessException(PlatformErrorCodes.MenuMissingMetadata)
-                            .WithData("Name", dataItem.DisplayName)
-                            .WithData("DataName", data.DisplayName);
-                    }
-                    // 是否需要设定默认值?
-                    menu.SetProperty(dataItem.Name, dataItem.DefaultValue);
-                }
-                else
-                {
-                    // 与现有的数据做对比
-                    var menuMeta = menu.GetProperty(dataItem.Name);
-                    if (menuMeta != null && menuMeta.Equals(meta))
-                    {
-                        continue;
-                    }
-                    //// 需要检查参数是否有效
-                    //menu.SetProperty(dataItem.Name, DataItemMapping.MapToString(dataItem.ValueType, meta));
-                }
-            }
-
-            if (!string.Equals(menu.Name, input.Name, StringComparison.InvariantCultureIgnoreCase))
-            {
-                menu.Name = input.Name;
-            }
-            if (!string.Equals(menu.DisplayName, input.DisplayName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                menu.DisplayName = input.DisplayName;
-            }
-            if (!string.Equals(menu.Description, input.Description, StringComparison.InvariantCultureIgnoreCase))
-            {
-                menu.Description = input.Description;
-            }
-            if (!string.Equals(menu.Path, input.Path, StringComparison.InvariantCultureIgnoreCase))
-            {
-                menu.Path = input.Path;
-            }
-            if (!string.Equals(menu.Redirect, input.Redirect, StringComparison.InvariantCultureIgnoreCase))
-            {
-                menu.Redirect = input.Redirect;
-            }
-            if (!string.Equals(menu.Component, input.Component, StringComparison.InvariantCultureIgnoreCase))
-            {
-                menu.Component = input.Component;
-            }
-
-            menu.ParentId = input.ParentId;
-            menu.IsPublic = input.IsPublic;
-
-            await MenuManager.UpdateAsync(menu);
-            await CurrentUnitOfWork.SaveChangesAsync();
-
-            return ObjectMapper.Map<Menu, MenuDto>(menu);
-        }
+        
     }
 }

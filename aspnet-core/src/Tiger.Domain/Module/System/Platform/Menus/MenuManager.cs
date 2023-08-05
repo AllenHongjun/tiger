@@ -60,6 +60,8 @@ namespace Tiger.Module.System.Platform.Menus
             string redirect = "",
             string description = "",
             Guid? parentId = null,
+            bool status = true,
+            string icon = "",
             Guid? tenantId = null,
             bool isPublic = false
             )
@@ -73,7 +75,7 @@ namespace Tiger.Module.System.Platform.Menus
 
             var menu = new Menu(
                 id, layout.Id, path, name, code, component, displayName, layout.Framework, redirect,
-                description, parentId, tenantId)
+                description, parentId, status, icon, tenantId)
             {
                 IsPublic = isPublic
             };

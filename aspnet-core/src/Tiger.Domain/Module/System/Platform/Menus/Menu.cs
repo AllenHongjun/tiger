@@ -1,6 +1,6 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Tiger.Module.System.Platform.Routes;
 using Volo.Abp;
@@ -32,8 +32,10 @@ namespace Tiger.Module.System.Platform.Menus
             string redirect = "",
             string description = "",
             Guid? parentId = null,
+            [NotNull] bool status = true,
+            [CanBeNull] string icon = "",
             Guid? tenantId = null
-            ): base(id, path, name, displayName, redirect, description, tenantId)
+            ): base(id, path, name, displayName, redirect, description,status,icon, tenantId)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
 

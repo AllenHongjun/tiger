@@ -664,6 +664,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.System.Platform.Menus.MenuAppService.UpdateAsync(System.Guid,Tiger.Module.System.Platform.Menus.Dto.MenuUpdateDto)">
+            <summary>
+            更新菜单
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.System.Platform.Menus.MenuAppService.DeleteAsync(System.Guid)">
             <summary>
             删除菜单
@@ -697,14 +705,6 @@
             <summary>
             获取角色菜单
             </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Module.System.Platform.Menus.MenuAppService.UpdateAsync(System.Guid,Tiger.Module.System.Platform.Menus.Dto.MenuUpdateDto)">
-            <summary>
-            更新菜单
-            </summary>
-            <param name="id"></param>
             <param name="input"></param>
             <returns></returns>
         </member>

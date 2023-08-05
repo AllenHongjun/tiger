@@ -38,6 +38,8 @@
     "DisplayName:Redirect": "重定向路径",
     "DisplayName:Meta": "元数据",
     "DisplayName:Component": "组件",
+    "DisplayName:Status": "状态",
+    "DisplayName:Icon": "图标",
     "DisplayName:Filter": "筛选",
     "DisplayName:PlatformType": "平台类型",
     "DisplayName:SecrchMenu": "查询菜单",
