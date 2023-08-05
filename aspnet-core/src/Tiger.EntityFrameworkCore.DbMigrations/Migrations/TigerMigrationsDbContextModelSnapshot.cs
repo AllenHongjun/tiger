@@ -570,6 +570,9 @@ namespace Tiger.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("IsDeleted")
@@ -597,8 +600,12 @@ namespace Tiger.Migrations
 
                     b.Property<string>("Redirect")
                         .HasColumnName("Redirect")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("Status")
+                        .HasColumnName("Status")
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
@@ -671,6 +678,9 @@ namespace Tiger.Migrations
                         .HasComment("框架")
                         .HasMaxLength(64);
 
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("IsDeleted")
@@ -707,8 +717,12 @@ namespace Tiger.Migrations
 
                     b.Property<string>("Redirect")
                         .HasColumnName("Redirect")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("Status")
+                        .HasColumnName("Status")
+                        .HasColumnType("bit");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")

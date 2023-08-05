@@ -352,6 +352,11 @@ namespace Tiger.EntityFrameworkCore
                 .HasMaxLength(RouteConsts.MaxRedirectLength)
                 .HasColumnName(nameof(Route.Redirect));
 
+            builder
+                .Property(p => p.Status)
+                .HasColumnName(nameof(Route.Status))
+                .IsRequired();
+
             builder.ConfigureByConvention();
 
             return builder;

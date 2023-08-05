@@ -30,8 +30,10 @@ namespace Tiger.Module.System.Platform.Layouts
             [NotNull] string framework,
             [CanBeNull] string redirect = "",
             [CanBeNull] string description = "",
-            [CanBeNull] Guid? tenantId = null)
-            : base(id, path, name, displayName, redirect, description, tenantId)
+            [CanBeNull] Guid? tenantId = null,
+            bool status = true,
+            string icon = "")
+            : base(id, path, name, displayName, redirect, description, status,icon, tenantId)
         {
             DataId = dataId;
             Framework = framework;

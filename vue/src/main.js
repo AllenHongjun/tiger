@@ -61,7 +61,7 @@ Vue.use(VForm) // 全局注册VForm(同时注册了v-form-designer和v-form-rend
 
 // 全局删除增加图标
 
-Vue.use(eIconPicker, { eIcon: true, ElementUI: true, FontAwesome: true, eIconSymbol: true, addIconList: [], removeIconList: [], zIndex: 99999 })
+Vue.use(eIconPicker, { eIcon: true, ElementUI: true, FontAwesome: true, eIconSymbol: true, addIconList: [], removeIconList: [], zIndex: 9999999999 })
 
 // Vue.use(
 //   ElementUI, { size: 'mini', zIndex: 3000 }

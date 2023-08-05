@@ -26,6 +26,17 @@ namespace Tiger.Module.System.Platform.Routes.Dto
         /// 重定向路径
         /// </summary>
         public string Redirect { get; set; }
+
+        /// <summary>
+        /// 状态 启用 禁用
+        /// </summary>
+        public bool Status { get; set; }
+
+        /// <summary>
+        /// 图标
+        /// </summary>
+        public string Icon { get; set; }
+
         /// <summary>
         /// 路由的一些辅助元素,取决于数据字典的设计
         /// </summary>

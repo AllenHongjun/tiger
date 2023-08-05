@@ -28,7 +28,7 @@
       <el-table-column prop="icon" label="图标" width="180">
         <template slot-scope="{row}">
           <!-- 绑定属性的值 在属性上不需要添加大括号 -->
-          <i :class="row.icon" />
+          <i :class="row.icon" style="margin-right:10px;" />
           <span>{{ row.icon }}</span>
         </template>
       </el-table-column>
@@ -57,15 +57,22 @@
           <span>{{ row.sort }}</span>
         </template>
       </el-table-column> -->
-      <el-table-column prop="isPublic" label="状态">
+      <el-table-column prop="status" label="状态" width="80">
+        <template slot-scope="{row}">
+          <el-tag :type="row.status | statusFilter">
+            {{ row.status == true ? '启用' : '禁用' }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column prop="isPublic" label="公用" width="80">
         <template slot-scope="{row}">
           <el-tag :type="row.isPublic | statusFilter">
             {{ row.isPublic == '1' ? '是' : '否' }}
           </el-tag>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
-      <el-table-column align="left" :label="$t('AbpUi[\'Actions\']')" width="320">
+      <el-table-column align="left" :label="$t('AbpUi[\'Actions\']')" width="180">
         <template slot-scope="scope">
           <el-button v-if="checkPermission('Platform.Menu.Update')" type="primary" @click="handleUpdate(scope.row)">
             {{ $t("AbpUi['Edit']") }}
@@ -193,7 +200,6 @@
         </el-form>
       </el-row>
       <div style="text-align: right">
-        <!-- <el-button @click="resetForm('dataForm')">重置</el-button> -->
         <el-button type="danger" @click="dialogFormVisible = false">{{ $t("AbpIdentity['Cancel']") }}</el-button>
         <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">{{ $t("AbpIdentity['Save']") }}</el-button>
       </div>
@@ -203,6 +209,8 @@
 </template>
 
 <script>
+
+// TODO: 优化CRUD操作刷新改成前端刷新不用 getList()
 import {
   getMenus,
   getMenu,
@@ -225,8 +233,8 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        1: 'success',
-        0: 'danger'
+        true: 'success',
+        false: 'danger'
       }
       return statusMap[status]
     }
@@ -383,6 +391,34 @@ export default {
         this.listLoading = false
       })
     },
+    // 把数组转换成tree
+    listToTree(list) {
+      const tree = []
+      for (const node of list) {
+        // 如果没有pid就可以认为是根节点
+        if (!node.parentId) {
+          const p = { ...node }
+          p.children = getChildren(p.id, list)
+          tree.push(p)
+        }
+      }
+      function getChildren(id, list) {
+        const children = []
+        for (const node of list) {
+          if (node.parentId === id) {
+            children.push(node)
+          }
+        }
+        for (const node of children) {
+          const children = getChildren(node.id, list)
+          if (children.length) {
+            node.children = children
+          }
+        }
+        return children
+      }
+      return tree
+    },
     buildTree(list, parentId) {
       const tree = []
       for (let i = 0; i < list.length; i++) {
@@ -491,7 +527,8 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           createMenu(this.dataForm).then(() => {
-            this.list.unshift(this.dataForm)
+            // this.list.unshift(this.dataForm)
+            this.getList()
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -518,9 +555,7 @@ export default {
         if (valid) {
           const tempData = Object.assign({}, this.dataForm)
           updateMenu(tempData.id, tempData).then(() => {
-            debugger
-            const index = this.list.findIndex((v) => v.id === this.dataForm.id)
-            this.list.splice(index, 1, this.temp)
+            this.getList()
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -535,8 +570,7 @@ export default {
     deleteData(row) {
       deleteMenu(row.id)
         .then((response) => {
-          const index = this.list.findIndex((v) => v.id === row.id)
-          this.list.splice(index, 1)
+          this.getList()
           this.$message({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),
@@ -547,19 +581,6 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-    },
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields()
     }
   }
 }

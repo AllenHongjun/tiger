@@ -28,6 +28,8 @@ namespace Tiger.Module.System.Platform.Menus.Dto
         public Guid LayoutId { get; set; }
 
         public bool IsPublic { get; set; }
+
+        
         public bool Startup { get; set; }
     }
 }

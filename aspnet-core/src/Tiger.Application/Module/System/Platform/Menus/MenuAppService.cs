@@ -75,6 +75,7 @@ namespace Tiger.Module.System.Platform.Menus
                 CurrentTenant.Id,
                 input.IsPublic);
 
+            #region 路由元数据校验
             //// 利用布局约定的数据字典来校验必须的路由元数据,元数据的加入是为了适配多端路由
             //foreach (var dataItem in data.Items)
             //{
@@ -94,7 +95,8 @@ namespace Tiger.Module.System.Platform.Menus
             //        //// 需要检查参数是否有效
             //        //menu.SetProperty(dataItem.Name, DataItemMapping.MapToString(dataItem.ValueType, meta));
             //    }
-            //}
+            //} 
+            #endregion
 
             await CurrentUnitOfWork.SaveChangesAsync();
             return ObjectMapper.Map<Menu, MenuDto>(menu);
