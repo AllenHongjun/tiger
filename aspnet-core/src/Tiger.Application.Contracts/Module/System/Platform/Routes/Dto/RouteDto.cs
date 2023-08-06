@@ -16,6 +16,7 @@ namespace Tiger.Module.System.Platform.Routes.Dto
         public string Name { get; set; }
         /// <summary>
         /// 显示名称
+        /// 
         /// </summary>
         public string DisplayName { get; set; }
         /// <summary>

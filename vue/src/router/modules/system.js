@@ -110,6 +110,28 @@ const SystemManageRouter = {
       ]
     },
     {
+      path: '/oss',
+      component: () => import('@/views/system/index'),
+      name: 'oss',
+      meta: {
+        title: '对象存储', // the name show in sidebar and breadcrumb (recommend set)
+        icon: 'el-icon-document-copy' // the icon show in the sidebar
+        // policy: 'AbpTextTemplating.TextTemplates'
+      },
+      children: [
+        {
+          path: 'container/list',
+          component: () => import('@/views/system/oss/container/index'), // Parent router-view
+          name: 'data',
+          meta: {
+            title: '容器管理' // the name show in sidebar and breadcrumb (recommend set)
+            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            // policy: 'AbpTextTemplating.TextTemplates'
+          }
+        }
+      ]
+    },
+    {
       path: 'text-template/list',
       component: () => import('@/views/system/text-template/text-template-table'), // Parent router-view
       name: 'text-template',

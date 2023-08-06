@@ -741,6 +741,7 @@
         <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.DisplayName">
             <summary>
             显示名称
+            
             </summary>
         </member>
         <member name="P:Tiger.Module.System.Platform.Routes.Dto.RouteDto.Description">

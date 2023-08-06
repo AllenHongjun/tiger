@@ -280,7 +280,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           createLayout(this.temp).then(() => {
-            this.handleFilter()
+            this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -313,7 +313,8 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           updateLayout(this.temp.id, this.temp).then(() => {
-            this.handleFilter(false)
+            const index = this.list.findIndex((v) => v.id === this.temp.id)
+            this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -342,8 +343,8 @@ export default {
       ).then(async() => {
         // 回调函数
         deleteLayout(row.id).then(() => {
-          // 删除成功重新加载数据
-          this.handleFilter()
+          const index = this.list.findIndex((v) => v.id === row.id)
+          this.list.splice(index, 1)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),

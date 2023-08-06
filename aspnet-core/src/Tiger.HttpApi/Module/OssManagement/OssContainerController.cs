@@ -16,7 +16,7 @@ namespace Tiger.Module.OssManagement
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.OssManagementGroupName)]
     [RemoteService(Name = OssManagementRemoteServiceConsts.RemoteServiceName)]
     [Area("oss-management")]
-    [Route("api/oss-management/containes")]
+    [Route("api/oss-management/containers")]
     public class OssContainerController : AbpController, IOssContainerAppService
     {
         protected IOssContainerAppService OssContainerAppService { get; }
