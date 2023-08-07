@@ -18,7 +18,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     [RemoteService(Name = "PersistedGrant")]
     [Area("identity-server")]
     [ControllerName("PersistedGrant")]
-    [Route("/v1/identity-server/persisted-grant")]
+    [Route("api/identity-server/persisted-grants")]
     public class PersistedGrantController: AbpController, IPersistedGrantAppService
     {
         public PersistedGrantController(IPersistedGrantAppService persistedGrantAppService)

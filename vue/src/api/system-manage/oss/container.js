@@ -38,3 +38,11 @@ export function deleteContainer(name) {
   })
 }
 
+export function getContainerObject(params) {
+  return request({
+    url: `/api/oss-management/containers/objects`,
+    method: 'get',
+    params: transformAbpListQuery(params)
+  })
+}
+

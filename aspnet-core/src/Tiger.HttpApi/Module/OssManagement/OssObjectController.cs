@@ -32,12 +32,22 @@ namespace Tiger.Module.OssManagement
             OssObjectAppService = ossObjectAppService;
         }
 
+        /// <summary>
+        /// 创建对象（文件上传）
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         public async virtual Task<OssObjectDto> CreateAsync([FromForm] CreateOssObjectInput input)
         {
             return await OssObjectAppService.CreateAsync(input);
         }
 
+        /// <summary>
+        /// 对象分片上传
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("upload")]
         [DisableAuditing]

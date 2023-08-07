@@ -21,7 +21,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     [RemoteService(Name = IdentityServerClientConsts.RemoteServiceName)]
     [Area("identity-server")]
     [ControllerName("Client")]
-    [Route("/v1/identity-server/client")]
+    [Route("api/identity-server/clients")]
     public class ClientController : AbpController, IClientAppService
     {
         public ClientController(IClientAppService clientAppService)

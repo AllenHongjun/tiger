@@ -68,6 +68,50 @@ const SystemManageRouter = {
       ]
     },
     {
+      path: '/identity-server',
+      component: () => import('@/views/system/index'), // Parent router-view
+      name: 'identity-server',
+      // redirect: '/user/list',
+      meta: {
+        title: '身份服务器',
+        icon: 'el-icon-user-solid',
+        policy: ''
+      },
+      children: [
+        {
+          path: '/api-resource/list',
+          component: () => import('@/views/system/identity-server/api-resource/index'),
+          name: 'api-resource',
+          meta: {
+            title: '接口资源'
+            // policy: 'IdentityServer.ApiResources'
+          }
+        },
+        {
+          path: '/api-scope/list',
+          component: () => import('@/views/system/identity-server/api-scope/index'),
+          name: 'api-scope',
+          meta: {
+            title: 'api-scope'
+            // policy: 'AbpIdentity.OrganizationUnits'
+          }
+        },
+        {
+          path: '/client/list',
+          component: () => import('@/views/system/identity-server/client/index'),
+          name: 'client',
+          meta: { title: '客户端', policy: 'IdentityServer.Clients' }
+        },
+        {
+          path: '/identity-resource/list',
+          component: () => import('@/views/system/identity-server/identity-resource/index'),
+          name: 'identity-resource',
+          meta: { title: '标识资源', policy: 'IdentityServer.IdentityResources' }
+        }
+
+      ]
+    },
+    {
       path: '/platform',
       component: () => import('@/views/system/index'),
       name: 'platform',
@@ -122,9 +166,19 @@ const SystemManageRouter = {
         {
           path: 'container/list',
           component: () => import('@/views/system/oss/container/index'), // Parent router-view
-          name: 'data',
+          name: 'container',
           meta: {
             title: '容器管理' // the name show in sidebar and breadcrumb (recommend set)
+            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            // policy: 'AbpTextTemplating.TextTemplates'
+          }
+        },
+        {
+          path: 'object/list',
+          component: () => import('@/views/system/oss/object/index'), // Parent router-view
+          name: 'object',
+          meta: {
+            title: '对象管理' // the name show in sidebar and breadcrumb (recommend set)
             // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }

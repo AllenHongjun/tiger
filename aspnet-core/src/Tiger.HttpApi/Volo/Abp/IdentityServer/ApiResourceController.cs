@@ -20,7 +20,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     [RemoteService(Name = IdentityServerClientConsts.RemoteServiceName)]
     [Area("identity-server")]
     [ControllerName("ApiResource")]
-    [Route("/v1/identity-server/api-resource")]
+    [Route("api/identity-server/api-resources")]
     public class ApiResourceController : AbpController, IApiResourceAppService
     {
         public ApiResourceController(IApiResourceAppService apiResourceAppService)

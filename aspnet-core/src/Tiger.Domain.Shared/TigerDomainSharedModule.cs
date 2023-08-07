@@ -12,6 +12,7 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.Localization;
 using Volo.Abp.IdentityServer;
+using Volo.Abp.IdentityServer.Localization;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
@@ -82,6 +83,10 @@ namespace Tiger
                 options.Resources
                     .Get<IdentityResource>()  // 扩展现有资源(和abp框架默认的资源路径相同就会覆盖)
                     .AddVirtualJson("/Volo/Abp/Identity/Localization/Extensions");
+
+                options.Resources
+                        .Get<AbpIdentityServerResource>()
+                        .AddVirtualJson("/Volo/Abp/IdentityServer/Localization/Resources");
 
                 options.Resources
                     .Get<AuditLoggingResource>() // 扩展现有的资源

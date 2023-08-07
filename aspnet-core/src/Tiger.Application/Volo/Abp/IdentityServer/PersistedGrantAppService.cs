@@ -19,7 +19,6 @@ namespace Tiger.Volo.Abp.IdentityServer
     /// 持续授予服务
     /// </summary>
     [RemoteService(false)]
-    //[Authorize(BookStorePermissions.Books.Default)]
     public class PersistedGrantAppService :
         CrudAppService<
             PersistedGrant,  // Entity

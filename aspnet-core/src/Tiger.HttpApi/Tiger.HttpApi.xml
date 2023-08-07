@@ -31,6 +31,20 @@
             Oss对象存储
             </summary>
         </member>
+        <member name="M:Tiger.Module.OssManagement.OssObjectController.CreateAsync(Tiger.Module.OssManagement.Dtos.CreateOssObjectInput)">
+            <summary>
+            创建对象（文件上传）
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.OssObjectController.UploadAsync(Tiger.Module.OssManagement.Dtos.UploadFileChunkInput)">
+            <summary>
+            对象分片上传
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.OssManagement.PublicFilesController.UploadAsync(Tiger.Module.OssManagement.Dtos.UploadFileInput)">
             <summary>
             上传文件

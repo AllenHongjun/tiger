@@ -18,7 +18,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     [RemoteService(Name = IdentityServerClientConsts.RemoteServiceName)]
     [Area("identity-server")]
     [ControllerName("DeviceFlowCode")]
-    [Route("/v1/identity-server/device-flow-code")]
+    [Route("api/identity-server/device-flow-codes")]
     public class DeviceFlowCodeController : AbpController, IDeviceFlowCodeAppService
     {
         public DeviceFlowCodeController(IDeviceFlowCodeAppService deviceFlowCodeAppService)

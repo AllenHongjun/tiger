@@ -21,7 +21,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     [RemoteService(Name = "IdentityServerResource")]
     [Area("identity-server")]
     [ControllerName("IdentityResource")]
-    [Route("/v1/identity-server/identity-resource")]
+    [Route("api/identity-server/identity-resources")]
     public class IdentityResourceController : AbpController, IIdentityResourceAppService
     {   
         protected IIdentityResourceAppService _identityResourceAppService;
