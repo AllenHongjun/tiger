@@ -110,6 +110,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\BackgroundTasks\Quartz\" />
     <Folder Include="Infrastructure\CloudTencent\Sms.Tencent\" />
     <Folder Include="Infrastructure\CloudTencent\Tencent\" />
     <Folder Include="Infrastructure\CloudTencent\BlobStoring.Tencent\" />
