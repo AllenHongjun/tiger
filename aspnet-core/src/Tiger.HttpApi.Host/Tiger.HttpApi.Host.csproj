@@ -8,9 +8,15 @@
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <UserSecretsId>Tiger-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\Tiger.HttpApi.Host.xml</DocumentationFile>
+    <NoWarn>1701;1702;CS1591;CS0436;CS1587;</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DocumentationFile>.\Tiger.HttpApi.Host.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591;CS0436;CS1587;</NoWarn>
   </PropertyGroup>

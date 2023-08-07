@@ -6,9 +6,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Tiger</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\Tiger.HttpApi.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DocumentationFile>.\Tiger.HttpApi.xml</DocumentationFile>
   </PropertyGroup>
 

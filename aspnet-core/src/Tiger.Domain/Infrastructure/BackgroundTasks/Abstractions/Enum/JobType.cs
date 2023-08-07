@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Module.TaskManagement.Enum
+namespace Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum
 {
     /// <summary>
     /// 任务类型

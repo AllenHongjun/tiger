@@ -20,9 +20,11 @@ namespace Tiger.Controllers
     public class Authentication : AbpController
     {
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly AccountController accountController;
+        //private readonly AccountController accountController;
 
-        public Authentication(IHttpContextAccessor contextAccessor, IConfiguration configuration)
+        public Authentication(IHttpContextAccessor contextAccessor
+            //, IConfiguration configuration
+            )
         {
             _contextAccessor = contextAccessor;
             //_configuration = configuration;

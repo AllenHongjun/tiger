@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tiger.Module.TaskManagement.Enum;
+using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
 using Volo.Abp;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;

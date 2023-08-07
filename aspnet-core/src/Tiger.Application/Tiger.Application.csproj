@@ -6,9 +6,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Tiger</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>.\Tiger.Application.xml</DocumentationFile>
+    <NoWarn>1701;1702;CS1591;CS0436;CS1587;CS1572;</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DocumentationFile>.\Tiger.Application.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591;CS0436;CS1587;CS1572;</NoWarn>
   </PropertyGroup>

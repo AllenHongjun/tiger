@@ -27,6 +27,7 @@ public class ConnectionStringInvalidator :
             TenantCacheItem.CalculateCacheKey(eventData.TenantId, eventData.TenantName),
         };
         //await Cache.RemoveManyAsync(keys, considerUow: true);
+        await Task.FromResult(0);
     }
 
     public async virtual Task HandleEventAsync(ConnectionStringDeletedEventData eventData)
@@ -39,5 +40,6 @@ public class ConnectionStringInvalidator :
             TenantCacheItem.CalculateCacheKey(eventData.TenantId, eventData.TenantName),
         };
         //await Cache.RemoveManyAsync(keys, considerUow: true);
+        await Task.FromResult(0);
     }
 }

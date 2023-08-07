@@ -38,7 +38,7 @@ namespace Tiger.Pages.Account
             LocalizationResourceType = typeof(AccountResource);
         }
 
-        public async virtual Task<IActionResult> OnPostAsync()
+        public virtual IActionResult OnPost()
         {
             try
             {

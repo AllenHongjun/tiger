@@ -3,15 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Tiger.EntityFrameworkCore;
 using Tiger.Volo.Abp.Sass.Editions;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.TenantManagement;
-using Tiger.Volo.Abp.Sass.Tenants;
 // 限制是自己的实体类
 using Tenant = Tiger.Volo.Abp.Sass.Tenants.Tenant;
 
@@ -45,14 +42,13 @@ namespace Tiger.Volo.Abp.Sass
 
             return await DbContext.Set<Tenant>()
                 .AnyAsync(x => x.EditionId == id, GetCancellationToken(cancellationToken));
-            throw new NotImplementedException();
         }
 
         public async Task<Edition> FindByDisplayNameAsync(string displayName, CancellationToken cancellationToken = default)
         {
-            return await (DbContext.Set<Edition>()
+            return await DbContext.Set<Edition>()
                     .OrderBy(t => t.Id)
-                    .FirstOrDefaultAsync(t => t.DisplayName == displayName, GetCancellationToken(cancellationToken)));
+                    .FirstOrDefaultAsync(t => t.DisplayName == displayName, GetCancellationToken(cancellationToken));
         }
 
         /// <summary>

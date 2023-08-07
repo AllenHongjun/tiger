@@ -45,6 +45,7 @@ namespace Tiger.Volo.Abp.Account.Emailing
             string userName,
             string emailAddress)
         {
+            await Task.FromResult(0);
             throw new NotImplementedException();
 
             //var emailContent = await TemplateRenderer.RenderAsync(
@@ -65,7 +66,8 @@ namespace Tiger.Volo.Abp.Account.Emailing
             string appName,
             string returnUrl = null,
             string returnUrlHash = null)
-        {   
+        {
+            await Task.FromResult(0);
             throw new NotImplementedException();
             //Debug.Assert(CurrentTenant.Id == user.TenantId, "This method can only work for current tenant!");
 

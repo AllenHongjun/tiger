@@ -14,7 +14,7 @@ public class RemoteStreamContent : IFormFile
 
     public virtual long? ContentLength { get; }
 
-    public RemoteStreamContent(Stream stream, string? fileName = null, string? contentType = null, long? readOnlyLength = null, bool disposeStream = true)
+    public RemoteStreamContent(Stream stream, string fileName = null, string contentType = null, long? readOnlyLength = null, bool disposeStream = true)
     {
         _stream = stream;
 

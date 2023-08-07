@@ -79,7 +79,6 @@ namespace Tiger.Module.System.Platform.Versions
         public Task DownloadFileAsync(VersionFileGetDto versionFileGet)
         {
             throw new NotImplementedException();
-            return Task.CompletedTask;
         }
 
         public async Task<PagedResultDto<VersionDto>> GetListAsync(VersionGetByPagedDto input)

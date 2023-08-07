@@ -42,7 +42,7 @@ namespace Tiger.Pages.Account
             try
             {
                 ValidateModel();
-
+                await Task.FromResult(0);
                 //await MyProfileAppService.SendEmailConfirmLinkAsync(
                 //    new SendEmailConfirmCodeDto
                 //    {

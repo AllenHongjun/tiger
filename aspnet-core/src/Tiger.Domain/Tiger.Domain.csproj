@@ -6,9 +6,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Tiger</RootNamespace>
     <AssemblyName>Tiger.Domain</AssemblyName>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ATemp\**" />
     <Compile Remove="Business\Basic\**" />
     <Compile Remove="Business\Customers\**" />
     <Compile Remove="Business\Finances\**" />
@@ -26,6 +28,7 @@
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
     <Compile Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <Compile Remove="Tiger.Task\**" />
+    <EmbeddedResource Remove="ATemp\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
     <EmbeddedResource Remove="Business\Finances\**" />
@@ -43,6 +46,7 @@
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
     <EmbeddedResource Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <EmbeddedResource Remove="Tiger.Task\**" />
+    <None Remove="ATemp\**" />
     <None Remove="Business\Basic\**" />
     <None Remove="Business\Customers\**" />
     <None Remove="Business\Finances\**" />
@@ -124,7 +128,6 @@
     <Folder Include="Module\System\Message\Chat\" />
     <Folder Include="Volo\Abp\Auditing\" />
     <Folder Include="Volo\Abp\IdentityServer\Devices\" />
-    <Folder Include="ATemp\" />
   </ItemGroup>
 
 </Project>
