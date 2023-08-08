@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Volo.Abp.Application.Dtos;
+﻿using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.Grants.Dto
+namespace Tiger.Volo.Abp.IdentityServer.Grants
 {
-    public class GetPersistedGrantInput: PagedAndSortedResultRequestDto
+    public class GetPersistedGrantInput : PagedAndSortedResultRequestDto
     {
         public string Filter { get; set; }
-
         public string SubjectId { get; set; }
     }
 }

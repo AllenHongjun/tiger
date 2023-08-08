@@ -39,10 +39,11 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpPost]
-        public async Task<IdentityResourceDto> CreateAsync(CreateUpdateIdentityResourceDto input)
+        public async Task<IdentityResourceDto> CreateAsync(IdentityResourceCreateOrUpdateDto input)
         {
             return await _identityResourceAppService.CreateAsync(input);
         }
+
 
         /// <summary>
         /// 删除标识资源
@@ -76,12 +77,12 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        public async Task<PagedResultDto<IdentityResourceDto>> GetListAsync(GetIdentityResourceDto input)
+        public async Task<PagedResultDto<IdentityResourceDto>> GetListAsync(IdentityResourceGetByPagedDto input)
         {
             return await _identityResourceAppService.GetListAsync(input);
         }
 
-        
+
         /// <summary>
         /// 更新标识资源
         /// </summary>
@@ -91,9 +92,10 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <exception cref="NotImplementedException"></exception>
         [HttpPut]
         [Route("{id}")]
-        public async Task<IdentityResourceDto> UpdateAsync(Guid id, CreateUpdateIdentityResourceDto input)
+        public async Task<IdentityResourceDto> UpdateAsync(Guid id, IdentityResourceCreateOrUpdateDto input)
         {
             return await _identityResourceAppService.UpdateAsync(id, input);
         }
+
     }
 }

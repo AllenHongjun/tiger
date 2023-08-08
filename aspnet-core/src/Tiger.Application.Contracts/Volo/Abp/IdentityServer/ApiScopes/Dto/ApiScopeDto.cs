@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.ApiScopes.Dto
+namespace Tiger.Volo.Abp.IdentityServer.ApiScopes
 {
-    public class ApiScopeDto:ExtensibleAuditedEntityDto<Guid>
+    public class ApiScopeDto : ExtensibleAuditedEntityDto<Guid>
     {
         public bool Enabled { get; set; }
 

@@ -1,35 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto
+namespace Tiger.Volo.Abp.IdentityServer.IdentityResources
 {
-    public class IdentityResourceDto : FullAuditedEntityDto<Guid>
+    public class IdentityResourceDto : ExtensibleAuditedEntityDto<Guid>
     {
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
+        
+        public string DisplayName { get; set; }
+        
+        public string Description { get; set; }
 
-        public virtual string DisplayName { get; set; }
+        public bool Enabled { get; set; }
 
-        public virtual string Description { get; set; }
+        public bool Required { get; set; }
 
-        public virtual bool Enabled { get; set; }
+        public bool Emphasize { get; set; }
 
-        public virtual bool Required { get; set; }
-
-        public virtual bool Emphasize { get; set; }
-
-        public virtual bool ShowInDiscoveryDocument { get; set; }
+        public bool ShowInDiscoveryDocument { get; set; }
 
         public List<IdentityResourceClaimDto> UserClaims { get; set; }
 
-        public List<IdentityResoucePropertyDto> Properties { get; set; }
+        public List<IdentityResourcePropertyDto> Properties { get; set; }
 
         public IdentityResourceDto()
         {
             UserClaims = new List<IdentityResourceClaimDto>();
-            Properties = new List<IdentityResoucePropertyDto>();
+            Properties = new List<IdentityResourcePropertyDto>();
         }
-
     }
 }

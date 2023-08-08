@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
-    internal class ScopeDto
+    public class ScopeDto
     {
     }
 }

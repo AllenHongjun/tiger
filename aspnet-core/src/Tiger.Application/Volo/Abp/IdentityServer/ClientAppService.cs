@@ -71,7 +71,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public override async Task<ClientDto> GetAsync(Guid id)
+        public  async Task<ClientDto> GetAsync(Guid id)
         {
             var client = await ClientRepository.GetAsync(id);
 
@@ -83,7 +83,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public override async Task<PagedResultDto<ClientDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public  async Task<PagedResultDto<ClientDto>> GetListAsync(ClientGetByPagedDto input)
         {
             var clients = await ClientRepository.GetListAsync(
                  input.Sorting,
@@ -103,7 +103,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
-        public override async  Task<ClientDto> CreateAsync(CreateUpdateClientDto input)
+        public  async  Task<ClientDto> CreateAsync(ClientCreateDto input)
         {   
             var isExists = await ClientRepository.CheckClientIdExistAsync(input.ClientId);
             if (isExists)
@@ -130,7 +130,7 @@ namespace Tiger.Volo.Abp.IdentityServer
 
         }
 
-        public override Task<ClientDto> UpdateAsync(Guid id, CreateUpdateClientDto input)
+        public  Task<ClientDto> UpdateAsync(Guid id, ClientUpdateDto input)
         {
             throw new NotImplementedException();
         }
@@ -158,7 +158,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<ListResultDto<string>> GetAssignableApiResourceAsync()
+        public async Task<ListResultDto<string>> GetAssignableApiResourcesAsync()
         {
             var apiResourceNames = await ApiResourceRepository.GetNamesAsync();
 
@@ -170,11 +170,14 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<ListResultDto<string>> GetAssignableIdentityResourceAsync()
+        public async Task<ListResultDto<string>> GetAssignableIdentityResourcesAsync()
         {
             var identityResourceName = await IdentityResourceRepository.GetNameAsync();
 
             return new ListResultDto<string>(identityResourceName);
         }
+       
+
+        
     }
 }

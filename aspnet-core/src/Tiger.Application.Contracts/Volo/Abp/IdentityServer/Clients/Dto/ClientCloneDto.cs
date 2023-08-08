@@ -1,92 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using Volo.Abp.IdentityServer.Clients;
+using Volo.Abp.Validation;
 
-namespace Tiger.Volo.Abp.IdentityServer.Clients.Dto
-{   
-
+namespace Tiger.Volo.Abp.IdentityServer.Clients
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// ID4模块 DynamicStringLength  这个属性无法验证
+    /// </remarks>
     public class ClientCloneDto
-    {   
+    {
         /// <summary>
-        /// 客户端Id
+        /// 客户端标识
         /// </summary>
         [Required]
+        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientIdMaxLength))]
         public string ClientId { get; set; }
-
         /// <summary>
         /// 客户端名称
         /// </summary>
         [Required]
+        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientNameMaxLength))]
         public string ClientName { get; set; }
-
         /// <summary>
-        /// 描述
+        /// 说明
         /// </summary>
+        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.DescriptionMaxLength))]
         public string Description { get; set; }
-
         /// <summary>
         /// 复制客户端授权类型
         /// </summary>
         public bool CopyAllowedGrantType { get; set; }
-
-        /// <summary>
-        /// 复制客户端作用域
-        /// </summary>
-        public bool CopyAllowdScope { get; set; }
-
         /// <summary>
         /// 复制客户端重定向 Uri
         /// </summary>
-        public bool CopyRedirectUri { get; set;}
-
+        public bool CopyRedirectUri { get; set; }
+        /// <summary>
+        /// 复制客户端作用域
+        /// </summary>
+        public bool CopyAllowedScope { get; set; }
         /// <summary>
         /// 复制客户端声明
         /// </summary>
         public bool CopyClaim { get; set; }
-
         /// <summary>
         /// 复制客户端密钥
         /// </summary>
         public bool CopySecret { get; set; }
-
         /// <summary>
         /// 复制客户端跨域来源
         /// </summary>
         public bool CopyAllowedCorsOrigin { get; set; }
-
         /// <summary>
-        /// 复制客户端注销重定向Uri
+        /// 复制客户端注销重定向 Uri
         /// </summary>
-        public bool CopyPostLogouRedirectUri { get; set; }
-
+        public bool CopyPostLogoutRedirectUri { get; set; }
         /// <summary>
         /// 复制客户端属性
         /// </summary>
         public bool CopyPropertie { get; set; }
-
         /// <summary>
-        /// 复制客户端IdP限制
+        /// 复制客户端 IdP 限制
         /// </summary>
         public bool CopyIdentityProviderRestriction { get; set; }
-
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
         public ClientCloneDto()
-        {   
-            // 通过构造函数设置参数的默认值
+        {
             CopyAllowedCorsOrigin = true;
             CopyAllowedGrantType = true;
-            CopyAllowdScope = true;
+            CopyAllowedScope = true;
             CopyClaim = true;
             CopyIdentityProviderRestriction = true;
-            CopyPostLogouRedirectUri = true;
+            CopyPostLogoutRedirectUri = true;
             CopyPropertie = true;
             CopyRedirectUri = true;
             CopySecret = true;
         }
-
     }
 }

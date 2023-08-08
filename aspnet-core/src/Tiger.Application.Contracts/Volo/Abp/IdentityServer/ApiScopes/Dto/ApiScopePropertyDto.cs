@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.ApiScopes.Dto
+namespace Tiger.Volo.Abp.IdentityServer.ApiScopes
 {
-    public class ApiScopePropertyDto : PropertyDto
+    public class ApiScopePropertyDto : EntityDto<Guid>
     {
+        public string Key { get; set; }
+
+        public string Value { get; set; }
     }
 }

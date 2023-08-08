@@ -39,7 +39,6 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         [HttpPost]
         [Route("clone/{id}")]
         public async Task<ClientDto> CloneAsync(Guid id, ClientCloneDto input)
@@ -54,7 +53,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpPost]
-        public async Task<ClientDto> CreateAsync(CreateUpdateClientDto input)
+        public async Task<ClientDto> CreateAsync(ClientCreateDto input)
         {
             return await ClientAppService.CreateAsync(input);
         }
@@ -92,9 +91,9 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
         [Route("get-assignable-api-resource")]
-        public async Task<ListResultDto<string>> GetAssignableApiResourceAsync()
+        public async Task<ListResultDto<string>> GetAssignableApiResourcesAsync()
         {
-            return await ClientAppService.GetAssignableApiResourceAsync();
+            return await ClientAppService.GetAssignableApiResourcesAsync();
         }
 
         /// <summary>
@@ -104,10 +103,11 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
         [Route("get-assignable-identity-resource")]
-        public async Task<ListResultDto<string>> GetAssignableIdentityResourceAsync()
+        public async Task<ListResultDto<string>> GetAssignableIdentityResourcesAsync()
         {
-            return await ClientAppService.GetAssignableIdentityResourceAsync();
+            return await ClientAppService.GetAssignableIdentityResourcesAsync();
         }
+
 
         /// <summary>
         /// 获取客户端详情
@@ -129,7 +129,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
-        public async Task<PagedResultDto<ClientDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public async Task<PagedResultDto<ClientDto>> GetListAsync(ClientGetByPagedDto input)
         {
             return await ClientAppService.GetListAsync(input);
         }
@@ -143,7 +143,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <exception cref="NotImplementedException"></exception>
         [HttpPut]
         [Route("{id}")]
-        public async Task<ClientDto> UpdateAsync(Guid id, CreateUpdateClientDto input)
+        public async Task<ClientDto> UpdateAsync(Guid id, ClientUpdateDto input)
         {
             return await ClientAppService.UpdateAsync(id, input);
         }

@@ -32,7 +32,7 @@ namespace Tiger.Volo.Abp.IdentityServer
 
 
         [HttpPost]
-        public async Task<ApiResourceDto> CreateAsync(CreateUpdateApiResourceDto input)
+        public async Task<ApiResourceDto> CreateAsync(ApiResourceCreateDto input)
         {
             return await ApiResourceAppService.CreateAsync(input);
         }
@@ -52,14 +52,14 @@ namespace Tiger.Volo.Abp.IdentityServer
         }
 
         [HttpGet]
-        public async Task<PagedResultDto<ApiResourceDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public async Task<PagedResultDto<ApiResourceDto>> GetListAsync(ApiResourceGetByPagedInputDto input)
         {
             return await ApiResourceAppService.GetListAsync(input);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ApiResourceDto> UpdateAsync(Guid id, CreateUpdateApiResourceDto input)
+        public async Task<ApiResourceDto> UpdateAsync(Guid id, ApiResourceUpdateDto input)
         {
             return await ApiResourceAppService.UpdateAsync(id, input);
         }

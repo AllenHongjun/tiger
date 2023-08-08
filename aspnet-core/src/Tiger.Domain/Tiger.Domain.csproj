@@ -70,6 +70,7 @@
     <Compile Remove="Business\Demo\Order.cs" />
     <Compile Remove="Business\Demo\OrderLine.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\Activities\AbpBackgroundTasksActivitiesModule.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\BackgroundWorkerManager.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\DistributedLocking\AbpBackgroundTasksDistributedLockingModule.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\DistributedLocking\JobDistributedLockingProvider.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\EventBus\AbpBackgroundTasksEventBusModule.cs" />

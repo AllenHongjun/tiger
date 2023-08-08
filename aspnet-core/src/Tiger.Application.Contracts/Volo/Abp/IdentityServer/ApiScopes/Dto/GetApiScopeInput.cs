@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Volo.Abp.Application.Dtos;
+﻿using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.ApiScopes.Dto
+namespace Tiger.Volo.Abp.IdentityServer.ApiScopes
 {
-    public class GetApiScopeInput:PagedAndSortedResultRequestDto
+    public class GetApiScopeInput : PagedAndSortedResultRequestDto
     {
         public string Filter { get; set; }
     }

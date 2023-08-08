@@ -189,5 +189,19 @@ namespace Tiger.Volo.Abp.IdentityServer
             #endregion
         }
 
+        public Task<PagedResultDto<IdentityResourceDto>> GetListAsync(IdentityResourceGetByPagedDto input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IdentityResourceDto> CreateAsync(IdentityResourceCreateOrUpdateDto input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IdentityResourceDto> UpdateAsync(Guid id, IdentityResourceCreateOrUpdateDto input)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

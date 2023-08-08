@@ -451,16 +451,15 @@
             IdentityServer客户端
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.CloneAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.CloneAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto)">
             <summary>
             克隆客户端
             </summary>
             <param name="id"></param>
             <param name="input"></param>
             <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.CreateAsync(Tiger.Volo.Abp.IdentityServer.Clients.Dto.CreateUpdateClientDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.CreateAsync(Tiger.Volo.Abp.IdentityServer.Clients.ClientCreateDto)">
             <summary>
             新增客户端
             </summary>
@@ -483,14 +482,14 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.GetAssignableApiResourceAsync">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.GetAssignableApiResourcesAsync">
             <summary>
             获取可用的Api资源列表
             </summary>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.GetAssignableIdentityResourceAsync">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.GetAssignableIdentityResourcesAsync">
             <summary>
             获取可用的身份资源
             </summary>
@@ -505,7 +504,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.GetListAsync(Tiger.Volo.Abp.IdentityServer.Clients.ClientGetByPagedDto)">
             <summary>
             获取客户端列表
             </summary>
@@ -513,7 +512,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.UpdateAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.Clients.Dto.CreateUpdateClientDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.UpdateAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto)">
             <summary>
             更新客户端
             </summary>
@@ -532,7 +531,7 @@
             标识资源
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceController.CreateAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceController.CreateAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceCreateOrUpdateDto)">
             <summary>
             创建标识资源
             </summary>
@@ -555,7 +554,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceController.GetListAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.GetIdentityResourceDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceController.GetListAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceGetByPagedDto)">
             <summary>
             获取标识资源列表
             </summary>
@@ -563,7 +562,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceController.UpdateAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceController.UpdateAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceCreateOrUpdateDto)">
             <summary>
             更新标识资源
             </summary>

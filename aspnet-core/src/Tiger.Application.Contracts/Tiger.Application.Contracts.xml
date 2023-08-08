@@ -1270,89 +1270,122 @@
             是否包含明细
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.ClientId">
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.ClientIdExisted">
             <summary>
-            客户端Id
+            客户端标识已经存在
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.ClientName">
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.ApiResourceNameExisted">
+            <summary>
+            Api资源已经存在
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.ApiScopeNameExisted">
+            <summary>
+            Api范围已经存在
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.IdentityResourceNameExisted">
+            <summary>
+            身份资源已经存在
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.IdentityResourcePropertyExisted">
+            <summary>
+            身份资源属性已经存在
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.ClientClaimNotFound">
+            <summary>
+            客户端声明不存在
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.ClientSecretNotFound">
+            <summary>
+            客户端密钥不存在
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.ClientPropertyNotFound">
+            <summary>
+            客户端属性不存在
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.IdentityServer.AbpIdentityServerErrorConsts.IdentityResourcePropertyNotFound">
+            <summary>
+            身份资源属性不存在
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto">
+            <summary>
+            
+            </summary>
+            <remarks>
+            ID4模块 DynamicStringLength  这个属性无法验证
+            </remarks>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.ClientId">
+            <summary>
+            客户端标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.ClientName">
             <summary>
             客户端名称
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.Description">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.Description">
             <summary>
-            描述
+            说明
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyAllowedGrantType">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyAllowedGrantType">
             <summary>
             复制客户端授权类型
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyAllowdScope">
-            <summary>
-            复制客户端作用域
-            </summary>
-        </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyRedirectUri">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyRedirectUri">
             <summary>
             复制客户端重定向 Uri
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyClaim">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyAllowedScope">
+            <summary>
+            复制客户端作用域
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyClaim">
             <summary>
             复制客户端声明
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopySecret">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopySecret">
             <summary>
             复制客户端密钥
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyAllowedCorsOrigin">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyAllowedCorsOrigin">
             <summary>
             复制客户端跨域来源
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyPostLogouRedirectUri">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyPostLogoutRedirectUri">
             <summary>
-            复制客户端注销重定向Uri
+            复制客户端注销重定向 Uri
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyPropertie">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyPropertie">
             <summary>
             复制客户端属性
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.CopyIdentityProviderRestriction">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto.CopyIdentityProviderRestriction">
             <summary>
-            复制客户端IdP限制
+            复制客户端 IdP 限制
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientCloneDto.#ctor">
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.Claims">
             <summary>
-            构造函数
-            </summary>
-        </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.ClientId">
-            <summary>
-            Unique ID of the client
-            </summary>
-        </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.Enabled">
-            <summary>
-            Specifire if client is enabled .Defaults to true
-            </summary>
-        </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.ProtocolType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.Dto.ClientDto.RequireClientSecret">
-            <summary>
-            Specifires whether this client needs a secret to request tokens from the token endpoint(default to true)
+            声明
             </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto">

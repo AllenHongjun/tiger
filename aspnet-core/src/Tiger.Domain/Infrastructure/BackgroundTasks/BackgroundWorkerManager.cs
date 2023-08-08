@@ -13,7 +13,7 @@ using Volo.Abp.Timing;
 
 namespace Tiger.Infrastructure.BackgroundTasks
 {
-    [Dependency(ReplaceServices = true)]
+    [Dependency(ReplaceServices = false)]
     public class BackgroundWorkerManager : IBackgroundWorkerManager, ISingletonDependency
     {
         protected IClock Clock { get; }

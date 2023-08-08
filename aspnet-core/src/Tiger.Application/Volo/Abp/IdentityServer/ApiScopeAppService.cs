@@ -17,7 +17,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         // TODO:  实现 apiScope的仓储
         //protected IApiScopeRepository ApiScopeRepository { get; }
 
-        public Task<ApiScopeDto> CreateAsync(CreateUpdateApiScopeDto input)
+        public Task<ApiScopeDto> CreateAsync(ApiScopeCreateDto input)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +37,7 @@ namespace Tiger.Volo.Abp.IdentityServer
             throw new NotImplementedException();
         }
 
-        public Task<ApiScopeDto> UpdateAsync(Guid id, CreateUpdateApiScopeDto input)
+        public Task<ApiScopeDto> UpdateAsync(Guid id, ApiScopeUpdateDto input)
         {
             throw new NotImplementedException();
         }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tiger.Volo.Abp.IdentityServer.ApiScopes.Dto
+﻿namespace Tiger.Volo.Abp.IdentityServer.ApiScopes
 {
-    public class ApiScopeClaimDto:UserClaimDto
+    public class ApiScopeClaimDto : UserClaimDto
     {
     }
 }

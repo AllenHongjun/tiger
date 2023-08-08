@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.IdentityServer.Grants;
-using Tiger.Volo.Abp.IdentityServer.Grants.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
@@ -28,11 +27,11 @@ namespace Tiger.Volo.Abp.IdentityServer
 
         protected IPersistedGrantAppService PersistedGrantAppService { get; }
 
-        [HttpPost]
-        public async Task<PersistedGrantDto> CreateAsync(CreateUpdatePersistedGrantDto input)
-        {
-            return await PersistedGrantAppService.CreateAsync(input);
-        }
+        //[HttpPost]
+        //public async Task<PersistedGrantDto> CreateAsync(CreateUpdatePersistedGrantDto input)
+        //{
+        //    return await PersistedGrantAppService.CreateAsync(input);
+        //}
 
         [HttpDelete]
         public async Task DeleteAsync(Guid id)
@@ -54,10 +53,10 @@ namespace Tiger.Volo.Abp.IdentityServer
             return await PersistedGrantAppService.GetListAsync(input);
         }
 
-        [HttpPut]
-        public async Task<PersistedGrantDto> UpdateAsync(Guid id, CreateUpdatePersistedGrantDto input)
-        {
-            return await PersistedGrantAppService.UpdateAsync(id, input);
-        }
+        //[HttpPut]
+        //public async Task<PersistedGrantDto> UpdateAsync(Guid id, CreateUpdatePersistedGrantDto input)
+        //{
+        //    return await PersistedGrantAppService.UpdateAsync(id, input);
+        //}
     }
 }

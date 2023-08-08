@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto
+﻿namespace Tiger.Volo.Abp.IdentityServer.IdentityResources
 {
-    public class IdentityResourceClaimDto:UserClaimDto
+    public class IdentityResourceClaimDto : UserClaimDto
     {
     }
 }

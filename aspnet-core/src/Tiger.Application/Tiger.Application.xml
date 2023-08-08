@@ -917,14 +917,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetListAsync(Tiger.Volo.Abp.IdentityServer.Clients.ClientGetByPagedDto)">
             <summary>
             获取客户端列表
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.CreateAsync(Tiger.Volo.Abp.IdentityServer.Clients.Dto.CreateUpdateClientDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.CreateAsync(Tiger.Volo.Abp.IdentityServer.Clients.ClientCreateDto)">
             <summary>
             客户端添加
             </summary>
@@ -938,14 +938,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAssignableApiResourceAsync">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAssignableApiResourcesAsync">
             <summary>
             获取可用的Api资源列表
             </summary>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAssignableIdentityResourceAsync">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAssignableIdentityResourcesAsync">
             <summary>
             获取可用的身份资源
             </summary>
@@ -981,11 +981,6 @@
             <param name="identityResource"></param>
             <param name="input"></param>
             <returns></returns>
-        </member>
-        <member name="T:Tiger.Volo.Abp.IdentityServer.PersistedGrantAppService">
-            <summary>
-            持续授予服务
-            </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.Identity.IdentityClaimTypeAppService">
             <summary>
