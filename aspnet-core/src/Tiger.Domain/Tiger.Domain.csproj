@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ATemp\**" />
     <Compile Remove="Business\Basic\**" />
     <Compile Remove="Business\Customers\**" />
     <Compile Remove="Business\Finances\**" />
@@ -21,6 +20,7 @@
     <Compile Remove="Business\Stat\**" />
     <Compile Remove="Business\Stocks\**" />
     <Compile Remove="CoreModule\**" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Notifications\**" />
     <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <Compile Remove="Module\OssManagement\Tencent\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
@@ -28,7 +28,6 @@
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
     <Compile Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <Compile Remove="Tiger.Task\**" />
-    <EmbeddedResource Remove="ATemp\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
     <EmbeddedResource Remove="Business\Finances\**" />
@@ -39,6 +38,7 @@
     <EmbeddedResource Remove="Business\Stat\**" />
     <EmbeddedResource Remove="Business\Stocks\**" />
     <EmbeddedResource Remove="CoreModule\**" />
+    <EmbeddedResource Remove="Infrastructure\BackgroundTasks\Notifications\**" />
     <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <EmbeddedResource Remove="Module\OssManagement\Tencent\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
@@ -46,7 +46,6 @@
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
     <EmbeddedResource Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <EmbeddedResource Remove="Tiger.Task\**" />
-    <None Remove="ATemp\**" />
     <None Remove="Business\Basic\**" />
     <None Remove="Business\Customers\**" />
     <None Remove="Business\Finances\**" />
@@ -57,6 +56,7 @@
     <None Remove="Business\Stat\**" />
     <None Remove="Business\Stocks\**" />
     <None Remove="CoreModule\**" />
+    <None Remove="Infrastructure\BackgroundTasks\Notifications\**" />
     <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <None Remove="Module\OssManagement\Tencent\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
@@ -69,6 +69,20 @@
   <ItemGroup>
     <Compile Remove="Business\Demo\Order.cs" />
     <Compile Remove="Business\Demo\OrderLine.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Activities\AbpBackgroundTasksActivitiesModule.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\DistributedLocking\AbpBackgroundTasksDistributedLockingModule.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\DistributedLocking\JobDistributedLockingProvider.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\EventBus\AbpBackgroundTasksEventBusModule.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\ExceptionHandling\AbpBackgroundTasksExceptionHandlingModule.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Hangfire\AbpBackgroundTasksHangfireModule.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Hangfire\HangfireJobExecutedAttribute.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Hangfire\HangfireJobScheduler.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Hangfire\HangfireJobSimpleAdapter.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Jobs\AbpBackgroundTasksJobsModule.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Jobs\HttpRequestJob.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Jobs\HttpRequestJobBase.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Jobs\ServiceInvocationJob.cs" />
+    <Compile Remove="Infrastructure\BackgroundTasks\Quartz\AbpBackgroundTasksQuartzModule.cs" />
     <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />
     <Compile Remove="Module\OssManagement\OssStaticContainerDataSeedContributor.cs" />
   </ItemGroup>
@@ -82,6 +96,7 @@
     <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
     <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.100.19" />
     <PackageReference Include="AWSSDK.SQS" Version="3.7.100.19" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.11" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.18" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
     <PackageReference Include="MQiniu.CoreSdk" Version="1.0.1" />
@@ -110,7 +125,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\BackgroundTasks\Quartz\" />
+    <Folder Include="Atemp\" />
+    <Folder Include="Infrastructure\BackgroundTasks\DistributedLocking\" />
+    <Folder Include="Infrastructure\BackgroundTasks\Hangfire\" />
     <Folder Include="Infrastructure\CloudTencent\Sms.Tencent\" />
     <Folder Include="Infrastructure\CloudTencent\Tencent\" />
     <Folder Include="Infrastructure\CloudTencent\BlobStoring.Tencent\" />
