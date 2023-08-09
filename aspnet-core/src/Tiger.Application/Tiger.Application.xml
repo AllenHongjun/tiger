@@ -930,6 +930,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.ApiScopeAppService">
+            <summary>
+            Api作用域
+            </summary>
+            <remarks>
+            3.2 版本暂不用实现该功能
+            </remarks>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ClientAppService">
             <summary>
             客户端服务
@@ -1035,6 +1043,11 @@
             <param name="identityResource"></param>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.PersistedGrantAppService">
+            <summary>
+            持续授予服务
+            </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.Identity.IdentityClaimTypeAppService">
             <summary>

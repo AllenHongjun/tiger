@@ -11,9 +11,15 @@ using Volo.Abp.IdentityServer.ApiResources;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
+    /// <summary>
+    /// Api作用域
+    /// </summary>
+    /// <remarks>
+    /// 3.2 版本暂不用实现该功能
+    /// </remarks>
     [RemoteService(false)]
     public class ApiScopeAppService : ApplicationService, IApiScopeAppService
-    {   
+    {
         // TODO:  实现 apiScope的仓储
         //protected IApiScopeRepository ApiScopeRepository { get; }
 

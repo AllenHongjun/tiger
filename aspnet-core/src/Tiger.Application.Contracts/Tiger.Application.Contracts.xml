@@ -1953,6 +1953,41 @@
             客户端属性
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.Key">
+            <summary>
+            授权标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.Type">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.SubjectId">
+            <summary>
+            主体标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.ClientId">
+            <summary>
+            客户端Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.Expiration">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto">
             <summary>
             身份资源Dto

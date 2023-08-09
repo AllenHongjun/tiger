@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-namespace Tiger.Volo.Abp.IdentityServer.Grants
+namespace Tiger.Volo.Abp.IdentityServer.Grants.Dto
 {
-    public class CreateUpdatePersistedGrantDto:EntityDto<Guid>
+    public class CreateUpdatePersistedGrantDto : EntityDto<Guid>
     {
         public virtual string Key { get; set; }
 

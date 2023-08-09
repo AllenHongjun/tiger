@@ -46,7 +46,6 @@ namespace Tiger.Volo.Abp.IdentityServer
             // CreateMap<ApiSecret, ApiResourceSecretDto>();
             CreateMap<ApiScopeClaim, ApiScopeClaimDto>();
             //CreateMap<ApiScopeProperty, ApiScopePropertyDto>();
-            CreateMap<ApiScope, ApiScopeDto>();
 
             //CreateMap<ApiResourceProperty, ApiResourcePropertyDto>();
             CreateMap<ApiSecret, ApiResourceSecretDto>();

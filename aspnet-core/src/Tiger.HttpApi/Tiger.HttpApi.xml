@@ -484,7 +484,7 @@
         </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ClientController">
             <summary>
-            IdentityServer客户端
+            IdentityServer4客户端
             </summary>
         </member>
         <member name="M:Tiger.Volo.Abp.IdentityServer.ClientController.CloneAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto)">
