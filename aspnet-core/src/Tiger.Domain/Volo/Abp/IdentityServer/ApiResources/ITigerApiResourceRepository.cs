@@ -9,5 +9,9 @@ namespace Volo.Abp.IdentityServer.ApiResources
     public interface ITigerApiResourceRepository : IApiResourceRepository
     {
         Task<List<string>> GetNamesAsync(CancellationToken cancellationToken = default);
+
+        Task<int> GetCountAsync(
+            string filter, bool includeDetails = false,
+            CancellationToken cancellationToken = default);
     }
 }

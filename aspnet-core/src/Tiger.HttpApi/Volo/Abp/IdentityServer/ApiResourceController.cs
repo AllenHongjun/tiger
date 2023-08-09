@@ -30,13 +30,22 @@ namespace Tiger.Volo.Abp.IdentityServer
 
         protected IApiResourceAppService ApiResourceAppService { get; }
 
-
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ApiResourceDto> CreateAsync(ApiResourceCreateDto input)
         {
             return await ApiResourceAppService.CreateAsync(input);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         public async Task DeleteAsync(Guid id)
         {
@@ -44,6 +53,11 @@ namespace Tiger.Volo.Abp.IdentityServer
             return;
         }
 
+        /// <summary>
+        /// 查看详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public async Task<ApiResourceDto> GetAsync(Guid id)
@@ -51,12 +65,23 @@ namespace Tiger.Volo.Abp.IdentityServer
             return await ApiResourceAppService.GetAsync(id);
         }
 
+        /// <summary>
+        /// 分页查询
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<PagedResultDto<ApiResourceDto>> GetListAsync(ApiResourceGetByPagedInputDto input)
         {
             return await ApiResourceAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
         public async Task<ApiResourceDto> UpdateAsync(Guid id, ApiResourceUpdateDto input)

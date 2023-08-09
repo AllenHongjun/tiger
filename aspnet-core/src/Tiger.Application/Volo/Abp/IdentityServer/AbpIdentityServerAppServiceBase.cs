@@ -11,16 +11,20 @@ namespace Tiger.Volo.Abp.IdentityServer
 {
     public abstract class AbpIdentityServerAppServiceBase : ApplicationService
     {
-        //protected IPermissionChecker PermissionChecker => ServiceProvider.GetService(Type IPermissionChecker);
-        protected AbpIdentityServerAppServiceBase()
+        protected IPermissionChecker PermissionChecker { get; }
+
+        // TODO: LazyGetRequiredService 获取注入方法测试使用
+
+        protected AbpIdentityServerAppServiceBase(
+            IPermissionChecker permissionChecker)
         {
             LocalizationResource = typeof(AbpIdentityServerResource);
+            PermissionChecker = permissionChecker;
         }
 
         protected async virtual Task<bool> IsGrantAsync(string policy)
-        {   
-            throw new NotImplementedException();
-            //return await PermissionChecker.IsGrantedAsync(policy);
+        {
+            return await PermissionChecker.IsGrantedAsync(policy);
         }
     }
 }

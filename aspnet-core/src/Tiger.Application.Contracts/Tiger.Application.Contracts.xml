@@ -1315,6 +1315,111 @@
             身份资源属性不存在
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.AllowedAccessTokenSigningAlgorithms">
+            <summary>
+            允许访问令牌签名算法
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.ShowInDiscoveryDocument">
+            <summary>
+            在发现文档中显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.Secrets">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.Scopes">
+            <summary>
+            作用域
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.UserClaims">
+            <summary>
+            用户声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceCreateOrUpdateDto.Properties">
+            <summary>
+            属性
+            </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto">
+            <summary>
+            Api资源
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.AllowedAccessTokenSigningAlgorithms">
+            <summary>
+            允许访问令牌签名算法
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.ShowInDiscoveryDocument">
+            <summary>
+            在发现文档中显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.Secrets">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.Scopes">
+            <summary>
+            作用域
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.UserClaims">
+            <summary>
+            用户声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceDto.Properties">
+            <summary>
+            属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceScopeDto.Scope">
+            <summary>
+            Api作用域名称
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto">
             <summary>
             
@@ -1398,9 +1503,24 @@
             IdentityServer 权限定义
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.SecretDto.Type">
+            <summary>
+            密钥类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.SecretDto.Value">
+            <summary>
+            值
+            </summary>
+        </member>
         <member name="P:Tiger.Volo.Abp.IdentityServer.SecretDto.Expiration">
             <summary>
             过期时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.UserClaimDto.Type">
+            <summary>
+            声明类型
             </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.Identity.ClaimTypes.Dto.ClaimTypeDto">

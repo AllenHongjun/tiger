@@ -6,8 +6,8 @@ namespace Tiger.Volo.Abp.IdentityServer.ApiResources
 {
     public class ApiResourceCreateDto : ApiResourceCreateOrUpdateDto
     {
-        //[Required]
+        [Required]
         //[DynamicStringLength(typeof(ApiResourceConsts), nameof(ApiResourceConsts.NameMaxLength))]
-        //public string Name { get; set; }
+        public string Name { get; set; }
     }
 }

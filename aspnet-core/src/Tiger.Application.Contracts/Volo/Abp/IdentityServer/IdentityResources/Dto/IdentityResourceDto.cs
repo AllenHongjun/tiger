@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Volo.Abp.IdentityServer.IdentityResources

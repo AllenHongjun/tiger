@@ -34,5 +34,18 @@ namespace Volo.Abp.IdentityServer
                 .Distinct()
                 .ToListAsync(GetCancellationToken(cancellationToken));
         }
+
+        public virtual async Task<int> GetCountAsync(
+            string filter, bool includeDetails = false,
+            CancellationToken cancellationToken = default)
+        {
+            return await DbSet
+                .IncludeDetails(includeDetails)
+                .WhereIf(!filter.IsNullOrWhiteSpace(), x => x.Name.Contains(filter) ||
+                         x.Description.Contains(filter) ||
+                         x.DisplayName.Contains(filter))
+                .CountAsync(GetCancellationToken(cancellationToken));
+        }
+
     }
 }
