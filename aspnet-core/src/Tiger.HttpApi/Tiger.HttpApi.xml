@@ -557,11 +557,6 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="T:Tiger.Volo.Abp.IdentityServer.DeviceFlowCodeController">
-            <summary>
-            设备流代码
-            </summary>
-        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityResourceController">
             <summary>
             标识资源
@@ -609,6 +604,27 @@
             <summary>
             持续授权
             </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.PersistedGrantController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.PersistedGrantController.GetAsync(System.Guid)">
+            <summary>
+            详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.PersistedGrantController.GetListAsync(Tiger.Volo.Abp.IdentityServer.Grants.GetPersistedGrantInput)">
+            <summary>
+            分页列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Volo.Abp.Identity.ClaimTypeController">
             <summary>

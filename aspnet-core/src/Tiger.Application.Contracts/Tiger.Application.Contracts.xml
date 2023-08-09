@@ -1953,6 +1953,11 @@
             客户端属性
             </summary>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto">
+            <summary>
+            持久授权
+            </summary>
+        </member>
         <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto.Key">
             <summary>
             授权标识
