@@ -7,6 +7,9 @@ using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.TaskManagement
 {
+    /// <summary>
+    /// 任务执行参数
+    /// </summary>
     public class BackgroundJobAction:AuditedAggregateRoot<Guid>,IMultiTenant
     {
         public BackgroundJobAction()
@@ -17,7 +20,7 @@ namespace Tiger.Module.TaskManagement
             Guid id,
             string jobId, 
             string name, 
-            Dictionary<string, object> paramters, 
+            IDictionary<string, object> paramters, 
             Guid? tenantId):base(id)
         {
             JobId=Check.NotNullOrWhiteSpace(jobId,nameof(jobId),BackgroundJobActionConsts.MaxJobIdLength);
@@ -52,7 +55,7 @@ namespace Tiger.Module.TaskManagement
         /// <summary>
         /// 执行参数
         /// </summary>
-        public virtual Dictionary<string, object> Paramters { get; set; }
+        public virtual IDictionary<string, object> Paramters { get; set; }
 
     }
 }

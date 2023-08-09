@@ -788,6 +788,16 @@
             详细见文档 https://docs.abp.io/en/abp/latest/Text-Templating-Razor
             </remarks>
         </member>
+        <member name="M:Tiger.Module.TaskManagement.BackgroundJobInfoAppService.GetListAsync(Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoBatchInput)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <remarks>
+            动态查询方法使用
+            </remarks>
+        </member>
         <member name="M:Tiger.Utilities.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             上传 文件,并返回相对url(不包含 host port wwwroot)

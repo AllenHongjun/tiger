@@ -35,7 +35,7 @@ namespace Tiger.Module.TaskManagement
         ///// <summary>
         ///// 任务参数
         ///// </summary>
-        public virtual Dictionary<string, object> Args { get; set; }
+        public virtual IDictionary<string, object> Args { get; set; }
         /// <summary>
         /// 任务状态
         /// </summary>

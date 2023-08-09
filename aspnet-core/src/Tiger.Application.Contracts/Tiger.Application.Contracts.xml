@@ -954,6 +954,390 @@
             文本模板权限常量
             </summary>
         </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionCreateDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionCreateOrUpdateDto.IsEnabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionCreateOrUpdateDto.Paramters">
+            <summary>
+            参数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDefinitionDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDefinitionDto.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDefinitionDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDefinitionDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDefinitionDto.Paramters">
+            <summary>
+            参数列表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDto.JobId">
+            <summary>
+            作业标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDto.IsEnabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobActionDto.Paramters">
+            <summary>
+            参数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateDto.Name">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateDto.Group">
+            <summary>
+            任务分组
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateDto.Type">
+            <summary>
+            任务类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateDto.BeginTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateDto.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateDto.Source">
+            <summary>
+            作业来源
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.IsEnabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.Args">
+            <summary>
+            任务参数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.JobType">
+            <summary>
+            任务类别
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.Cron">
+            <summary>
+            Cron表达式，如果是持续任务需要指定
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.MaxTryCount">
+            <summary>
+            失败重试上限
+            默认：50
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.MaxCount">
+            <summary>
+            最大执行次数
+            默认：0, 无限制
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.Interval">
+            <summary>
+            间隔时间，单位秒，与Cron表达式冲突
+            默认: 300
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.Priority">
+            <summary>
+            任务优先级
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateOrUpdateDto.LockTimeOut">
+            <summary>
+            任务独占超时时长（秒）
+            0或更小不生效
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Name">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Group">
+            <summary>
+            任务分组
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Type">
+            <summary>
+            任务类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Result">
+            <summary>
+            返回参数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Args">
+            <summary>
+            任务参数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Status">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.BeginTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.LastRunTime">
+            <summary>
+            上次运行时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.NextRunTime">
+            <summary>
+            下一次执行时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.JobType">
+            <summary>
+            任务类别
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Cron">
+            <summary>
+            Cron表达式，如果是持续任务需要指定
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.TriggerCount">
+            <summary>
+            触发次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.TryCount">
+            <summary>
+            失败重试次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.MaxTryCount">
+            <summary>
+            失败重试上限
+            默认：50
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.MaxCount">
+            <summary>
+            最大执行次数
+            默认：0, 无限制
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.IsAbandoned">
+            <summary>
+            连续失败且不会再次执行
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.IsEnabled">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Interval">
+            <summary>
+            间隔时间，单位秒，与Cron表达式冲突
+            默认: 300
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Priority">
+            <summary>
+            任务优先级
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.Source">
+            <summary>
+            作业来源
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoDto.LockTimeOut">
+            <summary>
+            任务独占超时时长（秒）
+            0或更小不生效
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.Filter">
+            <summary>
+            其他过滤条件
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.Name">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.Group">
+            <summary>
+            任务分组
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.Type">
+            <summary>
+            任务类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.Status">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.BeginTime">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.BeginLastRunTime">
+            <summary>
+            上次起始触发时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.EndLastRunTime">
+            <summary>
+            上次截止触发时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.BeginCreationTime">
+            <summary>
+            起始创建时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.EndCreationTime">
+            <summary>
+            截止创建时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.IsAbandoned">
+            <summary>
+            是否已放弃任务
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.JobType">
+            <summary>
+            任务类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.Priority">
+            <summary>
+            优先级
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoGetListInput.Source">
+            <summary>
+            作业来源
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobLogGetListInput.Filter">
+            <summary>
+            其他过滤条件
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobLogGetListInput.HasExceptions">
+            <summary>
+            存在异常
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobLogGetListInput.Name">
+            <summary>
+            任务名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobLogGetListInput.Group">
+            <summary>
+            任务分组
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobLogGetListInput.Type">
+            <summary>
+            任务类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobLogGetListInput.BeginRunTime">
+            <summary>
+            开始触发时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.TaskManagement.Dtos.BackgroundJobLogGetListInput.EndRunTime">
+            <summary>
+            结束触发时间
+            </summary>
+        </member>
+        <member name="F:Tiger.Module.TaskManagement.Permissions.TaskManagementPermissions.BackgroundJobs.ManageSystemJobs">
+            <summary>
+            是否允许管理系统内置作业
+            通常内置作业是由程序运行中产生，需要控制用户行为
+            </summary>
+        </member>
+        <member name="F:Tiger.Module.TaskManagement.Permissions.TaskManagementPermissions.BackgroundJobs.ManageActions">
+            <summary>
+            管理作业行为
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Permissions.TigerPermissionDefinitionProvider" -->
         <member name="T:Tiger.TigerApplicationContractsModule">
             <summary>

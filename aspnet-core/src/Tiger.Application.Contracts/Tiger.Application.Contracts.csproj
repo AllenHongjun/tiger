@@ -68,6 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Module\TaskManagement\TaskManagementApplicationContractsModule.cs" />
     <Compile Remove="Volo\Abp\TenantManagement\TenantDto.cs" />
   </ItemGroup>
 

@@ -28,6 +28,7 @@
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
     <Compile Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <Compile Remove="Tiger.Task\**" />
+    <Compile Remove="Volo\Abp\IdentityServer\Devices\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
     <EmbeddedResource Remove="Business\Customers\**" />
     <EmbeddedResource Remove="Business\Finances\**" />
@@ -46,6 +47,7 @@
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
     <EmbeddedResource Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <EmbeddedResource Remove="Tiger.Task\**" />
+    <EmbeddedResource Remove="Volo\Abp\IdentityServer\Devices\**" />
     <None Remove="Business\Basic\**" />
     <None Remove="Business\Customers\**" />
     <None Remove="Business\Finances\**" />
@@ -64,6 +66,7 @@
     <None Remove="PlatfromSdk\PayPalApi\**" />
     <None Remove="PlatfromSdk\SpotifyAPI.Web\**" />
     <None Remove="Tiger.Task\**" />
+    <None Remove="Volo\Abp\IdentityServer\Devices\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -145,8 +148,8 @@
     <Folder Include="Infrastructure\UI.Navication\" />
     <Folder Include="Module\System\Message\Email\" />
     <Folder Include="Module\System\Message\Chat\" />
+    <Folder Include="Module\Message\" />
     <Folder Include="Volo\Abp\Auditing\" />
-    <Folder Include="Volo\Abp\IdentityServer\Devices\" />
   </ItemGroup>
 
 </Project>

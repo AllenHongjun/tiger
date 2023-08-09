@@ -44,7 +44,7 @@ namespace Tiger.Module.TaskManagement
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<List<BackgroundJobInfo>> GetAllPeriodTaskAsync(
+        Task<List<BackgroundJobInfo>> GetAllPeriodTasksAsync(
             CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -57,7 +57,29 @@ namespace Tiger.Module.TaskManagement
             int maxResultCount,
             CancellationToken cancellation =default);
 
-        //Task<int> GetCountAsync(
-        //    B)
+        /// <summary>
+        /// 获取过滤后的任务数量
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<int> GetCountAsync(
+            BackgroundJobInfoFilter filter,
+            CancellationToken cancellationToken = default);
+        /// <summary>
+        /// 获取过滤后的任务列表
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="sorting"></param>
+        /// <param name="maxResultCount"></param>
+        /// <param name="skipCount"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<List<BackgroundJobInfo>> GetListAsync(
+            BackgroundJobInfoFilter filter,
+            string sorting = nameof(BackgroundJobInfo.Name),
+            int maxResultCount = 10,
+            int skipCount = 0,
+            CancellationToken cancellationToken = default);
     }
 }
