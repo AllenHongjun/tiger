@@ -46,8 +46,7 @@ namespace Tiger.Volo.Abp.IdentityServer
                          .Select(x => x.Name)
                          .Distinct()
                          .ToListAsync(GetCancellationToken(cancellation));
-
-            throw new NotImplementedException();
+            return result;
         }
     }
 }

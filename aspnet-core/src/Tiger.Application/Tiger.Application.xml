@@ -967,6 +967,25 @@
             <returns></returns>
             <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
         </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.UpdateAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto)">
+            <summary>
+            更新客户端
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.CloneAsync(System.Guid,Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto)">
+            <summary>
+            克隆客户端
+            </summary>
+            <remarks>
+            参考 Skoruba.IdentityServer4.Admin 项目 https://github.com/skoruba/IdentityServer4.Admin.git
+            </remarks>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.IdentityServer.ClientAppService.GetAllDistinctAllowedCorsOriginsAsync">
             <summary>
             获取所有跨域地址
@@ -994,14 +1013,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.GetListAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.GetIdentityResourceDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.GetListAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceGetByPagedDto)">
             <summary>
             获取标识资源列表
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.CreateAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.CreateAsync(Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceCreateOrUpdateDto)">
             <summary>
             创建标识资源
             </summary>
@@ -1009,7 +1028,7 @@
             <returns></returns>
             <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
         </member>
-        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.UpdateApiResourceByInputAsync(Volo.Abp.IdentityServer.IdentityResources.IdentityResource,Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto)">
+        <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.UpdateApiResourceByInputAsync(Volo.Abp.IdentityServer.IdentityResources.IdentityResource,Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceCreateOrUpdateDto)">
             <summary>
             通过传入的数据修改标识资源对象
             </summary>

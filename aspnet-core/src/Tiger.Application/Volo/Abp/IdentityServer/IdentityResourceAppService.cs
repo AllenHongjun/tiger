@@ -59,7 +59,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public override async Task<PagedResultDto<IdentityResourceDto>> GetListAsync(GetIdentityResourceDto input)
+        public  async Task<PagedResultDto<IdentityResourceDto>> GetListAsync(IdentityResourceGetByPagedDto input)
         {
             var identityResources =  await IdentityResourceRepository.GetListAsync(
                 input.Sorting,
@@ -81,7 +81,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="UserFriendlyException"></exception>
-        public override async Task<IdentityResourceDto> CreateAsync(CreateUpdateIdentityResourceDto input)
+        public  async Task<IdentityResourceDto> CreateAsync(IdentityResourceCreateOrUpdateDto input)
         {
             var isExisit = await IdentityResourceRepository.CheckNameExistAsync(input.Name);
             if (isExisit)
@@ -108,7 +108,7 @@ namespace Tiger.Volo.Abp.IdentityServer
             return base.DeleteAsync(id);    
         }
 
-        public override async Task<IdentityResourceDto> UpdateAsync(Guid id, CreateUpdateIdentityResourceDto input)
+        public  async Task<IdentityResourceDto> UpdateAsync(Guid id, IdentityResourceCreateOrUpdateDto input)
         {   
             var identityResouce = await IdentityResourceRepository.GetAsync(id);
 
@@ -127,7 +127,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <param name="identityResource"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        protected async virtual Task UpdateApiResourceByInputAsync(IdentityResource identityResource, CreateUpdateIdentityResourceDto input)
+        protected async virtual Task UpdateApiResourceByInputAsync(IdentityResource identityResource, IdentityResourceCreateOrUpdateDto input)
         {
             if (!string.Equals(identityResource.Name, input.Name, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -189,19 +189,6 @@ namespace Tiger.Volo.Abp.IdentityServer
             #endregion
         }
 
-        public Task<PagedResultDto<IdentityResourceDto>> GetListAsync(IdentityResourceGetByPagedDto input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IdentityResourceDto> CreateAsync(IdentityResourceCreateOrUpdateDto input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IdentityResourceDto> UpdateAsync(Guid id, IdentityResourceCreateOrUpdateDto input)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

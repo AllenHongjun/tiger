@@ -15,7 +15,7 @@ using Volo.Abp.Identity;
 namespace Tiger.Volo.Abp.IdentityServer
 {   
     /// <summary>
-    /// IdentityServer客户端
+    /// IdentityServer4客户端
     /// </summary>
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.IdentityServerGroupName)]
     [RemoteService(Name = IdentityServerClientConsts.RemoteServiceName)]

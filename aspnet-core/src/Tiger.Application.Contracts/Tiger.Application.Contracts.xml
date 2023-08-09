@@ -1488,9 +1488,469 @@
             复制客户端 IdP 限制
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCreateOrUpdateDto.ClientId">
+            <summary>
+            客户端Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCreateOrUpdateDto.ClientName">
+            <summary>
+            客户端名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCreateOrUpdateDto.Description">
+            <summary>
+            客户端描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientCreateOrUpdateDto.AllowedGrantTypes">
+            <summary>
+            允许的授权类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.ClientId">
+            <summary>
+            客户端Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.ClientName">
+            <summary>
+            客户端名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.Description">
+            <summary>
+            客户端描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.ClientUri">
+            <summary>
+            客户端 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.LogoUri">
+            <summary>
+            徽标 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.Enabled">
+            <summary>
+            启用客户端
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.ProtocolType">
+            <summary>
+            协议类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.RequireConsent">
+            <summary>
+            需要同意
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowRememberConsent">
+            <summary>
+            允许记住同意
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.RequireRequestObject">
+            <summary>
+            需要请求对象
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowedIdentityTokenSigningAlgorithms">
+            <summary>
+            允许身份令牌签名算法
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AlwaysIncludeUserClaimsInIdToken">
+            <summary>
+            始终在标识令牌中包含用户声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.RequirePkce">
+            <summary>
+            需要 Pkce
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowPlainTextPkce">
+            <summary>
+            允许纯文本 Pkce
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowAccessTokensViaBrowser">
+            <summary>
+            允许通过浏览器访问令牌
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.FrontChannelLogoutUri">
+            <summary>
+            前端通道注销 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.FrontChannelLogoutSessionRequired">
+            <summary>
+            需要前端通道注销会话
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.BackChannelLogoutUri">
+            <summary>
+            后端通道退出 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.BackChannelLogoutSessionRequired">
+            <summary>
+            需要后端通道注销会话
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowOfflineAccess">
+            <summary>
+            允许离线访问
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.IdentityTokenLifetime">
+            <summary>
+            身份令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AccessTokenLifetime">
+            <summary>
+            访问令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AuthorizationCodeLifetime">
+            <summary>
+            授权码有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AbsoluteRefreshTokenLifetime">
+            <summary>
+            绝对刷新令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.SlidingRefreshTokenLifetime">
+            <summary>
+            滚动刷新令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.RefreshTokenUsage">
+            <summary>
+            刷新令牌使用情况
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.UpdateAccessTokenClaimsOnRefresh">
+            <summary>
+            刷新时更新访问令牌声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.RefreshTokenExpiration">
+            <summary>
+            刷新令牌过期方式
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AccessTokenType">
+            <summary>
+            访问令牌类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.EnableLocalLogin">
+            <summary>
+            启用本地登录
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.IncludeJwtId">
+            <summary>
+            包括 Jwt 标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AlwaysSendClientClaims">
+            <summary>
+            始终发送客户端声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.ClientClaimsPrefix">
+            <summary>
+            客户端声明前缀
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.PairWiseSubjectSalt">
+            <summary>
+            配对主体盐
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.UserSsoLifetime">
+            <summary>
+            用户 SSO 生命周期
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.UserCodeType">
+            <summary>
+            用户代码类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.DeviceCodeLifetime">
+            <summary>
+            设备授权码有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowedScopes">
+            <summary>
+            允许的作用域
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.ClientSecrets">
+            <summary>
+            客户端密钥
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowedGrantTypes">
+            <summary>
+            允许的授权类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.AllowedCorsOrigins">
+            <summary>
+            允许跨域来源
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.RedirectUris">
+            <summary>
+            重定向 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.PostLogoutRedirectUris">
+            <summary>
+            注销重定向 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.IdentityProviderRestrictions">
+            <summary>
+            身份提供程序限制
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.Claims">
+            <summary>
+            客户端声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientDto.Properties">
+            <summary>
+            客户端属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientRedirectUriDto.RedirectUri">
+            <summary>
+            重定向Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.ClientUri">
+            <summary>
+            客户端 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.LogoUri">
+            <summary>
+            徽标 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.Enabled">
+            <summary>
+            启用客户端
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.ProtocolType">
+            <summary>
+            协议类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AllowedIdentityTokenSigningAlgorithms">
+            <summary>
+            允许身份令牌签名算法
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.RequireConsent">
+            <summary>
+            需要同意
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AllowRememberConsent">
+            <summary>
+            允许记住同意
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.RequireRequestObject">
+            <summary>
+            需要请求对象
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AlwaysIncludeUserClaimsInIdToken">
+            <summary>
+            始终在标识令牌中包含用户声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.RequirePkce">
+            <summary>
+            需要 Pkce
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AllowPlainTextPkce">
+            <summary>
+            允许纯文本 Pkce
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AllowAccessTokensViaBrowser">
+            <summary>
+            允许通过浏览器访问令牌
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.FrontChannelLogoutUri">
+            <summary>
+            前端通道注销 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.FrontChannelLogoutSessionRequired">
+            <summary>
+            需要前端通道注销会话
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.BackChannelLogoutUri">
+            <summary>
+            后端通道退出 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.BackChannelLogoutSessionRequired">
+            <summary>
+            需要后端通道注销会话
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AllowOfflineAccess">
+            <summary>
+            允许离线访问
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.IdentityTokenLifetime">
+            <summary>
+            身份令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AccessTokenLifetime">
+            <summary>
+            访问令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AuthorizationCodeLifetime">
+            <summary>
+            授权码有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AbsoluteRefreshTokenLifetime">
+            <summary>
+            绝对刷新令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.SlidingRefreshTokenLifetime">
+            <summary>
+            滚动刷新令牌有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.RefreshTokenUsage">
+            <summary>
+            刷新令牌使用情况
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.UpdateAccessTokenClaimsOnRefresh">
+            <summary>
+            刷新时更新访问令牌声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.RefreshTokenExpiration">
+            <summary>
+            刷新令牌过期方式
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AccessTokenType">
+            <summary>
+            访问令牌类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.EnableLocalLogin">
+            <summary>
+            启用本地登录
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.IncludeJwtId">
+            <summary>
+            包括 Jwt 标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AlwaysSendClientClaims">
+            <summary>
+            始终发送客户端声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.ClientClaimsPrefix">
+            <summary>
+            客户端声明前缀
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.PairWiseSubjectSalt">
+            <summary>
+            配对主体盐
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.UserSsoLifetime">
+            <summary>
+            用户 SSO 生命周期
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.UserCodeType">
+            <summary>
+            用户代码类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.DeviceCodeLifetime">
+            <summary>
+            设备授权码有效期(s)
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AllowedScopes">
+            <summary>
+            允许的作用域
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.ClientSecrets">
+            <summary>
+            客户端密钥
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.AllowedCorsOrigins">
+            <summary>
+            允许跨域来源
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.RedirectUris">
+            <summary>
+            重定向 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.PostLogoutRedirectUris">
+            <summary>
+            注销重定向 Uri
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.IdentityProviderRestrictions">
+            <summary>
+            身份提供程序限制
+            </summary>
+        </member>
         <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.Claims">
             <summary>
-            声明
+            客户端声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Clients.ClientUpdateDto.Properties">
+            <summary>
+            客户端属性
             </summary>
         </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto">
@@ -1498,9 +1958,109 @@
             身份资源Dto
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.Required">
+            <summary>
+            必要
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.Emphasize">
+            <summary>
+            强调
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.ShowInDiscoveryDocument">
+            <summary>
+            在发现文档中显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.UserClaims">
+            <summary>
+            用户声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto.CreateUpdateIdentityResourceDto.Properties">
+            <summary>
+            属性
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.Enabled">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.Required">
+            <summary>
+            必要
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.Emphasize">
+            <summary>
+            强调
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.ShowInDiscoveryDocument">
+            <summary>
+            在发现文档中显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.UserClaims">
+            <summary>
+            用户声明
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.IdentityResources.IdentityResourceDto.Properties">
+            <summary>
+            属性
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityServerPermissions">
             <summary>
             IdentityServer 权限定义
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.PropertyDto.Key">
+            <summary>
+            键
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.PropertyDto.Value">
+            <summary>
+            值
             </summary>
         </member>
         <member name="P:Tiger.Volo.Abp.IdentityServer.SecretDto.Type">

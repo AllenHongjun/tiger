@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Tiger.Volo.Abp.IdentityServer.IdentityResources;
-using Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.Identity.Localization;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
@@ -75,7 +70,6 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         [HttpGet]
         public async Task<PagedResultDto<IdentityResourceDto>> GetListAsync(IdentityResourceGetByPagedDto input)
         {
@@ -89,7 +83,6 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         [HttpPut]
         [Route("{id}")]
         public async Task<IdentityResourceDto> UpdateAsync(Guid id, IdentityResourceCreateOrUpdateDto input)
