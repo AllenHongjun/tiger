@@ -6,46 +6,57 @@
         <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
           {{ $t('AbpUi.Search') }}
         </el-button>
-        <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-          {{ $t("AppPlatform['Layout:AddNew']") }}
+        <el-button v-if="checkPermission('IdentityServer.ApiResources.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+          {{ $t("AbpIdentityServer['Resource:New']") }}
         </el-button>
       </el-row>
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Name\']')" prop="name" sortable align="center">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'DisplayName\']')" align="center">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Description\']')" prop="description" sortable align="center">
         <template slot-scope="{ row }">
           <span>{{ row.description }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Path\']')" prop="path" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled" sortable align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.path }}</span>
+          <el-tag :type="( row.enabled ? 'success' : 'danger')">
+            {{ row.enabled ? '启用' : '禁用' }}
+          </el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Redirect\']')" prop="redirect" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'AllowedAccessTokenSigningAlgorithms\']')" prop="allowedAccessTokenSigningAlgorithms" align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.redirect }}</span>
+          <el-tag :type="( row.allowedAccessTokenSigningAlgorithms ? 'success' : 'danger')">
+            {{ row.allowedAccessTokenSigningAlgorithms ? '启用' : '禁用' }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument" align="center">
+        <template slot-scope="{ row }">
+          <el-tag :type="( row.showInDiscoveryDocument ? 'success' : 'danger')">
+            {{ row.showInDiscoveryDocument ? '启用' : '禁用' }}
+          </el-tag>
         </template>
       </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" @click="handleUpdate(row)">
+          <el-button v-if="checkPermission('IdentityServer.ApiResources.Update')" type="primary" @click="handleUpdate(row)">
             {{ $t("AbpUi['Edit']") }}
           </el-button>
-          <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" @click="handleDelete(row, $index)">
+          <el-button v-if="checkPermission('IdentityServer.ApiResources.Delete')" type="danger" @click="handleDelete(row, $index)">
             {{ $t("AbpUi['Delete']") }}
           </el-button>
         </template>
@@ -54,29 +65,24 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppPlatform[\'Layout:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name">
+        <el-form-item :label="$t('AbpIdentityServer[\'Name\']')" prop="name">
           <el-input v-model="temp.name" />
         </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" prop="displayName">
+        <el-form-item :label="$t('AbpIdentityServer[\'DisplayName\']')" prop="displayName">
           <el-input v-model="temp.displayName" />
         </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description">
+        <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
           <el-input v-model="temp.description" />
         </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Path\']')" prop="path">
-          <el-input v-model="temp.path" />
+        <el-form-item :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled">
+          <template>
+            <el-radio v-model="temp.enabled" :label="true">启用</el-radio>
+            <el-radio v-model="temp.enabled" :label="false">禁用</el-radio>
+          </template>
         </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Redirect\']')" prop="redirect">
-          <el-input v-model="temp.redirect" />
-        </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Freamwork\']')" prop="freamwork">
-          <el-input v-model="temp.freamwork" />
-        </el-form-item>
-        <!-- <el-form-item :label="$t('AppPlatform[\'DisplayName:DataId\']')" prop="dataId">
-          <el-input v-model="temp.dataId" />
-        </el-form-item> -->
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -92,20 +98,19 @@
 
 <script>
 import {
-  getLayouts,
-  getLayout,
-  getLayoutsAll,
-  createLayout,
-  updateLayout,
-  deleteLayout
-} from '@/api/system-manage/platform/layout'
+  getApiResources,
+  getApiResource,
+  createApiResource,
+  updateApiResource,
+  deleteApiResource
+} from '@/api/system-manage/identity-server/api-resource'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
 
 export default {
-  name: 'Layouts',
+  name: 'ApiResources',
   components: {
     Pagination
   },
@@ -118,13 +123,37 @@ export default {
       listQuery: baseListQuery,
       temp: {
         id: undefined,
-        name: '',
         displayName: '',
         description: '',
-        path: '',
-        redirect: '',
-        dataId: undefined,
-        freamwork: ''
+        enabled: true,
+        allowedAccessTokenSigningAlgorithms: true,
+        showInDiscoveryDocument: true,
+        secrets: [
+          {
+            type: '',
+            value: '',
+            description: '',
+            expiration: undefined,
+            hashType: 0
+          }
+        ],
+        scopes: [
+          {
+            scope: ''
+          }
+        ],
+        userClaims: [
+          {
+            type: ''
+          }
+        ],
+        properties: [
+          {
+            key: '',
+            value: ''
+          }
+        ],
+        name: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -135,7 +164,7 @@ export default {
           {
             required: true,
             message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:Name']")
+              this.$i18n.t("AbpIdentityServer['Name']")
             ]),
             trigger: 'blur'
           },
@@ -143,82 +172,12 @@ export default {
             max: 64,
             message: this.$i18n.t(
               "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Name']"), '64']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        displayName: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:DisplayName']")
-            ]),
-            trigger: 'blur'
-          },
-          {
-            max: 256,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Name']"), '256']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        description: [
-          {
-            max: 256,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Description']"), '256']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        path: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:Path']")
-            ]),
-            trigger: 'blur'
-          },
-          {
-            max: 256,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Path']"), '256']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        redirect: [
-          {
-            max: 255,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Redirect']"), '255']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        freamwork: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:Freamwork']")
-            ]),
-            trigger: 'blur'
-          },
-          {
-            max: 255,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Freamwork']"), '255']
+              [this.$i18n.t("AbpIdentityServer['Name']"), '64']
             ),
             trigger: 'blur'
           }
         ]
+
       }
     }
   },
@@ -231,7 +190,7 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      getLayouts(this.listQuery).then(response => {
+      getApiResources(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
 
@@ -255,13 +214,37 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        name: '',
         displayName: '',
         description: '',
-        path: '',
-        redirect: '',
-        dataId: undefined,
-        freamwork: ''
+        enabled: true,
+        allowedAccessTokenSigningAlgorithms: true,
+        showInDiscoveryDocument: true,
+        secrets: [
+          {
+            type: '',
+            value: '',
+            description: '',
+            expiration: undefined,
+            hashType: 0
+          }
+        ],
+        scopes: [
+          {
+            scope: ''
+          }
+        ],
+        userClaims: [
+          {
+            type: ''
+          }
+        ],
+        properties: [
+          {
+            key: '',
+            value: ''
+          }
+        ],
+        name: ''
       }
     },
 
@@ -279,7 +262,7 @@ export default {
     createData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          createLayout(this.temp).then(() => {
+          createApiResource(this.temp).then(() => {
             this.list.unshift(this.temp)
             this.dialogFormVisible = false
             this.$notify({
@@ -299,10 +282,6 @@ export default {
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
 
-      getLayout(row.id).then(response => {
-        this.temp = response
-      })
-
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -312,7 +291,7 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          updateLayout(this.temp.id, this.temp).then(() => {
+          updateApiResource(this.temp.id, this.temp).then(() => {
             const index = this.list.findIndex((v) => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)
             this.dialogFormVisible = false
@@ -342,7 +321,7 @@ export default {
         }
       ).then(async() => {
         // 回调函数
-        deleteLayout(row.id).then(() => {
+        deleteApiResource(row.id).then(() => {
           const index = this.list.findIndex((v) => v.id === row.id)
           this.list.splice(index, 1)
           this.$notify({

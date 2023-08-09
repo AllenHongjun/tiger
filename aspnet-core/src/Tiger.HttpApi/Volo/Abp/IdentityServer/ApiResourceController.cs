@@ -47,6 +47,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Route("{id}")]
         public async Task DeleteAsync(Guid id)
         {
             await ApiResourceAppService.DeleteAsync(id);

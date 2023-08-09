@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20230809160301_background-job-add.cs" />
+    <Compile Remove="Migrations\20230809160301_background-job-add.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tiger.EntityFrameworkCore\Tiger.EntityFrameworkCore.csproj" />
   </ItemGroup>
 

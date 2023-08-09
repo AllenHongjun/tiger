@@ -10,6 +10,7 @@ using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz;
@@ -253,8 +254,8 @@ namespace Tiger
             //   .AddInMemoryClients(Config.Clients)
             //   .AddTestUsers(TestUsers.Users);
 
-
-
+            // 配置显示详细的错误信息
+            IdentityModelEventSource.ShowPII = true; //Add this line
             context.Services.AddAuthentication(options =>
                 {
                     //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

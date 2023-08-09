@@ -18,7 +18,7 @@ namespace Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum
         /// <summary>
         /// 已完成
         /// </summary>
-        Complete = 0,
+        Completed = 0,
 
         /// <summary>
         /// 运行中

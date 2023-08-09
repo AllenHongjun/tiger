@@ -32,7 +32,7 @@ namespace Tiger.Volo.Abp.IdentityServer.ApiResources
         /// <summary>
         /// 允许访问令牌签名算法
         /// </summary>
-        public string AllowedAccessTokenSigningAlgorithms { get; set; }
+        public bool AllowedAccessTokenSigningAlgorithms { get; set; }
 
         /// <summary>
         /// 在发现文档中显示

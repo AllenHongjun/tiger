@@ -45,7 +45,7 @@ namespace Tiger.Infrastructure.BackgroundTasks.Abstractions
         /// <summary>
         /// 任务参数
         /// </summary>
-        public IDictionary<string, object> Args { get; set; } = new Dictionary<string, object>();
+        public IDictionary<string, object> Args { get; set; }
 
         /// <summary>
         /// 任务状态

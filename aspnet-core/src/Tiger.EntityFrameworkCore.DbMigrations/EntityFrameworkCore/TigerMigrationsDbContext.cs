@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tiger.Module.TaskManagement;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -43,6 +44,7 @@ namespace Tiger.EntityFrameworkCore
             /* Configure your own tables/entities inside the ConfigureTiger method */
 
             builder.ConfigureTiger();
+            //builder.ConfigureTaskManagement();
         }
     }
 }

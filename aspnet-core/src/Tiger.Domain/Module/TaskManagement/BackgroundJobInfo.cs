@@ -35,6 +35,9 @@ namespace Tiger.Module.TaskManagement
         ///// <summary>
         ///// 任务参数
         ///// </summary>
+        ///<remarks>
+        /// 数据库 不能直接使用类型 IDictionary<string, object> 
+        /// </remarks>
         public virtual IDictionary<string, object> Args { get; set; }
         /// <summary>
         /// 任务状态

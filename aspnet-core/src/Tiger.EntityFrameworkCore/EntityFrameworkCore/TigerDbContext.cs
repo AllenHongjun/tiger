@@ -19,6 +19,7 @@ using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Platform.Menus;
 using Tiger.Module.System.Platform.Layouts;
+using Tiger.Module.TaskManagement;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -66,9 +67,16 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Language> Languages { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<LanguageText> LanguageTexts { get; set; }
+
+
         public DbSet<Data> Datas { get; set; }
         public DbSet<Layout> Layouts { get; set; }
         public DbSet<Menu> Menus { get; set; }
+
+        //public DbSet<BackgroundJobInfo>  BackgroundJobInfos { get; set; }
+        public DbSet<BackgroundJobAction> BackgroundJobActions { get; set; }
+        public DbSet<BackgroundJobLog> BackgroundJobLogs { get; set; }
+
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)
@@ -111,6 +119,7 @@ namespace Tiger.EntityFrameworkCore
             /* Configure your own tables/entities inside the ConfigureTiger method */
 
             builder.ConfigureTiger();
+            //builder.ConfigureTaskManagement();
         }
 
 

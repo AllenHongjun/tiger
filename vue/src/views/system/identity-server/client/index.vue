@@ -53,9 +53,36 @@
 
     <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Client:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AbpIdentityServer[\'Client:Name\']')" prop="clientName">
-          <el-input v-model="temp.clientName" />
-        </el-form-item>
+        <el-tabs v-model="dialogTabActiveName">
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="first">
+            <el-form-item :label="$t('AbpIdentityServer[\'Client:Id\']')" prop="clientId">
+              <el-input v-model="temp.clientId" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Client:Name\']')" prop="clientName">
+              <el-input v-model="temp.clientName" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
+              <el-input v-model="temp.description" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Client:ClientUri\']')" prop="clientUri">
+              <el-input v-model="temp.clientUri" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Client:LogoUri\']')" prop="logoUri">
+              <el-input v-model="temp.logoUri" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Client:Enabled\']')" prop="enabled">
+              <el-checkbox v-model="temp.enabled" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Client:RequireConsent\']')" prop="requireConsent">
+              <el-checkbox v-model="temp.requireConsent" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Client:AllowRememberConsent\']')" prop="allowRememberConsent">
+              <el-checkbox v-model="temp.allowRememberConsent" />
+            </el-form-item></el-tab-pane>
+          <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
+          <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
+          <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+        </el-tabs>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -147,7 +174,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
-
+      dialogTabActiveName: 'second',
       // 表单验证规则
       rules: {
         name: [
