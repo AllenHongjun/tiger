@@ -3,15 +3,15 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">TIGER</h3>
+        <h3 class="title">账号登录</h3>
       </div>
 
       <el-form-item prop="tenent">
         <span class="svg-container">
           <svg-icon icon-class="international" />
         </span>
-        <el-input v-model="tenant" placeholder="未选择商户" name="tenent" type="text" tabindex="1" auto-complete="on" />
-        <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换商户</el-button>
+        <el-input v-model="tenant" placeholder="默认宿主" name="tenent" type="text" tabindex="1" auto-complete="on" />
+        <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
       </el-form-item>
 
       <el-form-item prop="username">
@@ -46,10 +46,15 @@
         <el-col :span="12" />
       </el-row>
 
-      <div class="tips">
-        <span style="margin-right:20px;">用户名: admin</span>
-        <span> 密码: 1q2w3E*</span>
-      </div>
+      <el-row style="margin-top:10px;">
+        <el-col>
+          <div class="tips">
+            <span style="margin-right:20px;">用户名: admin</span>
+            <span> 密码: 1q2w3E*</span>
+          </div>
+        </el-col>
+
+      </el-row>
 
     </el-form>
 
@@ -165,7 +170,6 @@ export default {
 
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
-              // debugger
               this.$router.push({
                 path: this.redirect || '/',
                 query: this.otherQuery

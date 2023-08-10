@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import qs from 'querystring'
 
+// 登录获取用户token
 export function login(data) {
   return request({
     url: '/connect/token',

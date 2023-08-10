@@ -107,6 +107,11 @@ namespace Tiger.Volo.Abp.Account
         }
 
 
+        public override async Task SendPasswordResetCodeAsync(SendPasswordResetCodeDto input)
+        {
+            await base.SendPasswordResetCodeAsync(input);
+        }
+
         /// <summary>
         /// 通过手机号注册
         /// </summary>

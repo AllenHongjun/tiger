@@ -120,15 +120,6 @@ namespace Tiger.Volo.Abp.Identity
             await UserManager.SetOrganizationUnitsAsync(userId, ouId.ToArray());
         }
 
-        public override async Task<IdentityUserDto> CreateAsync(IdentityUserCreateDto input)
-        {
-            /*
-             移除用户关联的角色
-             新增用户关联的新角色
-             
-             */
-            return await base.CreateAsync(input);
-        }
 
         /// <summary>
         /// 获取用户关联的组织机构

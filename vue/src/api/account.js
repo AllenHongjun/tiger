@@ -1,7 +1,5 @@
-// 导入请求工具方法
 import request from '@/utils/request'
 import qs from 'querystring'
-import { transformAbpListQuery } from '@/utils/abp'
 
 export function register(payload) {
   return request({

@@ -83,24 +83,28 @@ export default {
         username: '',
         password: '',
         emailAddress: '',
-        appName: 'Tiger_App'
+        appName: 'test1' // 默认注册方法 后端这个字段未使用
       },
       registerRules: {
-        username: [{
-          required: true,
-          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
-          trigger: ['blur', 'change']
-        }],
-        password: [{
-          required: true,
-          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
-          trigger: ['blur', 'change']
-        }],
-        email: [{
-          required: true,
-          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
-          trigger: ['blur', 'change']
-        }]
+        username: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+            trigger: ['blur', 'change']
+          }],
+        password: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+            trigger: ['blur', 'change']
+          }],
+        emailAddress: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+            trigger: ['blur', 'change']
+          }
+        ]
       },
       loading: false,
       passwordType: 'password',
@@ -148,6 +152,7 @@ export default {
           this.loading = true
           register(this.registerForm)
             .then(res => {
+              // 注册成功跳转登录页面
               this.$router.push({
                 path: '/login'
               })

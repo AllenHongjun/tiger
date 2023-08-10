@@ -1,36 +1,25 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="dataForm" :model="dataForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
         <h3 class="title">密码重置</h3>
       </div>
 
-      <el-form-item prop="emailAddress">
+      <el-form-item prop="email">
         <span class="svg-container">
           <svg-icon icon-class="email" />
         </span>
-        <el-input ref="emailAddress" v-model="loginForm.emailAddress" placeholder="邮箱" name="emailAddress" type="text" tabindex="1" auto-complete="on" />
+        <el-input ref="email" v-model="dataForm.email" placeholder="邮箱" name="email" type="text" tabindex="1" auto-complete="on" />
       </el-form-item>
 
-      <el-form-item prop="appName">
-        <span class="svg-container">
-          <svg-icon icon-class="international" />
-        </span>
-        <el-input ref="appName" v-model="loginForm.appName" placeholder="应用名称" name="appName" type="text" tabindex="1" auto-complete="on" />
-      </el-form-item>
-
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">发送邮件</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSendPasswordResetCode">发送邮件</el-button>
 
       <el-row>
         <el-col :span="12">
           <el-link href="#/login" type="primary">登 录</el-link>
         </el-col>
       </el-row>
-      <!-- <div class="tips">
-        <span style="margin-right:20px;">用户名: admin</span>
-        <span> 密码: 1q2w3E*</span>
-      </div> -->
 
     </el-form>
 
@@ -39,49 +28,38 @@
 
 <script>
 import {
-  validUsername
+  validEmail
 } from '@/utils/validate'
 import {
-  getApplicationConfiguration,
-  getTenantByName
-} from '@/api/user'
+  sendPasswordResetCode
+} from '@/api/account'
 
 export default {
   name: 'ResetPassword',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+      if (!validEmail(value)) {
+        callback(new Error('请输入正确的邮箱'))
       } else {
         callback()
       }
     }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
+
     return {
       dialogVisible: false,
-      loginForm: {
-
-        emailAddress: '',
-
-        appName: ''
+      dataForm: {
+        email: '',
+        appName: 'Tiger_Web',
+        returnUrl: '',
+        returnUrlHash: ''
       },
       loginRules: {
-        username: [{
+        email: [{
           required: true,
           trigger: 'blur',
           validator: validateUsername
-        }],
-        password: [{
-          required: true,
-          trigger: 'blur',
-          validator: validatePassword
         }]
+
       },
       loading: false,
       passwordType: 'password',
@@ -98,76 +76,30 @@ export default {
     }
   },
   methods: {
-    showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
-      } else {
-        this.passwordType = 'password'
-      }
-      this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
-    },
 
-    handleLogin() {
-      return
-      this.$refs.loginForm.validate(valid => {
+    handleSendPasswordResetCode() {
+      this.$refs.dataForm.validate(valid => {
         if (valid) {
+          this.$alert('开发中..')
+          return
           this.loading = true
-          getApplicationConfiguration(this.tenant).then((response) => {
-            console.log(response)
-          })
-          // return;
-
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            console.log('this.redirect:' + this.redirect)
-
-            this.$router.push({
-              path: this.redirect || '/',
-              query: this.otherQuery
+          sendPasswordResetCode(this.dataForm)
+            .then(res => {
+              // 注册成功跳转登录页面
+              // this.$router.push({
+              //   path: '/login'
+              // })
+              this.loading = false
             })
-            console.log('login')
-            this.loading = false
-          }).catch(() => {
-            console.log('login err')
-            this.loading = false
-          })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
-    },
-
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
-    },
-    handleSwichTenant() {
-      this.tenant = this.tenant
-      getTenantByName(this.tenant).then((response) => {
-        if (response.success) {
-          this.dialogVisible = false
-          this.$notify({
-            title: '成功',
-            message: '获取成功',
-            type: 'success',
-            duration: 2000
-          })
-        } else {
-          this.dialogVisible = true
-          this.$notify({
-            title: '失败',
-            message: '租户信息获取失败',
-            type: 'fail',
-            duration: 2000
-          })
-        }
-      })
     }
+
   }
 }
 </script>
