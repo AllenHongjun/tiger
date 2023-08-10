@@ -39,7 +39,6 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         Options = options.Value;
 
         LocalizationResource = typeof(TaskManagementResource);
-        ObjectMapperContext = typeof(TaskManagementApplicationModule);
     }
 
     public virtual Task<ListResultDto<BackgroundJobDefinitionDto>> GetDefinitionsAsync()

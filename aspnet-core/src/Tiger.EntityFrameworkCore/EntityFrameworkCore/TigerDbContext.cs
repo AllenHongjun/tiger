@@ -73,7 +73,7 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Layout> Layouts { get; set; }
         public DbSet<Menu> Menus { get; set; }
 
-        //public DbSet<BackgroundJobInfo>  BackgroundJobInfos { get; set; }
+        public DbSet<BackgroundJobInfo> BackgroundJobInfos { get; set; }
         public DbSet<BackgroundJobAction> BackgroundJobActions { get; set; }
         public DbSet<BackgroundJobLog> BackgroundJobLogs { get; set; }
 

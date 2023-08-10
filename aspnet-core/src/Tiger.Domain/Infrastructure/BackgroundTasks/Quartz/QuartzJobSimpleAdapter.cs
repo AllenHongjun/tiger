@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Tiger.Infrastructure.BackgroundTasks;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 
-namespace LINGYUN.Abp.BackgroundTasks.Quartz;
+namespace Tiger.Infrastructure.BackgroundTasks.Quartz;
 
 public class QuartzJobSimpleAdapter<TJobRunnable> : IJob
     where TJobRunnable : IJobRunnable

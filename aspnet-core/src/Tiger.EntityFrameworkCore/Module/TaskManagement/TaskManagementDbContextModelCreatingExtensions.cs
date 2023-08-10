@@ -1,5 +1,4 @@
-﻿using LINGYUN.Abp.BackgroundTasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;

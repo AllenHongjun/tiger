@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Tiger.Infrastructure.BackgroundTasks;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 
-namespace LINGYUN.Abp.BackgroundTasks.Jobs;
+namespace Tiger.Infrastructure.BackgroundTasks.Jobs;
 
 public class ConsoleJob : IJobRunnable
 {

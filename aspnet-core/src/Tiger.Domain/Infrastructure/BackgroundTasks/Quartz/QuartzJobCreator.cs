@@ -8,7 +8,7 @@ using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
 
-namespace LINGYUN.Abp.BackgroundTasks.Quartz;
+namespace Tiger.Infrastructure.BackgroundTasks.Quartz;
 
 public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
 {

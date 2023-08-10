@@ -5,7 +5,7 @@ using Tiger.Infrastructure.BackgroundTasks;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 using Volo.Abp.Sms;
 
-namespace LINGYUN.Abp.BackgroundTasks.Jobs;
+namespace Tiger.Infrastructure.BackgroundTasks.Jobs;
 
 public class SendSmsJob : IJobRunnable
 {

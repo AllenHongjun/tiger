@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 using Tiger.Infrastructure.BackgroundTasks;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
-using Tiger.Infrastructure.BackgroundTasks.Quartz;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
 
-namespace LINGYUN.Abp.BackgroundTasks.Quartz;
+namespace Tiger.Infrastructure.BackgroundTasks.Quartz;
 
 public class QuartzJobListener : JobListenerSupport, ISingletonDependency
 {
@@ -43,7 +42,7 @@ public class QuartzJobListener : JobListenerSupport, ISingletonDependency
             var jobType = context.JobDetail.JobType;
             jobName = !jobType.IsGenericType ? jobType.Name : jobType.GetGenericArguments()[0].Name;
         }
-        
+
         Logger.LogWarning($"The task {jobName} could not be performed...");
 
         return Task.FromResult(-1);

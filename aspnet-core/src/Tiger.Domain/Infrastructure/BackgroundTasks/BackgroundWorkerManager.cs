@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.DependencyInjection;

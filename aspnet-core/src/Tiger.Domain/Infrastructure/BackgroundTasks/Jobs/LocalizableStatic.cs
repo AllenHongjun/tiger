@@ -1,7 +1,7 @@
 ﻿using Tiger.Infrastructure.BackgroundTasks.Abstractions.Localization;
 using Volo.Abp.Localization;
 
-namespace LINGYUN.Abp.BackgroundTasks.Jobs;
+namespace Tiger.Infrastructure.BackgroundTasks.Jobs;
 
 internal static class LocalizableStatic
 {

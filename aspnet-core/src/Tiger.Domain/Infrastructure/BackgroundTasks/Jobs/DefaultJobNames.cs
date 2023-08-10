@@ -1,4 +1,4 @@
-﻿namespace LINGYUN.Abp.BackgroundTasks.Jobs;
+﻿namespace Tiger.Infrastructure.BackgroundTasks.Jobs;
 
 public static class DefaultJobNames
 {

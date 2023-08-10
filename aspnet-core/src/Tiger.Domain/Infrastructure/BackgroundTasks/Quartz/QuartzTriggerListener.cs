@@ -9,7 +9,7 @@ using Tiger.Infrastructure.BackgroundTasks;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 using Volo.Abp.DependencyInjection;
 
-namespace LINGYUN.Abp.BackgroundTasks.Quartz;
+namespace Tiger.Infrastructure.BackgroundTasks.Quartz;
 
 public class QuartzTriggerListener : TriggerListenerSupport, ISingletonDependency
 {
@@ -55,13 +55,13 @@ public class QuartzTriggerListener : TriggerListenerSupport, ISingletonDependenc
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public override async Task TriggerComplete(
-        ITrigger trigger, 
-        IJobExecutionContext context, 
+        ITrigger trigger,
+        IJobExecutionContext context,
         SchedulerInstruction triggerInstructionCode,
         CancellationToken cancellationToken = default)
     {

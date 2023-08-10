@@ -7,7 +7,7 @@ using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 using Volo.Abp.Emailing;
 using Volo.Abp.TextTemplating;
 
-namespace LINGYUN.Abp.BackgroundTasks.Jobs;
+namespace Tiger.Infrastructure.BackgroundTasks.Jobs;
 
 public class SendEmailJob : IJobRunnable
 {

@@ -2,7 +2,7 @@
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 using Volo.Abp.DependencyInjection;
 
-namespace LINGYUN.Abp.BackgroundTasks.Quartz;
+namespace Tiger.Infrastructure.BackgroundTasks.Quartz;
 
 public class QuartzKeyBuilder : IQuartzKeyBuilder, ISingletonDependency
 {

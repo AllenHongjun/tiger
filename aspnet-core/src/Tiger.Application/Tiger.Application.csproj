@@ -71,6 +71,7 @@
     <Compile Remove="Helper\IDateTimeHelper.cs" />
     <Compile Remove="Helper\IUserAgentHelper.cs" />
     <Compile Remove="Helper\UserAgentHelper.cs" />
+    <Compile Remove="Module\TaskManagement\TaskManagementApplicationModule.cs" />
     <Compile Remove="Volo\Abp\Identity\HelloIdentityRoleAppService.cs" />
     <Compile Remove="Volo\Abp\Identity\HelloIdentityUserAppService.cs" />
   </ItemGroup>
