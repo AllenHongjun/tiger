@@ -96,11 +96,16 @@ namespace Tiger.Volo.Abp.Account
             await SmsSender.SendAsync(smsMessage);
         }
 
-
-        public void Test()
+        /// <summary>
+        /// 通过用户名和邮箱注册账号
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public override async Task<IdentityUserDto> RegisterAsync(RegisterDto input)
         {
-            //UserManager.AddLoginAsync();
+            return await base.RegisterAsync(input);
         }
+
 
         /// <summary>
         /// 通过手机号注册

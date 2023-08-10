@@ -12,7 +12,7 @@ namespace Tiger.Module.TaskManagement
     /// <summary>
     /// 后台作业
     /// </summary>
-    public class BackgroundJobInfo:AuditedAggregateRoot<string>, IMultiTenant
+    public class BackgroundJobInfo:AuditedAggregateRoot<string>, IMultiTenant, IHasExtraProperties
     {
         public virtual Guid? TenantId { get; protected set; }
 
@@ -38,7 +38,7 @@ namespace Tiger.Module.TaskManagement
         ///<remarks>
         /// 数据库 不能直接使用类型 IDictionary<string, object> 
         /// </remarks>
-        public virtual IDictionary<string, object> Args { get; set; }
+        public virtual Dictionary<string, object> Args { get; set; }
         /// <summary>
         /// 任务状态
         /// </summary>
@@ -126,7 +126,7 @@ namespace Tiger.Module.TaskManagement
             string name,
             string group,
             string type,
-            IDictionary<string, object> args,
+            Dictionary<string, object> args,
             DateTime beginTime,
             DateTime? endTime = null,
             JobPriority priority = JobPriority.Normal,

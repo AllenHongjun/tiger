@@ -15,7 +15,7 @@ public abstract class BackgroundJobInfoCreateOrUpdateDto
     /// <summary>
     /// 任务参数
     /// </summary>
-    public IDictionary<string, object> Args { get; set; } = new Dictionary<string, object>();
+    public Dictionary<string, object> Args { get; set; } = new Dictionary<string, object>();
     /// <summary>
     /// 描述
     /// </summary>

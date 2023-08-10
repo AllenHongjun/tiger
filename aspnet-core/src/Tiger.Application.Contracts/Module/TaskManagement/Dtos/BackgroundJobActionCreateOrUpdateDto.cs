@@ -12,7 +12,7 @@ public abstract class BackgroundJobActionCreateOrUpdateDto
     /// <summary>
     /// 参数
     /// </summary>
-    public IDictionary<string, object> Paramters { get; set; }
+    public Dictionary<string, object> Paramters { get; set; }
 
     public BackgroundJobActionCreateOrUpdateDto()
     {

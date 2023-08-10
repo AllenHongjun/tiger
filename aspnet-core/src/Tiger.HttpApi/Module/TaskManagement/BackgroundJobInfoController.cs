@@ -12,7 +12,6 @@ namespace Tiger.Module.TaskManagement;
 
 [RemoteService(Name = TaskManagementRemoteServiceConsts.RemoteServiceName)]
 [Area(TaskManagementRemoteServiceConsts.ModuleName)]
-[Authorize(TaskManagementPermissions.BackgroundJobs.Default)]
 [Route($"api/{TaskManagementRemoteServiceConsts.ModuleName}/background-jobs")]
 public class BackgroundJobInfoController : AbpController, IBackgroundJobInfoAppService
 {

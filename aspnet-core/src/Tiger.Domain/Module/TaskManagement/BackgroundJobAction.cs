@@ -55,7 +55,10 @@ namespace Tiger.Module.TaskManagement
         /// <summary>
         /// 执行参数
         /// </summary>
-        public virtual IDictionary<string, object> Paramters { get; set; }
+        /// <remarks>
+        /// 使用字典作为数据库参数
+        /// </remarks>
+        public virtual Dictionary<string, object> Paramters { get; set; }
 
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using Quartz;
 using System;
+using System.Collections.Generic;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
 using Volo.Abp.DependencyInjection;
@@ -66,7 +67,7 @@ public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
         // 独占任务需要
         jobBuilder.UsingJobData(nameof(JobInfo.LockTimeOut), job.LockTimeOut);
         // 传递的作业参数
-        jobBuilder.UsingJobData(new JobDataMap(job.Args));
+        jobBuilder.UsingJobData(new JobDataMap(job.Args as IDictionary<string, object>));
         if (job.TenantId.HasValue)
         {
             // 用于多租户场景

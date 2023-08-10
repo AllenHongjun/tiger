@@ -44,7 +44,7 @@ namespace Tiger.EntityFrameworkCore
             /* Configure your own tables/entities inside the ConfigureTiger method */
 
             builder.ConfigureTiger();
-            //builder.ConfigureTaskManagement();
+            builder.ConfigureTaskManagement();
         }
     }
 }

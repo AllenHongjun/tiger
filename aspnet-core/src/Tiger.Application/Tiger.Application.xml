@@ -817,6 +817,13 @@
             用户账号管理
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.RegisterAsync(Volo.Abp.Account.RegisterDto)">
+            <summary>
+            通过用户名和邮箱注册账号
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.RegisterAsync(Tiger.Volo.Abp.Account.Dto.PhoneRegisterDto)">
             <summary>
             通过手机号注册

@@ -190,6 +190,15 @@ namespace Tiger
             Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
             #endregion
 
+            #region 绕过授权服务.
+            if (hostingEnvironment.IsDevelopment())
+            {
+                context.Services.AddAlwaysAllowAuthorization();
+            }
+            
+            #endregion
+
+
 
         }
 

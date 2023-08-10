@@ -20,6 +20,7 @@ namespace Tiger.Volo.Abp.Account
     public class AccountController : AbpController, ITigerAccountAppService
     {
         protected ITigerAccountAppService AccountAppService { get; }
+        protected IAccountAppService AbpAccountAppService { get; }
 
         public AccountController(ITigerAccountAppService accountAppService) 
         {
