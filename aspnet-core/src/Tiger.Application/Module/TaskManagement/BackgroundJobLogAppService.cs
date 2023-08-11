@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiger.Module.TaskManagement.Dtos;
 using Tiger.Module.TaskManagement.Permissions;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.TaskManagement;
 
+[RemoteService(IsEnabled = false)]
 [Authorize(TaskManagementPermissions.BackgroundJobLogs.Default)]
 public class BackgroundJobLogAppService : TaskManagementApplicationService, IBackgroundJobLogAppService
 {

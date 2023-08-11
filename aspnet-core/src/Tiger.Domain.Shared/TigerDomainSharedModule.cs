@@ -3,6 +3,7 @@ using Tiger.Module.OssManagement.Localization;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Localization;
 using Tiger.Module.System.TextTemplate.Localization;
+using Tiger.Module.TaskManagement.Localization;
 using Tiger.Volo.Abp.Identity;
 using Tiger.Volo.Abp.SettingUi.Localization;
 using Volo.Abp.AuditLogging;
@@ -62,10 +63,10 @@ namespace Tiger
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
-                    // 添加了一个新的本地化资源, 使用"zh-Hans"（英语）作为默认的本地化.
-                    .Add<TigerResource>("zh-Hans")
-                    .AddBaseTypes(typeof(AbpValidationResource))//资源可以从其他资源继承,这使得可以在不引用现有资源的情况下重用现有的本地化字符串 Inherit from an existing resource;
-                    .AddVirtualJson("/Localization/Tiger");// 用JSON文件存储本地化字符串. 使用虚拟文件系统 将JSON文件嵌入到程序集中.
+                        // 添加了一个新的本地化资源, 使用"zh-Hans"（英语）作为默认的本地化.
+                        .Add<TigerResource>("zh-Hans")
+                        .AddBaseTypes(typeof(AbpValidationResource))//资源可以从其他资源继承,这使得可以在不引用现有资源的情况下重用现有的本地化字符串 Inherit from an existing resource;
+                        .AddVirtualJson("/Localization/Tiger");// 用JSON文件存储本地化字符串. 使用虚拟文件系统 将JSON文件嵌入到程序集中.
 
                 options.Resources
                        .Add<AbpOssManagementResource>("zh-Hans")
@@ -81,16 +82,16 @@ namespace Tiger
                        .AddVirtualJson("/Module/System/Localization/Resources");
 
                 options.Resources
-                    .Get<IdentityResource>()  // 扩展现有资源(和abp框架默认的资源路径相同就会覆盖)
-                    .AddVirtualJson("/Volo/Abp/Identity/Localization/Extensions");
+                        .Get<IdentityResource>()  // 扩展现有资源(和abp框架默认的资源路径相同就会覆盖)
+                        .AddVirtualJson("/Volo/Abp/Identity/Localization/Extensions");
 
                 options.Resources
                         .Get<AbpIdentityServerResource>()
                         .AddVirtualJson("/Volo/Abp/IdentityServer/Localization/Resources");
 
                 options.Resources
-                    .Get<AuditLoggingResource>() // 扩展现有的资源
-                    .AddVirtualJson("/Volo/Abp/AuditLogging/Localization/Extensions");
+                        .Get<AuditLoggingResource>() // 扩展现有的资源
+                        .AddVirtualJson("/Volo/Abp/AuditLogging/Localization/Extensions");
 
                 options.Resources
                        .Add<SettingUiResource>("en")
@@ -100,6 +101,10 @@ namespace Tiger
                 options.Resources
                        .Add<AbpTextTemplateResource>("zh-Hans")
                        .AddVirtualJson("/Module/System/TextTemplate/Localization/Resources");
+
+                options.Resources
+                       .Add<TaskManagementResource>("zh-Hans")
+                       .AddVirtualJson("/Module/TaskManagement/Localization/Resources");
 
                 options.DefaultResourceType = typeof(TigerResource);
             });

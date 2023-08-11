@@ -19,6 +19,7 @@ using Volo.Abp.Data;
 
 namespace Tiger.Module.TaskManagement;
 
+[RemoteService(IsEnabled = false)]
 [Authorize(TaskManagementPermissions.BackgroundJobs.Default)]
 public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInfoAppService
 {

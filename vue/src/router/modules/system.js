@@ -186,6 +186,38 @@ const SystemManageRouter = {
       ]
     },
     {
+      path: '/task',
+      component: () => import('@/views/system/index'),
+      name: 'task',
+      meta: {
+        title: '定时任务', // the name show in sidebar and breadcrumb (recommend set)
+        icon: 'el-icon-document-copy' // the icon show in the sidebar
+        // policy: 'AbpTextTemplating.TextTemplates'
+      },
+      children: [
+        {
+          path: 'background-job/list',
+          component: () => import('@/views/system/task/background-job/index'), // Parent router-view
+          name: 'background-job',
+          meta: {
+            title: '任务管理' // the name show in sidebar and breadcrumb (recommend set)
+            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            // policy: 'AbpTextTemplating.TextTemplates'
+          }
+        }
+        // {
+        //   path: 'object/list',
+        //   component: () => import('@/views/system/oss/object/index'), // Parent router-view
+        //   name: 'object',
+        //   meta: {
+        //     title: '对象管理' // the name show in sidebar and breadcrumb (recommend set)
+        //     // icon: 'el-icon-document-copy' // the icon show in the sidebar
+        //     // policy: 'AbpTextTemplating.TextTemplates'
+        //   }
+        // }
+      ]
+    },
+    {
       path: 'text-template/list',
       component: () => import('@/views/system/text-template/text-template-table'), // Parent router-view
       name: 'text-template',

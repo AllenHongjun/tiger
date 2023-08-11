@@ -245,10 +245,11 @@ export default {
   data() {
     return {
       tableKey: 0,
-      advanced: false, // 判断搜索栏展开/收起
+
       list: null,
       total: 0,
       listLoading: true,
+      advanced: false, // 判断搜索栏展开/收起
       queryDateTime: undefined,
       queryForm: Object.assign({
         startTime: undefined,

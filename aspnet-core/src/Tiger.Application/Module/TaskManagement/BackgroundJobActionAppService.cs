@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Tiger.Infrastructure.BackgroundTasks.Activities;
 using Tiger.Module.TaskManagement.Dtos;
 using Tiger.Module.TaskManagement.Permissions;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.TaskManagement;
 
+[RemoteService(IsEnabled = false)]
 [Authorize(TaskManagementPermissions.BackgroundJobs.ManageActions)]
 public class BackgroundJobActionAppService : TaskManagementApplicationService, IBackgroundJobActionAppService
 {
