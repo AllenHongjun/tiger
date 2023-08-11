@@ -46,3 +46,11 @@ export function deleteBackgroundJob(id) {
   })
 }
 
+export function bulkStopBackgroundJob(payload) {
+  return request({
+    url: `/api/task-management/background-jobs/bulk-stop`,
+    method: 'put',
+    data: payload
+  })
+}
+

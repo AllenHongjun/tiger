@@ -3,28 +3,29 @@
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="queryForm">
         <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="日期">
-              <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" @change="datePickerChange" />
+
+          <el-col :span="4">
+            <el-form-item prop="filter" label="查询关键字">
+              <el-input v-model="queryForm.filter" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item prop="userName" :label="$t('AbpAuditLogging[\'UserName\']')">
-              <el-input v-model="queryForm.userName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-form-item prop="url" :label="$t('AbpAuditLogging[\'Url\']')">
-              <el-input v-model="queryForm.url" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+            <el-form-item prop="group" :label="$t('TaskManagement[\'DisplayName:Group\']')">
+              <el-input v-model="queryForm.group" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
             </el-form-item>
           </el-col>
 
           <el-col :span="4">
-            <el-form-item prop="hasException" :label="$t('AbpAuditLogging[\'Exceptions\']')">
-              <el-select v-model="queryForm.hasException" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
-                <el-option label="有" value="true" />
-                <el-option label="无" value="false" />
+            <el-form-item prop="isAbandoned" :label="$t('TaskManagement[\'DisplayName:IsAbandoned\']')">
+              <el-select v-model="queryForm.isAbandoned" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
+                <el-option label="是" value="true" />
+                <el-option label="否" value="false" />
               </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="日期">
+              <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" @change="datePickerChange" />
             </el-form-item>
           </el-col>
 
@@ -48,58 +49,53 @@
           <div v-show="advanced">
             <el-row :gutter="20">
               <el-col :span="4">
-                <el-form-item prop="httpMethod" :label="$t('AbpAuditLogging[\'HttpMethod\']')">
-                  <el-select v-model="queryForm.httpMethod" clearable style="width:100%" @clear="queryForm.httpMethod=undefined">
-                    <el-option label="GET" value="GET" />
-                    <el-option label="PUT" value="PUT" />
-                    <el-option label="POST" value="POST" />
-                    <el-option label="DELETE" value="DELETE" />
-                    <el-option label="HEAD" value="HEAD" />
-                    <el-option label="CONNECT" value="CONNECT" />
-                    <el-option label="OPTIONS" value="OPTIONS" />
-                    <el-option label="TRACE" value="TRACE" />
+                <el-form-item :label="$t('TaskManagement[\'DisplayName:JobType\']')" prop="jobType">
+                  <el-select v-model="queryForm.jobType" placeholder="请选择..." style="width:100%" :clearable="true" @clear="queryForm.jobType=undefined">
+                    <el-option label="一次性的" :value="0" />
+                    <el-option label="周期性的" :value="1" />
+                    <el-option label="持续性的" :value="2" />
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="4">
-                <el-form-item prop="httpStatueCode" :label="$t('AbpAuditLogging[\'HttpStatusCode\']')">
-                  <el-select v-model="queryForm.httpStatusCode" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
-                    <el-option label=" 100 - Continue " value="100" />
-                    <el-option label=" 200 - Ok " value="200" />
-                    <el-option label=" 300 - Multiple Choices " value="300" />
-                    <el-option label=" 400 - Bad Request " value="400" />
-                    <el-option label=" 500 - Internal Server Error " value="500" />
+                <el-form-item :label="$t('TaskManagement[\'DisplayName:Priority\']')" prop="priority">
+                  <el-select v-model="queryForm.priority" placeholder="请选择..." style="width:100%" :clearable="true" @clear="queryForm.priority=undefined">
+                    <el-option label="Low" :value="5" />
+                    <el-option label="BelowNormal" :value="10" />
+                    <el-option label="Normal" :value="15" />
+                    <el-option label="AboveNormal" :value="20" />
+                    <el-option label="High" :value="25" />
                   </el-select>
                 </el-form-item>
               </el-col>
               <el-col :span="4">
-                <el-form-item prop="applicationName" :label="$t('AbpAuditLogging[\'ApplicationName\']')">
-                  <el-input v-model="queryForm.applicationName" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+                <el-form-item :label="$t('TaskManagement[\'DisplayName:Source\']')" prop="source">
+                  <el-select v-model="queryForm.source" placeholder="请选择..." style="width:100%" :clearable="true" @clear="queryForm.source=undefined">
+                    <el-option label="未定义" :value="-1" />
+                    <el-option label="用户" :value="0" />
+                    <el-option label="系统内置" :value="10" />
+                  </el-select>
                 </el-form-item>
               </el-col>
 
-              <el-col :span="4">
-                <el-form-item prop="minExecutionDuration" :label="$t('AbpAuditLogging[\'MinExecutionDuration\']')">
-                  <el-input v-model="queryForm.minExecutionDuration" type="number" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="4">
-                <el-form-item prop="maxExecutionDuration" :label="$t('AbpAuditLogging[\'MaxExecutionDuration\']')">
-                  <el-input v-model="queryForm.maxExecutionDuration" type="number" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
-                </el-form-item>
-              </el-col>
             </el-row>
           </div>
         </el-collapse-transition>
         <!-- 操作按钮 -->
         <el-row>
-          <el-col :span="4">
+          <el-col>
             <el-button-group style="float:left">
-              <el-button v-if="checkPermission('TaskManagement.BackgroundJobs.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+              <el-button v-if="checkPermission('TaskManagement.BackgroundJobs.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
                 {{ $t("TaskManagement['Permissions:CreateJob']") }}
               </el-button>
+              <el-button type="success" icon="el-icon-video-play">{{ $t("TaskManagement['BackgroundJobs:Start']") }}</el-button>
+              <el-button type="primary" icon="el-icon-video-pause"> {{ $t("TaskManagement['BackgroundJobs:Pause']") }} </el-button>
+              <el-button type="success" icon="el-icon-refresh-right"> {{ $t("TaskManagement['BackgroundJobs:Resume']") }} </el-button>
+              <el-button type="info" icon="el-icon-caret-right"> {{ $t("TaskManagement['BackgroundJobs:Trigger']") }} </el-button>
+              <el-button type="warning" icon="el-icon-switch-button" @click="handlebulkStop()"> {{ $t("TaskManagement['BackgroundJobs:Stop']") }} </el-button>
+              <el-button type="danger" icon="el-icon-delete"> {{ $t("TaskManagement['BackgroundJobs:Delete']") }} </el-button>
               <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
-                刷新
+                {{ $t("AbpUi['Refresh']") }}
               </el-button>
               <el-button type="reset" icon="el-icon-download" @click="handleDownload">
                 导出
@@ -112,8 +108,9 @@
       </el-form>
     </div>
 
-    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
-      <el-table-column type="index" width="80" />
+    <el-table ref="multipleTable" :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+      <el-table-column type="selection" width="55" />
+      <el-table-column type="index" width="55" />
       <el-table-column :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="group" sortable align="center">
         <template slot-scope="{ row }">
           <span>{{ row.group }}</span>
@@ -124,19 +121,14 @@
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:Description\']')" prop="description" sortable align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.description }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="center" width="140">
         <template slot-scope="{ row }">
           <span>{{ row.creationTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:Status\']')" prop="status" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:Status\']')" prop="status" align="center" width="80">
         <template slot-scope="{ row }">
-          <span>{{ row.status }}</span>
+          <span>{{ row.status |statusFilter }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:Result\']')" prop="result" sortable align="center">
@@ -144,22 +136,22 @@
           <span>{{ row.result }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:LastRunTime\']')" prop="lastRunTime" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:LastRunTime\']')" prop="lastRunTime" sortable align="center" width="140">
         <template slot-scope="{ row }">
           <span>{{ row.lastRunTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:NextRunTime\']')" prop="nextRunTime" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:NextRunTime\']')" prop="nextRunTime" sortable align="center" width="140">
         <template slot-scope="{ row }">
           <span>{{ row.nextRunTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:JobType\']')" prop="jobType" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:JobType\']')" prop="jobType" align="center" width="80">
         <template slot-scope="{ row }">
           <span>{{ row.jobType }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:Priority\']')" prop="priority" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:Priority\']')" prop="priority" align="center" width="80">
         <template slot-scope="{ row }">
           <span>{{ row.priority }}</span>
         </template>
@@ -169,12 +161,12 @@
           <span>{{ row.cron }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:TriggerCount\']')" prop="triggerCount" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:TriggerCount\']')" prop="triggerCount" align="center" width="80">
         <template slot-scope="{ row }">
           <span>{{ row.triggerCount }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:TryCount\']')" prop="tryCount" sortable align="center">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:TryCount\']')" prop="tryCount" align="center" width="80">
         <template slot-scope="{ row }">
           <span>{{ row.tryCount }}</span>
         </template>
@@ -345,7 +337,8 @@ import {
   getBackgroundJobsAll,
   createBackgroundJob,
   updateBackgroundJob,
-  deleteBackgroundJob
+  deleteBackgroundJob,
+  bulkStopBackgroundJob
 } from '@/api/system-manage/task/background-job'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import baseListQuery, {
@@ -364,48 +357,16 @@ export default {
     Pagination
   },
   filters: {
-    requestDurationFilter(duration) {
-      let type = 'success'
-      if (duration > 2 * 1000) {
-        type = 'warning'
-      } else if (duration > 5 * 1000) {
-        type = 'error'
+    statusFilter(status) {
+      const statusMap = {
+        '-1': '未知',
+        0: '已完成',
+        10: '运行中',
+        15: '失败重试',
+        20: '已暂停',
+        30: '已停止'
       }
-      return type
-    },
-    requestStatusCode(code) {
-      let type = 'success'
-      switch (code) {
-        case 401:
-        case 403:
-        case 404:
-          type = 'warning'
-          break
-        case 500:
-          type = 'danger'
-          break
-      }
-      return type
-    },
-    requestMethodFilter(method) {
-      let type = 'success'
-      switch (method.toUpperCase()) {
-        case 'GET':
-          type = ''
-          break
-        case 'PUT':
-          type = 'warning'
-          break
-        case 'POST':
-          type = 'success'
-          break
-        case 'DELETE':
-          type = 'danger'
-          break
-        default:
-          type = 'Info'
-      }
-      return type
+      return statusMap[status]
     }
   },
   data() {
@@ -417,17 +378,20 @@ export default {
       advanced: false, // 判断搜索栏展开/收起
       queryDateTime: undefined,
       queryForm: Object.assign({
-        startTime: undefined,
+        name: '',
+        group: '',
+        type: '',
+        status: undefined,
+        beginTime: undefined,
         endTime: undefined,
-        userName: undefined,
-        url: undefined,
-        httpMethod: undefined,
-        httpStatusCode: undefined,
-        applicationName: undefined,
-        clientIpAddress: undefined,
-        hasException: undefined,
-        minExecutionDuration: undefined,
-        maxExecutionDuration: undefined
+        beginLastRunTime: undefined,
+        endLastRunTime: undefined,
+        beginCreationTime: undefined,
+        endCreationTime: undefined,
+        isAbandoned: undefined,
+        jobType: undefined,
+        priority: undefined,
+        source: undefined
       }, baseListQuery),
       pickerOptions: pickerRangeWithHotKey,
       downloadLoading: false, // 下载控制
@@ -564,7 +528,7 @@ export default {
     datePickerChange(value) {
       if (!value) {
         // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
-        this.queryForm.startTime = undefined
+        this.queryForm.beginTime = undefined
         this.queryForm.endTime = undefined
       }
     },
@@ -621,6 +585,7 @@ export default {
         endTime: undefined,
         source: 0
       }
+      this.queryDateTime = undefined
     },
 
     // 点击创建按钮
@@ -709,6 +674,31 @@ export default {
             type: 'success',
             duration: 2000
           })
+        })
+      })
+    },
+
+    handlebulkStop() {
+      // 方法二，通过 this.$refs 获取table选中的值
+      var selections = this.$refs.multipleTable.selection
+      if (selections.length <= 0) {
+        this.$message({
+          message: '请先选中一行数据!',
+          type: 'warning'
+        })
+        return
+      }
+      const ids = selections.map((x) => x.id)
+      var req = {
+        JobIds: ids
+      }
+      bulkStopBackgroundJob(req).then(() => {
+        this.handleFilter(false)
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
         })
       })
     },
