@@ -88,12 +88,12 @@
               <el-button v-if="checkPermission('TaskManagement.BackgroundJobs.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
                 {{ $t("TaskManagement['Permissions:CreateJob']") }}
               </el-button>
-              <el-button type="success" icon="el-icon-video-play">{{ $t("TaskManagement['BackgroundJobs:Start']") }}</el-button>
-              <el-button type="primary" icon="el-icon-video-pause"> {{ $t("TaskManagement['BackgroundJobs:Pause']") }} </el-button>
-              <el-button type="success" icon="el-icon-refresh-right"> {{ $t("TaskManagement['BackgroundJobs:Resume']") }} </el-button>
-              <el-button type="info" icon="el-icon-caret-right"> {{ $t("TaskManagement['BackgroundJobs:Trigger']") }} </el-button>
-              <el-button type="warning" icon="el-icon-switch-button" @click="handlebulkStop()"> {{ $t("TaskManagement['BackgroundJobs:Stop']") }} </el-button>
-              <el-button type="danger" icon="el-icon-delete"> {{ $t("TaskManagement['BackgroundJobs:Delete']") }} </el-button>
+              <el-button type="success" icon="el-icon-video-play" @click="handlebulkOperator('bulk-start')">{{ $t("TaskManagement['BackgroundJobs:Start']") }}</el-button>
+              <el-button type="primary" icon="el-icon-video-pause" @click="handlebulkOperator('bulk-pause')"> {{ $t("TaskManagement['BackgroundJobs:Pause']") }} </el-button>
+              <el-button type="success" icon="el-icon-refresh-right" @click="handlebulkOperator('bulk-resume')"> {{ $t("TaskManagement['BackgroundJobs:Resume']") }} </el-button>
+              <el-button type="info" icon="el-icon-caret-right" @click="handlebulkOperator('bulk-trigger')"> {{ $t("TaskManagement['BackgroundJobs:Trigger']") }} </el-button>
+              <el-button type="warning" icon="el-icon-switch-button" @click="handlebulkOperator('bulk-stop')"> {{ $t("TaskManagement['BackgroundJobs:Stop']") }} </el-button>
+              <el-button type="danger" icon="el-icon-delete" @click="handlebulkOperator('bulk-delete')"> {{ $t("TaskManagement['BackgroundJobs:Delete']") }} </el-button>
               <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
                 {{ $t("AbpUi['Refresh']") }}
               </el-button>
@@ -118,7 +118,7 @@
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="name" sortable align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <el-link type="primary" @click="handelDetail(row.name)">{{ row.name }} </el-link>
         </template>
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="center" width="140">
@@ -172,14 +172,20 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="180" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('TaskManagement.BackgroundJobs.Update')" type="primary" @click="handleUpdate(row)">
-            {{ $t("AbpUi['Edit']") }}
-          </el-button>
-          <el-button v-if="checkPermission('TaskManagement.BackgroundJobs.Delete')" type="danger" @click="handleDelete(row, $index)">
-            {{ $t("AbpUi['Delete']") }}
-          </el-button>
+          <el-link v-if="checkPermission('TaskManagement.BackgroundJobs.Update')" class="el-icon-edit" title="编辑" plain circle type="primary" @click="handleUpdate(row)" />
+          <el-link class="el-icon-video-play" title="启动" plain circle type="success" @click="handleUpdate(row)" />
+          <el-link v-if="checkPermission('TaskManagement.BackgroundJobs.Delete')" class="el-icon-delete" title="删除" plain circle type="danger" @click="handleDelete(row, $index)" />
+
+          <el-dropdown trigger="click" @command="handleCommand">
+            <el-link class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" plain circle type="primary" />
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="beforeHandleCommand(row, 'edit')">{{ $t("AbpUi['Edit']") }}</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'edit')">{{ $t("TaskManagement['Permissions:ManageActions']") }}</el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'edit')">{{ $t("TaskManagement['BackgroundJobLogs']") }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -327,6 +333,9 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <job-detail ref="jobDetail" name="U" />
+
   </div>
 </template>
 
@@ -338,9 +347,12 @@ import {
   createBackgroundJob,
   updateBackgroundJob,
   deleteBackgroundJob,
-  bulkStopBackgroundJob
+  bulkStopBackgroundJob,
+  bulkOperateBackgroundJob
 } from '@/api/system-manage/task/background-job'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import JobDetail from './components/JobDetail'
+
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
@@ -354,7 +366,8 @@ import {
 export default {
   name: 'BackgroundJobs',
   components: {
-    Pagination
+    Pagination,
+    JobDetail
   },
   filters: {
     statusFilter(status) {
@@ -587,6 +600,10 @@ export default {
       }
       this.queryDateTime = undefined
     },
+    // 任务详情
+    handelDetail(name) {
+      this.$refs['jobDetail'].handleDetail(name)
+    },
 
     // 点击创建按钮
     handleCreate() {
@@ -677,13 +694,43 @@ export default {
         })
       })
     },
+    handleCommand(param) {
+      switch (param.command) {
+        case 'edit':
+          this.handleUpdate(param.scope.row)
+          break
+        case 'lock':
+          this.handleLock(param.scope.row)
+          break
+        case 'unlock':
+          this.unLock(param.scope.row)
+          break
+        case 'updatePermission':
+          this.handleUpdatePermission(param.scope.row)
+          break
+        case 'changePassword':
+          this.handelChangePassword(param.scope.row)
+          break
+        case 'delete':
+          this.deleteData(param.scope.row)
+          break
+        default:
+          break
+      }
+    },
+    beforeHandleCommand(scope, command) {
+      return {
+        scope: scope,
+        command: command
+      }
+    },
 
-    handlebulkStop() {
-      // 方法二，通过 this.$refs 获取table选中的值
+    handlebulkOperator(operator) {
+      // 通过 this.$refs 获取table选中的值
       var selections = this.$refs.multipleTable.selection
       if (selections.length <= 0) {
         this.$message({
-          message: '请先选中一行数据!',
+          message: '请先选中一行数据 !',
           type: 'warning'
         })
         return
@@ -692,7 +739,8 @@ export default {
       var req = {
         JobIds: ids
       }
-      bulkStopBackgroundJob(req).then(() => {
+
+      bulkOperateBackgroundJob(operator, req).then(() => {
         this.handleFilter(false)
         this.$notify({
           title: this.$i18n.t("TigerUi['Success']"),
@@ -734,3 +782,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.fixed-width {
+  .el-button--mini {
+    padding: 7px 10px;
+    min-width: 20px;
+  }
+}
+.el-link{
+  margin-right: 8px;
+}
+</style>

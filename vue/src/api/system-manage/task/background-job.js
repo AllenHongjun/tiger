@@ -54,3 +54,11 @@ export function bulkStopBackgroundJob(payload) {
   })
 }
 
+export function bulkOperateBackgroundJob(operator, payload) {
+  return request({
+    url: `/api/task-management/background-jobs/${operator}`,
+    method: 'put',
+    data: payload
+  })
+}
+
