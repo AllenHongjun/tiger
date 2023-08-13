@@ -43,9 +43,11 @@ public class QuartzJobCreator : IQuartzJobCreator, ISingletonDependency
         }
         else
         {
+            //确定是否可以将指定类型的实例分配给当前类型的变量。
             if (!typeof(IJob).IsAssignableFrom(jobType))
             {
                 var adapterType = typeof(QuartzJobSimpleAdapter<>);
+                // 用类型数组的元素替换当前泛型类型定义的类型参数，并返回表示生成的构造类型的 System.Type 对象。
                 jobType = adapterType.MakeGenericType(jobType);
             }
         }

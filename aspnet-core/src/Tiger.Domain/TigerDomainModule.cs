@@ -38,6 +38,17 @@ using Tiger.Infrastructure.CloudAliyun.BlobStoring.Aliyun;
 using System;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using Quartz;
+using Tiger.Infrastructure.BackgroundTasks.Quartz;
+using Volo.Abp;
+using Volo.Abp.Quartz;
+using Tiger.Infrastructure.BackgroundTasks;
+using Tiger.Infrastructure.BackgroundTasks.Abstractions;
+using Tiger.Infrastructure.BackgroundTasks.Internal;
+using Volo.Abp.BackgroundWorkers;
+using Volo.Abp.Guids;
+using Volo.Abp.EventBus;
+using Tiger.Module.TaskManagement;
 
 namespace Tiger
 {
@@ -53,6 +64,7 @@ namespace Tiger
         typeof(AbpBackgroundJobsDomainModule),
         typeof(AbpBackgroundJobsQuartzModule),
         typeof(AbpBackgroundWorkersQuartzModule),
+        typeof(AbpQuartzModule),
         typeof(AbpFeatureManagementDomainModule),
         typeof(AbpIdentityDomainModule),
         typeof(AbpPermissionManagementDomainIdentityModule),
@@ -63,15 +75,92 @@ namespace Tiger
         typeof(AbpEmailingModule)
 
     )]
+
+    [DependsOn(typeof(AbpBackgroundJobsAbstractionsModule))] // AbpBackgroundJobsAbstractions 定时任务需要集成 abp后台作业模块
+    [DependsOn(typeof(AbpEventBusModule))]
+    [DependsOn(typeof(AbpBackgroundWorkersModule))]
+    [DependsOn(typeof(AbpGuidsModule))]
     public class TigerDomainModule : AbpModule
     {
+        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        {
+            #region Abp.BackgroundTasks.Quartz模块注入
+
+            var _scheduler = context.ServiceProvider.GetRequiredService<IScheduler>();
+            _scheduler.ListenerManager.AddJobListener(context.ServiceProvider.GetRequiredService<QuartzJobListener>());
+            _scheduler.ListenerManager.AddTriggerListener(context.ServiceProvider.GetRequiredService<QuartzTriggerListener>());
+
+
+            #endregion
+        }
+
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            AutoAddDefinitionProviders(context.Services);
+        }
+
+        #region 任务定义注入
+        private static void AutoAddDefinitionProviders(IServiceCollection services)
+        {
+            var definitionProviders = new List<Type>();
+
+            services.OnRegistred(context =>
+            {
+                if (typeof(IJobDefinitionProvider).IsAssignableFrom(context.ImplementationType))
+                {
+                    definitionProviders.Add(context.ImplementationType);
+                }
+            });
+
+            services.Configure<AbpBackgroundTasksOptions>(options =>
+            {
+                options.DefinitionProviders.AddIfNotContains(definitionProviders);
+            });
+        }
+        #endregion
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddAutoMapperObjectMapper<TigerDomainModule>();
+
+            #region BackgroundWorkers初始化（类注入）
+            context.Services.AddTransient(typeof(BackgroundJobAdapter<>));
+            context.Services.AddSingleton(typeof(BackgroundWorkerAdapter<>));
+
+            // 尝试依赖注入需要类
+            context.Services.AddTransient(typeof(BackgroundWorkerAdapter<>));
+            context.Services.AddTransient(typeof(QuartzJobSearchJobAdapter));
+            context.Services.AddTransient(typeof(QuartzJobSimpleAdapter<>));
+
+            context.Services.AddHostedService<DefaultBackgroundWorker>();
+
+            Configure<AbpBackgroundTasksOptions>(options =>
+            {
+                options.JobMonitors.AddIfNotContains(typeof(JobExecutedEvent));
+                options.JobMonitors.AddIfNotContains(typeof(JobLogEvent));
+            });
+
+
+            Configure<AbpAutoMapperOptions>(options =>
+            {
+                options.AddProfile<TaskManagementDomainMapperProfile>(validate: true);
+            });
+
+            Configure<AbpDistributedEntityEventOptions>(options =>
+            {
+                options.EtoMappings.Add<Module.TaskManagement.BackgroundJobInfo, BackgroundJobEto>();
+
+                // 决定是否应该针对给定的实体类型发布事件. 
+                options.AutoEventSelectors.Add<Module.TaskManagement.BackgroundJobInfo>();
+            });
+            #endregion
+
+
             Configure<AbpMultiTenancyOptions>(options =>
             {
                 options.IsEnabled = MultiTenancyConsts.IsEnabled;
             });
-            context.Services.AddAutoMapperObjectMapper<TigerDomainModule>();
+            
 
             #region Saas
 
@@ -135,5 +224,8 @@ namespace Tiger
             context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
     }
-}
+
+
+        
+    }
 }

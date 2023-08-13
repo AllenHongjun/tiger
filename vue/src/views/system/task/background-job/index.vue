@@ -193,137 +193,134 @@
     <pagination v-show="total > 0" :total="total" :page.sync="queryForm.page" :limit.sync="queryForm.limit" @pagination="getList" />
 
     <el-dialog :title=" dialogStatus == 'create'? $t('TaskManagement[\'Permissions:CreateJob\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="基本信息" name="first">
+          <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
+            <el-row>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="group">
+                    <el-input v-model="temp.group" />
+                  </el-form-item>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="name">
+                    <el-input v-model="temp.name" />
+                  </el-form-item>
+                </div>
+              </el-col>
+            </el-row>
 
-        <!-- <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              1
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-              2
-            </div>
-          </el-col>
-        </el-row> -->
+            <el-form-item :label="$t('TaskManagement[\'DisplayName:IsEnabled\']')" prop="isEnabled">
+              <template>
+                <el-radio v-model="temp.isEnabled" :label="true">是</el-radio>
+                <el-radio v-model="temp.isEnabled" :label="false">否</el-radio>
+              </template>
+            </el-form-item>
 
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="group">
-                <el-input v-model="temp.group" />
-              </el-form-item>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="name">
-                <el-input v-model="temp.name" />
-              </el-form-item>
-            </div>
-          </el-col>
-        </el-row>
+            <el-form-item :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="type">
+              <el-input v-model="temp.type" type="textarea" :autosize="{ minRows: 3, maxRows: 6}" />
+            </el-form-item>
+            <el-row>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:BeginTime\']')" prop="beginTime">
+                    <el-date-picker v-model="temp.beginTime" type="datetime" :placeholder="$t('TaskManagement[\'DisplayName:BeginTime\']')" default-time="12:00:00" />
+                  </el-form-item>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:EndTime\']')" prop="endTime">
+                    <el-date-picker v-model="temp.endTime" type="datetime" :placeholder="$t('TaskManagement[\'DisplayName:EndTime\']')" default-time="12:00:00" />
+                  </el-form-item>
+                </div>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:JobType\']')" prop="jobType">
+                    <el-select v-model="temp.jobType" placeholder="请选择..." :clearable="true">
+                      <el-option label="一次性的" :value="0" />
+                      <el-option label="周期性的" :value="1" />
+                      <el-option label="持续性的" :value="2" />
+                    </el-select>
+                  </el-form-item>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Priority\']')" prop="priority">
+                    <el-select v-model="temp.priority" placeholder="请选择..." :clearable="true">
+                      <el-option label="Low" :value="5" />
+                      <el-option label="BelowNormal" :value="10" />
+                      <el-option label="Normal" :value="15" />
+                      <el-option label="AboveNormal" :value="20" />
+                      <el-option label="High" :value="25" />
+                    </el-select>
+                  </el-form-item>
+                </div>
+              </el-col>
+            </el-row>
 
-        <el-form-item :label="$t('TaskManagement[\'DisplayName:IsEnabled\']')" prop="isEnabled">
-          <template>
-            <el-radio v-model="temp.isEnabled" :label="true">是</el-radio>
-            <el-radio v-model="temp.isEnabled" :label="false">否</el-radio>
-          </template>
-        </el-form-item>
+            <el-row>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Cron\']')" prop="cron">
+                    <el-input v-model="temp.cron" />
+                  </el-form-item>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div class="grid-content">
 
-        <el-form-item :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="type">
-          <el-input v-model="temp.type" type="textarea" :autosize="{ minRows: 3, maxRows: 6}" />
-        </el-form-item>
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:BeginTime\']')" prop="beginTime">
-                <el-date-picker v-model="temp.beginTime" type="datetime" :placeholder="$t('TaskManagement[\'DisplayName:BeginTime\']')" default-time="12:00:00" />
-              </el-form-item>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:EndTime\']')" prop="endTime">
-                <el-date-picker v-model="temp.endTime" type="datetime" :placeholder="$t('TaskManagement[\'DisplayName:EndTime\']')" default-time="12:00:00" />
-              </el-form-item>
-            </div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:JobType\']')" prop="jobType">
-                <el-select v-model="temp.jobType" placeholder="请选择..." :clearable="true">
-                  <el-option label="一次性的" :value="0" />
-                  <el-option label="周期性的" :value="1" />
-                  <el-option label="持续性的" :value="2" />
-                </el-select>
-              </el-form-item>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:Priority\']')" prop="priority">
-                <el-select v-model="temp.priority" placeholder="请选择..." :clearable="true">
-                  <el-option label="Low" :value="5" />
-                  <el-option label="BelowNormal" :value="10" />
-                  <el-option label="Normal" :value="15" />
-                  <el-option label="AboveNormal" :value="20" />
-                  <el-option label="High" :value="25" />
-                </el-select>
-              </el-form-item>
-            </div>
-          </el-col>
-        </el-row>
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Interval\']')" prop="interval">
+                    <el-input-number v-model="temp.interval" :min="1" :max="100000000" />
+                  </el-form-item>
+                </div>
+              </el-col>
+            </el-row>
 
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:Cron\']')" prop="cron">
-                <el-input v-model="temp.cron" />
-              </el-form-item>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
+            <el-row>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:MaxCount\']')" prop="maxCount">
+                    <el-input-number v-model="temp.maxCount" :min="1" :max="100000000" />
+                  </el-form-item>
+                </div>
+              </el-col>
+              <el-col :span="12">
+                <div class="grid-content">
+                  <el-form-item :label="$t('TaskManagement[\'DisplayName:MaxTryCount\']')" prop="maxTryCount">
+                    <el-input-number v-model="temp.maxTryCount" :min="1" :max="100000000" />
+                  </el-form-item>
+                </div>
+              </el-col>
+            </el-row>
+            <el-form-item :label="$t('TaskManagement[\'DisplayName:LockTimeOut\']')" prop="lockTimeOut">
+              <el-input-number v-model="temp.lockTimeOut" :min="1" :max="100000000" />
+            </el-form-item>
 
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:Interval\']')" prop="interval">
-                <el-input-number v-model="temp.interval" :min="1" :max="100000000" />
-              </el-form-item>
-            </div>
-          </el-col>
-        </el-row>
+            <el-form-item :label="$t('TaskManagement[\'DisplayName:Description\']')" prop="description">
+              <el-input v-model="temp.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
+            </el-form-item>
+            <el-form-item :label="$t('TaskManagement[\'DisplayName:Result\']')" prop="result">
+              <el-input v-model="temp.result" type="textarea" :autosize="{ minRows: 1, maxRows: 4}" />
+            </el-form-item>
 
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:MaxCount\']')" prop="maxCount">
-                <el-input-number v-model="temp.maxCount" :min="1" :max="100000000" />
-              </el-form-item>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form-item :label="$t('TaskManagement[\'DisplayName:MaxTryCount\']')" prop="maxTryCount">
-                <el-input-number v-model="temp.maxTryCount" :min="1" :max="100000000" />
-              </el-form-item>
-            </div>
-          </el-col>
-        </el-row>
-        <el-form-item :label="$t('TaskManagement[\'DisplayName:LockTimeOut\']')" prop="lockTimeOut">
-          <el-input-number v-model="temp.lockTimeOut" :min="1" :max="100000000" />
-        </el-form-item>
+          </el-form>
 
-        <el-form-item :label="$t('TaskManagement[\'DisplayName:Description\']')" prop="description">
-          <el-input v-model="temp.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
-        </el-form-item>
-        <el-form-item :label="$t('TaskManagement[\'DisplayName:Result\']')" prop="result">
-          <el-input v-model="temp.result" type="textarea" :autosize="{ minRows: 1, maxRows: 4}" />
-        </el-form-item>
+        </el-tab-pane>
+        <el-tab-pane label="Paramters" name="second">配置管理</el-tab-pane>
+        <el-tab-pane label="Job:Actions" name="third">
+          <job-action ref="jobAction" :job-id="temp.id" />
+        </el-tab-pane>
 
-      </el-form>
+      </el-tabs>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
           {{ $t("AbpUi['Cancel']") }}
@@ -332,9 +329,10 @@
           {{ $t("AbpUi['Save']") }}
         </el-button>
       </div>
+
     </el-dialog>
 
-    <job-detail ref="jobDetail" name="U" />
+    <job-detail ref="jobDetail" name="" />
 
   </div>
 </template>
@@ -352,6 +350,7 @@ import {
 } from '@/api/system-manage/task/background-job'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import JobDetail from './components/JobDetail'
+import JobAction from './components/JobAction'
 
 import baseListQuery, {
   checkPermission
@@ -367,7 +366,8 @@ export default {
   name: 'BackgroundJobs',
   components: {
     Pagination,
-    JobDetail
+    JobDetail,
+    JobAction
   },
   filters: {
     statusFilter(status) {
@@ -422,12 +422,13 @@ export default {
         lockTimeOut: 0,
         name: '',
         group: '',
-        type: '',
-        nodeName: '',
+        type: '', // 不允许修改
+        nodeName: undefined,
         beginTime: undefined,
         endTime: undefined,
         source: 0
       },
+      activeName: 'first',
       dialogFormVisible: false,
       dialogStatus: '',
 
@@ -593,7 +594,7 @@ export default {
         name: '',
         group: '',
         type: '',
-        nodeName: '',
+        nodeName: undefined,
         beginTime: undefined,
         endTime: undefined,
         source: 0
@@ -610,6 +611,7 @@ export default {
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
+
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -638,6 +640,7 @@ export default {
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
+      // this.$refs['jobAction'].jobId = this.temp.id
 
       getBackgroundJob(row.id).then(response => {
         this.temp = response

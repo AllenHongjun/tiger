@@ -218,6 +218,8 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
 
         await BackgroundJobManager.UpdateAsync(backgroundJobInfo, resetJob);
 
+        await CurrentUnitOfWork.SaveChangesAsync();
+
         return ObjectMapper.Map<BackgroundJobInfo, BackgroundJobInfoDto>(backgroundJobInfo);
     }
 

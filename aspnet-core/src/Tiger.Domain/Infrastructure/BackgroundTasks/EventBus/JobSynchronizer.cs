@@ -5,6 +5,10 @@ using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
 
 namespace Tiger.Infrastructure.BackgroundTasks.EventBus;
+
+/// <summary>
+/// 作业同步器(作业事件处理器)
+/// </summary>
 public class JobSynchronizer :
     IDistributedEventHandler<JobStartEventData>,
     IDistributedEventHandler<JobStopEventData>,

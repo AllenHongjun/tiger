@@ -25,6 +25,7 @@ using Volo.Abp.Quartz;
 using Volo.Abp.Sms;
 using Volo.Abp.TenantManagement;
 using Tiger.Module.System.Cache;
+using Volo.Abp.EventBus;
 
 namespace Tiger
 {
@@ -46,8 +47,9 @@ namespace Tiger
         typeof(AbpBackgroundWorkersQuartzModule),
         typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
         typeof(AbpSmsModule), //Add the new module dependency
-        typeof(AbpCachingModule) // 缓存
+        typeof(AbpCachingModule), // 缓存
                                   //typeof(AbpBackgroundJobsModule), // 后台任务  默认后台作业管理器
+        typeof(AbpEventBusModule)
 
 
 

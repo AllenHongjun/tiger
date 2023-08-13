@@ -1,13 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
+using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Tiger.Infrastructure.BackgroundTasks;
 using Tiger.Infrastructure.BackgroundTasks.Abstractions;
+using Volo.Abp.DependencyInjection;
 
 namespace Tiger.Infrastructure.BackgroundTasks.Quartz;
 
-public class QuartzJobSearchJobAdapter : IJob
+public class QuartzJobSearchJobAdapter : IJob, ITransientDependency
 {
     protected IServiceScopeFactory ServiceScopeFactory { get; }
     protected IJobDefinitionManager JobDefinitionManager { get; }

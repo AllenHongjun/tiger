@@ -28,6 +28,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Tiger.BackgroundWorker;
 using Tiger.EntityFrameworkCore;
+using Tiger.Infrastructure.BackgroundTasks.Quartz;
 using Tiger.Infrastructure.BackgroundWorker;
 using Tiger.Module.OssManagement;
 using Tiger.MultiTenancy;
@@ -49,6 +50,7 @@ using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Data;
+using Volo.Abp.EventBus;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.Quartz;
@@ -74,12 +76,13 @@ namespace Tiger
         typeof(AbpCachingStackExchangeRedisModule), // 依赖StackExchangeReids缓存处理模块
         typeof(AbpBackgroundJobsHangfireModule), //Hangfire 定时作业模块依赖
         //typeof(AbpBackgroundWorkersModule),  // ABP默认后台工作者
-        typeof(AbpBackgroundWorkersQuartzModule) //Quartz 定时任务(abp叫后台工作者)
+        typeof(AbpBackgroundWorkersQuartzModule), //Quartz 定时任务(abp叫后台工作者)
+        typeof(AbpEventBusModule)
         )]
     public class TigerHttpApiHostModule : AbpModule
     {
         private const string DefaultCorsPolicyName = "Default";
-
+        
 
         /// <summary>
         /// 预配置服务
@@ -595,7 +598,6 @@ namespace Tiger
             {
                 app.UseErrorPage();
             }
-
             app.UseCorrelationId();
             app.UseVirtualFiles();
             app.UseRouting();
@@ -680,6 +682,15 @@ namespace Tiger
             // 在应用程序运行时候添加定时任务
             context.AddBackgroundWorker<MyQuartzLogWorker>();
             #endregion
+
+            //#region Abp.BackgroundTasks.Quartz模块注入
+
+            //var _scheduler = context.ServiceProvider.GetRequiredService<IScheduler>();
+            //_scheduler.ListenerManager.AddJobListener(context.ServiceProvider.GetRequiredService<QuartzJobListener>());
+            //_scheduler.ListenerManager.AddTriggerListener(context.ServiceProvider.GetRequiredService<QuartzTriggerListener>());
+
+
+            //#endregion
 
             #region 后台作业 Hangfire集成配置
             // TODO:封装方法 同意管理新增的后台作业

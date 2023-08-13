@@ -16,12 +16,12 @@ namespace Tiger.Infrastructure.BackgroundWorker
                 .WithIdentity("Daily Sales", "Report")
                 .Build();
 
-            Trigger = TriggerBuilder.Create()
-                .WithIdentity("ds_trigger", "Report")
-                .ForJob(JobDetail)
-                .StartNow()
-                .WithCronSchedule("0 0 0/3 ? * *")
-                .Build();
+            //Trigger = TriggerBuilder.Create()
+            //    .WithIdentity("ds_trigger", "Report")
+            //    .ForJob(JobDetail)
+            //    .StartNow()
+            //    .WithCronSchedule("0 0 0/3 ? * *")
+            //    .Build();
         }
 
 
