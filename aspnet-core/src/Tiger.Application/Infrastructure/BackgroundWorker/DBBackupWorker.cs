@@ -12,16 +12,16 @@ namespace Tiger.Infrastructure.BackgroundWorker
     {
         public DBBackupWorker()
         {
-            JobDetail = JobBuilder.Create<DailySalesWorker>()
-                .WithIdentity("DB_Backup", "Maintenance")
-                .Build();
+            //JobDetail = JobBuilder.Create<DailySalesWorker>()
+            //    .WithIdentity("DB_Backup", "Maintenance")
+            //    .Build();
 
-            Trigger = TriggerBuilder.Create()
-                .WithIdentity("db_trigger", "Maintenance")
-                .ForJob(JobDetail)
-                .StartNow()
-                .WithCronSchedule("0 /1 * ? * *")
-                .Build();
+            //Trigger = TriggerBuilder.Create()
+            //    .WithIdentity("db_trigger", "Maintenance")
+            //    .ForJob(JobDetail)
+            //    .StartNow()
+            //    .WithCronSchedule("0 /1 * ? * *")
+            //    .Build();
 
         }
 

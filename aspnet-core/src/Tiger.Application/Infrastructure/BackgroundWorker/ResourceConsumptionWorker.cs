@@ -15,16 +15,16 @@ namespace Tiger.Infrastructure.BackgroundWorker
     {
         public ResourceConsumptionWorker()
         {
-            JobDetail = JobBuilder.Create<DailySalesWorker>()
-                .WithIdentity("Resource Consumption", "Report")
-                .Build();
+            //JobDetail = JobBuilder.Create<DailySalesWorker>()
+            //    .WithIdentity("Resource Consumption", "Report")
+            //    .Build();
 
-            Trigger = TriggerBuilder.Create()
-                .WithIdentity("rc_trigger", "Report")
-                .ForJob(JobDetail)
-                .StartNow()
-                .WithCronSchedule("0 0 0/3 ? * *")
-                .Build();
+            //Trigger = TriggerBuilder.Create()
+            //    .WithIdentity("rc_trigger", "Report")
+            //    .ForJob(JobDetail)
+            //    .StartNow()
+            //    .WithCronSchedule("0 0 0/3 ? * *")
+            //    .Build();
         }
 
         public override Task Execute(IJobExecutionContext context)

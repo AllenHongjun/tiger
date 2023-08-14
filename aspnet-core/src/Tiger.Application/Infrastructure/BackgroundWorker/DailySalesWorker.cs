@@ -12,9 +12,9 @@ namespace Tiger.Infrastructure.BackgroundWorker
     {
         public DailySalesWorker()
         {
-            JobDetail = JobBuilder.Create<DailySalesWorker>()
-                .WithIdentity("Daily Sales", "Report")
-                .Build();
+            //JobDetail = JobBuilder.Create<DailySalesWorker>()
+            //    .WithIdentity("Daily Sales", "Report")
+            //    .Build();
 
             //Trigger = TriggerBuilder.Create()
             //    .WithIdentity("ds_trigger", "Report")
@@ -32,8 +32,8 @@ namespace Tiger.Infrastructure.BackgroundWorker
         /// <returns></returns>
         public override Task Execute(IJobExecutionContext context)
         {
-            Console.WriteLine($"Greetings from DailySalesWorker!  执行时间：{DateTime.Now.ToString()}");
-            Logger.LogInformation($"Executed DailySalesWorker..!  执行时间：{DateTime.Now.ToString()}");
+            //Console.WriteLine($"Greetings from DailySalesWorker!  执行时间：{DateTime.Now.ToString()}");
+            //Logger.LogInformation($"Executed DailySalesWorker..!  执行时间：{DateTime.Now.ToString()}");
             return Task.CompletedTask;
         }
     }

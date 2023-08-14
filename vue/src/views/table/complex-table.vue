@@ -314,7 +314,8 @@ export default {
       }
     },
     handleCreate() {
-      this.resetTemp()
+      // this.$options.data()是vue实例初始化时的data数据，只读属性
+      this.temp = this.$options.data.temp
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
       this.$nextTick(() => {

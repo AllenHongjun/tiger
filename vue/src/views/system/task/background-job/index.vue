@@ -118,7 +118,7 @@
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="name" sortable align="center">
         <template slot-scope="{ row }">
-          <el-link type="primary" @click="handelDetail(row.name)">{{ row.name }} </el-link>
+          <el-link type="primary" @click="handelDetail(row.id)">{{ row.name }} </el-link>
         </template>
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="center" width="140">
@@ -128,7 +128,7 @@
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:Status\']')" prop="status" align="center" width="80">
         <template slot-scope="{ row }">
-          <span>{{ row.status |statusFilter }}</span>
+          <el-tag :type="JobStatusType[row.status]">{{ JobStatusMap[row.status] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:Result\']')" prop="result" sortable align="center">
@@ -146,19 +146,19 @@
           <span>{{ row.nextRunTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:JobType\']')" prop="jobType" align="center" width="80">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:JobType\']')" prop="jobType" align="center" width="90">
         <template slot-scope="{ row }">
-          <span>{{ row.jobType }}</span>
+          <el-tag :type="JobTypeMap[row.jobType]">{{ JobTypeMap[row.jobType] }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:Priority\']')" prop="priority" align="center" width="80">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:Priority\']')" prop="priority" align="center" width="120">
         <template slot-scope="{ row }">
-          <span>{{ row.priority }}</span>
+          <el-tag v-if="JobPriorityMap[row.priority]" :type="JobPriorityType[row.priority]">{{ JobPriorityMap[row.priority] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:Cron\']')" prop="cron" sortable align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.cron }}</span>
+          <b>{{ row.cron }}</b>
         </template>
       </el-table-column>
       <el-table-column :label="$t('TaskManagement[\'DisplayName:TriggerCount\']')" prop="triggerCount" align="center" width="80">
@@ -200,14 +200,14 @@
               <el-col :span="12">
                 <div class="grid-content">
                   <el-form-item :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="group">
-                    <el-input v-model="temp.group" />
+                    <el-input v-model="temp.group" :disabled="isEditModal" />
                   </el-form-item>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="grid-content">
                   <el-form-item :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="name">
-                    <el-input v-model="temp.name" />
+                    <el-input v-model="temp.name" :disabled="isEditModal" />
                   </el-form-item>
                 </div>
               </el-col>
@@ -221,20 +221,20 @@
             </el-form-item>
 
             <el-form-item :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="type">
-              <el-input v-model="temp.type" type="textarea" :autosize="{ minRows: 3, maxRows: 6}" />
+              <el-input v-model="temp.type" type="textarea" :autosize="{ minRows: 3, maxRows: 6}" :disabled="isEditModal" />
             </el-form-item>
             <el-row>
               <el-col :span="12">
                 <div class="grid-content">
                   <el-form-item :label="$t('TaskManagement[\'DisplayName:BeginTime\']')" prop="beginTime">
-                    <el-date-picker v-model="temp.beginTime" type="datetime" :placeholder="$t('TaskManagement[\'DisplayName:BeginTime\']')" default-time="12:00:00" />
+                    <el-date-picker v-model="temp.beginTime" type="datetime" :disabled="isEditModal" :placeholder="$t('TaskManagement[\'DisplayName:BeginTime\']')" default-time="12:00:00" />
                   </el-form-item>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="grid-content">
                   <el-form-item :label="$t('TaskManagement[\'DisplayName:EndTime\']')" prop="endTime">
-                    <el-date-picker v-model="temp.endTime" type="datetime" :placeholder="$t('TaskManagement[\'DisplayName:EndTime\']')" default-time="12:00:00" />
+                    <el-date-picker v-model="temp.endTime" type="datetime" :disabled="isEditModal" :placeholder="$t('TaskManagement[\'DisplayName:EndTime\']')" default-time="12:00:00" />
                   </el-form-item>
                 </div>
               </el-col>
@@ -269,7 +269,7 @@
             <el-row>
               <el-col :span="12">
                 <div class="grid-content">
-                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Cron\']')" prop="cron">
+                  <el-form-item v-if="temp.jobType === JobType.Period" :label="$t('TaskManagement[\'DisplayName:Cron\']')" prop="cron">
                     <el-input v-model="temp.cron" />
                   </el-form-item>
                 </div>
@@ -277,8 +277,8 @@
               <el-col :span="12">
                 <div class="grid-content">
 
-                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Interval\']')" prop="interval">
-                    <el-input-number v-model="temp.interval" :min="1" :max="100000000" />
+                  <el-form-item v-if="temp.jobType !== JobType.Period" :label="$t('TaskManagement[\'DisplayName:Interval\']')" prop="interval">
+                    <el-input-number v-model="temp.interval" :min="0" />
                   </el-form-item>
                 </div>
               </el-col>
@@ -287,35 +287,53 @@
             <el-row>
               <el-col :span="12">
                 <div class="grid-content">
-                  <el-form-item :label="$t('TaskManagement[\'DisplayName:MaxCount\']')" prop="maxCount">
-                    <el-input-number v-model="temp.maxCount" :min="1" :max="100000000" />
+                  <el-form-item prop="maxCount">
+                    <span slot="label">
+                      <el-tooltip content="默认0, 不限制" placement="top">
+                        <i class="el-icon-question" />
+                      </el-tooltip>
+                      {{ $t('TaskManagement[\'DisplayName:MaxCount\']') }}
+                    </span>
+                    <el-input-number v-model="temp.maxCount" :min="0" />
                   </el-form-item>
                 </div>
               </el-col>
               <el-col :span="12">
                 <div class="grid-content">
-                  <el-form-item :label="$t('TaskManagement[\'DisplayName:MaxTryCount\']')" prop="maxTryCount">
-                    <el-input-number v-model="temp.maxTryCount" :min="1" :max="100000000" />
+                  <el-form-item prop="maxTryCount">
+                    <span slot="label">
+                      <el-tooltip content="默认50, 失败重试上限" placement="top">
+                        <i class="el-icon-question" />
+                      </el-tooltip>
+                      {{ $t('TaskManagement[\'DisplayName:MaxTryCount\']') }}
+                    </span>
+                    <el-input-number v-model="temp.maxTryCount" :min="0" />
                   </el-form-item>
                 </div>
               </el-col>
             </el-row>
-            <el-form-item :label="$t('TaskManagement[\'DisplayName:LockTimeOut\']')" prop="lockTimeOut">
-              <el-input-number v-model="temp.lockTimeOut" :min="1" :max="100000000" />
+            <el-form-item prop="lockTimeOut">
+              <span slot="label">
+                <el-tooltip content="任务独占超时时长（秒）,0或更小不生效" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('TaskManagement[\'DisplayName:LockTimeOut\']') }}
+              </span>
+              <el-input-number v-model="temp.lockTimeOut" :min="0" />
             </el-form-item>
 
             <el-form-item :label="$t('TaskManagement[\'DisplayName:Description\']')" prop="description">
               <el-input v-model="temp.description" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
             </el-form-item>
             <el-form-item :label="$t('TaskManagement[\'DisplayName:Result\']')" prop="result">
-              <el-input v-model="temp.result" type="textarea" :autosize="{ minRows: 1, maxRows: 4}" />
+              <el-input v-model="temp.result" type="textarea" :autosize="{ minRows: 1, maxRows: 4}" :disabled="isEditModal" />
             </el-form-item>
 
           </el-form>
 
         </el-tab-pane>
         <el-tab-pane label="Paramters" name="second">配置管理</el-tab-pane>
-        <el-tab-pane label="Job:Actions" name="third">
+        <el-tab-pane v-if="isEditModal" label="Job:Actions" name="third">
           <job-action ref="jobAction" :job-id="temp.id" />
         </el-tab-pane>
 
@@ -362,6 +380,68 @@ import {
   parseTime
 } from '@/utils'
 
+const JobPriority = {
+  Low: 5,
+  BelowNormal: 10,
+  Normal: 0xF,
+  AboveNormal: 20,
+  High: 25
+}
+
+const JobType = {
+  Once: 0,
+  Period: 1,
+  Persistent: 2
+}
+
+const JobTypeMap = {
+  [JobType.Once]: '一次性的',
+  [JobType.Period]: '周期性的',
+  [JobType.Persistent]: '持续性的'
+}
+
+const JobPriorityMap = {
+  [JobPriority.Low]: 'Low',
+  [JobPriority.BelowNormal]: 'BelowNormal',
+  [JobPriority.Normal]: 'Normal',
+  [JobPriority.AboveNormal]: 'AboveNormal',
+  [JobPriority.High]: 'High'
+}
+
+const JobPriorityType = {
+  [JobPriority.Low]: 'info',
+  [JobPriority.BelowNormal]: 'warning',
+  [JobPriority.Normal]: '',
+  [JobPriority.AboveNormal]: 'success',
+  [JobPriority.High]: 'danger'
+}
+
+const JobStatus = {
+  None: -1,
+  Completed: 0,
+  Running: 10,
+  FailedRetry: 15,
+  Paused: 20,
+  Stopped: 30
+}
+
+const JobStatusMap = {
+  [JobStatus.None]: '未知',
+  [JobStatus.Completed]: '已完成',
+  [JobStatus.Running]: '运行中',
+  [JobStatus.FailedRetry]: '失败重试',
+  [JobStatus.Paused]: '已暂停',
+  [JobStatus.Stopped]: '已停止'
+}
+const JobStatusType = {
+  [JobStatus.None]: 'warning',
+  [JobStatus.Completed]: 'success',
+  [JobStatus.Running]: '',
+  [JobStatus.FailedRetry]: 'danger',
+  [JobStatus.Paused]: 'info',
+  [JobStatus.Stopped]: 'danger'
+}
+
 export default {
   name: 'BackgroundJobs',
   components: {
@@ -370,17 +450,7 @@ export default {
     JobAction
   },
   filters: {
-    statusFilter(status) {
-      const statusMap = {
-        '-1': '未知',
-        0: '已完成',
-        10: '运行中',
-        15: '失败重试',
-        20: '已暂停',
-        30: '已停止'
-      }
-      return statusMap[status]
-    }
+
   },
   data() {
     return {
@@ -389,6 +459,12 @@ export default {
       total: 0,
       listLoading: true,
       advanced: false, // 判断搜索栏展开/收起
+      JobPriorityMap,
+      JobPriorityType,
+      JobStatusMap,
+      JobStatusType,
+      JobType,
+      JobTypeMap,
       queryDateTime: undefined,
       queryForm: Object.assign({
         name: '',
@@ -415,14 +491,14 @@ export default {
         description: '',
         jobType: undefined,
         cron: '',
-        maxTryCount: 0,
+        maxTryCount: 50,
         maxCount: 0,
         interval: 0,
         priority: 0,
         lockTimeOut: 0,
-        name: '',
-        group: '',
-        type: '', // 不允许修改
+        name: undefined,
+        group: undefined,
+        type: undefined, // 不允许修改
         nodeName: undefined,
         beginTime: undefined,
         endTime: undefined,
@@ -518,6 +594,15 @@ export default {
       }
     }
   },
+  computed: {
+    isEditModal() {
+      if (this.dialogStatus === 'create') {
+        return false
+      } else {
+        return true
+      }
+    }
+  },
   created() {
     this.getList()
   },
@@ -586,14 +671,14 @@ export default {
         description: '',
         jobType: undefined,
         cron: '',
-        maxTryCount: 0,
+        maxTryCount: 50,
         maxCount: 0,
         interval: 0,
         priority: 0,
         lockTimeOut: 0,
-        name: '',
-        group: '',
-        type: '',
+        name: undefined,
+        group: undefined,
+        type: undefined, // 不允许修改
         nodeName: undefined,
         beginTime: undefined,
         endTime: undefined,
@@ -609,6 +694,8 @@ export default {
     // 点击创建按钮
     handleCreate() {
       this.resetTemp()
+      // this.$options.data()是vue实例初始化时的data数据，只读属性
+      // this.temp = this.$options.data.temp
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
 

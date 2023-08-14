@@ -2,15 +2,10 @@
 using Microsoft.Extensions.Logging;
 using Quartz;
 using RestSharp;
-using RestSharp.Authenticators;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Tiger.PlatfromSdk.DogApi.Clients.Interfaces;
 using Volo.Abp.BackgroundWorkers.Quartz;
-using Volo.Abp.Identity;
 
 namespace Tiger.Infrastructure.BackgroundWorker.DogApi
 {

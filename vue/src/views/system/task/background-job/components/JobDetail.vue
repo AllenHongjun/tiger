@@ -73,35 +73,34 @@
       </el-card>
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span>{{ $t("TaskManagement['BackgroundJobLogs']") }}</span>
-          <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+          <b>{{ $t("TaskManagement['BackgroundJobLogs']") }}</b>
         </div>
         <div class="text item">
           <el-table :key="tableKey" v-loading="listLoading" max-height="380" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
             <el-table-column type="index" width="80" />
-            <el-table-column :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="jobName" sortable align="center">
+            <el-table-column :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="jobName" align="center">
               <template slot-scope="{ row }">
                 <span>{{ row.jobName }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="jobGroup" sortable align="center">
+            <el-table-column :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="jobGroup" sortable align="center" width="130">
               <template slot-scope="{ row }">
                 <span>{{ row.jobGroup }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="jobType" sortable align="center">
+            <el-table-column :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="jobType" sortable align="center" width="130">
               <template slot-scope="{ row }">
                 <span>{{ row.jobType }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="消息" prop="message" sortable align="center">
+            <el-table-column label="消息" prop="message" align="center">
               <template slot-scope="{ row }">
                 <span>{{ row.message }}</span>
               </template>
             </el-table-column>
-            <el-table-column label="运行时间" prop="runTime" sortable align="center">
+            <el-table-column label="运行时间" prop="runTime" sortable align="center" width="140">
               <template slot-scope="{ row }">
-                <span>{{ row.runTime }}</span>
+                <span>{{ row.runTime | moment }}</span>
               </template>
             </el-table-column>
             <!-- <el-table-column :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="exception" sortable align="center">
@@ -188,11 +187,12 @@ export default {
         })
         .catch(_ => {})
     },
-    handleDetail(name) {
+    handleDetail(jobId) {
       this.dialogVisible = true
-      getBackgroundJob(String(name)).then((res) => {
+      getBackgroundJob(String(jobId)).then((res) => {
         this.jobInfo = res
         this.jobLogs = []
+        this.listQuery.jobId = jobId
         this.handleFilter(1)
       })
     },
