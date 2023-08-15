@@ -5,6 +5,13 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Volo.Abp.IdentityServer.IdentityResources
 {
+
+    /// <summary>
+    /// 身份资源配置
+    /// </summary>
+    /// <remarks>
+    /// 资源与客户端的配置 https://blog.csdn.net/jeremyjone/article/details/116943425
+    /// </remarks>
     public class IdentityResourceDto : ExtensibleAuditedEntityDto<Guid>
     {
         /// <summary>

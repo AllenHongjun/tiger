@@ -126,7 +126,7 @@
           <span>{{ row.creationTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('TaskManagement[\'DisplayName:Status\']')" prop="status" align="center" width="80">
+      <el-table-column :label="$t('TaskManagement[\'DisplayName:Status\']')" prop="status" align="center" width="90">
         <template slot-scope="{ row }">
           <el-tag :type="JobStatusType[row.status]">{{ JobStatusMap[row.status] }}</el-tag>
         </template>
@@ -181,9 +181,10 @@
           <el-dropdown trigger="click" @command="handleCommand">
             <el-link class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" plain circle type="primary" />
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :command="beforeHandleCommand(row, 'edit')">{{ $t("AbpUi['Edit']") }}</el-dropdown-item>
-              <el-dropdown-item :command="beforeHandleCommand(row, 'edit')">{{ $t("TaskManagement['Permissions:ManageActions']") }}</el-dropdown-item>
-              <el-dropdown-item :command="beforeHandleCommand(row, 'edit')">{{ $t("TaskManagement['BackgroundJobLogs']") }}</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-video-pause" :command="beforeHandleCommand(row, 'pause')">{{ $t("TaskManagement['BackgroundJobs:Pause']") }}</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-refresh-right" :command="beforeHandleCommand(row, 'resume')">{{ $t("TaskManagement['BackgroundJobs:Resume']") }}</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-caret-right" :command="beforeHandleCommand(row, 'trigger')">{{ $t("TaskManagement['BackgroundJobs:Trigger']") }}</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-copy-document" :command="beforeHandleCommand(row, 'copy')">{{ $t("TaskManagement['BackgroundJobs:Copy']") }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -363,7 +364,7 @@ import {
   createBackgroundJob,
   updateBackgroundJob,
   deleteBackgroundJob,
-  bulkStopBackgroundJob,
+  operateBackgroundJob,
   bulkOperateBackgroundJob
 } from '@/api/system-manage/task/background-job'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -784,35 +785,24 @@ export default {
         })
       })
     },
-    handleCommand(param) {
-      switch (param.command) {
-        case 'edit':
-          this.handleUpdate(param.scope.row)
-          break
-        case 'lock':
-          this.handleLock(param.scope.row)
-          break
-        case 'unlock':
-          this.unLock(param.scope.row)
-          break
-        case 'updatePermission':
-          this.handleUpdatePermission(param.scope.row)
-          break
-        case 'changePassword':
-          this.handelChangePassword(param.scope.row)
-          break
-        case 'delete':
-          this.deleteData(param.scope.row)
-          break
-        default:
-          break
-      }
-    },
+
     beforeHandleCommand(scope, command) {
       return {
         scope: scope,
         command: command
       }
+    },
+    handleCommand(param) {
+      console.log('params', param)
+      operateBackgroundJob(param.command, param.scope.id).then(() => {
+        this.handleFilter(false)
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
+        })
+      })
     },
 
     handlebulkOperator(operator) {

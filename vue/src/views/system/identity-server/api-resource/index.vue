@@ -66,22 +66,45 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AbpIdentityServer[\'Name\']')" prop="name">
-          <el-input v-model="temp.name" />
-        </el-form-item>
-        <el-form-item :label="$t('AbpIdentityServer[\'DisplayName\']')" prop="displayName">
-          <el-input v-model="temp.displayName" />
-        </el-form-item>
-        <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
-          <el-input v-model="temp.description" />
-        </el-form-item>
-        <el-form-item :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled">
-          <template>
-            <el-radio v-model="temp.enabled" :label="true">启用</el-radio>
-            <el-radio v-model="temp.enabled" :label="false">禁用</el-radio>
-          </template>
-        </el-form-item>
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="180px">
+        <el-tabs v-model="activeName" @tab-click="handleTabClick">
+          <!-- Api 资源基本信息 -->
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="basic">
+            <el-form-item :label="$t('AbpIdentityServer[\'Name\']')" prop="name">
+              <el-input v-model="temp.name" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'DisplayName\']')" prop="displayName">
+              <el-input v-model="temp.displayName" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
+              <el-input v-model="temp.description" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled">
+              <template>
+                <el-radio v-model="temp.enabled" :label="true">启用</el-radio>
+                <el-radio v-model="temp.enabled" :label="false">禁用</el-radio>
+              </template>
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument">
+              <template>
+                <el-radio v-model="temp.showInDiscoveryDocument" :label="true">启用</el-radio>
+                <el-radio v-model="temp.showInDiscoveryDocument" :label="false">禁用</el-radio>
+              </template>
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'AllowedAccessTokenSigningAlgorithms\']')" prop="allowedAccessTokenSigningAlgorithms">
+              <template>
+                <el-radio v-model="temp.allowedAccessTokenSigningAlgorithms" :label="true">启用</el-radio>
+                <el-radio v-model="temp.allowedAccessTokenSigningAlgorithms" :label="false">禁用</el-radio>
+              </template>
+            </el-form-item>
+          </el-tab-pane>
+          <!-- Api 资源用户声明 -->
+          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="claim">配置管理</el-tab-pane>
+          <!-- Api 资源范围 -->
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Scope\']')" name="scope">角色管理</el-tab-pane>
+          <!-- Api 资源密钥/属性 -->
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Advanced\']')" name="advanced">定时任务补偿</el-tab-pane>
+        </el-tabs>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -157,6 +180,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
+      activeName: 'basic',
 
       // 表单验证规则
       rules: {
@@ -209,7 +233,10 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
-
+    handleTabClick(tab, event) {
+      this.activeName = tab.name
+      // console.log(tab, event)
+    },
     // 重置表单
     resetTemp() {
       this.temp = {

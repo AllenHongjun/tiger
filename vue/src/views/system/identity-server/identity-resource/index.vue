@@ -14,11 +14,22 @@
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
+      <el-table-column :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled" align="center" width="100">
+        <template slot-scope="{ row }">
+          <el-tag :type="row.enabled ? 'primary' : 'danger'" disable-transitions>{{ row.enabled ? '启用' : '禁用' }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpIdentityServer[\'Required\']')" prop="required" align="center" width="100">
+        <template slot-scope="{ row }">
+          <el-tag :type="row.required ? 'primary' : 'danger'" disable-transitions>{{ row.required ? '是' : '否' }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('AbpIdentityServer[\'Name\']')" prop="name" sortable align="center">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
+
       <el-table-column :label="$t('AbpIdentityServer[\'DisplayName\']')" align="center">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>
@@ -27,6 +38,16 @@
       <el-table-column :label="$t('AbpIdentityServer[\'Description\']')" prop="description" sortable align="center">
         <template slot-scope="{ row }">
           <span>{{ row.description }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpIdentityServer[\'Emphasize\']')" prop="emphasize" align="center" width="100">
+        <template slot-scope="{ row }">
+          <el-tag :type="row.emphasize ? 'primary' : 'danger'" disable-transitions>{{ row.emphasize ? '是' : '否' }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument" align="center" width="140">
+        <template slot-scope="{ row }">
+          <el-tag :type="row.showInDiscoveryDocument ? 'primary' : 'danger'" disable-transitions>{{ row.showInDiscoveryDocument ? '是' : '否' }}</el-tag>
         </template>
       </el-table-column>
 
@@ -45,16 +66,60 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AbpIdentityServer[\'Name\']')" prop="name">
-          <el-input v-model="temp.name" />
-        </el-form-item>
-        <el-form-item :label="$t('AbpIdentityServer[\'DisplayName\']')" prop="displayName">
-          <el-input v-model="temp.displayName" />
-        </el-form-item>
-        <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
-          <el-input v-model="temp.description" />
-        </el-form-item>
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="150px">
+
+        <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="first">
+            <el-form-item :label="$t('AbpIdentityServer[\'Name\']')" prop="name">
+              <el-input v-model="temp.name" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'DisplayName\']')" prop="displayName">
+              <el-input v-model="temp.displayName" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
+              <el-input v-model="temp.description" />
+            </el-form-item>
+            <el-row>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled">
+                  <template>
+                    <el-radio v-model="temp.enabled" :label="true">是</el-radio>
+                    <el-radio v-model="temp.enabled" :label="false">否</el-radio>
+                  </template>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Required\']')" prop="required">
+                  <template>
+                    <el-radio v-model="temp.required" :label="true">是</el-radio>
+                    <el-radio v-model="temp.required" :label="false">否</el-radio>
+                  </template>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Emphasize\']')" prop="emphasize">
+                  <template>
+                    <el-radio v-model="temp.emphasize" :label="true">是</el-radio>
+                    <el-radio v-model="temp.emphasize" :label="false">否</el-radio>
+                  </template>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument">
+                  <template>
+                    <el-radio v-model="temp.showInDiscoveryDocument" :label="true">是</el-radio>
+                    <el-radio v-model="temp.showInDiscoveryDocument" :label="false">否</el-radio>
+                  </template>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-tab-pane>
+          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="second">UserClaim</el-tab-pane>
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Propertites\']')" name="third">Propertites</el-tab-pane>
+        </el-tabs>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -106,6 +171,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
+      activeName: 'first',
 
       // 表单验证规则
       rules: {
@@ -288,6 +354,11 @@ export default {
           })
         })
       })
+    },
+
+    // Tab 点击事件
+    handleClick(tab, event) {
+      console.log(tab, event)
     }
   }
 }

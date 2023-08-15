@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.IdentityServer.ApiScopes;
-using Tiger.Volo.Abp.IdentityServer.ApiScopes.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.IdentityServer.ApiResources;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
@@ -15,7 +11,7 @@ namespace Tiger.Volo.Abp.IdentityServer
     /// Api作用域
     /// </summary>
     /// <remarks>
-    /// 3.2 版本暂不用实现该功能
+    /// 3.2 版本id4 没有这个功能
     /// </remarks>
     [RemoteService(false)]
     public class ApiScopeAppService : ApplicationService, IApiScopeAppService
