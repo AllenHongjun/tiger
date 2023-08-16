@@ -6,7 +6,6 @@
  * 
  */
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Qiniu.Http;
 using Qiniu.Storage;
@@ -14,8 +13,6 @@ using Qiniu.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;

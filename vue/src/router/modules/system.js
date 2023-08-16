@@ -31,15 +31,15 @@ const SystemManageRouter = {
             policy: 'AbpIdentity.OrganizationUnits'
           }
         },
-        {
-          path: '/post/list',
-          component: () => import('@/views/system/identity/post/list'),
-          name: 'post',
-          meta: {
-            title: '职位管理'
-            // policy: 'AbpIdentity.OrganizationUnits'
-          }
-        },
+        // {
+        //   path: '/post/list',
+        //   component: () => import('@/views/system/identity/post/list'),
+        //   name: 'post',
+        //   meta: {
+        //     title: '职位管理'
+        //     // policy: 'AbpIdentity.OrganizationUnits'
+        //   }
+        // },
         {
           path: '/role/list',
           component: () => import('@/views/system/identity/roles/index'),
@@ -74,10 +74,16 @@ const SystemManageRouter = {
       // redirect: '/user/list',
       meta: {
         title: '身份服务器',
-        icon: 'el-icon-user-solid',
+        icon: 'peoples',
         policy: ''
       },
       children: [
+        {
+          path: '/client/list',
+          component: () => import('@/views/system/identity-server/client/index'),
+          name: 'client',
+          meta: { title: '客户端', policy: 'IdentityServer.Clients' }
+        },
         {
           path: '/api-resource/list',
           component: () => import('@/views/system/identity-server/api-resource/index'),
@@ -86,21 +92,6 @@ const SystemManageRouter = {
             title: '接口资源'
             // policy: 'IdentityServer.ApiResources'
           }
-        },
-        {
-          path: '/api-scope/list',
-          component: () => import('@/views/system/identity-server/api-scope/index'),
-          name: 'api-scope',
-          meta: {
-            title: 'api-scope'
-            // policy: 'AbpIdentity.OrganizationUnits'
-          }
-        },
-        {
-          path: '/client/list',
-          component: () => import('@/views/system/identity-server/client/index'),
-          name: 'client',
-          meta: { title: '客户端', policy: 'IdentityServer.Clients' }
         },
         {
           path: '/identity-resource/list',
@@ -117,7 +108,7 @@ const SystemManageRouter = {
       name: 'platform',
       meta: {
         title: '平台管理', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-document-copy' // the icon show in the sidebar
+        icon: 'el-icon-s-platform' // the icon show in the sidebar
         // policy: 'AbpTextTemplating.TextTemplates'
       },
       children: [
@@ -159,7 +150,7 @@ const SystemManageRouter = {
       name: 'oss',
       meta: {
         title: '对象存储', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-document-copy' // the icon show in the sidebar
+        icon: 'el-icon-files' // the icon show in the sidebar
         // policy: 'AbpTextTemplating.TextTemplates'
       },
       children: [
@@ -191,7 +182,7 @@ const SystemManageRouter = {
       name: 'task',
       meta: {
         title: '定时任务', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-document-copy' // the icon show in the sidebar
+        icon: 'el-icon-time' // the icon show in the sidebar
         // policy: 'AbpTextTemplating.TextTemplates'
       },
       children: [
@@ -232,7 +223,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/auditing/index'), // Parent router-view
       name: 'audit-log-list',
       meta: {
-        title: '请求日志', // the name show in sidebar and breadcrumb (recommend set)
+        title: '审计日志', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document', // the icon show in the sidebar
         policy: 'Auditing.AuditingLog'
         // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
@@ -244,29 +235,20 @@ const SystemManageRouter = {
       name: 'notice-list',
       meta: {
         title: '通知', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-3rd-notice' // the icon show in the sidebar
+        icon: 'el-icon-message' // the icon show in the sidebar
         // policy: 'Auditing.AuditingLog'
         // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
       }
     },
-    {
-      path: 'setting/index',
-      component: () => import('@/views/system/setting/index'), // Parent router-view
-      name: 'system',
-      meta: {
-        title: '系统设置',
-        icon: 'el-icon-setting',
-        policy: 'SettingUi.ShowSettingPage'
-      }
-    },
+
     // 运维监控
     {
-      path: '/monitor/index',
+      path: 'monitor/index',
       component: () => import('@/views/system/monitor/index'), // Parent router-view
       name: 'monitor',
       meta: {
         title: '运维监控',
-        icon: 'el-icon-setting'
+        icon: 'el-icon-monitor'
         // policy: 'SettingUi.ShowSettingPage'
       },
       children: [
@@ -302,7 +284,7 @@ const SystemManageRouter = {
         }
       ]
     },
-    // 基础设置
+    // 基础设施
     {
       path: '/infrastructure',
       component: () => import('@/views/system/infrastructure/index'), // Parent router-view
@@ -314,8 +296,8 @@ const SystemManageRouter = {
       },
       children: [
         {
-          path: 'https://localhost:44306/index.html',
-          component: Layout,
+          path: 'swagger-api/index',
+          component: () => import('@/views/system/infrastructure/swagger-api/index'), // Parent router-view,
           name: 'swagger-api',
           meta: {
             title: '接口文档',
@@ -324,9 +306,8 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'https://localhost:44306/hangfire/',
-          component: Layout,
-          url: 'http://www.baidu.com',
+          path: 'https://localhost:44306/hangfire/?period=week',
+          component: Layout, // Parent router-view,
           name: 'background-job',
           meta: {
             title: '后台作业',
@@ -335,8 +316,8 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'https://localhost:44306/quartz',
-          component: Layout,
+          path: 'quartz/index',
+          component: () => import('@/views/system/infrastructure/crystal-quartz/index'), // Parent router-view,
           name: 'background-worker',
           meta: {
             title: '定时任务',
@@ -345,7 +326,7 @@ const SystemManageRouter = {
           }
         },
         {
-          path: 'https://localhost:44306/index1.html',
+          path: 'https://easyabp.io/abphelper/AbpHelper.GUI/#getting-started',
           component: Layout,
           name: 'code-generation',
           meta: {
@@ -366,6 +347,16 @@ const SystemManageRouter = {
         }
 
       ]
+    },
+    {
+      path: 'setting/index',
+      component: () => import('@/views/system/setting/index'), // Parent router-view
+      name: 'system',
+      meta: {
+        title: '系统设置',
+        icon: 'el-icon-setting',
+        policy: 'SettingUi.ShowSettingPage'
+      }
     }
 
   ]

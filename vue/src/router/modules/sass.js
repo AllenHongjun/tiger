@@ -11,7 +11,7 @@ const sassRouter = {
   meta: {
     title: 'Saas',
     policy: 'AbpTenantManagement.Tenants',
-    icon: 'peoples'
+    icon: 'el-icon-cloudy'
   },
   children: [
     {
@@ -20,7 +20,8 @@ const sassRouter = {
       name: 'Tenant',
       meta: {
         title: '租户',
-        policy: 'AbpTenantManagement.Tenants'
+        policy: 'AbpTenantManagement.Tenants',
+        icon: 'el-icon-wallet'
       }
     },
     {
@@ -29,6 +30,7 @@ const sassRouter = {
       name: 'edition',
       meta: {
         title: '版本',
+        icon: 'el-icon-notebook-2',
         // TODO: 增加权限控制
         policy: 'AbpTenantManagement.Tenants'
       }

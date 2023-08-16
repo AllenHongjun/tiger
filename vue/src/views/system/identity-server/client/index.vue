@@ -52,7 +52,7 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Client:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="170px">
         <el-tabs v-model="dialogTabActiveName">
           <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="first">
             <el-form-item :label="$t('AbpIdentityServer[\'Client:Id\']')" prop="clientId">
@@ -70,15 +70,59 @@
             <el-form-item :label="$t('AbpIdentityServer[\'Client:LogoUri\']')" prop="logoUri">
               <el-input v-model="temp.logoUri" />
             </el-form-item>
-            <el-form-item :label="$t('AbpIdentityServer[\'Client:Enabled\']')" prop="enabled">
-              <el-checkbox v-model="temp.enabled" />
-            </el-form-item>
-            <el-form-item :label="$t('AbpIdentityServer[\'Client:RequireConsent\']')" prop="requireConsent">
-              <el-checkbox v-model="temp.requireConsent" />
-            </el-form-item>
-            <el-form-item :label="$t('AbpIdentityServer[\'Client:AllowRememberConsent\']')" prop="allowRememberConsent">
-              <el-checkbox v-model="temp.allowRememberConsent" />
-            </el-form-item></el-tab-pane>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Client:Enabled\']')" prop="enabled">
+                  <el-checkbox v-model="temp.enabled" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Client:ProtocolType\']')" prop="protocolType">
+                  <el-select v-model="temp.protocolType" placeholder="请选择">
+                    <el-option key="" label="OpenID Connect" value="oidc" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Client:RequireRequestObject\']')" prop="requireRequestObject">
+                  <el-checkbox v-model="temp.requireRequestObject" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Client:AllowedIdentityTokenSigningAlgorithms\']')" prop="allowedIdentityTokenSigningAlgorithms">
+                  <el-checkbox v-model="temp.allowedIdentityTokenSigningAlgorithms" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Client:RequiredPkce\']')" prop="requiredPkce">
+                  <el-checkbox v-model="temp.requiredPkce" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Client:AllowedPlainTextPkce\']')" prop="allowedPlainTextPkce">
+                  <el-checkbox v-model="temp.allowedPlainTextPkce" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item :label="$t('AbpIdentityServer[\'Client:RequireConsent\']')" prop="requireConsent">
+                  <el-checkbox v-model="temp.requireConsent" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12"><el-form-item :label="$t('AbpIdentityServer[\'Client:AllowRememberConsent\']')" prop="allowRememberConsent">
+                <el-checkbox v-model="temp.allowRememberConsent" />
+              </el-form-item></el-col>
+            </el-row>
+          </el-tab-pane>
           <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
           <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
           <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
@@ -174,7 +218,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      dialogTabActiveName: 'second',
+      dialogTabActiveName: 'first',
       // 表单验证规则
       rules: {
         name: [
