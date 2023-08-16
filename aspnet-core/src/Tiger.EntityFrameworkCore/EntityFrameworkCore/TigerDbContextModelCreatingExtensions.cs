@@ -4,17 +4,20 @@ using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
 using Tiger.Books;
-using Tiger.Volo.Abp.Sass.Editions;
-using Tiger.Volo.Abp.Sass;
+//using Tiger.Volo.Abp.Sass.Editions;
+//using Tiger.Volo.Abp.Sass;
 using TigerAdmin.Books;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
-using Volo.Abp.TenantManagement;
 using Tiger.Module.System.Platform.Menus;
 using Tiger.Module.System.Platform.Routes;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Tiger.Module.System.Platform.Layouts;
+using Tiger.Volo.Abp.Sass.Tenants;
+using Tiger.Volo.Abp.Sass;
+using Tiger.Volo.Abp.Sass.Editions;
+//using Tiger.Volo.Abp.Sass.Tenants;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -86,48 +89,51 @@ namespace Tiger.EntityFrameworkCore
             //{
             //    return;
             //}
-            //builder.Entity<Edition>(b =>
-            //{
-            //    b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Editions", AbpSaasDbProperties.DbSchema);
+            builder.Entity<Edition>(b =>
+            {
+                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Editions", AbpSaasDbProperties.DbSchema);
 
-            //    b.ConfigureByConvention();
+                b.ConfigureByConvention();
 
-            //    b.Property(t => t.DisplayName)
-            //        .HasMaxLength(EditionConsts.MaxDisplayNameLength)
-            //        .IsRequired()
-            //        .HasComment("显示名称");
+                b.Property(t => t.DisplayName)
+                    .HasMaxLength(EditionConsts.MaxDisplayNameLength)
+                    .IsRequired()
+                    .HasComment("显示名称");
 
-            //    b.HasIndex(u => u.DisplayName);
+                b.HasIndex(u => u.DisplayName);
 
-            //    //b.ApplyObjectExtensionMappings();
-            //});
-            //builder.Entity<Tiger.Volo.Abp.Sass.Tenants.Tenant>(b =>
-            //{
-            //    b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Tenants", AbpSaasDbProperties.DbSchema);
+                //b.ApplyObjectExtensionMappings();
+            });
 
-            //    b.ConfigureByConvention();
+            //重用模块的表 https://docs.abp.io/zh-Hans/abp/4.4/Entity-Framework-Core-Migrations
+            // 它映射到 AbpTenents 表,与 Abp 自带的Tenant 实体共享.
+            builder.Entity<Tenant>(b =>
+            {
+                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "Tenants", AbpSaasDbProperties.DbSchema);
 
-            //    b.Property(t => t.Name).IsRequired().HasMaxLength(TenantConsts.MaxNameLength).HasComment("租户名称");
+                b.ConfigureByConvention();
 
-            //    b.HasMany(u => u.ConnectionStrings).WithOne().HasForeignKey(uc => uc.TenantId).IsRequired();
+                b.Property(t => t.Name).IsRequired().HasMaxLength(TenantConsts.MaxNameLength).HasComment("租户名称");
 
-            //    b.HasIndex(u => u.Name);
+                b.HasMany(u => u.ConnectionStrings).WithOne().HasForeignKey(uc => uc.TenantId).IsRequired();
 
-            //    //b.ApplyObjectExtensionMappings();
-            //});
-            //builder.Entity<TenantConnectionString>(b =>
-            //{
-            //    b.ToTable(AbpSaasDbProperties.DbTablePrefix + "TenantConnectionStrings", AbpSaasDbProperties.DbSchema);
+                b.HasIndex(u => u.Name);
 
-            //    b.ConfigureByConvention();
+                //b.ApplyObjectExtensionMappings();
+            });
+            builder.Entity<TenantConnectionString>(b =>
+            {
+                b.ToTable(AbpSaasDbProperties.DbTablePrefix + "TenantConnectionStrings", AbpSaasDbProperties.DbSchema);
 
-            //    b.HasKey(x => new { x.TenantId, x.Name });
+                b.ConfigureByConvention();
 
-            //    b.Property(cs => cs.Name).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxNameLength);
-            //    b.Property(cs => cs.Value).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxValueLength);
+                b.HasKey(x => new { x.TenantId, x.Name });
 
-            //    //b.ApplyObjectExtensionMappings();
-            //});
+                b.Property(cs => cs.Name).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxNameLength);
+                b.Property(cs => cs.Value).IsRequired().HasMaxLength(TenantConnectionStringConsts.MaxValueLength);
+                
+                //b.ApplyObjectExtensionMappings();
+            });
             #endregion
 
             #region System

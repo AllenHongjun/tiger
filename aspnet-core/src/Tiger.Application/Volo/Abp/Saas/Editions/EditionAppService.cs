@@ -6,6 +6,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Data;
 using Tiger.Volo.Abp.Sass.Permissions;
+using Volo.Abp;
 
 namespace Tiger.Volo.Abp.Sass.Editions;
 
@@ -13,6 +14,7 @@ namespace Tiger.Volo.Abp.Sass.Editions;
 /// 版本服务
 /// </summary>
 [Authorize(AbpSaasPermissions.Editions.Default)]
+[RemoteService(IsEnabled = false)]
 public class EditionAppService : AbpSaasAppServiceBase, IEditionAppService
 {
     protected EditionManager EditionManager { get; }

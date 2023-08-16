@@ -27,9 +27,6 @@ namespace Tiger.EntityFrameworkCore
     /// <summary>
     /// 自定义的DbContext
     /// </summary>
-    /// 
-    /// 
-
     // 配置连接字符串选择
     [ConnectionStringName("Default")]
     public class TigerDbContext : AbpDbContext<TigerDbContext>
@@ -57,9 +54,9 @@ namespace Tiger.EntityFrameworkCore
         #endregion
 
         // 如何扩展abp原有的租户表 迁移里面文档了解
-        //public DbSet<Edition> Editions { get; set; }
+        public DbSet<Edition> Editions { get; set; }
 
-        //public DbSet<Tenant> Tenants { get; set; }
+        public DbSet<Tenant> Tenants { get; set; }
 
 
         public DbSet<Post> Posts { get; set; }

@@ -1,17 +1,10 @@
 ﻿using AutoMapper;
-using System.Linq;
 using Tiger.Volo.Abp.IdentityServer.ApiResources;
-using Tiger.Volo.Abp.IdentityServer.ApiResources.Dto;
 using Tiger.Volo.Abp.IdentityServer.ApiScopes;
-using Tiger.Volo.Abp.IdentityServer.ApiScopes.Dto;
 using Tiger.Volo.Abp.IdentityServer.Clients;
-using Tiger.Volo.Abp.IdentityServer.Clients.Dto;
-using Tiger.Volo.Abp.IdentityServer.Grants;
 using Tiger.Volo.Abp.IdentityServer.IdentityResources;
-using Tiger.Volo.Abp.IdentityServer.IdentityResources.Dto;
 using Volo.Abp.IdentityServer.ApiResources;
 using Volo.Abp.IdentityServer.Clients;
-using Volo.Abp.IdentityServer.Grants;
 using Volo.Abp.IdentityServer.IdentityResources;
 
 namespace Tiger.Volo.Abp.IdentityServer

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
+using Volo.Abp.TenantManagement;
 using Volo.Abp.Threading;
 
 namespace Tiger.EntityFrameworkCore
@@ -39,6 +41,37 @@ namespace Tiger.EntityFrameworkCore
                  * See the documentation for more:
                  * https://docs.abp.io/en/abp/latest/Customizing-Application-Modules-Extending-Entities
                  */
+
+
+                ObjectExtensionManager.Instance
+                .MapEfCoreProperty<Tenant, bool>(
+                    nameof(Volo.Abp.Sass.Tenants.Tenant.IsActive),
+                    (entityBuilder, propertyBuilder) =>
+                    {
+                        propertyBuilder.IsRequired().HasComment("是否激活");
+                    }
+                )
+                .MapEfCoreProperty<Tenant, DateTime>(
+                    nameof(Volo.Abp.Sass.Tenants.Tenant.EnableTime),
+                    (entityBuilder, propertyBuilder) =>
+                    {
+                        propertyBuilder.HasComment("启用时间");
+                    }
+                )
+                .MapEfCoreProperty<Tenant, DateTime>(
+                    nameof(Volo.Abp.Sass.Tenants.Tenant.DisableTime),
+                    (entityBuilder, propertyBuilder) =>
+                    {
+                        propertyBuilder.HasComment("禁用时间");
+                    }
+                )
+                .MapEfCoreProperty<Tenant, Guid>(
+                    nameof(Volo.Abp.Sass.Tenants.Tenant.EditionId),
+                    (entityBuilder, propertyBuilder) =>
+                    {
+                        propertyBuilder.HasComment("版本Id");
+                    }
+                );
             });
         }
     }

@@ -21,6 +21,7 @@ namespace Tiger.Volo.Abp.Sass.Tenants
         // Volo.Abp.Data.ConnectionStrings.DefaultConnectionStringName;
         protected const string DefaultConnectionStringName = "";
 
+
         public virtual string Name { get; protected set; }
 
         public virtual bool IsActive { get; set; }
