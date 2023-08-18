@@ -58,6 +58,8 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<Tenant> Tenants { get; set; }
 
+        public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<TextTemplate> TextTemplates { get; set; }

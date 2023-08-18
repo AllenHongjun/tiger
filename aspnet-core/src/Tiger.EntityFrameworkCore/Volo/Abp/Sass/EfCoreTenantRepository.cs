@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Tiger.EntityFrameworkCore;
 using Tiger.Volo.Abp.Sass.Editions;
 using Tiger.Volo.Abp.Sass.Tenants;
@@ -13,7 +15,7 @@ using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace Tiger.Volo.Abp.Sass
-{   
+{
     /// <summary>
     /// 租户 仓储实现
     /// </summary>
@@ -23,10 +25,17 @@ namespace Tiger.Volo.Abp.Sass
     public class EfCoreTenantRepository : EfCoreRepository<TigerDbContext, Tenant, Guid>, ITenantRepository
     {
         public EfCoreTenantRepository(
-            IDbContextProvider<TigerDbContext> dbContextProvider) 
+            IDbContextProvider<TigerDbContext> dbContextProvider)
             : base(dbContextProvider)
         {
         }
+
+        //public async Task<List<Tenant>> GetAsync(Guid id, bool includeDetails = true, CancellationToken cancellationToken = default)
+        //{
+        //    return await DbContext.Set<Tenant>().FirstOrDefaultAsync(x => x.Id == id)
+        //}
+            
+        
 
 
         public async override Task<Tenant> FindAsync(Guid id, bool includeDetails = true,
@@ -122,21 +131,47 @@ namespace Tiger.Volo.Abp.Sass
             var queryable = tenantDbSet
                 .WhereIf(!filter.IsNullOrWhiteSpace(), u => u.Name.Contains(filter))
                 .OrderBy<Tenant>(sorting.IsNullOrEmpty() ? nameof(Tenant.Name) : sorting);
-            
-            // linq join查询
-            var combinedResult = await queryable
-                .Join(editionDbSet,o => o.EditionId, i => i.Id,
-                (tenant, edition) => new {tenant, edition})
-                .Skip(skipCount)
-                .Take(maxResultCount)
-                .ToListAsync(GetCancellationToken(cancellationToken));
+
+
+            // 修改为使用 left join查询
+            var combinedResult = await (from tenant in queryable
+                                 join edition in editionDbSet on tenant.EditionId equals edition.Id into eg
+                                 from e in eg.DefaultIfEmpty()
+                                 select new
+                                 {
+                                     Tenant = tenant,
+                                     Edition = e,
+                                 })
+                                .Skip(skipCount)
+                                .Take(maxResultCount)
+                                .ToListAsync();
+
+            //// linq join查询
+            //var combinedResult = await queryable
+            //    .Join(editionDbSet,o => o.EditionId, i => i.Id,
+            //    (tenant, edition) => new {tenant, edition})
+            //    .Skip(skipCount)
+            //    .Take(maxResultCount)
+            //    .ToListAsync(GetCancellationToken(cancellationToken));
 
             // 没有使用导航属性，将版本的属性赋值到 tenant对象当中
             return combinedResult.Select(s =>
             {
-                s.tenant.Edition = s.edition;
-                return s.tenant;
+                s.Tenant.Edition = s.Edition;
+                return s.Tenant;
             }).ToList();
+        }
+
+        /// <summary>
+        /// 包含子集
+        /// </summary>
+        /// <remarks>
+        /// 重写父类方法，不然会获取不到
+        /// </remarks>
+        /// <returns></returns>
+        public override IQueryable<Tenant> WithDetails()
+        {
+            return GetQueryable().IncludeDetails(); // Uses the extension method defined above
         }
     }
 }

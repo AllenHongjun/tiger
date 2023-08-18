@@ -9,10 +9,10 @@
           <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
         </el-row>
         <el-table :key="tableKey" v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @sort-change="sortChange">
-          <el-table-column align="center" label="ID" width="95">
-            <template slot-scope="{ row }">{{ row.id }}</template>
-          </el-table-column>
-          <el-table-column align="left" label="版本名称" prop="displayName">
+
+          <el-table-column type="selection" width="55" />
+          <el-table-column type="index" width="55" />
+          <el-table-column align="left" :label="$t('AbpSaas[\'DisplayName:EditionName\']')" prop="displayName">
             <template slot-scope="{ row }">{{ row.displayName }}</template>
           </el-table-column>
 
@@ -32,8 +32,8 @@
 
         <el-dialog :title="dialogStatus == 'create'? '创建': $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
           <el-form ref="dataForm" :rules="rules" :model="temp" label-width="120px" label-position="right">
-            <el-form-item label="版本名称" prop="dispalyName">
-              <el-input v-model="temp.dispalyName" />
+            <el-form-item :label="$t('AbpSaas[\'DisplayName:EditionName\']')" prop="displayName">
+              <el-input v-model="temp.displayName" />
             </el-form-item>
 
           </el-form>
@@ -83,13 +83,12 @@ export default {
       dialogStatus: '',
       dialogFormVisible: false,
       temp: {
-        id: '',
-        displayName: '',
-        planId: null,
-        planName: null
+        id: undefined,
+        displayName: undefined
+
       },
       rules: {
-        dispalyName: [
+        displayName: [
           {
             required: true,
             message: '请输入版本名称',
@@ -136,9 +135,7 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        displayName: '',
-        planId: null,
-        planName: null
+        displayName: undefined
       }
     },
     handleCreate() {
@@ -169,7 +166,6 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      // this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -180,7 +176,6 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateEdition(tempData.id, tempData).then(() => {
             const index = this.list.findIndex((v) => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)

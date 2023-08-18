@@ -18,6 +18,7 @@ public class AbpSaasApplicationAutoMapperProfile : Profile
                     return tenant.Edition?.Id;
                 });
             })
+            // 实体类增加显示的字段，赋值的时候将字段赋值带上,将字段不映射到数据库中
             .ForMember(dto => dto.EditionName, map =>
             {
                 map.MapFrom((tenant, dto) =>

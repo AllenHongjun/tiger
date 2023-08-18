@@ -7,10 +7,27 @@
       </el-button>
     </div>
 
-    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" @sort-change="sortChange">
-      <el-table-column :label="$t('AbpTenantManagement[\'TenantName\']')" prop="name" sortable align="left">
+    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+      <el-table-column type="selection" width="55" />
+      <el-table-column type="index" width="55" />
+      <el-table-column :label="$t('AbpSaas[\'TenantName\']')" prop="name" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpSaas[\'DisplayName:IsActive\']')" prop="isActive" align="isActive">
+        <template slot-scope="{ row }">
+          <el-tag :type="row.isActive?'primary':'danger'">{{ row.isActive ?"启用" : "禁用" }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpSaas[\'DisplayName:EditionName\']')" prop="editionName" align="left">
+        <template slot-scope="{ row }">
+          <span>{{ row.editionName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpSaas[\'DisplayName:DisableTime\']')" prop="disableTime" align="left">
+        <template slot-scope="{ row }">
+          <span>{{ row.disableTime | moment }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AbpTenantManagement[\'Actions\']')" align="left" width="500" class-name="small-padding fixed-width">
@@ -19,11 +36,7 @@
             {{ $t("AbpTenantManagement['Edit']") }}
           </el-button>
           <el-button
-            v-if="
-              checkPermission(
-                'AbpTenantManagement.Tenants.ManageConnectionStrings'
-              )
-            "
+            v-if="checkPermission( 'AbpTenantManagement.Tenants.ManageConnectionStrings')"
             type="primary"
             size="mini"
             @click="handleUpdateConnectionString(row)"

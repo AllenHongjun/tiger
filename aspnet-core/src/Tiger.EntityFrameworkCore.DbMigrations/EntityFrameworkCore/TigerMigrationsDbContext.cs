@@ -39,7 +39,9 @@ namespace Tiger.EntityFrameworkCore
             builder.ConfigureIdentity();
             builder.ConfigureIdentityServer();
             builder.ConfigureFeatureManagement();
-            builder.ConfigureTenantManagement();
+
+            // 重写abp tenantManageManage模块的表。添加自定义的字段
+            //builder.ConfigureTenantManagement();
 
             /* Configure your own tables/entities inside the ConfigureTiger method */
 

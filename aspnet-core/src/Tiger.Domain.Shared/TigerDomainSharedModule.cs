@@ -5,6 +5,7 @@ using Tiger.Module.System.Platform.Localization;
 using Tiger.Module.System.TextTemplate.Localization;
 using Tiger.Module.TaskManagement.Localization;
 using Tiger.Volo.Abp.Identity;
+using Tiger.Volo.Abp.Sass.Localization;
 using Tiger.Volo.Abp.SettingUi.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AuditLogging.Localization;
@@ -67,6 +68,9 @@ namespace Tiger
                         .Add<TigerResource>("zh-Hans")
                         .AddBaseTypes(typeof(AbpValidationResource))//资源可以从其他资源继承,这使得可以在不引用现有资源的情况下重用现有的本地化字符串 Inherit from an existing resource;
                         .AddVirtualJson("/Localization/Tiger");// 用JSON文件存储本地化字符串. 使用虚拟文件系统 将JSON文件嵌入到程序集中.
+                options.Resources
+                       .Add<AbpSaasResource>("zh-Hans")
+                       .AddVirtualJson("/Volo/Abp/Sass/Localization/Resources");
 
                 options.Resources
                        .Add<AbpOssManagementResource>("zh-Hans")

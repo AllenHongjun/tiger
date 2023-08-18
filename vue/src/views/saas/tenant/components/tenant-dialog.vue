@@ -4,11 +4,32 @@
       <el-form-item :label="$t('AbpTenantManagement[\'TenantName\']')" prop="name">
         <el-input v-model="temp.name" />
       </el-form-item>
-      <el-form-item v-if="!temp.id" :label="$t('AbpTenantManagement[\'DisplayName:AdminEmailAddress\']')" prop="adminEmailAddress">
+      <el-form-item :label="$t('AbpSaas[\'DisplayName:EditionName\']')" prop="isActive">
+        <el-select v-model="temp.editionId" placeholder="请选择">
+          <el-option
+            v-for="item in editionOptions"
+            :key="item.id"
+            :label="item.displayName"
+            :value="item.id"
+          />
+        </el-select>
+      </el-form-item>
+
+      <el-form-item :label="$t('AbpSaas[\'DisplayName:IsActive\']')" prop="isActive">
+        <el-checkbox v-model="temp.isActive" />
+      </el-form-item>
+
+      <el-form-item :label="$t('AbpSaas[\'DisplayName:EnableTime\']')" prop="enableTime">
+        <el-date-picker v-model="temp.enableTime" type="datetime" placeholder="选择日期时间" />
+      </el-form-item>
+      <el-form-item :label="$t('AbpSaas[\'DisplayName:DisableTime\']')" prop="disableTime">
+        <el-date-picker v-model="temp.disableTime" type="datetime" placeholder="选择日期时间" />
+      </el-form-item>
+      <el-form-item v-if="!temp.id" :label="$t('AbpSaas[\'DisplayName:AdminEmailAddress\']')" prop="adminEmailAddress">
         <el-input v-model="temp.adminEmailAddress" />
       </el-form-item>
-      <el-form-item v-if="!temp.id" :label="$t('AbpTenantManagement[\'DisplayName:AdminPassword\']')" prop="adminPassword">
-        <el-input v-model="temp.adminPassword" type="password" auto-complete="off" />
+      <el-form-item v-if="!temp.id" :label="$t('AbpSaas[\'DisplayName:AdminPassword\']')" prop="adminPassword">
+        <el-input v-model="temp.adminPassword" type="password" auto-complete="off" show-password />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -28,6 +49,9 @@ import {
   getTenantById,
   updateTenant
 } from '@/api/sass/tenant'
+import {
+  getEditions
+} from '@/api/sass/edition'
 
 export default {
   name: 'TenantDialog',
@@ -109,8 +133,18 @@ export default {
       callback()
     }
     return {
+      editionOptions: [],
       temp: {
-        name: ''
+        id: undefined,
+        name: undefined,
+        isActive: true,
+        editionId: undefined,
+        enableTime: undefined,
+        disableTime: undefined,
+        adminEmailAddress: undefined,
+        adminPassword: undefined,
+        useSharedDatabase: true,
+        defaultConnectionString: undefined
       },
       dialogStatus: '',
       dialogFormVisible: false,
@@ -179,13 +213,36 @@ export default {
       }
     }
   },
+  created() {
+
+  },
   methods: {
+    // 获取版本选项的值
+    getEditionOptions() {
+      var listQuery = {
+        page: 1,
+        limit: 100 // 版本数量不会超过100
+      }
+      getEditions(listQuery).then(response => {
+        this.editionOptions = response.items
+      })
+    },
     resetTemp() {
       this.temp = {
-        name: ''
+        id: undefined,
+        name: undefined,
+        isActive: true,
+        editionId: undefined,
+        enableTime: undefined,
+        disableTime: undefined,
+        adminEmailAddress: undefined,
+        adminPassword: undefined,
+        useSharedDatabase: true,
+        defaultConnectionString: undefined
       }
     },
     handleCreate() {
+      this.getEditionOptions()
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
@@ -211,6 +268,7 @@ export default {
       })
     },
     handleUpdate(row) {
+      this.getEditionOptions()
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true

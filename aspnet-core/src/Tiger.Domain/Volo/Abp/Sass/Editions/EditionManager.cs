@@ -74,7 +74,7 @@ namespace Tiger.Volo.Abp.Sass.Editions
         protected async virtual Task ValidateDisplayNameAsync(string displayName, Guid? expectedId = null)
         {
             var edition = await EditionRepository.FindByDisplayNameAsync(displayName);
-            if (edition == null && edition.Id != expectedId) {
+            if (edition != null && edition.Id != expectedId) {
                 throw new BusinessException(AbpSaasErrorCodes.DuplicateEditionDisplayName)
                 .WithData(nameof(Edition.DisplayName), displayName);
             }

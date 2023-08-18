@@ -4,13 +4,7 @@
       <el-form-item>
         <el-checkbox v-model="useSharedDatabase" :label="$t('AbpTenantManagement[\'DisplayName:UseSharedDatabase\']')" />
       </el-form-item>
-      <el-form-item
-        v-if="!useSharedDatabase"
-        :label="
-          $t('AbpTenantManagement[\'DisplayName:DefaultConnectionString\']')
-        "
-        prop="defaultConnectionString"
-      >
+      <el-form-item v-if="!useSharedDatabase" :label=" $t('AbpTenantManagement[\'DisplayName:DefaultConnectionString\']')" prop="defaultConnectionString">
         <el-input v-model="temp.defaultConnectionString" />
       </el-form-item>
     </el-form>
@@ -28,6 +22,7 @@
 <script>
 import {
   getDefaultConnectionString,
+  getDefaultConnectionStringByName,
   updateDefaultConnectionString,
   deleteDefaultConnectionString
 } from '@/api/sass/tenant'
@@ -39,6 +34,7 @@ export default {
       tenantId: '',
       useSharedDatabase: true,
       temp: {
+        name: 'Default',
         defaultConnectionString: ''
       },
       dialogFormVisible: false,
@@ -62,6 +58,7 @@ export default {
   methods: {
     resetTemp() {
       this.temp = {
+        name: 'Default',
         defaultConnectionString: ''
       }
     },
@@ -70,8 +67,8 @@ export default {
       this.tenantId = row.id
       this.dialogFormVisible = true
 
-      getDefaultConnectionString(row.id).then(response => {
-        if (response) {
+      getDefaultConnectionStringByName(row.id).then(response => {
+        if (response.items.lenght === 0) {
           this.useSharedDatabase = false
           this.temp.defaultConnectionString = response
         } else {
@@ -93,18 +90,19 @@ export default {
             deleteDefaultConnectionString(this.tenantId).then(() => {
               this.dialogFormVisible = false
               this.$notify({
-                title: this.$i18n.t("HelloAbp['Success']"),
-                message: this.$i18n.t("HelloAbp['SuccessMessage']"),
+                title: this.$i18n.t("TigerUi['Success']"),
+                message: this.$i18n.t("TigerUi['SuccessMessage']"),
                 type: 'success',
                 duration: 2000
               })
             })
           } else {
+            this.temp.value = this.temp.defaultConnectionString
             updateDefaultConnectionString(this.tenantId, this.temp).then(() => {
               this.dialogFormVisible = false
               this.$notify({
-                title: this.$i18n.t("HelloAbp['Success']"),
-                message: this.$i18n.t("HelloAbp['SuccessMessage']"),
+                title: this.$i18n.t("TigerUi['Success']"),
+                message: this.$i18n.t("TigerUi['SuccessMessage']"),
                 type: 'success',
                 duration: 2000
               })
