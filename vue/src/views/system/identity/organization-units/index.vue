@@ -1,40 +1,51 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <el-col :span="10">
+      <el-col :span="8">
         <div class="grid-content">
-          <el-row>
-            <el-col :span="20">
-              <h3 class="grid-content">{{ $t('AbpIdentity["OrganizationUnit:Tree"]') }}</h3>
-            </el-col>
-          </el-row>
-          <el-row>
-            <div class="block">
-              <org-tree ref="roleOrgTree" :org-tree-node-click="handleOrgTreeNodeClick" />
-            </div>
-          </el-row>
+          <el-card class="box-card">
+            <el-row>
+              <el-col :span="16">
+                <h3 class="grid-content">{{ $t('AbpIdentity["OrganizationUnit:Tree"]') }}</h3>
+              </el-col>
+            </el-row>
+            <el-row>
+              <div class="block">
+                <org-tree ref="roleOrgTree" :org-tree-node-click="handleOrgTreeNodeClick" />
+              </div>
+            </el-row>
+          </el-card>
+
         </div>
       </el-col>
-      <el-col :span="14">
+      <el-col :span="16">
         <div class="grid-content">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:Members\']')" name="users">
-              <div v-if="this.orgData">
+              <div v-if="orgData">
                 <el-row>
-                  <el-col :span="5" :offset="19">
-                    <el-button v-if="checkPermission('AbpIdentity.Users.Create')" class="filter-item" style="margin-left: 10px" type="primary" icon="el-icon-edit" @click="handleAddUsers">
+                  <el-col :span="18">
+                    <h3 type="info">{{ orgData.displayName }}</h3>
+                  </el-col>
+                  <el-col :span="6">
+                    <el-button v-if="checkPermission('AbpIdentity.Users.Create')" type="primary" icon="el-icon-edit" @click="handleAddUsers">
                       {{ $t("AbpIdentity['OrganizationUnit:AddMember']") }}
                     </el-button>
-                    <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefreshRoles">
+                    <el-button icon="el-icon-refresh" @click="handleRefreshRoles">
                       {{ $t("AbpIdentity['Refresh']") }}
                     </el-button>
                   </el-col>
                 </el-row>
 
-                <el-table :key="tableKey" v-loading="listLoading" :data="orgUserList" border fit highlight-current-row style="width: 100%" @sort-change="sortChangeUsers">
+                <el-table :key="tableKey" v-loading="listLoading" :data="orgUserList" border fit highlight-current-row style="width: 100%" max-height="600" @sort-change="sortChangeUsers">
                   <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="name" sortable align="center">
                     <template slot-scope="{ row }">
                       <span>{{ row.userName }}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" prop="email" sortable align="center">
+                    <template slot-scope="{ row }">
+                      <span>{{ row.email }}</span>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('AbpIdentity[\'Actions\']')" align="center" width="300" class-name="small-padding fixed-width">

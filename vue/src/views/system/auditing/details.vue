@@ -4,6 +4,7 @@
       :title="logData.url+
         '-' + $t('AbpAuditLogging[\'Detail\']')"
       :visible.sync="dialogVisible"
+      top="6vh"
     >
       <el-tabs type="border-card">
         <el-tab-pane :label="$t('AbpAuditLogging[\'RequsetInfo\']')">
@@ -47,7 +48,7 @@
               </tr>
               <tr>
                 <th>{{ $t("AbpAuditLogging['Exceptions']") }}</th>
-                <td style="max-height: 300px;overflow-y: scroll;display: block;">
+                <td style="max-height: 260px;overflow-y: scroll;display: block;">
                   {{ logData.exceptions }}
                   <br>
                   <el-button type="primary" icon="el-icon-document" @click="handleCopyParameters(logData.exceptions,$event)">

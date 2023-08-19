@@ -3,6 +3,7 @@
   <el-dialog :title="'用户授权'" :visible.sync="dialogPermissionFormVisible">
     <!-- `checked` 为 true 或 false -->
     <el-checkbox v-model="allPermissionChecked" @change="toggleCheckAll">授予所有权限</el-checkbox>
+    <el-button type="primary" icon="el-icon-sort" class="filter-item" style="margin-left: 10px;" @click="toggleRowExpansion">全部{{ isExpansion ? "收缩" : "展开" }}</el-button>
     <el-divider />
     <el-form label-position="top" style="min-height:500px;">
       <el-tabs v-model="activeName" tab-position="left">
@@ -45,6 +46,7 @@ export default {
   },
   data() {
     return {
+      isExpansion: true,
       allPermissionChecked: false,
       groupAllPermissionChecked: false,
       activeName: '',
@@ -66,6 +68,19 @@ export default {
     this.permissionsQuery.providerName = this.providerName
   },
   methods: {
+    // 切换展开收合
+    toggleRowExpansion() {
+      for (const i in this.permissionData.groups) {
+        const keys = []
+        const group = this.permissionData.groups[i]
+        for (const j in group.permissions) {
+          keys.push(group.permissions[j].name)
+        }
+        console.log("this.$refs['permissionTree'][i]", this.$refs['permissionTree'][i])
+        this.$refs['permissionTree'][i].expanded = false
+      }
+    },
+
     toggleCheckAll() {
       if (this.allPermissionChecked) {
         for (const i in this.permissionData.groups) {
@@ -83,7 +98,6 @@ export default {
       }
     },
     toggleCheckGroupAll() {
-      console.log('activeName', this.activeName)
       var i = this.activeName
       // 获取全局分组的id
       if (this.groupAllPermissionChecked) {

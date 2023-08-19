@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item :label="$t('AbpIdentity[\'SelectDateTime\']')">
-              <el-date-picker v-model="queryDateTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" @change="datePickerChange" />
+              <el-date-picker v-model="queryDateTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -80,8 +80,20 @@
     </div>
 
     <div class="table-container">
-      <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" :default-sort="{prop: 'date', order: 'descending'}" @sort-change="sortChange">
-
+      <el-table
+        :key="tableKey"
+        v-loading="listLoading"
+        :data="list"
+        border
+        fit
+        highlight-current-row
+        style="width: 100%;"
+        :default-sort="{prop: 'date', order: 'descending'}"
+        :stripe="true"
+        max-height="680"
+        @sort-change="sortChange"
+      >
+        <el-table-column type="index" width="80" />
         <el-table-column :label="$t('AbpIdentity[\'CreationTime\']')" prop="creationTime" align="center" width="150" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.creationTime | moment }}</span>

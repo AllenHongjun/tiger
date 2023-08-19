@@ -2,10 +2,10 @@
   <div class="app-container" style="padding:0 20px;">
     <div class="filter-container">
       <el-row :gutter="20">
-        <el-col :span="20">
+        <el-col :span="16">
           <el-input v-model="filterText" placeholder="查询组织" />
         </el-col>
-        <el-col :span="4">
+        <el-col :span="8">
           <div class="grid-content">
             <el-button type="primary" @click="() => handleCreate()">添加根机构</el-button>
           </div>
