@@ -52,6 +52,12 @@ namespace Tiger.Module.OssManagement
             }
         }
 
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(AbpOssManagementPermissions.OssObject.Delete)]
         public async virtual Task BulkDeleteAsync(BulkDeleteOssObjectInput input)
         {
@@ -68,6 +74,11 @@ namespace Tiger.Module.OssManagement
             await oss.DeleteObjectAsync(input.Bucket, input.Object, input.Path);
         }
 
+        /// <summary>
+        /// 获取对象
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async virtual Task<OssObjectDto> GetAsync(GetOssObjectInput input)
         {
             var oss = CreateOssContainer();

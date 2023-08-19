@@ -59,7 +59,8 @@ export default {
     // }
     // 是否显示dialog + 用户选择的table
     ouId: {
-      type: String
+      type: String,
+      default: null
     },
     refreshParentRoles: {
       type: Function,

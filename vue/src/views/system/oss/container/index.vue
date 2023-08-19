@@ -14,12 +14,12 @@
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Name\']')" prop="name" sortable align="center">
+      <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Name\']')" prop="name" width="180" sortable align="center">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Size\']')" align="center">
+      <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Size\']')" width="180" align="center">
         <template slot-scope="{ row }">
           <span>{{ row.size }}</span>
         </template>

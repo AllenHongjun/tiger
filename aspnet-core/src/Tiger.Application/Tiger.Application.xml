@@ -471,6 +471,32 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Module.OssManagement.OssContainerAppService">
+            <summary>
+            容器服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.OssContainerAppService.GetObjectListAsync(Tiger.Module.OssManagement.Dtos.GetOssObjectsInput)">
+            <summary>
+            获取容器的对象列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.OssObjectAppService.BulkDeleteAsync(Tiger.Module.OssManagement.Dtos.BulkDeleteOssObjectInput)">
+            <summary>
+            批量删除
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.OssObjectAppService.GetAsync(Tiger.Module.OssManagement.Dtos.GetOssObjectInput)">
+            <summary>
+            获取对象
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.OssManagement.PrivateFileAppService">
             <summary>
             所有登录用户访问私有文件服务接口

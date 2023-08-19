@@ -1,88 +1,103 @@
 <template>
   <div class="app-container">
-    <el-row>
-      <el-col :span="6"><div class="grid-content bg-purple">
-        <h4>Oss容器</h4>
-        <el-select v-model="value" placeholder="请选择">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-        <el-button plains style="margin-bottom:15px;">创建文件夹</el-button>
-        <el-tree :data="data" :props="defaultProps" icon-class="el-icon-folder-opened" @node-click="handleNodeClick" />
-      </div></el-col>
-      <el-col :span="18"><div class="grid-content bg-purple-light">
-        <h4>Oss对象</h4>
-        <div class="filter-container">
-          <!-- <el-row style="margin-bottom: 20px">
-            <el-input v-model="listQuery.Prefix" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-            <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
-              {{ $t('AbpUi.Search') }}
-            </el-button>
-            <el-button v-if="checkPermission('AbpOssManagement.Object.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-              {{ $t("AbpOssManagement['OssObject:Create']") }}
-            </el-button>
-          </el-row> -->
-          <el-row>
-            <el-col>
-              <el-button-group style="float:right">
-                <el-button type="primary" icon="el-icon-upload" @click="handleUpload()">
-                  {{ $t('AbpOssManagement[\'Objects:UploadFile\']') }}
-                </el-button>
-                <el-button type="reset" icon="el-icon-delete">
-                  {{ $t('AbpOssManagement[\'Objects:BulkDelete\']') }}
-                </el-button>
-              </el-button-group>
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <div class="grid-content bg-purple">
+          <el-card>
+            <h4>Oss容器</h4>
+            <el-row>
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+              <el-button icon="el-icon-folder-add" type="primary">创建文件夹</el-button>
+            </el-row>
 
-            </el-col>
-          </el-row>
+            <el-tree :data="data" :props="defaultProps" icon-class="el-icon-folder-opened" @node-click="handleNodeClick" />
+          </el-card>
+
         </div>
+      </el-col>
+      <el-col :span="18">
+        <div class="grid-content bg-purple-light">
+          <el-card>
+            <h4>Oss对象</h4>
+            <div class="filter-container">
+              <!-- <el-row style="margin-bottom: 20px">
+                <el-input v-model="listQuery.Prefix" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+                <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
+                  {{ $t('AbpUi.Search') }}
+                </el-button>
+                <el-button v-if="checkPermission('AbpOssManagement.Object.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+                  {{ $t("AbpOssManagement['OssObject:Create']") }}
+                </el-button>
+              </el-row> -->
+              <el-row>
+                <el-col>
+                  <el-button-group style="float:right">
+                    <el-button type="primary" icon="el-icon-upload" @click="handleUpload()">
+                      {{ $t('AbpOssManagement[\'Objects:UploadFile\']') }}
+                    </el-button>
+                    <el-button type="reset" icon="el-icon-delete">
+                      {{ $t('AbpOssManagement[\'Objects:BulkDelete\']') }}
+                    </el-button>
+                  </el-button-group>
 
-        <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
-          <el-table-column type="index" width="80" />
-          <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Name\']')" prop="name" sortable align="center">
-            <template slot-scope="{ row }">
-              <span>{{ row.name }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Size\']')" align="center">
-            <template slot-scope="{ row }">
-              <span>{{ row.size }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column :label="$t('AbpOssManagement[\'DisplayName:CreationDate\']')" align="center">
-            <template slot-scope="{ row }">
-              <span>{{ row.creationDate | moment }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column :label="$t('AbpOssManagement[\'DisplayName:LastModifiedDate\']')" align="center">
-            <template slot-scope="{ row }">
-              <span>{{ row.lastModifiedDate | moment }}</span>
-            </template>
-          </el-table-column>
+                </el-col>
+              </el-row>
+            </div>
 
-          <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280" class-name="small-padding fixed-width">
-            <template slot-scope="{ row, $index }">
-              <el-button v-if="checkPermission('AbpOssManagement.OssObject.Delete')" type="default" @click="handlePreview(row, $index)">
-                {{ $t("AbpOssManagement['Objects:Preview']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpOssManagement.OssObject.Delete')" type="primary" @click="handleDownload(row, $index)">
-                {{ $t("AbpOssManagement['Objects:Download']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpOssManagement.OssObject.Delete')" type="danger" @click="handleDelete(row, $index)">
-                {{ $t("AbpUi['Delete']") }}
-              </el-button>
+            <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+              <el-table-column type="selection" width="55" />
+              <el-table-column type="index" width="80" />
 
-            </template>
-          </el-table-column>
-        </el-table>
+              <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Name\']')" prop="name" sortable align="center">
+                <template slot-scope="{ row }">
+                  <span>{{ row.name }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Size\']')" width="80" align="center">
+                <template slot-scope="{ row }">
+                  <span>{{ row.size }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('AbpOssManagement[\'DisplayName:CreationDate\']')" width="160" align="center">
+                <template slot-scope="{ row }">
+                  <span>{{ row.creationDate | moment }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('AbpOssManagement[\'DisplayName:LastModifiedDate\']')" width="160" align="center">
+                <template slot-scope="{ row }">
+                  <span>{{ row.lastModifiedDate | moment }}</span>
+                </template>
+              </el-table-column>
 
-        <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+              <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280" class-name="small-padding fixed-width">
+                <template slot-scope="{ row, $index }">
+                  <el-button v-if="checkPermission('AbpOssManagement.OssObject.Delete')" type="default" @click="handlePreview(row, $index)">
+                    {{ $t("AbpOssManagement['Objects:Preview']") }}
+                  </el-button>
+                  <el-button v-if="checkPermission('AbpOssManagement.OssObject.Delete')" :loading="downloadLoading" type="primary" @click="handleDownload(row, $index)">
+                    {{ $t("AbpOssManagement['Objects:Download']") }}
+                  </el-button>
+                  <el-button v-if="checkPermission('AbpOssManagement.OssObject.Delete')" type="danger" @click="handleDelete(row, $index)">
+                    {{ $t("AbpUi['Delete']") }}
+                  </el-button>
 
-      </div></el-col>
+                </template>
+              </el-table-column>
+            </el-table>
+
+            <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+
+          </el-card>
+
+        </div>
+      </el-col>
     </el-row>
 
     <el-dialog :title=" dialogStatus == 'create'? $t('AbpOssManagement[\'Objects:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
@@ -134,6 +149,8 @@
       </template>
     </el-dialog>
 
+    <oss-preview ref="OssPreview" />
+
   </div>
 </template>
 
@@ -156,11 +173,13 @@ import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
 import { format } from '@/utils/strings'
+import OssPreview from './components/OssPreviewModal'
 
 export default {
   name: 'Objects',
   components: {
-    Pagination
+    Pagination,
+    OssPreview
   },
   data() {
     return {
@@ -222,14 +241,15 @@ export default {
       },
       tableKey: 0,
       list: null,
-      total: 0,
+      // TODO:查询阿里云的接口获取分页的总数量
+      total: 10000,
       listLoading: true,
       listQuery: Object.assign({
         Bucket: 'tiger-blob',
-        Prefix: '',
-        Delimiter: '',
-        Marker: '',
-        EncodingType: '',
+        Prefix: undefined,
+        Delimiter: undefined,
+        Marker: undefined,
+        EncodingType: undefined,
         MD5: undefined
       }, baseListQuery),
       temp: {
@@ -277,6 +297,7 @@ export default {
         ]
 
       },
+      downloadLoading: false,
       imagecropperShow: false,
       imagecropperKey: 0,
       image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191'
@@ -293,8 +314,11 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
+      this.listQuery.maxRe
+
       getContainerObject(this.listQuery).then(response => {
         this.list = response.objects
+        this.listQuery.Marker = response.nextMarker
         this.listLoading = false
       })
     },
@@ -433,7 +457,6 @@ export default {
       this.fileList = fileList
     },
     uploadFile() {
-      debugger
       if (this.fileList.length < 1) return
       const formData = new FormData()
       // 下面数据是我自己设置的数据,可自行添加数据到formData(使用键值对方式存储)
@@ -456,17 +479,17 @@ export default {
     },
     // 预览
     handlePreview(row, index) {
-      this.$alert('开发中')
+      this.$refs['OssPreview'].handleDrawer(row, index)
     },
 
     // 下载
     handleDownload(row, index) {
-      // const link = document.createElement('a')
-      // link.style.display = 'none'
-      // link.href = this.generateOssUrl(props.bucket, record.path, record.name)
-      // link.setAttribute('download', record.name)
-      // document.body.appendChild(link)
-      // link.click()
+      const link = document.createElement('a')
+      link.style.display = 'none'
+      link.href = 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/' + row.name
+      link.setAttribute('download', row.name)
+      document.body.appendChild(link)
+      link.click()
     },
     generateOssUrl(bucket, path, object) {
       // if (path) {

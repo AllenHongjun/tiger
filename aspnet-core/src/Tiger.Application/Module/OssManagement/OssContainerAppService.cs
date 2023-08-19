@@ -10,6 +10,9 @@ using Volo.Abp;
 
 namespace Tiger.Module.OssManagement
 {
+    /// <summary>
+    /// 容器服务
+    /// </summary>
     [RemoteService(IsEnabled = false)]
     [Authorize(AbpOssManagementPermissions.Container.Default)]
     public class OssContainerAppService : OssManagementApplicationServiceBase, IOssContainerAppService
@@ -57,6 +60,11 @@ namespace Tiger.Module.OssManagement
             return ObjectMapper.Map<GetOssContainersResponse, OssContainersResultDto>(containerResponse);
         }
 
+        /// <summary>
+        /// 获取容器的对象列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async virtual Task<OssObjectsResultDto> GetObjectListAsync(GetOssObjectsInput input)
         {
             var oss = CreateOssContainer();
