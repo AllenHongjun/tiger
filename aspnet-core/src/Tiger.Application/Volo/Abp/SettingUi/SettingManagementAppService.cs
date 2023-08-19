@@ -14,6 +14,7 @@ using Volo.Abp.ObjectMapping;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.Settings;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.Uow;
 
 namespace Tiger.Volo.Abp.SettingManagement
 {   
@@ -105,6 +106,7 @@ namespace Tiger.Volo.Abp.SettingManagement
         public virtual async Task SetAsync(string name, string value, string providerName, string providerKey)
         {
             await _settingManagerStore.SetAsync(name, value, providerName, providerKey);
+            await CurrentUnitOfWork.SaveChangesAsync();
             //await _settingManager.SetAsync(name, value, providerName, providerKey, forceToSet);
         }
 

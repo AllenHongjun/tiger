@@ -126,7 +126,9 @@ namespace Tiger.Volo.Abp.SettingUi
                 }
 
                 await SetSettingAsync(setting, kv.Value);
+                
             }
+            await CurrentUnitOfWork.SaveChangesAsync();
         }
 
         public virtual async Task ResetSettingValuesAsync(List<string> settingNames)

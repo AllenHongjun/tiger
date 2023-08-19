@@ -817,6 +817,16 @@
             用户账号管理
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.SendSmsCodeAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            发送短信验证码
+            </summary>
+            <param name="phone"></param>
+            <param name="token"></param>
+            <param name="template"></param>
+            <param name="cancellation"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.RegisterAsync(Volo.Abp.Account.RegisterDto)">
             <summary>
             通过用户名和邮箱注册账号

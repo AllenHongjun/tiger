@@ -17,7 +17,7 @@
 
       <el-row>
         <el-col :span="12">
-          <el-link href="#/login" type="primary">登 录</el-link>
+          <el-link href="#/login" type="primary">返回 登录</el-link>
         </el-col>
       </el-row>
 
@@ -48,10 +48,10 @@ export default {
     return {
       dialogVisible: false,
       dataForm: {
-        email: '',
-        appName: 'Tiger_Web',
-        returnUrl: '',
-        returnUrlHash: ''
+        email: undefined,
+        appName: 'FrontWeb',
+        returnUrl: undefined,
+        returnUrlHash: undefined
       },
       loginRules: {
         email: [{
@@ -64,7 +64,7 @@ export default {
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      tenant: ''
+      tenant: undefined
     }
   },
   watch: {
@@ -80,15 +80,10 @@ export default {
     handleSendPasswordResetCode() {
       this.$refs.dataForm.validate(valid => {
         if (valid) {
-          this.$alert('开发中..')
-          return
           this.loading = true
           sendPasswordResetCode(this.dataForm)
             .then(res => {
-              // 注册成功跳转登录页面
-              // this.$router.push({
-              //   path: '/login'
-              // })
+              this.$alert('帐户恢复电子邮件已发送到你的电子邮件地址.如果你在15分钟内未在收件箱中看到此电子邮件,请检查垃圾邮件,并标记为非垃圾邮件', '提醒')
               this.loading = false
             })
             .catch(() => {

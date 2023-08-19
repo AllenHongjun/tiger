@@ -23,11 +23,16 @@ using System.IO;
 using IdentityServer4.Models;
 using Volo.Abp.TextTemplating;
 using Volo.Abp.Emailing.Templates;
+using Volo.Abp.Security.Encryption;
+using System.Linq;
+using Tiger.Volo.Abp.SettingManagementAppService;
+using Volo.Abp.MultiTenancy;
+using Volo.Abp.SettingManagement;
 
 namespace Tiger.Books.Demo
 {
     [ApiExplorerSettings(GroupName = "admin")]
-    [RemoteService(false)]
+    [RemoteService(true)]
     public class EmailService :TigerAppService, ITransientDependency
     {
         private readonly IEmailSender _emailSender;
@@ -36,14 +41,16 @@ namespace Tiger.Books.Demo
 
         private readonly ISettingEncryptionService _settingEncryptionService;
         private readonly ISettingDefinitionManager _settingDefinitionManager;
+        protected ISettingManager SettingManager { get; }
 
 
-        public EmailService(IEmailSender emailSender, ISettingEncryptionService settingEncryptionService, ISettingDefinitionManager settingDefinitionManager, ITemplateRenderer templateRenderer)
+        public EmailService(IEmailSender emailSender, ISettingEncryptionService settingEncryptionService, ISettingDefinitionManager settingDefinitionManager, ITemplateRenderer templateRenderer, ISettingManager settingManager)
         {
             _emailSender = emailSender;
             _settingEncryptionService=settingEncryptionService;
             _settingDefinitionManager=settingDefinitionManager;
             _templateRenderer=templateRenderer;
+            SettingManager=settingManager;
         }
 
 
@@ -69,12 +76,37 @@ namespace Tiger.Books.Demo
         /// </summary>
         /// <returns></returns>
         public async Task TestEmailSendAsync()
-        {
+        {   
+            // 读取邮件设置
+            var settingsDto = new EmailSettingsDto
+            {
+                SmtpHost = await SettingProvider.GetOrNullAsync(EmailSettingNames.Smtp.Host),
+                SmtpPort = Convert.ToInt32(await SettingProvider.GetOrNullAsync(EmailSettingNames.Smtp.Port)),
+                SmtpUserName = await SettingProvider.GetOrNullAsync(EmailSettingNames.Smtp.UserName),
+                SmtpPassword = await SettingProvider.GetOrNullAsync(EmailSettingNames.Smtp.Password),
+                SmtpDomain = await SettingProvider.GetOrNullAsync(EmailSettingNames.Smtp.Domain),
+                SmtpEnableSsl = Convert.ToBoolean(await SettingProvider.GetOrNullAsync(EmailSettingNames.Smtp.EnableSsl)),
+                SmtpUseDefaultCredentials = Convert.ToBoolean(await SettingProvider.GetOrNullAsync(EmailSettingNames.Smtp.UseDefaultCredentials)),
+                DefaultFromAddress = await SettingProvider.GetOrNullAsync(EmailSettingNames.DefaultFromAddress),
+                DefaultFromDisplayName = await SettingProvider.GetOrNullAsync(EmailSettingNames.DefaultFromDisplayName),
+            };
+
+            if (CurrentTenant.IsAvailable)
+            {
+                settingsDto.SmtpHost = await SettingManager.GetOrNullForTenantAsync(EmailSettingNames.Smtp.Host, CurrentTenant.GetId(), false);
+                settingsDto.SmtpUserName = await SettingManager.GetOrNullForTenantAsync(EmailSettingNames.Smtp.UserName, CurrentTenant.GetId(), false);
+                settingsDto.SmtpPassword = await SettingManager.GetOrNullForTenantAsync(EmailSettingNames.Smtp.Password, CurrentTenant.GetId(), false);
+                settingsDto.SmtpDomain = await SettingManager.GetOrNullForTenantAsync(EmailSettingNames.Smtp.Domain, CurrentTenant.GetId(), false);
+            }
+
+
             try
-            {   
+            {
+                // .NET 框架默认不支持465端口发送邮件 ssl通信
+                var allsettings = _settingDefinitionManager.GetAll().Where(x => x.Name.Contains("Abp.Mailing")).ToList();
                 // 普通邮箱有外发限制。
                 await _emailSender.SendAsync(
-                    "hongjy1991@gmail.com",     // target email address
+                    "652971723@qq.com",     // target email address
                     "Email subject",         // subject
                     "This is email body..."  // email body
                 );

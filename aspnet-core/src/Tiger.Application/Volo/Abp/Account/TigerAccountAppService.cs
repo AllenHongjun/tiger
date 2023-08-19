@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
-using Scriban;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +20,6 @@ using Volo.Abp.Caching;
 using Volo.Abp.Identity;
 using Volo.Abp.Settings;
 using Volo.Abp.Sms;
-using Volo.Abp.Users;
 using Volo.Abp.Validation;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
@@ -81,6 +79,14 @@ namespace Tiger.Volo.Abp.Account
         }
 
 
+        /// <summary>
+        /// 发送短信验证码
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="token"></param>
+        /// <param name="template"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
         protected async virtual Task SendSmsCodeAsync(
             string phone,
             string token,

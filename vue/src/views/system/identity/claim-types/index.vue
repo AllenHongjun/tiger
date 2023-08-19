@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-button type="primary" icon="el-icon-search" @click="handleFilter">
+      <el-button type="primary" icon="el-icon-search" class="filter-item" @click="handleFilter">
         {{ $t('AbpIdentity.Search') }}
       </el-button>
 
