@@ -45,6 +45,16 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.OssManagement.OssObjectController.DeleteAsync(Tiger.Module.OssManagement.Dtos.GetOssObjectInput)">
+            <summary>
+            删除
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <remarks>
+            注意delete的参数是在url中传递的
+            </remarks>
+        </member>
         <member name="M:Tiger.Module.OssManagement.PublicFilesController.UploadAsync(Tiger.Module.OssManagement.Dtos.UploadFileInput)">
             <summary>
             上传文件

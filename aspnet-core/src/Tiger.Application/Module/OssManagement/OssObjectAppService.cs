@@ -32,7 +32,7 @@ namespace Tiger.Module.OssManagement
         public async virtual Task<OssObjectDto> CreateAsync(CreateOssObjectInput input)
         {
             // 内容为空时建立目录 
-            if (input.File.Length <= 0)
+            if (input.File == null || input.File.Length <= 0)
             {
                 var oss = CreateOssContainer();
                 var request = new CreateOssObjectRequest(

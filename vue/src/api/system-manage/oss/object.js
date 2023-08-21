@@ -24,7 +24,6 @@ export function createObject(payload) {
     headers: {
       'Content-Type': 'multipart/form-data;charset=utf-8'
     }
-
   })
 }
 
@@ -40,6 +39,15 @@ export function deleteObject(payload) {
   return request({
     url: `/api/oss-management/objects`,
     method: 'delete',
+    params: payload // params 转换为在url中传递参数
+  })
+}
+
+// 批量删除
+export function bulkDeleteObject(payload) {
+  return request({
+    url: `/api/oss-management/objects/bulk-delete`,
+    method: 'post',
     data: payload
   })
 }

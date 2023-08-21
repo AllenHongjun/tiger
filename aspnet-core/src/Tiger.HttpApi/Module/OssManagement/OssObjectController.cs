@@ -64,6 +64,14 @@ namespace Tiger.Module.OssManagement
             await OssObjectAppService.BulkDeleteAsync(input);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 注意delete的参数是在url中传递的
+        /// </remarks>
         [HttpDelete]
         public async virtual Task DeleteAsync(GetOssObjectInput input)
         {

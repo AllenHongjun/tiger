@@ -5,19 +5,16 @@
         <div class="grid-content bg-purple">
           <el-card>
             <h4>Oss容器</h4>
-            <el-row>
-              <el-select v-model="value" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-              <el-button icon="el-icon-folder-add" type="primary">创建文件夹</el-button>
-            </el-row>
+            <el-select v-model="currentBucket" :placeholder="$t('AbpOssManagement[\'Containers:Select\']')" :clearable="true" style="width:100%">
+              <el-option
+                v-for="item in bucketList"
+                :key="item.name"
+                :label="item.name"
+                :value="item.name"
+              />
+            </el-select>
+            <FolderTree :bucket="currentBucket" :get-list="handleFilter" @select="handlePathChange" />
 
-            <el-tree :data="data" :props="defaultProps" icon-class="el-icon-folder-opened" @node-click="handleNodeClick" />
           </el-card>
 
         </div>
@@ -25,28 +22,30 @@
       <el-col :span="18">
         <div class="grid-content bg-purple-light">
           <el-card>
-            <h4>Oss对象</h4>
+            <el-breadcrumb separator-class="el-icon-arrow-right">
+              <el-breadcrumb-item :to="{ path: '/' }"> <i class="el-icon-s-home" style="padding-right: 8px;" />所有文件</el-breadcrumb-item>
+              <el-breadcrumb-item>host</el-breadcrumb-item>
+              <el-breadcrumb-item>test1</el-breadcrumb-item>
+              <el-breadcrumb-item>test2</el-breadcrumb-item>
+            </el-breadcrumb>
             <div class="filter-container">
-              <!-- <el-row style="margin-bottom: 20px">
-                <el-input v-model="listQuery.Prefix" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-                <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
-                  {{ $t('AbpUi.Search') }}
-                </el-button>
-                <el-button v-if="checkPermission('AbpOssManagement.Object.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-                  {{ $t("AbpOssManagement['OssObject:Create']") }}
-                </el-button>
-              </el-row> -->
-              <el-row>
-                <el-col>
+
+              <el-row style="margin:15px 0px;">
+                <el-col :span="12">
+                  <el-input v-model="listQuery.Prefix" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+                  <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
+                    {{ $t('AbpUi.Search') }}
+                  </el-button>
+                </el-col>
+                <el-col :span="12">
                   <el-button-group style="float:right">
                     <el-button type="primary" icon="el-icon-upload" @click="handleUpload()">
                       {{ $t('AbpOssManagement[\'Objects:UploadFile\']') }}
                     </el-button>
-                    <el-button type="reset" icon="el-icon-delete">
+                    <el-button type="reset" icon="el-icon-delete" @click="handleBulkDelete()">
                       {{ $t('AbpOssManagement[\'Objects:BulkDelete\']') }}
                     </el-button>
                   </el-button-group>
-
                 </el-col>
               </el-row>
             </div>
@@ -156,6 +155,7 @@
 
 <script>
 import {
+  getContainers,
   getContainerObject
 
 } from '@/api/system-manage/oss/container'
@@ -165,6 +165,7 @@ import {
   createObject,
   updateObject,
   deleteObject,
+  bulkDeleteObject,
   downloadObject
 
 } from '@/api/system-manage/oss/object'
@@ -174,71 +175,21 @@ import baseListQuery, {
 } from '@/utils/abp'
 import { format } from '@/utils/strings'
 import OssPreview from './components/OssPreviewModal'
+import FolderTree from './components/FolderTree'
 
 export default {
   name: 'Objects',
   components: {
     Pagination,
+    FolderTree,
     OssPreview
   },
   data() {
     return {
-      options: [{
-        value: '选项1',
-        label: '黄金糕'
-      }, {
-        value: '选项2',
-        label: '双皮奶'
-      }, {
-        value: '选项3',
-        label: '蚵仔煎'
-      }, {
-        value: '选项4',
-        label: '龙须面'
-      }, {
-        value: '选项5',
-        label: '北京烤鸭'
-      }],
-      value: '',
-      data: [{
-        label: '一级 1',
-        children: [{
-          label: '二级 1-1',
-          children: [{
-            label: '三级 1-1-1'
-          }]
-        }]
-      }, {
-        label: '一级 2',
-        children: [{
-          label: '二级 2-1',
-          children: [{
-            label: '三级 2-1-1'
-          }]
-        }, {
-          label: '二级 2-2',
-          children: [{
-            label: '三级 2-2-1'
-          }]
-        }]
-      }, {
-        label: '一级 3',
-        children: [{
-          label: '二级 3-1',
-          children: [{
-            label: '三级 3-1-1'
-          }]
-        }, {
-          label: '二级 3-2',
-          children: [{
-            label: '三级 3-2-1'
-          }]
-        }]
-      }],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      },
+      bucketList: [],
+      currentBucket: undefined,
+      currentPath: undefined,
+
       tableKey: 0,
       list: null,
       // TODO:查询阿里云的接口获取分页的总数量
@@ -303,27 +254,51 @@ export default {
       image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191'
     }
   },
+  // 钩子函数 通常在初始化页面完成后，对html的dom节点进行需要的操作。
+  mounted() {
+    this.fetchBuckets()
+  },
   created() {
     this.getList()
   },
   methods: {
     checkPermission, // 检查权限
-    handleNodeClick(data) {
-      console.log(data)
+    // 获取buckets
+    fetchBuckets() {
+      getContainers({
+        prefix: '',
+        marker: '',
+        sorting: '',
+        skipCount: 0,
+        maxResultCount: 1000
+      }).then((res) => {
+        this.bucketList = res.containers
+      })
+    },
+    // buckets选中切换
+    handleBucketChange(bucket) {
+      this.currentBucket.value = bucket
+    },
+    // 路径选中切换
+    handlePathChange(path) {
+      this.currentPath.value = path
     },
     // 获取列表数据
     getList() {
       this.listLoading = true
-      this.listQuery.maxRe
-
       getContainerObject(this.listQuery).then(response => {
         this.list = response.objects
         this.listQuery.Marker = response.nextMarker
         this.listLoading = false
       })
     },
-    handleFilter(firstPage = true) {
-      if (firstPage) this.listQuery.page = 1
+    handleFilter(firstPage = true, prefix = '', marker = '') {
+      if (firstPage) {
+        this.listQuery.page = 1
+        this.listQuery.prefix = prefix
+        this.listQuery.marker = marker
+      }
+
       this.getList()
     },
     sortChange(data) {
@@ -435,11 +410,41 @@ export default {
         // 回调函数
         var req = {
           'Bucket': 'tiger-blob',
-          'Object': row.name
+          'Object': row.name,
+          'path': 'host/tiger-blob/'
         }
         deleteObject(req).then(() => {
           const index = this.list.findIndex((v) => v.id === row.id)
           this.list.splice(index, 1)
+          this.$notify({
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+            type: 'success',
+            duration: 2000
+          })
+        })
+      })
+    },
+    // 批量删除
+    handleBulkDelete() {
+      this.$confirm(
+        // 消息
+        '文件删除',
+        // title
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']"), {
+          confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
+          cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
+          type: 'warning' // 弹框类型
+        }
+      ).then(async() => {
+        // 回调函数
+        var req = {
+          'Bucket': 'tiger-blob',
+          'path': 'host/tiger-blob/',
+          'Object': '' // 获取选中行的名称
+        }
+        bulkDeleteObject(req).then(() => {
+          this.handleFilter()
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),

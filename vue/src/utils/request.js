@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === 'production') {
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API_LOCAL, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: timeout // request timeout
+  timeout: timeout // request timeout,
+
 })
 
 // request interceptor 请求拦截器
