@@ -476,6 +476,34 @@
             容器服务
             </summary>
         </member>
+        <member name="M:Tiger.Module.OssManagement.OssContainerAppService.CreateAsync(System.String)">
+            <summary>
+            创建容器
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.OssContainerAppService.DeleteAsync(System.String)">
+            <summary>
+            删除容器
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.OssContainerAppService.GetAsync(System.String)">
+            <summary>
+            根据名称查询容器
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.OssManagement.OssContainerAppService.GetListAsync(Tiger.Module.OssManagement.Dtos.GetOssContainersInput)">
+            <summary>
+            获取容器列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.OssManagement.OssContainerAppService.GetObjectListAsync(Tiger.Module.OssManagement.Dtos.GetOssObjectsInput)">
             <summary>
             获取容器的对象列表

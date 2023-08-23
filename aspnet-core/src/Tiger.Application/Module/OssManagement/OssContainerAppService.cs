@@ -25,6 +25,11 @@ namespace Tiger.Module.OssManagement
             OssContainerFactory = ossContainerFactory;
         }
 
+        /// <summary>
+        /// 创建容器
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Authorize(AbpOssManagementPermissions.Container.Create)]
         public async virtual Task<OssContainerDto> CreateAsync(string name)
         {
@@ -34,6 +39,11 @@ namespace Tiger.Module.OssManagement
             return ObjectMapper.Map<OssContainer, OssContainerDto>(container);
         }
 
+        /// <summary>
+        /// 删除容器
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Authorize(AbpOssManagementPermissions.Container.Delete)]
         public async virtual Task DeleteAsync(string name)
         {
@@ -42,6 +52,11 @@ namespace Tiger.Module.OssManagement
             await oss.DeleteAsync(name);
         }
 
+        /// <summary>
+        /// 根据名称查询容器
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public async virtual Task<OssContainerDto> GetAsync(string name)
         {
             var oss = CreateOssContainer();
@@ -50,6 +65,11 @@ namespace Tiger.Module.OssManagement
             return ObjectMapper.Map<OssContainer, OssContainerDto>(container);
         }
 
+        /// <summary>
+        /// 获取容器列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public async virtual Task<OssContainersResultDto> GetListAsync(GetOssContainersInput input)
         {
             var oss = CreateOssContainer();

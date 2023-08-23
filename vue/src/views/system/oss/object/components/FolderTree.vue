@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button icon="el-icon-folder-add" type="primary" style="width:100%;margin:15px 0px;" @click="handleCreateFolder">创建文件夹</el-button>
-    <el-tree :load="fetchChildren" :lazy="true" :props="defaultProps" @node-click="handleSelectChange">
+    <el-tree ref="tree" :data="folders" :load="fetchChildren" :lazy="true" node-key="name" :props="defaultProps" @node-click="handleNodeClick">
       <span slot-scope="{ node, data }" class="custom-tree-node">
         <span :name="node.label">
           <i
@@ -38,6 +38,12 @@ export default {
       type: String,
       default: 'tiger-blob'
     },
+    parentBreadLabel: { // 面包屑文字  通过函数类型属性给父组件传值
+      type: Function,
+      require: true,
+      default: null
+    },
+    // 父级获取列表方法
     getList: {
       type: Function,
       require: true,
@@ -46,22 +52,25 @@ export default {
   },
   data() {
     return {
+      breadList: [], // 面包屑数组
+      breadLabel: '',
+      data: [],
       folders: [
         {
-          label: './',
-          value: './',
-          title: 'Objects:Root',
+          label: '根目录',
+          value: '根目录',
           key: './',
+          name: '根目录',
+          title: '根目录',
           path: '',
-          name: '',
           children: []
         }
       ],
-
       defaultProps: {
         children: 'children', // 将获取数组中的children作为子节点（children）的展示
         label: 'name' // 将获取数组中的name作为显示节点（label）进行展示
-      }
+      },
+      selectKeys: '' // 保存选中的值
     }
   },
   watch: {
@@ -69,6 +78,8 @@ export default {
     bucket() {
       if (this.bucket) {
         this.fetchFolders(this.bucket).then((fs) => {
+          console.log('this.folders', this.folders)
+          console.log('fs', fs)
           // this.folders[0].children = fs
         })
       }
@@ -87,7 +98,8 @@ export default {
         console.log(value)
         const folderName = value.substr(-1) === '/' ? value : value + '/'
         // TODO: 根据选中的节点来获取 path的值
-        this.CreateFolder(this.bucket, 'test1/', folderName)
+        var path = this.selectKeys
+        this.CreateFolder(this.bucket, path, folderName)
         this.$message({
           type: 'success',
           message: '你的目录是: ' + folderName
@@ -109,6 +121,7 @@ export default {
       formData.append('File', undefined)// 拿到存在fileList的文件存放到formData中
       createObject(formData).then(() => {
         // ToDo: 将对象添加到树节点中
+
         this.$notify({
           title: this.$i18n.t("TigerUi['Success']"),
           message: this.$i18n.t("TigerUi['SuccessMessage']"),
@@ -150,7 +163,6 @@ export default {
       })
     },
 
-    // 先加载树节点的文件夹，然后加载叶节点的文件。
     /**
        * 懒加载方法的两个参数
        * 当前节点（node）的信息（包括它的层级数据等）
@@ -179,18 +191,36 @@ export default {
         } else {
           treeNode.data.children = fs
         }
-
-        this.folders = [...this.folders]
+        // 懒加载获取的节点数据没有挂载到 folders这个数组上
         resolve(fs)
       }).catch(() => {
-        resolve()
+        resolve([])
       })
     },
-    handleSelectChange(data, resolve) {
-      console.log(data)
-      // 子组件调用父组件方法
-      this.getList(true, data.key)
+
+    // 选择节点
+    handleNodeClick(data) {
+      // 获取面包屑
+      this.breadList = []
+      // 异步请求的数据需要放到$nextTick方法里面调用，不然渲染不出来
+      this.$nextTick(() => {
+        this.getTreeNode(this.$refs['tree'].getNode(data.name))
+        // 调用父级获取列表方法
+        this.getList(true, data.key)
+        this.parentBreadLabel(this.breadLabel)
+
+        this.selectKeys = data.key
+      })
     },
+    // 获取当前树节点和其父级节点
+    getTreeNode(node) {
+      if (node && node.label) {
+        this.breadList.unshift(node.label)
+        this.getTreeNode(node.parent) // 递归
+        this.breadLabel = this.breadList.join('>')
+      }
+    },
+
     onSubmit() {
       this.$message('submit!')
     },

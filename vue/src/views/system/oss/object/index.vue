@@ -13,7 +13,7 @@
                 :value="item.name"
               />
             </el-select>
-            <FolderTree :bucket="currentBucket" :get-list="handleFilter" @select="handlePathChange" />
+            <FolderTree :bucket="currentBucket" :get-list="handleFilter" :parent-bread-label="getBreadLabel" @select="handlePathChange" />
 
           </el-card>
 
@@ -22,11 +22,9 @@
       <el-col :span="18">
         <div class="grid-content bg-purple-light">
           <el-card>
-            <el-breadcrumb separator-class="el-icon-arrow-right">
-              <el-breadcrumb-item :to="{ path: '/' }"> <i class="el-icon-s-home" style="padding-right: 8px;" />所有文件</el-breadcrumb-item>
-              <el-breadcrumb-item>host</el-breadcrumb-item>
-              <el-breadcrumb-item>test1</el-breadcrumb-item>
-              <el-breadcrumb-item>test2</el-breadcrumb-item>
+            <el-breadcrumb separator=">">
+              <el-breadcrumb-item> <i class="el-icon-s-home" style="padding-right: 8px;" /> 所有文件 </el-breadcrumb-item>
+              <el-breadcrumb-item>{{ breadLabel }}</el-breadcrumb-item>
             </el-breadcrumb>
             <div class="filter-container">
 
@@ -190,6 +188,7 @@ export default {
       currentBucket: undefined,
       currentPath: undefined,
 
+      breadLabel: '', // 面包屑文字
       tableKey: 0,
       list: null,
       // TODO:查询阿里云的接口获取分页的总数量
@@ -282,6 +281,11 @@ export default {
     // 路径选中切换
     handlePathChange(path) {
       this.currentPath.value = path
+    },
+    // 获取选中文件树路径
+    getBreadLabel(value) {
+      // 通过给子组件绑定方法属性，子组件给父组件传值
+      this.breadLabel = value
     },
     // 获取列表数据
     getList() {
