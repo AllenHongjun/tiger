@@ -1,19 +1,19 @@
-﻿using Microsoft.Extensions.Caching.StackExchangeRedis;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Volo.Abp.Caching.StackExchangeRedis;
+using Volo.Abp;
 using Volo.Abp.Caching;
+using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.MultiTenancy;
-using Microsoft.Extensions.Caching.Distributed;
-using StackExchange.Redis;
-using Volo.Abp;
-using Microsoft.Extensions.Options;
 
 namespace Tiger.Module.System.Cache
 {
@@ -52,6 +52,32 @@ namespace Tiger.Module.System.Cache
             var type = typeof(AbpRedisCache);
             ConnectAsyncMethod = type.GetMethod("ConnectAsync", BindingFlags.Instance | BindingFlags.NonPublic);
             GetRedisDatabaseMethod = type.GetMethod("GetRedisDatabase", BindingFlags.Instance | BindingFlags.NonPublic);
+        }
+
+
+
+        /// <summary>
+        /// 获取Redis基本信息
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// redis bulk string 解析 https://redis.io/docs/reference/protocol-spec/#bulk-strings
+        /// </remarks>
+        public async Task<Dictionary<string, string>> GetBasicInfo()
+        {
+            var result = await RedisDatabase.ExecuteAsync("INFO");
+            string infoText = Encoding.Default.GetString(((RedisValue)result));
+            var infoLines =  infoText.SplitToLines(StringSplitOptions.None);
+            Dictionary<string,string> infoDic = new Dictionary<string,string>();
+            foreach (var infoLine in infoLines)
+            {
+                var arr = infoLine.Split(':');
+                if (arr.Length == 2)
+                {
+                    infoDic.Add(arr[0], arr[1]);
+                }
+            }
+            return infoDic;
         }
 
         /// <summary>
@@ -111,6 +137,7 @@ namespace Tiger.Module.System.Cache
 
             var result = await RedisDatabase.ExecuteAsync("scan", args);
 
+
             var results = (RedisResult[])result;
 
             // 第一个返回结果 下一次检索起始位 0复位
@@ -123,6 +150,12 @@ namespace Tiger.Module.System.Cache
 
         //TODO: 增加返回树型缓存列表数据
 
+        /// <summary>
+        /// 获取缓存的值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<CacheValueResponse> GetValueAsync(string key, CancellationToken cancellationToken = default)
         {
             await ConnectAsync(cancellationToken);
@@ -212,6 +245,12 @@ namespace Tiger.Module.System.Cache
             }
         }
 
+        /// <summary>
+        /// 移除缓存
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task RemoveAsync(string key, CancellationToken cancellationToken = default)
         {
             var cacheKey = key;
@@ -222,6 +261,8 @@ namespace Tiger.Module.System.Cache
 
             await RedisCache.RemoveAsync(cacheKey, cancellationToken);
         }
+
+        
 
 
         protected virtual Task ConnectAsync(CancellationToken cancellationToken = default)

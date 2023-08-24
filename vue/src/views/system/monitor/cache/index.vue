@@ -3,13 +3,6 @@
     <el-row>
       <el-col :span="24">
         <div class="grid-content">
-          <el-radio-group v-model="size">
-            <el-radio label="">默认</el-radio>
-            <el-radio label="medium">中等</el-radio>
-            <el-radio label="small">小型</el-radio>
-            <el-radio label="mini">超小</el-radio>
-          </el-radio-group>
-          <el-divider />
 
           <el-descriptions class="margin-top" title=" 缓存基本信息" :column="3" :size="size" border>
             <!-- <template slot="extra">
@@ -20,98 +13,98 @@
                 <i class="el-icon-user" />
                 Redis版本
               </template>
-              3.0.0
+              {{ redisInfo.redis_version }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
                 运行模式
               </template>
-              单机
+              {{ redisInfo.redis_mode }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-location-outline" />
-                端口
+                TCP/IP 监听端口
               </template>
-              6379
+              {{ redisInfo.tcp_port }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-tickets" />
-                客户端数
+                已连接客户端的数量
               </template>
-              <el-tag size="small">1</el-tag>
+              <el-tag size="small">{{ redisInfo.connected_clients }}</el-tag>
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-office-building" />
                 运行时间(天)
               </template>
-              139
+              {{ redisInfo.uptime_in_days }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
-                运行模式
+                正在等待阻塞命令的客户端的数量
               </template>
-              单机
+              {{ redisInfo.blocked_clients }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
-                使用内存
+                Redis 分配的内存总量
               </template>
-              882.29K
+              {{ redisInfo.used_memory_human }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
                 使用CPU
               </template>
-              36.09
+              {{ redisInfo.used_cpu_sys }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
-                内存配置
+                Redis主机具有的内存总量
               </template>
-
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-mobile-phone" />
-                AOF是否开启
-              </template>
-              否
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template slot="label">
-                <i class="el-icon-mobile-phone" />
-                RDB是否成功
-              </template>
-              否
+              {{ redisInfo.total_system_memory_human }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
                 AOF是否开启
               </template>
-              ok
+              {{ redisInfo.aof_enabled }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
-                Key数量
+                过期的key数量
               </template>
-              66
+              {{ redisInfo.expired_keys }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template slot="label">
                 <i class="el-icon-mobile-phone" />
-                网络入口/出口
+                服务器处理的命令总数
               </template>
-              0.17kps/0.02kps
+              {{ redisInfo.total_commands_processed }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label">
+                <i class="el-icon-mobile-phone" />
+                服务器接受的连接总数
+              </template>
+              {{ redisInfo.total_connections_received }}
+            </el-descriptions-item>
+            <el-descriptions-item>
+              <template slot="label">
+                <i class="el-icon-mobile-phone" />
+                操作系统
+              </template>
+              {{ redisInfo.os }}
             </el-descriptions-item>
           </el-descriptions>
         </div>
@@ -124,8 +117,8 @@
             <div slot="header" class="clearfix">
               <span>命令统计</span>
             </div>
-            <!-- 通过属性给组件传值 -->
-            <pie-chart :chart-data="pieChartData" />
+            <!-- 通过属性给组件传值 传给组件的数据要有值图标才会显示-->
+            <pie-chart v-if="redisInfo" :chart-data="chartData" :redis-info="redisInfo" />
           </el-card>
 
         </div>
@@ -137,7 +130,7 @@
               <span>内存信息</span>
             </div>
             <!-- 通过属性给组件传值 -->
-            <gauge-chart :chart-data="pieChartData" />
+            <gauge-chart :chart-data="chartData" />
           </el-card>
         </div>
       </el-col>
@@ -147,8 +140,11 @@
 
 <script>
 // 引入组件不能添加括号，需要单个引入
-import PieChart from '@/components/Charts/PieChart'
-import GaugeChart from '@/components/Charts/GaugeChart'
+import PieChart from './components/PieChart'
+import GaugeChart from './components/GaugeChart'
+
+import { getRedisInfo } from '@/api/system-manage/monitor/cache'
+
 export default {
   name: 'CacheMonitor',
   components: {
@@ -157,14 +153,28 @@ export default {
   },
   data() {
     return {
+      redisInfo: undefined,
       blank: {
 
       },
       size: '',
-      pieChartData: {}
+      memoryRate: undefined,
+      chartData: {}
     }
   },
+  created() {
+    this.fetchRedisInfo()
+  },
   methods: {
+    // 获取redis基本信息
+    fetchRedisInfo() {
+      getRedisInfo().then(response => {
+        this.redisInfo = response
+        console.log('response', response.used_memory, response.used_memory_rss)
+        // this.memoryRate = response.used_memory / response.total_system_memory
+        this.chartData.memoryRate = (response.used_memory_rss / response.used_memory).toFixed(2) * 100
+      })
+    },
     onSubmit() {
       this.$message('submit!')
     },

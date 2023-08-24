@@ -11,6 +11,12 @@ namespace Tiger.Module.System.Cache
     /// </summary>
     public interface ICacheAppService : IApplicationService
     {
+        /// <summary>
+        /// 获取基本信息
+        /// </summary>
+        /// <returns></returns>
+        Task<Dictionary<string, string>> GetBasicInfo();
+
         Task<CacheKeysDto> GetCacheKeysAsync(GetCacheKeysInput input);
 
         Task<CacheValueDto> GetValueAsync(CacheKeyInput input);

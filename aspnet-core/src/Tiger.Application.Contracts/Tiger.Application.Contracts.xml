@@ -233,6 +233,12 @@
             缓存管理接口
             </summary>
         </member>
+        <member name="M:Tiger.Module.System.Cache.ICacheAppService.GetBasicInfo">
+            <summary>
+            获取基本信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Tiger.Module.System.Localization.Dtos.CreateLanguageDto.ResourceName">
             <summary>
             资源名称

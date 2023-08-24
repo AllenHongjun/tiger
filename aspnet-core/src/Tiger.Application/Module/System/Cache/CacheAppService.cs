@@ -28,6 +28,11 @@ namespace Tiger.Module.System.Cache
 
         protected ICacheManager CacheManager { get; }
 
+        public async Task<Dictionary<string, string>> GetBasicInfo()
+        {
+            return await CacheManager.GetBasicInfo();
+        }
+
         public async Task<CacheKeysDto> GetCacheKeysAsync(GetCacheKeysInput input)
         {
             var res = await CacheManager.GetKeysAsync(

@@ -30,6 +30,18 @@ namespace Tiger.Module.System
             LocalizationResource = typeof(CacheResource);
         }
 
+        /// <summary>
+        /// 获取基本信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("info")]
+        public Task<Dictionary<string, string>> GetBasicInfo()
+        {
+            return CacheAppService.GetBasicInfo();
+        }
+
+
         [HttpGet]
         [Route("keys")]
         public virtual Task<CacheKeysDto> GetCacheKeysAsync(GetCacheKeysInput input)
@@ -57,5 +69,7 @@ namespace Tiger.Module.System
         {
             return CacheAppService.RemoveAsync(input);
         }
+
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -10,7 +11,14 @@ namespace Tiger.Module.System.Cache
     /// 缓存管理接口
     /// </summary>
     public interface ICacheManager
-    {   
+    {
+
+        /// <summary>
+        /// 获取基本信息
+        /// </summary>
+        /// <returns></returns>
+        Task<Dictionary<string, string>> GetBasicInfo();
+
         /// <summary>
         /// 获取缓存key
         /// </summary>

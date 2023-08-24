@@ -74,6 +74,12 @@
             缓存管理
             </summary>
         </member>
+        <member name="M:Tiger.Module.System.CacheController.GetBasicInfo">
+            <summary>
+            获取基本信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.System.DataController">
             <summary>
             数据字典
