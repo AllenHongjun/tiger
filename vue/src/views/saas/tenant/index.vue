@@ -1,10 +1,38 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-      <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
-        {{ $t("AbpTenantManagement['NewTenant']") }}
-      </el-button>
+      <el-row>
+        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-select v-model="listQuery.editionId" class="filter-item" placeholder="请选择版本" clearable="">
+          <el-option
+            v-for="item in editionOptions"
+            :key="item.id"
+            :label="item.displayName"
+            :value="item.id"
+          />
+        </el-select>
+        <el-date-picker
+          v-model="disableTime"
+          class="filter-item"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="截止日期开始"
+          end-placeholder="截止日期结束"
+          :clearable="true"
+          @change="pickerChangeFn"
+        />
+        <el-select v-model="listQuery.isActive" class="filter-item" placeholder="活跃状态" clearable>
+          <el-option label="启用" :value="true" />
+          <el-option label="禁用" :value="false" />
+        </el-select>
+        <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
+          {{ $t('AbpUi.Search') }}
+        </el-button>
+        <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
+          {{ $t("AbpTenantManagement['NewTenant']") }}
+        </el-button>
+      </el-row>
+
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
@@ -15,17 +43,17 @@
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpSaas[\'DisplayName:IsActive\']')" prop="isActive" align="isActive">
+      <el-table-column :label="$t('AbpSaas[\'DisplayName:IsActive\']')" prop="isActive" align="isActive" width="100">
         <template slot-scope="{ row }">
           <el-tag :type="row.isActive?'primary':'danger'">{{ row.isActive ?"启用" : "禁用" }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpSaas[\'DisplayName:EditionName\']')" prop="editionName" align="left">
+      <el-table-column :label="$t('AbpSaas[\'DisplayName:EditionName\']')" prop="editionName" align="left" width="120">
         <template slot-scope="{ row }">
           <span>{{ row.editionName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpSaas[\'DisplayName:DisableTime\']')" prop="disableTime" align="left">
+      <el-table-column :label="$t('AbpSaas[\'DisplayName:DisableTime\']')" prop="disableTime" align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.disableTime | moment }}</span>
         </template>
@@ -68,6 +96,11 @@ import {
   getTenants,
   deleteTenant
 } from '@/api/sass/tenant'
+
+import {
+  getEditions
+} from '@/api/sass/edition'
+
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import baseListQuery, {
   checkPermission
@@ -86,20 +119,48 @@ export default {
   },
   data() {
     return {
+      editionOptions: [], // 版本选项
+      disableTime: undefined, // 截止日期范围过滤条件
       tableKey: 0,
       list: null,
       total: 0,
       listLoading: true,
-      listQuery: baseListQuery
+      listQuery: Object.assign({
+        editionId: undefined,
+        disableBeginTime: undefined,
+        disableEndTime: undefined,
+        isActive: undefined
+      }, baseListQuery)
     }
   },
   created() {
+    this.fetchEditionOptions()
     this.getList()
   },
   methods: {
     checkPermission,
+    fetchEditionOptions() {
+      var input = {
+        page: 1,
+        limit: 999
+      }
+      getEditions(input).then(response => {
+        this.editionOptions = response.items
+      })
+    },
+    // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
+    pickerChangeFn(value) {
+      if (value === null) {
+        this.listQuery.disableBeginTime = value
+        this.listQuery.disableEndTime = value
+      }
+    },
     getList() {
       this.listLoading = true
+      if (this.disableTime) {
+        this.listQuery.disableBeginTime = this.disableTime[0]
+        this.listQuery.disableEndTime = this.disableTime[1]
+      }
       getTenants(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount

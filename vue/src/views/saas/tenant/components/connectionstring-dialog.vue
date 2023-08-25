@@ -67,7 +67,7 @@ export default {
       this.tenantId = row.id
       this.dialogFormVisible = true
 
-      getDefaultConnectionStringByName(row.id).then(response => {
+      getDefaultConnectionStringByName(row.id, row.name).then(response => {
         if (response.items.lenght === 0) {
           this.useSharedDatabase = false
           this.temp.defaultConnectionString = response

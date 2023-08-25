@@ -121,6 +121,10 @@ namespace Tiger.Volo.Abp.Sass
             int maxResultCount = int.MaxValue, 
             int skipCount = 0, 
             string filter = null, 
+            Guid? editionId = null,
+            DateTime? disableBeginTime = null,
+            DateTime? disableEndTime = null,
+            bool? isActive = null,
             bool includeDetails = false, 
             CancellationToken cancellationToken = default)
         {
@@ -130,6 +134,9 @@ namespace Tiger.Volo.Abp.Sass
 
             var queryable = tenantDbSet
                 .WhereIf(!filter.IsNullOrWhiteSpace(), u => u.Name.Contains(filter))
+                .WhereIf(disableBeginTime != null, u => u.DisableTime >= disableBeginTime)
+                .WhereIf(disableEndTime != null, u => u.DisableTime <= disableEndTime)
+                .WhereIf(isActive != null, u => u.IsActive == isActive)
                 .OrderBy<Tenant>(sorting.IsNullOrEmpty() ? nameof(Tenant.Name) : sorting);
 
 
@@ -142,19 +149,11 @@ namespace Tiger.Volo.Abp.Sass
                                      Tenant = tenant,
                                      Edition = e,
                                  })
+                                 .WhereIf(editionId != null, e => e.Edition.Id == editionId)
                                 .Skip(skipCount)
                                 .Take(maxResultCount)
                                 .ToListAsync();
-
-            //// linq join查询
-            //var combinedResult = await queryable
-            //    .Join(editionDbSet,o => o.EditionId, i => i.Id,
-            //    (tenant, edition) => new {tenant, edition})
-            //    .Skip(skipCount)
-            //    .Take(maxResultCount)
-            //    .ToListAsync(GetCancellationToken(cancellationToken));
-
-            // 没有使用导航属性，将版本的属性赋值到 tenant对象当中
+            
             return combinedResult.Select(s =>
             {
                 s.Tenant.Edition = s.Edition;

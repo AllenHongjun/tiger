@@ -15,22 +15,54 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item :label="$t('AbpSaas[\'DisplayName:IsActive\']')" prop="isActive">
-        <el-checkbox v-model="temp.isActive" />
-      </el-form-item>
-
-      <el-form-item :label="$t('AbpSaas[\'DisplayName:EnableTime\']')" prop="enableTime">
-        <el-date-picker v-model="temp.enableTime" type="datetime" placeholder="选择日期时间" />
-      </el-form-item>
-      <el-form-item :label="$t('AbpSaas[\'DisplayName:DisableTime\']')" prop="disableTime">
-        <el-date-picker v-model="temp.disableTime" type="datetime" placeholder="选择日期时间" />
-      </el-form-item>
       <el-form-item v-if="!temp.id" :label="$t('AbpSaas[\'DisplayName:AdminEmailAddress\']')" prop="adminEmailAddress">
         <el-input v-model="temp.adminEmailAddress" />
       </el-form-item>
       <el-form-item v-if="!temp.id" :label="$t('AbpSaas[\'DisplayName:AdminPassword\']')" prop="adminPassword">
         <el-input v-model="temp.adminPassword" type="password" auto-complete="off" show-password />
       </el-form-item>
+
+      <el-form-item :label="$t('AbpSaas[\'DisplayName:IsActive\']')" prop="isActive">
+        <template slot="label">
+          <span>{{ $t('AbpSaas[\'DisplayName:IsActive\']') }}
+            <el-tooltip class="item" effect="dark" placement="bottom">
+              <i class="el-icon-question" style="font-size: 16px; vertical-align: middle;" />
+              <div slot="content">
+                <p>默认不限制租户使用时间范围</p>
+              </div>
+            </el-tooltip>
+          </span>
+        </template>
+        <el-checkbox v-model="temp.isActive" />
+      </el-form-item>
+
+      <el-form-item v-if="temp.isActive" :label="$t('AbpSaas[\'DisplayName:EnableTime\']')" prop="enableTime">
+        <template slot="label">
+          <span>{{ $t('AbpSaas[\'DisplayName:EnableTime\']') }}
+            <el-tooltip class="item" effect="dark" placement="bottom">
+              <i class="el-icon-question" style="font-size: 16px; vertical-align: middle;" />
+              <div slot="content">
+                <p>时间不填写就不限制</p>
+              </div>
+            </el-tooltip>
+          </span>
+        </template>
+        <el-date-picker v-model="temp.enableTime" type="datetime" placeholder="选择日期时间" />
+      </el-form-item>
+      <el-form-item v-if="temp.isActive" :label="$t('AbpSaas[\'DisplayName:DisableTime\']')" prop="disableTime">
+        <template slot="label">
+          <span>{{ $t('AbpSaas[\'DisplayName:DisableTime\']') }}
+            <el-tooltip class="item" effect="dark" placement="bottom">
+              <i class="el-icon-question" style="font-size: 16px; vertical-align: middle;" />
+              <div slot="content">
+                <p>时间不填写就不限制</p>
+              </div>
+            </el-tooltip>
+          </span>
+        </template>
+        <el-date-picker v-model="temp.disableTime" type="datetime" placeholder="选择日期时间" />
+      </el-form-item>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">

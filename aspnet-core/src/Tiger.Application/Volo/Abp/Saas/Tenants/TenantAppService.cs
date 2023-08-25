@@ -14,6 +14,9 @@ using Tiger.Volo.Abp.Sass.MultiTenancy;
 
 namespace Tiger.Volo.Abp.Sass.Tenants;
 
+/// <summary>
+/// 租户管理
+/// </summary>
 [RemoteService(isEnabled:false)]
 [Authorize(AbpSaasPermissions.Tenants.Default)]
 public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
@@ -32,6 +35,13 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         TenantManager = tenantManager;
     }
 
+    #region 租户
+    /// <summary>
+    /// 更具id查询租户信息
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="UserFriendlyException"></exception>
     public async virtual Task<TenantDto> GetAsync(Guid id)
     {
         var tenant = await TenantRepository.FindAsync(id);
@@ -43,6 +53,12 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
 
+    /// <summary>
+    /// 根据租户名称查询租户信息
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    /// <exception cref="UserFriendlyException"></exception>
     public async virtual Task<TenantDto> GetAsync(string name)
     {
         var tenant = await TenantRepository.FindByNameAsync(name);
@@ -53,6 +69,11 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
 
+    /// <summary>
+    /// 分页查询租户列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public async virtual Task<PagedResultDto<TenantDto>> GetListAsync(TenantGetListInput input)
     {
         var count = await TenantRepository.GetCountAsync(input.Filter);
@@ -60,7 +81,11 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
             input.Sorting,
             input.MaxResultCount,
             input.SkipCount,
-            input.Filter
+            input.Filter,
+            input.EditionId,
+            input.DisableBeginTime,
+            input.DisableEndTime,
+            input.IsActive
         );
 
         return new PagedResultDto<TenantDto>(
@@ -69,6 +94,11 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         );
     }
 
+    /// <summary>
+    /// 创建租户
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     [Authorize(AbpSaasPermissions.Tenants.Create)]
     public async virtual Task<TenantDto> CreateAsync(TenantCreateDto input)
     {
@@ -106,6 +136,12 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
 
+    /// <summary>
+    /// 更新租户信息
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
     [Authorize(AbpSaasPermissions.Tenants.Update)]
     public async virtual Task<TenantDto> UpdateAsync(Guid id, TenantUpdateDto input)
     {
@@ -129,6 +165,11 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
 
+    /// <summary>
+    /// 删除租户
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [Authorize(AbpSaasPermissions.Tenants.Delete)]
     public async virtual Task DeleteAsync(Guid id)
     {
@@ -142,6 +183,17 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         await CurrentUnitOfWork.SaveChangesAsync();
     }
 
+
+    #endregion
+
+    #region 数据库连接字符串
+
+    /// <summary>
+    /// 根据租户id和名称查询连接字符串
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
     [Authorize(AbpSaasPermissions.Tenants.ManageConnectionStrings)]
     public async virtual Task<TenantConnectionStringDto> GetConnectionStringAsync(Guid id, string name)
     {
@@ -156,6 +208,14 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         };
     }
 
+    /// <summary>
+    /// 查询连接字符串
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <remarks>
+    /// 需要multi-tendey 模块的代码  事件代码 缓存代码
+    /// </remarks>
     [Authorize(AbpSaasPermissions.Tenants.ManageConnectionStrings)]
     public async virtual Task<ListResultDto<TenantConnectionStringDto>> GetConnectionStringAsync(Guid id)
     {
@@ -165,6 +225,12 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
             ObjectMapper.Map<List<TenantConnectionString>, List<TenantConnectionStringDto>>(tenant.ConnectionStrings.ToList()));
     }
 
+    /// <summary>
+    /// 设置连接字符串
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
     [Authorize(AbpSaasPermissions.Tenants.ManageConnectionStrings)]
     public async virtual Task<TenantConnectionStringDto> SetConnectionStringAsync(Guid id, TenantConnectionStringCreateOrUpdate input)
     {
@@ -196,6 +262,12 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         };
     }
 
+    /// <summary>
+    /// 删除租户链接字符串
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="name"></param>
+    /// <returns></returns>
     [Authorize(AbpSaasPermissions.Tenants.ManageConnectionStrings)]
     public async virtual Task DeleteConnectionStringAsync(Guid id, string name)
     {
@@ -218,5 +290,6 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         await TenantRepository.UpdateAsync(tenant);
 
         await CurrentUnitOfWork.SaveChangesAsync();
-    }
+    } 
+    #endregion
 }

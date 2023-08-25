@@ -48,7 +48,7 @@ export function getDefaultConnectionString(id) {
 
 export function getDefaultConnectionStringByName(id, name) {
   return request({
-    url: `/api/saas/tenants/${id}/connection-string${name}`,
+    url: `/api/saas/tenants/${id}/connection-string/${name}`,
     method: 'get'
   })
 }

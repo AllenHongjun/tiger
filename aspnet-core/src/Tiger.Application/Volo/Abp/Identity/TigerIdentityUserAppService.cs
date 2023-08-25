@@ -54,59 +54,7 @@ namespace Tiger.Volo.Abp.Identity
         }
 
 
-
-
-        #region 测试代码
-        /// <summary>
-        /// 发送短信
-        /// </summary>
-        /// <returns></returns>
-        public async Task SmsSend()
-        {
-            await _smsSender.SendAsync(
-                "15958456864",        // target phone number
-                "This is test sms..."   // message text
-            );
-        }
-
-        /// <summary>
-        /// 发送邮件
-        /// </summary>
-        /// <returns></returns>
-        public async Task EmailSend()
-        {
-            await _emailSender.SendAsync(
-                "hongjy1991@gmail.com",     // target email address
-                "这是一封测试邮件",         // subject
-                "这里是邮件的内容"  // email body
-            );
-        }
-
-        /// <summary>
-        /// 保存文件
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns></returns>
-        public async Task SaveBytesAsync(byte[] bytes)
-        {
-            await _blobContainer.SaveAsync("my-blob-1", bytes);
-        }
-
-        /// <summary>
-        /// 获取文件
-        /// </summary>
-        /// <returns></returns>
-        public async Task<byte[]> GetBytesAsync()
-        {
-            return await _blobContainer.GetAllBytesOrNullAsync("my-blob-1");
-        }
-
-        /*
-         子类继承父类来，来扩展abp原有的方法
-         可以从写覆盖原来的方法。也可以扩展原有的功能。
-         
-         */
-        #endregion
+        
 
         #region IdentityUser
         /// <summary>

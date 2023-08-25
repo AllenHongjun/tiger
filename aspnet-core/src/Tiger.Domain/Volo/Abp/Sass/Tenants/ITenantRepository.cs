@@ -32,6 +32,10 @@ namespace Tiger.Volo.Abp.Sass.Tenants
         /// <param name="maxResultCount"></param>
         /// <param name="skipCount"></param>
         /// <param name="filter"></param>
+        /// <param name="editionId">版本Id</param>
+        /// <param name="disableBeginTime">截止时间开始</param>
+        /// <param name="disableEndTime">截止时间结束</param>
+        /// <param name="isActive">是否启用</param>
         /// <param name="includeDetails"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
@@ -40,6 +44,10 @@ namespace Tiger.Volo.Abp.Sass.Tenants
             int maxResultCount = int.MaxValue,
             int skipCount = 0,
             string filter = null,
+            Guid? editionId = null,
+            DateTime? disableBeginTime = null,
+            DateTime? disableEndTime = null,
+            bool? isActive = null,
             bool includeDetails = false,
             CancellationToken cancellationToken = default);
 

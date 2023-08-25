@@ -1205,31 +1205,6 @@
             用户管理
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.SmsSend">
-            <summary>
-            发送短信
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.EmailSend">
-            <summary>
-            发送邮件
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.SaveBytesAsync(System.Byte[])">
-            <summary>
-            保存文件
-            </summary>
-            <param name="bytes"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.GetBytesAsync">
-            <summary>
-            获取文件
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.AddToOrganizationUnitsAsync(System.Guid,System.Collections.Generic.List{System.Guid})">
             <summary>
             将用户关联组织机构
@@ -1313,6 +1288,90 @@
             <summary>
             版本服务
             </summary>
+        </member>
+        <member name="T:Tiger.Volo.Abp.Sass.Tenants.TenantAppService">
+            <summary>
+            租户管理
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.GetAsync(System.Guid)">
+            <summary>
+            更具id查询租户信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.GetAsync(System.String)">
+            <summary>
+            根据租户名称查询租户信息
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.GetListAsync(Tiger.Volo.Abp.Sass.Tenants.TenantGetListInput)">
+            <summary>
+            分页查询租户列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.CreateAsync(Tiger.Volo.Abp.Sass.Tenants.TenantCreateDto)">
+            <summary>
+            创建租户
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.UpdateAsync(System.Guid,Tiger.Volo.Abp.Sass.Tenants.TenantUpdateDto)">
+            <summary>
+            更新租户信息
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.DeleteAsync(System.Guid)">
+            <summary>
+            删除租户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.GetConnectionStringAsync(System.Guid,System.String)">
+            <summary>
+            根据租户id和名称查询连接字符串
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.GetConnectionStringAsync(System.Guid)">
+            <summary>
+            查询连接字符串
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <remarks>
+            需要multi-tendey 模块的代码  事件代码 缓存代码
+            </remarks>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.SetConnectionStringAsync(System.Guid,Tiger.Volo.Abp.Sass.Tenants.TenantConnectionStringCreateOrUpdate)">
+            <summary>
+            设置连接字符串
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.DeleteConnectionStringAsync(System.Guid,System.String)">
+            <summary>
+            删除租户链接字符串
+            </summary>
+            <param name="id"></param>
+            <param name="name"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService">
             <summary>
