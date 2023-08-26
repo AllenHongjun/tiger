@@ -62,7 +62,7 @@ namespace Tiger.EntityFrameworkCore
                     nameof(Volo.Abp.Sass.Tenants.Tenant.DisableTime),
                     (entityBuilder, propertyBuilder) =>
                     {
-                        propertyBuilder.HasComment("禁用时间");
+                        propertyBuilder.HasComment("截止时间");
                     }
                 )
                 .MapEfCoreProperty<Tenant, Guid>(

@@ -17,7 +17,7 @@
                       <span>{{ info.description }}</span>
                     </div>
                     <div v-if="info.properties.Type==='checkbox'">
-                      <el-checkbox :id="info.name" v-model="info.value" :name="info.formName" :checked="info.value==='true' || info.value==='True'" />
+                      <el-checkbox :id="info.name" v-model="info.value" :name="info.formName" :checked="info.value==='true' || info.value==='True' " />
                       <span style="margin-left:5px;">{{ info.description }}</span>
                     </div>
                     <div v-if="info.properties.Type==='select'">

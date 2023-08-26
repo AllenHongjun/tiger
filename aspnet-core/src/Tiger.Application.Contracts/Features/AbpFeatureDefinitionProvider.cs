@@ -20,11 +20,7 @@ namespace Tiger.Features
             group.AddFeature(AbpFeatures.UserCount, "10", L("Feature:UserCount")
                 , valueType: new FreeTextStringValueType(new NumericValueValidator(1, 1000)));
 
-
-            var myGroup = context.AddGroup("MyApp");
-
-            myGroup.AddFeature("MyApp.PdfReporting", defaultValue: "false");
-            myGroup.AddFeature("MyApp.MaxProductCount", defaultValue: "10");
+            
         }
 
         private static LocalizableString L(string name)

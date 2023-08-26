@@ -17,7 +17,7 @@
                       <el-input :id="info.name" v-model="info.value" :name="info.formName" />
                     </div>
                     <div v-if="info.valueType.name==='ToggleStringValueType'">
-                      <el-checkbox :id="info.name" v-model="info.value" :name="info.formName" :checked="info.value==='true' || info.value==='True'" />
+                      <el-checkbox :id="info.name" v-model="info.value" :name="info.formName" :checked="info.value" />
                       <span style="margin-left:5px;">{{ info.description }}</span>
                     </div>
                     <div v-if="info.valueType.name==='SelectionStringValueType'">
@@ -49,12 +49,6 @@ import {
   getFeatures,
   updateFeatures
 } from '@/api/sass/features'
-
-import {
-  getSettingValues,
-  setSettingValues,
-  resetSettingValues
-} from '@/api/system-manage/setting'
 
 export default {
   name: 'FeatureDialog',
@@ -104,6 +98,12 @@ export default {
 
             const formRefsKey = featureGroup.name
             info.formName = 'Feature_' + info.name.replace(/\./g, '_')
+
+            // check类型的值必须是boolean,需要将类型转换 将布尔类型的值转换
+            if (info.valueType.validator.name === 'BOOLEAN') {
+              info.value = (info.value === true || info.value === 'true' || info.value === 'True')
+              console.log('info.name', info.displayName, 'info.value', info.value)
+            }
             featureInfo.push(info)
             if (this.formRefs.indexOf(formRefsKey) <= 0) {
               this.formRefs.push(formRefsKey)
@@ -118,6 +118,7 @@ export default {
             }
           })
         }
+        console.log('this.featureData', this.featureData)
       })
     },
     updateFeatureValues(index) {
@@ -128,85 +129,10 @@ export default {
         var feature = { 'name': item.name, 'value': item.value }
         features.push(feature)
       }
-      console.log('features', features)
       var req = { 'features': features }
 
       updateFeatures(this.featuresQuery, req).then(() => {
-        this.$notify({
-          title: this.$i18n.t("TigerUi['Success']"),
-          message: this.$i18n.t("TigerUi['SuccessMessage']"),
-          type: 'success',
-          duration: 2000
-        })
-      })
-    },
-    updateData() {
-      this.$refs['dataForm'].validate(valid => {
-        if (valid) {
-          const tempData = {
-            features: []
-          }
-          this.features.map(feature => {
-            if (feature.valueType.name === 'ToggleStringValueType') {
-              tempData.features.push({
-                name: feature.name,
-                value: !!this.temp[feature.name]
-              })
-            } else if (feature.valueType.name === 'FreeTextStringValueType') {
-              tempData.features.push({
-                name: feature.name,
-                value: this.temp[feature.name]
-              })
-            }
-          })
-
-          updateFeatures(this.featuresQuery, tempData).then(() => {
-            this.dialogFormVisible = false
-            this.$notify({
-              title: this.$i18n.t("HelloAbp['Success']"),
-              message: this.$i18n.t("HelloAbp['SuccessMessage']"),
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
-    },
-    getGroupSettingDefinitions() {
-      getSettingValues().then(setting => {
-        for (const s of setting) {
-          const settingInfo = []
-          for (const info of s.settingInfos) {
-            const group2 = info.properties.Group2
-            const formRefsKey = s.groupName + '.' + group2
-            settingInfo[group2] = settingInfo[group2] || []
-            info.formName = 'Setting_' + info.name.replace(/\./g, '_')
-            settingInfo[group2].push(info)
-            if (this.formRefs.indexOf(formRefsKey) <= 0) {
-              this.formRefs.push(formRefsKey)
-            }
-          }
-
-          this.settingData.push({
-            groupName: s.groupName,
-            groupDisplayName: s.groupDisplayName,
-            settingInfos: {
-              ...settingInfo
-            }
-          })
-        }
-      })
-    },
-    updateSettingValues(formName, index) {
-      const obj = {}
-      for (const from of this.settingData[index].settingInfos[formName]) {
-        const {
-          formName,
-          value
-        } = from
-        obj[formName] = value
-      }
-      setSettingValues(obj).then(() => {
+        this.dialogFormVisible = false
         this.$notify({
           title: this.$i18n.t("TigerUi['Success']"),
           message: this.$i18n.t("TigerUi['SuccessMessage']"),
@@ -215,6 +141,39 @@ export default {
         })
       })
     }
+    // updateData() {
+    //   this.$refs['dataForm'].validate(valid => {
+    //     if (valid) {
+    //       const tempData = {
+    //         features: []
+    //       }
+    //       this.features.map(feature => {
+    //         if (feature.valueType.name === 'ToggleStringValueType') {
+    //           tempData.features.push({
+    //             name: feature.name,
+    //             value: !!this.temp[feature.name]
+    //           })
+    //         } else if (feature.valueType.name === 'FreeTextStringValueType') {
+    //           tempData.features.push({
+    //             name: feature.name,
+    //             value: this.temp[feature.name]
+    //           })
+    //         }
+    //       })
+
+    //       updateFeatures(this.featuresQuery, tempData).then(() => {
+    //         this.dialogFormVisible = false
+    //         this.$notify({
+    //           title: this.$i18n.t("HelloAbp['Success']"),
+    //           message: this.$i18n.t("HelloAbp['SuccessMessage']"),
+    //           type: 'success',
+    //           duration: 2000
+    //         })
+    //       })
+    //     }
+    //   })
+    // }
+
   }
 }
 </script>
