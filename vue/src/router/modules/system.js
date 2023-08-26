@@ -257,8 +257,8 @@ const SystemManageRouter = {
           name: 'server-monitoring',
           component: () => import('@/views/system/monitor/server/index'),
           meta: {
-            title: '服务监控',
-            icon: 'el-icon-notebook-1'
+            title: '主机信息',
+            icon: 'el-icon-s-platform'
             // policy: 'SettingUi.ShowSettingPage'
           }
         },

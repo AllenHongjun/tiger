@@ -4,7 +4,7 @@
 
 <script>
 import echarts from 'echarts'
-require('echarts/theme/fruit') // echarts theme
+require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize' // 重置图表形状防止变形
 
 export default {
@@ -21,7 +21,7 @@ export default {
     },
     height: {
       type: String,
-      default: '300px'
+      default: '210px'
     },
     autoResize: {
       type: Boolean,
@@ -41,7 +41,9 @@ export default {
   watch: {
     chartData: {
       handler(val) {
-        this.setOptions(val)
+        if (val) {
+          this.setOptions(val)
+        }
       },
       deep: true
     }
@@ -50,6 +52,10 @@ export default {
     // 因为 ECharts 初始化必须绑定 dom，所以我们只能在 vue 的 mounted 生命周期里进行初始化
     this.$nextTick(() => {
       this.initChart()
+      // 一开始渲染，属性没有数据会报错需要判断
+      if (this.chartData.rate) {
+        this.setOptions(this.chartData)
+      }
     })
   },
 
@@ -63,23 +69,25 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
-      this.setOptions(this.chartData)
     },
     setOptions(data) {
-      // console.log('data', data)
+      // console.log('echartData', data)
+      // console.log('data.rate', data.rate)
+      // console.log('data.pieData', data.pieData)
       this.chart.setOption({
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
+        color: ['#e10040', '#e1dbdd'],
         series: [
           {
             name: data.name,
             type: 'pie',
             // roseType: 'radius',
             // 饼图的半径 [内圆半径，外圆半径]
-            radius: [85, 100],
-            center: ['50%', '42%'],
+            radius: [50, 60],
+            center: ['40%', '45%'],
             data: [
               { value: data.pieData[0], name: '已用' },
               { value: data.pieData[1], name: '剩余' }
@@ -93,16 +101,16 @@ export default {
                 position: 'center',
                 color: '#4c4a4a',
                 // formatter 指定 label 的格式。具体的，formatter 中可以使用的占位符
-                formatter: '{total|' + data.rate + '%}' + '\n\r' + '{active|' + data.name + '}',
+                formatter: '{total|' + data.rate + '}' + '\n\r' + '{active|' + data.name + '}',
                 rich: {
                   total: {
-                    fontSize: 35,
+                    fontSize: 28,
                     fontFamily: '微软雅黑',
                     color: '#454c5c'
                   },
                   active: {
                     fontFamily: '微软雅黑',
-                    fontSize: 16,
+                    fontSize: 12,
                     color: '#6c7a89',
                     lineHeight: 30
                   }
@@ -113,22 +121,6 @@ export default {
         ]
 
       })
-    },
-    // 可以在组件中请求接口获取数据，为了可维护性，改为在组件外部统一调用
-    getechartsdata() { // 新增绑定从后端获取数据rest服务
-      // getSell('hello').then(response => { // 详见前端API
-      //   this.data = response.data
-      //   console.log(this.data)
-      //   this.chart.setOption({ // 方便调试，前端浏览器控制台输出
-      //     series: [{
-      //       name: 'pageA',
-      //       type: 'bar',
-      //       stack: 'vistors',
-      //       barWidth: '60%',
-      //       data: this.data
-      //     }]
-      //   })
-      // })
     }
 
   }

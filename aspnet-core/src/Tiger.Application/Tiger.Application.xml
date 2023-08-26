@@ -767,6 +767,11 @@
             版本文件管理
             </summary>
         </member>
+        <member name="T:Tiger.Module.System.Server.ServerAppService">
+            <summary>
+            获取服务器信息
+            </summary>
+        </member>
         <member name="M:Tiger.Module.System.Server.ServerAppService.GetServerBase">
             <summary>
             获取服务器配置信息
@@ -782,6 +787,12 @@
         <member name="M:Tiger.Module.System.Server.ServerAppService.GetServerDisk">
             <summary>
             获取服务器磁盘信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Server.ServerAppService.GetAssemblyList">
+            <summary>
+            获取框架主要程序集
             </summary>
             <returns></returns>
         </member>

@@ -11,7 +11,10 @@ using System.Text;
 namespace Tiger.Module.System.Server
 {
 
-    public static class ComputerUtil
+    /// <summary>
+    /// 服务器信息帮助类
+    /// </summary>
+    public static class ServerInfoUtil
     {
         /// <summary>
         /// 内存信息
@@ -79,18 +82,20 @@ namespace Tiger.Module.System.Server
             return diskInfos;
         }
 
-        ///// <summary>
-        ///// 获取外网IP地址
-        ///// </summary>
-        ///// <returns></returns>
-        //public static string GetIpFromOnline()
-        //{
-        //    //var url = "http://myip.ipip.net";
-        //    //var stream = url.GetAsStreamAsync().GetAwaiter().GetResult();
-        //    //var streamReader = new StreamReader(stream.Stream, stream.Encoding);
-        //    //var html = streamReader.ReadToEnd();
-        //    //return html.Replace("当前 IP：", "").Replace("来自于：", "");
-        //}
+        /// <summary>
+        /// 获取外网IP地址
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIpFromOnline()
+        {
+            var url = "http://myip.ipip.net";
+            byte[] array = Encoding.ASCII.GetBytes(url);
+            // TODO:请求外网接口获取外网的ip
+            MemoryStream stream = new MemoryStream(array);
+            var streamReader = new StreamReader(stream);
+            var html = streamReader.ReadToEnd();
+            return html.Replace("当前 IP：", "").Replace("来自于：", "");
+        }
 
         public static bool IsUnix()
         {

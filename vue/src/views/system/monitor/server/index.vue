@@ -6,59 +6,58 @@
         <div class="grid-content bg-purple">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>服务器信息</span>
+              <h4>系统信息</h4>
             </div>
-            <el-table v-loading="listLoading" :data="systemData" row-key="id" border fit highlight-current-row style="width: 100%">
-              <el-table-column min-width="300px" label="名称" width="180">
-                <template slot-scope="{row}">
-                  <span>{{ row.name }}</span>
-                </template>
-              </el-table-column>
+            <el-row>
+              <el-col :span="8"><label>主机名称:</label></el-col>
+              <el-col :span="16"><span>{{ systemData.hostName }}</span></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8"><label>操作系统：</label></el-col>
+              <el-col :span="16"><span>{{ systemData.systemOs }}</span></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8"><label>系统架构：</label></el-col>
+              <el-col :span="16"><el-tag type="info">{{ systemData.osArchitecture }}</el-tag></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8"><label>CPU核数：</label></el-col>
+              <el-col :span="16"><el-tag>{{ systemData.processorCount }}</el-tag></el-col>
+            </el-row>
 
-              <el-table-column align="left" label="信息">
-                <template slot-scope="{row}">
-                  <span>{{ row.value }}</span>
-                </template>
-              </el-table-column>
-            </el-table>
+            <el-row>
+              <el-col :span="8"><label>运行时长:</label></el-col>
+              <el-col :span="16"><span>{{ systemData.sysRunTime | moment }}</span></el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="8"><label>外网地址：</label></el-col>
+              <!-- {{ systemData.remoteIp }} -->
+              <el-col :span="16"><span>您的iP地址是：[101.70.210.114 ] 来自：中国浙江金华婺城 联通 </span></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8"><label>内网地址：</label></el-col>
+              <!-- {{ systemData.localIp }} -->
+              <el-col :span="16"><el-tag>127.0.0.1</el-tag></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8"><label>运行框架：</label></el-col>
+              <el-col :span="16"><span>{{ systemData.frameworkDescription }}</span></el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="8"><label>系统时间:</label></el-col>
+              <el-col :span="16"><span>{{ systemData.sysRunTime | moment }}</span></el-col>
+            </el-row>
+
           </el-card>
         </div>
       </el-col>
-
       <el-col :span="12">
-        <div class="grid-content bg-purple">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>CLR信息</span>
-            </div>
-            <el-table :data="CLRData" style="width: 100%">
-              <el-table-column prop="name" label="名称" width="180" />
-              <el-table-column prop="value" label="信息" />
-            </el-table>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
-    <el-row :gutter="10">
-      <el-col :span="8">
         <div class="grid-content bg-purple-light">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>系统使用信息</span>
-            </div>
-            <el-table :data="systemUsedData" style="width: 100%">
-              <el-table-column prop="name" label="名称" width="180" />
-              <el-table-column prop="value" label="信息" />
-            </el-table>
-          </el-card>
-        </div>
-      </el-col>
-
-      <el-col :span="16">
-        <div class="grid-content bg-purple-light">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>使用率</span>
+              <h4>使用信息</h4>
             </div>
             <el-row :gutter="32">
               <el-col :xs="24" :sm="24" :lg="8">
@@ -71,32 +70,42 @@
                   <pie-chart :chart-data="ramChartData" />
                 </div>
               </el-col>
-
               <el-col :xs="24" :sm="24" :lg="8">
                 <div class="chart-wrapper">
                   <pie-chart :chart-data="diskChartData" />
                 </div>
               </el-col>
             </el-row>
+            <el-row>
+              <el-col :span="12"><label>启动时间：</label></el-col>
+              <el-col :span="12"><span>{{ systemUsedData.startTime }}</span></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12"><label>开发环境：</label></el-col>
+              <el-col :span="12"><span>{{ systemData.environment }}</span></el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="12"><label>环境变量：</label></el-col>
+              <el-col :span="12"><span>{{ systemData.stage }}</span></el-col>
+            </el-row>
+
           </el-card>
         </div>
       </el-col>
-
     </el-row>
 
     <el-row>
       <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span>磁盘信息</span>
+          <h4>磁盘信息</h4>
         </div>
         <el-table :data="diskData" style="width: 100%">
-          <el-table-column prop="dirName" label="盘符路径" width="180" />
-          <el-table-column prop="sysTypeName" label="文件系统" />
-          <el-table-column prop="typeName" label="盘符类型" />
-          <el-table-column prop="total" label="总大小" />
-          <el-table-column prop="free" label="可用大小" />
-          <el-table-column prop="used" label="已用大小" />
-          <el-table-column prop="usage" label="已用百分比" />
+          <el-table-column prop="diskName" label="盘符路径" />
+          <el-table-column prop="typeName" label="盘符类型" width="180" />
+          <el-table-column prop="totalSize" label="总大小(mb)" width="180" />
+          <el-table-column prop="availableFreeSpace" label="可用大小(mb)" width="180" />
+          <el-table-column prop="used" label="已用大小(mb)" width="180" />
+          <el-table-column prop="availablePercent" label="已用百分比(%)" width="180" />
         </el-table>
       </el-card>
     </el-row>
@@ -104,7 +113,7 @@
 </template>
 
 <script>
-import { getServerInfo, getCLRInfo, getSystemUsedInfo, getDiskInfo, getServerUsedRate } from '@/api/system-manage/monitor/server'
+import { getServerInfo, getCLRInfo, getSystemUsedInfo, getDiskInfo } from '@/api/system-manage/monitor/server'
 import PieChart from './components/PieChart'
 
 export default {
@@ -118,7 +127,7 @@ export default {
 
       },
       // 系统信息 必须是数组类型不然会报错
-      systemData: [],
+      systemData: {},
       // 系统使用信息
       systemUsedData: [],
       // dotnet运行时
@@ -161,39 +170,34 @@ export default {
   },
   created() {
     this.fetchData()
-    this.handleSetPieChartData()
   },
   methods: {
     async fetchData() {
       this.listLoading = true
       this.systemData = await getServerInfo()
+
       this.systemUsedData = await getSystemUsedInfo()
-      this.CLRData = await getCLRInfo()
       this.diskData = await getDiskInfo()
+
+      this.cpuChartData = {
+        name: 'CPU使用率',
+        rate: this.systemUsedData.cpuRate,
+        pieData: [parseFloat(this.systemUsedData.cpuRate), 100] //  前面带数字,后面非数字,可以直接用parseFloat()函数
+      }
+      this.ramChartData = {
+        name: '内存使用率',
+        rate: this.systemUsedData.ramRate,
+        pieData: [parseFloat(this.systemUsedData.usedRam), parseFloat(this.systemUsedData.freeRam)]
+      }
+      // console.log('this.diskData', this.diskData)
+      // TODO:新增接口返回总的磁盘使用数据
+      this.diskChartData = {
+        name: 'C:盘使用率',
+        rate: this.diskData[0].availablePercent + '%',
+        pieData: [parseFloat(this.diskData[0].availableFreeSpace), this.diskData[0].availableFreeSpace]
+      }
+
       this.listLoading = false
-    },
-    handleSetPieChartData() {
-      getServerUsedRate().then(response => {
-        this.cpuChartData = {
-          name: 'CPU使用率',
-          rate: response.cpuRate,
-          pieData: [response.cpuRate, 100]
-        }
-
-        this.ramChartData = {
-          name: '内存使用率',
-          rate: response.ramRate,
-          pieData: [response.freeRam, response.totalRam]
-        }
-
-        this.diskChartData = {
-          name: '磁盘使用率',
-          rate: response.diskRate,
-          pieData: [response.freeDisk, response.totalDisk]
-        }
-        // console.log('this.cpuChartData', this.cpuChartData)
-        // console.log('this.ramChartData', this.ramChartData)
-      })
     }
 
   }
@@ -241,25 +245,4 @@ export default {
     border-radius: 4px;
 }
 
-.bg-purple-dark {
-    background: #99a9bf;
-}
-
-.bg-purple {
-    background: #d3dce6;
-}
-
-.bg-purple-light {
-    background: #e5e9f2;
-}
-
-.grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-}
-
-.row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-}
 </style>

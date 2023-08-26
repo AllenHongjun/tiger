@@ -1,9 +1,9 @@
-import request from '@/utils/requestMock'
+import request from '@/utils/request'
 
 // 查询服务器信息
 export function getServerInfo() {
   return request({
-    url: `/api/monitor/server-info`,
+    url: `/api/monitor/server/server-base`,
     method: 'get'
   })
 }
@@ -19,7 +19,7 @@ export function getCLRInfo() {
 // 获取系统使用信息
 export function getSystemUsedInfo() {
   return request({
-    url: `/api/monitor/system-used-info`,
+    url: `/api/monitor/server/server-used`,
     method: 'get'
   })
 }
@@ -27,7 +27,7 @@ export function getSystemUsedInfo() {
 // 获取服务器使用率
 export function getServerUsedRate() {
   return request({
-    url: `/api/monitor/server-used-rate`,
+    url: `/api/monitor/server/server-used`,
     method: 'get'
   })
 }
@@ -35,7 +35,7 @@ export function getServerUsedRate() {
 // 获取服务器磁盘信息
 export function getDiskInfo() {
   return request({
-    url: '/api/monitor/disk-info',
+    url: '/api/monitor/server/server-disk',
     method: 'get'
   })
 }
