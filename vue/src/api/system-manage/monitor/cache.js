@@ -10,23 +10,17 @@ export function getRedisInfo() {
 
 export function getCaches(params) {
   return request({
-    url: '/api/caching-management/cache',
+    url: '/api/caching-management/cache/keys',
     method: 'get',
     params: transformAbpListQuery(params)
   })
 }
 
-export function getCache(id) {
+export function getCache(params) {
   return request({
-    url: `/api/caching-management/cache/${id}`,
-    method: 'get'
-  })
-}
-
-export function getAllCache() {
-  return request({
-    url: `/api/caching-management/cache/all`,
-    method: 'get'
+    url: `/api/caching-management/cache/values`,
+    method: 'get',
+    params: params
   })
 }
 
@@ -46,10 +40,20 @@ export function updateCache(id, payload) {
   })
 }
 
-export function deleteCache(id) {
+// 刷新缓存
+export function refreshCache(payload) {
   return request({
-    url: `/api/caching-management/cache/${id}`,
-    method: 'delete'
+    url: `/api/caching-management/cache/refresh`,
+    method: 'put',
+    data: payload
+  })
+}
+
+export function deleteCache(params) {
+  return request({
+    url: `/api/caching-management/cache/delete`,
+    method: 'delete',
+    params: params
   })
 }
 

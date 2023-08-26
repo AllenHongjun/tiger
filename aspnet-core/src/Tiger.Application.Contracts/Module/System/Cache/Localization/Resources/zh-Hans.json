@@ -15,6 +15,7 @@
     "DisplayName:Values": "缓存值",
     "DisplayName:Key": "缓存键",
     "DisplayName:Keys": "键列表",
+    "DisplayName:Expiration": "过期时间",
     "DisplayName:AbsoluteExpiration": "绝对过期时间",
     "DisplayName:SlidingExpiration": "滑动过期时间",
     "Abp.CachingManagement:01001": "类型为 {Type} 的缓存暂不支持查看键值."

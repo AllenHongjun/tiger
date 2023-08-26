@@ -281,6 +281,16 @@ const SystemManageRouter = {
             icon: 'Redis'
             // policy: 'SettingUi.ShowSettingPage'
           }
+        },
+        {
+          path: '/cache/table',
+          name: 'cache-table',
+          component: () => import('@/views/system/monitor/cache/table'),
+          meta: {
+            title: '缓存列表',
+            icon: 'Redis'
+            // policy: 'SettingUi.ShowSettingPage'
+          }
         }
       ]
     },

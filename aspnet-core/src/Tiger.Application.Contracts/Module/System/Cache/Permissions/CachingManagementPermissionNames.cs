@@ -16,7 +16,7 @@ namespace Tiger.Module.System.Cache.Permissions
 
             public const string Refresh = Default + ".Refresh";
 
-            public const string Delete = Default + "Delete";
+            public const string Delete = Default + ".Delete";
         }
 
         public static string[] GetAll()

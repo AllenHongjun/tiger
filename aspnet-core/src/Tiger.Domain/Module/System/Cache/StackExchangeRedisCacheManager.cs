@@ -128,12 +128,12 @@ namespace Tiger.Module.System.Cache
             // app*abp*c:*application*Mailing*
             if (!request.Filter.IsNullOrWhiteSpace())
             {
-                match += request.Filter + "*";
+                match += "*" + request.Filter + "*";
             }
             // scan 0 match * count 50000
             // redis有自定义的key排序,由传递的marker来确定下一次检索起始位
 
-            var args = new object[] { request.Marker ?? "0", "match", match, "count", 10 };
+            var args = new object[] { request.Marker ?? "0", "match", match, "count", 100 };
 
             var result = await RedisDatabase.ExecuteAsync("scan", args);
 

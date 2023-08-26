@@ -1,11 +1,15 @@
-﻿using Volo.Abp.Account;
+﻿using Tiger.Module.System.Cache.Localization;
+using Tiger.Volo.Abp.Sass.Localization;
+using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FluentValidation;
 using Volo.Abp.Identity;
+using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.VirtualFileSystem;
 
 namespace Tiger
 {
@@ -28,6 +32,26 @@ namespace Tiger
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
             TigerDtoExtensions.Configure();
+        }
+
+        
+
+        public override void ConfigureServices(ServiceConfigurationContext context)
+        {
+            #region 本地化资源配置
+            Configure<AbpVirtualFileSystemOptions>(options =>
+               {
+                   // "TigerDomainSharedModule" 是项目的根命名空间名字. 如果你的项目的根命名空间名字为空,则无需传递此参数.
+                   options.FileSets.AddEmbedded<TigerApplicationContractsModule>();
+               });
+
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                options.Resources
+                      .Add<CacheResource>("zh-Hans")
+                      .AddVirtualJson("/Module/System/Cache/Localization/Resources");
+            }); 
+            #endregion
         }
     }
 }
