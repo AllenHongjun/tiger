@@ -1,62 +1,68 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <div class="title-container">
+      <h3 class="title">虎虎管理系统</h3>
+    </div>
+    <el-tabs v-model="activeName" class="login-tab" @tab-click="handleClick">
 
-      <div class="title-container">
-        <h3 class="title">账号登录</h3>
-      </div>
+      <el-tab-pane label="密码登录" name="pwd-login">
+        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
-      <el-form-item prop="tenent">
-        <span class="svg-container">
-          <svg-icon icon-class="international" />
-        </span>
-        <el-input v-model="tenant" placeholder="默认宿主" name="tenent" type="text" tabindex="1" auto-complete="on" />
-        <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
-      </el-form-item>
+          <el-form-item prop="tenent">
+            <span class="svg-container">
+              <svg-icon icon-class="international" />
+            </span>
+            <el-input v-model="tenant" placeholder="默认宿主" name="tenent" type="text" tabindex="1" auto-complete="on" />
+            <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
+          </el-form-item>
 
-      <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text" tabindex="1" auto-complete="on" />
-      </el-form-item>
+          <el-form-item prop="username">
+            <span class="svg-container">
+              <svg-icon icon-class="user" />
+            </span>
+            <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text" tabindex="1" auto-complete="on" />
+          </el-form-item>
 
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="Password" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
-      </el-form-item>
+          <el-form-item prop="password">
+            <span class="svg-container">
+              <svg-icon icon-class="password" />
+            </span>
+            <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="Password" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
+            <span class="show-pwd" @click="showPwd">
+              <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+            </span>
+          </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登 录</el-button>
-      <div style="text-align: right;">
-        <el-button class="thirdparty-button" type="primary" size="small" @click="showDialog = true">
-          第三方登录
-        </el-button>
-      </div>
-      <el-row>
-        <el-col :span="12">
-          <el-link href="#/register" type="primary">注册</el-link>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-          <el-link href="#/reset_password" type="primary">忘记密码</el-link>
-        </el-col>
-        <el-col :span="12" />
-      </el-row>
+          <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登 录</el-button>
 
-      <el-row style="margin-top:10px;">
-        <el-col>
-          <div class="tips">
-            <span style="margin-right:20px;">用户名: admin</span>
-            <span> 密码: 1q2w3E*</span>
+          <div style="text-align: right;">
+            <el-button class="thirdparty-button" type="primary" size="small" @click="showDialog = true">
+              第三方登录
+            </el-button>
           </div>
-        </el-col>
+          <el-row>
+            <el-col :span="12">
+              <el-link href="#/register" type="primary">注册</el-link>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+              <el-link href="#/reset_password" type="primary">忘记密码</el-link>
+            </el-col>
+            <el-col :span="12" />
+          </el-row>
 
-      </el-row>
+          <el-row style="margin-top:10px;">
+            <el-col>
+              <div class="tips">
+                <span style="margin-right:20px;">用户名: admin</span>
+                <span> 密码: 1q2w3E*</span>
+              </div>
+            </el-col>
 
-    </el-form>
+          </el-row>
+
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="短信登录" name="sms-login">短信登录</el-tab-pane>
+    </el-tabs>
 
     <el-dialog title="切换租户" :visible.sync="dialogVisible" width="30%">
       <el-form label-width="80px" label-position="top">
@@ -114,6 +120,7 @@ export default {
       }
     }
     return {
+      activeName: 'pwd-login',
       dialogVisible: false,
       loginForm: {
         username: 'admin',
@@ -147,6 +154,9 @@ export default {
     }
   },
   methods: {
+    handleClick(tab, event) {
+      console.log(tab, event)
+    },
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -275,7 +285,7 @@ $cursor: #fff;
 }
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
@@ -285,12 +295,44 @@ $light_gray:#eee;
     width: 100%;
     background-color: $bg;
     overflow: hidden;
+    color: $light_gray;
+
+    .title-container {
+      position: relative;
+      margin-top: 160px;
+
+      .title {
+          font-size: 26px;
+          color: $light_gray;
+          margin: 0px auto 40px auto;
+          text-align: center;
+          font-weight: bold;
+      }
+  }
+
+    .login-tab{
+      position: relative;
+        width: 520px;
+        max-width: 100%;
+        padding: 20px 35px 0;
+        margin: 0 auto;
+        overflow: hidden;
+        .el-tabs__item {
+          color: $light_gray;
+        }
+        .el-tabs__item.is-active{
+          color:#409EFF;
+        }
+        .el-tabs__item:hover{
+          color: #409EFF;
+        }
+    }
 
     .login-form {
         position: relative;
         width: 520px;
         max-width: 100%;
-        padding: 160px 35px 0;
+        padding: 0px 0px 0;
         margin: 0 auto;
         overflow: hidden;
     }
@@ -313,18 +355,6 @@ $light_gray:#eee;
         vertical-align: middle;
         width: 30px;
         display: inline-block;
-    }
-
-    .title-container {
-        position: relative;
-
-        .title {
-            font-size: 26px;
-            color: $light_gray;
-            margin: 0px auto 40px auto;
-            text-align: center;
-            font-weight: bold;
-        }
     }
 
     .show-pwd {
