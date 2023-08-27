@@ -63,6 +63,8 @@ Vue.use(Router)
  * a base page that does not have permission requirements
  * 代表那些不需要动态判断权限的路由，如登录页、404、等通用页面。
  * all roles can be accessed
+ *
+ * 需要加不验证权限的菜单加入到 permission.js 的白名单中,不然会跳转
  */
 export const constantRoutes = [
   {
@@ -89,8 +91,13 @@ export const constantRoutes = [
     hidden: true
   },
   {
-    path: '/reset_password',
-    component: () => import('@/views/account/reset_password/index'),
+    path: '/send-reset-password-link',
+    component: () => import('@/views/account/reset-password/send-link'),
+    hidden: true
+  },
+  {
+    path: '/reset-password',
+    component: () => import('@/views/account/reset-password/reset-password'),
     hidden: true
   },
   {

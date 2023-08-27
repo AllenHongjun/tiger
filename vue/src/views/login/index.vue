@@ -1,7 +1,9 @@
 <template>
   <div class="login-container">
     <div class="title-container">
-      <h3 class="title">虎虎管理系统</h3>
+      <h1>Tiger</h1>
+      <div>基于abp的后台管理系统</div>
+      <!-- <h5 class="title">登录</h5> -->
     </div>
     <el-tabs v-model="activeName" class="login-tab" @tab-click="handleClick">
 
@@ -43,8 +45,8 @@
           <el-row>
             <el-col :span="12">
               <el-link href="#/register" type="primary">注册</el-link>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-              <el-link href="#/reset_password" type="primary">忘记密码</el-link>
+              <el-link href="#/send-reset-password-link" type="primary">忘记密码</el-link>
+              <el-link href="#/reset-password" type="primary">重置密码</el-link>
             </el-col>
             <el-col :span="12" />
           </el-row>
@@ -61,7 +63,36 @@
 
         </el-form>
       </el-tab-pane>
-      <el-tab-pane label="短信登录" name="sms-login">短信登录</el-tab-pane>
+      <el-tab-pane label="短信登录" name="sms-login">
+        <el-form ref="smsLoginForm" :model="smsLoginForm" class="login-form" auto-complete="on" label-position="left">
+          <el-form-item prop="tenent">
+            <span class="svg-container">
+              <svg-icon icon-class="international" />
+            </span>
+            <el-input v-model="tenant" placeholder="默认宿主" name="tenent" type="text" tabindex="1" auto-complete="on" />
+            <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
+          </el-form-item>
+
+          <el-form-item prop="phone">
+            <span class="svg-container">
+              <svg-icon icon-class="phone" />
+            </span>
+            <el-input ref="phone" v-model="smsLoginForm.smsLoginForm" placeholder="请输入手机号" name="phone" type="text" tabindex="1" auto-complete="on" />
+          </el-form-item>
+
+          <el-form-item prop="code">
+            <span class="svg-container">
+              <svg-icon icon-class="code" />
+            </span>
+            <el-input ref="code" v-model="smsLoginForm.code" type="text" placeholder="请输入验证码" name="code" class="el-input-code">
+              <el-button slot="append" :disabled="codeDisabled" style="width:105px;" @click="handelSendSmsCode">{{ codeMsg }}</el-button>
+            </el-input>
+
+          </el-form-item>
+
+          <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSmsLogin">登 录</el-button>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
 
     <el-dialog title="切换租户" :visible.sync="dialogVisible" width="30%">
@@ -94,7 +125,6 @@ import {
   validUsername
 } from '@/utils/validate'
 import {
-  getApplicationConfiguration,
   getTenantByName
 } from '@/api/user'
 import SocialSign from './components/SocialSignin'
@@ -142,7 +172,21 @@ export default {
       passwordType: 'password',
       redirect: undefined,
       tenant: '',
-      showDialog: false
+      showDialog: false,
+
+      smsLoginForm: {
+        phone: '', // 手机号
+        code: '' // 短信验证码
+      },
+      // 是否禁用按钮
+      codeDisabled: false,
+      // 倒计时秒数
+      countdown: 60,
+      // 按钮上的文字
+      codeMsg: '获取验证码',
+      // 定时器
+      timer: null
+
     }
   },
   watch: {
@@ -173,10 +217,6 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          // 获取租户信息
-          // getApplicationConfiguration(this.tenant).then((response) => {
-          //     console.log(response)
-          // })
 
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
@@ -194,6 +234,32 @@ export default {
           return false
         }
       })
+    },
+    getValidStr() {
+      if (this.countdown > 0 && this.countdown <= 60) {
+        this.countdown--
+        if (this.countdown !== 0) {
+          this.codeMsg = '重新发送(' + this.countdown + ')'
+          this.codeDisabled = true
+        } else {
+          clearInterval(this.timer)
+          this.codeMsg = '获取验证码'
+          this.countdown = 60
+          this.timer = null
+          this.codeDisabled = false
+        }
+      }
+    },
+    // 发送短信验证码
+    handelSendSmsCode() {
+      // 验证码60秒倒计时
+      if (!this.timer) {
+        this.getValidStr()
+        this.timer = setInterval(this.getValidStr, 1000)
+      }
+    },
+    handleSmsLogin() {
+      this.$message('短信登录中...')
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
@@ -255,7 +321,7 @@ $cursor: #fff;
 /* reset element-ui css */
 .login-form {
     .el-input {
-        display: inline-block;
+       // display: inline-block;
         height: 47px;
         width: 85%;
 
@@ -275,6 +341,10 @@ $cursor: #fff;
             }
         }
     }
+    .el-input-code{
+      width: 93%;
+
+    }
 
     .el-form-item {
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -283,9 +353,27 @@ $cursor: #fff;
         color: #454545;
     }
 }
+
+.login-tab{
+  position: relative;
+    width: 520px;
+    max-width: 100%;
+    padding: 20px 35px 0;
+    margin: 0 auto;
+    overflow: hidden;
+    .el-tabs__item {
+      color: $light_gray;
+    }
+    .el-tabs__item.is-active{
+      color:#409EFF;
+    }
+    .el-tabs__item:hover{
+      color: #409EFF;
+    }
+}
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
@@ -300,6 +388,13 @@ $light_gray:#eee;
     .title-container {
       position: relative;
       margin-top: 160px;
+      text-align: center;
+      h1{
+        font-weight: bold;
+        font-size: 46px;
+        margin: 0px auto 38px auto;
+
+      }
 
       .title {
           font-size: 26px;
@@ -309,24 +404,6 @@ $light_gray:#eee;
           font-weight: bold;
       }
   }
-
-    .login-tab{
-      position: relative;
-        width: 520px;
-        max-width: 100%;
-        padding: 20px 35px 0;
-        margin: 0 auto;
-        overflow: hidden;
-        .el-tabs__item {
-          color: $light_gray;
-        }
-        .el-tabs__item.is-active{
-          color:#409EFF;
-        }
-        .el-tabs__item:hover{
-          color: #409EFF;
-        }
-    }
 
     .login-form {
         position: relative;
@@ -378,6 +455,9 @@ $light_gray:#eee;
         background-color: #2d3a4b;
         line-height: 40px;
         // font-size:20px;
+    }
+    .el-link{
+      margin-right: 8px;
     }
 }
 </style>

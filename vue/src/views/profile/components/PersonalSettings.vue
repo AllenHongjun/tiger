@@ -1,11 +1,18 @@
 <template>
-  <el-form ref="aForm" :model="userInfo" :rules="aRules">
-    <el-form-item label="姓" prop="surname">
-      <el-input v-model.trim="userInfo.surname" />
-    </el-form-item>
-    <el-form-item label="名" prop="name">
-      <el-input v-model.trim="userInfo.name" />
-    </el-form-item>
+  <el-form ref="aForm" :model="userInfo" :rules="aRules" label-position="right" label-width="80px">
+    <el-row>
+      <el-col :span="12">
+        <el-form-item label="姓" prop="surname">
+          <el-input v-model.trim="userInfo.surname" />
+        </el-form-item>
+      </el-col>
+      <el-col :span="12">
+        <el-form-item label="名" prop="name">
+          <el-input v-model.trim="userInfo.name" />
+        </el-form-item>
+      </el-col>
+    </el-row>
+
     <el-form-item label="邮箱" prop="email">
       <el-input v-model.trim="userInfo.email" />
     </el-form-item>
