@@ -120,12 +120,21 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
     path: '/',
-    name: '主页',
-    meta: { title: '主页', icon: 'el-icon-s-home' },
-    // 你可以选择不同的layout组件
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: 'dashboard',
+        meta: { title: '首页', icon: 'dashboard', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/',
     component: Layout,
     redirect: '/dashboard',
     // 这里开始对应的路由都会显示在app-main中 如上图所示
@@ -135,16 +144,9 @@ export const constantRoutes = [
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
         meta: { title: '文档', icon: 'documentation', affix: true }
-      },
-      {
-        path: 'dashboard',
-        name: '仪表盘',
-        component: () => import('@/views/dashboard/index'),
-        meta: { title: '仪表盘', icon: 'dashboard', affix: true }
       }
     ]
   }
-
 ]
 
 /**

@@ -480,6 +480,46 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.Account.ProfileController">
+            <summary>
+            个人信息管理
+            </summary>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ProfileController.SendChangePhoneNumberCodeAsync(Tiger.Volo.Abp.Account.Dto.SendChangePhoneNumberCodeInput)">
+            <summary>
+            发送修改手机号验证码
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ProfileController.ChangePhoneNumberAsync(Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput)">
+            <summary>
+            修改用户手机号
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ProfileController.ConfirmEmailAsync(Tiger.Volo.Abp.Account.Dto.ComfirmEmailInput)">
+            <summary>
+            确认用户邮箱
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ProfileController.SendEmailConfirmLinkAsync(Tiger.Volo.Abp.Account.Dto.SendEmailConfirmCodeDto)">
+            <summary>
+            发送邮箱确认链接
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ProfileController.ChangeAvatarAsync(Tiger.Volo.Abp.Account.Dto.ChangeAvatarInput)">
+            <summary>
+            修改用户头像
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ApiResourceController">
             <summary>
             Api资源

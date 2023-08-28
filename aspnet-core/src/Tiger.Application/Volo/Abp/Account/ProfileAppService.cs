@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Account.Dto;
+using Tiger.Volo.Abp.Account.Emailing;
 using Tiger.Volo.Abp.Identity;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -21,9 +23,9 @@ namespace Tiger.Volo.Abp.Account
     /// </summary>
     [Authorize]
     [RemoteService(false)]
-    public class TigerProfileAppService : ApplicationService, ITigerProfileAppService
+    public class ProfileAppService : ApplicationService, IProfileAppService
     {
-        public TigerProfileAppService(
+        public ProfileAppService(
             IDistributedCache<SecurityTokenCacheItem> securityTokenCache, 
             ITigerIdentityUserRepository userRepository, 
             IdentitySecurityLogManager identitySecurityLogManager, 
@@ -131,14 +133,14 @@ namespace Tiger.Volo.Abp.Account
             var token = await UserManager.GenerateEmailConfirmationTokenAsync(user);
 
             // 发送确认邮件
-            //var sender = LazyServiceProvider.LazyGetRequiredService<IAccountEmailConfirmSender>();
-
-            //await sender.SendEmailConfirmLinkAsync(
-            //    user,
-            //    token,
-            //    input.AppName,
-            //    input.ReturnUrl,
-            //    input.ReturnUrlHash);
+            IAccountEmailConfirmSender accountEmailConfirmSender = null;
+            var sender = LazyGetRequiredService(ref accountEmailConfirmSender);
+            await sender.SendEmailConfirmLinkAsync(
+                user,
+                token,
+                input.AppName,
+                input.ReturnUrl,
+                input.ReturnUrlHash);
         }
 
 
@@ -168,14 +170,18 @@ namespace Tiger.Volo.Abp.Account
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public  virtual Task ChangeAvatarAsync(ChangeAvatarInput input)
+        public async  virtual Task ChangeAvatarAsync(ChangeAvatarInput input)
         {
-            throw new NotImplementedException();
-            //var user = await UserManager.GetByIdAsync(CurrentUser.GetId());
 
-            //user.Claims.RemoveAll(x => x.ClaimType.Equals(IdentityConsts.ClaimType.Avatar.Name, input.AvatarUrl));
+            var user = await UserManager.GetByIdAsync(CurrentUser.GetId());
 
-            //user.AddClaim(GuidGenerator, new Claim())
+            user.Claims.RemoveAll(x => x.ClaimType.Equals(IdentityConsts.ClaimType.Avatar.Name));
+
+            user.AddClaim(GuidGenerator, new Claim(IdentityConsts.ClaimType.Avatar.Name, input.AvatarUrl));
+
+            (await UserManager.UpdateAsync(user)).CheckErrors();
+
+            await CurrentUnitOfWork.SaveChangesAsync();
         }
 
     }

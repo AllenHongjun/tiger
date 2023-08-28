@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -38,7 +40,7 @@ namespace Tiger.Volo.Abp.Account
         //protected IdentityUserStore UserStore => LazyServiceProvider.LazyGetRequiredService<IdentityUserStore>();
         //protected IdentityUserManager UserManager => LazyServiceProvider.LazyGetRequiredService<IdentityUserManager>();
 
-
+        protected SignInManager<IdentityUser> SignInManager { get; }
         protected IdentityUserStore UserStore { get; }
 
         protected IOptions<IdentityOptions> IdentityOptions { get; }
@@ -68,7 +70,8 @@ namespace Tiger.Volo.Abp.Account
             ITigerIdentityUserRepository userRepository,
             ITotpService totpService,
             ISmsSender smsSender,
-            IdentityUserStore userStore) : base(userManager, roleRepository, accountEmailer, identitySecurityLogManager)
+            IdentityUserStore userStore,
+            SignInManager<IdentityUser> signInManager) : base(userManager, roleRepository, accountEmailer, identitySecurityLogManager)
         {
             SecurityTokenCache=securityTokenCache;
             AuditLogRepository=auditLogRepository;
@@ -76,6 +79,7 @@ namespace Tiger.Volo.Abp.Account
             TotpService=totpService;
             SmsSender=smsSender;
             UserStore=userStore;
+            SignInManager=signInManager;
         }
 
 
@@ -333,11 +337,44 @@ namespace Tiger.Volo.Abp.Account
 
         }
 
+
+        public async virtual Task LoginByPhoneCodeAsync(string verifyCode, bool rememberMe, bool rememberBrowser)
+        {
+            var result = await SignInManager.TwoFactorAuthenticatorSignInAsync(verifyCode, rememberMe, rememberBrowser);
+            if (result.Succeeded)
+            {
+                //return RedirectSafely(ReturnUrl, ReturnUrlHash);
+            }
+            //if (result.IsLockedOut)
+            //{
+            //    Logger.LogWarning(7, "User account locked out.");
+            //    Alerts.Warning(L["UserLockedOutMessage"]);
+            //}
+            //else
+            //{
+            //    Alerts.Danger(L["TwoFactorAuthenticationInvaidUser"]);// TODO: 更多状态码的解读
+            //}
+        }
+
+        /// <summary>
+        /// 发送重置密码短信验证码
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         public Task SendPhoneResetPasswordCodeAsync(SendPhoneResetPasswordCode input)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 发送邮件登录验证码
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="UriFormatException"></exception>
+        /// <exception cref="UserFriendlyException"></exception>
+        /// <exception cref="NotImplementedException"></exception>
         public async Task SendEmailSigninCodeAsync(SendEmailSigninCodeDto input)
         {
 
@@ -361,6 +398,7 @@ namespace Tiger.Volo.Abp.Account
         }
 
 
+        #region 工具方法
         ///// <summary>
         ///// 检查是否允许用户注册
         ///// </summary>
@@ -418,7 +456,8 @@ namespace Tiger.Volo.Abp.Account
                     });
             }
 
-        }
+        } 
+        #endregion
 
     }
 }

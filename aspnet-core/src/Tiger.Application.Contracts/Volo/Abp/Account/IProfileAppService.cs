@@ -7,9 +7,9 @@ using Tiger.Volo.Abp.Account.Dto;
 namespace Tiger.Volo.Abp.Account
 {
     /// <summary>
-    /// 针对每个帐户的 数据存储 
+    /// 用户个人介绍服务
     /// </summary>
-    public interface ITigerProfileAppService
+    public interface IProfileAppService
     {
 
         //Task<TwoFactorEnableDto> GetTwoFactorEnabledAsync();
@@ -42,6 +42,11 @@ namespace Tiger.Volo.Abp.Account
         /// <returns></returns>
         Task ConfirmEmailAsync(ComfirmEmailInput input);
 
-
+        /// <summary>
+        /// 修改用户头像
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task ChangeAvatarAsync(ChangeAvatarInput input);
     }
 }

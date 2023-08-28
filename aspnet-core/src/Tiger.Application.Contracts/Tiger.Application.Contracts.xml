@@ -1386,35 +1386,42 @@
             短信验证码
             </summary>
         </member>
-        <member name="T:Tiger.Volo.Abp.Account.ITigerProfileAppService">
+        <member name="T:Tiger.Volo.Abp.Account.IProfileAppService">
             <summary>
-            针对每个帐户的 数据存储 
+            用户个人介绍服务
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.SendChangePhoneNumberCodeAsync(Tiger.Volo.Abp.Account.Dto.SendChangePhoneNumberCodeInput)">
+        <member name="M:Tiger.Volo.Abp.Account.IProfileAppService.SendChangePhoneNumberCodeAsync(Tiger.Volo.Abp.Account.Dto.SendChangePhoneNumberCodeInput)">
             <summary>
             发送改变手机号验证码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.ChangePhoneNumberAsync(Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput)">
+        <member name="M:Tiger.Volo.Abp.Account.IProfileAppService.ChangePhoneNumberAsync(Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput)">
             <summary>
             更改手机绑定
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.SendEmailConfirmLinkAsync(Tiger.Volo.Abp.Account.Dto.SendEmailConfirmCodeDto)">
+        <member name="M:Tiger.Volo.Abp.Account.IProfileAppService.SendEmailConfirmLinkAsync(Tiger.Volo.Abp.Account.Dto.SendEmailConfirmCodeDto)">
             <summary>
             发送确认邮件验证码
             </summary>
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Account.ITigerProfileAppService.ConfirmEmailAsync(Tiger.Volo.Abp.Account.Dto.ComfirmEmailInput)">
+        <member name="M:Tiger.Volo.Abp.Account.IProfileAppService.ConfirmEmailAsync(Tiger.Volo.Abp.Account.Dto.ComfirmEmailInput)">
             <summary>
             确认邮件地址
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.IProfileAppService.ChangeAvatarAsync(Tiger.Volo.Abp.Account.Dto.ChangeAvatarInput)">
+            <summary>
+            修改用户头像
             </summary>
             <param name="input"></param>
             <returns></returns>
