@@ -757,6 +757,13 @@
             用户管理
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.GetListAsync(Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserGetListInput)">
+            <summary>
+            分页获取用户列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.AddToOrganizationUnitsAsync(System.Guid,System.Collections.Generic.List{System.Guid})">
             <summary>
             将用户关联组织

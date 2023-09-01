@@ -6,9 +6,11 @@ using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Sass.Editions;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
+using Volo.Abp.SettingManagement;
 using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace Tiger.Volo.Abp.Identity
@@ -23,6 +25,109 @@ namespace Tiger.Volo.Abp.Identity
             : base(dbContextProvider)
         {
         }
+
+
+        /// <summary>
+        /// 查询用户的数量
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<long> GetCountAsync(Guid? roleId, Guid? organizationUnitId,
+            string userName,
+            string phoneNumber,
+            string name,
+            bool? isLockedOut,
+            bool? notActive,
+            bool? emailConfirmed,
+            bool? isExternal,
+            DateTime? minCreationTime,
+            DateTime? maxCreationTime,
+            DateTime? minModifitionTime,
+            DateTime? maxModifitionTime,
+            string filter = null, CancellationToken cancellationToken = default)
+        {
+            return await DbContext.Set<IdentityUser>()
+                    .WhereIf(roleId.HasValue, x => x.Roles.Any(role => role.RoleId == roleId))
+                    .WhereIf(organizationUnitId.HasValue, x => x.OrganizationUnits.Any(og => og.OrganizationUnitId == organizationUnitId))
+                    .WhereIf(!userName.IsNullOrEmpty(), x => x.UserName.Contains(userName))
+                    .WhereIf(!phoneNumber.IsNullOrEmpty(), x => x.PhoneNumber.Contains(phoneNumber))
+                    .WhereIf(!name.IsNullOrEmpty(), x => !x.Name.Contains(name))
+                    .WhereIf(isLockedOut.HasValue, x =>
+                        (isLockedOut == true && x.LockoutEnd != null &&  x.LockoutEnd >= DateTime.Now) ||
+                        (isLockedOut == false && x.LockoutEnd == null || x.LockoutEnd < DateTime.Now))
+                    //.WhereIf(notActive.HasValue, x => x.Active == notActive)  用户禁用标识
+                    .WhereIf(emailConfirmed.HasValue, x => x.EmailConfirmed == emailConfirmed)
+                    .WhereIf(isExternal.HasValue, x => x.IsExternal == isExternal)
+                    .WhereIf(minCreationTime.HasValue, x => x.CreationTime >= minCreationTime)
+                    .WhereIf(maxCreationTime.HasValue, x => x.CreationTime <= maxCreationTime)
+                    .WhereIf(minModifitionTime.HasValue, x => x.LastModificationTime >= minModifitionTime)
+                    .WhereIf(maxModifitionTime.HasValue, x => x.LastModificationTime <= maxModifitionTime)
+                    .WhereIf(!filter.IsNullOrEmpty(), x => x.UserName.Contains(filter) || x.PhoneNumber.Contains(filter) || x.Email.Contains(filter))
+                    .LongCountAsync(GetCancellationToken(cancellationToken));
+        }
+
+        /// <summary>
+        /// 分页查询用户列表
+        /// </summary>
+        /// <param name="roleId">角色</param>
+        /// <param name="organizationUnitId">组织单位</param>
+        /// <param name="userName">用户名</param>
+        /// <param name="phoneNumber">手机号码</param>
+        /// <param name="name">名称</param>
+        /// <param name="isLockedOut">锁定</param>
+        /// <param name="notActive">用户不可用</param>
+        /// <param name="emailConfirmed">Email confirmed</param>
+        /// <param name="isExternal">External</param>
+        /// <param name="minCreationTime"></param>
+        /// <param name="maxCreationTime"></param>
+        /// <param name="minModifitionTime"></param>
+        /// <param name="maxModifitionTime"></param>
+        /// <param name="sorting"></param>
+        /// <param name="maxResultCount"></param>
+        /// <param name="skipCount"></param>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<List<IdentityUser>> GetListAsync(
+            Guid? roleId, Guid? organizationUnitId,
+            string userName,
+            string phoneNumber,
+            string name,
+            bool? isLockedOut,
+            bool? notActive,
+            bool? emailConfirmed,
+            bool? isExternal,
+            DateTime? minCreationTime,
+            DateTime? maxCreationTime,
+            DateTime? minModifitionTime,
+            DateTime? maxModifitionTime,
+            string sorting = null, int maxResultCount = 50, int skipCount = 0, 
+            string filter = null,  CancellationToken cancellationToken = default)
+        {
+            return await DbContext.Set<IdentityUser>()
+                    .WhereIf(roleId.HasValue, x => x.Roles.Any( role => role.RoleId == roleId))
+                    .WhereIf(organizationUnitId.HasValue, x=> x.OrganizationUnits.Any( og => og.OrganizationUnitId == organizationUnitId))
+                    .WhereIf( !userName.IsNullOrEmpty(), x => x.UserName.Contains(userName))
+                    .WhereIf( !phoneNumber.IsNullOrEmpty(), x => x.PhoneNumber.Contains(phoneNumber))
+                    .WhereIf(!name.IsNullOrEmpty(), x =>  !x.Name.Contains(name))
+                    .WhereIf(isLockedOut.HasValue, x => 
+                        (isLockedOut == true && x.LockoutEnd != null &&  x.LockoutEnd >= DateTime.Now) || 
+                        (isLockedOut == false && x.LockoutEnd == null || x.LockoutEnd < DateTime.Now))
+                    //.WhereIf(notActive.HasValue, x => x.Active == notActive)  用户禁用标识
+                    .WhereIf(emailConfirmed.HasValue, x => x.EmailConfirmed == emailConfirmed)
+                    .WhereIf(isExternal.HasValue, x => x.IsExternal == isExternal  )
+                    .WhereIf(minCreationTime.HasValue, x => x.CreationTime >= minCreationTime)
+                    .WhereIf(maxCreationTime.HasValue, x => x.CreationTime <= maxCreationTime)
+                    .WhereIf(minModifitionTime.HasValue, x => x.LastModificationTime >= minModifitionTime)
+                    .WhereIf(maxModifitionTime.HasValue, x => x.LastModificationTime <= maxModifitionTime)
+                    .WhereIf(!filter.IsNullOrEmpty(), x => x.UserName.Contains(filter) || x.PhoneNumber.Contains(filter) || x.Email.Contains(filter))
+                    .OrderBy(sorting.IsNullOrEmpty() ? nameof(IdentityUser.CreationTime) : sorting)
+                    .PageBy(skipCount, maxResultCount)
+                    .ToListAsync(GetCancellationToken(cancellationToken));
+
+        }
+
 
         /// <summary>
         /// 通过手机号查询用户信息

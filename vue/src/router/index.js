@@ -134,9 +134,9 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/',
+    path: '/documentation',
+    redirect: '/documentation',
     component: Layout,
-    redirect: '/dashboard',
     // 这里开始对应的路由都会显示在app-main中 如上图所示
     children: [
       {

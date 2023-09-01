@@ -37,24 +37,46 @@ namespace Tiger.Volo.Abp.Identity
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly IIdentityUserRepository _identityUserRepository;
+        private readonly ITigerIdentityUserRepository _tigerIdentityUserRepository;
         public TigerIdentityUserAppService(
-            IdentityUserManager userManager, 
-            IIdentityUserRepository userRepository, 
+            IdentityUserManager userManager,
+            IIdentityUserRepository userRepository,
             IIdentityRoleRepository roleRepository,
             IBlobContainer blobContainer,
             IEmailSender emailSender,
             ISmsSender smsSender,
             IIdentityUserRepository identityUserRepository
-            ) : base(userManager, userRepository, roleRepository)
+,
+            ITigerIdentityUserRepository tigerIdentityUserRepository) : base(userManager, userRepository, roleRepository)
         {
             _blobContainer = blobContainer;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _identityUserRepository = identityUserRepository;
+            _tigerIdentityUserRepository=tigerIdentityUserRepository;
         }
 
 
-        
+        /// <summary>
+        /// 分页查询用户列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [Authorize(IdentityPermissions.Users.Default)]
+        public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
+        {
+            var count = await _tigerIdentityUserRepository.GetCountAsync(input.Filter);
+            var list = await _tigerIdentityUserRepository.GetListAsync(input.RoleId,input.OrganizationUnitId,
+                input.UserName,input.PhoneNumber,input.Name,
+                input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
+                input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime,input.MaxModifitionTime, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
+
+            return new PagedResultDto<IdentityUserDto>(
+                count,
+                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(list)
+            );
+        }
+
 
         #region IdentityUser
         /// <summary>

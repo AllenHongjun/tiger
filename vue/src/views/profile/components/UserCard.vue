@@ -45,6 +45,11 @@ import PanThumb from '@/components/PanThumb'
 import {
   createFile
 } from '@/api/file-management.js'
+
+import {
+  createObject
+} from '@/api/system-manage/oss/object'
+
 import {
   getFilePathByName
 } from '@/utils/abp'
@@ -82,10 +87,20 @@ export default {
 
     },
     uploadAvatar(data) {
-      const fd = new FormData()
-      fd.append('file', data.file)
-      createFile(fd).then(resData => {
-        this.user.avatar = resData
+      // if (this.fileList.length < 1) return
+
+      console.log(data)
+
+      const formData = new FormData()
+      // 下面数据是我自己设置的数据,可自行添加数据到formData(使用键值对方式存储)
+      formData.append('Bucket', 'tiger-blob')
+      formData.append('Path', 'tiger-blob')
+      formData.append('FileName', data.file.name)
+      // formData.append('ExpirationTime', undefined)
+      formData.append('File', data.file)// 拿到存在fileList的文件存放到formData中
+
+      createObject(formData).then(resData => {
+        this.user.avatar = 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/' + resData.name
         const userInfo = {
           surname: this.user.surname,
           userName: this.user.userName,
@@ -93,7 +108,7 @@ export default {
           name: this.user.name,
           phoneNumber: this.user.phoneNumber,
           extraProperties: {
-            Avatar: resData,
+            Avatar: 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/' + resData.name,
             Introduction: this.user.introduction
           }
         }

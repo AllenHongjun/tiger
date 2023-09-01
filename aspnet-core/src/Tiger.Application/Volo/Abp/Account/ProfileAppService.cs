@@ -177,7 +177,9 @@ namespace Tiger.Volo.Abp.Account
 
             user.Claims.RemoveAll(x => x.ClaimType.Equals(IdentityConsts.ClaimType.Avatar.Name));
 
-            user.AddClaim(GuidGenerator, new Claim(IdentityConsts.ClaimType.Avatar.Name, input.AvatarUrl));
+            var avatrName = nameof(IdentityConsts.ClaimType.Avatar.Name);
+
+            user.AddClaim(GuidGenerator, new Claim(avatrName, input.AvatarUrl));
 
             (await UserManager.UpdateAsync(user)).CheckErrors();
 

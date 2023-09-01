@@ -15,6 +15,51 @@ namespace Tiger.Volo.Abp.Identity
     {
 
         /// <summary>
+        /// 查询用户数量
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="organizationUnitId"></param>
+        /// <param name="userName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="name"></param>
+        /// <param name="isLockedOut"></param>
+        /// <param name="notActive"></param>
+        /// <param name="emailConfirmed"></param>
+        /// <param name="isExternal"></param>
+        /// <param name="minCreationTime"></param>
+        /// <param name="maxCreationTime"></param>
+        /// <param name="minModifitionTime"></param>
+        /// <param name="maxModifitionTime"></param>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<long> GetCountAsync(Guid? roleId, Guid? organizationUnitId, string userName, string phoneNumber, string name, bool? isLockedOut, bool? notActive, bool? emailConfirmed, bool? isExternal, DateTime? minCreationTime, DateTime? maxCreationTime, DateTime? minModifitionTime, DateTime? maxModifitionTime, string filter = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// 分页查询用户列表
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="organizationUnitId"></param>
+        /// <param name="userName"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="name"></param>
+        /// <param name="isLockedOut"></param>
+        /// <param name="notActive"></param>
+        /// <param name="emailConfirmed"></param>
+        /// <param name="isExternal"></param>
+        /// <param name="minCreationTime"></param>
+        /// <param name="maxCreationTime"></param>
+        /// <param name="minModifitionTime"></param>
+        /// <param name="maxModifitionTime"></param>
+        /// <param name="sorting"></param>
+        /// <param name="maxResultCount"></param>
+        /// <param name="skipCount"></param>
+        /// <param name="filter"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<List<IdentityUser>> GetListAsync(Guid? roleId, Guid? organizationUnitId, string userName, string phoneNumber, string name, bool? isLockedOut, bool? notActive, bool? emailConfirmed, bool? isExternal, DateTime? minCreationTime, DateTime? maxCreationTime, DateTime? minModifitionTime, DateTime? maxModifitionTime, string sorting = null, int maxResultCount = 50, int skipCount = 0, string filter = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// 判断手机号是否被使用
         /// </summary>
         /// <param name="phoneNumber"></param>
@@ -142,6 +187,6 @@ namespace Tiger.Volo.Abp.Identity
             int maxResultCount = 10,
             CancellationToken cancellationToken = default
         );
-
+        
     }
 }

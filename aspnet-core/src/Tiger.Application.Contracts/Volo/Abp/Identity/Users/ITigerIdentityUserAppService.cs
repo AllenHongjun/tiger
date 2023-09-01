@@ -13,6 +13,14 @@ namespace Tiger.Volo.Abp.Identity.Users
 {
     public interface ITigerIdentityUserAppService : IApplicationService
     {
+
+        /// <summary>
+        /// 分页获取用户列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input);
+
         /// <summary>
         /// 添加用户同时关联组织机构
         /// </summary>

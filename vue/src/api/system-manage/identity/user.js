@@ -5,7 +5,7 @@ import { transformAbpListQuery } from '@/utils/abp'
 // user
 export function getUserList(params) {
   return request({
-    url: '/api/identity/users',
+    url: '/api/identity/users/list',
     method: 'get',
     params: transformAbpListQuery(params)
   })

@@ -35,6 +35,18 @@ namespace Tiger.Volo.Abp.Identity
         }
 
 
+        /// <summary>
+        /// 分页获取用户列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("list")]
+        public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
+        {
+            return await _userAppService.GetListAsync(input);
+        }
+
 
         /// <summary>
         /// 将用户关联组织
@@ -126,5 +138,7 @@ namespace Tiger.Volo.Abp.Identity
         {
             return (_userAppService.UnlockAsync(id));
         }
+
+        
     }
 }

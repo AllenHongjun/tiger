@@ -21,6 +21,10 @@
     <NoWarn>1701;1702;CS1591;CS0436;CS1587;</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup>
+	    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="CrystalQuartz.AspNetCore" Version="6.8.1" />
     <PackageReference Include="Serilog" Version="2.12.0" />

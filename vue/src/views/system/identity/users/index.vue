@@ -6,10 +6,50 @@
         <!-- 增加没一列之间的间隔 -->
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-form-item prop="filter" :label="$t('AbpIdentity.Search')">
-              <el-input v-model="listQuery.filter" :placeholder="$t('AbpIdentity.Search')" />
+            <el-form-item prop="filter" label="查询">
+              <el-input v-model="listQuery.filter" placeholder="请输入用户名/手机号/邮箱" />
             </el-form-item>
           </el-col>
+          <el-col :span="4">
+            <el-form-item prop="roleId" :label="$t('AbpIdentity.Roles')">
+              <el-select v-model="listQuery.roleId" class="filter-item" :placeholder="$t('AbpIdentity.Roles')" clearable>
+                <el-option v-for="item in roleOptions" :key="item.id" :label="item.name" :value="item.id" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item prop="organizationUnitId" label="组织">
+              <el-select v-model="listQuery.organizationUnitId" class="filter-item" placeholder="请选择组织" clearable>
+                <el-option v-for="item in orgOptions" :key="item.id" :label="item.displayName" :value="item.id" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item prop="emailConfirmed" label="邮箱确认">
+              <el-select v-model="listQuery.emailConfirmed" class="filter-item" placeholder="请选择" clearable>
+                <el-option label="是" :value="true" />
+                <el-option label="否" :value="false" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item prop="isExternal" label="外部用户">
+              <el-select v-model="listQuery.isExternal" class="filter-item" placeholder="请选择" clearable>
+                <el-option label="是" :value="true" />
+                <el-option label="否" :value="false" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="4">
+            <el-form-item prop="userName" label="用户名">
+              <el-input v-model="listQuery.userName" placeholder="用户名" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item prop="phoneNumber" label="手机号">
+              <el-input v-model="listQuery.phoneNumber" placeholder="手机号" />
+            </el-form-item>
+          </el-col> -->
 
           <el-col :span="4">
             <el-button-group>
@@ -19,10 +59,10 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpIdentity.Reset') }}
               </el-button>
-              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                            {{ advanced ? '收起' :  '展开'}}
-                            <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-                        </el-link> -->
+              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+                {{ advanced ? '收起' : '展开' }}
+                <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
+              </el-link>
             </el-button-group>
           </el-col>
         </el-row>
@@ -30,48 +70,46 @@
         <el-collapse-transition>
           <div v-show="advanced">
             <el-row :gutter="10">
-              <el-col :span="4">
-                <el-form-item prop="roleNames" label="角色">
-                  <el-input v-model="listQuery.roleNames" placeholder="角色" />
+              <el-col :span="8">
+                <el-form-item prop="queryCreationTime" label="创建时间">
+                  <el-date-picker v-model="queryCreationTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <el-form-item prop="queryModifitionTime" label="修改时间">
+                  <el-date-picker v-model="queryModifitionTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
                 </el-form-item>
               </el-col>
               <el-col :span="4">
-                <el-form-item prop="OrganizationUnit" label="组织机构">
-                  <el-input v-model="listQuery.OrganizationUnit" placeholder="组织机构" />
+                <el-form-item prop="isLockedOut" label="锁定">
+                  <el-select v-model="listQuery.isLockedOut" class="filter-item" placeholder="请选择" clearable>
+                    <el-option label="是" :value="true" />
+                    <el-option label="否" :value="false" />
+                  </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="4">
-                <el-form-item prop="userName" :label="$t('AbpIdentity[\'UserName\']')">
-                  <el-input v-model="listQuery.userName" :placeholder="$t('AbpIdentity[\'UserName\']')" />
+              <!-- <el-col :span="4">
+                <el-form-item prop="notActive" label="启用">
+                  <el-select v-model="listQuery.notActive" class="filter-item" placeholder="请选择" clearable>
+                    <el-option label="是" :value="true" />
+                    <el-option label="否" :value="false" />
+                  </el-select>
                 </el-form-item>
-              </el-col>
-              <el-col :span="4">
-                <el-form-item prop="phoneNumber" :label="$t('AbpIdentity[\'PhoneNumber\']')">
-                  <el-input v-model="listQuery.phoneNumber" :placeholder="$t('AbpIdentity[\'PhoneNumber\']')" />
+              </el-col> -->
+
+              <!-- <el-col :span="4">
+                <el-form-item prop="minModifitionTime" label="修改时间">
+                  <el-input v-model="listQuery.minModifitionTime" placeholder="修改时间" />
                 </el-form-item>
-              </el-col>
-              <el-col :span="4">
-                <el-form-item prop="emailAddress" :label="$t('AbpIdentity[\'EmailAddress\']')">
-                  <el-input v-model="listQuery.emailAddress" :placeholder="$t('AbpIdentity[\'EmailAddress\']')" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="1">
-                <el-form-item prop="isActive">
-                  <el-checkbox v-model="listQuery.isActive">启用</el-checkbox>
-                </el-form-item>
-              </el-col>
-              <el-col :span="1">
-                <el-form-item prop="isLockOut">
-                  <el-checkbox v-model="listQuery.isLockOut">锁定</el-checkbox>
-                </el-form-item>
-              </el-col>
+              </el-col> -->
+
             </el-row>
 
           </div>
         </el-collapse-transition>
 
         <el-row>
-          <el-col :span="4">
+          <el-col :span="12">
             <el-button-group style="float:left">
               <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
                 {{ $t("AbpIdentity['NewUser']") }}
@@ -79,9 +117,12 @@
               <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
                 {{ $t("AbpIdentity['Refresh']") }}
               </el-button>
-              <!-- <el-button type="reset" icon="el-icon-download" @click="handleDownload">
-                            导出
-                        </el-button> -->
+              <el-button type="reset" icon="el-icon-import">
+                导入
+              </el-button>
+              <el-button type="reset" icon="el-icon-download" @click="handleDownload">
+                导出
+              </el-button>
             </el-button-group>
 
           </el-col>
@@ -89,8 +130,9 @@
       </el-form>
     </div>
 
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row :default-sort="{prop:'creationTime', order: 'descending'}" @sort-change="sortChange">
-
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row stripe :default-sort="{prop:'creationTime', order: 'descending'}" @sort-change="sortChange">
+      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column type="index" width="50" align="center" />
       <el-table-column :label="$t('AbpIdentity[\'UserName\']')" align="center" width="120" prop="userName" sortable="custom">
         <template slot-scope="scope">
           {{ scope.row.userName }}
@@ -150,7 +192,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="right" label="操作" width="220">
+      <el-table-column align="left" label="操作" width="220">
         <template slot-scope="scope">
           <el-dropdown trigger="click" @command="handleCommand">
             <el-button type="primary" size="small">
@@ -268,9 +310,19 @@ import {
   getAssignableRoles,
   getRolesByUserId
 } from '@/api/system-manage/identity/user'
+import {
+  getRoleList
+} from '@/api/system-manage/identity/role'
+import {
+  getOrganizations
+} from '@/api/system-manage/identity/organization-unit'
 
 import baseListQuery from '@/utils/abp'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import {
+  pickerRangeWithHotKey
+} from '@/utils/picker'
+
 import {
   validEmail,
   validPhone
@@ -410,22 +462,26 @@ export default {
       listLoading: true,
       advanced: false, // 判断搜索栏展开/收起
       total: 0,
-      listQuery: {
-        filter: '',
-        page: 1,
-        limit: 10,
-        sort: 'creationTime descending',
-
-        roleNames: '',
-        organiztion: '',
-        username: '',
-        phone: '',
-        emailAddress: '',
-        lockoutEnd: '',
-        isLockOut: '',
-        isActive: '' // 是否启用
-      },
-
+      roleOptions: [],
+      orgOptions: [],
+      queryCreationTime: undefined, // 时间范围过滤条件
+      queryModifitionTime: undefined,
+      pickerOptions: pickerRangeWithHotKey,
+      listQuery: Object.assign({
+        roleId: undefined,
+        organizationUnitId: undefined,
+        userName: undefined,
+        phoneNumber: undefined,
+        name: undefined,
+        isLockedOut: undefined,
+        notActive: undefined,
+        emailConfirmed: undefined,
+        isExternal: undefined,
+        minCreationTime: undefined,
+        maxCreationTime: undefined,
+        minModifitionTime: undefined,
+        maxModifitionTime: undefined
+      }, baseListQuery),
       checkAll: false,
       checkedRoles: [],
       roles: [],
@@ -549,10 +605,46 @@ export default {
   },
   created() {
     this.fetchData()
+    this.fetchRoleOptions()
+    this.fetchOrgOptions()
   },
   methods: {
+    fetchRoleOptions() {
+      getRoleList({
+        page: 1,
+        limit: 1000
+      }).then((response) => {
+        this.roleOptions = response.items
+      })
+    },
+    fetchOrgOptions() {
+      getOrganizations({
+        page: 1,
+        limit: 1000
+      }).then((response) => {
+        this.orgOptions = response.items
+      })
+    },
+    datePickerChange(value) {
+      if (!value) {
+        // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
+        this.listQuery.minCreationTime = undefined
+        this.listQuery.maxCreationTime = undefined
+
+        this.listQuery.minModifitionTime = undefined
+        this.listQuery.maxModifitionTime = undefined
+      }
+    },
     fetchData() {
       this.listLoading = true
+      if (this.queryCreationTime) {
+        this.listQuery.minCreationTime = this.queryCreationTime[0]
+        this.listQuery.maxCreationTime = this.queryCreationTime[1]
+      }
+      if (this.queryModifitionTime) {
+        this.listQuery.minModifitionTime = this.queryModifitionTime[0]
+        this.listQuery.maxModifitionTime = this.queryModifitionTime[1]
+      }
       getUserList(this.listQuery).then((response) => {
         this.list = response.items
         this.total = response.totalCount
@@ -892,6 +984,9 @@ export default {
       if (orgIds) {
         this.temp.orgIds = orgIds
       }
+    },
+    handleDownload() {
+      console.log('开发中..')
     }
   }
 }

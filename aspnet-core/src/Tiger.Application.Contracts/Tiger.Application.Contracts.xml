@@ -2768,6 +2768,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.Users.ITigerIdentityUserAppService.GetListAsync(Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserGetListInput)">
+            <summary>
+            分页获取用户列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.Users.ITigerIdentityUserAppService.AddToOrganizationUnitsAsync(System.Guid,System.Collections.Generic.List{System.Guid})">
             <summary>
             添加用户同时关联组织机构
