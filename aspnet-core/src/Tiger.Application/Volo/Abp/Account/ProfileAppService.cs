@@ -170,6 +170,7 @@ namespace Tiger.Volo.Abp.Account
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// <remarks> 通用用户声明类型配置用户头像</remarks>
         public async  virtual Task ChangeAvatarAsync(ChangeAvatarInput input)
         {
 

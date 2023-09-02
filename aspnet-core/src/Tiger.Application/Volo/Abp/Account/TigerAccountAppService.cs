@@ -96,8 +96,9 @@ namespace Tiger.Volo.Abp.Account
             string token,
             string template,
             CancellationToken cancellation = default)
-        {
-            Check.NotNullOrWhiteSpace(template, nameof(template));
+        {   
+            // 测试暂时注释
+            //Check.NotNullOrWhiteSpace(template, nameof(template));
 
             var smsMessage = new SmsMessage(phone, token);
             smsMessage.Properties.Add("code", token);
@@ -422,14 +423,19 @@ namespace Tiger.Volo.Abp.Account
         }
 
 
-        protected virtual Task CheckNewUserPhoneNumberNotBeUsedAsync(string phoneNumber)
+        /// <summary>
+        /// 检查手机号是否被使用
+        /// </summary>
+        /// <param name="phoneNumber">手机号</param>
+        /// <returns></returns>
+        /// <exception cref="UserFriendlyException"></exception>
+        protected virtual async Task CheckNewUserPhoneNumberNotBeUsedAsync(string phoneNumber)
         {
 
-            throw new NotImplementedException();
-            //if (await UserRepository.IsPhoneNumberUedAsync(phoneNumber))
-            //{
-            //    throw new UserFriendlyException(L["DuplicatePhoneNumber"]);
-            //}
+            if (await UserRepository.IsPhoneNumberUsedAsync(phoneNumber))
+            {
+                throw new UserFriendlyException(L["DuplicatePhoneNumber"]);
+            }
         }
 
 

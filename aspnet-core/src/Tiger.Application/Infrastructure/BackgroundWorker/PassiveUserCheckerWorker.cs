@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Tiger.Users;
 using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.DependencyInjection;

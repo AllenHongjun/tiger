@@ -22,9 +22,9 @@
     <el-form-item label="手机号" prop="phoneNumber">
       <el-input v-model.trim="userInfo.phoneNumber" />
     </el-form-item>
-    <!-- <el-form-item label="个人介绍">
-        <el-input v-model.trim="userInfo.extraProperties.Introduction" type="textarea" :rows="2" placeholder="请输入个人介绍" />
-    </el-form-item> -->
+    <el-form-item label="个人介绍">
+      <el-input v-model.trim="userInfo.extraProperties.Introduction" type="textarea" :rows="2" placeholder="请输入自我介绍" />
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submit">提交</el-button>
     </el-form-item>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using Tiger.Volo.Abp.Identity.Users;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.TenantManagement;
@@ -41,6 +42,25 @@ namespace Tiger.EntityFrameworkCore
                  * See the documentation for more:
                  * https://docs.abp.io/en/abp/latest/Customizing-Application-Modules-Extending-Entities
                  */
+
+                // AbpUser表添加扩展字段
+                ObjectExtensionManager.Instance
+                    .MapEfCoreProperty<IdentityUser, string>(
+                        nameof(AppUser.Avatar),
+                        (entityBuilder, propertyBuilder) =>
+                        {
+                            propertyBuilder.HasMaxLength(AppUserConsts.MaxAvatarLength);
+                        }
+                    )
+                    .MapEfCoreProperty<IdentityUser, string>(
+                        nameof(AppUser.Introduction),
+                        (entityBuilder, propertyBuilder) =>
+                        {
+                            propertyBuilder.HasMaxLength(AppUserConsts.MaxIntroductionLength);
+                        }
+                    );
+
+
 
 
                 ObjectExtensionManager.Instance

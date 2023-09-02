@@ -919,6 +919,7 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+            <remarks> 通用用户声明类型配置用户头像</remarks>
         </member>
         <member name="T:Tiger.Volo.Abp.Account.TigerAccountAppService">
             <summary>
@@ -992,6 +993,14 @@
             <exception cref="T:System.UriFormatException"></exception>
             <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.CheckNewUserPhoneNumberNotBeUsedAsync(System.String)">
+            <summary>
+            检查手机号是否被使用
+            </summary>
+            <param name="phoneNumber">手机号</param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
         </member>
         <member name="M:Tiger.Volo.Abp.Account.TigerAccountAppService.ThrowIfInvalidEmailAddress(System.String)">
             <summary>

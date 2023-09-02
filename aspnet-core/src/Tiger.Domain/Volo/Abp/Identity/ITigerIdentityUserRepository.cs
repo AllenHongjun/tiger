@@ -67,7 +67,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns></returns>
         Task<bool> IsPhoneNumberUsedAsync(
             string phoneNumber,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
             );
 
         /// <summary>

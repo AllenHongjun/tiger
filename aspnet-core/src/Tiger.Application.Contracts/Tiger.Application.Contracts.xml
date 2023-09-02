@@ -1351,6 +1351,14 @@
             例如 IBookAppService 接口和 BookCreationDto 类都适合放在这个项目中.
             </summary>
         </member>
+        <member name="T:Tiger.TigerDtoExtensions">
+            <summary>
+            
+            </summary>
+            <remarks>
+            实体扩展 https://docs.abp.io/zh-Hans/abp/latest/Object-Extensions
+            </remarks>
+        </member>
         <member name="T:Tiger.Volo.Abp.Account.Dto.ChangeAvatarInput">
             <summary>
             修改头像

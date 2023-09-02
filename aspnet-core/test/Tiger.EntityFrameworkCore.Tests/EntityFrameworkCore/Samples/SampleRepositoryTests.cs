@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tiger.Users;
 using Shouldly;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Xunit;
+using Tiger.Volo.Abp.Identity.Users;
 
 namespace Tiger.EntityFrameworkCore.Samples
 {

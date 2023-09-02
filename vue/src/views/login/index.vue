@@ -77,7 +77,7 @@
             <span class="svg-container">
               <svg-icon icon-class="phone" />
             </span>
-            <el-input ref="phone" v-model="smsLoginForm.smsLoginForm" placeholder="请输入手机号" name="phone" type="text" tabindex="1" auto-complete="on" />
+            <el-input ref="phone" v-model="smsLoginForm.phone" placeholder="请输入手机号" name="phone" type="text" tabindex="1" auto-complete="on" />
           </el-form-item>
 
           <el-form-item prop="code">
@@ -127,6 +127,9 @@ import {
 import {
   getTenantByName
 } from '@/api/user'
+import {
+  SendSignCode
+} from '@/api/account'
 import SocialSign from './components/SocialSignin'
 
 export default {
@@ -235,7 +238,8 @@ export default {
         }
       })
     },
-    getValidStr() {
+    // 执行倒计时
+    execCountdown() {
       if (this.countdown > 0 && this.countdown <= 60) {
         this.countdown--
         if (this.countdown !== 0) {
@@ -252,11 +256,24 @@ export default {
     },
     // 发送短信验证码
     handelSendSmsCode() {
-      // 验证码60秒倒计时
-      if (!this.timer) {
-        this.getValidStr()
-        this.timer = setInterval(this.getValidStr, 1000)
+      console.log('smsLoginForm', this.smsLoginForm)
+      var input = {
+        phoneNumber: this.smsLoginForm.phone
       }
+      SendSignCode(input).then((response) => {
+        console.log('response', response)
+        // 验证码60秒倒计时
+        if (!this.timer) {
+          this.getValidStr()
+          this.timer = setInterval(this.execCountdown, 1000)
+        }
+        this.$notify({
+          title: '成功',
+          message: '请求成功',
+          type: 'success',
+          duration: 2000
+        })
+      })
     },
     handleSmsLogin() {
       this.$message('短信登录中...')

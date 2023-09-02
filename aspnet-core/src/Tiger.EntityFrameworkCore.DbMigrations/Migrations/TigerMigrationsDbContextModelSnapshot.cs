@@ -1893,6 +1893,10 @@ namespace Tiger.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(1024);
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnName("ConcurrencyStamp")
@@ -1930,6 +1934,10 @@ namespace Tiger.Migrations
                     b.Property<string>("ExtraProperties")
                         .HasColumnName("ExtraProperties")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Introduction")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(1024);
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()

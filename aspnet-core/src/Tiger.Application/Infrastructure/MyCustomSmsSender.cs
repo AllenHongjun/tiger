@@ -7,12 +7,12 @@ using Volo.Abp.Sms;
 
 namespace Tiger.Module.Helper
 {
-    public class MyCustomSmsSender : ISmsSender, ITransientDependency
-    {
-        public Task SendAsync(SmsMessage smsMessage)
-        {
-            // Send sms
-            throw new NotImplementedException();
-        }
-    }
+    //public class MyCustomSmsSender : ISmsSender, ITransientDependency
+    //{
+    //    public Task SendAsync(SmsMessage smsMessage)
+    //    {
+    //        // Send sms
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

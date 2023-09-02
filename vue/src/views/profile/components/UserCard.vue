@@ -24,19 +24,19 @@
         </el-upload>
       </div>
     </div>
-    <!-- <div class="user-bio">
-        <div class="user-education user-bio-section">
-            <div class="user-bio-section-header">
-                <svg-icon icon-class="education" />
-                <span>个人介绍</span>
-            </div>
-            <div class="user-bio-section-body">
-                <div class="text-muted">
-                    {{user.introduction? user.introduction: '个人介绍内容'}}
-                </div>
-            </div>
+    <div class="user-bio">
+      <div class="user-education user-bio-section">
+        <div class="user-bio-section-header">
+          <svg-icon icon-class="education" />
+          <span>个人介绍</span>
         </div>
-    </div> -->
+        <div class="user-bio-section-body">
+          <div class="text-muted">
+            {{ user.introduction? user.introduction: '自我介绍' }}
+          </div>
+        </div>
+      </div>
+    </div>
   </el-card>
 </template>
 
@@ -89,8 +89,6 @@ export default {
     uploadAvatar(data) {
       // if (this.fileList.length < 1) return
 
-      console.log(data)
-
       const formData = new FormData()
       // 下面数据是我自己设置的数据,可自行添加数据到formData(使用键值对方式存储)
       formData.append('Bucket', 'tiger-blob')
@@ -100,7 +98,7 @@ export default {
       formData.append('File', data.file)// 拿到存在fileList的文件存放到formData中
 
       createObject(formData).then(resData => {
-        this.user.avatar = 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/' + resData.name
+        this.user.avatar = 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/tiger-blob/' + resData.name
         const userInfo = {
           surname: this.user.surname,
           userName: this.user.userName,
@@ -108,7 +106,7 @@ export default {
           name: this.user.name,
           phoneNumber: this.user.phoneNumber,
           extraProperties: {
-            Avatar: 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/' + resData.name,
+            Avatar: 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/tiger-blob/' + resData.name,
             Introduction: this.user.introduction
           }
         }

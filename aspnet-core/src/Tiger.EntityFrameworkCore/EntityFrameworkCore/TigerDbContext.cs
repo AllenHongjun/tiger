@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using Tiger.Books;
 using Tiger.Business.Demo;
 using Tiger.CoreModule.DataFiltiering;
-using Tiger.Users;
 using Tiger.Volo.Abp.Sass.Editions;
 using Tiger.Volo.Abp.Sass.Tenants;
 using Volo.Abp.Data;
@@ -20,6 +19,8 @@ using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Platform.Menus;
 using Tiger.Module.System.Platform.Layouts;
 using Tiger.Module.TaskManagement;
+using Volo.Abp.Users;
+using Tiger.Volo.Abp.Identity.Users;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -113,6 +114,8 @@ namespace Tiger.EntityFrameworkCore
                 /* Configure mappings for your additional properties
                  * Also see the TigerEfCoreEntityExtensionMappings class
                  */
+                b.Property(x => x.Avatar).IsRequired(false).HasMaxLength(AppUserConsts.MaxAvatarLength).HasColumnName(nameof(AppUser.Avatar));
+                b.Property(x => x.Introduction).IsRequired(false).HasMaxLength(AppUserConsts.MaxIntroductionLength).HasColumnName(nameof(AppUser.Introduction));
             });
 
             /* Configure your own tables/entities inside the ConfigureTiger method */
