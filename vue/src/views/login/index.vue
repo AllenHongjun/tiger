@@ -264,7 +264,7 @@ export default {
         console.log('response', response)
         // 验证码60秒倒计时
         if (!this.timer) {
-          this.getValidStr()
+          this.execCountdown()
           this.timer = setInterval(this.execCountdown, 1000)
         }
         this.$notify({
