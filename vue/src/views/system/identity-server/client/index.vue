@@ -51,77 +51,47 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Client:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="170px">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Client:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="10vh" width="65%">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="300px">
         <el-tabs v-model="dialogTabActiveName">
           <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="first">
+            <el-form-item label="Enabled" prop="requirePkce">
+              <span slot="label">
+                <el-tooltip content="Is Enable" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                Enabled
+              </span>
+              <el-switch v-model="temp.enabled" />
+            </el-form-item>
             <el-form-item :label="$t('AbpIdentityServer[\'Client:Id\']')" prop="clientId">
+              <span slot="label">
+                <el-tooltip content="The unique identifier for this application" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Client:Id\']') }}
+              </span>
               <el-input v-model="temp.clientId" />
             </el-form-item>
             <el-form-item :label="$t('AbpIdentityServer[\'Client:Name\']')" prop="clientName">
+              <span slot="label">
+                <el-tooltip content="Friendly name for this client application" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Client:Name\']') }}
+              </span>
               <el-input v-model="temp.clientName" />
             </el-form-item>
             <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
-              <el-input v-model="temp.description" />
+              <span slot="label">
+                <el-tooltip content="Application description for use within Tiger" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Description\']') }}
+              </span>
+              <el-input v-model="temp.description" type="textarea" :autosize="{ minRows:4, maxRows:6}" />
             </el-form-item>
-            <el-form-item :label="$t('AbpIdentityServer[\'Client:ClientUri\']')" prop="clientUri">
-              <el-input v-model="temp.clientUri" />
-            </el-form-item>
-            <el-form-item :label="$t('AbpIdentityServer[\'Client:LogoUri\']')" prop="logoUri">
-              <el-input v-model="temp.logoUri" />
-            </el-form-item>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Client:Enabled\']')" prop="enabled">
-                  <el-checkbox v-model="temp.enabled" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Client:ProtocolType\']')" prop="protocolType">
-                  <el-select v-model="temp.protocolType" placeholder="请选择">
-                    <el-option key="" label="OpenID Connect" value="oidc" />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Client:RequireRequestObject\']')" prop="requireRequestObject">
-                  <el-checkbox v-model="temp.requireRequestObject" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Client:AllowedIdentityTokenSigningAlgorithms\']')" prop="allowedIdentityTokenSigningAlgorithms">
-                  <el-checkbox v-model="temp.allowedIdentityTokenSigningAlgorithms" />
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Client:RequiredPkce\']')" prop="requiredPkce">
-                  <el-checkbox v-model="temp.requiredPkce" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Client:AllowedPlainTextPkce\']')" prop="allowedPlainTextPkce">
-                  <el-checkbox v-model="temp.allowedPlainTextPkce" />
-                </el-form-item>
-              </el-col>
-            </el-row>
-
-            <el-row>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Client:RequireConsent\']')" prop="requireConsent">
-                  <el-checkbox v-model="temp.requireConsent" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12"><el-form-item :label="$t('AbpIdentityServer[\'Client:AllowRememberConsent\']')" prop="allowRememberConsent">
-                <el-checkbox v-model="temp.allowRememberConsent" />
-              </el-form-item></el-col>
-            </el-row>
           </el-tab-pane>
           <el-tab-pane label="Secret" name="second">
             <client-secret>11</client-secret>
@@ -131,13 +101,82 @@
           </el-tab-pane>
           <el-tab-pane class="advance" label="Advance" name="fourth">
             <el-tabs type="card">
+              <el-tab-pane label="Consent">
+                <client-consent />
+              </el-tab-pane>
               <el-tab-pane label="Tokens">
                 <client-token />
               </el-tab-pane>
-              <el-tab-pane label="Claims">配置管理</el-tab-pane>
-              <el-tab-pane label="Grant Types">角色管理</el-tab-pane>
-              <el-tab-pane label="Properties">定时任务补偿</el-tab-pane>
-              <el-tab-pane label="Others">定时任务补偿</el-tab-pane>
+              <el-tab-pane label="Refresh Token">
+                <client-refresh-token />
+              </el-tab-pane>
+              <el-tab-pane label="Signin Signout">
+                <client-signin-signout />
+              </el-tab-pane>
+              <el-tab-pane label="Device Flow">
+                <el-form-item label="Device Flow Request Lifetime" prop="deviceCodeLifetime">
+                  <span slot="label">
+                    <el-tooltip content="Lifetime in seconds" placement="top">
+                      <i class="el-icon-question" />
+                    </el-tooltip>
+                    Device Flow Request Lifetime
+                  </span>
+                  <el-input v-model="temp.deviceCodeLifetime" />
+                </el-form-item>
+                <el-form-item label="User Code Generator Type" prop="userCodeType">
+                  <span slot="label">
+                    <el-tooltip content="Override default type" placement="top">
+                      <i class="el-icon-question" />
+                    </el-tooltip>
+                    Device Flow Request Lifetime
+                  </span>
+                  <el-input v-model="temp.userCodeType" />
+                </el-form-item>
+              </el-tab-pane>
+              <el-tab-pane label="PKCE">
+                <el-form-item label="Require PKCE" prop="requirePkce">
+                  <span slot="label">
+                    <el-tooltip content="Enable to send the session ID during single sign-out" placement="top">
+                      <i class="el-icon-question" />
+                    </el-tooltip>
+                    Require PKCE
+                  </span>
+                  <el-switch v-model="temp.requirePkce" />
+                </el-form-item>
+                <el-form-item label="Allow Plain Text PKCE" prop="allowPlainTextPkce">
+                  <span slot="label">
+                    <el-tooltip content="Allows the client to send unhashed code verifiers. Not recommended" placement="top">
+                      <i class="el-icon-question" />
+                    </el-tooltip>
+                    Allow Plain Text PKCE
+                  </span>
+                  <el-switch v-model="temp.allowPlainTextPkce" />
+                </el-form-item>
+              </el-tab-pane>
+              <el-tab-pane label="Claims">Claims</el-tab-pane>
+              <el-tab-pane label="Grant Types">Grant Types</el-tab-pane>
+              <el-tab-pane label="Identity Providers">Identity Providers</el-tab-pane>
+              <el-tab-pane label="Properties">Properties</el-tab-pane>
+              <el-tab-pane label="Others">
+                <el-form-item label="SSO Lifetime" prop="userSsoLifetime">
+                  <span slot="label">
+                    <el-tooltip content="Lifetime in seconds between user authentication challenges. Defaults to IdentityServer session lifetime" placement="top">
+                      <i class="el-icon-question" />
+                    </el-tooltip>
+                    SSO Lifetime
+                  </span>
+                  <el-input v-model="temp.userSsoLifetime" />
+                </el-form-item>
+                <el-form-item label="Pairwise Subject Salt" prop="pairWiseSubjectSalt">
+                  <span slot="label">
+                    <el-tooltip content="The salt value used when generating pairwise subject IDs" placement="top">
+                      <i class="el-icon-question" />
+                    </el-tooltip>
+                    Pairwise Subject Salt
+                  </span>
+                  <el-input v-model="temp.pairWiseSubjectSalt" />
+                </el-form-item>
+              </el-tab-pane>
             </el-tabs>
           </el-tab-pane>
         </el-tabs>
@@ -166,9 +205,12 @@ import {
 } from '@/api/system-manage/identity-server/client'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
-import ClientSecret from './components/ClientSecret'
-import ClientIdentityResource from './components/ClientIdentityResource'
-import ClientToken from './components/ClientToken'
+import ClientSecret from './components/ClientSecret.vue'
+import ClientIdentityResource from './components/ClientIdentityResource.vue'
+import ClientConsent from './components/ClientConsent.vue'
+import ClientToken from './components/ClientToken.vue'
+import ClientRefreshToken from './components/ClientRefreshToken.vue'
+import ClientSigninSignout from './components/ClientSigninSignout.vue'
 
 import baseListQuery, {
   checkPermission
@@ -180,7 +222,10 @@ export default {
     Pagination,
     ClientSecret,
     ClientIdentityResource,
-    ClientToken
+    ClientConsent,
+    ClientToken,
+    ClientRefreshToken,
+    ClientSigninSignout
   },
   filters: {
     enableFilter(enable) {
