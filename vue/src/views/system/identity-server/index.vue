@@ -2,6 +2,7 @@
   <div class="layout">
     <router-view />
   </div>
+  <!-- docker本地运行环境 docker run -it -p 3000:3000 --name allinone rocksolidknowledge/identityserver-dev-sso -->
 </template>
 
 <style scoped>

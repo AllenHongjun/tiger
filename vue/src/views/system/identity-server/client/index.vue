@@ -14,17 +14,17 @@
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AbpIdentityServer[\'Client:Id\']')" prop="clientId" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Client:Id\']')" prop="clientId" sortable align="center" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.clientId }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'Client:Name\']')" prop="clientName" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Client:Name\']')" prop="clientName" sortable align="center" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.clientName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'Client:Enabled\']')" prop="enabled" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Client:Enabled\']')" prop="enabled" sortable align="center" width="120">
         <template slot-scope="{row}">
           <el-tag :type="row.enabled | enableFilter">
             {{ row.enabled == true ? '启用' : '禁用' }}
@@ -123,9 +123,23 @@
               </el-form-item></el-col>
             </el-row>
           </el-tab-pane>
-          <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-          <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-          <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
+          <el-tab-pane label="Secret" name="second">
+            <client-secret>11</client-secret>
+          </el-tab-pane>
+          <el-tab-pane label="ClientIdentityResource" name="third">
+            <client-identity-resource />
+          </el-tab-pane>
+          <el-tab-pane class="advance" label="Advance" name="fourth">
+            <el-tabs type="card">
+              <el-tab-pane label="Tokens">
+                <client-token />
+              </el-tab-pane>
+              <el-tab-pane label="Claims">配置管理</el-tab-pane>
+              <el-tab-pane label="Grant Types">角色管理</el-tab-pane>
+              <el-tab-pane label="Properties">定时任务补偿</el-tab-pane>
+              <el-tab-pane label="Others">定时任务补偿</el-tab-pane>
+            </el-tabs>
+          </el-tab-pane>
         </el-tabs>
 
       </el-form>
@@ -140,7 +154,7 @@
     </el-dialog>
   </div>
 </template>
-
+ClientToken
 <script>
 import {
   getClients,
@@ -151,6 +165,11 @@ import {
   deleteClient
 } from '@/api/system-manage/identity-server/client'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+
+import ClientSecret from './components/ClientSecret'
+import ClientIdentityResource from './components/ClientIdentityResource'
+import ClientToken from './components/ClientToken'
+
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
@@ -158,7 +177,10 @@ import baseListQuery, {
 export default {
   name: 'Clients',
   components: {
-    Pagination
+    Pagination,
+    ClientSecret,
+    ClientIdentityResource,
+    ClientToken
   },
   filters: {
     enableFilter(enable) {
@@ -216,9 +238,9 @@ export default {
         userCodeType: '',
         deviceCodeLifetime: 0
       },
-      dialogFormVisible: false,
+      dialogFormVisible: true,
       dialogStatus: '',
-      dialogTabActiveName: 'first',
+      dialogTabActiveName: 'fourth',
       // 表单验证规则
       rules: {
         name: [
@@ -377,3 +399,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.line{
+  text-align: center;
+}
+
+/*.advance .el-tabs .el-tabs__item{
+ margin-right:5px;
+}*/
+</style>
+

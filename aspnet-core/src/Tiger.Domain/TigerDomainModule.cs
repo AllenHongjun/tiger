@@ -222,8 +222,8 @@ namespace Tiger
 
 #if DEBUG
             //NullEmailSender 是实现 IEmailSender 的内置类，但将电子邮件内容写入 标准日志系统，而不是实际发送电子邮件。
-            //context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
-            //context.Services.Replace(ServiceDescriptor.Singleton<ISmsSender, NullSmsSender>());
+            context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
+            context.Services.Replace(ServiceDescriptor.Singleton<ISmsSender, NullSmsSender>());
 #endif
         }
 
