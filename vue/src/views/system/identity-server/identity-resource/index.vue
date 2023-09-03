@@ -66,58 +66,78 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="150px">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="180px">
 
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="first">
+            <el-form-item :label="$t('AbpIdentityServer[\'Enabled\']')" prop="requirePkce">
+              <span slot="label">
+                <el-tooltip content="Is Enable" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Enabled\']') }}
+              </span>
+              <el-switch v-model="temp.enabled" />
+            </el-form-item>
             <el-form-item :label="$t('AbpIdentityServer[\'Name\']')" prop="name">
+              <span slot="label">
+                <el-tooltip content="The unique identifier for this resource. Used in requests" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Name\']') }}
+              </span>
               <el-input v-model="temp.name" />
             </el-form-item>
             <el-form-item :label="$t('AbpIdentityServer[\'DisplayName\']')" prop="displayName">
+              <span slot="label">
+                <el-tooltip content="Resource name that will be seen on consent screens" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'DisplayName\']') }}
+              </span>
               <el-input v-model="temp.displayName" />
             </el-form-item>
             <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
-              <el-input v-model="temp.description" />
+              <span slot="label">
+                <el-tooltip content="Resource description that will be seen on consent screens" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Description\']') }}
+              </span>
+              <el-input v-model="temp.description" type="textarea" :autosize="{ minRows:4, maxRows:6}" />
             </el-form-item>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled">
-                  <template>
-                    <el-radio v-model="temp.enabled" :label="true">是</el-radio>
-                    <el-radio v-model="temp.enabled" :label="false">否</el-radio>
-                  </template>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Required\']')" prop="required">
-                  <template>
-                    <el-radio v-model="temp.required" :label="true">是</el-radio>
-                    <el-radio v-model="temp.required" :label="false">否</el-radio>
-                  </template>
-                </el-form-item>
-              </el-col>
-            </el-row>
+            <el-form-item :label="$t('AbpIdentityServer[\'Required\']')" prop="required">
+              <span slot="label">
+                <el-tooltip content="Consent to use resource is required to complete authentication" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Required\']') }}
+              </span>
+              <el-switch v-model="temp.required" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument">
+              <span slot="label">
+                <el-tooltip content="Resource appears within Discovery Document (/.well-known/openid-configuration)" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'ShowInDiscoveryDocument\']') }}
+              </span>
+              <el-switch v-model="temp.showInDiscoveryDocument" />
+            </el-form-item>
+            <el-form-item :label="$t('AbpIdentityServer[\'Emphasize\']')" prop="emphasize">
+              <span slot="label">
+                <el-tooltip content="Is Enable" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentityServer[\'Emphasize\']') }}
+              </span>
+              <el-switch v-model="temp.emphasize" />
+            </el-form-item>
 
-            <el-row>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'Emphasize\']')" prop="emphasize">
-                  <template>
-                    <el-radio v-model="temp.emphasize" :label="true">是</el-radio>
-                    <el-radio v-model="temp.emphasize" :label="false">否</el-radio>
-                  </template>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument">
-                  <template>
-                    <el-radio v-model="temp.showInDiscoveryDocument" :label="true">是</el-radio>
-                    <el-radio v-model="temp.showInDiscoveryDocument" :label="false">否</el-radio>
-                  </template>
-                </el-form-item>
-              </el-col>
-            </el-row>
           </el-tab-pane>
-          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="second">UserClaim</el-tab-pane>
+          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="second">
+            UserClaim
+          </el-tab-pane>
           <el-tab-pane :label="$t('AbpIdentityServer[\'Propertites\']')" name="third">Propertites</el-tab-pane>
         </el-tabs>
 
@@ -160,14 +180,24 @@ export default {
       listLoading: true,
       listQuery: baseListQuery,
       temp: {
-        id: undefined,
         name: '',
         displayName: '',
         description: '',
-        path: '',
-        redirect: '',
-        dataId: undefined,
-        freamwork: ''
+        enabled: true,
+        required: true,
+        emphasize: true,
+        showInDiscoveryDocument: true,
+        userClaims: [
+          {
+            type: ''
+          }
+        ],
+        properties: [
+          {
+            'key': '',
+            'value': ''
+          }
+        ]
       },
       dialogFormVisible: false,
       dialogStatus: '',
