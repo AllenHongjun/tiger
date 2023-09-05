@@ -14,6 +14,17 @@
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
+
+      <el-table-column :label="$t('AbpIdentityServer[\'Name\']')" prop="name" sortable align="center" width="120">
+        <template slot-scope="{ row }">
+          <span>{{ row.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpIdentityServer[\'DisplayName\']')" align="center" width="180">
+        <template slot-scope="{ row }">
+          <span>{{ row.displayName }}</span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled" align="center" width="100">
         <template slot-scope="{ row }">
           <el-tag :type="row.enabled ? 'primary' : 'danger'" disable-transitions>{{ row.enabled ? '启用' : '禁用' }}</el-tag>
@@ -24,22 +35,7 @@
           <el-tag :type="row.required ? 'primary' : 'danger'" disable-transitions>{{ row.required ? '是' : '否' }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'Name\']')" prop="name" sortable align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
 
-      <el-table-column :label="$t('AbpIdentityServer[\'DisplayName\']')" align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.displayName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'Description\']')" prop="description" sortable align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.description }}</span>
-        </template>
-      </el-table-column>
       <el-table-column :label="$t('AbpIdentityServer[\'Emphasize\']')" prop="emphasize" align="center" width="100">
         <template slot-scope="{ row }">
           <el-tag :type="row.emphasize ? 'primary' : 'danger'" disable-transitions>{{ row.emphasize ? '是' : '否' }}</el-tag>
@@ -48,6 +44,11 @@
       <el-table-column :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument" align="center" width="140">
         <template slot-scope="{ row }">
           <el-tag :type="row.showInDiscoveryDocument ? 'primary' : 'danger'" disable-transitions>{{ row.showInDiscoveryDocument ? '是' : '否' }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpIdentityServer[\'Description\']')" prop="description" sortable align="center">
+        <template slot-scope="{ row }">
+          <span>{{ row.description }}</span>
         </template>
       </el-table-column>
 
@@ -65,7 +66,7 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="8vh">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="180px">
 
         <el-tabs v-model="activeName" @tab-click="handleClick">

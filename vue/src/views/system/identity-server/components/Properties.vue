@@ -1,11 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-row style="margin-bottom: 20px">
-        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
-          {{ $t('AbpUi.Search') }}
-        </el-button>
+      <el-row>
         <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
           {{ $t("AppPlatform['Layout:AddNew']") }}
         </el-button>
@@ -24,21 +20,6 @@
           <span>{{ row.displayName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description" sortable align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.description }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Path\']')" prop="path" sortable align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.path }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Redirect\']')" prop="redirect" sortable align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.redirect }}</span>
-        </template>
-      </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
@@ -52,8 +33,6 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
-
     <el-dialog :title=" dialogStatus == 'create'? $t('AppPlatform[\'Layout:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" append-to-body>
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
         <el-form-item :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name">
@@ -62,21 +41,6 @@
         <el-form-item :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" prop="displayName">
           <el-input v-model="temp.displayName" />
         </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description">
-          <el-input v-model="temp.description" />
-        </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Path\']')" prop="path">
-          <el-input v-model="temp.path" />
-        </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Redirect\']')" prop="redirect">
-          <el-input v-model="temp.redirect" />
-        </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Freamwork\']')" prop="freamwork">
-          <el-input v-model="temp.freamwork" />
-        </el-form-item>
-        <!-- <el-form-item :label="$t('AppPlatform[\'DisplayName:DataId\']')" prop="dataId">
-          <el-input v-model="temp.dataId" />
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -99,7 +63,6 @@ import {
   updateLayout,
   deleteLayout
 } from '@/api/system-manage/platform/layout'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
@@ -107,7 +70,6 @@ import baseListQuery, {
 export default {
   name: 'Properties',
   components: {
-    Pagination
   },
   data() {
     return {

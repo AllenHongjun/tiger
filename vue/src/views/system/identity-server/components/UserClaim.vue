@@ -6,8 +6,6 @@
         v-model="value"
         style="text-align: left; display: inline-block"
         filterable
-        :left-default-checked="[2, 3]"
-        :right-default-checked="[1]"
         :render-content="renderFunc"
         :titles="['Source', 'Target']"
         :button-texts="['到左边', '到右边']"
@@ -26,32 +24,49 @@
 </template>
 
 <script>
+import {
+  getClaimTypes
+
+} from '@/api/system-manage/identity/claim-type'
+
 export default {
   name: 'UserClaim',
   data() {
-    const generateData = _ => {
-      const data = []
-      for (let i = 1; i <= 15; i++) {
-        data.push({
-          key: i,
-          label: `备选项 ${i}`,
-          disabled: i % 4 === 0
-        })
-      }
-      return data
-    }
     return {
-      data: generateData(),
+      data: [],
       value: [1],
       value4: [1],
       renderFunc(h, option) {
-        return <span>{ option.key } - { option.label }</span>
+        return <span>{ option.label }</span>
       }
     }
   },
+  created() {
+    this.$nextTick(() => {
+      this.fetchClaimTypes()
+    })
+  },
   methods: {
+    fetchClaimTypes() {
+      const input = {
+        page: 1,
+        limit: 999
+      }
+      getClaimTypes(input).then(response => {
+        const data = []
+        for (let i = 0; i < response.items.length; i++) {
+          data.push({
+            key: response.items[i].id,
+            label: response.items[i].name,
+            disabled: false
+          })
+        }
+        this.data = data
+      })
+    },
     handleChange(value, direction, movedKeys) {
-      console.log(value, direction, movedKeys)
+      // console.log('value', value, 'direction', direction, 'movedKeys', movedKeys)
+      // TODO: 调用接口保存数据
     },
     onSubmit() {
       this.$message('submit!')
@@ -70,7 +85,12 @@ export default {
 .line{
   text-align: center;
 }
-.transfer-footer {
+
+/* /deep/ 语法不可用 https://juejin.cn/post/7085915259541667847*/
+::v-deep .el-transfer-panel{
+  width: 275px;
+}
+ .transfer-footer {
   margin-left: 20px;
   padding: 6px 5px;
 }
