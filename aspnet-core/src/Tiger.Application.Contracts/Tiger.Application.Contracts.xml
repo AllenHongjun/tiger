@@ -2358,6 +2358,31 @@
             客户端属性
             </summary>
         </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.CreateUpdatePersistedGrantDto.Key">
+            <summary>
+            授权标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.CreateUpdatePersistedGrantDto.Type">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.CreateUpdatePersistedGrantDto.SubjectId">
+            <summary>
+            会话标识
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.CreateUpdatePersistedGrantDto.Expiration">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Volo.Abp.IdentityServer.Grants.Dto.CreateUpdatePersistedGrantDto.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.Grants.Dto.PersistedGrantDto">
             <summary>
             持久授权

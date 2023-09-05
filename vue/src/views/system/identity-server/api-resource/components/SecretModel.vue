@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'CN',
+  name: 'SecretModel',
   data() {
     return {
       blank: {

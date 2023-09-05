@@ -75,6 +75,8 @@ namespace Tiger.Volo.Abp.IdentityServer
         public static class Grants
         {
             public const string Default = GroupName + ".Grants";
+            public const string Create = Default + ".Create";
+            public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";
         }
 

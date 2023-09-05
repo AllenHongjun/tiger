@@ -98,12 +98,19 @@
               </template>
             </el-form-item>
           </el-tab-pane>
-          <!-- Api 资源用户声明 -->
-          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="claim">配置管理</el-tab-pane>
           <!-- Api 资源范围 -->
           <el-tab-pane :label="$t('AbpIdentityServer[\'Scope\']')" name="scope">角色管理</el-tab-pane>
+          <!-- Api 资源用户声明 -->
+          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="claim">
+            <user-claim />
+          </el-tab-pane>
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Secret\']')" name="secret">
+            <secret />
+          </el-tab-pane>
           <!-- Api 资源密钥/属性 -->
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Advanced\']')" name="advanced">定时任务补偿</el-tab-pane>
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Advanced\']')" name="properties">
+            <properties />
+          </el-tab-pane>
         </el-tabs>
 
       </el-form>
@@ -128,6 +135,9 @@ import {
   deleteApiResource
 } from '@/api/system-manage/identity-server/api-resource'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import UserClaim from '../components/UserClaim.vue'
+import Properties from '../components/Properties.vue'
+import Secret from './components/Secret.vue'
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
@@ -135,7 +145,10 @@ import baseListQuery, {
 export default {
   name: 'ApiResources',
   components: {
-    Pagination
+    Pagination,
+    UserClaim,
+    Secret,
+    Properties
   },
   data() {
     return {

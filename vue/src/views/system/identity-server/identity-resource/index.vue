@@ -164,6 +164,7 @@ import {
   updateIdentityResource,
   deleteIdentityResource
 } from '@/api/system-manage/identity-server/identity-resource'
+
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import UserClaim from '../components/UserClaim.vue'
 import Properties from '../components/Properties.vue'
@@ -180,6 +181,7 @@ export default {
   },
   data() {
     return {
+
       tableKey: 0,
       list: null,
       total: 0,
@@ -275,10 +277,12 @@ export default {
         this.listLoading = false
       })
     },
+
     handleFilter(firstPage = true) {
       if (firstPage) this.listQuery.page = 1
       this.getList()
     },
+
     sortChange(data) {
       const {
         prop,

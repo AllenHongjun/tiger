@@ -76,6 +76,8 @@ namespace Tiger.Volo.Abp.IdentityServer
                 L("Permissions:Grants"), 
                 MultiTenancySides.Host);
             persistedGrantPermissions.AddChild(IdentityServerPermissions.Grants.Delete, L("Permissions:Delete"), MultiTenancySides.Host);
+            persistedGrantPermissions.AddChild(IdentityServerPermissions.Grants.Create, L("Permissions:Create"), MultiTenancySides.Host);
+            persistedGrantPermissions.AddChild(IdentityServerPermissions.Grants.Update, L("Permissions:Update"), MultiTenancySides.Host);
 
 
 

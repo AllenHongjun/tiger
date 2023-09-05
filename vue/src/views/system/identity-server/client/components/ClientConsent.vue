@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  name: 'CN',
+  name: 'ClientConsent',
   data() {
     return {
       ruleForm: {

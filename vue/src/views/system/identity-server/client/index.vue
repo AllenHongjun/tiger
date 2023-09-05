@@ -153,10 +153,16 @@
                   <el-switch v-model="temp.allowPlainTextPkce" />
                 </el-form-item>
               </el-tab-pane>
-              <el-tab-pane label="Claims">Claims</el-tab-pane>
-              <el-tab-pane label="Grant Types">Grant Types</el-tab-pane>
+              <el-tab-pane label="Claims">
+                <userClaim />
+              </el-tab-pane>
+              <el-tab-pane label="Grant Types">
+                <client-grant-type />
+              </el-tab-pane>
               <el-tab-pane label="Identity Providers">Identity Providers</el-tab-pane>
-              <el-tab-pane label="Properties">Properties</el-tab-pane>
+              <el-tab-pane label="Properties">
+                <properties />
+              </el-tab-pane>
               <el-tab-pane label="Others">
                 <el-form-item label="SSO Lifetime" prop="userSsoLifetime">
                   <span slot="label">
@@ -211,6 +217,9 @@ import ClientConsent from './components/ClientConsent.vue'
 import ClientToken from './components/ClientToken.vue'
 import ClientRefreshToken from './components/ClientRefreshToken.vue'
 import ClientSigninSignout from './components/ClientSigninSignout.vue'
+import ClientGrantType from './components/ClientGrantType.vue'
+import UserClaim from '../components/UserClaim.vue'
+import Properties from '../components/Properties.vue'
 
 import baseListQuery, {
   checkPermission
@@ -225,7 +234,10 @@ export default {
     ClientConsent,
     ClientToken,
     ClientRefreshToken,
-    ClientSigninSignout
+    ClientSigninSignout,
+    ClientGrantType,
+    UserClaim,
+    Properties
   },
   filters: {
     enableFilter(enable) {

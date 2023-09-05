@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Tiger.Module.System.Platform.Layouts.Dto;
 using Tiger.Volo.Abp.IdentityServer.Grants;
 using Tiger.Volo.Abp.IdentityServer.Grants.Dto;
 using Volo.Abp;
@@ -9,6 +10,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.IdentityServer;
 using Volo.Abp.IdentityServer.Grants;
+using Volo.Abp.ObjectMapping;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
@@ -31,6 +33,29 @@ namespace Tiger.Volo.Abp.IdentityServer
             ITigerPersistentGrantRepository persistentGrantRepository) : base(repository)
         {
             PersistentGrantRepository = persistentGrantRepository;
+        }
+
+        public override async Task<PersistedGrantDto> CreateAsync(CreateUpdatePersistedGrantDto input)
+        {
+            var persistedGrant = await PersistentGrantRepository.FindByKeyAsync(input.Key);
+            if (persistedGrant != null)
+            {
+                throw new UserFriendlyException(L["DuplicateLayout", input.Key]);
+            }
+
+            persistedGrant = new PersistedGrant(
+                GuidGenerator.Create()
+                );
+            
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return ObjectMapper.Map<PersistedGrant, PersistedGrantDto>(persistedGrant);
+
+        }
+
+        public override Task<PersistedGrantDto> UpdateAsync(Guid id, CreateUpdatePersistedGrantDto input)
+        {
+            return base.UpdateAsync(id, input); 
         }
 
 

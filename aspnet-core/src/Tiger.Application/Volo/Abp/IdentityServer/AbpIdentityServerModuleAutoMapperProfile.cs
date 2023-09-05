@@ -2,9 +2,11 @@
 using Tiger.Volo.Abp.IdentityServer.ApiResources;
 using Tiger.Volo.Abp.IdentityServer.ApiScopes;
 using Tiger.Volo.Abp.IdentityServer.Clients;
+using Tiger.Volo.Abp.IdentityServer.Grants.Dto;
 using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.IdentityServer.ApiResources;
 using Volo.Abp.IdentityServer.Clients;
+using Volo.Abp.IdentityServer.Grants;
 using Volo.Abp.IdentityServer.IdentityResources;
 
 namespace Tiger.Volo.Abp.IdentityServer
@@ -52,8 +54,7 @@ namespace Tiger.Volo.Abp.IdentityServer
             CreateMap<IdentityResource, IdentityResourceDto>()
                 .MapExtraProperties();
 
-            //CreateMap<PersistedGrant, PersistedGrantDto>()
-            //    .MapExtraProperties();
+            CreateMap<PersistedGrant, PersistedGrantDto>();
         }
     }
 }
