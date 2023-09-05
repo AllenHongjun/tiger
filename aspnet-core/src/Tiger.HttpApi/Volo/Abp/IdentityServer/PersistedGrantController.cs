@@ -28,6 +28,31 @@ namespace Tiger.Volo.Abp.IdentityServer
 
         protected IPersistedGrantAppService PersistedGrantAppService { get; }
 
+
+        /// <summary>
+        /// 创建授权
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<PersistedGrantDto> CreateAsync(CreateUpdatePersistedGrantDto input)
+        {
+            return await PersistedGrantAppService.CreateAsync(input);
+        }
+
+        /// <summary>
+        /// 更新授权
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<PersistedGrantDto> UpdateAsync(Guid id, CreateUpdatePersistedGrantDto input)
+        {
+            return await PersistedGrantAppService.UpdateAsync(id, input);
+        }
+
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -62,6 +87,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         {
             return await PersistedGrantAppService.GetListAsync(input);
         }
+
         
     }
 }

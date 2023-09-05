@@ -98,6 +98,12 @@ const SystemManageRouter = {
           component: () => import('@/views/system/identity-server/identity-resource/index'),
           name: 'identity-resource',
           meta: { title: '标识资源', policy: 'IdentityServer.IdentityResources' }
+        },
+        {
+          path: '/persisted-grant/list',
+          component: () => import('@/views/system/identity-server/persisted-grant/index'),
+          name: 'persisted-grant',
+          meta: { title: '持续授权', policy: 'IdentityServer.IdentityResources' }
         }
 
       ]

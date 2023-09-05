@@ -136,9 +136,11 @@
 
           </el-tab-pane>
           <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="second">
-            UserClaim
+            <user-claim />
           </el-tab-pane>
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Propertites\']')" name="third">Propertites</el-tab-pane>
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Propertites\']')" name="third">
+            <properties />
+          </el-tab-pane>
         </el-tabs>
 
       </el-form>
@@ -163,6 +165,8 @@ import {
   deleteIdentityResource
 } from '@/api/system-manage/identity-server/identity-resource'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import UserClaim from '../components/UserClaim.vue'
+import Properties from '../components/Properties.vue'
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
@@ -170,7 +174,9 @@ import baseListQuery, {
 export default {
   name: 'IdentityResources',
   components: {
-    Pagination
+    Pagination,
+    UserClaim,
+    Properties
   },
   data() {
     return {
