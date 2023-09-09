@@ -97,7 +97,7 @@ const SystemManageRouter = {
           path: '/identity-resource/list',
           component: () => import('@/views/system/identity-server/identity-resource/index'),
           name: 'identity-resource',
-          meta: { title: '标识资源', policy: 'IdentityServer.IdentityResources' }
+          meta: { title: '身份资源', policy: 'IdentityServer.IdentityResources' }
         },
         {
           path: '/persisted-grant/list',

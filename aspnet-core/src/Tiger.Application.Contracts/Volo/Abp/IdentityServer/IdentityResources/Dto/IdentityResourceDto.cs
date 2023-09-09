@@ -57,12 +57,14 @@ namespace Tiger.Volo.Abp.IdentityServer.IdentityResources
         /// <summary>
         /// 属性
         /// </summary>
-        public List<IdentityResourcePropertyDto> Properties { get; set; }
+        //public List<IdentityResourcePropertyDto> Properties { get; set; }
+
+        public  Dictionary<string, string> Properties { get; set; }
 
         public IdentityResourceDto()
         {
             UserClaims = new List<IdentityResourceClaimDto>();
-            Properties = new List<IdentityResourcePropertyDto>();
+            Properties = new Dictionary<string, string>();
         }
     }
 }

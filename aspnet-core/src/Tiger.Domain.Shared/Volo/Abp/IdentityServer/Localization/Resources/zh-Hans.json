@@ -71,6 +71,7 @@
     "Secret:HashType": "哈希类型",
     "Secret:HashTypeOnlySharedSecret": "哈希类型仅适用于 SharedSecret 类型",
     "Secret:Value": "值",
+    "Secret:Description": "描述",
     "Client:Enabled": "启用客户端",
     "Client:New": "添加新客户端",
     "Client:Edit": "编辑客户端",

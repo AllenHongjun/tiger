@@ -194,6 +194,8 @@ namespace Tiger.Volo.Abp.IdentityServer
             {
                 client.ProtocolType = input.ProtocolType;
             }
+
+            // 当前3.1 版本没有该字段
             //if (!string.Equals(client.AllowedIdentityTokenSigningAlgorithms, input.AllowedIdentityTokenSigningAlgorithms, StringComparison.InvariantCultureIgnoreCase))
             //{
             //    client.AllowedIdentityTokenSigningAlgorithms = input.AllowedIdentityTokenSigningAlgorithms;

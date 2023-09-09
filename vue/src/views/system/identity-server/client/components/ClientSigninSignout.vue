@@ -45,14 +45,23 @@
 <script>
 export default {
   name: 'ClientSigninSignout',
+  props: {
+    ruleForm: {
+      type: Object,
+      require: false,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function() {
+        return {
+          frontChannelLogoutUri: '',
+          frontChannelLogoutSessionRequired: false,
+          backChannelLogoutUri: '',
+          backChannelLogoutSessionRequired: false
+        }
+      }
+    }
+  },
   data() {
     return {
-      ruleForm: {
-        frontChannelLogoutUri: '',
-        frontChannelLogoutSessionRequired: false,
-        backChannelLogoutUri: '',
-        backChannelLogoutSessionRequired: false
-      },
       rules: {
 
       }

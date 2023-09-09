@@ -20,6 +20,9 @@ using Volo.Abp.Uow;
 
 namespace Tiger.Volo.Abp.IdentityServer
 {
+    /// <summary>
+    /// 身份资源
+    /// </summary>
     [RemoteService(false)]
     [Authorize(IdentityServerPermissions.IdentityResources.Default)]
     public class IdentityResourceAppService :
@@ -167,28 +170,25 @@ namespace Tiger.Volo.Abp.IdentityServer
                 }
             }
 
-            #region 删除不存在的Property
-            //if (await PermissionChecker.IsGrantedAsync(IdentityServerPermissions.IdentityResources.ManageProperties))
-            //{
-            //    
-            //    identityResource.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
-            //    foreach (var inputProp in input.Properties)
-            //    {
-            //        var identityResourceProperty = identityResource.FindProperty(inputProp.Key);
-            //        if (identityResourceProperty == null)
-            //        {
-            //            identityResource.AddProperty(inputProp.Key, inputProp.Value);
-            //        }
-            //        else
-            //        {
-            //            identityResourceProperty.Value = inputProp.Value;
-            //        }
-
-            //    }
-            //} 
+            #region Property
+            if (await PermissionChecker.IsGrantedAsync(IdentityServerPermissions.IdentityResources.ManageProperties))
+            {
+                identityResource.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
+                foreach (var inputProp in input.Properties)
+                {
+                    var identityResourceProperty = identityResource.Properties.FirstOrDefault( x => x.Key ==  inputProp.Key);
+                    if (identityResourceProperty.Key == null)
+                    {
+                        identityResource.Properties.Add(inputProp.Key, inputProp.Value);
+                    }
+                    else
+                    {   
+                        identityResource.Properties.Remove(inputProp.Key);
+                        identityResource.Properties.Add(inputProp.Key, inputProp.Value);
+                    }
+                }
+            }
             #endregion
         }
-
-        
     }
 }

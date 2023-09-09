@@ -2,46 +2,45 @@
   <div class="app-container">
     <div class="filter-container">
       <el-row>
-        <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" type="primary" icon="el-icon-plus" @click="handleCreate">
-          {{ $t("AbpIdentityServer['Permissions:Create']") }}
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+          {{ $t("AbpIdentityServer['Propertites:New']") }}
         </el-button>
       </el-row>
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="grantType" align="left">
+      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Key\']')" prop="key" sortable align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.grantType }}</span>
+          <span>{{ row.key }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Value\']')" align="center">
+        <template slot-scope="{ row }">
+          <span>{{ row.value }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="200" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" @click="handleUpdate(row)">
+          <el-button type="primary" @click="handleUpdate(row)">
             {{ $t("AbpUi['Edit']") }}
           </el-button>
-          <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" @click="handleDelete(row, $index)">
+          <el-button type="danger" @click="handleDelete(row, $index)">
             {{ $t("AbpUi['Delete']") }}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Permissions:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" append-to-body>
+    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Propertites:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" append-to-body>
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AbpIdentityServer[\'Client:AllowedGrantTypes\']')" prop="grantType">
-          <el-select v-model="temp.grantType" placeholder="请选择grantType">
-            <el-option label="implicit" value="implicit" />
-            <el-option label="authorization_code" value="authorization_code" />
-            <el-option label="hybrid" value="hybrid" />
-            <el-option label="password" value="password" />
-            <el-option label="device_flow" value="device_flow" />
-            <el-option label="ciba" value="ciba" />
-            <el-option label="Custom" value="Custom" />
-          </el-select>
+        <el-form-item :label="$t('AbpIdentityServer[\'Propertites:Key\']')" prop="key">
+          <el-input v-model="temp.key" />
         </el-form-item>
-
+        <el-form-item :label="$t('AbpIdentityServer[\'Propertites:Value\']')" prop="value">
+          <el-input v-model="temp.value" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -61,14 +60,23 @@ import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
 
+/*
+1. 将propertie 的数组从父组件传递进入子组件中。
+2. 在子组件中，添加更新修改删除数据。
+3. 修改后的 propertie的数据传递给父组件
+4. 在父组件中一起保存数据
+
+*/
+
 export default {
-  name: 'ClientGrantType',
+  name: 'ClientProperties',
   components: {
   },
   props: {
-    allowedGrantTypes: {
+    properties: {
       type: Array,
       require: false,
+      // 对象或数组默认值必须从一个工厂函数获取
       default: function() {
         return []
       }
@@ -82,10 +90,8 @@ export default {
       listLoading: true,
       listQuery: baseListQuery,
       temp: {
-        id: undefined,
-        name: '',
-        grantType: ''
-
+        key: '',
+        value: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -122,7 +128,20 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      this.list = this.allowedGrantTypes
+
+      // var data = []
+      // // console.log('this.properties', this.properties)
+      // var properties = this.properties
+      // // 将对象转为数组
+      // Object.keys(properties).forEach(function(key) {
+      //   console.log('person', key, ':', properties[key])
+      //   var item = {
+      //     key: key,
+      //     value: properties[key]
+      //   }
+      //   data.push(item)
+      // })
+      this.list = this.properties
       this.listLoading = false
     },
     handleFilter(firstPage = true) {
@@ -141,10 +160,8 @@ export default {
     // 重置表单
     resetTemp() {
       this.temp = {
-        id: undefined,
-        name: '',
-        grantType: ''
-
+        key: '',
+        value: ''
       }
     },
 
@@ -164,9 +181,12 @@ export default {
         if (valid) {
           this.list.unshift(this.temp)
           this.dialogFormVisible = false
+          // 触发子组件设置userClaims的事件，然后父组件监听该事件
+          console.log('this.list', this.list)
+          this.$emit('set-properties', this.list)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
-            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+            message: '请别忘记点击保存按钮哦',
             type: 'success',
             duration: 2000
           })
@@ -179,7 +199,6 @@ export default {
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
-
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -189,9 +208,10 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          const index = this.list.findIndex((v) => v.id === this.temp.id)
+          const index = this.list.findIndex((v) => v.key === this.temp.key)
           this.list.splice(index, 1, this.temp)
           this.dialogFormVisible = false
+          this.$emit('set-properties', this.list)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),
@@ -217,8 +237,9 @@ export default {
         }
       ).then(async() => {
         // 回调函数
-        const index = this.list.findIndex((v) => v.id === row.id)
+        const index = this.list.findIndex((v) => v.key === row.key)
         this.list.splice(index, 1)
+        this.$emit('set-properties', this.list)
         this.$notify({
           title: this.$i18n.t("TigerUi['Success']"),
           message: this.$i18n.t("TigerUi['SuccessMessage']"),

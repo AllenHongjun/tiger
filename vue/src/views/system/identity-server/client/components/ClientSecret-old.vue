@@ -52,13 +52,17 @@
         <el-input v-model="ruleForm.description" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" />
       </el-form-item>
 
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Secret',
+  name: 'ClientSecret',
   props: {
     providerName: {
       type: String,
@@ -82,19 +86,13 @@ export default {
       },
       rules: {
         value: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 0, max: 15, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
 
         expiration: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-        ],
-        type: [
-          { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-        ],
-        description: [
-          { required: true, message: '请填写活动形式', trigger: 'blur' }
+          { type: 'date', message: '请选择日期', trigger: 'change' }
         ]
+
       }
     }
   },

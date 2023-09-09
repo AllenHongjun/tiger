@@ -69,21 +69,27 @@
 <script>
 export default {
   name: 'ClientRefreshToken',
+  props: {
+    ruleForm: {
+      type: Object,
+      require: false,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function() {
+        return {
+          allowOfflineAccess: false,
+          updateAccessTokenClaimsOnRefresh: false,
+          refreshTokenType: 'Absolute',
+          refreshTokenExpiration: 0,
+          absoluteRefreshTokenLifetime: 0,
+          slidingRefreshTokenLifetime: 0,
+          refreshTokenUsage: 1
+        }
+      }
+    }
+  },
   data() {
     return {
-      ruleForm: {
-
-        allowOfflineAccess: false,
-        updateAccessTokenClaimsOnRefresh: false,
-        refreshTokenType: 'Absolute',
-        refreshTokenExpiration: 0,
-        absoluteRefreshTokenLifetime: 0,
-        slidingRefreshTokenLifetime: 0,
-        refreshTokenUsage: 1
-
-      },
       rules: {
-
       }
     }
   },
@@ -92,7 +98,6 @@ export default {
   },
   methods: {
     refreshTokenExpirationChange(value) {
-      // console.log('refreshTokenExpirationChange', value)
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

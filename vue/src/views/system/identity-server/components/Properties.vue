@@ -2,44 +2,44 @@
   <div class="app-container">
     <div class="filter-container">
       <el-row>
-        <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-          {{ $t("AppPlatform['Layout:AddNew']") }}
+        <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+          {{ $t("AbpIdentityServer['Propertites:New']") }}
         </el-button>
       </el-row>
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Key\']')" prop="key" sortable align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <span>{{ row.key }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Value\']')" align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.displayName }}</span>
+          <span>{{ row.value }}</span>
         </template>
       </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" @click="handleUpdate(row)">
+          <el-button type="primary" @click="handleUpdate(row)">
             {{ $t("AbpUi['Edit']") }}
           </el-button>
-          <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" @click="handleDelete(row, $index)">
+          <el-button type="danger" @click="handleDelete(row, $index)">
             {{ $t("AbpUi['Delete']") }}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppPlatform[\'Layout:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" append-to-body>
+    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Propertites:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" append-to-body>
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name">
-          <el-input v-model="temp.name" />
+        <el-form-item :label="$t('AbpIdentityServer[\'Propertites:Key\']')" prop="key">
+          <el-input v-model="temp.key" />
         </el-form-item>
-        <el-form-item :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" prop="displayName">
-          <el-input v-model="temp.displayName" />
+        <el-form-item :label="$t('AbpIdentityServer[\'Propertites:Value\']')" prop="value">
+          <el-input v-model="temp.value" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -55,21 +55,32 @@
 </template>
 
 <script>
-import {
-  getLayouts,
-  getLayout,
-  getLayoutsAll,
-  createLayout,
-  updateLayout,
-  deleteLayout
-} from '@/api/system-manage/platform/layout'
+
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
 
+/*
+1. 将propertie 的数组从父组件传递进入子组件中。
+2. 在子组件中，添加更新修改删除数据。
+3. 修改后的 propertie的数据传递给父组件
+4. 在父组件中一起保存数据
+
+*/
+
 export default {
   name: 'Properties',
   components: {
+  },
+  props: {
+    properties: {
+      type: Object,
+      require: false,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function() {
+        return {}
+      }
+    }
   },
   data() {
     return {
@@ -79,14 +90,8 @@ export default {
       listLoading: true,
       listQuery: baseListQuery,
       temp: {
-        id: undefined,
-        name: '',
-        displayName: '',
-        description: '',
-        path: '',
-        redirect: '',
-        dataId: undefined,
-        freamwork: ''
+        key: '',
+        value: ''
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -109,78 +114,8 @@ export default {
             ),
             trigger: 'blur'
           }
-        ],
-        displayName: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:DisplayName']")
-            ]),
-            trigger: 'blur'
-          },
-          {
-            max: 256,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Name']"), '256']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        description: [
-          {
-            max: 256,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Description']"), '256']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        path: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:Path']")
-            ]),
-            trigger: 'blur'
-          },
-          {
-            max: 256,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Path']"), '256']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        redirect: [
-          {
-            max: 255,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Redirect']"), '255']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        freamwork: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:Freamwork']")
-            ]),
-            trigger: 'blur'
-          },
-          {
-            max: 255,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Freamwork']"), '255']
-            ),
-            trigger: 'blur'
-          }
         ]
+
       }
     }
   },
@@ -193,12 +128,22 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      getLayouts(this.listQuery).then(response => {
-        this.list = response.items
-        this.total = response.totalCount
 
-        this.listLoading = false
+      var data = []
+      // console.log('this.properties', this.properties)
+      var properties = this.properties
+      // 将对象转为数组
+      Object.keys(properties).forEach(function(key) {
+        console.log('person', key, ':', properties[key])
+        var item = {
+          key: key,
+          value: properties[key]
+        }
+        data.push(item)
       })
+      // console.log('this.data', data)
+      this.list = data
+      this.listLoading = false
     },
     handleFilter(firstPage = true) {
       if (firstPage) this.listQuery.page = 1
@@ -216,14 +161,8 @@ export default {
     // 重置表单
     resetTemp() {
       this.temp = {
-        id: undefined,
-        name: '',
-        displayName: '',
-        description: '',
-        path: '',
-        redirect: '',
-        dataId: undefined,
-        freamwork: ''
+        key: '',
+        value: ''
       }
     },
 
@@ -241,15 +180,16 @@ export default {
     createData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          createLayout(this.temp).then(() => {
-            this.list.unshift(this.temp)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: this.$i18n.t("TigerUi['Success']"),
-              message: this.$i18n.t("TigerUi['SuccessMessage']"),
-              type: 'success',
-              duration: 2000
-            })
+          this.list.unshift(this.temp)
+          this.dialogFormVisible = false
+          // 触发子组件设置userClaims的事件，然后父组件监听该事件
+          console.log('this.list', this.list)
+          this.$emit('set-properties', this.list)
+          this.$notify({
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: '请别忘记点击保存按钮哦',
+            type: 'success',
+            duration: 2000
           })
         }
       })
@@ -260,11 +200,6 @@ export default {
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
-
-      getLayout(row.id).then(response => {
-        this.temp = response
-      })
-
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
@@ -274,16 +209,15 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          updateLayout(this.temp.id, this.temp).then(() => {
-            const index = this.list.findIndex((v) => v.id === this.temp.id)
-            this.list.splice(index, 1, this.temp)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: this.$i18n.t("TigerUi['Success']"),
-              message: this.$i18n.t("TigerUi['SuccessMessage']"),
-              type: 'success',
-              duration: 2000
-            })
+          const index = this.list.findIndex((v) => v.key === this.temp.key)
+          this.list.splice(index, 1, this.temp)
+          this.dialogFormVisible = false
+          this.$emit('set-properties', this.list)
+          this.$notify({
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+            type: 'success',
+            duration: 2000
           })
         }
       })
@@ -304,15 +238,14 @@ export default {
         }
       ).then(async() => {
         // 回调函数
-        deleteLayout(row.id).then(() => {
-          const index = this.list.findIndex((v) => v.id === row.id)
-          this.list.splice(index, 1)
-          this.$notify({
-            title: this.$i18n.t("TigerUi['Success']"),
-            message: this.$i18n.t("TigerUi['SuccessMessage']"),
-            type: 'success',
-            duration: 2000
-          })
+        const index = this.list.findIndex((v) => v.key === row.key)
+        this.list.splice(index, 1)
+        this.$emit('set-properties', this.list)
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
         })
       })
     }

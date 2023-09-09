@@ -51,7 +51,7 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Client:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="10vh" width="65%">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Client:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="7vh" width="65%">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="300px">
         <el-tabs v-model="dialogTabActiveName">
           <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="first">
@@ -94,24 +94,24 @@
 
           </el-tab-pane>
           <el-tab-pane label="Secret" name="second">
-            <client-secret>11</client-secret>
+            <client-secret v-if="temp && formDataFlag" :client-secrets="temp.clientSecrets" @set-client-secret="temp.clientSecrets = $event" />
           </el-tab-pane>
-          <el-tab-pane label="ClientIdentityResource" name="third">
-            <client-identity-resource />
+          <el-tab-pane label="Identity Resource" name="third">
+            <client-identity-resource v-if="temp.allowedScopes && allowedScopesFlag" :identity-resources="temp.allowedScopes" @set-identity-resources="temp.allowedScopes = $event" />
           </el-tab-pane>
           <el-tab-pane class="advance" label="Advance" name="fourth">
             <el-tabs type="card">
               <el-tab-pane label="Consent">
-                <client-consent />
+                <client-consent v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
               <el-tab-pane label="Tokens">
-                <client-token />
+                <client-token v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
               <el-tab-pane label="Refresh Token">
-                <client-refresh-token />
+                <client-refresh-token v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
               <el-tab-pane label="Signin Signout">
-                <client-signin-signout />
+                <client-signin-signout v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
               <el-tab-pane label="Device Flow">
                 <el-form-item label="Device Flow Request Lifetime" prop="deviceCodeLifetime">
@@ -154,14 +154,14 @@
                 </el-form-item>
               </el-tab-pane>
               <el-tab-pane label="Claims">
-                <userClaim />
+                <userClaim :user-claims="temp.claims" @set-user-claims="temp.claims = $event" />
               </el-tab-pane>
               <el-tab-pane label="Grant Types">
-                <client-grant-type />
+                <client-grant-type v-if="temp && formDataFlag" :allowed-grant-types="temp.allowedGrantTypes" />
               </el-tab-pane>
               <el-tab-pane label="Identity Providers">Identity Providers</el-tab-pane>
               <el-tab-pane label="Properties">
-                <properties />
+                <client-properties v-if="temp && formDataFlag" :properties="temp.properties" />
               </el-tab-pane>
               <el-tab-pane label="Others">
                 <el-form-item label="SSO Lifetime" prop="userSsoLifetime">
@@ -219,7 +219,7 @@ import ClientRefreshToken from './components/ClientRefreshToken.vue'
 import ClientSigninSignout from './components/ClientSigninSignout.vue'
 import ClientGrantType from './components/ClientGrantType.vue'
 import UserClaim from '../components/UserClaim.vue'
-import Properties from '../components/Properties.vue'
+import ClientProperties from './components/ClientProperties.vue'
 
 import baseListQuery, {
   checkPermission
@@ -237,7 +237,7 @@ export default {
     ClientSigninSignout,
     ClientGrantType,
     UserClaim,
-    Properties
+    ClientProperties
   },
   filters: {
     enableFilter(enable) {
@@ -293,11 +293,42 @@ export default {
         pairWiseSubjectSalt: '',
         userSsoLifetime: 0,
         userCodeType: '',
-        deviceCodeLifetime: 0
+        deviceCodeLifetime: 0,
+        allowedGrantTypes: [
+          {
+            grantType: ''
+          }
+        ],
+        allowedScopes: [
+
+        ],
+        clientSecrets: [
+
+        ],
+        allowedCorsOrigins: [
+
+        ],
+        redirectUris: [
+
+        ],
+        postLogoutRedirectUris: [
+
+        ],
+        identityProviderRestrictions: [
+
+        ],
+        claims: [
+
+        ],
+        properties: [
+
+        ]
       },
-      dialogFormVisible: true,
+      formDataFlag: false,
+      allowedScopesFlag: false, // allowedScopesFlag 标记只有接口请求成功的时候才向子组件传递数据
+      dialogFormVisible: false,
       dialogStatus: '',
-      dialogTabActiveName: 'fourth',
+      dialogTabActiveName: 'first',
       // 表单验证规则
       rules: {
         name: [
@@ -363,7 +394,10 @@ export default {
         freamwork: ''
       }
     },
-
+    onSetFormData: function(consent) {
+      console.log('consent', consent)
+      this.temp.consentLifetime = consent.consentLifetime
+    },
     // 点击创建按钮
     handleCreate() {
       this.resetTemp()
@@ -394,12 +428,14 @@ export default {
 
     // 更新按钮点击
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
 
       getClient(row.id).then(response => {
         this.temp = response
+        this.formDataFlag = true
+        this.allowedScopesFlag = true
+        // console.log('this.temp.allowdScope', this.temp.allowedScopes)
       })
 
       this.$nextTick(() => {
@@ -411,6 +447,7 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
+          // console.log('temp', this.temp)
           updateClient(this.temp.id, this.temp).then(() => {
             const index = this.list.findIndex((v) => v.id === this.temp.id)
             this.list.splice(index, 1, this.temp)

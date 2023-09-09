@@ -1133,6 +1133,11 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="T:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService">
+            <summary>
+            身份资源
+            </summary>
+        </member>
         <member name="M:Tiger.Volo.Abp.IdentityServer.IdentityResourceAppService.GetAsync(System.Guid)">
             <summary>
             获取标识资源详情

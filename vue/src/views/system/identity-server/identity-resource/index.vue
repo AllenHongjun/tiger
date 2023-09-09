@@ -137,10 +137,10 @@
 
           </el-tab-pane>
           <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="second">
-            <user-claim />
+            <user-claim :user-claims="temp.userClaims" @set-user-claims="temp.userClaims = $event" />
           </el-tab-pane>
           <el-tab-pane :label="$t('AbpIdentityServer[\'Propertites\']')" name="third">
-            <properties />
+            <properties :properties="temp.properties" @set-properties="temp.properties = $event" />
           </el-tab-pane>
         </el-tabs>
 
@@ -203,8 +203,8 @@ export default {
         ],
         properties: [
           {
-            'key': '',
-            'value': ''
+            key: '',
+            value: ''
           }
         ]
       },
@@ -399,7 +399,7 @@ export default {
 
     // Tab 点击事件
     handleClick(tab, event) {
-      console.log(tab, event)
+      // console.log(tab, event)
     }
   }
 }

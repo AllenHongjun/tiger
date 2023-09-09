@@ -15,5 +15,7 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// 值
         /// </summary>
         public string Value { get; set; }
+
+        
     }
 }

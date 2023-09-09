@@ -7,11 +7,12 @@
         v-model="value"
         style="text-align: left; display: inline-block"
         filterable
-        :filter-method="filterMethod"
-        filter-placeholder="请输入城市拼音"
+        :render-content="renderFunc"
+        filter-placeholder="请输入"
         :titles="['Available', 'Assigned']"
         :button-texts="['到左边', '到右边']"
         :data="data"
+        @change="handleChange"
       />
     </div>
 
@@ -19,31 +20,74 @@
 </template>
 
 <script>
+import {
+  getIdentityResources
+} from '@/api/system-manage/identity-server/identity-resource'
+
 export default {
   name: 'ClientIdentityResource',
-  data() {
-    const generateData = _ => {
-      const data = []
-      const cities = ['上海', '北京', '广州', '深圳', '南京', '西安', '成都']
-      const pinyin = ['shanghai', 'beijing', 'guangzhou', 'shenzhen', 'nanjing', 'xian', 'chengdu']
-      cities.forEach((city, index) => {
-        data.push({
-          label: city,
-          key: index,
-          pinyin: pinyin[index]
-        })
-      })
-      return data
-    }
-    return {
-      data: generateData(),
-      value: [],
-      filterMethod(query, item) {
-        return item.pinyin.indexOf(query) > -1
+  props: {
+    identityResources: {
+      type: Array,
+      require: false,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function() {
+        return []
       }
     }
   },
+  data() {
+    return {
+      data: [],
+      value: [],
+      renderFunc(h, option) {
+        return <span>{ option.label }</span>
+      }
+
+    }
+  },
+  created() {
+    this.$nextTick(() => {
+      this.fetchIdentityResources()
+      // console.log('this.identityResources', this.identityResources)
+      const data = this.identityResources
+      const scopes = []
+      for (const item of data) {
+        scopes.push(item.scope)
+      }
+      // console.log(scopes)
+      this.value = scopes
+    })
+  },
   methods: {
+    fetchIdentityResources() {
+      const input = {
+        page: 1,
+        limit: 999
+      }
+      getIdentityResources(input).then(response => {
+        const data = []
+        for (let i = 0; i < response.items.length; i++) {
+          data.push({
+            key: response.items[i].name,
+            label: response.items[i].name,
+            disabled: false
+          })
+        }
+        this.data = data
+      })
+    },
+    handleChange(value, direction, movedKeys) {
+      const data = []
+      for (let i = 0; i < value.length; i++) {
+        data.push({
+          scope: value[i]
+        })
+      }
+      console.log('allowdScope', data)
+      // 设置身份资源的事件
+      this.$emit('set-identity-resources', data)
+    },
     onSubmit() {
       this.$message('submit!')
     },

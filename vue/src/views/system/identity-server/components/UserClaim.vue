@@ -26,15 +26,24 @@
 <script>
 import {
   getClaimTypes
-
 } from '@/api/system-manage/identity/claim-type'
 
 export default {
   name: 'UserClaim',
+  props: {
+    userClaims: {
+      type: Array,
+      require: false,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function() {
+        return []
+      }
+    }
+  },
   data() {
     return {
       data: [],
-      value: [1],
+      value: [],
       value4: [1],
       renderFunc(h, option) {
         return <span>{ option.label }</span>
@@ -44,10 +53,11 @@ export default {
   created() {
     this.$nextTick(() => {
       this.fetchClaimTypes()
+      this.value = this.userClaims
     })
   },
   methods: {
-    fetchClaimTypes() {
+    async fetchClaimTypes() {
       const input = {
         page: 1,
         limit: 999
@@ -56,7 +66,7 @@ export default {
         const data = []
         for (let i = 0; i < response.items.length; i++) {
           data.push({
-            key: response.items[i].id,
+            key: response.items[i].name,
             label: response.items[i].name,
             disabled: false
           })
@@ -67,6 +77,15 @@ export default {
     handleChange(value, direction, movedKeys) {
       // console.log('value', value, 'direction', direction, 'movedKeys', movedKeys)
       // TODO: 调用接口保存数据
+      const data = []
+      for (let i = 0; i < value.length; i++) {
+        data.push({
+          type: value[i]
+        })
+      }
+      // console.log('data', data)
+      // 触发子组件设置userClaims的事件，然后父组件监听该事件
+      this.$emit('set-user-claims', data)
     },
     onSubmit() {
       this.$message('submit!')
