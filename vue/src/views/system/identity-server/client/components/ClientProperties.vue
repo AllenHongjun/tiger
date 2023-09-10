@@ -42,6 +42,7 @@
           <el-input v-model="temp.value" />
         </el-form-item>
       </el-form>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
           {{ $t("AbpUi['Cancel']") }}
@@ -50,6 +51,7 @@
           {{ $t("AbpUi['Save']") }}
         </el-button>
       </div>
+
     </el-dialog>
   </div>
 </template>
@@ -128,19 +130,6 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-
-      // var data = []
-      // // console.log('this.properties', this.properties)
-      // var properties = this.properties
-      // // 将对象转为数组
-      // Object.keys(properties).forEach(function(key) {
-      //   console.log('person', key, ':', properties[key])
-      //   var item = {
-      //     key: key,
-      //     value: properties[key]
-      //   }
-      //   data.push(item)
-      // })
       this.list = this.properties
       this.listLoading = false
     },

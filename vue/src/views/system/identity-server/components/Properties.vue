@@ -10,18 +10,18 @@
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Key\']')" prop="key" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Key\']')" prop="key" sortable align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.key }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Value\']')" align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Propertites:Value\']')" align="left">
         <template slot-scope="{ row }">
           <span>{{ row.value }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="200" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
           <el-button type="primary" @click="handleUpdate(row)">
             {{ $t("AbpUi['Edit']") }}

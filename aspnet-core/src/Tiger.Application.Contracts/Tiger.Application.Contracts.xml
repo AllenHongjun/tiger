@@ -1820,11 +1820,6 @@
             属性
             </summary>
         </member>
-        <member name="P:Tiger.Volo.Abp.IdentityServer.ApiResources.ApiResourceScopeDto.Scope">
-            <summary>
-            Api作用域名称
-            </summary>
-        </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.Clients.ClientCloneDto">
             <summary>
             

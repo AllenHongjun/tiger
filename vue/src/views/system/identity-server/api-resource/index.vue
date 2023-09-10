@@ -14,12 +14,12 @@
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AbpIdentityServer[\'Name\']')" prop="name" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Name\']')" prop="name" sortable align="center" width="120">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'DisplayName\']')" align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'DisplayName\']')" align="center" width="120">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>
         </template>
@@ -29,21 +29,21 @@
           <span>{{ row.description }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled" sortable align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'Enabled\']')" prop="enabled" sortable align="center" width="80">
         <template slot-scope="{ row }">
           <el-tag :type="( row.enabled ? 'success' : 'danger')">
             {{ row.enabled ? '启用' : '禁用' }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'AllowedAccessTokenSigningAlgorithms\']')" prop="allowedAccessTokenSigningAlgorithms" align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'AllowedAccessTokenSigningAlgorithms\']')" prop="allowedAccessTokenSigningAlgorithms" align="center" width="180">
         <template slot-scope="{ row }">
           <el-tag :type="( row.allowedAccessTokenSigningAlgorithms ? 'success' : 'danger')">
             {{ row.allowedAccessTokenSigningAlgorithms ? '启用' : '禁用' }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument" align="center">
+      <el-table-column :label="$t('AbpIdentityServer[\'ShowInDiscoveryDocument\']')" prop="showInDiscoveryDocument" align="center" width="180">
         <template slot-scope="{ row }">
           <el-tag :type="( row.showInDiscoveryDocument ? 'success' : 'danger')">
             {{ row.showInDiscoveryDocument ? '启用' : '禁用' }}
@@ -65,8 +65,8 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="180px">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Resource:New\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="8vh" width="65%">
+      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="200px">
         <el-tabs v-model="activeName" @tab-click="handleTabClick">
           <!-- Api 资源基本信息 -->
           <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="basic">
@@ -99,17 +99,20 @@
             </el-form-item>
           </el-tab-pane>
           <!-- Api 资源范围 -->
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Scope\']')" name="scope">角色管理</el-tab-pane>
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Scope\']')" name="scope">
+            <!-- @set-api-scopes="temp.scopes = $event" -->
+            <scope v-if="temp && formDataFlag" :api-resource-id="temp.id" :scopes="temp.scopes" />
+          </el-tab-pane>
           <!-- Api 资源用户声明 -->
           <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="claim">
-            <user-claim />
+            <user-claim v-if="temp && formDataFlag" :user-claims="temp.userClaims" @set-user-claims="temp.userClaims = $event" />
           </el-tab-pane>
           <el-tab-pane :label="$t('AbpIdentityServer[\'Secret\']')" name="secret">
-            <secret />
+            <secret v-if="temp && formDataFlag" :secrets="temp.secrets" @set-client-secret="temp.secrets = $event" />
           </el-tab-pane>
           <!-- Api 资源密钥/属性 -->
           <el-tab-pane :label="$t('AbpIdentityServer[\'Advanced\']')" name="properties">
-            <properties />
+            <properties v-if="temp && formDataFlag" :properties="temp.properties" @set-properties="temp.properties = $event" />
           </el-tab-pane>
         </el-tabs>
 
@@ -137,7 +140,8 @@ import {
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import UserClaim from '../components/UserClaim.vue'
 import Properties from '../components/Properties.vue'
-import Secret from './components/Secret.vue'
+import Scope from './components/Scope.vue'
+import Secret from '../components/Secret.vue'
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
@@ -146,6 +150,7 @@ export default {
   name: 'ApiResources',
   components: {
     Pagination,
+    Scope,
     UserClaim,
     Secret,
     Properties
@@ -191,6 +196,7 @@ export default {
         ],
         name: ''
       },
+      formDataFlag: false,
       dialogFormVisible: false,
       dialogStatus: '',
       activeName: 'basic',
@@ -269,9 +275,7 @@ export default {
           }
         ],
         scopes: [
-          {
-            scope: ''
-          }
+
         ],
         userClaims: [
           {
@@ -318,10 +322,13 @@ export default {
 
     // 更新按钮点击
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
 
+      getApiResource(row.id).then(response => {
+        this.temp = response
+        this.formDataFlag = true
+      })
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })

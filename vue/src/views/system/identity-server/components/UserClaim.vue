@@ -53,7 +53,11 @@ export default {
   created() {
     this.$nextTick(() => {
       this.fetchClaimTypes()
-      this.value = this.userClaims
+      const data = []
+      this.userClaims.forEach(element => {
+        data.push(element.type)
+      })
+      this.value = data
     })
   },
   methods: {

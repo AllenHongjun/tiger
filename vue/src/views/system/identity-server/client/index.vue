@@ -159,7 +159,9 @@
               <el-tab-pane label="Grant Types">
                 <client-grant-type v-if="temp && formDataFlag" :allowed-grant-types="temp.allowedGrantTypes" />
               </el-tab-pane>
-              <el-tab-pane label="Identity Providers">Identity Providers</el-tab-pane>
+              <el-tab-pane label="Identity Providers">
+                <client-identity-provider v-if="temp && formDataFlag" :rule-form="temp" :identity-provider-restrictions="temp.identityProviderRestrictions" />
+              </el-tab-pane>
               <el-tab-pane label="Properties">
                 <client-properties v-if="temp && formDataFlag" :properties="temp.properties" />
               </el-tab-pane>
@@ -219,6 +221,7 @@ import ClientRefreshToken from './components/ClientRefreshToken.vue'
 import ClientSigninSignout from './components/ClientSigninSignout.vue'
 import ClientGrantType from './components/ClientGrantType.vue'
 import UserClaim from '../components/UserClaim.vue'
+import ClientIdentityProvider from './components/ClientIdentityProvider.vue'
 import ClientProperties from './components/ClientProperties.vue'
 
 import baseListQuery, {
@@ -237,6 +240,7 @@ export default {
     ClientSigninSignout,
     ClientGrantType,
     UserClaim,
+    ClientIdentityProvider,
     ClientProperties
   },
   filters: {

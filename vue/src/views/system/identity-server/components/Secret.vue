@@ -118,11 +118,11 @@ import baseListQuery, {
 } from '@/utils/abp'
 
 export default {
-  name: 'ClientSecret',
+  name: 'Secret',
   components: {
   },
   props: {
-    clientSecrets: {
+    secrets: {
       type: Array,
       require: false,
       // 对象或数组默认值必须从一个工厂函数获取
@@ -164,8 +164,7 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      console.log('this.clientSecrets', this.clientSecrets)
-      this.list = this.clientSecrets
+      this.list = this.secrets
       this.listLoading = false
     },
     handleFilter(firstPage = true) {
@@ -184,10 +183,12 @@ export default {
     // 重置表单
     resetTemp() {
       this.temp = {
-        id: undefined,
-        name: '',
-        grantType: ''
-
+        requireClientSecret: undefined,
+        type: undefined,
+        value: undefined,
+        description: undefined,
+        hasExpiration: false,
+        expiration: undefined
       }
     },
 

@@ -1,10 +1,23 @@
-﻿namespace Tiger.Volo.Abp.IdentityServer.ApiResources
+﻿using JetBrains.Annotations;
+using System;
+
+namespace Tiger.Volo.Abp.IdentityServer.ApiResources
 {
     public class ApiResourceScopeDto
     {
-        /// <summary>
-        /// Api作用域名称
-        /// </summary>
-        public string Scope { get; set; }
+
+        public  Guid ApiResourceId { get;  set; }
+
+        public  string Name { get;  set; }
+
+        public  string DisplayName { get; set; }
+
+        public  string Description { get; set; }
+
+        public  bool Required { get; set; }
+
+        public  bool Emphasize { get; set; }
+
+        public  bool ShowInDiscoveryDocument { get; set; }
     }
 }

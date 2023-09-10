@@ -132,6 +132,7 @@ namespace Tiger.Volo.Abp.IdentityServer
 
         protected async virtual Task UpdateApiResourceByInputAsync(ApiResource apiResource, ApiResourceCreateOrUpdateDto input)
         {
+            #region Basic
             //apiResource.ShowInDiscoveryDocument = input.ShowInDiscoveryDocument;
             apiResource.Enabled = input.Enabled;
 
@@ -139,6 +140,7 @@ namespace Tiger.Volo.Abp.IdentityServer
             //{
             //    apiResource.AllowedAccessTokenSigningAlgorithms = input.AllowedAccessTokenSigningAlgorithms;
             //}
+
             if (!string.Equals(apiResource.DisplayName, input.DisplayName, StringComparison.InvariantCultureIgnoreCase))
             {
                 apiResource.DisplayName = input.DisplayName;
@@ -147,8 +149,10 @@ namespace Tiger.Volo.Abp.IdentityServer
                 == false)
             {
                 apiResource.Description = input.Description;
-            }
+            } 
+            #endregion
 
+            #region UserClaim
             if (await IsGrantAsync(IdentityServerPermissions.ApiResources.ManageClaims))
             {
                 // 删除不存在的UserClaim
@@ -161,22 +165,26 @@ namespace Tiger.Volo.Abp.IdentityServer
                         apiResource.AddUserClaim(inputClaim.Type);
                     }
                 }
-            }
+            } 
+            #endregion
 
+            #region Scope
             if (await IsGrantAsync(IdentityServerPermissions.ApiResources.ManageScopes))
             {
                 // 除了前端传递过来scope之外，全部删除，（先删除不要scope,再将没有的scope添加上）
-                apiResource.Scopes.RemoveAll(scope => !input.Scopes.Any(inputScope => scope.Name == inputScope.Scope));
+                apiResource.Scopes.RemoveAll(scope => !input.Scopes.Any(inputScope => scope.Name == inputScope.Name));
                 foreach (var inputScope in input.Scopes)
                 {
-                    var scope = apiResource.FindScope(inputScope.Scope);
+                    var scope = apiResource.FindScope(inputScope.Name);
                     if (scope == null)
                     {
-                        apiResource.AddScope(inputScope.Scope);
+                        apiResource.AddScope(inputScope.Name, inputScope.DisplayName, inputScope.Description, inputScope.Required,inputScope.Emphasize,inputScope.ShowInDiscoveryDocument);
                     }
                 }
-            }
+            } 
+            #endregion
 
+            #region Secret
             if (await IsGrantAsync(IdentityServerPermissions.ApiResources.ManageSecrets))
             {
                 // 删除不存在的Secret
@@ -206,26 +214,30 @@ namespace Tiger.Volo.Abp.IdentityServer
                         }
                     }
                 }
-            }
+            } 
+            #endregion
 
-            // TODO: 增加 FindProperty AddProperty方法管理 Properties
-            //if (await IsGrantAsync(IdentityServerPermissions.ApiResources.ManageProperties))
-            //{
-            //    // 删除不存在的属性
-            //    apiResource.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
-            //    foreach (var inputProp in input.Properties)
-            //    {
-            //        var apiResourceProperty = apiResource.FindProperty(inputProp.Key);
-            //        if (apiResourceProperty == null)
-            //        {
-            //            apiResource.AddProperty(inputProp.Key, inputProp.Value);
-            //        }
-            //        else
-            //        {
-            //            apiResourceProperty.Value = inputProp.Value;
-            //        }
-            //    }
-            //}
+            #region 管理Properties的值
+            // 管理Properties的值
+            if (await IsGrantAsync(IdentityServerPermissions.ApiResources.ManageProperties))
+            {
+                // 删除不存在的属性
+                apiResource.Properties.RemoveAll(prop => !input.Properties.Any(inputProp => prop.Key == inputProp.Key));
+                foreach (var inputProp in input.Properties)
+                {
+                    string value;
+                    bool hasValue = apiResource.Properties.TryGetValue(inputProp.Key, out value);
+                    if (hasValue)
+                    {
+                        apiResource.Properties[inputProp.Key]= inputProp.Value;
+                    }
+                    else
+                    {
+                        apiResource.Properties.Add(inputProp.Key, inputProp.Value);
+                    }
+                }
+            } 
+            #endregion
         }
 
 

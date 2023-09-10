@@ -1054,7 +1054,6 @@
             Api作用域
             </summary>
             <remarks>
-            3.2 版本id4 没有这个功能
             </remarks>
         </member>
         <member name="T:Tiger.Volo.Abp.IdentityServer.ClientAppService">

@@ -51,14 +51,14 @@ namespace Tiger.Volo.Abp.IdentityServer.ApiResources
         /// <summary>
         /// 属性
         /// </summary>
-        public List<ApiResourcePropertyDto> Properties { get; set; }
+        public Dictionary<string, string>  Properties { get; set; }
 
         protected ApiResourceCreateOrUpdateDto()
         {
             UserClaims = new List<ApiResourceClaimDto>();
             Scopes = new List<ApiResourceScopeDto>();
             Secrets = new List<ApiResourceSecretCreateOrUpdateDto>();
-            Properties = new List<ApiResourcePropertyDto>();
+            Properties = new Dictionary<string, string>();
         }
     }
 }
