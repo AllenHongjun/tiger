@@ -9,7 +9,7 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 客户端 Uri
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientUriMaxLength))]
+        [DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientUriMaxLength))]
         public string ClientUri { get; set; }
 
         /// <summary>

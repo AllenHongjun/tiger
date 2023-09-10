@@ -6,7 +6,7 @@
           <el-tooltip content="Endpoint IdentityServer will call in a browser iframe when single sign-out is triggered" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Front Channel Logout URI
+          {{ $t('AbpIdentityServer[\'Client:FrontChannelLogoutUri\']') }}
         </span>
         <el-input v-model="ruleForm.frontChannelLogoutUri" />
       </el-form-item>
@@ -15,7 +15,7 @@
           <el-tooltip content="Enable to send the session ID during single sign-out" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Front Channel Logout Session Required
+          {{ $t('AbpIdentityServer[\'Client:FrontChannelLogoutSessionRequired\']') }}
         </span>
         <el-switch v-model="ruleForm.frontChannelLogoutSessionRequired" />
       </el-form-item>
@@ -24,7 +24,7 @@
           <el-tooltip content="Endpoint IdentityServer will call via HTTP when single sign-out is triggered" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Back Channel Logout URI
+          {{ $t('AbpIdentityServer[\'Client:BackChannelLogoutUri\']') }}
         </span>
         <el-input v-model="ruleForm.backChannelLogoutUri" />
       </el-form-item>
@@ -33,7 +33,7 @@
           <el-tooltip content="Enable to send the session ID during single sign-out" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Back Channel Logout Session Required
+          {{ $t('AbpIdentityServer[\'Client:BackChannelLogoutSessionRequired\']') }}
         </span>
         <el-switch v-model="ruleForm.backChannelLogoutSessionRequired" />
       </el-form-item>

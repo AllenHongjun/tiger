@@ -46,17 +46,17 @@
     <el-dialog :title=" dialogStatus == 'create'? $t('AbpIdentityServer[\'Permissions:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" append-to-body>
 
       <el-form ref="dataForm" :model="temp" :rules="rules" label-width="140px" class="demo-ruleForm">
-        <el-form-item label="Require Secret" prop="requireClientSecret">
+        <el-form-item prop="requireClientSecret">
           <span slot="label">
             <el-tooltip content="Specifies if a secret is required" placement="top">
               <i class="el-icon-question" />
             </el-tooltip>
-            Require Secret
+            {{ $t('AbpIdentityServer[\'Client:RequiredClientSecret\']') }}
           </span>
           <el-switch v-model="temp.requireClientSecret" />
         </el-form-item>
 
-        <el-form-item label="Type" prop="type" clearable>
+        <el-form-item :label="$t('AbpIdentityServer[\'Secret:Type\']')" prop="type" clearable>
           <el-select v-model="temp.type" placeholder="请选择Type">
             <el-option label="Shared Secret" value="Shared Secret" />
             <el-option label="X509 Certificate Base64" value="X509 Certificate Base64" />
@@ -65,22 +65,21 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="Value" prop="value">
+        <el-form-item prop="value">
           <!-- 优化：直接显示能看到提示 -->
           <span slot="label">
             <el-tooltip content="WARNING: you will not be able to access the value of secrets after creating them" placement="top">
               <i class="el-icon-question" />
             </el-tooltip>
-            Value
+            {{ $t('AbpIdentityServer[\'Secret:Value\']') }}
           </span>
           <el-input v-model="temp.value">
             <el-button slot="append" icon="el-icon-refresh-right">生成</el-button>
           </el-input>
         </el-form-item>
 
-        <el-form-item label="Expiration" prop="expiration">
+        <el-form-item :label="$t('AbpIdentityServer[\'Expiration\']')" prop="expiration">
           <el-switch v-model="temp.hasExpiration" />
-
         </el-form-item>
 
         <el-form-item prop="expiration">
@@ -93,7 +92,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="Description" prop="description">
+        <el-form-item :label="$t('AbpIdentityServer[\'Description\']')" prop="description">
           <el-input v-model="temp.description" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" />
         </el-form-item>
 

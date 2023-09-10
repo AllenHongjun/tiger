@@ -55,12 +55,12 @@
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="300px">
         <el-tabs v-model="dialogTabActiveName">
           <el-tab-pane :label="$t('AbpIdentityServer[\'Basics\']')" name="first">
-            <el-form-item label="Enabled" prop="requirePkce">
+            <el-form-item label="$t('AbpIdentityServer[\'Client:Id\']')" prop="requirePkce">
               <span slot="label">
                 <el-tooltip content="Is Enable" placement="top">
                   <i class="el-icon-question" />
                 </el-tooltip>
-                Enabled
+                {{ $t('AbpIdentityServer[\'Enabled\']') }}
               </span>
               <el-switch v-model="temp.enabled" />
             </el-form-item>
@@ -93,33 +93,33 @@
             </el-form-item>
 
           </el-tab-pane>
-          <el-tab-pane label="Secret" name="second">
-            <client-secret v-if="temp && formDataFlag" :client-secrets="temp.clientSecrets" @set-client-secret="temp.clientSecrets = $event" />
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Secret\']')" name="second">
+            <secret v-if="temp && formDataFlag" :secrets="temp.clientSecrets" @set-client-secret="temp.clientSecrets = $event" />
           </el-tab-pane>
-          <el-tab-pane label="Identity Resource" name="third">
+          <el-tab-pane :label="$t('AbpIdentityServer[\'Client:Resources\']')" name="third">
             <client-identity-resource v-if="temp.allowedScopes && allowedScopesFlag" :identity-resources="temp.allowedScopes" @set-identity-resources="temp.allowedScopes = $event" />
           </el-tab-pane>
-          <el-tab-pane class="advance" label="Advance" name="fourth">
+          <el-tab-pane class="advance" :label="$t('AbpIdentityServer[\'Advanced\']')" name="fourth">
             <el-tabs type="card">
-              <el-tab-pane label="Consent">
-                <client-consent v-if="temp && formDataFlag" :rule-form="temp" />
+              <el-tab-pane :label="$t('AbpIdentityServer[\'Consent\']')">
+                <client-consent v-if="temp && formDataFlag" :rule-form="temp" @set-form-rules="Object.assign(rules,$event)" />
               </el-tab-pane>
-              <el-tab-pane label="Tokens">
+              <el-tab-pane :label="$t('AbpIdentityServer[\'Token\']')">
                 <client-token v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
-              <el-tab-pane label="Refresh Token">
+              <el-tab-pane label="RefreshToken">
                 <client-refresh-token v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
               <el-tab-pane label="Signin Signout">
                 <client-signin-signout v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
-              <el-tab-pane label="Device Flow">
+              <el-tab-pane :label="$t('AbpIdentityServer[\'DeviceFlow\']')">
                 <el-form-item label="Device Flow Request Lifetime" prop="deviceCodeLifetime">
                   <span slot="label">
                     <el-tooltip content="Lifetime in seconds" placement="top">
                       <i class="el-icon-question" />
                     </el-tooltip>
-                    Device Flow Request Lifetime
+                    {{ $t('AbpIdentityServer[\'Client:DeviceCodeLifetime\']') }}
                   </span>
                   <el-input v-model="temp.deviceCodeLifetime" />
                 </el-form-item>
@@ -128,7 +128,7 @@
                     <el-tooltip content="Override default type" placement="top">
                       <i class="el-icon-question" />
                     </el-tooltip>
-                    Device Flow Request Lifetime
+                    {{ $t('AbpIdentityServer[\'Client:UserCodeType\']') }}
                   </span>
                   <el-input v-model="temp.userCodeType" />
                 </el-form-item>
@@ -139,7 +139,7 @@
                     <el-tooltip content="Enable to send the session ID during single sign-out" placement="top">
                       <i class="el-icon-question" />
                     </el-tooltip>
-                    Require PKCE
+                    {{ $t('AbpIdentityServer[\'Client:RequiredPkce\']') }}
                   </span>
                   <el-switch v-model="temp.requirePkce" />
                 </el-form-item>
@@ -148,21 +148,21 @@
                     <el-tooltip content="Allows the client to send unhashed code verifiers. Not recommended" placement="top">
                       <i class="el-icon-question" />
                     </el-tooltip>
-                    Allow Plain Text PKCE
+                    {{ $t('AbpIdentityServer[\'Client:AllowedPlainTextPkce\']') }}
                   </span>
                   <el-switch v-model="temp.allowPlainTextPkce" />
                 </el-form-item>
               </el-tab-pane>
-              <el-tab-pane label="Claims">
+              <el-tab-pane :label="$t('AbpIdentityServer[\'Claims\']')">
                 <userClaim :user-claims="temp.claims" @set-user-claims="temp.claims = $event" />
               </el-tab-pane>
-              <el-tab-pane label="Grant Types">
+              <el-tab-pane :label="$t('AbpIdentityServer[\'Client:AllowedGrantTypes\']')">
                 <client-grant-type v-if="temp && formDataFlag" :allowed-grant-types="temp.allowedGrantTypes" />
               </el-tab-pane>
               <el-tab-pane label="Identity Providers">
                 <client-identity-provider v-if="temp && formDataFlag" :rule-form="temp" :identity-provider-restrictions="temp.identityProviderRestrictions" />
               </el-tab-pane>
-              <el-tab-pane label="Properties">
+              <el-tab-pane :label="$t('AbpIdentityServer[\'Permissions:ManageProperties\']')">
                 <client-properties v-if="temp && formDataFlag" :properties="temp.properties" />
               </el-tab-pane>
               <el-tab-pane label="Others">
@@ -171,7 +171,7 @@
                     <el-tooltip content="Lifetime in seconds between user authentication challenges. Defaults to IdentityServer session lifetime" placement="top">
                       <i class="el-icon-question" />
                     </el-tooltip>
-                    SSO Lifetime
+                    {{ $t('AbpIdentityServer[\'Client:UserSsoLifetime\']') }}
                   </span>
                   <el-input v-model="temp.userSsoLifetime" />
                 </el-form-item>
@@ -180,7 +180,7 @@
                     <el-tooltip content="The salt value used when generating pairwise subject IDs" placement="top">
                       <i class="el-icon-question" />
                     </el-tooltip>
-                    Pairwise Subject Salt
+                    {{ $t('AbpIdentityServer[\'Client:PairWiseSubjectSalt\']') }}
                   </span>
                   <el-input v-model="temp.pairWiseSubjectSalt" />
                 </el-form-item>
@@ -213,7 +213,7 @@ import {
 } from '@/api/system-manage/identity-server/client'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
-import ClientSecret from './components/ClientSecret.vue'
+import Secret from '../components/Secret.vue'
 import ClientIdentityResource from './components/ClientIdentityResource.vue'
 import ClientConsent from './components/ClientConsent.vue'
 import ClientToken from './components/ClientToken.vue'
@@ -232,7 +232,7 @@ export default {
   name: 'Clients',
   components: {
     Pagination,
-    ClientSecret,
+    Secret,
     ClientIdentityResource,
     ClientConsent,
     ClientToken,

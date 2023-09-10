@@ -1,48 +1,48 @@
 <template>
   <div class="app-container">
     <!-- <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="160px" class="demo-ruleForm" /> -->
-    <el-form-item label="Display URL" prop="clientUri">
+    <el-form-item prop="clientUri">
       <span slot="label">
         <el-tooltip content="Application URL that will be seen on consent screens" placement="top">
           <i class="el-icon-question" />
         </el-tooltip>
-        Display URL
+        {{ $t('AbpIdentityServer[\'Client:ClientUri\']') }}
       </span>
       <el-input v-model="ruleForm.clientUri" />
     </el-form-item>
-    <el-form-item label="Logo URL" prop="logoUri">
+    <el-form-item prop="logoUri">
       <span slot="label">
         <el-tooltip content="Application logo that will be seen on consent screens. These protocols rely upon TLS in production" placement="top">
           <i class="el-icon-question" />
         </el-tooltip>
-        Logo URL
+        {{ $t('AbpIdentityServer[\'Client:LogoUri\']') }}
       </span>
       <el-input v-model="ruleForm.logoUri" />
     </el-form-item>
-    <el-form-item label="Require Consent" prop="requireConsent">
+    <el-form-item prop="requireConsent">
       <span slot="label">
         <el-tooltip content="Specifies if a consent screen is required" placement="top">
           <i class="el-icon-question" />
         </el-tooltip>
-        Require Consent
+        {{ $t('AbpIdentityServer[\'Client:RequireConsent\']') }}
       </span>
       <el-switch v-model="ruleForm.requireConsent" />
     </el-form-item>
-    <el-form-item label="Remember Consent" prop="allowRememberConsent">
+    <el-form-item prop="allowRememberConsent">
       <span slot="label">
         <el-tooltip content="Specifies if the consent screen is remembered after consent is given" placement="top">
           <i class="el-icon-question" />
         </el-tooltip>
-        Remember Consent
+        {{ $t('AbpIdentityServer[\'Client:AllowRememberConsent\']') }}
       </span>
       <el-switch v-model="ruleForm.allowRememberConsent" :disabled="!ruleForm.requireConsent" />
     </el-form-item>
-    <el-form-item label="Consent Token Lifetime" prop="consentLifetime">
+    <el-form-item prop="consentLifetime">
       <span slot="label">
         <el-tooltip content="Lifetime in seconds" placement="top">
           <i class="el-icon-question" />
         </el-tooltip>
-        Consent Token Lifetime
+        {{ $t('AbpIdentityServer[\'Client:ConsentLifetime\']') }}
       </span>
       <el-input v-model="ruleForm.consentLifetime" type="number" :disabled="!ruleForm.requireConsent" />
     </el-form-item>
@@ -71,16 +71,38 @@ export default {
   data() {
     return {
       rules: {
-
+        clientUri: [
+          {
+            max: 2000,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Client:ClientUri']"), '2000']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        logoUri: [
+          {
+            max: 2000,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Client:ClientUri']"), '2000']
+            ),
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
   watch: {
     ruleForm(newValue, oldValue) {
       // ...
-      console.log('newName', newValue)
       this.$emit('set-form-data', newValue)
     }
+  },
+  created() {
+    // 将子组件的表单验证规则传递给父组件
+    this.$emit('set-form-rules', this.rules)
   },
   methods: {
     submitForm(formName) {

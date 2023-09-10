@@ -6,7 +6,7 @@
           <el-tooltip content="Enables refresh tokens" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Allow Offline Access
+          {{ $t('AbpIdentityServer[\'Client:AllowedOfflineAccess\']') }}
         </span>
         <el-switch v-model="ruleForm.allowOfflineAccess" />
       </el-form-item>
@@ -15,7 +15,7 @@
           <el-tooltip content="Update access tokens and its claims when using refresh tokens" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Update Access Token Claims on Refresh
+          {{ $t('AbpIdentityServer[\'Client:UpdateAccessTokenClaimsOnRefresh\']') }}
         </span>
         <el-switch v-model="ruleForm.updateAccessTokenClaimsOnRefresh" :disabled="!ruleForm.allowOfflineAccess" />
       </el-form-item>
@@ -24,7 +24,7 @@
           <el-tooltip content="Refresh Token Expiration" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Refresh Token Expiration
+          {{ $t('AbpIdentityServer[\'Client:RefreshTokenExpiration\']') }}
         </span>
         <el-radio-group v-model="ruleForm.refreshTokenExpiration" :disabled="!ruleForm.allowOfflineAccess" @change="refreshTokenExpirationChange">
           <el-radio :label="0">Absolute</el-radio>
@@ -36,7 +36,7 @@
           <el-tooltip content="Lifetime in seconds" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Absolute Refresh Token Lifetime
+          {{ $t('AbpIdentityServer[\'Client:AbsoluteRefreshTokenLifetime\']') }}
         </span>
         <el-input v-model="ruleForm.absoluteRefreshTokenLifetime" type="number" :disabled="!ruleForm.allowOfflineAccess || ruleForm.refreshTokenExpiration != 0" />
       </el-form-item>
@@ -45,7 +45,7 @@
           <el-tooltip content="Lifetime in seconds" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Sliding Refresh Token Lifetim
+          {{ $t('AbpIdentityServer[\'Client:SlidingRefreshTokenLifetime\']') }}
         </span>
         <el-input v-model="ruleForm.slidingRefreshTokenLifetime" type="number" :disabled="!ruleForm.allowOfflineAccess || ruleForm.refreshTokenExpiration != 1" />
       </el-form-item>
@@ -54,7 +54,7 @@
           <el-tooltip content="One time only is recommended for security best practice" placement="top">
             <i class="el-icon-question" />
           </el-tooltip>
-          Refresh Token Usage
+          {{ $t('AbpIdentityServer[\'Client:RefreshTokenUsage\']') }}
         </span>
         <el-radio-group v-model="ruleForm.refreshTokenUsage" :disabled="!ruleForm.allowOfflineAccess">
           <el-radio :label="0">One Time Only</el-radio>
