@@ -29,7 +29,6 @@ namespace Tiger.Volo.Abp.IdentityServer
     /// </remarks>
     [RemoteService(false)]
     [ApiExplorerSettings(GroupName = "admin")]
-    //[Authorize(BookStorePermissions.Books.Default)]
     public class ClientAppService :
         CrudAppService<
             Client,

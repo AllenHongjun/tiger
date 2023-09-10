@@ -63,9 +63,32 @@ export default {
   data() {
     return {
       rules: {
-
+        frontChannelLogoutUri: [
+          {
+            max: 2000,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Client:FrontChannelLogoutUri']"), '2000']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        backChannelLogoutUri: [
+          {
+            max: 2000,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Client:BackChannelLogoutUri']"), '2000']
+            ),
+            trigger: 'blur'
+          }
+        ]
       }
     }
+  },
+  created() {
+    // 将子组件的表单验证规则传递给父组件
+    this.$emit('set-form-rules', this.rules)
   },
   methods: {
     submitForm(formName) {

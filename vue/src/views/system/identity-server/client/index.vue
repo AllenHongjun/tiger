@@ -111,7 +111,7 @@
                 <client-refresh-token v-if="temp && formDataFlag" :rule-form="temp" />
               </el-tab-pane>
               <el-tab-pane label="Signin Signout">
-                <client-signin-signout v-if="temp && formDataFlag" :rule-form="temp" />
+                <client-signin-signout v-if="temp && formDataFlag" :rule-form="temp" @set-form-rules="Object.assign(rules,$event)" />
               </el-tab-pane>
               <el-tab-pane :label="$t('AbpIdentityServer[\'DeviceFlow\']')">
                 <el-form-item label="Device Flow Request Lifetime" prop="deviceCodeLifetime">
@@ -121,7 +121,7 @@
                     </el-tooltip>
                     {{ $t('AbpIdentityServer[\'Client:DeviceCodeLifetime\']') }}
                   </span>
-                  <el-input v-model="temp.deviceCodeLifetime" />
+                  <el-input v-model="temp.deviceCodeLifetime" type="number" />
                 </el-form-item>
                 <el-form-item label="User Code Generator Type" prop="userCodeType">
                   <span slot="label">
@@ -173,7 +173,7 @@
                     </el-tooltip>
                     {{ $t('AbpIdentityServer[\'Client:UserSsoLifetime\']') }}
                   </span>
-                  <el-input v-model="temp.userSsoLifetime" />
+                  <el-input v-model="temp.userSsoLifetime" type="number" />
                 </el-form-item>
                 <el-form-item label="Pairwise Subject Salt" prop="pairWiseSubjectSalt">
                   <span slot="label">
@@ -335,7 +335,7 @@ export default {
       dialogTabActiveName: 'first',
       // 表单验证规则
       rules: {
-        name: [
+        clientId: [
           {
             required: true,
             message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
@@ -344,10 +344,47 @@ export default {
             trigger: 'blur'
           },
           {
-            max: 64,
+            max: 200,
             message: this.$i18n.t(
               "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AbpIdentityServer['Client:Name']"), '64']
+              [this.$i18n.t("AbpIdentityServer['Client:Name']"), '200']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        clientName: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AbpIdentityServer['Client:ClientName']")
+            ]),
+            trigger: 'blur'
+          },
+          {
+            max: 200,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Client:ClientName']"), '200']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        description: [
+          {
+            max: 1000,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Client:Description']"), '1000']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        pairWiseSubjectSalt: [
+          {
+            max: 100,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Client:Name']"), '100']
             ),
             trigger: 'blur'
           }

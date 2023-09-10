@@ -11,20 +11,21 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// 客户端Id
         /// </summary>
         [Required]
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientIdMaxLength))]
+        [MaxLength(ClientConsts.ClientIdMaxLength)]
+
         public string ClientId { get; set; }
 
         /// <summary>
         /// 客户端名称
         /// </summary>
         [Required]
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientNameMaxLength))]
+        [MaxLength(ClientConsts.ClientNameMaxLength)]
         public string ClientName { get; set; }
 
         /// <summary>
         /// 客户端描述
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.DescriptionMaxLength))]
+        [MaxLength(ClientConsts.DescriptionMaxLength)]
         public string Description { get; set; }
 
         /// <summary>

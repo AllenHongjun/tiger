@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Volo.Abp.IdentityServer.Clients;
 using Volo.Abp.Validation;
 
@@ -9,13 +10,13 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 客户端 Uri
         /// </summary>
-        [DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientUriMaxLength))]
+        [MaxLength(ClientConsts.ClientUriMaxLength)]
         public string ClientUri { get; set; }
 
         /// <summary>
         /// 徽标 Uri
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.LogoUriMaxLength))]
+        [MaxLength(ClientConsts.LogoUriMaxLength)]
         public string LogoUri { get; set; }
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 协议类型
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ProtocolTypeMaxLength))]
+        [MaxLength(ClientConsts.ProtocolTypeMaxLength)]
         public string ProtocolType { get; set; }
 
         
@@ -35,7 +36,6 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 允许身份令牌签名算法
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.AllowedIdentityTokenSigningAlgorithms))]
         public string AllowedIdentityTokenSigningAlgorithms { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 前端通道注销 Uri
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.FrontChannelLogoutUriMaxLength))]
+        [MaxLength(ClientConsts.FrontChannelLogoutUriMaxLength)]
         public string FrontChannelLogoutUri { get; set; }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 后端通道退出 Uri
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.BackChannelLogoutUriMaxLength))]
+        [MaxLength(ClientConsts.BackChannelLogoutUriMaxLength)]
         public string BackChannelLogoutUri { get; set; }
 
         /// <summary>
@@ -167,13 +167,13 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 客户端声明前缀
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.ClientClaimsPrefixMaxLength))]
+        [MaxLength(ClientConsts.ClientClaimsPrefixMaxLength)]
         public string ClientClaimsPrefix { get; set; }
 
         /// <summary>
         /// 配对主体盐
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.PairWiseSubjectSaltMaxLength))]
+        [MaxLength(ClientConsts.PairWiseSubjectSaltMaxLength)]
         public string PairWiseSubjectSalt { get; set; }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Tiger.Volo.Abp.IdentityServer.Clients
         /// <summary>
         /// 用户代码类型
         /// </summary>
-        //[DynamicStringLength(typeof(ClientConsts), nameof(ClientConsts.UserCodeTypeMaxLength))]
+        [MaxLength(ClientConsts.UserCodeTypeMaxLength)]
         public string UserCodeType { get; set; }
 
         /// <summary>
