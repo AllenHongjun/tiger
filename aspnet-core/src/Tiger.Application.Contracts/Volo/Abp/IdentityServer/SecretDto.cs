@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Tiger.Volo.Abp.IdentityServer
@@ -14,8 +15,10 @@ namespace Tiger.Volo.Abp.IdentityServer
         /// <summary>
         /// 值
         /// </summary>
+        [MaxLength(200)]
         public string Value { get; set; }
 
+        [MaxLength(2000)]
         public string Description { get; set; }
 
         /// <summary>

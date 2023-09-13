@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
-        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" clearable style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
         <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
           {{ $t('AbpUi.Search') }}
         </el-button>
@@ -160,7 +160,7 @@
                 <client-grant-type v-if="temp && formDataFlag" :allowed-grant-types="temp.allowedGrantTypes" />
               </el-tab-pane>
               <el-tab-pane label="Identity Providers">
-                <client-identity-provider v-if="temp && formDataFlag" :rule-form="temp" :identity-provider-restrictions="temp.identityProviderRestrictions" />
+                <client-identity-provider v-if="temp && formDataFlag" :rule-form="temp" :identity-provider-restrictions="temp.identityProviderRestrictions" @set-form-rules="Object.assign(rules,$event)" />
               </el-tab-pane>
               <el-tab-pane :label="$t('AbpIdentityServer[\'Permissions:ManageProperties\']')">
                 <client-properties v-if="temp && formDataFlag" :properties="temp.properties" />
@@ -512,7 +512,7 @@ export default {
           row.name
         ]),
         // title
-        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']"), {
+        this.$i18n.t("AbpUi['AreYouSure']"), {
           confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
           cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
           type: 'warning' // 弹框类型

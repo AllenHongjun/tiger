@@ -98,19 +98,29 @@ export default {
 
       // 表单验证规则
       rules: {
-        name: [
+        key: [
           {
             required: true,
             message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:Name']")
+              this.$i18n.t("AbpIdentityServer['Propertites:Key']")
+            ]),
+            trigger: 'blur'
+          }
+
+        ],
+        value: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AbpIdentityServer['Propertites:Value']")
             ]),
             trigger: 'blur'
           },
           {
-            max: 64,
+            max: 200,
             message: this.$i18n.t(
               "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Name']"), '64']
+              [this.$i18n.t("AbpIdentityServer['Propertites:Value']"), '200']
             ),
             trigger: 'blur'
           }
@@ -130,18 +140,15 @@ export default {
       this.listLoading = true
 
       var data = []
-      // console.log('this.properties', this.properties)
       var properties = this.properties
       // 将对象转为数组
       Object.keys(properties).forEach(function(key) {
-        console.log('person', key, ':', properties[key])
         var item = {
           key: key,
           value: properties[key]
         }
         data.push(item)
       })
-      // console.log('this.data', data)
       this.list = data
       this.listLoading = false
     },
@@ -183,7 +190,6 @@ export default {
           this.list.unshift(this.temp)
           this.dialogFormVisible = false
           // 触发子组件设置userClaims的事件，然后父组件监听该事件
-          console.log('this.list', this.list)
           this.$emit('set-properties', this.list)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),

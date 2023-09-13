@@ -848,11 +848,11 @@ export default {
       })
     },
     deleteData(row) {
-      this.$confirm(this.$i18n.t("AbpIdentity['UserDeletionConfirmationMessage']", [
+      this.$confirm(this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
         row.userName
-      ]), this.$i18n.t("AbpIdentity['AreYouSure']"), {
-        confirmButtonText: this.$i18n.t("AbpIdentity['Yes']"),
-        cancelButtonText: this.$i18n.t("AbpIdentity['Cancel']"),
+      ]), this.$i18n.t("AbpUi['AreYouSure']"), {
+        confirmButtonText: this.$i18n.t("AbpUi['Yes']"),
+        cancelButtonText: this.$i18n.t("AbpUi['Cancel']"),
         type: 'warning'
       })
         .then(() => {

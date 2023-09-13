@@ -1147,6 +1147,11 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="T:Volo.Abp.Identity.TigerIdentityRoleController">
+            <summary>
+            角色
+            </summary>
+        </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             将角色关联组织

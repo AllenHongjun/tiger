@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+      <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" clearable style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
       <el-button type="primary" icon="el-icon-search" class="filter-item" @click="handleFilter">
         {{ $t('AbpIdentity.Search') }}
       </el-button>
@@ -12,6 +12,10 @@
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" @sort-change="sortChange">
+      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" label="ID" width="95">
+        <template slot-scope="scope">{{ scope.$index }}</template>
+      </el-table-column>
       <el-table-column :label="$t('AbpIdentity[\'IdentityClaim:Name\']')" prop="name" sortable align="center">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
@@ -67,6 +71,14 @@
         <el-form-item :label="$t('AbpIdentity[\'IdentityClaim:Name\']')" prop="name">
           <el-input v-model="temp.name" />
         </el-form-item>
+        <el-form-item :label="$t('AbpIdentity[\'IdentityClaim:ValueType\']')">
+          <el-select v-model="temp.valueType">
+            <el-option :value="0" label="String" />
+            <el-option :value="1" label="Int" />
+            <el-option :value="2" label="Boolean" />
+            <el-option :value="3" label="DateTime" />
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-checkbox v-model="temp.required" :label="$t('AbpIdentity[\'IdentityClaim:Required\']')" />
         </el-form-item>
@@ -77,16 +89,9 @@
           <el-input v-model="temp.regexDescription" />
         </el-form-item>
         <el-form-item :label="$t('AbpIdentity[\'IdentityClaim:Description\']')" prop="description">
-          <el-input v-model="temp.description" />
+          <el-input v-model="temp.description" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" />
         </el-form-item>
-        <el-form-item :label="$t('AbpIdentity[\'IdentityClaim:ValueType\']')">
-          <el-select v-model="temp.valueType">
-            <el-option :value="0" label="String" />
-            <el-option :value="1" label="Int" />
-            <el-option :value="2" label="Boolean" />
-            <el-option :value="3" label="DateTime" />
-          </el-select>
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">

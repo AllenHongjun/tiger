@@ -105,10 +105,29 @@ export default {
 
       // 表单验证规则
       rules: {
+        provider: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AbpIdentityServer['Name']")
+            ]),
+            trigger: 'blur'
+          },
+          {
+            max: 200,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Name']"), '200']
+            ),
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
   created() {
+    // 将子组件的表单验证规则传递给父组件
+    this.$emit('set-form-rules', this.rules)
     this.getList()
   },
   methods: {
@@ -116,7 +135,7 @@ export default {
 
     // 获取列表数据
     getList() {
-      console.log('this.identityProviderRestrictions', this.identityProviderRestrictions)
+      // console.log('this.identityProviderRestrictions', this.identityProviderRestrictions)
       this.list = this.identityProviderRestrictions
       this.listLoading = false
     },

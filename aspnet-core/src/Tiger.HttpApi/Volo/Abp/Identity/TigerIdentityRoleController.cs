@@ -10,6 +10,9 @@ using Volo.Abp.Auditing;
 
 namespace Volo.Abp.Identity
 {
+    /// <summary>
+    /// 角色
+    /// </summary>
     [ApiExplorerSettings(GroupName = "admin")]
     [DisableAuditing]
     [RemoteService(Name = IdentityRemoteServiceConsts.RemoteServiceName)]

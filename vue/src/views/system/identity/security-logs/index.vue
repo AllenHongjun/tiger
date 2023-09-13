@@ -264,6 +264,7 @@ export default {
     handleDetail(row) {
       this.$refs['auditLogDetailsDialog'].createLogInfo(row)
     },
+
     // 下载数据
     handleDownload() {
       this.downloadLoading = true

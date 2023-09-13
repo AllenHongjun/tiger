@@ -1227,19 +1227,24 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
+        <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService">
             <summary>
-            角色关联组织(一个角色之关联一个组织)
+            角色服务
             </summary>
-            <param name="roleId"></param>
-            <param name="ouId"></param>
-            <returns></returns>
         </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityRoleOrgCreateDto)">
             <summary>
             添加角色同时关联组织
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
+            <summary>
+            角色关联组织(一个角色之关联一个组织)
+            </summary>
+            <param name="roleId"></param>
+            <param name="ouId"></param>
             <returns></returns>
         </member>
         <member name="T:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService">

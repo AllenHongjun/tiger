@@ -13,6 +13,7 @@
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+      <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
       <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="center">
         <template slot-scope="{ row }">

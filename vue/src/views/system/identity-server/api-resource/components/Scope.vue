@@ -172,7 +172,43 @@ export default {
 
       },
       rules: {
+        name: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AbpIdentityServer['Name']")
+            ]),
+            trigger: 'blur'
+          }
 
+        ],
+        displayName: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AbpIdentityServer['DisplayName']")
+            ]),
+            trigger: 'blur'
+          },
+          {
+            max: 200,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['DisplayName']"), '200']
+            ),
+            trigger: 'blur'
+          }
+        ],
+        description: [
+          {
+            max: 2000,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpIdentityServer['Description']"), '2000']
+            ),
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },

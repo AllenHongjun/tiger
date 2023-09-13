@@ -100,19 +100,29 @@ export default {
 
       // 表单验证规则
       rules: {
-        name: [
+        key: [
           {
             required: true,
             message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppPlatform['DisplayName:Name']")
+              this.$i18n.t("AbpIdentityServer['Propertites:Key']")
+            ]),
+            trigger: 'blur'
+          }
+
+        ],
+        value: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AbpIdentityServer['Propertites:Value']")
             ]),
             trigger: 'blur'
           },
           {
-            max: 64,
+            max: 200,
             message: this.$i18n.t(
               "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppPlatform['DisplayName:Name']"), '64']
+              [this.$i18n.t("AbpIdentityServer['Propertites:Value']"), '200']
             ),
             trigger: 'blur'
           }

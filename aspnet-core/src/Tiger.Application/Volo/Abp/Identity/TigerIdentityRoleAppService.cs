@@ -17,6 +17,10 @@ using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Identity
 {
+
+    /// <summary>
+    /// 角色服务
+    /// </summary>
     [RemoteService(IsEnabled = false)]
     [Dependency(ReplaceServices = true)]
     [ExposeServices(typeof(IIdentityRoleAppService),
@@ -37,30 +41,18 @@ namespace Tiger.Volo.Abp.Identity
         }
 
 
+        #region Roles
         [Authorize(IdentityPermissions.Roles.Default)]
         public async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
         {
             var roleCount = await TigerIdentityRoleRepository.GetCountAsync(input.Filter);
 
             var roles = await TigerIdentityRoleRepository.GetListAsync(
-                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter);
+                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails:true);
+
             return new PagedResultDto<IdentityRoleDto>(roleCount,
                 ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(roles));
 
-        }
-
-
-
-        /// <summary>
-        /// 角色关联组织(一个角色之关联一个组织)
-        /// </summary>
-        /// <param name="roleId"></param>
-        /// <param name="ouId"></param>
-        /// <returns></returns>
-        //[Authorize(TigerIdentityPermissions.Roles.AddOrganizationUnitRole)]
-        public Task AddToOrganizationUnitAsync(Guid roleId, Guid ouId)
-        {
-            return OrganizationUnitManager.AddRoleToOrganizationUnitAsync(roleId, ouId);
         }
 
         /// <summary>
@@ -68,8 +60,7 @@ namespace Tiger.Volo.Abp.Identity
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        //[Authorize(IdentityPermissions.Roles.Create)]
-        //[Authorize(TigerIdentityPermissions.Roles.AddOrganizationUnitRole)]
+        [Authorize(IdentityPermissions.Roles.Create)]
         public virtual async Task<IdentityRoleDto> CreateAsync(IdentityRoleOrgCreateDto input)
         {
             var role = await base.CreateAsync(
@@ -80,9 +71,23 @@ namespace Tiger.Volo.Abp.Identity
                 await OrganizationUnitManager.AddRoleToOrganizationUnitAsync(role.Id, input.OrgId.Value);
             }
             return role;
-        }
+        } 
+        #endregion
 
         #region OrganizationUnit
+
+        /// <summary>
+        /// 角色关联组织(一个角色之关联一个组织)
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="ouId"></param>
+        /// <returns></returns>
+        [Authorize(TigerIdentityPermissions.Roles.ManageOrganizationUnits)]
+        public Task AddToOrganizationUnitAsync(Guid roleId, Guid ouId)
+        {
+            return OrganizationUnitManager.AddRoleToOrganizationUnitAsync(roleId, ouId);
+        }
+
 
         [Authorize(TigerIdentityPermissions.Roles.ManageOrganizationUnits)]
         public async virtual Task<ListResultDto<OrganizationUnitDto>> GetOrganizationUnitsAsync(Guid id)

@@ -193,9 +193,9 @@ const SystemManageRouter = {
       },
       children: [
         {
-          path: 'background-job/list',
+          path: 'background-worker/list',
           component: () => import('@/views/system/task/background-job/index'), // Parent router-view
-          name: 'background-job',
+          name: 'background-worker',
           meta: {
             title: '任务管理' // the name show in sidebar and breadcrumb (recommend set)
             // icon: 'el-icon-document-copy' // the icon show in the sidebar
@@ -334,7 +334,7 @@ const SystemManageRouter = {
         {
           path: 'quartz/index',
           component: () => import('@/views/system/infrastructure/crystal-quartz/index'), // Parent router-view,
-          name: 'background-worker',
+          name: 'background-worker-crystal',
           meta: {
             title: '定时任务',
             icon: 'el-icon-timer',

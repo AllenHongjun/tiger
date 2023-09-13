@@ -1,9 +1,9 @@
 <template>
   <!-- permissionsQuery.providerKey -->
-  <el-dialog :title="'用户授权'" :visible.sync="dialogPermissionFormVisible">
+  <el-dialog :title="'用户授权'" :visible.sync="dialogPermissionFormVisible" top="7vh">
     <!-- `checked` 为 true 或 false -->
     <el-checkbox v-model="allPermissionChecked" @change="toggleCheckAll">授予所有权限</el-checkbox>
-    <el-button type="primary" icon="el-icon-sort" class="filter-item" style="margin-left: 10px;" @click="toggleRowExpansion">全部{{ isExpansion ? "收缩" : "展开" }}</el-button>
+    <!-- <el-button type="primary" icon="el-icon-sort" class="filter-item" style="margin-left: 10px;" @click="toggleRowExpansion">全部{{ isExpansion ? "收缩" : "展开" }}</el-button> -->
     <el-divider />
     <el-form label-position="top" style="min-height:500px;">
       <el-tabs v-model="activeName" tab-position="left">
@@ -46,7 +46,7 @@ export default {
   },
   data() {
     return {
-      isExpansion: true,
+      isExpansion: false,
       allPermissionChecked: false,
       groupAllPermissionChecked: false,
       activeName: '',

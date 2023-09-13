@@ -2,18 +2,23 @@
   <div class="app-container">
     <el-row :gutter="0">
       <el-col :span="24">
+        <!-- 查询条件 -->
         <el-row style="margin-bottom: 20px">
-          <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 150px" class="filter-item" />
+          <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" clearable style="width: 150px" class="filter-item" />
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
           <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t("AbpIdentity['NewRole']") }}</el-button>
           <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
         </el-row>
+
+        <!-- 表格数据 -->
         <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @sort-change="sortChange">
+          <el-table-column type="selection" width="55" center />
           <el-table-column align="center" label="ID" width="95">
             <template slot-scope="scope">{{ scope.$index }}</template>
           </el-table-column>
           <el-table-column :label="$t('AbpIdentity[\'RoleName\']')" align="left" prop="name" sortable>
             <template slot-scope="scope">
+              {{ scope.row.name }}
               <el-tag v-if="scope.row.isPublic">
                 {{ $t('AbpIdentity[\'DisplayName:IsPublic\']') }}
               </el-tag>
@@ -23,7 +28,7 @@
               <el-tag v-if="scope.row.isStatic" type="success">
                 {{ $t('AbpIdentity[\'DisplayName:IsStatic\']') }}
               </el-tag>
-              {{ scope.row.name }}
+
             </template>
           </el-table-column>
 
@@ -42,6 +47,8 @@
           </el-table-column>
         </el-table>
         <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
+
+        <!-- 表单弹框 -->
         <el-dialog :title="dialogStatus == 'create'? $t('AbpIdentity[\'NewRole\']'): $t('AbpIdentity[\'Edit\']')" :visible.sync="dialogFormVisible">
           <el-form ref="dataForm" :rules="rules" :model="temp" label-width="120px" label-position="right">
             <el-form-item :label="$t('AbpIdentity[\'RoleName\']')" prop="name">
@@ -73,19 +80,17 @@ import {
   updateRole
 } from '@/api/system-manage/identity/role'
 import {
-  baseListQuery,
   checkPermission
 } from '@/utils/abp'
 
+import baseListQuery from '@/utils/abp'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
-import OrgTree from '../components/org-tree'
 import PermissionDialog from '../components/permission-dialog'
 
 export default {
   name: 'Role',
   components: {
     Pagination,
-    OrgTree,
     PermissionDialog
   },
   data() {
@@ -94,13 +99,7 @@ export default {
       list: null,
       listLoading: true,
       total: 0,
-      listQuery: {
-        page: 1,
-        limit: 20,
-        filter: '',
-        sorting: 'name desc'
-      },
-
+      listQuery: baseListQuery,
       dialogStatus: '',
       dialogFormVisible: false,
       temp: {
@@ -153,8 +152,10 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
-    handleFilter() {
-      this.listQuery.page = 1
+    handleFilter(firstPage = false) {
+      if (firstPage) {
+        this.listQuery.page = 1
+      }
       this.fetchData()
     },
     handleRefresh() {
@@ -180,6 +181,7 @@ export default {
         if (valid) {
           createRole(this.temp).then(() => {
             this.list.unshift(this.temp)
+            this.handleFilter()
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -204,14 +206,12 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
-          // tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
           updateRole(tempData.id, tempData).then(() => {
-            const index = this.list.findIndex((v) => v.id === this.temp.id)
-            this.list.splice(index, 1, this.temp)
+            this.handleFilter()
             this.dialogFormVisible = false
             this.$notify({
-              title: '成功',
-              message: '操作成功',
+              title: this.$i18n.t("TigerUi['Success']"),
+              message: this.$i18n.t("TigerUi['SuccessMessage']"),
               type: 'success',
               duration: 2000
             })
@@ -220,15 +220,22 @@ export default {
       })
     },
     deleteData(row) {
-      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+      debugger
+      this.$confirm(
+        // 消息
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
+          row.name
+        ]),
+        // title
+        this.$i18n.t("AbpUi['AreYouSure']"), {
+          confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
+          cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
+          type: 'warning' // 弹框类型
+        }
+      ).then(() => {
         deleteRole(row.id)
           .then((response) => {
-            const index = this.list.findIndex((v) => v.id === row.id)
-            this.list.splice(index, 1)
+            this.handleFilter()
             this.$message({
               title: this.$i18n.t("TigerUi['Success']"),
               message: this.$i18n.t("TigerUi['SuccessMessage']"),
@@ -242,7 +249,7 @@ export default {
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消删除'
+          message: this.$i18n.t("AbpUi['Cancel']")
         })
       })
     },
