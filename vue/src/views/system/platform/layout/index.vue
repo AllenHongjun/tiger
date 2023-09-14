@@ -7,7 +7,7 @@
           {{ $t('AbpUi.Search') }}
         </el-button>
         <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-          {{ $t("AppPlatform['Layout:AddNew']") }}
+          {{ $t("AppPlatform['Permission:Create']") }}
         </el-button>
       </el-row>
     </div>
@@ -75,9 +75,6 @@
         <el-form-item :label="$t('AppPlatform[\'DisplayName:Freamwork\']')" prop="freamwork">
           <el-input v-model="temp.freamwork" />
         </el-form-item>
-        <!-- <el-form-item :label="$t('AppPlatform[\'DisplayName:DataId\']')" prop="dataId">
-          <el-input v-model="temp.dataId" />
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
@@ -95,7 +92,6 @@
 import {
   getLayouts,
   getLayout,
-  getLayoutsAll,
   createLayout,
   updateLayout,
   deleteLayout
@@ -281,7 +277,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           createLayout(this.temp).then(() => {
-            this.list.unshift(this.temp)
+            this.handleFilter(false)
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -314,8 +310,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           updateLayout(this.temp.id, this.temp).then(() => {
-            const index = this.list.findIndex((v) => v.id === this.temp.id)
-            this.list.splice(index, 1, this.temp)
+            this.handleFilter(false)
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -332,11 +327,11 @@ export default {
     handleDelete(row, index) {
       this.$confirm(
         // 消息
-        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']", [
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
           row.name
         ]),
         // title
-        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']"), {
+        this.$i18n.t("AbpUi['AreYouSure']"), {
           confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
           cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
           type: 'warning' // 弹框类型
@@ -344,8 +339,7 @@ export default {
       ).then(async() => {
         // 回调函数
         deleteLayout(row.id).then(() => {
-          const index = this.list.findIndex((v) => v.id === row.id)
-          this.list.splice(index, 1)
+          this.handleFilter(false)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),

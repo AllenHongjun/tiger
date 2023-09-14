@@ -8,6 +8,9 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.TaskManagement;
 
+/// <summary>
+/// 作业日志
+/// </summary>
 [RemoteService(Name = TaskManagementRemoteServiceConsts.RemoteServiceName)]
 [Area(TaskManagementRemoteServiceConsts.ModuleName)]
 [Authorize(TaskManagementPermissions.BackgroundJobLogs.Default)]
@@ -22,6 +25,11 @@ public class BackgroundJobLogController : TaskManagementController, IBackgroundJ
         BackgroundJobLogAppService = backgroundJobLogAppService;
     }
 
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete]
     [Route("{id}")]
     [Authorize(TaskManagementPermissions.BackgroundJobLogs.Delete)]
@@ -30,6 +38,11 @@ public class BackgroundJobLogController : TaskManagementController, IBackgroundJ
         return BackgroundJobLogAppService.DeleteAsync(id);
     }
 
+    /// <summary>
+    /// 获取详情
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet]
     [Route("{id}")]
     public Task<BackgroundJobLogDto> GetAsync(long id)
@@ -37,6 +50,11 @@ public class BackgroundJobLogController : TaskManagementController, IBackgroundJ
         return BackgroundJobLogAppService.GetAsync(id);
     }
 
+    /// <summary>
+    /// 分页列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     [HttpGet]
     public Task<PagedResultDto<BackgroundJobLogDto>> GetListAsync(BackgroundJobLogGetListInput input)
     {

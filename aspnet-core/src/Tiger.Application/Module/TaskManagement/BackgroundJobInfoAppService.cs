@@ -19,6 +19,9 @@ using Volo.Abp.Data;
 
 namespace Tiger.Module.TaskManagement;
 
+/// <summary>
+/// 作业管理
+/// </summary>
 [RemoteService(IsEnabled = false)]
 [Authorize(TaskManagementPermissions.BackgroundJobs.Default)]
 public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInfoAppService
@@ -42,6 +45,11 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         LocalizationResource = typeof(TaskManagementResource);
     }
 
+    #region 作业管理
+    /// <summary>
+    /// 获取作业定义
+    /// </summary>
+    /// <returns></returns>
     public virtual Task<ListResultDto<BackgroundJobDefinitionDto>> GetDefinitionsAsync()
     {
         var jobs = new List<BackgroundJobDefinitionDto>();
@@ -73,6 +81,11 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         return Task.FromResult(new ListResultDto<BackgroundJobDefinitionDto>(jobs));
     }
 
+    /// <summary>
+    /// 创建作业
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     [Authorize(TaskManagementPermissions.BackgroundJobs.Create)]
     public async virtual Task<BackgroundJobInfoDto> CreateAsync(BackgroundJobInfoCreateDto input)
     {
@@ -108,6 +121,11 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         return ObjectMapper.Map<BackgroundJobInfo, BackgroundJobInfoDto>(backgroundJobInfo);
     }
 
+    /// <summary>
+    /// 删除作业
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [Authorize(TaskManagementPermissions.BackgroundJobs.Delete)]
     public async virtual Task DeleteAsync(string id)
     {
@@ -118,6 +136,11 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         await BackgroundJobManager.DeleteAsync(backgroundJobInfo);
     }
 
+    /// <summary>
+    /// 获取作业明细
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public async virtual Task<BackgroundJobInfoDto> GetAsync(string id)
     {
         var backgroundJobInfo = await BackgroundJobInfoRepository.GetAsync(id);
@@ -125,6 +148,11 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         return ObjectMapper.Map<BackgroundJobInfo, BackgroundJobInfoDto>(backgroundJobInfo);
     }
 
+    /// <summary>
+    /// 分页获取作业列表
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public async virtual Task<PagedResultDto<BackgroundJobInfoDto>> GetListAsync(BackgroundJobInfoGetListInput input)
     {
         var filter = new BackgroundJobInfoFilter
@@ -221,8 +249,10 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         await CurrentUnitOfWork.SaveChangesAsync();
 
         return ObjectMapper.Map<BackgroundJobInfo, BackgroundJobInfoDto>(backgroundJobInfo);
-    }
+    } 
+    #endregion
 
+    #region 批量操作
     [Authorize(TaskManagementPermissions.BackgroundJobs.Delete)]
     public async virtual Task BulkDeleteAsync(BackgroundJobInfoBatchInput input)
     {
@@ -323,10 +353,12 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         }
 
         await BackgroundJobManager.BulkPauseAsync(jobs);
-    }
+    } 
+    #endregion
 
+    #region Utility
     /// <summary>
-    /// 
+    /// 查询作业列表
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -335,7 +367,7 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
     /// </remarks>
     protected async virtual Task<IEnumerable<BackgroundJobInfo>> GetListAsync(BackgroundJobInfoBatchInput input)
     {
-        var quaryble =  BackgroundJobInfoRepository.Where(x => input.JobIds.Contains(x.Id));
+        var quaryble = BackgroundJobInfoRepository.Where(x => input.JobIds.Contains(x.Id));
 
         return await AsyncExecuter.ToListAsync(quaryble);
     }
@@ -370,25 +402,26 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
         {
             await AuthorizationService.CheckAsync(TaskManagementPermissions.BackgroundJobs.ManageSystemJobs);
         }
-    }
+    } 
+    #endregion
 
-    protected async  Task<int> GetCountAsync(
-        Expression<Func<BackgroundJobInfo, bool>> condition)
-    {
-        return   BackgroundJobInfoRepository.Where(condition).Count();
-    }
+    //protected async  Task<int> GetCountAsync(
+    //    Expression<Func<BackgroundJobInfo, bool>> condition)
+    //{
+    //    return   BackgroundJobInfoRepository.Where(condition).Count();
+    //}
 
-    protected async  Task<List<BackgroundJobInfo>> GetListAsync(
-        Expression<Func<BackgroundJobInfo, bool>> condition,
-        PagedAndSortedResultRequestDto pageRequest)
-    {
-        var sorting = !pageRequest.Sorting.IsNullOrWhiteSpace()
-            ? pageRequest.Sorting
-            : $"{nameof(BackgroundJobInfo.CreationTime)} DESC";
-        var queryable =  BackgroundJobInfoRepository.Where(condition)
-                .PageBy(pageRequest.SkipCount, pageRequest.MaxResultCount)
-                .OrderBy(sorting);
+    //protected async  Task<List<BackgroundJobInfo>> GetListAsync(
+    //    Expression<Func<BackgroundJobInfo, bool>> condition,
+    //    PagedAndSortedResultRequestDto pageRequest)
+    //{
+    //    var sorting = !pageRequest.Sorting.IsNullOrWhiteSpace()
+    //        ? pageRequest.Sorting
+    //        : $"{nameof(BackgroundJobInfo.CreationTime)} DESC";
+    //    var queryable =  BackgroundJobInfoRepository.Where(condition)
+    //            .PageBy(pageRequest.SkipCount, pageRequest.MaxResultCount)
+    //            .OrderBy(sorting);
 
-        return queryable.ToList();
-    }
+    //    return queryable.ToList();
+    //}
 }

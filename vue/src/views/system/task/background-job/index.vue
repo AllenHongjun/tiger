@@ -193,7 +193,7 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="queryForm.page" :limit.sync="queryForm.limit" @pagination="getList" />
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('TaskManagement[\'Permissions:CreateJob\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
+    <el-dialog :title=" dialogStatus == 'create'? $t('TaskManagement[\'Permissions:CreateJob\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="7vh">
       <el-tabs v-model="activeName">
         <el-tab-pane label="基本信息" name="first">
           <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
@@ -333,7 +333,9 @@
           </el-form>
 
         </el-tab-pane>
-        <el-tab-pane label="Paramters" name="second">配置管理</el-tab-pane>
+        <el-tab-pane label="Paramters" name="second">
+          <job-paramter :args="temp.args" @set-args="temp.args = $event" />
+        </el-tab-pane>
         <el-tab-pane v-if="isEditModal" label="Job:Actions" name="third">
           <job-action ref="jobAction" :job-id="temp.id" />
         </el-tab-pane>
@@ -360,7 +362,6 @@
 import {
   getBackgroundJobs,
   getBackgroundJob,
-  getBackgroundJobsAll,
   createBackgroundJob,
   updateBackgroundJob,
   deleteBackgroundJob,
@@ -369,7 +370,8 @@ import {
 } from '@/api/system-manage/task/background-job'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import JobDetail from './components/JobDetail'
-import JobAction from './components/JobAction'
+import JobParamter from './components/JobParamter.vue'
+import JobAction from './components/JobAction.vue'
 
 import baseListQuery, {
   checkPermission
@@ -448,6 +450,7 @@ export default {
   components: {
     Pagination,
     JobDetail,
+    JobParamter,
     JobAction
   },
   filters: {
@@ -710,7 +713,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           createBackgroundJob(this.temp).then(() => {
-            this.list.unshift(this.temp)
+            this.handleFilter(false)
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -744,8 +747,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           updateBackgroundJob(this.temp.id, this.temp).then(() => {
-            const index = this.list.findIndex((v) => v.id === this.temp.id)
-            this.list.splice(index, 1, this.temp)
+            this.handleFilter(false)
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -774,8 +776,7 @@ export default {
       ).then(async() => {
         // 回调函数
         deleteBackgroundJob(row.id).then(() => {
-          const index = this.list.findIndex((v) => v.id === row.id)
-          this.list.splice(index, 1)
+          this.handleFilter(false)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),

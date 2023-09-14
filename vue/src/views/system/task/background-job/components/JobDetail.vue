@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-dialog :title="$t('TaskManagement[\'BackgroundJobDetail\']')" :visible.sync="dialogVisible" width="75%" top="7vh">
+    <el-dialog :title="$t('TaskManagement[\'BackgroundJobDetail\']')" :visible.sync="dialogVisible" width="75%" top="5vh">
       <el-card class="box-card">
         <div class="text item">
           <el-descriptions class="margin-top" :title="$t('TaskManagement[\'BasicInfo\']')" :column="5" :size="size" border>
@@ -23,7 +23,7 @@
                 <i class="el-icon-location-outline" />
                 {{ $t("TaskManagement['DisplayName:IsEnabled']") }}
               </template>
-              {{ jobInfo.IsEnabled ? '启用': '禁用' }}
+              {{ jobInfo.isEnabled ? '启用': '禁用' }}
             </el-descriptions-item>
 
             <!-- <el-descriptions-item>
@@ -76,11 +76,16 @@
           <b>{{ $t("TaskManagement['BackgroundJobLogs']") }}</b>
         </div>
         <div class="text item">
-          <el-table :key="tableKey" v-loading="listLoading" max-height="380" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+          <el-table :key="tableKey" v-loading="listLoading" max-height="460px" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
             <el-table-column type="index" width="80" />
-            <el-table-column :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="jobName" align="center">
+            <!-- <el-table-column :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="jobName" align="center">
               <template slot-scope="{ row }">
                 <span>{{ row.jobName }}</span>
+              </template>
+            </el-table-column> -->
+            <el-table-column :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="jobType" sortable align="center" width="130">
+              <template slot-scope="{ row }">
+                <span>{{ row.jobType }}</span>
               </template>
             </el-table-column>
             <el-table-column :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="jobGroup" sortable align="center" width="130">
@@ -88,11 +93,7 @@
                 <span>{{ row.jobGroup }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="jobType" sortable align="center" width="130">
-              <template slot-scope="{ row }">
-                <span>{{ row.jobType }}</span>
-              </template>
-            </el-table-column>
+
             <el-table-column label="消息" prop="message" align="center">
               <template slot-scope="{ row }">
                 <span>{{ row.message }}</span>
@@ -235,7 +236,7 @@ export default {
   text-align: center;
 }
 .pagination-container{
-  margin-top: 5px;
+  margin-top: 0px;
   padding: 10px 16px;
 }
 </style>

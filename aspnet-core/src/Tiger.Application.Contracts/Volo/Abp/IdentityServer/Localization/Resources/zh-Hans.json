@@ -76,7 +76,7 @@
     "Client:Edit": "编辑客户端",
     "Client:Delete": "删除客户端",
     "Client:WillDelete": "客户端:{0} 将被删除",
-    "Client:Name": "客户端 - {0}",
+    "Client:Name": "客户端名称",
     "Client:Id": "客户端标识",
     "Client:Clone": "克隆客户端",
     "Clone:CopyAllowedGrantType": "复制客户端授权类型",

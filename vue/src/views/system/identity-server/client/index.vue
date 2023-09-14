@@ -93,13 +93,13 @@
             </el-form-item>
 
           </el-tab-pane>
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Secret\']')" name="second">
+          <el-tab-pane v-if="dialogStatus == 'update'" :label="$t('AbpIdentityServer[\'Secret\']')" name="second">
             <secret v-if="temp && formDataFlag" :secrets="temp.clientSecrets" @set-client-secret="temp.clientSecrets = $event" />
           </el-tab-pane>
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Client:Resources\']')" name="third">
+          <el-tab-pane v-if="dialogStatus == 'update'" :label="$t('AbpIdentityServer[\'Client:Resources\']')" name="third">
             <client-identity-resource v-if="temp.allowedScopes && allowedScopesFlag" :identity-resources="temp.allowedScopes" @set-identity-resources="temp.allowedScopes = $event" />
           </el-tab-pane>
-          <el-tab-pane class="advance" :label="$t('AbpIdentityServer[\'Advanced\']')" name="fourth">
+          <el-tab-pane v-if="dialogStatus == 'update'" class="advance" :label="$t('AbpIdentityServer[\'Advanced\']')" name="fourth">
             <el-tabs type="card">
               <el-tab-pane :label="$t('AbpIdentityServer[\'Consent\']')">
                 <client-consent v-if="temp && formDataFlag" :rule-form="temp" @set-form-rules="Object.assign(rules,$event)" />

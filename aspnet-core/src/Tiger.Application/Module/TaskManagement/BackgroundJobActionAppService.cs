@@ -11,6 +11,9 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.TaskManagement;
 
+/// <summary>
+/// 作业行为
+/// </summary>
 [RemoteService(IsEnabled = false)]
 [Authorize(TaskManagementPermissions.BackgroundJobs.ManageActions)]
 public class BackgroundJobActionAppService : TaskManagementApplicationService, IBackgroundJobActionAppService
@@ -29,6 +32,12 @@ public class BackgroundJobActionAppService : TaskManagementApplicationService, I
         BackgroundJobActionRepository = backgroundJobActionRepository;
     }
 
+    /// <summary>
+    /// 添加作业行为
+    /// </summary>
+    /// <param name="jobId"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public async virtual Task<BackgroundJobActionDto> AddActionAsync(string jobId, BackgroundJobActionCreateDto input)
     {
         var job = await BackgroundJobInfoRepository.GetAsync(jobId);
@@ -50,6 +59,11 @@ public class BackgroundJobActionAppService : TaskManagementApplicationService, I
         return ObjectMapper.Map<BackgroundJobAction, BackgroundJobActionDto>(action);
     }
 
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public async virtual Task DeleteActionAsync(Guid id)
     {
         var action = await BackgroundJobActionRepository.GetAsync(id);
@@ -59,6 +73,11 @@ public class BackgroundJobActionAppService : TaskManagementApplicationService, I
         await CurrentUnitOfWork.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// 获取作业行为详情
+    /// </summary>
+    /// <param name="jobId"></param>
+    /// <returns></returns>
     public async virtual Task<ListResultDto<BackgroundJobActionDto>> GetActionsAsync(string jobId)
     {
         var actions = await BackgroundJobActionRepository.GetListAsync(jobId);
@@ -67,6 +86,11 @@ public class BackgroundJobActionAppService : TaskManagementApplicationService, I
             ObjectMapper.Map<List<BackgroundJobAction>, List<BackgroundJobActionDto>>(actions));
     }
 
+    /// <summary>
+    /// 获取作业行为定义
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public virtual Task<ListResultDto<BackgroundJobActionDefinitionDto>> GetDefinitionsAsync(BackgroundJobActionGetDefinitionsInput input)
     {
         var actionDefinitions = JobActionDefinitionManager.GetAll();
@@ -92,6 +116,12 @@ public class BackgroundJobActionAppService : TaskManagementApplicationService, I
         return Task.FromResult(new ListResultDto<BackgroundJobActionDefinitionDto>(dtoList));
     }
 
+    /// <summary>
+    /// 更新作业行为
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public async virtual Task<BackgroundJobActionDto> UpdateActionAsync(Guid id, BackgroundJobActionUpdateDto input)
     {
         var action = await BackgroundJobActionRepository.GetAsync(id);
