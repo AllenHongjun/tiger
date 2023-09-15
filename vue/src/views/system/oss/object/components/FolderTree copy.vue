@@ -1,12 +1,14 @@
 <template>
   <div>
     <el-button icon="el-icon-folder-add" type="primary" style="width:100%;margin:15px 0px;" @click="handleCreateFolder">创建文件夹</el-button>
-    <el-tree ref="tree" :data="folders" lazy :load="fetchChildren" node-key="name" :props="defaultProps" @node-click="handleNodeClick">
+    <el-tree ref="tree" :data="folders" :load="fetchChildren" :lazy="true" node-key="name" :props="defaultProps" @node-click="handleNodeClick">
       <span slot-scope="{ node, data }" class="custom-tree-node">
         <span :name="node.label">
-          <i v-if="data.children.length > 0" :class="node.expanded ? 'el-icon-folder-opened' : 'el-icon-folder'" />
-          <i v-else class="el-icon-folder" />
-          <b style="margin-left:5px;">{{ node.label }}</b>
+          <i
+            v-if="data.children.length>0"
+            :class="node.expanded ? 'el-icon-folder-opened' : 'el-icon-folder'"
+          />
+          <i v-else class="el-icon-folder" />{{ node.label }}
         </span>
       </span>
     </el-tree>
@@ -34,7 +36,7 @@ export default {
   props: {
     bucket: {
       type: String,
-      default: ''
+      default: 'tiger-blob'
     },
     parentBreadLabel: { // 面包屑文字  通过函数类型属性给父组件传值
       type: Function,
@@ -65,18 +67,9 @@ export default {
         }
       ],
       defaultProps: {
-        label: 'name', // 将获取数组中的name作为显示节点（label）进行展示
-        // value: '根目录',
-        // key: './',
-        // name: '根目录',
-        // title: '根目录',
-        // path: '',
-        children: 'children' // 将获取数组中的children作为子节点（children）的展示
-
+        children: 'children', // 将获取数组中的children作为子节点（children）的展示
+        label: 'name' // 将获取数组中的name作为显示节点（label）进行展示
       },
-      // 解决懒加载刷新问题
-      rootNode: undefined,
-      rootResolve: undefined,
       selectKeys: '' // 保存选中的值
     }
   },
@@ -84,9 +77,12 @@ export default {
     // bucket属性值变化的时候调用
     bucket() {
       if (this.bucket) {
-        // `
-        this.rootNode.childNodes = []// 把存起来的node的子节点清空，不然会界面会出现重复树！
-        this.fetchChildren(this.rootNode, this.rootResolve)// 再次执行懒加载的方法
+        this.fetchFolders(this.bucket).then((fs) => {
+          console.log('this.bucket', this.bucket)
+          console.log('this.folders', this.folders)
+          console.log('fs', fs)
+          // this.folders[0].children = fs
+        })
       }
     },
     immediate: true // watch侦听操作内的函数会立刻被执行
@@ -100,7 +96,7 @@ export default {
         inputPattern: /[a-z]|[A-Z]:(\\[^\\/&?\n]+)\\?/,
         inputErrorMessage: '目录格式不正确，不能包含下面字符\/:*?"<>|  '
       }).then(({ value }) => {
-        // console.log(value)
+        console.log(value)
         const folderName = value.substr(-1) === '/' ? value : value + '/'
         // TODO: 根据选中的节点来获取 path的值
         var path = this.selectKeys
@@ -175,13 +171,6 @@ export default {
        * 另一个是一个重新渲染当前节点下子节点的方法（resolve），它接收一个数组，该数组也会按照props中的映射关系
        * */
     fetchChildren(treeNode, resolve) {
-      // console.log('treeNode', treeNode, 'resolve', resolve)
-
-      // 点击不同的选项加载不同的树 https://blog.csdn.net/qq_34092675/article/details/100942064
-      if (treeNode.level === 0) {
-        this.rootNode = treeNode// 这里是关键！在data里面定义一个变量，将node.level == 0的node存起来
-        this.rootResolve = resolve// 同上，把node.level == 0的resolve也存起来
-      }
       if (!this.bucket) {
         resolve([])
         return
@@ -199,12 +188,11 @@ export default {
         path = path + treeNode.data?.name
       }
       this.fetchFolders(this.bucket, path).then((fs) => {
-        // console.log('fs', fs)
-        // if (!treeNode.data) {
-        //   treeNode.data = fs
-        // } else {
-        //   treeNode.data.children = fs
-        // }
+        if (!treeNode.data) {
+          treeNode.data = fs
+        } else {
+          treeNode.data.children = fs
+        }
         // 懒加载获取的节点数据没有挂载到 folders这个数组上
         resolve(fs)
       }).catch(() => {

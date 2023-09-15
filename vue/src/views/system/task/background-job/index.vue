@@ -337,9 +337,9 @@
         <el-tab-pane label="Paramters" name="second">
           <job-paramter :args="temp.args" @set-args="temp.args = $event" />
         </el-tab-pane>
-        <el-tab-pane v-if="isEditModal" label="Job:Actions" name="third">
+        <!-- <el-tab-pane v-if="isEditModal" label="Job:Actions" name="third">
           <job-action ref="jobAction" :job-id="temp.id" />
-        </el-tab-pane>
+        </el-tab-pane> -->
 
       </el-tabs>
 

@@ -5,6 +5,7 @@
         <div class="grid-content bg-purple">
           <el-card>
             <h4>Oss容器</h4>
+            <!-- <TreeSample /> -->
             <el-select v-model="currentBucket" :placeholder="$t('AbpOssManagement[\'Containers:Select\']')" :clearable="true" style="width:100%">
               <el-option
                 v-for="item in bucketList"
@@ -52,8 +53,9 @@
               <el-table-column type="selection" width="55" />
               <el-table-column type="index" width="80" />
 
-              <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Name\']')" prop="name" sortable align="center">
+              <el-table-column :label="$t('AbpOssManagement[\'DisplayName:Name\']')" prop="name" sortable align="left">
                 <template slot-scope="{ row }">
+                  <i :class="[row.isFolder ? 'el-icon-folder-opened':'' ]" style="color:#bc812a;margin-right:5px;" />
                   <span>{{ row.name }}</span>
                 </template>
               </el-table-column>
@@ -172,15 +174,17 @@ import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
 import { format } from '@/utils/strings'
-import OssPreview from './components/OssPreviewModal'
-import FolderTree from './components/FolderTree'
+import OssPreview from './components/OssPreviewModal.vue'
+import FolderTree from './components/FolderTree.vue'
+import TreeSample from './components/TreeSample.vue'
 
 export default {
   name: 'Objects',
   components: {
     Pagination,
     FolderTree,
-    OssPreview
+    OssPreview,
+    TreeSample
   },
   data() {
     return {
@@ -255,9 +259,10 @@ export default {
   },
   // 钩子函数 通常在初始化页面完成后，对html的dom节点进行需要的操作。
   mounted() {
-    this.fetchBuckets()
+
   },
   created() {
+    this.fetchBuckets()
     this.getList()
   },
   methods: {

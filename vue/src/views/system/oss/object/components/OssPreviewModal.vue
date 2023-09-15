@@ -5,7 +5,13 @@
       <el-card class="box-card">
         <div class="text item">
           <div class="img-container">
-            <el-image :src="src" style="height: 500px;margin:0 auto;display:block;" fit="contain" />
+
+            <el-image :src="src" style="height: 500px;margin:0 auto;display:block;" fit="contain">
+              <div v-if="form.isFolder" slot="error" class="image-slot">
+                <i class="el-icon-error" />
+                不支持预览
+              </div>
+            </el-image>
           </div>
 
           <el-form ref="form" :model="form" label-width="110px" label-position="left">
@@ -80,6 +86,7 @@ export default {
       this.form = row
       this.src = 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/' + row.name
       this.drawer = true
+      this.isFolder = row.isFolder
     },
     handleClose(done) {
       this.$confirm('确认关闭？')

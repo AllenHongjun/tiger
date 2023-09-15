@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
-        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
         <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
           {{ $t('AbpUi.Search') }}
         </el-button>
@@ -15,33 +15,33 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="center">
+      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="left" width="120">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" align="center">
+      <el-table-column :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" align="left" width="120">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description" sortable align="center">
+      <el-table-column :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.description }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Path\']')" prop="path" sortable align="center">
+      <el-table-column :label="$t('AppPlatform[\'DisplayName:Path\']')" prop="path" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.path }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Redirect\']')" prop="redirect" sortable align="center">
+      <el-table-column :label="$t('AppPlatform[\'DisplayName:Redirect\']')" prop="redirect" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.redirect }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="200" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
           <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" @click="handleUpdate(row)">
             {{ $t("AbpUi['Edit']") }}
@@ -231,7 +231,6 @@ export default {
       getLayouts(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
-
         this.listLoading = false
       })
     },
@@ -292,10 +291,8 @@ export default {
 
     // 更新按钮点击
     handleUpdate(row) {
-      this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
-
       getLayout(row.id).then(response => {
         this.temp = response
       })
