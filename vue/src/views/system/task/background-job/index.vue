@@ -175,12 +175,13 @@
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="180" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
           <el-link v-if="checkPermission('TaskManagement.BackgroundJobs.Update')" class="el-icon-edit" title="编辑" plain circle type="primary" @click="handleUpdate(row)" />
-          <el-link class="el-icon-video-play" title="启动" plain circle type="success" @click="handleUpdate(row)" />
+          <!-- <el-link class="el-icon-video-play" title="启动" plain circle type="success" @click="handleUpdate(row)" /> -->
           <el-link v-if="checkPermission('TaskManagement.BackgroundJobs.Delete')" class="el-icon-delete" title="删除" plain circle type="danger" @click="handleDelete(row, $index)" />
 
           <el-dropdown trigger="click" @command="handleCommand">
             <el-link class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" plain circle type="primary" />
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item icon="el-icon-video-play" :command="beforeHandleCommand(row, 'start')">{{ $t("TaskManagement['BackgroundJobs:Start']") }}</el-dropdown-item>
               <el-dropdown-item icon="el-icon-video-pause" :command="beforeHandleCommand(row, 'pause')">{{ $t("TaskManagement['BackgroundJobs:Pause']") }}</el-dropdown-item>
               <el-dropdown-item icon="el-icon-refresh-right" :command="beforeHandleCommand(row, 'resume')">{{ $t("TaskManagement['BackgroundJobs:Resume']") }}</el-dropdown-item>
               <el-dropdown-item icon="el-icon-caret-right" :command="beforeHandleCommand(row, 'trigger')">{{ $t("TaskManagement['BackgroundJobs:Trigger']") }}</el-dropdown-item>
@@ -498,7 +499,7 @@ export default {
         maxTryCount: 50,
         maxCount: 0,
         interval: 0,
-        priority: 0,
+        priority: undefined,
         lockTimeOut: 0,
         name: undefined,
         group: undefined,
@@ -678,7 +679,7 @@ export default {
         maxTryCount: 50,
         maxCount: 0,
         interval: 0,
-        priority: 0,
+        priority: undefined,
         lockTimeOut: 0,
         name: undefined,
         group: undefined,
@@ -794,7 +795,6 @@ export default {
       }
     },
     handleCommand(param) {
-      console.log('params', param)
       operateBackgroundJob(param.command, param.scope.id).then(() => {
         this.handleFilter(false)
         this.$notify({
@@ -833,23 +833,25 @@ export default {
     },
     // 下载数据
     handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-        const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
+      this.$alert('开发中...')
+      return
+      // this.downloadLoading = true
+      // import('@/vendor/Export2Excel').then(excel => {
+      //   const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
+      //   const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
 
-        // TODO: 修改为当前查询条件下所有页数的数据
-        const list = this.list
-        const data = this.formatJson(filterVal, list)
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: this.filename,
-          autoWidth: this.autoWidth,
-          bookType: this.bookType
-        })
-        this.downloadLoading = false
-      })
+      //   // TODO: 修改为当前查询条件下所有页数的数据
+      //   const list = this.list
+      //   const data = this.formatJson(filterVal, list)
+      //   excel.export_json_to_excel({
+      //     header: tHeader,
+      //     data,
+      //     filename: this.filename,
+      //     autoWidth: this.autoWidth,
+      //     bookType: this.bookType
+      //   })
+      //   this.downloadLoading = false
+      // })
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
@@ -872,6 +874,6 @@ export default {
   }
 }
 .el-link{
-  margin-right: 8px;
+  margin-right: 12px;
 }
 </style>

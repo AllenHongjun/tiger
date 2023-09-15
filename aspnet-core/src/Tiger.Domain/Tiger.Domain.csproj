@@ -84,7 +84,6 @@
     <Compile Remove="Infrastructure\BackgroundTasks\Hangfire\HangfireJobSimpleAdapter.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\Jobs\AbpBackgroundTasksJobsModule.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\Jobs\HttpRequestJob.cs" />
-    <Compile Remove="Infrastructure\BackgroundTasks\Jobs\HttpRequestJobBase.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\Jobs\ServiceInvocationJob.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\Quartz\AbpBackgroundTasksQuartzModule.cs" />
     <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />

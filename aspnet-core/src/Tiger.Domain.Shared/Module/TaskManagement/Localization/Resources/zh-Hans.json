@@ -71,6 +71,7 @@
     "DisplayName:Source": "来源",
     "DisplayName:User": "用户",
     "DisplayName:System": "系统内置",
+    "DisplayName:Exception": "异常",
     "BackgroundJobs": "作业列表",
     "BackgroundJobDetail": "作业详情",
     "BackgroundJobLogs": "作业日志",
