@@ -1,7 +1,0 @@
-{
-  "culture": "ar",
-  "texts": {
-    "DisplayName:Abp.Timing.Timezone": "المنطقة زمنية",
-    "Description:Abp.Timing.Timezone": "المنطقة الزمنية للتطبيق"
-  }
-}

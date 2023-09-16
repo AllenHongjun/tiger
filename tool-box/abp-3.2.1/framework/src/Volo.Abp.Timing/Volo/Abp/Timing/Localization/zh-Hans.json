@@ -1,7 +1,0 @@
-{
-  "culture": "zh-Hans",
-  "texts": {
-    "DisplayName:Abp.Timing.Timezone": "时区",
-    "Description:Abp.Timing.Timezone": "应用程序的时区"
-  }
-}

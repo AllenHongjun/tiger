@@ -1,7 +1,0 @@
-{
-  "culture": "tr",
-  "texts": {
-    "HelloText": "Merhaba {0}",
-    "HowAreYou": "nasılsın?"
-  }
-}

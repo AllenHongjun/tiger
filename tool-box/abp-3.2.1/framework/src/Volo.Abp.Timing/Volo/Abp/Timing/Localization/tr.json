@@ -1,7 +1,0 @@
-{
-  "culture": "tr",
-  "texts": {
-    "DisplayName:Abp.Timing.Timezone": "saat dilimi",
-    "Description:Abp.Timing.Timezone": "Uygulama saat dilimi"
-  }
-}
