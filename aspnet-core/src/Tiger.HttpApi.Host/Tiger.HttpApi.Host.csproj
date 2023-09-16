@@ -23,7 +23,12 @@
 
   <PropertyGroup>
 	    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
-  </PropertyGroup>
+  </PropertyGroup> 
+
+<!--https://stackoverflow.com/questions/48896443/an-assembly-specified-in-the-application-dependencies-manifest-was-not-fou-->
+   <PropertyGroup>
+     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CrystalQuartz.AspNetCore" Version="6.8.1" />

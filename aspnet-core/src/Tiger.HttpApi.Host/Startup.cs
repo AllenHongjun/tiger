@@ -18,6 +18,7 @@ namespace Tiger
         {
             if (env.IsDevelopment())
             {
+                // appsettings.json配置文件 https://www.cnblogs.com/itjeff/p/15165997.html
                 app.UseDeveloperExceptionPage();
             }
             else

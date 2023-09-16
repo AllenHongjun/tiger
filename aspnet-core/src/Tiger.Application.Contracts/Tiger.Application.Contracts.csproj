@@ -73,6 +73,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Volo\Abp\IdentityServer\Localization\Resources\en.json" />
+    <None Remove="Volo\Abp\IdentityServer\Localization\Resources\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Volo\Abp\IdentityServer\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Volo\Abp\IdentityServer\Localization\Resources\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tiger.Domain.Shared\Tiger.Domain.Shared.csproj" />
   </ItemGroup>
 

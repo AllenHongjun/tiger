@@ -51,11 +51,51 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Module\OssManagement\Localization\Resources\en.json" />
+    <None Remove="Module\OssManagement\Localization\Resources\zh-Hans.json" />
+    <None Remove="Module\System\Localization\Resources\zh-Hans.json" />
+    <None Remove="Module\System\Platform\Localization\Resources\en.json" />
+    <None Remove="Module\System\Platform\Localization\Resources\zh-Hans.json" />
+    <None Remove="Module\System\TextTemplate\Localization\Resources\en.json" />
+    <None Remove="Module\System\TextTemplate\Localization\Resources\zh-Hans.json" />
     <None Remove="Module\System\TextTemplate\Template\Hello\Hello.tpl" />
+    <None Remove="Module\TaskManagement\Localization\Resources\en.json" />
+    <None Remove="Module\TaskManagement\Localization\Resources\zh-Hans.json" />
+    <None Remove="Volo\Abp\AuditLogging\Localization\Extensions\en.json" />
+    <None Remove="Volo\Abp\AuditLogging\Localization\Extensions\zh-Hans.json" />
+    <None Remove="Volo\Abp\IdentityServer\Localization\Resources\en.json" />
+    <None Remove="Volo\Abp\IdentityServer\Localization\Resources\zh-Hans.json" />
+    <None Remove="Volo\Abp\Identity\Localization\Extensions\en.json" />
+    <None Remove="Volo\Abp\Identity\Localization\Extensions\zh-Hans.json" />
+    <None Remove="Volo\Abp\Sass\Localization\Resources\en.json" />
+    <None Remove="Volo\Abp\Sass\Localization\Resources\zh-Hans.json" />
+    <None Remove="Volo\Abp\SettingUi\Localization\SettingUi\en.json" />
+    <None Remove="Volo\Abp\SettingUi\Localization\SettingUi\tr.json" />
+    <None Remove="Volo\Abp\SettingUi\Localization\SettingUi\zh-Hans.json" />
+    <None Remove="Volo\Abp\SettingUi\SettingProperties\AbpSettingUiSettingProperties.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Module\OssManagement\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Module\OssManagement\Localization\Resources\zh-Hans.json" />
+    <EmbeddedResource Include="Module\System\Localization\Resources\zh-Hans.json" />
+    <EmbeddedResource Include="Module\System\Platform\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Module\System\Platform\Localization\Resources\zh-Hans.json" />
+    <EmbeddedResource Include="Module\System\TextTemplate\Localization\Resources\en.json" />
     <EmbeddedResource Include="Module\System\TextTemplate\Template\Hello\Hello.tpl" />
+    <EmbeddedResource Include="Module\TaskManagement\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Volo\Abp\AuditLogging\Localization\Extensions\en.json" />
+    <EmbeddedResource Include="Volo\Abp\AuditLogging\Localization\Extensions\zh-Hans.json" />
+    <EmbeddedResource Include="Volo\Abp\IdentityServer\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Volo\Abp\IdentityServer\Localization\Resources\zh-Hans.json" />
+    <EmbeddedResource Include="Volo\Abp\Identity\Localization\Extensions\en.json" />
+    <EmbeddedResource Include="Volo\Abp\Identity\Localization\Extensions\zh-Hans.json" />
+    <EmbeddedResource Include="Volo\Abp\Sass\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Volo\Abp\Sass\Localization\Resources\zh-Hans.json" />
+    <EmbeddedResource Include="Volo\Abp\SettingUi\Localization\SettingUi\en.json" />
+    <EmbeddedResource Include="Volo\Abp\SettingUi\Localization\SettingUi\tr.json" />
+    <EmbeddedResource Include="Volo\Abp\SettingUi\Localization\SettingUi\zh-Hans.json" />
+    <EmbeddedResource Include="Volo\Abp\SettingUi\SettingProperties\AbpSettingUiSettingProperties.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,7 +106,16 @@
   <ItemGroup>
     <Folder Include="Module\System\Platform\Settings\" />
     <Folder Include="Module\System\Cache\" />
-    <Folder Include="Volo\Abp\SettingUi\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Module\TaskManagement\Localization\Resources\zh-Hans.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Module\System\TextTemplate\Localization\Resources\zh-Hans.json" />
   </ItemGroup>
 
 </Project>

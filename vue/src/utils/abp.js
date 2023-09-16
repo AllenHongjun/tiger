@@ -5,7 +5,7 @@ var photoPrefix = ''
 var baseUrl = ''
 if (process.env.NODE_ENV === 'production') {
   photoPrefix = 'http://tiger.hongjy.cn/'
-  baseUrl = 'https://localhost:44306/'
+  baseUrl = 'http://dev-api.tiger.cn/'
 } else {
   photoPrefix = 'https://blogimg.hongjy.cn/'
   baseUrl = 'https://localhost:44306/'

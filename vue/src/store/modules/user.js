@@ -5,8 +5,8 @@ import { resetRouter } from '@/router'
 // IdentityServer客户端授权信息配置
 const clientSetting = {
   grant_type: 'password',
-  issuer: 'https://localhost:44367',
-  redirectUri: process.env.VUE_APP_BASE_API,
+  issuer: 'dev-api',
+  redirectUri: 'http://dev.tiger.com/', // process.env.VUE_APP_BASE_API,
   responseType: 'code',
   scope: 'Tiger',
   username: '',

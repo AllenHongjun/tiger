@@ -56,7 +56,6 @@ Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
-Vue.config.productionTip = false
 Vue.use(VForm) // 全局注册VForm(同时注册了v-form-designer和v-form-render组件)
 
 // 全局删除增加图标
@@ -73,6 +72,9 @@ Object.keys(filters).forEach(key => {
 })
 
 Vue.config.productionTip = false
+
+// 启用vue-devtool调试 生产环境要禁用
+Vue.config.devtools = true
 
 new Vue({
   el: '#app',
