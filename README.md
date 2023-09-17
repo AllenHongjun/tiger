@@ -5,15 +5,49 @@
 
 
 
-[演示地址-http://localhost:9528/admin#/login](http://localhost:9528/admin#/login)
+### 开发环境
 
-[接口地址-https://localhost:44306/index.html](https://localhost:44306/index.html)
+| 工具         | 版本号 | 下载                                                         |
+| ------------ | ------ | ------------------------------------------------------------ |
+| .net core    | 3.1.0  | https://dotnet.microsoft.com/download                        |
+| asp.net core | 3.1.10 |                                                              |
+| SqlServer    | 2012   | https://www.microsoft.com/en-us/sql-server/sql-server-downloads |
+| Redis        | 5.0    | https://redis.io/download                                    |
+| RabbitMQ     | 3.7.14 | http://www.rabbitmq.com/download.html                        |
+| Sql Server   | 2012   |                                                              |
 
 
 
-### 快速启动
+### 开发步骤
 
-接口
+
+
+```shell
+
+# 克隆项目
+git clone https://github.com/AllenHongjun/tiger.git
+
+# 修改 appsettings.Development.json ConnectionStrings 数据库配置
+
+# 创建数据库 设置 Tiger.HttpApi.Host 为启动项目，打开程序包管理器控制台， 设置 Tiger.EntityFrameworkCore.DbMigrations 为默认项目 执行 Update-Database 
+
+# Ctrl + F5 启动项目 浏览器其访问接口地址:https://localhost:44306/index.html 
+
+
+# 进入项目目录
+cd tiger/vue
+
+# 安装依赖
+npm install
+
+# 建议不要直接使用 cnpm 安装依赖，会有各种诡异的 bug。可以通过如下操作解决 npm 下载速度慢的问题
+npm install --registry=https://registry.npm.taobao.org
+
+# 启动服务
+npm run dev
+
+# 浏览器访问 http://localhost:9528/admin/
+```
 
 
 
@@ -23,49 +57,33 @@
 
 ![login](assets/login-1694916767957-39.png)
 
-![register](assets/register-1694916767957-44.png)
 
-![swagger-api](assets/swagger-api-1694916767957-28.png)
 
 ![system-setting](assets/system-setting-1694916767957-29.png)
 
 ![task](assets/task-1694916767957-30.png)
 
-![task-detail](assets/task-detail-1694916767957-33.png)
 
-![task-edit](assets/task-edit-1694916767957-31.png)
 
 ![tenent](assets/tenent-1694916767957-32.png)
 
 ![user](assets/user-1694916767957-34.png)
 
-![user-edit](assets/user-edit.png)
-
 ![user-permistion](assets/user-permistion.png)
 
 ![audit-log](assets/audit-log-1694916767957-35.png)
 
-![client](assets/client-1694916767957-36.png)
+
 
 ![client-edit](assets/client-edit-1694916767957-37.png)
 
-![dashboard](assets/dashboard-1694916767957-38.png)
-
 ![feature](assets/feature-1694916767957-40.png)
 
-![menu](assets/menu-1694916767957-41.png)
 
-![oss-object](assets/oss-object-1694916767957-42.png)
-
-![redis-info](assets/redis-info-1694916767957-43.png)
-
-
-
-![security-log](assets/security-log.png)
 
 ![server-info](assets/server-info-1694916767957-45.png)
 
-## 
+
 
 ### 开发工具
 
@@ -89,21 +107,6 @@
 |               |                     |                                                       |
 |               |                     |                                                       |
 
-
-
-### 开发环境
-
-| 工具          | 版本号 | 下载                                                         |
-| ------------- | ------ | ------------------------------------------------------------ |
-| .net core     | 3.1.0  | https://dotnet.microsoft.com/download                        |
-| SqlServer     | 2012   | https://www.microsoft.com/en-us/sql-server/sql-server-downloads |
-| Redis         | 5.0    | https://redis.io/download                                    |
-| MongoDB       | 4.2.5  | https://www.mongodb.com/download-center                      |
-| RabbitMQ      | 3.7.14 | http://www.rabbitmq.com/download.html                        |
-| Nginx         | 1.10   | http://nginx.org/en/download.html                            |
-| Elasticsearch | 7.6.2  | https://www.elastic.co/downloads/elasticsearch               |
-| Logstash      | 7.6.2  | https://www.elastic.co/cn/downloads/logstash                 |
-| Kibana        | 7.6.2  | https://www.elastic.co/cn/downloads/kibana                   |
 
 
 
