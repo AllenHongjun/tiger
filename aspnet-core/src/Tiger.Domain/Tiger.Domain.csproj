@@ -129,7 +129,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Atemp\" />
     <Folder Include="Business\Users\" />
     <Folder Include="Infrastructure\BackgroundTasks\DistributedLocking\" />
     <Folder Include="Infrastructure\BackgroundTasks\Hangfire\" />
