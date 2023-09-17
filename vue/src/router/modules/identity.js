@@ -9,7 +9,7 @@ const identityRouter = {
   alwaysShow: true,
   name: 'Identity',
   meta: {
-    title: '身份认证',
+    title: 'AbpIdentity["Menu:IdentityManagement"]',
     icon: 'user',
     policy: ''
   },

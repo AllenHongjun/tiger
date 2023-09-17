@@ -21,9 +21,8 @@
 
     "Search": "搜索",
     "Reset": "重置",
-
-    "Users:ChangePassword": "重置密码", 
-
+    "Users:ChangePassword": "重置密码",
+    "OrganizationUnits": "组织",
     "OrganizationUnit:Tree": "组织机构树",
     "OrganizationUnit:New": "新组织机构",
     "OrganizationUnit:Members": "机构成员",
@@ -120,6 +119,7 @@
     "IdentityClaimTypeAlreadyExists": "声明类型 {0} 已经存在!",
     "UserClaimAlreadyExists": "已经添加相同参数的用户声明!",
     "RoleClaimAlreadyExists": "已经添加相同参数的角色声明",
+    "ClaimTypes": "声明类型",
     "DisplayName:ClaimType": "声明类型",
     "DisplayName:ClaimValue": "声明值",
     "ClaimSubject": "声明 - {0}",
@@ -138,7 +138,6 @@
     "IdentityClaim:Description": "描述",
     "IdentityClaim:ValueType": "值类型",
 
-
     "Volo.Abp.Identity:020005": "无法变更静态声明类型!",
     "Volo.Abp.Identity:020006": "无法删除静态声明类型!",
     "Volo.Abp.Identity:020007": "手机号码已被其他用户绑定!",
@@ -146,9 +145,8 @@
     "Volo.Abp.Identity:020009": "你不能修改你的邮件绑定信息!",
     "Volo.Abp.Identity:020010": "邮件地址已绑定!",
 
-
-
     "Volo.Abp.Identity:DuplicatePhoneNumber": "手机号 '{0}' 已存在.",
+    "Identity.OrganizationUnit.MaxUserMembershipCount": "允许的用户最大组织单位成员数",
     "DisplayName:Abp.Identity.User.SmsNewUserRegister": "新用户注册模板",
     "Description:Abp.Identity.User.SmsNewUserRegister": "新用户通过手机注册账号验证码模板",
     "DisplayName:Abp.Identity.User.SmsUserSignin": "用户登录模板",
@@ -159,12 +157,13 @@
     "Description:Abp.Identity.User.SmsPhoneNumberConfirmed": "用户确认手机号验证码模板",
     "DisplayName:Abp.Identity.User.SmsRepetInterval": "短信验证码重复发送间隔时间(min)",
     "Description:Abp.Identity.User.SmsRepetInterval": "短信验证码验证码重复发送的最小时间差,单位为分",
+    "DisplayName:Abp.Identity.SignIn.EnablePhoneNumberConfirmation": "允许用户确认他们的电话号码",
+    "Description:Abp.Identity.SignIn.EnablePhoneNumberConfirmation": "电话号码是否可以被用户确认。",
     "DisplayName:NewPhoneNumber": "新手机号码",
     "DisplayName:SmsVerifyCode": "短信验证码",
     "DisplayName:EmailVerifyCode": "邮件验证码",
     "DisplayName:WeChatCode": "微信登录凭证",
     "SendRepeatSmsVerifyCode": "手机验证码不能在 {0} 分钟内重复发送!",
-
 
     "LockTime": "锁定时间",
     "LockType": "锁定类型",

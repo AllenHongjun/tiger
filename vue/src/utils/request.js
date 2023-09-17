@@ -26,20 +26,17 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    // config.headers['accept-language'] = store.getters.language
+    config.headers['accept-language'] = store.getters.language
     if (store.getters.token) {
-      // let each request carry token
-      // ['X-Token'] is a custom headers key
-      // please modify it according to the actual situation
-      // config.headers['X-Token'] = getToken()
       config.headers['authorization'] = 'Bearer ' + store.getters.token
     }
-    config.headers['accept-language'] = 'zh-Hans'
-    // config.paramsSerializer = function(params) {
-    //   return encodeParam(params)
-    // }
-    // console.log('requestjs-config:' + config)
-    // console.log(config)
+    if (store.getters.tenant) {
+      config.headers['__tenant'] = store.getters.tenant
+    }
+
+    config.paramsSerializer = function(params) {
+      return encodeParam(params)
+    }
     return config
   },
   error => {

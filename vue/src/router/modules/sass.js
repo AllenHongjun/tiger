@@ -19,7 +19,7 @@ const sassRouter = {
       component: () => import('@/views/saas/tenant/index'),
       name: 'Tenant',
       meta: {
-        title: '租户',
+        title: 'AbpSaas["Tenants"]',
         policy: 'AbpTenantManagement.Tenants',
         icon: 'el-icon-wallet'
       }
@@ -29,7 +29,7 @@ const sassRouter = {
       component: () => import('@/views/saas/edition/index'),
       name: 'edition',
       meta: {
-        title: '版本',
+        title: 'AbpSaas["Editions"]',
         icon: 'el-icon-notebook-2',
         // TODO: 增加权限控制
         policy: 'AbpTenantManagement.Tenants'

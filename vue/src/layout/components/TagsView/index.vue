@@ -12,7 +12,7 @@
         @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
         @contextmenu.prevent.native="openMenu(tag,$event)"
       >
-        {{ tag.title }}
+        {{ generateTitle(tag.title) }}
         <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-pane>
@@ -27,6 +27,7 @@
 
 <script>
 import ScrollPane from './ScrollPane'
+import { generateTitle } from '@/utils/i18n'
 import path from 'path'
 
 export default {
@@ -70,6 +71,7 @@ export default {
     this.addTags()
   },
   methods: {
+    generateTitle,
     isActive(route) {
       return route.path === this.$route.path
     },

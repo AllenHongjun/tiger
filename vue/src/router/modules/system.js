@@ -17,7 +17,7 @@ const SystemManageRouter = {
       name: 'identity',
       redirect: '/user/list',
       meta: {
-        title: '身份认证',
+        title: 'AbpIdentity["Menu:IdentityManagement"]',
         icon: 'el-icon-user-solid',
         policy: ''
       },
@@ -27,43 +27,34 @@ const SystemManageRouter = {
           component: () => import('@/views/system/identity/organization-units/index'),
           name: 'organization-units',
           meta: {
-            title: '组织机构',
+            title: 'AbpIdentity["OrganizationUnits"]',
             policy: 'AbpIdentity.OrganizationUnits'
           }
         },
-        // {
-        //   path: '/post/list',
-        //   component: () => import('@/views/system/identity/post/list'),
-        //   name: 'post',
-        //   meta: {
-        //     title: '职位管理'
-        //     // policy: 'AbpIdentity.OrganizationUnits'
-        //   }
-        // },
         {
           path: '/role/list',
           component: () => import('@/views/system/identity/roles/index'),
           name: 'role',
-          meta: { title: '角色管理', policy: 'AbpIdentity.Roles' }
+          meta: { title: 'AbpIdentity["Roles"]', policy: 'AbpIdentity.Roles' }
         },
         {
           path: '/user/list',
           component: () => import('@/views/system/identity/users/index'),
           name: 'user-list',
-          meta: { title: '用户管理', policy: 'AbpIdentity.Users' }
+          meta: { title: 'AbpIdentity["Users"]', policy: 'AbpIdentity.Users' }
         },
         {
           path: '/claim-type/list',
           component: () => import('@/views/system/identity/claim-types/index'),
           name: 'claim-type',
-          meta: { title: '声明类型', policy: 'AbpIdentity.IdentityClaimTypes' }
+          meta: { title: 'AbpIdentity["ClaimTypes"]', policy: 'AbpIdentity.IdentityClaimTypes' }
         },
 
         {
           path: '/security-log/list',
           component: () => import('@/views/system/identity/security-logs/index'),
           name: 'security-log',
-          meta: { title: '安全日志', policy: 'AbpIdentity.IdentitySecurityLogs' }
+          meta: { title: 'AbpIdentity["SecurityLog"]', policy: 'AbpIdentity.IdentitySecurityLogs' }
         }
       ]
     },
@@ -73,7 +64,7 @@ const SystemManageRouter = {
       name: 'identity-server',
       // redirect: '/user/list',
       meta: {
-        title: '身份服务器',
+        title: 'AbpIdentityServer["Permissions:IdentityServer"]',
         icon: 'peoples',
         policy: ''
       },
@@ -82,14 +73,14 @@ const SystemManageRouter = {
           path: '/client/list',
           component: () => import('@/views/system/identity-server/client/index'),
           name: 'client',
-          meta: { title: '客户端', policy: 'IdentityServer.Clients' }
+          meta: { title: 'AbpIdentityServer["DisplayName:Clients"]', policy: 'IdentityServer.Clients' }
         },
         {
           path: '/api-resource/list',
           component: () => import('@/views/system/identity-server/api-resource/index'),
           name: 'api-resource',
           meta: {
-            title: '接口资源'
+            title: 'AbpIdentityServer["DisplayName:ApiResources"]'
             // policy: 'IdentityServer.ApiResources'
           }
         },
@@ -97,13 +88,13 @@ const SystemManageRouter = {
           path: '/identity-resource/list',
           component: () => import('@/views/system/identity-server/identity-resource/index'),
           name: 'identity-resource',
-          meta: { title: '身份资源', policy: 'IdentityServer.IdentityResources' }
+          meta: { title: 'AbpIdentityServer["DisplayName:IdentityResources"]', policy: 'IdentityServer.IdentityResources' }
         },
         {
           path: '/persisted-grant/list',
           component: () => import('@/views/system/identity-server/persisted-grant/index'),
           name: 'persisted-grant',
-          meta: { title: '持续授权', policy: 'IdentityServer.IdentityResources' }
+          meta: { title: 'AbpIdentityServer["DisplayName:PersistedGrants"]', policy: 'IdentityServer.IdentityResources' }
         }
 
       ]
@@ -113,7 +104,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'platform',
       meta: {
-        title: '平台管理', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'AppPlatform["Permission:Platform"]', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-s-platform' // the icon show in the sidebar
         // policy: 'AbpTextTemplating.TextTemplates'
       },
@@ -123,7 +114,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/platform/data/index'), // Parent router-view
           name: 'data',
           meta: {
-            title: '数据字典' // the name show in sidebar and breadcrumb (recommend set)
+            title: 'AppPlatform["Permission:Data"]' // the name show in sidebar and breadcrumb (recommend set)
             // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }
@@ -133,7 +124,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/platform/menu/index'), // Parent router-view
           name: 'menu',
           meta: {
-            title: '菜单管理' // the name show in sidebar and breadcrumb (recommend set)
+            title: 'AppPlatform["DisplayName:Menus"]' // the name show in sidebar and breadcrumb (recommend set)
             // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }
@@ -143,7 +134,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/platform/layout/index'), // Parent router-view
           name: 'layout',
           meta: {
-            title: '布局管理' // the name show in sidebar and breadcrumb (recommend set)
+            title: 'AppPlatform["Permission:Layout"]' // the name show in sidebar and breadcrumb (recommend set)
             // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }

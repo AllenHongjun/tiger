@@ -1,8 +1,10 @@
 <template>
   <div class="login-container">
     <div class="title-container">
-      <h1>Tiger</h1>
+      <h1 class="title">Tiger</h1>
+      <lang-select class="set-language" />
       <div>基于abp的后台管理系统</div>
+
       <!-- <h5 class="title">登录</h5> -->
     </div>
     <el-tabs v-model="activeName" class="login-tab" @tab-click="handleClick">
@@ -130,11 +132,13 @@ import {
 import {
   SendSignCode
 } from '@/api/account'
+import LangSelect from '@/components/LangSelect'
 import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
   components: {
+    LangSelect,
     SocialSign
   },
   data() {
@@ -420,7 +424,16 @@ $light_gray:#eee;
           text-align: center;
           font-weight: bold;
       }
-  }
+
+      .set-language {
+        color: #fff;
+        position: absolute;
+        top: 3px;
+        font-size: 18px;
+        right: 900px;
+        cursor: pointer;
+      }
+    }
 
     .login-form {
         position: relative;

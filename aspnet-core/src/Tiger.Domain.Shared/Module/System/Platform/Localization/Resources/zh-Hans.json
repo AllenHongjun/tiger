@@ -13,6 +13,8 @@
     "Permission:AppVersion": "版本管理",
     "Permission:FileManager": "版本文件管理",
     "Permission:OssObject": "对象管理",
+    "Permission:Data": "字典管理",
+    "Permission:Layout": "布局管理",
     "Permission:Create": "新增",
     "Permission:Update": "更新",
     "Permission:Move": "移动",
