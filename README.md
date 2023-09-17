@@ -1,11 +1,19 @@
 # Tiger
-## 基于 vue-template-admin和 abp vnext 的基础后台项目
+## 基于abp vnext 的后台管理系统
 
-> 基于 vue abp 开发的基础功能管理系统（权限 日志 多租户 基础服务等管理功能） 跟随版本升级系统
+> 基于 vue abp 开发的基础功能管理系统（功能包括权限 id4界面管理 日志 多租户 定时任务管理 等管理功能） 
 
-[演示地址](http://tiger.hongjy.cn/admin/index.html)
 
-[接口地址](http://tiger.hongjy.cn/index.html?docExpansion=none)
+
+[演示地址-http://localhost:9528/admin#/login](http://localhost:9528/admin#/login)
+
+[接口地址-https://localhost:44306/index.html](https://localhost:44306/index.html)
+
+
+
+
+
+### 项目截图
 
 
 
@@ -37,17 +45,17 @@
 
 ### 开发环境
 
-| 工具          | 版本号  | 下载                                                         |
-| ------------- | ------- | ------------------------------------------------------------ |
-| .net core     | 3.1.0+  | https://dotnet.microsoft.com/download                        |
-| SqlServer     | 2012+   | https://www.microsoft.com/en-us/sql-server/sql-server-downloads |
-| Redis         | 5.0+    | https://redis.io/download                                    |
-| MongoDB       | 4.2.5+  | https://www.mongodb.com/download-center                      |
-| RabbitMQ      | 3.7.14+ | http://www.rabbitmq.com/download.html                        |
-| Nginx         | 1.10    | http://nginx.org/en/download.html                            |
-| Elasticsearch | 7.6.2   | https://www.elastic.co/downloads/elasticsearch               |
-| Logstash      | 7.6.2   | https://www.elastic.co/cn/downloads/logstash                 |
-| Kibana        | 7.6.2   | https://www.elastic.co/cn/downloads/kibana                   |
+| 工具          | 版本号 | 下载                                                         |
+| ------------- | ------ | ------------------------------------------------------------ |
+| .net core     | 3.1.0  | https://dotnet.microsoft.com/download                        |
+| SqlServer     | 2012   | https://www.microsoft.com/en-us/sql-server/sql-server-downloads |
+| Redis         | 5.0    | https://redis.io/download                                    |
+| MongoDB       | 4.2.5  | https://www.mongodb.com/download-center                      |
+| RabbitMQ      | 3.7.14 | http://www.rabbitmq.com/download.html                        |
+| Nginx         | 1.10   | http://nginx.org/en/download.html                            |
+| Elasticsearch | 7.6.2  | https://www.elastic.co/downloads/elasticsearch               |
+| Logstash      | 7.6.2  | https://www.elastic.co/cn/downloads/logstash                 |
+| Kibana        | 7.6.2  | https://www.elastic.co/cn/downloads/kibana                   |
 
 
 
@@ -102,20 +110,3 @@
 
 
 
-### 参考项目
-
-[awesome-abp](https://github.com/EasyAbp/awesome-abp)
-
-[volcore快速业务开发框架](http://www.volcore.xyz/#/login)
-
-[crmeb商城](https://www.crmeb.com/)
-
-[进销存项目](https://a.mxyun.com/)
-
-[HelloAbp](https://github.com/xiajingren/HelloAbp)
-
-[mall-learning](https://macrozheng.com/#/)
-
-
-
-> 
