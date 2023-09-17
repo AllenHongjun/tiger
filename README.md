@@ -15,7 +15,47 @@
 
 ### 项目截图
 
+![swagger-api](assets/swagger-api-1694916767957-28.png)
 
+![system-setting](assets/system-setting-1694916767957-29.png)
+
+![task](assets/task-1694916767957-30.png)
+
+![task-detail](assets/task-detail-1694916767957-33.png)
+
+![task-edit](assets/task-edit-1694916767957-31.png)
+
+![tenent](assets/tenent-1694916767957-32.png)
+
+![user](assets/user-1694916767957-34.png)
+
+![user-edit](assets/user-edit.png)
+
+![user-permistion](assets/user-permistion.png)
+
+![audit-log](assets/audit-log-1694916767957-35.png)
+
+![client](assets/client-1694916767957-36.png)
+
+![client-edit](assets/client-edit-1694916767957-37.png)
+
+![dashboard](assets/dashboard-1694916767957-38.png)
+
+![feature](assets/feature-1694916767957-40.png)
+
+![login](assets/login-1694916767957-39.png)
+
+![menu](assets/menu-1694916767957-41.png)
+
+![oss-object](assets/oss-object-1694916767957-42.png)
+
+![redis-info](assets/redis-info-1694916767957-43.png)
+
+![register](assets/register-1694916767957-44.png)
+
+![security-log](assets/security-log.png)
+
+![server-info](assets/server-info-1694916767957-45.png)
 
 ## 环境搭建
 
