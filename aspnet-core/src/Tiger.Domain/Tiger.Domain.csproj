@@ -21,12 +21,15 @@
     <Compile Remove="Business\Stocks\**" />
     <Compile Remove="CoreModule\**" />
     <Compile Remove="Infrastructure\BackgroundTasks\Notifications\**" />
+    <Compile Remove="Infrastructure\RestSharp\**" />
     <Compile Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <Compile Remove="Module\OssManagement\Tencent\**" />
+    <Compile Remove="PlatfromSdk\DogApi\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <Compile Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <Compile Remove="PlatfromSdk\PayPalApi\**" />
     <Compile Remove="PlatfromSdk\SpotifyAPI.Web\**" />
+    <Compile Remove="PlatfromSdk\TwitterApiV2\**" />
     <Compile Remove="Tiger.Task\**" />
     <Compile Remove="Volo\Abp\IdentityServer\Devices\**" />
     <EmbeddedResource Remove="Business\Basic\**" />
@@ -40,12 +43,15 @@
     <EmbeddedResource Remove="Business\Stocks\**" />
     <EmbeddedResource Remove="CoreModule\**" />
     <EmbeddedResource Remove="Infrastructure\BackgroundTasks\Notifications\**" />
+    <EmbeddedResource Remove="Infrastructure\RestSharp\**" />
     <EmbeddedResource Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <EmbeddedResource Remove="Module\OssManagement\Tencent\**" />
+    <EmbeddedResource Remove="PlatfromSdk\DogApi\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <EmbeddedResource Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <EmbeddedResource Remove="PlatfromSdk\PayPalApi\**" />
     <EmbeddedResource Remove="PlatfromSdk\SpotifyAPI.Web\**" />
+    <EmbeddedResource Remove="PlatfromSdk\TwitterApiV2\**" />
     <EmbeddedResource Remove="Tiger.Task\**" />
     <EmbeddedResource Remove="Volo\Abp\IdentityServer\Devices\**" />
     <None Remove="Business\Basic\**" />
@@ -59,12 +65,15 @@
     <None Remove="Business\Stocks\**" />
     <None Remove="CoreModule\**" />
     <None Remove="Infrastructure\BackgroundTasks\Notifications\**" />
+    <None Remove="Infrastructure\RestSharp\**" />
     <None Remove="Infrastructure\Utilities\DownLoadUpLoadFilesHelper\**" />
     <None Remove="Module\OssManagement\Tencent\**" />
+    <None Remove="PlatfromSdk\DogApi\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI.SampleCode\**" />
     <None Remove="PlatfromSdk\FikaAmazonAPI\**" />
     <None Remove="PlatfromSdk\PayPalApi\**" />
     <None Remove="PlatfromSdk\SpotifyAPI.Web\**" />
+    <None Remove="PlatfromSdk\TwitterApiV2\**" />
     <None Remove="Tiger.Task\**" />
     <None Remove="Volo\Abp\IdentityServer\Devices\**" />
   </ItemGroup>
@@ -96,18 +105,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="aliyun-net-sdk-core" Version="1.5.10" />
     <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
-    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.100.19" />
-    <PackageReference Include="AWSSDK.SQS" Version="3.7.100.19" />
     <PackageReference Include="Hangfire.Core" Version="1.7.11" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.18" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.1.0" />
     <PackageReference Include="MQiniu.CoreSdk" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.1.0" />
-    <PackageReference Include="RestSharp" Version="108.0.2" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="108.0.2" />
     <PackageReference Include="Volo.Abp.BackgroundJobs.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
@@ -149,6 +153,7 @@
     <Folder Include="Module\System\Message\Email\" />
     <Folder Include="Module\System\Message\Chat\" />
     <Folder Include="Module\Message\" />
+    <Folder Include="PlatfromSdk\" />
     <Folder Include="Volo\Abp\Auditing\" />
   </ItemGroup>
 

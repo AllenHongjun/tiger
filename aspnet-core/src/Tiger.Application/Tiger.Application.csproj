@@ -22,6 +22,8 @@
   <ItemGroup>
     <Compile Remove="AuditLogs\**" />
     <Compile Remove="Business\**" />
+    <Compile Remove="Infrastructure\BackgroundWorker\DogApi\**" />
+    <Compile Remove="Infrastructure\Rest\**" />
     <Compile Remove="Payment\**" />
     <Compile Remove="Volo\Abp\AuditLogging\**" />
     <Compile Remove="Volo\Abp\BackgroundJobs\**" />
@@ -29,6 +31,8 @@
     <Compile Remove="Volo\Abp\CmsKit\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
     <EmbeddedResource Remove="Business\**" />
+    <EmbeddedResource Remove="Infrastructure\BackgroundWorker\DogApi\**" />
+    <EmbeddedResource Remove="Infrastructure\Rest\**" />
     <EmbeddedResource Remove="Payment\**" />
     <EmbeddedResource Remove="Volo\Abp\AuditLogging\**" />
     <EmbeddedResource Remove="Volo\Abp\BackgroundJobs\**" />
@@ -36,6 +40,8 @@
     <EmbeddedResource Remove="Volo\Abp\CmsKit\**" />
     <None Remove="AuditLogs\**" />
     <None Remove="Business\**" />
+    <None Remove="Infrastructure\BackgroundWorker\DogApi\**" />
+    <None Remove="Infrastructure\Rest\**" />
     <None Remove="Payment\**" />
     <None Remove="Volo\Abp\AuditLogging\**" />
     <None Remove="Volo\Abp\BackgroundJobs\**" />
