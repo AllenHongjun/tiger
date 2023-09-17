@@ -58,7 +58,6 @@ namespace Volo.Abp.AuditLogging
         /// 例子:
         /// Get api/Values/1
         /// </remarks>
-        /// <param name="id">主键</param>
         /// <returns>测试字符串</returns> 
         public virtual async Task<PagedResultDto<AuditLogDto>> GetListAsync(GetAuditLogDto input)
         {

@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：EmailService   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/16 17:09:11       
- * 说    明: 
- * 
- */
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
 using System.Collections.Generic;

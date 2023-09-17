@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：MyLogWorker   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/12 8:46:47       
- * 说    明: 
- * 
- */
-
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Quartz;
 using System;
 using System.Threading.Tasks;

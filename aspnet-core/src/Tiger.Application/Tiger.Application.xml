@@ -4,289 +4,6 @@
         <name>Tiger.Application</name>
     </assembly>
     <members>
-        <member name="T:Tiger.Books.AuthorAppService">
-            <summary>
-            实现 author 的服务层
-            </summary>
-        </member>
-        <member name="M:Tiger.Books.AuthorAppService.CreateAsync(Tiger.Books.CreateAuthorDto)">
-            <summary>
-            添加作者
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.AuthorAppService.DeleteAsync(System.Guid)">
-            <summary>
-            删除作者
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.AuthorAppService.GetAsync(System.Guid)">
-            <summary>
-            获取作者明细
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-            <remarks>
-            这个方法根据 `Id` 获得 `Author` 实体, 使用 [对象到对象映射](../Object-To-Object-Mapping.md) 转换为 `AuthorDto`. 这需要配置AutoMapper, 后面会介绍.
-            </remarks>
-        </member>
-        <member name="M:Tiger.Books.AuthorAppService.GetListAsync(Tiger.Books.GetAuthorListDto)">
-            <summary>
-            获取作者列表
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-            <remarks>
-            
-            </remarks>
-        </member>
-        <member name="M:Tiger.Books.AuthorAppService.UpdateAsync(System.Guid,Tiger.Books.UpdateAuthorDto)">
-            <summary>
-            修改作者信息
-            </summary>
-            <param name="id"></param>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Books.BlogModule.BlogModule">
-            <summary>
-            由于ABP是一个模块化框架,因此每个模块都定义它自己的服务并在它自己的单独模块类中通过依赖注入进行注册.例:
-            </summary>
-        </member>
-        <member name="M:Tiger.Books.BlogModule.BlogModule.PreConfigureServices(Volo.Abp.Modularity.ServiceConfigurationContext)">
-            <summary>
-            ABP引入了依照约定的服务注册.依照约定你无需做任何事,它会自动完成.如果要禁用它,你可以通过重写PreConfigureServices方法,设置SkipAutoServiceRegistration为true.
-            </summary>
-            <param name="context"></param>
-        </member>
-        <member name="T:Tiger.Books.BlogModule.BlogPostAppService">
-            <summary>
-            BlogPostAppService 由于它是从已知的基类派生的,因此会自动注册为transient生命周期.
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.BlogModule.TaxCalculator">
-            <summary>
-            TaxCalculator因为实现了ITransientDependency,所以它会自动注册为transient生命周期.
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.BlogModule.TaxCalculator4">
-             <summary>
-             配置依赖注入服务的另一种方法是使用DependencyAttribute.它具有以下属性:
-             Singleton  指定将创建服务的单个实例。
-             Transient或Scoped  指定将为每个范围创建服务的新实例。
-             Lifetime: 注册的生命周期:Singleton,Transient或Scoped.
-            TryRegister: 设置true则只注册以前未注册的服务.使用IServiceCollection的TryAdd...扩展方法.
-            ReplaceServices: 设置true则替换之前已经注册过的服务.使用IServiceCollection的Replace扩展方法.
-             
-             Transient  指定每次创建服务的新实例
-             </summary>
-        </member>
-        <member name="T:Tiger.Books.BlogModule.TaxAppService">
-            <summary>
-            注入依赖关系
-            使用已注册的服务有三种常用方法.
-            
-            继承 autofac 很简单 主要是使用。 有些时候 不是按照规范来依赖注入组件的话 就会无法启用。
-            
-            
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.BookAppService">
-            <summary>
-            书籍管理
-            </summary>
-            
-        </member>
-        <member name="M:Tiger.Books.BookAppService.GetAsync(System.Guid)">
-            <summary>
-            查询一条书籍数据
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-            <remarks>
-            重写父类的 GetAsync方法
-            </remarks>
-        </member>
-        <member name="M:Tiger.Books.BookAppService.GetListAsync(Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto)">
-            <summary>
-            分页查询书籍的数据
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.BookAppService.GetAuthorLookupAsync">
-            <summary>
-            获取作者筛选列表
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.BookAppService.DeleteBooksByType(Tiger.Books.BookType)">
-            <summary>
-            根据类型删除书籍
-            </summary>
-            <param name="bookType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.BookAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            上传 文件,并返回相对url(不包含 host port wwwroot)
-            </summary>
-            <param name="file"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.BookAppService.MultiFileUpload(Microsoft.AspNetCore.Http.IFormFileCollection)">
-            <summary>
-             多文件上传
-            </summary>
-            <param name="formCollection">表单集合值</param>
-            <returns>服务器存储的文件信息</returns>
-            <summary>
-            上传 文件,并返回相对url(不包含 host port wwwroot)
-            </summary>
-            <param name="files"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Books.BookAppService.UploadFileRequest">
-            <summary>
-            对文件上传响应模型
-            </summary>
-        </member>
-        <member name="P:Tiger.Books.BookAppService.UploadFileRequest.FileName">
-            <summary>
-            文件名称
-            </summary>
-        </member>
-        <member name="P:Tiger.Books.BookAppService.UploadFileRequest.FilePath">
-            <summary>
-            文件路径
-            </summary>
-        </member>
-        <member name="M:Tiger.Books.BookAppService.UploadQiniu(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            七牛单文件上传
-            </summary>
-            <param name="file"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.BookAppService.UploadQiniu(System.Collections.Generic.IList{Microsoft.AspNetCore.Http.IFormFile})">
-            <summary>
-            七牛多文件上传
-            </summary>
-            <param name="files"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Books.Demo.MyBookService">
-             <summary>
-             注入 IDataFilter 服务到你的类中.
-            在 using 语句中使用 Disable 方法创建一个代码块, 其中禁用了 ISoftDelete 过滤器(始终与 using 搭配使用,确保代码块执行后将过滤重置为之前的状态).
-            IDataFilter.Enable 方法可以启用过滤.可以嵌套使用 Enable 和 Disable 方法定义内部作用域.
-            
-             
-             
-             
-             
-             </summary>
-        </member>
-        <member name="T:Tiger.Books.Demo.MyProductService">
-            <summary>
-            实现这个接口 ITransientDependency 就会作为瞬态注入到服务当中。
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.Demo.MyService">
-            <summary>
-            获取当前用户相关的信息
-            
-            在Web应用程序中检索有关已登录用户的信息是很常见的. 当前用户是与Web应用程序中的当前请求相关的活动用户.
-            </summary>
-        </member>
-        <member name="T:Tiger.Books.Demo.PersonAppService">
-            <summary>
-            人物
-            </summary>
-            <remark>
-            repssitories 仓储数据查询
-            </remark>
-        </member>
-        <member name="M:Tiger.Books.Demo.PersonAppService.GetList(System.String)">
-            <summary>
-            获取列表数据
-            </summary>
-            <param name="nameFilter"></param>
-            <returns></returns>
-            <remarks>
-            GetList 方法使用标准LINQ Where 和 ToList 方法在数据源中过滤并获取People集合.
-            </remarks>
-        </member>
-        <member name="M:Tiger.Books.Demo.PersonAppService.GetListAsync(System.String)">
-            <summary>
-            通过仓储对象来对实体执行LINQ查询以操作数据库
-            </summary>
-            <param name="filter"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.Demo.PersonAppService.TestQueryableAndAsync(System.String)">
-            <summary>
-            测试 IQueryable 异步操作
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendAsync">
-            <summary>
-            邮件发送测试
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.Demo.EmailService.TestEmailQueueAsync">
-            <summary>
-            通过队列发送邮件
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithAttachmentAsync">
-            <summary>
-            发送邮件附件
-            </summary>
-            <returns></returns>
-            <remarks>
-            附件发送邮件 https://learn.microsoft.com/zh-cn/dotnet/api/system.net.mail.mailmessage?view=net-7.0
-            </remarks>
-        </member>
-        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithTemplateRenderer">
-            <summary>
-            测试使用文本模板发送邮件
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithCustomTemplateRenderer">
-            <summary>
-            替换覆盖文件模板
-            </summary>
-            <returns></returns>
-            <remarks>
-            虚拟文件系统 https://docs.abp.io/zh-Hans/abp/latest/Virtual-File-System
-            </remarks>
-        </member>
-        <member name="M:Tiger.Books.Demo.EmailService.EncryptPwd">
-            <summary>
-            加密邮箱密码
-            </summary>
-            <returns></returns>
-            <exception cref="T:System.Exception"></exception>
-        </member>
-        <member name="T:Tiger.Books.IAuthorAppService">
-            <summary>
-            作者应用服务接口
-            </summary>
-            <remarks>
-            `IApplicationService` 是一个常规接口, 所有应用服务都继承自它, 所以 ABP 框架可以识别它们.
-            在 `Author` 实体中定义标准方法用于CRUD操作.
-            `PagedResultDto` 是一个ABP框架中预定义的 DTO 类. 它拥有一个 `Items` 集合 和一个 `TotalCount` 属性, 用于返回分页结果.
-            优先从 `CreateAsync` 方法返回 `AuthorDto` (新创建的作者), 虽然在这个程序中没有这么做 - 这里只是展示一种不同用法.
-            </remarks>
-        </member>
         <member name="T:Tiger.Infrastructure.BackgroundJob.RegistrationService">
             <summary>
             使用 IBackgroundJobManager 服务向队列中添加一个发送电子邮件作业
@@ -449,6 +166,49 @@
             <summary>
             七牛 oss对象存储  https://developer.qiniu.com/kodo/1237/csharp  
             </summary>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendAsync">
+            <summary>
+            邮件发送测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailQueueAsync">
+            <summary>
+            通过队列发送邮件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithAttachmentAsync">
+            <summary>
+            发送邮件附件
+            </summary>
+            <returns></returns>
+            <remarks>
+            附件发送邮件 https://learn.microsoft.com/zh-cn/dotnet/api/system.net.mail.mailmessage?view=net-7.0
+            </remarks>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithTemplateRenderer">
+            <summary>
+            测试使用文本模板发送邮件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.TestEmailSendWithCustomTemplateRenderer">
+            <summary>
+            替换覆盖文件模板
+            </summary>
+            <returns></returns>
+            <remarks>
+            虚拟文件系统 https://docs.abp.io/zh-Hans/abp/latest/Virtual-File-System
+            </remarks>
+        </member>
+        <member name="M:Tiger.Books.Demo.EmailService.EncryptPwd">
+            <summary>
+            加密邮箱密码
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
         </member>
         <member name="M:Tiger.Module.OssManagement.FileAppServiceBase.UploadAsync(Tiger.Module.OssManagement.Dtos.UploadFileChunkInput)">
             <summary>
@@ -1588,7 +1348,6 @@
             </summary>
             <param name="providerName"></param>
             <param name="providerKey"></param>
-            <param name="fallback"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.SetAsync(System.String,System.String,System.String,System.String)">
@@ -1599,7 +1358,6 @@
             <param name="value"></param>
             <param name="providerName"></param>
             <param name="providerKey"></param>
-            <param name="forceToSet"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.TestGetSettingValueAsync">
@@ -1636,7 +1394,6 @@
             例子:
             Get api/Values/1
             </remarks>
-            <param name="id">主键</param>
             <returns>测试字符串</returns> 
         </member>
         <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.DeleteAsync(System.Guid)">

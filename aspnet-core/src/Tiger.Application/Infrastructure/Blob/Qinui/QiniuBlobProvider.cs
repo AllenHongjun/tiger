@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：QiniuBlobProvider   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/15 21:57:53       
- * 说    明: 
- * 
- */
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Qiniu.Http;
 using Qiniu.Storage;
 using Qiniu.Util;

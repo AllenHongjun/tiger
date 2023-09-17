@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：ProfileAppService   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/15 19:49:09       
- * 说    明: 
- * 
- */
-
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

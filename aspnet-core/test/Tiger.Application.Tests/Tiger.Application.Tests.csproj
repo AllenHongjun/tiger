@@ -7,6 +7,12 @@
     <RootNamespace>Tiger</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Samples\**" />
+    <EmbeddedResource Remove="Samples\**" />
+    <None Remove="Samples\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Tiger.Application\Tiger.Application.csproj" />

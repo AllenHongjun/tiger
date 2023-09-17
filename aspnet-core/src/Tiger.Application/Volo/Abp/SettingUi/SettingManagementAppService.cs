@@ -84,7 +84,6 @@ namespace Tiger.Volo.Abp.SettingManagement
         /// </summary>
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
-        /// <param name="fallback"></param>
         /// <returns></returns>
         public async Task<List<SettingValue>> GetAllAsync(string providerName, string providerKey)
         {
@@ -101,7 +100,6 @@ namespace Tiger.Volo.Abp.SettingManagement
         /// <param name="value"></param>
         /// <param name="providerName"></param>
         /// <param name="providerKey"></param>
-        /// <param name="forceToSet"></param>
         /// <returns></returns>
         public virtual async Task SetAsync(string name, string value, string providerName, string providerKey)
         {

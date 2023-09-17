@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：Upload   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/15 15:07:04       
- * 说    明: 
- * 
- */
-
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

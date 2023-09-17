@@ -13,12 +13,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>.\Tiger.HttpApi.Host.xml</DocumentationFile>
-    <NoWarn>1701;1702;CS1591;CS0436;CS1587;</NoWarn>
+    <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DocumentationFile>.\Tiger.HttpApi.Host.xml</DocumentationFile>
-    <NoWarn>1701;1702;CS1591;CS0436;CS1587;</NoWarn>
+    <NoWarn>1701;1702</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>

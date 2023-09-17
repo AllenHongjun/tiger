@@ -1,12 +1,4 @@
-﻿/**
- * 类    名：TigerFeatureAppService   
- * 作    者：花生了什么树       
- * 创建时间：2021/8/13 9:44:36       
- * 说    明: 
- * 
- */
-
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
