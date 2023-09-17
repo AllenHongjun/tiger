@@ -11,9 +11,19 @@
 
 
 
+### 快速启动
+
+接口
+
+
+
 
 
 ### 项目截图
+
+![login](assets/login-1694916767957-39.png)
+
+![register](assets/register-1694916767957-44.png)
 
 ![swagger-api](assets/swagger-api-1694916767957-28.png)
 
@@ -43,21 +53,19 @@
 
 ![feature](assets/feature-1694916767957-40.png)
 
-![login](assets/login-1694916767957-39.png)
-
 ![menu](assets/menu-1694916767957-41.png)
 
 ![oss-object](assets/oss-object-1694916767957-42.png)
 
 ![redis-info](assets/redis-info-1694916767957-43.png)
 
-![register](assets/register-1694916767957-44.png)
+
 
 ![security-log](assets/security-log.png)
 
 ![server-info](assets/server-info-1694916767957-45.png)
 
-## 环境搭建
+## 
 
 ### 开发工具
 
