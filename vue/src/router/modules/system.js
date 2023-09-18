@@ -6,7 +6,7 @@ const SystemManageRouter = {
   alwaysShow: true,
   name: 'Setting',
   meta: {
-    title: '管理',
+    title: 'TigerUi["Menu:Administration"]',
     icon: 'el-icon-setting',
     policy: ''
   },
@@ -204,7 +204,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/auditing/index'), // Parent router-view
       name: 'audit-log-list',
       meta: {
-        title: 'AbpAuditLogging["Permission:AuditLog"]', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'AbpAuditLogging["Menu:AuditLogging"]', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document', // the icon show in the sidebar
         policy: 'Auditing.AuditingLog'
       }
@@ -342,7 +342,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/setting/index'), // Parent router-view
       name: 'system',
       meta: {
-        title: '系统设置',
+        title: 'AbpSettingUi["Settings"]',
         icon: 'el-icon-setting',
         policy: 'SettingUi.ShowSettingPage'
       }

@@ -129,7 +129,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'dashboard',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
+        meta: { title: 'TigerUi["Menu:Dashboard"]', icon: 'dashboard', affix: true }
       }
     ]
   },
@@ -143,7 +143,7 @@ export const constantRoutes = [
         path: '/documentation',
         component: () => import('@/views/documentation/index'),
         name: 'Documentation',
-        meta: { title: '文档', icon: 'documentation', affix: true }
+        meta: { title: 'TigerUi["Menu:Documentation"]', icon: 'documentation', affix: true }
       }
     ]
   }

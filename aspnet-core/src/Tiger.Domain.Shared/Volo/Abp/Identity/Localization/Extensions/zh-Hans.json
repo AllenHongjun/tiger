@@ -18,7 +18,7 @@
     "Permission:Clone": "克隆",
     "Permission:Delete": "删除",
     "Permission:ChangePermissions": "授权",
-
+    "Menu:IdentityManagement": "身份标识",
     "Search": "搜索",
     "Reset": "重置",
     "Users:ChangePassword": "重置密码",

@@ -9,7 +9,7 @@ const sassRouter = {
   alwaysShow: true,
   name: 'Saas',
   meta: {
-    title: 'Saas',
+    title: 'AbpSaas["Menu:Saas"]',
     policy: 'AbpTenantManagement.Tenants',
     icon: 'el-icon-cloudy'
   },

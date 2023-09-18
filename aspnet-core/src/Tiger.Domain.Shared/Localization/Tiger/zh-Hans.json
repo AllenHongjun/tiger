@@ -5,61 +5,32 @@
     "Welcome": "欢迎",
     "AbpAuditLogging": "审计日志",
     "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
-
     "Success": "成功",
     "SuccessMessage": "操作成功！",
     "Warning": "警告",
     "Info": "消息",
     "Error": "错误",
     "ErrorMessage": "操作失败！",
-
     "DisplayName:CreationTime": "创建时间",
-
     "Feature:SocialLogins": "社交登录",
     "Feature:UserCount": "用户数量",
-
     "DisplayName:Qiniu.Oss.AccessKey": "AccessKey",
     "Description:Qiniu.Oss.AccessKey": "AccessKey",
     "DisplayName:Qiniu.Oss.SecretKey": "SecretKey",
     "Description:Qiniu.Oss.SecretKey": "SecretKey",
     "DisplayName:Qiniu.Oss.Bucket": "Bucket",
     "Description:Qiniu.Oss.Bucket": "Bucket",
-
-    "DisplayName:Aliyun.Oss.AccessKeyId": "AccessKeyId",
-    "Description:Aliyun.Oss.AccessKeyId": "AccessKeyId用于标识用户",
-    "DisplayName:Aliyun.Oss.AccessKeySecret": "AccessKeySecret",
-    "Description:Aliyun.Oss.AccessKeySecret": "AccessKeySecret是用户用于加密签名字符串和OSS用来验证签名字符串的密钥",
-    "DisplayName:Aliyun.Oss.Endpoint": "Endpoint",
-    "Description:Aliyun.Oss.Endpoint": "Endpoint 表示OSS对外服务的访问域名。",
-
-    "DisplayName:Aliyun.Sms.AccessKeyId": "AccessKeyId",
-    "Description:Aliyun.Sms.AccessKeyId": "AccessKeyId用于标识用户",
-    "DisplayName:Aliyun.Sms.AccessKeySecret": "AccessKeySecret",
-    "Description:Aliyun.Sms.AccessKeySecret": "AccessKeySecret是用户用于加密签名字符串和Sms用来验证签名字符串的密钥",
-    "DisplayName:Aliyun.Sms.Endpoint": "Endpoint",
-    "Description:Aliyun.Sms.Endpoint": "Endpoint 表示Sms对外服务的访问域名",
-
-
     "Permission:Update": "更新",
     "Permission:Delete": "删除",
     "Permission:Create": "创建",
     "Permission:Audit": "审核",
     "Permission:System": "系统管理",
-    "Permission:OrganitaionUnits": "组织管理",
-    "Permission:OrganitaionUnits.Edit": "编辑",
-    "Permission:OrganitaionUnits.Delete": "删除",
-    "Permission:OrganitaionUnits.Create": "添加",
-    "Permission:OrganitaionUnits.Audit": "审核",
-    "Permission:PermissionManagement": "权限管理",
-    "Permission:BookStore": "书店",
-    "Permission:Books": "书籍",
-    "Permission:Books.Create": "添加",
-    "Permission:Books.Update": "编辑",
-    "Permission:Books.Delete": "删除",
-    "Permission:Authors": "作者",
-    "Permission:Authors.Create": "添加",
-    "Permission:Authors.Update": "编辑",
-    "Permission:Authors.Delete": "删除"
+
+    "Menu:Dashboard": "首页",
+    "Menu:Documentation": "文档",
+    "Menu:Administration": "管理"
+
+
 
   }
 }

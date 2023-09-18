@@ -8,6 +8,7 @@
     "Permission:ManageClaims": "Management claims",
     "Permission:ManageOrganizationUnits": "Management organization units",
     "Permission:IdentityClaimTypeManagement": "Management claim types",
+    "Menu:IdentityManagement": "Identity",
     "OrganizationUnits": "Organization",
     "OrganizationUnit:Tree": "Organization tree",
     "OrganizationUnit:New": "Add New",

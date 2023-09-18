@@ -42,6 +42,12 @@
             </el-dropdown-item>
           </router-link>
 
+          <a target="_blank" href="https://github.com/AllenHongjun/tiger">
+            <el-dropdown-item>
+              {{ $t('navbar.github') }}
+            </el-dropdown-item>
+          </a>
+
           <el-dropdown-item divided @click.native="handelLogout">
             <span style="display:block;">注 销</span>
           </el-dropdown-item>
