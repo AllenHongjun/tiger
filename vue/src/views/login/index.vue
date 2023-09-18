@@ -17,7 +17,7 @@
               <svg-icon icon-class="international" />
             </span>
             <el-input v-model="tenant" placeholder="默认宿主" name="tenent" type="text" tabindex="1" auto-complete="on" />
-            <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
+            <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">{{ $t('AbpUiMultiTenancy[\'Switch\']') }}</el-button>
           </el-form-item>
 
           <el-form-item prop="username">
@@ -37,7 +37,7 @@
             </span>
           </el-form-item>
 
-          <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登 录</el-button>
+          <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t("AbpAccount['Login']") }}</el-button>
 
           <div style="text-align: right;">
             <el-button class="thirdparty-button" type="primary" size="small" @click="showDialog = true">
@@ -46,9 +46,9 @@
           </div>
           <el-row>
             <el-col :span="12">
-              <el-link href="#/register" type="primary">注册</el-link>
+              <el-link href="#/register" type="primary">{{ $t("AbpAccount['Register']") }}</el-link>
               <el-link href="#/send-reset-password-link" type="primary">忘记密码</el-link>
-              <el-link href="#/reset-password" type="primary">重置密码</el-link>
+              <el-link href="#/reset-password" type="primary">{{ $t("AbpAccount['ResetPassword']") }}</el-link>
             </el-col>
             <el-col :span="12" />
           </el-row>
@@ -97,17 +97,17 @@
       </el-tab-pane>
     </el-tabs>
 
-    <el-dialog title="切换租户" :visible.sync="dialogVisible" width="30%">
+    <el-dialog :title="$t('AbpUiMultiTenancy[\'SwitchTenant\']')" :visible.sync="dialogVisible" width="30%">
       <el-form label-width="80px" label-position="top">
-        <el-form-item label="名称">
+        <el-form-item :label="$t('AbpUiMultiTenancy[\'Name\']')">
           <el-input v-model="tenant" />
         </el-form-item>
-        <span>将名称留空以切换到宿主端</span>
+        <span>{{ $t("AbpUiMultiTenancy['SwitchTenantHint']") }}</span>
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleSwichTenant">保 存</el-button>
+        <el-button @click="dialogVisible = false">{{ $t("AbpUi['Cancel']") }}</el-button>
+        <el-button type="primary" @click="handleSwichTenant"> {{ $t("AbpUi['Save']") }}</el-button>
       </span>
     </el-dialog>
 

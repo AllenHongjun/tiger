@@ -115,7 +115,6 @@ const SystemManageRouter = {
           name: 'data',
           meta: {
             title: 'AppPlatform["Permission:Data"]' // the name show in sidebar and breadcrumb (recommend set)
-            // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }
         },
@@ -125,7 +124,6 @@ const SystemManageRouter = {
           name: 'menu',
           meta: {
             title: 'AppPlatform["DisplayName:Menus"]' // the name show in sidebar and breadcrumb (recommend set)
-            // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }
         },
@@ -135,7 +133,6 @@ const SystemManageRouter = {
           name: 'layout',
           meta: {
             title: 'AppPlatform["Permission:Layout"]' // the name show in sidebar and breadcrumb (recommend set)
-            // icon: 'el-icon-document-copy' // the icon show in the sidebar
             // policy: 'AbpTextTemplating.TextTemplates'
           }
         }
@@ -146,7 +143,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'oss',
       meta: {
-        title: '对象存储', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'AbpOssManagement["Permission:OssManagement"]', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-files' // the icon show in the sidebar
         // policy: 'AbpTextTemplating.TextTemplates'
       },
@@ -156,8 +153,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/oss/container/index'), // Parent router-view
           name: 'container',
           meta: {
-            title: '容器管理' // the name show in sidebar and breadcrumb (recommend set)
-            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            title: 'AbpOssManagement["Permission:Container"]' // the name show in sidebar and breadcrumb (recommend set)
             // policy: 'AbpTextTemplating.TextTemplates'
           }
         },
@@ -166,8 +162,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/oss/object/index'), // Parent router-view
           name: 'object',
           meta: {
-            title: '对象管理' // the name show in sidebar and breadcrumb (recommend set)
-            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            title: 'AbpOssManagement["Permission:OssObject"]' // the name show in sidebar and breadcrumb (recommend set)
             // policy: 'AbpTextTemplating.TextTemplates'
           }
         }
@@ -178,7 +173,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'task',
       meta: {
-        title: '定时任务', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'TaskManagement["Permissions:TaskManagement"]', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-time' // the icon show in the sidebar
         // policy: 'AbpTextTemplating.TextTemplates'
       },
@@ -188,21 +183,10 @@ const SystemManageRouter = {
           component: () => import('@/views/system/task/background-job/index'), // Parent router-view
           name: 'background-worker',
           meta: {
-            title: '任务管理' // the name show in sidebar and breadcrumb (recommend set)
-            // icon: 'el-icon-document-copy' // the icon show in the sidebar
+            title: 'TaskManagement["Permissions:BackgroundJobs"]' // the name show in sidebar and breadcrumb (recommend set)
             // policy: 'AbpTextTemplating.TextTemplates'
           }
         }
-        // {
-        //   path: 'object/list',
-        //   component: () => import('@/views/system/oss/object/index'), // Parent router-view
-        //   name: 'object',
-        //   meta: {
-        //     title: '对象管理' // the name show in sidebar and breadcrumb (recommend set)
-        //     // icon: 'el-icon-document-copy' // the icon show in the sidebar
-        //     // policy: 'AbpTextTemplating.TextTemplates'
-        //   }
-        // }
       ]
     },
     {
@@ -210,7 +194,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/text-template/text-template-table'), // Parent router-view
       name: 'text-template',
       meta: {
-        title: '文本模板', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'AbpTextTemplate["Permission:TextTemplating"]', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document-copy', // the icon show in the sidebar
         policy: 'AbpTextTemplating.TextTemplates'
       }
@@ -220,10 +204,9 @@ const SystemManageRouter = {
       component: () => import('@/views/system/auditing/index'), // Parent router-view
       name: 'audit-log-list',
       meta: {
-        title: '审计日志', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'AbpAuditLogging["Permission:AuditLog"]', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-document', // the icon show in the sidebar
         policy: 'Auditing.AuditingLog'
-        // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
       }
     },
     {
@@ -234,7 +217,6 @@ const SystemManageRouter = {
         title: '通知', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-message' // the icon show in the sidebar
         // policy: 'Auditing.AuditingLog'
-        // 路由的权限设置和后端的页面权限需要匹配 如果有就添加到路由表显示 如果没有就隐藏掉
       }
     },
 

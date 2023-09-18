@@ -12,12 +12,12 @@
 
       <!-- 使用table自带的序号 -->
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="left">
+      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" prop="displayName" sortable align="left">
+      <el-table-column :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" prop="displayName" sortable align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>
         </template>
@@ -38,7 +38,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="240" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="340" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
           <el-button v-if="checkPermission('Platform.DataDictionary.Update')" type="primary" size="mini" @click="handleUpdate(row)">
             {{ $t("AppPlatform['Data:Edit']") }}
