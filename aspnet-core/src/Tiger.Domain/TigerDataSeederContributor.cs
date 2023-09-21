@@ -15,11 +15,9 @@ namespace Tiger
     public class TigerDataSeederContributor : IDataSeedContributor, ITransientDependency
     {
 
-        private readonly IRepository<Book, Guid> _bookRepository;
 
-        public TigerDataSeederContributor(IRepository<Book, Guid> bookRepository)
+        public TigerDataSeederContributor()
         {
-            _bookRepository = bookRepository;
         }
 
         public Task SeedAsync(DataSeedContext context)

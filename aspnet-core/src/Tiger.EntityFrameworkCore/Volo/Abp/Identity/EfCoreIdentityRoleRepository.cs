@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Tiger.Books;
-using Tiger.Business.Demo;
 using System.Linq;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Identity;

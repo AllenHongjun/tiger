@@ -4,8 +4,6 @@ using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Tiger.Books;
-using Tiger.Demo;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -48,8 +46,6 @@ namespace Tiger.EntityFrameworkCore
                 /* Remove "includeAllEntities: true" to create
                  * default repositories only for aggregate roots */
                 options.AddDefaultRepositories(includeAllEntities: true);
-
-                options.AddRepository<Book, BookRepository>();
 
                 options.AddRepository<Post, PostRepository>();
                 options.AddRepository<TextTemplate, TextTemplateRepository>();
