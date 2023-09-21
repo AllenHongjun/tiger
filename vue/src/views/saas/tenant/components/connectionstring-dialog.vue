@@ -4,16 +4,16 @@
       <el-form-item>
         <el-checkbox v-model="useSharedDatabase" :label="$t('AbpTenantManagement[\'DisplayName:UseSharedDatabase\']')" />
       </el-form-item>
-      <el-form-item v-if="!useSharedDatabase" :label=" $t('AbpTenantManagement[\'DisplayName:DefaultConnectionString\']')" prop="defaultConnectionString">
-        <el-input v-model="temp.defaultConnectionString" />
+      <el-form-item v-if="!useSharedDatabase" :label=" $t('AbpSaas[\'DisplayName:Value\']')" prop="value">
+        <el-input v-model="temp.value" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">
-        {{ $t("AbpTenantManagement['Cancel']") }}
+        {{ $t("AbpUi['Cancel']") }}
       </el-button>
       <el-button type="primary" @click="updateData()">
-        {{ $t("AbpTenantManagement['Save']") }}
+        {{ $t("AbpUi['Save']") }}
       </el-button>
     </div>
   </el-dialog>
@@ -35,20 +35,15 @@ export default {
       useSharedDatabase: true,
       temp: {
         name: 'Default',
+        value: '',
         defaultConnectionString: ''
       },
       dialogFormVisible: false,
       rules: {
         defaultConnectionString: [{
           max: 1024,
-          message: this.$i18n.t(
-            "AbpTenantManagement['The field {0} must be a string with a maximum length of {1}.']",
-            [
-              this.$i18n.t(
-                "AbpTenantManagement['DisplayName:DefaultConnectionString']"
-              ),
-              '1024'
-            ]
+          message: this.$i18n.t("AbpTenantManagement['The field {0} must be a string with a maximum length of {1}.']",
+            [this.$i18n.t("AbpSaas['DisplayName:Value']"), '1024']
           ),
           trigger: 'blur'
         }]
@@ -59,6 +54,7 @@ export default {
     resetTemp() {
       this.temp = {
         name: 'Default',
+        value: '',
         defaultConnectionString: ''
       }
     },
@@ -67,10 +63,10 @@ export default {
       this.tenantId = row.id
       this.dialogFormVisible = true
 
-      getDefaultConnectionStringByName(row.id, row.name).then(response => {
-        if (response.items.lenght === 0) {
+      getDefaultConnectionStringByName(row.id, 'Default').then(response => {
+        if (response.value) {
           this.useSharedDatabase = false
-          this.temp.defaultConnectionString = response
+          this.temp.value = response.value
         } else {
           this.useSharedDatabase = true
         }
@@ -83,10 +79,7 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          if (
-            this.useSharedDatabase ||
-                        (!this.useSharedDatabase && !this.temp.defaultConnectionString)
-          ) {
+          if (this.useSharedDatabase || (!this.useSharedDatabase && !this.temp.value)) {
             deleteDefaultConnectionString(this.tenantId).then(() => {
               this.dialogFormVisible = false
               this.$notify({
@@ -97,7 +90,6 @@ export default {
               })
             })
           } else {
-            this.temp.value = this.temp.defaultConnectionString
             updateDefaultConnectionString(this.tenantId, this.temp).then(() => {
               this.dialogFormVisible = false
               this.$notify({

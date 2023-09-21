@@ -30,12 +30,22 @@ namespace Tiger.Volo.Abp.Sass
         {
         }
 
-        //public async Task<List<Tenant>> GetAsync(Guid id, bool includeDetails = true, CancellationToken cancellationToken = default)
-        //{
-        //    return await DbContext.Set<Tenant>().FirstOrDefaultAsync(x => x.Id == id)
-        //}
-            
-        
+        /// <summary>
+        /// 获取租户包含明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="includeDetails"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 1. 重写了父类的方法，不然无法获取detail里面的值 原因暂不明
+        /// </remarks>
+        public override async Task<Tenant> GetAsync(Guid id, bool includeDetails = true, CancellationToken cancellationToken = default)
+        {
+            return await DbContext.Set<Tenant>().IncludeDetails(true).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+
 
 
         public async override Task<Tenant> FindAsync(Guid id, bool includeDetails = true,
