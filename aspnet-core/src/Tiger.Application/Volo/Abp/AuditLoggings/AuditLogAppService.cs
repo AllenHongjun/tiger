@@ -26,16 +26,12 @@ namespace Volo.Abp.AuditLogging
         protected IAuditingManager AuditingManager { get; }
         protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
 
-        //用于获取有关当前活动的用户信息  Appservice 有这个属性（其他自定义的类可以注入来使用）
-        private readonly ICurrentUser _currentUser;
-
         //IDataFilter 服务: 启用/禁用 数据过滤
         private readonly IDataFilter _dataFilter;
-        public AuditLogAppService(IAuditLogRepository auditLogRepository, IDataFilter dataFilter, ICurrentUser currentUser)
+        public AuditLogAppService(IAuditLogRepository auditLogRepository, IDataFilter dataFilter)
         {
             AuditLogRepository = auditLogRepository;
             _dataFilter=dataFilter;
-            _currentUser=currentUser;
         }
 
         #region AuditLog
@@ -61,8 +57,6 @@ namespace Volo.Abp.AuditLogging
         /// <returns>测试字符串</returns> 
         public virtual async Task<PagedResultDto<AuditLogDto>> GetListAsync(GetAuditLogDto input)
         {
-            var userId = CurrentUser.Id;
-
             //临时禁用软删除的数据过滤
             using (_dataFilter.Disable<ISoftDelete>())
             {

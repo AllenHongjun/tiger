@@ -155,7 +155,7 @@ namespace Tiger.Books.Demo
             // Create a message and set up the recipients.
             string file = Directory.GetCurrentDirectory() + "/Files/data.xlsx";    //根目录
                                                                                    // Create a message and set up the recipients.
-            MailMessage mailMessage = new MailMessage(
+            var mailMessage = new MailMessage(
                 "hongjy2000@outlook.com",
                 "806815027@qq.com",
                 "Quarterly data report.",

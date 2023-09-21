@@ -69,7 +69,9 @@
     <Compile Remove="Infrastructure\BackgroundTasks\Jobs\HttpRequestJobBase.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\Jobs\ServiceInvocationJob.cs" />
     <Compile Remove="Infrastructure\BackgroundTasks\Quartz\AbpBackgroundTasksQuartzModule.cs" />
-    <Compile Remove="Infrastructure\BackgroundWorker\MyQuartzLogWorker.cs" />
+    <Compile Remove="Infrastructure\Utilities\ConvertJson.cs" />
+    <Compile Remove="Infrastructure\Utilities\JsonHelper.cs" />
+    <Compile Remove="Infrastructure\Utilities\Utility.cs" />
     <Compile Remove="Module\OssManagement\OssStaticContainerDataSeedContributor.cs" />
   </ItemGroup>
 
@@ -112,16 +114,10 @@
     <Folder Include="Infrastructure\CloudTencent\Tencent\" />
     <Folder Include="Infrastructure\CloudTencent\BlobStoring.Tencent\" />
     <Folder Include="Infrastructure\CloudTencent\QQ.Tencent\" />
-    <Folder Include="Infrastructure\EventBus\DistributedEventBusRabbitMQTest\" />
-    <Folder Include="Infrastructure\EventBus\DistributedEventBusKafka\" />
-    <Folder Include="Infrastructure\ObjectMapping\新文件夹\" />
-    <Folder Include="Infrastructure\VirtualFileSystem\" />
-    <Folder Include="Infrastructure\Localization\" />
     <Folder Include="Infrastructure\Exception\" />
-    <Folder Include="Infrastructure\Validation\" />
     <Folder Include="Infrastructure\Authorization\" />
-    <Folder Include="Infrastructure\ObjectExtensions\" />
     <Folder Include="Infrastructure\UI.Navication\" />
+    <Folder Include="Infrastructure\Utilities\" />
     <Folder Include="Module\System\Message\Email\" />
     <Folder Include="Module\System\Message\Chat\" />
     <Folder Include="Module\Message\" />

@@ -4,11 +4,6 @@
         <name>Tiger.Application</name>
     </assembly>
     <members>
-        <member name="T:Tiger.Infrastructure.BackgroundJob.RegistrationService">
-            <summary>
-            使用 IBackgroundJobManager 服务向队列中添加一个发送电子邮件作业
-            </summary>
-        </member>
         <member name="M:Tiger.Infrastructure.BackgroundWorker.DailySalesWorker.Execute(Quartz.IJobExecutionContext)">
             <summary>
             测试定时任务功能。

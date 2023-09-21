@@ -18,21 +18,13 @@ namespace Tiger.Infrastructure.Timing
         //IClock 在获取当前时间的同时提供了一种抽象,你可以在应用程序中的单个点上控制日期时间的类型(UTC或本地时间).
         private readonly IClock _clock;
 
-        // ITimezoneProvider 是一个服务,可将Windows时区ID值简单转换为Iana时区名称值,反之亦然. 它还提供了获取这些时区列表与获取具有给定名称的 TimeZoneInfo 的方法.
-        // 时区转换 https://github.com/mattjohnsonpint/TimeZoneConverter 其他时区和utc时间转化
-        private readonly ITimezoneProvider _timezoneProvider;
-
-        public MyService(IClock clock, ITimezoneProvider timezoneProvider)
+        public MyService(IClock clock\)
         {
             _clock = clock;
-            _timezoneProvider=timezoneProvider;
         }
 
         public void Foo()
         {
-            //G获取当前时间
-            var now = _clock.Now;
-
 
             DateTime dateTime = Convert.ToDateTime("2022-12-25"); //Get from somewhere
 

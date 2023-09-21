@@ -517,22 +517,6 @@ namespace Tiger
         }
         #endregion
 
-        #region 配置数据过滤
-        /// <summary>
-        /// 配置数据过滤
-        /// </summary>
-        /// <param name="context"></param>
-        private void ConfigureDataFiltering(ServiceConfigurationContext context)
-        {
-            ////配置默认情况下禁用了 ISoftDelete 过滤,除非显示启用,在查询数据库时会包含标记为已删除的实体:
-            //Configure<AbpDataFilterOptions>(options =>
-            //{
-            //    options.DefaultStates[typeof(ISoftDelete)] = new DataFilterState(isEnabled: false);
-            //});
-
-        }
-        #endregion
-
         #region 配置后台作业集成Hangfire
         /// <summary>
         /// 配置后台作业集成Hangfire

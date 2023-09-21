@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Linq.Expressions;
-using Tiger.CoreModule.DataFiltiering;
+using Tiger.Module.System.Localization;
+using Tiger.Module.System.Platform.Datas;
+using Tiger.Module.System.Platform.Layouts;
+using Tiger.Module.System.Platform.Menus;
+using Tiger.Module.System.TextTemplate;
+using Tiger.Module.TaskManagement;
+using Tiger.Volo.Abp.Identity.Post;
+using Tiger.Volo.Abp.Identity.Users;
 using Tiger.Volo.Abp.Sass.Editions;
 using Tiger.Volo.Abp.Sass.Tenants;
 using Volo.Abp.Data;
@@ -10,15 +14,6 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
-using Tiger.Volo.Abp.Identity.Post;
-using Tiger.Module.System.TextTemplate;
-using Tiger.Module.System.Localization;
-using Tiger.Module.System.Platform.Datas;
-using Tiger.Module.System.Platform.Menus;
-using Tiger.Module.System.Platform.Layouts;
-using Tiger.Module.TaskManagement;
-using Volo.Abp.Users;
-using Tiger.Volo.Abp.Identity.Users;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -116,47 +111,7 @@ namespace Tiger.EntityFrameworkCore
             builder.ConfigureTaskManagement();
         }
 
-
-        #region 自定义数据过滤
-        /// <summary>
-        /// 检查是否启用了 IsActive . 内部使用了之前介绍到的 IDataFilter 服务.
-        /// </summary>
-        protected bool IsActiveFilterEnabled => DataFilter?.IsEnabled<IsActive>() ?? false;
-
-
-        /// <summary>
-        /// EF全局过滤系统 https://learn.microsoft.com/en-us/ef/core/querying/filters
-        /// 实现自定义过滤的最佳方法是为重写你的 DbContext 的 ShouldFilterEntity 和 CreateFilterExpression 方法
-        /// 重写 ShouldFilterEntity 和 CreateFilterExpression 方法检查给定实体是否实现 IsActive 接口
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <param name="entityType"></param>
-        /// <returns></returns>
-        protected override bool ShouldFilterEntity<TEntity>(IMutableEntityType entityType)
-        {
-            if (typeof(IsActive).IsAssignableFrom(typeof(TEntity)))
-            {
-                return true;
-            }
-
-            return base.ShouldFilterEntity<TEntity>(entityType);
-        }
-
-        protected override Expression<Func<TEntity, bool>> CreateFilterExpression<TEntity>()
-        {
-            var expression = base.CreateFilterExpression<TEntity>();
-
-            if (typeof(IsActive).IsAssignableFrom(typeof(TEntity)))
-            {
-                Expression<Func<TEntity, bool>> isActiveFilter =
-                    e => !IsActiveFilterEnabled || EF.Property<bool>(e, "IsActive");
-                expression = expression == null
-                    ? isActiveFilter
-                    : CombineExpressions(expression, isActiveFilter);
-            }
-            return expression;
-        }
-        #endregion
+        
 
     }
 }

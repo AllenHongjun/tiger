@@ -1,23 +1,15 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Tiger.BackgroundJob;
 using Tiger.Volo.Abp.SettingManagementAppService;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BackgroundJobs;
-using Volo.Abp.Identity;
-using Volo.Abp.ObjectMapping;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.Settings;
-using Volo.Abp.TenantManagement;
-using Volo.Abp.Uow;
 
 namespace Tiger.Volo.Abp.SettingManagement
-{   
+{
     /// <summary>
     /// 系统设置
     /// </summary>
@@ -25,28 +17,22 @@ namespace Tiger.Volo.Abp.SettingManagement
     
     public class SettingManagementAppService: ApplicationService, ISettingManagementAppService
     {
-        protected ISettingManager _settingManager { get; set; }
+        protected ISettingManager SettingManager { get; set; }
 
-        private ISettingManagementStore _settingManagerStore;
+        private readonly ISettingManagementStore _settingManagerStore;
 
-        protected ISettingRepository _settingRepository { get; }
-
-        private readonly ISettingProvider _settingProvider;
-
-        private readonly IBackgroundJobManager _backgroundJobManager;
+        protected ISettingRepository SettingRepository { get; }
+        
 
         public SettingManagementAppService(
             ISettingManager settingManager,
             ISettingManagementStore settingManagerStore,
-            ISettingRepository settingRepository, 
-            ISettingProvider settingProvider, 
-            IBackgroundJobManager backgroundJobManager)
+            ISettingRepository settingRepository
+            )
         {
-            _settingManager = settingManager;
+            SettingManager = settingManager;
             _settingManagerStore = settingManagerStore;
-            _settingRepository = settingRepository;
-            _settingProvider=settingProvider;
-            _backgroundJobManager=backgroundJobManager;
+            SettingRepository = settingRepository;
         }
 
 
@@ -61,7 +47,7 @@ namespace Tiger.Volo.Abp.SettingManagement
         /// <returns></returns>
         public async Task<SettingManagementDto> FindAsync(string name, string providerName, string providerKey)
         {
-            var setting =  await _settingRepository.FindAsync(name, providerName, providerKey);
+            var setting =  await SettingRepository.FindAsync(name, providerName, providerKey);
             return ObjectMapper.Map<Setting, SettingManagementDto>(setting);
             
         }
@@ -75,7 +61,7 @@ namespace Tiger.Volo.Abp.SettingManagement
         /// <returns></returns>
         public virtual async Task<List<SettingManagementDto>> GetListAsync(string providerName, string providerKey)
         {
-            var list = await _settingRepository.GetListAsync(providerName, providerKey);
+            var list = await SettingRepository.GetListAsync(providerName, providerKey);
             return ObjectMapper.Map<List<Setting>, List<SettingManagementDto>>(list);
         }
 
@@ -122,28 +108,8 @@ namespace Tiger.Volo.Abp.SettingManagement
         public async Task TestGetSettingValueAsync()
         {
             //Get a value as string.
-            string userName = await _settingProvider.GetOrNullAsync("Smtp.UserName");
-
-            //Get a bool value and fallback to the default value (false) if not set.
-            bool enableSsl = await _settingProvider.GetAsync<bool>("Smtp.EnableSsl");
-
-            //Get a bool value and fallback to the provided default value (true) if not set.
-            bool enableSsl1 = await _settingProvider.GetAsync<bool>(
-                "Smtp.EnableSsl", defaultValue: true);
-
-
-            var host = await _settingProvider.GetOrNullAsync("Smtp.Host");
-
-            var allSetts = await _settingProvider.GetAllAsync();
-
-            //Get a bool value with the IsTrueAsync shortcut extension method
-            bool enableSsl2 = await _settingProvider.IsTrueAsync("Smtp.EnableSsl");
-
-            //Get an int value or the default value (0) if not set
-            int port = (await _settingProvider.GetAsync<int>("Smtp.Port"));
-
-            //Get an int value or null if not provided
-            int? port1 = (await _settingProvider.GetOrNullAsync("Smtp.Port"))?.To<int>();
+            //return Task.CompletedTask;
+            
         }
 
 
@@ -164,66 +130,31 @@ namespace Tiger.Volo.Abp.SettingManagement
              
              */
 
-            await _settingManager.SetGlobalAsync("Qiniu.Oss.AccessKey", "1pWN6jy9PFgv4xf9tJuhcBQ0qzAEztQblkXS323");
-            await _settingManager.SetGlobalAsync("Qiniu.Oss.SecretKey", "su40oxnCEV6DGSJ9mNBM3jgZ84DMolEk3232");
-            await _settingManager.SetGlobalAsync("Qiniu.Oss.Bucket", "blog-hongjy");
+            await SettingManager.SetGlobalAsync("Qiniu.Oss.AccessKey", "1pWN6jy9PFgv4xf9tJuhcBQ0qzAEztQblkXS323");
+            await SettingManager.SetGlobalAsync("Qiniu.Oss.SecretKey", "su40oxnCEV6DGSJ9mNBM3jgZ84DMolEk3232");
+            await SettingManager.SetGlobalAsync("Qiniu.Oss.Bucket", "blog-hongjy");
 
-
-
-            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Host", "127.0.0.1");
-            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Port", "25");
-            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.UserName", "test123");
-            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Password", "1q2w3E*");
-            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.Domain", "https://www.baidu.com");
-            //await _settingManager.SetForCurrentUserAsync("Abp.Mailing.Smtp.EnableSsl", "true");
-
-
-            await _settingManager.SetForCurrentUserAsync("App.UI.LayoutType", "LeftMenu");
-            await _settingManager.SetForUserAsync(user1Id, "App.UI.LayoutType", "LeftMenu");
-
-            string layoutType1 =
-                await _settingManager.GetOrNullForCurrentUserAsync("App.UI.LayoutType");
-            string layoutType2 =
-                await _settingManager.GetOrNullForUserAsync("App.UI.LayoutType", user1Id);
-
-            //Get/set a setting value for the current tenant or the specified tenant
 
             
 
-            await _settingManager.SetForCurrentTenantAsync("App.UI.LayoutType", "LeftMenu");
-            await _settingManager.SetForTenantAsync(tenant1Id, "App.UI.LayoutType", "LeftMenu");
+            await SettingManager.SetForCurrentUserAsync("App.UI.LayoutType", "LeftMenu");
+            await SettingManager.SetForUserAsync(user1Id, "App.UI.LayoutType", "LeftMenu");
+            
 
-            string layoutType3 =
-                await _settingManager.GetOrNullForCurrentTenantAsync("App.UI.LayoutType");
-            string layoutType4 =
-                await _settingManager.GetOrNullForTenantAsync("App.UI.LayoutType", tenant1Id);
+            await SettingManager.SetForCurrentTenantAsync("App.UI.LayoutType", "LeftMenu");
+            await SettingManager.SetForTenantAsync(tenant1Id, "App.UI.LayoutType", "LeftMenu");
 
-            //Get/set a global and default setting value
 
-            string layoutType5 =
-                await _settingManager.GetOrNullGlobalAsync("App.UI.LayoutType");
-            string layoutType6 =
-                await _settingManager.GetOrNullDefaultAsync("App.UI.LayoutType");
+            await SettingManager.SetGlobalAsync("App.UI.LayoutType", "TopMenu");
+        }
 
-            await _settingManager.SetGlobalAsync("App.UI.LayoutType", "TopMenu");
+        public Task RegisterAsync(string userName, string emailAddress, string password)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
 
-        #region 添加一个后台作业到队列中
-        public async Task RegisterAsync(string userName, string emailAddress, string password)
-        {
-            //TODO: 创建一个新用户到数据库中...
 
-            await _backgroundJobManager.EnqueueAsync(
-                new EmailSendingArgs
-                {
-                    EmailAddress = emailAddress,
-                    Subject = "You've successfully registered!",
-                    Body = "..."
-                }
-            );
-        } 
-        #endregion
     }
 }

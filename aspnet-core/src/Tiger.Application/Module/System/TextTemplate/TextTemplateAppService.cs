@@ -230,13 +230,10 @@ public class TextTemplateAppService : ApplicationService,
     protected virtual TemplateDefinition GetTemplateDefinition(string name)
     {
         var template = TemplateDefinitionManager.GetOrNull(name);
-        if (template == null)
-        {
-            throw new BusinessException(
+        return template == null
+            ? throw new BusinessException(
                 AbpTextTemplateErrorCodes.TemplateNotFound,
-                $"The text template {name} does not exist.").WithData("Name", name);
-        }
-
-        return template;
+                $"The text template {name} does not exist.").WithData("Name", name)
+            : template;
     }
 }

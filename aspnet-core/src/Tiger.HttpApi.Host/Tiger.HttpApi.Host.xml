@@ -99,12 +99,6 @@
             配置审计日志
             </summary>
         </member>
-        <member name="M:Tiger.TigerHttpApiHostModule.ConfigureDataFiltering(Volo.Abp.Modularity.ServiceConfigurationContext)">
-            <summary>
-            配置数据过滤
-            </summary>
-            <param name="context"></param>
-        </member>
         <member name="M:Tiger.TigerHttpApiHostModule.ConfigureHangfire(Volo.Abp.Modularity.ServiceConfigurationContext,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             配置后台作业集成Hangfire
