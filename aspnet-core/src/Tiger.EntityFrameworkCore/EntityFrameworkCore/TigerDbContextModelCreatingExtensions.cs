@@ -3,10 +3,6 @@ using Tiger.Module.System.Localization;
 using Tiger.Module.System.TextTemplate;
 using Tiger.Volo.Abp.Identity.Post;
 using Microsoft.EntityFrameworkCore;
-using Tiger.Books;
-//using Tiger.Volo.Abp.Sass.Editions;
-//using Tiger.Volo.Abp.Sass;
-using TigerAdmin.Books;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Tiger.Module.System.Platform.Menus;
@@ -17,7 +13,6 @@ using Tiger.Module.System.Platform.Layouts;
 using Tiger.Volo.Abp.Sass.Tenants;
 using Tiger.Volo.Abp.Sass;
 using Tiger.Volo.Abp.Sass.Editions;
-//using Tiger.Volo.Abp.Sass.Tenants;
 
 namespace Tiger.EntityFrameworkCore
 {
