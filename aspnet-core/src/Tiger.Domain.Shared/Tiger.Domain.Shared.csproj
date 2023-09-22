@@ -24,25 +24,16 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Localization\Tiger\*.json" />
-    <Compile Remove="Business\Finance\**" />
-    <Compile Remove="Business\Orders\**" />
-    <Compile Remove="Business\Purchase\**" />
-    <Compile Remove="Business\Stat\**" />
-    <Compile Remove="Business\Stock\**" />
+    <Compile Remove="Business\**" />
+    <Compile Remove="Localization\BookStore\**" />
     <Compile Remove="Security\**" />
     <Compile Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
-    <EmbeddedResource Remove="Business\Finance\**" />
-    <EmbeddedResource Remove="Business\Orders\**" />
-    <EmbeddedResource Remove="Business\Purchase\**" />
-    <EmbeddedResource Remove="Business\Stat\**" />
-    <EmbeddedResource Remove="Business\Stock\**" />
+    <EmbeddedResource Remove="Business\**" />
+    <EmbeddedResource Remove="Localization\BookStore\**" />
     <EmbeddedResource Remove="Security\**" />
     <EmbeddedResource Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
-    <None Remove="Business\Finance\**" />
-    <None Remove="Business\Orders\**" />
-    <None Remove="Business\Purchase\**" />
-    <None Remove="Business\Stat\**" />
-    <None Remove="Business\Stock\**" />
+    <None Remove="Business\**" />
+    <None Remove="Localization\BookStore\**" />
     <None Remove="Security\**" />
     <None Remove="Volo\Abp\Identity\Localization\TigerAbp\**" />
   </ItemGroup>

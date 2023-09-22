@@ -18,7 +18,7 @@ namespace Tiger.Infrastructure.Timing
         //IClock 在获取当前时间的同时提供了一种抽象,你可以在应用程序中的单个点上控制日期时间的类型(UTC或本地时间).
         private readonly IClock _clock;
 
-        public MyService(IClock clock\)
+        public MyService(IClock clock)
         {
             _clock = clock;
         }
