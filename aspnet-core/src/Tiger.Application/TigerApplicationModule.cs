@@ -1,31 +1,21 @@
-﻿using Hangfire;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Quartz;
-using System;
-using System.Collections.Specialized;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Tiger.Blob.Qinui;
-using Tiger.BlobDemo;
-using Tiger.Module.OssManagement.Aliyun;
 using Tiger.Module.OssManagement;
+using Tiger.Module.OssManagement.Aliyun;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.BackgroundJobs;
-using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.BackgroundJobs.Quartz;
 using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.FileSystem;
 using Volo.Abp.Caching;
+using Volo.Abp.EventBus;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
-using Volo.Abp.Quartz;
 using Volo.Abp.Sms;
 using Volo.Abp.TenantManagement;
-using Tiger.Module.System.Cache;
-using Volo.Abp.EventBus;
 
 namespace Tiger
 {

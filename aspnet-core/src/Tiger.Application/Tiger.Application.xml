@@ -21,37 +21,6 @@
             资源消耗
             </summary>
         </member>
-        <member name="T:Tiger.Infrastructure.Features.MyFeatureDefinitionProvider">
-            <summary>
-            定义特性
-            </summary>
-            <remarks>
-            定义特性常量应该放到 contrat 这一层当中使用
-            
-            ABP会自动发现此类并注册特征.无需其他配置。
-            
-            此类通常在解决方案的项目中创建。Application.Contracts
-            </remarks>
-        </member>
-        <member name="M:Tiger.Infrastructure.Features.ReportingAppService.GetPdfReportAsync(System.Int32)">
-            <summary>
-            功能特性使用demo
-            </summary>
-            <returns></returns>
-            <remarks>
-            RequiresFeature(...)只需获取一个功能名称以检查它是否已启用。如果未启用，则会引发授权异常，并向客户端返回正确的响应。
-            RequiresFeature可能会获得多个功能名称，例如 .在这种情况下，ABP检查是否启用了任何功能.使用选项，例如强制检查要启用的所有功能。[RequiresFeature("Feature1", "Feature2")]RequiresAll[RequiresFeature("Feature1", "Feature2", RequiresAll = true)]
-            可以多此使用
-            
-            拦截的方法要遵循规则
-            </remarks>
-        </member>
-        <member name="T:Tiger.Infrastructure.ObjectMapping.TigerApplicationAutoMapperProfile">
-             <summary>
-             AutoMapper提供了多种定义类之间映射的方法. 有关详细信息请参阅AutoMapper的文档.
-            其中定义一种映射的方法是创建一个Profile 类.例如:
-             </summary>
-        </member>
         <member name="T:Tiger.BackgroundWorker.MyQuartzLogWorker">
             <summary>
             Demo 定时任务
@@ -70,87 +39,6 @@
             </summary>
             <param name="context"></param>
             <returns></returns>
-        </member>
-        <member name="T:Tiger.BlobDemo.MyBlobContainer">
-            <summary>
-            类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
-            </summary>
-        </member>
-        <member name="T:Tiger.BlobDemo.MyBlobContainerConfigurationExtensions">
-            <summary>
-            一个更简单的配置方式,可以为 BlobContainerConfiguration 类创建一个扩展方法:
-            </summary>
-        </member>
-        <member name="T:Tiger.BlobDemo.MyCustomBlobProvider">
-             <summary>
-             自定义 对象存储提供程序
-             
-             MyCustomBlobProvider 继承 BlobProviderBase 并覆盖 abstract 方法. 实际的实现取决于你.
-            实现 ITransientDependency 接口将这个类注做为瞬态服务注册到依赖注入系统.
-            注意: 命名约定很重要. 如果类名没有以 BlobProvider 结尾,则必须手动注册/公开你的服务为 IBlobProvider.
-             </summary>
-        </member>
-        <member name="M:Tiger.BlobDemo.MyCustomBlobProvider.SaveAsync(Volo.Abp.BlobStoring.BlobProviderSaveArgs)">
-            <summary>
-            七牛文件上传保存
-            </summary>
-            <param name="args"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.BlobDemo.MyCustomBlobProviderConfiguration">
-            <summary>
-            BlobContainerConfiguration 允许添加/删除提供程序特定的配置对象. 
-            如果你的提供者需要额外的配置,你可以为 BlobContainerConfiguration 创建一个包装类提供的类型安全配置选项:
-            </summary>
-        </member>
-        <member name="T:Tiger.BlobDemo.MyService">
-            <summary>
-            该服务用 my-blob-1 名称保存给定的字节,然后以相同的名称获取先前保存的字节.
-            一个BLOB是一个命名对象,每个BLOB都应该有一个唯一的名称,它是一个任意的字符串.
-            </summary>
-        </member>
-        <member name="T:Tiger.BlobDemo.ProfileAppService">
-            <summary>
-            示例: 用于保存和读取当前用户的个人资料图片的应用服务
-            </summary>
-        </member>
-        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveProfilePictureAsync(System.Byte[])">
-            <summary>
-            保存图片
-            </summary>
-            <param name="bytes"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.BlobDemo.ProfileAppService.GetProfilePictureAsync">
-            <summary>
-            获取图片
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveMyBlobAsync(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            保存图片
-            </summary>
-            <param name="file"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.BlobDemo.ProfileAppService.GetMyBlobAsync">
-            <summary>
-            获取图片
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.BlobDemo.ProfileAppService.SaveQiniuBlobAsync(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            保存图片
-            </summary>
-            <param name="file"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.BlobDemo.ProfilePictureContainer">
-            <summary>
-            类型化BLOB容器系统是一种在应用程序中创建和管理多个容器的方法;
-            </summary>
         </member>
         <member name="T:Tiger.Blob.Qinui.QiniuBlobContainer">
             <summary>
@@ -723,13 +611,6 @@
             分页查询作业日志列表
             </summary>
             <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Utilities.DownLoadUpLoadFilesHelper.UploadAppService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
-            <summary>
-            上传 文件,并返回相对url(不包含 host port wwwroot)
-            </summary>
-            <param name="file"></param>
             <returns></returns>
         </member>
         <member name="T:Tiger.TigerApplicationModule">

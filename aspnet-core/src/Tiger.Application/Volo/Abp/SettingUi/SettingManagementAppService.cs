@@ -105,10 +105,10 @@ namespace Tiger.Volo.Abp.SettingManagement
         /// 从缓存中读取配置信息
         /// </summary>
         /// <returns></returns>
-        public async Task TestGetSettingValueAsync()
+        public  Task TestGetSettingValueAsync()
         {
             //Get a value as string.
-            //return Task.CompletedTask;
+            return Task.CompletedTask;
             
         }
 
