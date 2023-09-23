@@ -31,6 +31,9 @@
 
             </template>
           </el-table-column>
+          <el-table-column :label="$t('AbpIdentity[\'UserCount\']')" align="center" width="180">
+            <template slot-scope="scope">{{ scope.row.extraProperties.UserCount }}</template>
+          </el-table-column>
 
           <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="320">
             <template slot-scope="scope">

@@ -5,6 +5,7 @@ using System.Text;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.IdentitySecurityLogs.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
+using Tiger.Volo.Abp.Identity.Roles.Dto;
 using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Identity;
 
@@ -19,6 +20,8 @@ namespace Tiger.Volo.Abp.Identity
             CreateMap<IdentityUser, IdentityUserDto>()
                 .MapExtraProperties();
             CreateMap<IdentityRole, IdentityRoleDto>()
+                .MapExtraProperties();
+            CreateMap<IdentityRole, AppIdentityRoleDto>()
                 .MapExtraProperties();
             CreateMap<OrganizationUnit, OrganizationUnitDto>()
                 .MapExtraProperties();

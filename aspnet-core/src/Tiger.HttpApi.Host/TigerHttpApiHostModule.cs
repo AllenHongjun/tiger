@@ -547,7 +547,7 @@ namespace Tiger
                 options.ConfigurationOptions = redisConfig;
                 options.InstanceName = configuration["Redis:InstanceName"];
             });
-        } 
+        }
         #endregion
 
         #region 配置时区
@@ -556,12 +556,15 @@ namespace Tiger
         /// </summary>
         /// <param name="context"></param>
         /// <param name="configuration"></param>
+        /// <remarks>
+        /// 时区设置： https://docs.abp.io/zh-Hans/abp/latest/Timing
+        /// </remarks>
         private void ConfigureTiming(ServiceConfigurationContext context, IConfiguration configuration)
         {
             Configure<AbpClockOptions>(options =>
             {
-                //AbpClockOptions 是用于设置时钟种类的选项类.
-                options.Kind = DateTimeKind.Utc;
+                //AbpClockOptions 是用于设置时钟种类的选项类. 可以是Utc 或者 本地时间
+                options.Kind = DateTimeKind.Local;
             });
 
         } 

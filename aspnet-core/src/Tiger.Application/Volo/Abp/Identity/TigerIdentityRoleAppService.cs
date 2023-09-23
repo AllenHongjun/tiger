@@ -13,6 +13,7 @@ using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Identity
@@ -22,7 +23,7 @@ namespace Tiger.Volo.Abp.Identity
     /// 角色服务
     /// </summary>
     [RemoteService(IsEnabled = false)]
-    [Dependency(ReplaceServices = true)]
+    //[Dependency(ReplaceServices = true)]
     [ExposeServices(typeof(IIdentityRoleAppService),
         typeof(IdentityRoleAppService),
         typeof(ITigerIdentityRoleAppService),
@@ -31,6 +32,8 @@ namespace Tiger.Volo.Abp.Identity
     {
         protected OrganizationUnitManager OrganizationUnitManager { get; }
         protected ITigerIdentityRoleRepository TigerIdentityRoleRepository { get; }
+        
+        protected IIdentityUserRepository IdentityUserRepository { get; }
         public TigerIdentityRoleAppService(IdentityRoleManager roleManager,
             IIdentityRoleRepository roleRepository,
             OrganizationUnitManager orgManager,
@@ -43,15 +46,24 @@ namespace Tiger.Volo.Abp.Identity
 
         #region Roles
         [Authorize(IdentityPermissions.Roles.Default)]
-        public async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
+        public  async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
         {
             var roleCount = await TigerIdentityRoleRepository.GetCountAsync(input.Filter);
 
             var roles = await TigerIdentityRoleRepository.GetListAsync(
                 input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails:true);
 
-            return new PagedResultDto<IdentityRoleDto>(roleCount,
-                ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(roles));
+            var roleList = ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(roles);
+
+            #region 查询每个角色的用户数量
+            var roleUserCount = await TigerIdentityRoleRepository.GeUserCountOfRoleAsync(roles.Select(x => x.Id).ToList());
+            foreach (var role in roleList)
+            {
+                role.SetUserCount(roleUserCount.FirstOrDefault(userCount => userCount.Key == role.Id).Value);
+            } 
+            #endregion
+
+            return new PagedResultDto<IdentityRoleDto>(roleCount, roleList);
 
         }
 

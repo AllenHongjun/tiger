@@ -13,6 +13,9 @@ namespace Tiger.Volo.Abp.Identity
     public interface ITigerIdentityRoleRepository: IIdentityRoleRepository
     {
 
+
+        Task<Dictionary<Guid, int>> GeUserCountOfRoleAsync(List<Guid> roleIds);
+
         /// <summary>
         /// 根据角色id获取角色列表
         /// </summary>

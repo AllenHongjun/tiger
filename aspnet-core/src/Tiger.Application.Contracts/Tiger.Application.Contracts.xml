@@ -2642,6 +2642,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Volo.Abp.Identity.IdentityRoleDtoExtensions">
+            <summary>
+            扩展角色对象的属性
+            </summary>
+            <remarks>
+            对象扩展 https://docs.abp.io/zh-Hans/abp/latest/Object-Extensions
+            </remarks>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.Users.ITigerIdentityUserAppService.GetListAsync(Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserGetListInput)">
             <summary>
             分页获取用户列表

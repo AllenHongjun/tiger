@@ -112,6 +112,9 @@
             </summary>
             <param name="context"></param>
             <param name="configuration"></param>
+            <remarks>
+            时区设置： https://docs.abp.io/zh-Hans/abp/latest/Timing
+            </remarks>
         </member>
         <member name="M:Tiger.TigerHttpApiHostModule.OnApplicationInitialization(Volo.Abp.ApplicationInitializationContext)">
             <summary>

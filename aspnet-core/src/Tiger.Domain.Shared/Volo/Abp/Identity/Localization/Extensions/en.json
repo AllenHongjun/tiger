@@ -9,6 +9,8 @@
     "Permission:ManageOrganizationUnits": "Management organization units",
     "Permission:IdentityClaimTypeManagement": "Management claim types",
     "Menu:IdentityManagement": "Identity",
+
+    "UserCount": "User Count",
     "OrganizationUnits": "Organization",
     "OrganizationUnit:Tree": "Organization tree",
     "OrganizationUnit:New": "Add New",
@@ -23,6 +25,8 @@
     "OrganizationUnit:AreYouSureRemoveRole": "Are you sure you want to remove the role {0} from the organization?",
     "OrganizationUnit:SelectUsers": "Select Users",
     "OrganizationUnit:SelectRoles": "Select Roles",
+
+
     // 安全日志
     "SecurityLog": "SecurityLog",
     "IdentityClaimTypeAlreadyExists": "The identity claim type {0} already exists!",

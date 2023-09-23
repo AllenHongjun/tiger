@@ -40,7 +40,6 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<AppUser> Users { get; set; }
 
-
         // 如何扩展abp原有的租户表 迁移里面文档了解
         public DbSet<Edition> Editions { get; set; }
 

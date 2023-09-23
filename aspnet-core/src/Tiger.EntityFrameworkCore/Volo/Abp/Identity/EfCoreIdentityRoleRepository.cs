@@ -23,7 +23,22 @@ namespace Tiger.Volo.Abp.Identity
         }
 
 
-
+        /// <summary>
+        /// 获取每个角色的用户数量
+        /// </summary>
+        /// <param name="roleIds"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// bug-fix: https://stackoverflow.com/questions/58138556/client-side-groupby-is-not-supported
+        /// </remarks>
+        public async Task<Dictionary<Guid,int>> GeUserCountOfRoleAsync(List<Guid> roleIds)
+        {
+            var list = await DbContext.Set<IdentityUserRole>()
+               .Where(x => roleIds.Any(roleId => roleId == x.RoleId))
+               .ToListAsync();
+             var roleUserCountDic = list.GroupBy(x => x.RoleId).ToDictionary(g => g.Key, g => g.Count());
+            return roleUserCountDic;
+        }
 
 
         public async Task<List<IdentityRole>> GetListByIdListAsync(List<Guid> roleIds, bool includeDetails = false, CancellationToken cancellation = default)
@@ -44,10 +59,6 @@ namespace Tiger.Volo.Abp.Identity
         /// <exception cref="NotImplementedException"></exception>
         public async Task<List<OrganizationUnit>> GetOrganizationUnitListAsync(Guid roleId, bool includeDetails = false, CancellationToken cancellation = default)
         {
-            var dbContext = DbContext;
-
-            // 为啥OrganizationUnitRole 不能直接DbContext获取到？ ABP如何设计？
-
             // 使用表名的缩写命名
             var query = from roleOU in DbContext.Set<OrganizationUnitRole>()
                         join ou in DbContext.OrganizationUnits.IncludeDetails(includeDetails) 
