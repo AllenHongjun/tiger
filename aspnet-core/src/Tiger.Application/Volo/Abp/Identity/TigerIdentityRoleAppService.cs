@@ -3,17 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Roles;
 using Tiger.Volo.Abp.Identity.Roles.Dto;
-using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Identity
@@ -141,16 +138,28 @@ namespace Tiger.Volo.Abp.Identity
 
         #endregion
 
-
         #region ClaimType
 
-        public async virtual Task<ListResultDto<IdentityClaimDto>> GetClaimsAsync(Guid id)
+
+        /// <summary>
+        /// 获取角色关联的声明
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async virtual Task<ListResultDto<IdentityRoleClaimDto>> GetClaimsAsync(Guid id)
         {
             var role = await RoleRepository.GetAsync(id);
 
-            return new ListResultDto<IdentityClaimDto>(ObjectMapper.Map<ICollection<IdentityRoleClaim>, List<IdentityClaimDto>>(role.Claims));
+            return new ListResultDto<IdentityRoleClaimDto>(ObjectMapper.Map<ICollection<IdentityRoleClaim>, List<IdentityRoleClaimDto>>(role.Claims));
         }
 
+        /// <summary>
+        /// 添加角色声明
+        /// </summary>
+        /// <param name="id">角色id</param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="UserFriendlyException"></exception>
         [Authorize(TigerIdentityPermissions.Roles.ManageClaims)]
         public async virtual Task AddClaimAsync(Guid id, IdentityRoleClaimCreateDto input)
         {
@@ -167,6 +176,12 @@ namespace Tiger.Volo.Abp.Identity
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// 更新角色声明
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(TigerIdentityPermissions.Roles.ManageClaims)]
         public async virtual Task UpdateClaimAsync(Guid id, IdentityRoleClaimUpdateDto input)
         {
@@ -183,6 +198,12 @@ namespace Tiger.Volo.Abp.Identity
             }
         }
 
+        /// <summary>
+        /// 删除角色声明
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize(TigerIdentityPermissions.Roles.ManageClaims)]
         public async virtual Task DeleteClaimAsync(Guid id, IdentityRoleClaimDeleteDto input)
         {

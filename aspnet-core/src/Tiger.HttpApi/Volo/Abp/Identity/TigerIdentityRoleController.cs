@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Roles;
+using Tiger.Volo.Abp.Identity.Roles.Dto;
+using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Auditing;
@@ -27,6 +29,22 @@ namespace Volo.Abp.Identity
             RoleAppService = roleAppService;
         }
 
+        /// <summary>
+        /// 查询角色列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// </remarks>
+        [HttpGet]
+        [Route("search")]
+        public Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
+        {
+            return RoleAppService.GetListAsync(input);
+        }
+
+
+        #region 角色关联组织
         /// <summary>
         /// 将角色关联组织
         /// </summary>
@@ -53,18 +71,64 @@ namespace Volo.Abp.Identity
             return RoleAppService.CreateAsync(input);
         }
 
+        
+
+
+        #endregion
+
+
+        #region 声明管理
+
         /// <summary>
-        /// 查询角色列表
+        /// 添加角色声明
         /// </summary>
+        /// <param name="id">角色id</param>
         /// <param name="input"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// </remarks>
-        [HttpGet]
-        [Route("search")]
-        public Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
-        {   
-            return RoleAppService.GetListAsync(input);
+        [HttpPost]
+        [Route("{roleId}/create-claim")]
+        public async Task AddClaimAsync(Guid roleId, IdentityRoleClaimCreateDto input)
+        {
+            await RoleAppService.AddClaimAsync(roleId, input);
         }
+
+        /// <summary>
+        /// 更新角色声明
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{roleId}/update-claim")]
+        public async Task UpdateClaimAsync(Guid roleId, IdentityRoleClaimUpdateDto input)
+        {
+            await RoleAppService.UpdateClaimAsync(roleId, input);
+        }
+
+        /// <summary>
+        /// 删除角色声明
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("{roleId}/delete-claim")]
+        public async Task DeleteClaimAsync(Guid roleId, IdentityRoleClaimDeleteDto input)
+        {
+            await RoleAppService.DeleteClaimAsync(roleId, input);
+        }
+
+        /// <summary>
+        /// 获取角色声明
+        /// </summary>
+        /// <param name="id">角色id</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{roleId}/claims")]
+        public async Task<ListResultDto<IdentityRoleClaimDto>> GetClaimsAsync(Guid roleId)
+        {
+            return await RoleAppService.GetClaimsAsync(roleId);
+        }
+        #endregion
     }
 }

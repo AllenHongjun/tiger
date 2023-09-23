@@ -16,7 +16,7 @@ namespace Tiger.Volo.Abp.Identity
         public AbpIdentityModuleAutoMapperProfile()
         {
             
-            CreateMap<IdentityRoleClaim, IdentityClaimDto>();
+            CreateMap<IdentityRoleClaim, IdentityRoleClaimDto>();
             CreateMap<IdentityUser, IdentityUserDto>()
                 .MapExtraProperties();
             CreateMap<IdentityRole, IdentityRoleDto>()

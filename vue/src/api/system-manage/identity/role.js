@@ -46,3 +46,35 @@ export function createRoleToOrg(payload) {
     data: payload
   })
 }
+
+// 角色声明
+export function getRoleClaims(roleId) {
+  return request({
+    url: `/api/identity/roles/${roleId}/claims`,
+    method: 'get'
+  })
+}
+
+export function createRoleClaim(roleId, payload) {
+  return request({
+    url: `/api/identity/roles/${roleId}/create-claim`,
+    method: 'post',
+    data: payload
+  })
+}
+
+export function updateRoleClaim(roleId, payload) {
+  return request({
+    url: `/api/identity/roles/${roleId}/update-claim`,
+    method: 'put',
+    data: payload
+  })
+}
+
+export function deleteRoleClaim(roleId, payload) {
+  return request({
+    url: `/api/identity/roles/${roleId}/delete-claim`,
+    method: 'post',
+    data: payload
+  })
+}

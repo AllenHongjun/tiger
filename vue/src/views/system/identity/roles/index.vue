@@ -40,6 +40,9 @@
               <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" @click="handleUpdate(scope.row)">
                 {{ $t("AbpIdentity['Edit']") }}
               </el-button>
+              <el-button v-if="checkPermission('AbpIdentity.Roles.ManageClaims')" type="primary" plain @click="handleManageClaims(scope.row)">
+                {{ $t("AbpIdentity['ClaimTypes']") }}
+              </el-button>
               <el-button v-if="checkPermission('AbpIdentity.Roles.ManagePermissions')" type="success" plain @click="handleUpdatePermission(scope.row)">
                 {{ $t("AbpIdentity['Permissions']") }}
               </el-button>
@@ -69,6 +72,7 @@
             <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">{{ $t("AbpIdentity['Save']") }}</el-button>
           </div>
         </el-dialog>
+        <claim ref="claimTypeDialog" />
         <permission-dialog ref="permissionDialog" provider-name="R" />
       </el-col>
     </el-row>
@@ -88,12 +92,14 @@ import {
 
 import baseListQuery from '@/utils/abp'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import Claim from '../components/Claim.vue'
 import PermissionDialog from '../components/permission-dialog'
 
 export default {
   name: 'Role',
   components: {
     Pagination,
+    Claim,
     PermissionDialog
   },
   data() {
@@ -105,6 +111,7 @@ export default {
       listQuery: baseListQuery,
       dialogStatus: '',
       dialogFormVisible: false,
+      claimTypeDialogFormVisible: false,
       temp: {
         id: '',
         name: '',
@@ -255,6 +262,9 @@ export default {
           message: this.$i18n.t("AbpUi['Cancel']")
         })
       })
+    },
+    handleManageClaims(row) {
+      this.$refs['claimTypeDialog'].handleManageClaims(row)
     },
     handleUpdatePermission(row) {
       this.$refs['permissionDialog'].handleUpdatePermission(row)

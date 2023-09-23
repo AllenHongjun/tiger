@@ -200,7 +200,7 @@
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item :command="beforeHandleCommand(scope, 'edit')">{{ $t("AbpIdentity['Edit']") }}</el-dropdown-item>
-
+              <el-dropdown-item :command="beforeHandleCommand(scope, 'manageClaims')">{{ $t("AbpIdentity['ManageClaim']") }}</el-dropdown-item>
               <el-dropdown-item :command="beforeHandleCommand(scope, 'updatePermission')">{{ $t("AbpIdentity['Permissions']") }}</el-dropdown-item>
               <el-dropdown-item :command="beforeHandleCommand(scope, 'changePassword')">设置密码</el-dropdown-item>
               <el-dropdown-item v-if="scope.row.lockoutEnd && (new Date(scope.row.lockoutEnd)) >= new Date()" :command="beforeHandleCommand(scope, 'unlock')">解锁</el-dropdown-item>
@@ -292,7 +292,7 @@
         <el-button type="primary" @click="lock()">{{ $t("AbpIdentity['Save']") }}</el-button>
       </div>
     </el-dialog>
-
+    <claim ref="claimTypeDialog" />
     <permission-dialog ref="permissionDialog" provider-name="U" />
   </div>
 </template>
@@ -327,6 +327,7 @@ import {
   validEmail,
   validPhone
 } from '@/utils/validate'
+import Claim from '../components/Claim.vue'
 import PermissionDialog from '../components/permission-dialog'
 import OrgTree from '../components/org-tree'
 
@@ -334,6 +335,7 @@ export default {
   name: 'User',
   components: {
     Pagination,
+    Claim,
     PermissionDialog,
     OrgTree
   },
@@ -695,6 +697,9 @@ export default {
         case 'unlock':
           this.unLock(param.scope.row)
           break
+        case 'manageClaims':
+          this.handleManageClaims(param.scope.row)
+          break
         case 'updatePermission':
           this.handleUpdatePermission(param.scope.row)
           break
@@ -877,6 +882,9 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    handleManageClaims(row) {
+      this.$refs['claimTypeDialog'].handleManageClaims(row)
     },
     handleUpdatePermission(row) {
       // 用户授权
