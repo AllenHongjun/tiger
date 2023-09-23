@@ -9,6 +9,7 @@ using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Auditing;
+using Volo.Abp.Http;
 
 namespace Volo.Abp.Identity
 {
@@ -30,19 +31,7 @@ namespace Volo.Abp.Identity
         }
 
 
-        /// <summary>
-        /// 移动当前角色用户到目标角色
-        /// </summary>
-        /// <param name="roleId"></param>
-        /// <param name="targetRoleId"></param>
-        /// <param name="cancelAssign"></param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("{roleId}/move-all-users")]
-        public async Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign)
-        {
-            await RoleAppService.MoveAllUsers(roleId, targetRoleId, cancelAssign);
-        }
+        
 
         /// <summary>
         /// 查询角色列表
@@ -58,6 +47,32 @@ namespace Volo.Abp.Identity
             return RoleAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// 导出角色
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("role-export")]
+        public async Task<FileResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
+        {
+            return await RoleAppService.ExportRolesToXlsxAsync(input);
+        }
+
+
+        /// <summary>
+        /// 移动当前角色用户到目标角色
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="targetRoleId"></param>
+        /// <param name="cancelAssign"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{roleId}/move-all-users")]
+        public async Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign)
+        {
+            await RoleAppService.MoveAllUsers(roleId, targetRoleId, cancelAssign);
+        }
 
         #region 角色关联组织
         /// <summary>
@@ -90,7 +105,6 @@ namespace Volo.Abp.Identity
 
 
         #endregion
-
 
         #region 声明管理
 
@@ -146,6 +160,8 @@ namespace Volo.Abp.Identity
         }
 
         
+
+
         #endregion
     }
 }

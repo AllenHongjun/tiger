@@ -1317,15 +1317,6 @@
             角色
             </summary>
         </member>
-        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.MoveAllUsers(System.Guid,System.Guid,System.Boolean)">
-            <summary>
-            移动当前角色用户到目标角色
-            </summary>
-            <param name="roleId"></param>
-            <param name="targetRoleId"></param>
-            <param name="cancelAssign"></param>
-            <returns></returns>
-        </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.GetListAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
             <summary>
             查询角色列表
@@ -1334,6 +1325,22 @@
             <returns></returns>
             <remarks>
             </remarks>
+        </member>
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.ExportRolesToXlsxAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
+            <summary>
+            导出角色
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.MoveAllUsers(System.Guid,System.Guid,System.Boolean)">
+            <summary>
+            移动当前角色用户到目标角色
+            </summary>
+            <param name="roleId"></param>
+            <param name="targetRoleId"></param>
+            <param name="cancelAssign"></param>
+            <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>

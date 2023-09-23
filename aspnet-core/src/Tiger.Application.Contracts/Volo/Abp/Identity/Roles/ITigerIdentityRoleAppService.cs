@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Roles.Dto;
-using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Identity;
@@ -43,6 +40,13 @@ namespace Tiger.Volo.Abp.Identity.Roles
         Task<IdentityRoleDto> CreateAsync(IdentityRoleOrgCreateDto input);
         
         Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input);
+
+        /// <summary>
+        /// Export Roles to XLSX
+        /// </summary>
+        /// <param name="input">input</param>
+        /// <returns>A task that represents the asynchronous operation</returns>
+        Task<FileResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input);
 
         /// <summary>
         /// 添加角色声明

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.ExtendedProperties;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.ExportImport.Help;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Roles;
@@ -63,6 +66,37 @@ namespace Tiger.Volo.Abp.Identity
 
             return new PagedResultDto<IdentityRoleDto>(roleCount, roleList);
 
+        }
+
+
+        /// <summary>
+        /// Export Roles to XLSX
+        /// </summary>
+        /// <param name="GetIdentityRolesInput">input</param>
+        /// <returns>A task that represents the asynchronous operation</returns>
+        public virtual async Task<FileResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
+        {
+            var roles = await TigerIdentityRoleRepository.GetListAsync(
+                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails: true);
+
+            //property manager 
+            var manager = new PropertyManager<IdentityRole>(new[]
+            {
+                new PropertyByName<IdentityRole>("Id", p => p.Id),
+                new PropertyByName<IdentityRole>("Name", p => p.Name),
+                new PropertyByName<IdentityRole>("NormalizedName", p => p.NormalizedName),
+                new PropertyByName<IdentityRole>("IsDefault", p => p.IsDefault),
+                new PropertyByName<IdentityRole>("IsStatic", p => p.IsStatic),
+                new PropertyByName<IdentityRole>("IsPublic", p => p.IsPublic),
+                
+            });
+
+            var bytes =  await manager.ExportToXlsxAsync(roles);
+            
+            return new FileContentResult(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            {
+                FileDownloadName = "roles.xlsx"
+            };
         }
 
         /// <summary>

@@ -2651,6 +2651,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.Roles.ITigerIdentityRoleAppService.ExportRolesToXlsxAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
+            <summary>
+            Export Roles to XLSX
+            </summary>
+            <param name="input">input</param>
+            <returns>A task that represents the asynchronous operation</returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.Roles.ITigerIdentityRoleAppService.AddClaimAsync(System.Guid,Tiger.Volo.Abp.Identity.Roles.Dto.IdentityRoleClaimCreateDto)">
             <summary>
             添加角色声明
