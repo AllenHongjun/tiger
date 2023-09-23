@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,17 @@ namespace Tiger.Volo.Abp.Identity.Roles
 {
     public interface ITigerIdentityRoleAppService : IApplicationService
     {
-        
+
+
+        /// <summary>
+        /// 移动当前角色用户到目标角色
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="targetRoleId"></param>
+        /// <param name="cancelAssign"></param>
+        /// <returns></returns>
+        Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign);
+
 
         /// <summary>
         /// 角色管理组织

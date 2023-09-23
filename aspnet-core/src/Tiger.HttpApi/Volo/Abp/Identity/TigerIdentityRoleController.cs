@@ -29,6 +29,21 @@ namespace Volo.Abp.Identity
             RoleAppService = roleAppService;
         }
 
+
+        /// <summary>
+        /// 移动当前角色用户到目标角色
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="targetRoleId"></param>
+        /// <param name="cancelAssign"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{roleId}/move-all-users")]
+        public async Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign)
+        {
+            await RoleAppService.MoveAllUsers(roleId, targetRoleId, cancelAssign);
+        }
+
         /// <summary>
         /// 查询角色列表
         /// </summary>
@@ -71,7 +86,7 @@ namespace Volo.Abp.Identity
             return RoleAppService.CreateAsync(input);
         }
 
-        
+
 
 
         #endregion
@@ -82,7 +97,7 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 添加角色声明
         /// </summary>
-        /// <param name="id">角色id</param>
+        /// <param name="roleId">角色id</param>
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
@@ -95,7 +110,7 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 更新角色声明
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="roleId"></param>
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPut]
@@ -108,7 +123,7 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 删除角色声明
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="roleId"></param>
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
@@ -121,7 +136,7 @@ namespace Volo.Abp.Identity
         /// <summary>
         /// 获取角色声明
         /// </summary>
-        /// <param name="id">角色id</param>
+        /// <param name="roleId">角色id</param>
         /// <returns></returns>
         [HttpGet]
         [Route("{roleId}/claims")]
@@ -129,6 +144,8 @@ namespace Volo.Abp.Identity
         {
             return await RoleAppService.GetClaimsAsync(roleId);
         }
+
+        
         #endregion
     }
 }

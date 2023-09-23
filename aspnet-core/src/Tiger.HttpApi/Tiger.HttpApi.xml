@@ -1317,6 +1317,15 @@
             角色
             </summary>
         </member>
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.MoveAllUsers(System.Guid,System.Guid,System.Boolean)">
+            <summary>
+            移动当前角色用户到目标角色
+            </summary>
+            <param name="roleId"></param>
+            <param name="targetRoleId"></param>
+            <param name="cancelAssign"></param>
+            <returns></returns>
+        </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.GetListAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
             <summary>
             查询角色列表
@@ -1345,7 +1354,7 @@
             <summary>
             添加角色声明
             </summary>
-            <param name="id">角色id</param>
+            <param name="roleId">角色id</param>
             <param name="input"></param>
             <returns></returns>
         </member>
@@ -1353,7 +1362,7 @@
             <summary>
             更新角色声明
             </summary>
-            <param name="id"></param>
+            <param name="roleId"></param>
             <param name="input"></param>
             <returns></returns>
         </member>
@@ -1361,7 +1370,7 @@
             <summary>
             删除角色声明
             </summary>
-            <param name="id"></param>
+            <param name="roleId"></param>
             <param name="input"></param>
             <returns></returns>
         </member>
@@ -1369,7 +1378,7 @@
             <summary>
             获取角色声明
             </summary>
-            <param name="id">角色id</param>
+            <param name="roleId">角色id</param>
             <returns></returns>
         </member>
     </members>

@@ -49,6 +49,27 @@ namespace Tiger.Volo.Abp.Identity
                 .ToListAsync(GetCancellationToken(cancellation)));
         }
 
+
+        /// <summary>
+        /// 移动当前角色的所有用户到目标角色
+        /// </summary>
+        /// <param name="roleId">角色id</param>
+        /// <param name="targetRoleId">目标角色id</param>
+        /// <param name="cancelAssign">取消分配用户</param>
+        /// <returns></returns>
+        public  async Task MoveAllUsersAsync(Guid roleId, Guid targetRoleId, bool cancelAssign)
+        {
+            var users = await DbContext.Set<IdentityUser>()
+               .Where(x => x.Roles.Any(role => role.RoleId == roleId) ).ToListAsync();
+            foreach (var user in users)
+            {
+                user.RemoveRole(roleId);
+                if (!cancelAssign) user.AddRole(targetRoleId);
+            }
+        }
+
+
+
         /// <summary>
         /// 根据角色id查询关联的组织列表
         /// </summary>

@@ -987,6 +987,15 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.MoveAllUsers(System.Guid,System.Guid,System.Boolean)">
+            <summary>
+            移动当前角色用户到目标角色
+            </summary>
+            <param name="roleId"></param>
+            <param name="targetRoleId"></param>
+            <param name="cancelAssign"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
             角色关联组织(一个角色之关联一个组织)

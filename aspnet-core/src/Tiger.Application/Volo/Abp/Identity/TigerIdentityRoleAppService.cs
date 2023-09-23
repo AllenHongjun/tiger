@@ -20,11 +20,12 @@ namespace Tiger.Volo.Abp.Identity
     /// 角色服务
     /// </summary>
     [RemoteService(IsEnabled = false)]
-    //[Dependency(ReplaceServices = true)]
+    [Dependency(ReplaceServices = true)]
     [ExposeServices(typeof(IIdentityRoleAppService),
         typeof(IdentityRoleAppService),
         typeof(ITigerIdentityRoleAppService),
         typeof(TigerIdentityRoleAppService))]
+    [Authorize(IdentityPermissions.Roles.Default)]
     public class TigerIdentityRoleAppService : IdentityRoleAppService, ITigerIdentityRoleAppService
     {
         protected OrganizationUnitManager OrganizationUnitManager { get; }
@@ -80,7 +81,23 @@ namespace Tiger.Volo.Abp.Identity
                 await OrganizationUnitManager.AddRoleToOrganizationUnitAsync(role.Id, input.OrgId.Value);
             }
             return role;
-        } 
+        }
+
+
+        /// <summary>
+        /// 移动当前角色用户到目标角色
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <param name="targetRoleId"></param>
+        /// <param name="cancelAssign"></param>
+        /// <returns></returns>
+        [Authorize(IdentityPermissions.Roles.Default)]
+        public virtual async  Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign)
+        {
+            await TigerIdentityRoleRepository.MoveAllUsersAsync(roleId, targetRoleId, cancelAssign);
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
         #endregion
 
         #region OrganizationUnit

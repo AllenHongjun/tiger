@@ -28,6 +28,15 @@ namespace Tiger.Volo.Abp.Identity
             bool includeDetails = false,
             CancellationToken cancellation = default);
 
+        /// <summary>
+        /// 移动当前角色的所有用户到目标角色
+        /// </summary>
+        /// <param name="roleId">角色id</param>
+        /// <param name="targetRoleId">目标角色id</param>
+        /// <param name="cancelAssign">取消分配用户</param>
+        /// <returns></returns>
+        Task MoveAllUsersAsync(Guid roleId, Guid targetRoleId, bool cancelAssign);
+
 
         /// <summary>
         /// 根据id获取角色关联的部门
