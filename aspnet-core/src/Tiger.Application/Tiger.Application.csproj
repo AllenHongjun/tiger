@@ -59,6 +59,9 @@
     <Compile Remove="Module\TaskManagement\TaskManagementApplicationModule.cs" />
     <Compile Remove="Volo\Abp\Identity\HelloIdentityRoleAppService.cs" />
     <Compile Remove="Volo\Abp\Identity\HelloIdentityUserAppService.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\EmailSettingsAppService.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\IdentitySettingsAppService.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\SettingManagementAppService.cs" />
   </ItemGroup>
 
   <ItemGroup>

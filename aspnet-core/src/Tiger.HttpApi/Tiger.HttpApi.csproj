@@ -34,6 +34,7 @@
     <Compile Remove="Volo\Abp\Identity\HelloIdentityRoleController.cs" />
     <Compile Remove="Volo\Abp\Identity\HelloIdentityUserController.cs" />
     <Compile Remove="Volo\Abp\Identity\IdentityClaimTypeController.cs" />
+    <Compile Remove="Volo\Abp\Setting\EmailSettingsController.cs" />
   </ItemGroup>
 
   <ItemGroup>

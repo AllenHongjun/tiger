@@ -1170,83 +1170,17 @@
             <param name="name"></param>
             <returns></returns>
         </member>
-        <member name="T:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService">
+        <member name="T:Tiger.Volo.Abp.SettingUi.SettingUiAppService">
             <summary>
-            邮件设置服务
+            设置管理服务
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService.GetAsync">
+        <member name="M:Tiger.Volo.Abp.SettingUi.SettingUiAppService.GroupSettingDefinitionsAsync">
             <summary>
-            获取邮箱设置
+            获取分组设置定义
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService.UpdateAsync(Tiger.Volo.Abp.SettingManagementAppService.UpdateEmailSettingsDto)">
-            <summary>
-            更新邮箱设置
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-            <exception cref="T:System.NotImplementedException"></exception>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.EmailSettingsAppService.SendTestEmailAsync(Tiger.Volo.Abp.SettingManagementAppService.SendTestEmailInput)">
-            <summary>
-            发送测试邮件
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService">
-            <summary>
-            系统设置
-            </summary>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.FindAsync(System.String,System.String,System.String)">
-            <summary>
-            查找单个设置
-            </summary>
-            <param name="name"></param>
-            <param name="providerName"></param>
-            <param name="providerKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetListAsync(System.String,System.String)">
-            <summary>
-            获取设置列表
-            </summary>
-            <param name="providerName"></param>
-            <param name="providerKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.GetAllAsync(System.String,System.String)">
-            <summary>
-            获取所有设置
-            </summary>
-            <param name="providerName"></param>
-            <param name="providerKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.SetAsync(System.String,System.String,System.String,System.String)">
-            <summary>
-            更新设置
-            </summary>
-            <param name="name"></param>
-            <param name="value"></param>
-            <param name="providerName"></param>
-            <param name="providerKey"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.TestGetSettingValueAsync">
-            <summary>
-            从缓存中读取配置信息
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.SettingManagement.SettingManagementAppService.TestSetManager">
-            <summary>
-            测试将设置保存到数据库中
-            </summary>
-            <returns></returns>
+            <exception cref="T:Volo.Abp.Authorization.AbpAuthorizationException"></exception>
         </member>
         <member name="T:Volo.Abp.AuditLogging.AuditLogAppService">
             <summary>

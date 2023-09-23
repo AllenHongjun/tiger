@@ -66,8 +66,10 @@ namespace Tiger
                 options.Resources
                         // 添加了一个新的本地化资源, 使用"zh-Hans"（英语）作为默认的本地化.
                         .Add<TigerResource>("zh-Hans")
-                        .AddBaseTypes(typeof(AbpValidationResource))//资源可以从其他资源继承,这使得可以在不引用现有资源的情况下重用现有的本地化字符串 Inherit from an existing resource;
+                        .AddBaseTypes(typeof(AbpValidationResource))
+                        .AddBaseTypes(typeof(AbpLocalizationResource))
                         .AddVirtualJson("/Localization/Tiger");// 用JSON文件存储本地化字符串. 使用虚拟文件系统 将JSON文件嵌入到程序集中.
+
                 options.Resources
                        .Add<AbpSaasResource>("zh-Hans")
                        .AddVirtualJson("/Volo/Abp/Sass/Localization/Resources");

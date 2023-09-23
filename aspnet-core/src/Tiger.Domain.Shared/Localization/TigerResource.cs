@@ -1,9 +1,18 @@
-﻿using Volo.Abp.Localization;
+﻿using Tiger.Module.System.Localization;
+using Volo.Abp.Localization;
+using Volo.Abp.Validation.Localization;
 
 namespace Tiger.Localization
 {
 
-    // 本地化资源也可以在客户端(JavaScript)使用. 因此, 为本地化资源设置一个简短的名称可以更方便的本地化文本
+    /// <summary>
+    /// Tiger全局本地化资源
+    /// </summary>
+    /// <remarks>
+    /// 本地化文档 https://docs.abp.io/zh-Hans/abp/latest/Localization
+    /// </remarks>
+    [InheritResource(typeof(AbpValidationResource))]
+    [InheritResource(typeof(AbpLocalizationResource))]
     [LocalizationResourceName("TigerUi")]
     public class TigerResource
     {

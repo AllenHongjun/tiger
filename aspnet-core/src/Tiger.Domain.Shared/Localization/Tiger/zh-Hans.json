@@ -3,23 +3,26 @@
   "texts": {
     "Menu:Home": "首页",
     "Welcome": "欢迎",
-    "AbpAuditLogging": "审计日志",
     "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
+
     "Success": "成功",
     "SuccessMessage": "操作成功！",
     "Warning": "警告",
     "Info": "消息",
     "Error": "错误",
     "ErrorMessage": "操作失败！",
+
     "DisplayName:CreationTime": "创建时间",
     "Feature:SocialLogins": "社交登录",
     "Feature:UserCount": "用户数量",
+
     "DisplayName:Qiniu.Oss.AccessKey": "AccessKey",
     "Description:Qiniu.Oss.AccessKey": "AccessKey",
     "DisplayName:Qiniu.Oss.SecretKey": "SecretKey",
     "Description:Qiniu.Oss.SecretKey": "SecretKey",
     "DisplayName:Qiniu.Oss.Bucket": "Bucket",
     "Description:Qiniu.Oss.Bucket": "Bucket",
+
     "Permission:Update": "更新",
     "Permission:Delete": "删除",
     "Permission:Create": "创建",
@@ -28,9 +31,13 @@
 
     "Menu:Dashboard": "首页",
     "Menu:Documentation": "文档",
-    "Menu:Administration": "管理"
+    "Menu:Administration": "管理",
 
 
+    "AbpAuditLogging": "审计日志",
 
+    // 
+    "DisplayName:Abp.Localization.DefaultLanguage": "默认语言",
+    "Description:Abp.Localization.DefaultLanguage": "应用程序的默认语言.比如  zh-Hans, en, fr, zh-Hant 等"
   }
 }

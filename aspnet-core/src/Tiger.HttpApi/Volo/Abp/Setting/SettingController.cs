@@ -22,19 +22,20 @@ namespace Tiger.Volo.Abp.Setting
     [ControllerName("Setting")]
     [Route("api/setting")]
     [ApiExplorerSettings(GroupName = "admin")]
-    public class SettingController : AbpController, ISettingManagementAppService, ISettingUiAppService
+    public class SettingController : AbpController ,ISettingUiAppService
     {
-        private readonly ISettingManagementAppService _settingManagementAppService;
 
         private readonly ISettingUiAppService _settingUiAppService;
 
-        public SettingController(ISettingManagementAppService settingManagementAppService, ISettingUiAppService settingUiAppService)
+        public SettingController( ISettingUiAppService settingUiAppService)
         {
-            _settingManagementAppService=settingManagementAppService;
             _settingUiAppService=settingUiAppService;
         }
 
-
+        /// <summary>
+        /// 获取分组设置定义
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("group-setting-definitions")]
         public virtual Task<List<SettingGroup>> GroupSettingDefinitionsAsync()
@@ -42,6 +43,11 @@ namespace Tiger.Volo.Abp.Setting
             return _settingUiAppService.GroupSettingDefinitionsAsync();
         }
 
+        /// <summary>
+        /// 保存设置
+        /// </summary>
+        /// <param name="settingValues"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("set-setting-values")]
         public virtual Task SetSettingValuesAsync(Dictionary<string, string> settingValues)
@@ -49,6 +55,11 @@ namespace Tiger.Volo.Abp.Setting
             return _settingUiAppService.SetSettingValuesAsync(settingValues);
         }
 
+        /// <summary>
+        /// 重置设置的值
+        /// </summary>
+        /// <param name="settingNames"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("reset-setting-values")]
         public virtual Task ResetSettingValuesAsync(List<string> settingNames)
@@ -60,73 +71,73 @@ namespace Tiger.Volo.Abp.Setting
         
 
 
-        /// <summary>
-        /// 查询单个设置值
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="providerName"></param>
-        /// <param name="providerKey"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("find")]
-        public async Task<SettingManagementDto> FindAsync(string name, string providerName, string providerKey)
-        {
-            return await _settingManagementAppService.FindAsync(name, providerName, providerKey);
-        }
+        ///// <summary>
+        ///// 查询单个设置值
+        ///// </summary>
+        ///// <param name="name"></param>
+        ///// <param name="providerName"></param>
+        ///// <param name="providerKey"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("find")]
+        //public async Task<SettingManagementDto> FindAsync(string name, string providerName, string providerKey)
+        //{
+        //    return await _settingManagementAppService.FindAsync(name, providerName, providerKey);
+        //}
 
-        /// <summary>
-        /// 获取设置列表
-        /// </summary>
-        /// <param name="providerName"></param>
-        /// <param name="providerKey"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("get-list")]
-        public async Task<List<SettingValue>> GetAllAsync(string providerName, string providerKey)
-        {
-            return await _settingManagementAppService.GetAllAsync(providerName, providerKey);
-        }
+        ///// <summary>
+        ///// 获取设置列表
+        ///// </summary>
+        ///// <param name="providerName"></param>
+        ///// <param name="providerKey"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("get-list")]
+        //public async Task<List<SettingValue>> GetAllAsync(string providerName, string providerKey)
+        //{
+        //    return await _settingManagementAppService.GetAllAsync(providerName, providerKey);
+        //}
 
-        /// <summary>
-        /// 增加设置
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
-        /// <param name="providerName"></param>
-        /// <param name="providerKey"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public Task SetAsync(string name, string value, string providerName, string providerKey)
-        {
-            return _settingManagementAppService.SetAsync(name, value, providerName, providerKey);
-        }
+        ///// <summary>
+        ///// 增加设置
+        ///// </summary>
+        ///// <param name="name"></param>
+        ///// <param name="value"></param>
+        ///// <param name="providerName"></param>
+        ///// <param name="providerKey"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public Task SetAsync(string name, string value, string providerName, string providerKey)
+        //{
+        //    return _settingManagementAppService.SetAsync(name, value, providerName, providerKey);
+        //}
 
 
-        [HttpGet]
-        [Route("test-register-task")]
-        [RemoteService(false)]
-        public Task RegisterAsync(string userName="admin", string emailAddress="admin@gmai.com", string password="1q2w3E*")
-        {
-            return _settingManagementAppService.RegisterAsync(userName, emailAddress, password);
-        }
+        //[HttpGet]
+        //[Route("test-register-task")]
+        //[RemoteService(false)]
+        //public Task RegisterAsync(string userName="admin", string emailAddress="admin@gmai.com", string password="1q2w3E*")
+        //{
+        //    return _settingManagementAppService.RegisterAsync(userName, emailAddress, password);
+        //}
 
         
 
-        [HttpGet]
-        [Route("test-get-setting-value")]
-        [RemoteService(false)]
-        public Task TestGetSettingValueAsync()
-        {
-            return _settingManagementAppService.TestGetSettingValueAsync();
-        }
+        //[HttpGet]
+        //[Route("test-get-setting-value")]
+        //[RemoteService(false)]
+        //public Task TestGetSettingValueAsync()
+        //{
+        //    return _settingManagementAppService.TestGetSettingValueAsync();
+        //}
 
-        [HttpGet]
-        [Route("test-set-manager")]
-        [RemoteService(false)]
-        public Task TestSetManager()
-        {
-            return _settingManagementAppService.TestSetManager();
-        }
+        //[HttpGet]
+        //[Route("test-set-manager")]
+        //[RemoteService(false)]
+        //public Task TestSetManager()
+        //{
+        //    return _settingManagementAppService.TestSetManager();
+        //}
     }
     
 }

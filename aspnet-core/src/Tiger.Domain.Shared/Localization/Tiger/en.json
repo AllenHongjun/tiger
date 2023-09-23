@@ -21,7 +21,10 @@
 
     "Menu:Dashboard": "Dashboard",
     "Menu:Documentation": "Documentation",
-    "Menu:Administration": "Administration"
+    "Menu:Administration": "Administration",
+
+    "DisplayName:Abp.Localization.DefaultLanguage": "DefaultLanguage",
+    "Description:Abp.Localization.DefaultLanguage": "The default language of the application.like zh-Hans, en, fr, zh-Hant "
 
   }
 }

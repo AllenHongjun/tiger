@@ -20,6 +20,9 @@ using Tiger.Volo.Abp.SettingUi.Extensions;
 
 namespace Tiger.Volo.Abp.SettingUi
 {
+    /// <summary>
+    /// 设置管理服务
+    /// </summary>
     [RemoteService(false)]
     public class SettingUiAppService : ApplicationService, ISettingUiAppService
     {
@@ -44,6 +47,11 @@ namespace Tiger.Volo.Abp.SettingUi
             _permissionDefinitionManager=permissionDefinitionManager;
         }
 
+        /// <summary>
+        /// 获取分组设置定义
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="AbpAuthorizationException"></exception>
         public virtual async Task<List<SettingGroup>> GroupSettingDefinitionsAsync()
         {
             if (!await AuthorizationService.IsGrantedAsync(SettingUiPermissions.ShowSettingPage))
@@ -63,7 +71,7 @@ namespace Tiger.Volo.Abp.SettingUi
 
             // Group the setting definitions
             var groups = new List<SettingGroup>();
-            foreach (var settingGroup in settingDefinitions
+            var settingDefinitionGroups = settingDefinitions
                 .GroupBy(sd => sd.Properties[SettingUiConst.Group1].ToString())
                 .Select(grp => new SettingGroup
                 {
@@ -71,7 +79,9 @@ namespace Tiger.Volo.Abp.SettingUi
                     GroupDisplayName = _localizer[grp.Key!],
                     SettingInfos = grp.ToList(),
                     Permission = $"{SettingUiPermissions.GroupName}.{grp.Key}"
-                }))
+                });
+
+            foreach (var settingGroup in settingDefinitionGroups)
             {
                 var definedSettingUiGroupPermission = definedSettingUiPermissions.FirstOrDefault(p => p.Name == settingGroup.Permission);
                 if (definedSettingUiGroupPermission == null

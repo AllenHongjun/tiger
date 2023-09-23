@@ -42,6 +42,12 @@
 
   <ItemGroup>
     <Compile Remove="Module\TaskManagement\TaskManagementApplicationContractsModule.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\IEmailSettingsAppService.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\IIdentitySettingsAppService.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\ISettingManagementAppService.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\SendTestEmailInput.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\UpdateEmailSettingsDto.cs" />
+    <Compile Remove="Volo\Abp\SettingUi\UpdateIdentitySettingsDto.cs" />
     <Compile Remove="Volo\Abp\TenantManagement\TenantDto.cs" />
   </ItemGroup>
 
