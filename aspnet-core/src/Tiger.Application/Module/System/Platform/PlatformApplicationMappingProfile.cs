@@ -21,7 +21,7 @@ namespace Tiger.Module.System.Platform
             //CreateMap<AppVersion, VersionDto>();
 
             CreateMap<DataItem, DataItemDto>();
-            CreateMap<Data, DataDto>();
+            CreateMap<Data, LanguageTextDto>();
             CreateMap<Menu, MenuDto>()
                 .ForMember(dto => dto.Meta, map => map.MapFrom(src => src.ExtraProperties))
                 .ForMember(dto => dto.Startup, map => map.Ignore());

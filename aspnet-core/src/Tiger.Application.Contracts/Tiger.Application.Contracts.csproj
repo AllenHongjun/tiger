@@ -42,6 +42,13 @@
 
   <ItemGroup>
     <Compile Remove="Module\TaskManagement\TaskManagementApplicationContractsModule.cs" />
+    <Compile Remove="Permissions\BasicPermissions.cs" />
+    <Compile Remove="Permissions\BookStorePermissions.cs" />
+    <Compile Remove="Permissions\MarketingPermissions.cs" />
+    <Compile Remove="Permissions\MemberPermissions.cs" />
+    <Compile Remove="Permissions\OrderPermissions.cs" />
+    <Compile Remove="Permissions\PurchasePermissions.cs" />
+    <Compile Remove="Permissions\StockPermissions.cs" />
     <Compile Remove="Volo\Abp\SettingUi\IEmailSettingsAppService.cs" />
     <Compile Remove="Volo\Abp\SettingUi\IIdentitySettingsAppService.cs" />
     <Compile Remove="Volo\Abp\SettingUi\ISettingManagementAppService.cs" />

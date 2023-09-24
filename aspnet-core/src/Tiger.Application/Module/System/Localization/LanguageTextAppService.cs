@@ -1,17 +1,12 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Tiger.Permissions;
-using Tiger.Module.System.Localization.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp;
-using System.Collections.Generic;
-using Volo.Abp.ObjectMapping;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Tiger.Module.System.Localization.Dtos;
 using Tiger.Module.System.Localization.Permissions;
-using Volo.Abp.Uow;
+using Volo.Abp;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.System.Localization;
 
@@ -23,7 +18,6 @@ namespace Tiger.Module.System.Localization;
 [Authorize(LocalizationPermissions.LanguageTexts.Default)]
 public class LanguageTextAppService : ApplicationService,ILanguageTextAppService
 {
-    
 
     protected  ILanguageTextRepository LanguageTextRepository { get; }
 
@@ -32,8 +26,9 @@ public class LanguageTextAppService : ApplicationService,ILanguageTextAppService
         LanguageTextRepository = languageTextRepository;
     }
 
+    #region 语言文本管理
     [Authorize(LocalizationPermissions.LanguageTexts.Create)]
-    public async Task<LanguageTextDto> CreateAsync(CreateLanguageTextDto input)
+    public async Task<LanguageDto> CreateAsync(CreateLanguageTextDto input)
     {
         var languageText = new LanguageText(
             GuidGenerator.Create(),
@@ -45,7 +40,7 @@ public class LanguageTextAppService : ApplicationService,ILanguageTextAppService
 
         languageText = await LanguageTextRepository.InsertAsync(languageText);
         await CurrentUnitOfWork.SaveChangesAsync();
-        return ObjectMapper.Map<LanguageText,LanguageTextDto>(languageText);
+        return ObjectMapper.Map<LanguageText, LanguageDto>(languageText);
     }
 
     [Authorize(LocalizationPermissions.LanguageTexts.Delete)]
@@ -55,17 +50,18 @@ public class LanguageTextAppService : ApplicationService,ILanguageTextAppService
         await LanguageTextRepository.DeleteAsync(languageText);
     }
 
-    public async Task<PagedResultDto<LanguageTextDto>> GetListAsync(LanguageTextGetListInput input)
+    public async Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageTextGetListInput input)
     {
         var totalCount = await LanguageTextRepository.GetCountAsync();
         var list = await LanguageTextRepository.GetListAsync(input.CultureName, input.ResourceName, input.Filter, input.MaxResultCount, input.SkipCount);
-        return  new PagedResultDto<LanguageTextDto>(totalCount,ObjectMapper.Map<List<LanguageText>,List<LanguageTextDto>>(list));
+        return new PagedResultDto<LanguageDto>(totalCount, ObjectMapper.Map<List<LanguageText>, List<LanguageDto>>(list));
     }
 
     [Authorize(LocalizationPermissions.LanguageTexts.Update)]
-    public Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageTextDto input)
+    public Task<LanguageDto> UpdateAsync(Guid id, UpdateLanguageTextDto input)
     {
         throw new NotImplementedException();
-    }
-    
+    } 
+    #endregion
+
 }

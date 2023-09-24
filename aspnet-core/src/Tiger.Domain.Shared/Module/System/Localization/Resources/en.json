@@ -1,0 +1,22 @@
+﻿{
+  "culture": "en",
+  "texts": {
+    "Delete": "Delete",
+    "DisplayName:CreationTime": "Creation Time",
+    "DisplayName:LastModificationTime": "Modification Time",
+    "DisplayName:SaveAndNext": "Save & Next",
+    "Permissions:LocalizationManagement": "Localization",
+    "Permissions:Language": "Language",
+    "Permissions:Resource": "Resource",
+    "Permissions:Text": "Text",
+    "Permissions:Create": "Create",
+    "Permissions:Update": "Update",
+    "Permissions:Delete": "Delete",
+    "Edit": "Edit",
+    "EditByName": "Edit - {0}",
+    "Filter": "Filter",
+    "SaveAndNext": "Save & Next",
+    "SearchFilter": "Search",
+    "Text:AddNew": "Add New Text"
+  }
+}

@@ -36,7 +36,7 @@ namespace Tiger.Module.System
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        public async virtual Task<DataDto> CreateAsync(DataCreateDto input)
+        public async virtual Task<LanguageTextDto> CreateAsync(DataCreateDto input)
         {
             return await DataAppService.CreateAsync(input);
         }
@@ -60,7 +60,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpGet]
         [Route("by-name/{name}")]
-        public async virtual Task<DataDto> GetAsync(string name)
+        public async virtual Task<LanguageTextDto> GetAsync(string name)
         {
             return await DataAppService.GetAsync(name);
         }
@@ -72,7 +72,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public async virtual Task<DataDto> GetAsync(Guid id)
+        public async virtual Task<LanguageTextDto> GetAsync(Guid id)
         {
             return await DataAppService.GetAsync(id);
         }
@@ -83,7 +83,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        public async virtual Task<ListResultDto<DataDto>> GetAllAsync()
+        public async virtual Task<ListResultDto<LanguageTextDto>> GetAllAsync()
         {
             return await DataAppService.GetAllAsync();
         }
@@ -94,7 +94,7 @@ namespace Tiger.Module.System
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet]
-        public async virtual Task<PagedResultDto<DataDto>> GetListAsync(DataGetListInput input)
+        public async virtual Task<PagedResultDto<LanguageTextDto>> GetListAsync(DataGetListInput input)
         {
             return await DataAppService.GetListAsync(input);
         }
@@ -107,7 +107,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpPut]
         [Route("{id}/move")]
-        public async virtual Task<DataDto> MoveAsync(Guid id, DataMoveDto input)
+        public async virtual Task<LanguageTextDto> MoveAsync(Guid id, DataMoveDto input)
         {
             return await DataAppService.MoveAsync(id, input);
         }
@@ -120,7 +120,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        public async virtual Task<DataDto> UpdateAsync(Guid id, DataUpdateDto input)
+        public async virtual Task<LanguageTextDto> UpdateAsync(Guid id, DataUpdateDto input)
         {
             return await DataAppService.UpdateAsync(id, input);
         } 

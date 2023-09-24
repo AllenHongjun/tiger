@@ -32,12 +32,23 @@ namespace Tiger.Module.System
 
         protected ILanguageTextAppService LanguageTextAppService { get; }
 
+        #region 语言文本
+        /// <summary>
+        /// 创建语言文本
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<LanguageTextDto> CreateAsync(CreateLanguageTextDto input)
+        public async Task<LanguageDto> CreateAsync(CreateLanguageTextDto input)
         {
             return await LanguageTextAppService.CreateAsync(input);
         }
 
+        /// <summary>
+        /// 删除语言文本
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
         public async Task DeleteAsync(Guid id)
@@ -45,17 +56,29 @@ namespace Tiger.Module.System
             await LanguageTextAppService.DeleteAsync(id);
         }
 
+        /// <summary>
+        /// 分页获取语言文本列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<PagedResultDto<LanguageTextDto>> GetListAsync(LanguageTextGetListInput input)
+        public async Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageTextGetListInput input)
         {
             return await LanguageTextAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// 更新语言文本
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        public async Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageTextDto input)
+        public async Task<LanguageDto> UpdateAsync(Guid id, UpdateLanguageTextDto input)
         {
-            return await LanguageTextAppService.UpdateAsync(id,input);
-        }
+            return await LanguageTextAppService.UpdateAsync(id, input);
+        } 
+        #endregion
     }
 }

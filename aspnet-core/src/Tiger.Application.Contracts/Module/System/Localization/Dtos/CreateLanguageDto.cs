@@ -6,24 +6,40 @@ namespace Tiger.Module.System.Localization.Dtos;
 [Serializable]
 public class CreateLanguageDto
 {
-    /// <summary>
-    /// 资源名称
-    /// </summary>
-    [Required(ErrorMessage = "资源名称不能为空")]
-    public string ResourceName { get; set; }
+    ///// <summary>
+    ///// 资源名称
+    ///// </summary>
+    //[Required(ErrorMessage = "资源名称不能为空")]
+    //public string ResourceName { get; set; }
     /// <summary>
     /// 语言名称
     /// </summary>
     [Required(ErrorMessage = "语言名称不能为空")]
     public string CultureName { get; set; }
+
     /// <summary>
-    /// 名称
+    /// 是否启用
     /// </summary>
-    [Required(ErrorMessage = "名称不能为空")]
-    public string Name { get; set; }
+    public bool Enable { get; set; }
+
+
     /// <summary>
-    /// 值
+    /// Ui语言名称
     /// </summary>
-    [Required(ErrorMessage = "值不能为空")]
-    public string Value { get; set; }
+    public string UiCultureName { get; set; }
+
+    /// <summary>
+    /// 显示名称
+    /// </summary>
+    public string DisplayName { get; set; }
+
+    /// <summary>
+    /// 图标
+    /// </summary>
+    public string FlagIcon { get; set; }
+
+    /// <summary>
+    /// 是否默认语言
+    /// </summary>
+    public bool IsDefault { get; set; }
 }

@@ -4,7 +4,7 @@ using Volo.Abp.Application.Dtos;
 namespace Tiger.Module.System.Localization.Dtos;
 
 [Serializable]
-public class LanguageTextDto : AuditedEntityDto<Guid>
+public class LanguageDto : AuditedEntityDto<Guid>
 {   
     /// <summary>
     ///  «∑Ò∆Ù”√

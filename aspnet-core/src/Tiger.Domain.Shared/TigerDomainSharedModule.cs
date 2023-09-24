@@ -84,7 +84,6 @@ namespace Tiger
 
                 options.Resources
                        .Add<AbpLocalizationResource>("zh-Hans")
-                       //.AddBaseTypes(typeof(TigerResource))//资源可以从其他资源继承,这使得可以在不引用现有资源的情况下重用现有的本地化字符串 Inherit from an existin
                        .AddVirtualJson("/Module/System/Localization/Resources");
 
                 options.Resources

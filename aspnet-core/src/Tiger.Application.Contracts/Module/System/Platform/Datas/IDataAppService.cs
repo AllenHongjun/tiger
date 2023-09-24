@@ -11,7 +11,7 @@ namespace Tiger.Module.System.Platform.Datas;
 /// </summary>
 public interface IDataAppService :
     ICrudAppService< 
-        DataDto, 
+        LanguageTextDto, 
         Guid, 
         DataGetListInput,
         DataCreateDto,
@@ -23,13 +23,13 @@ public interface IDataAppService :
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    Task<DataDto> GetAsync(string name);
+    Task<LanguageTextDto> GetAsync(string name);
 
     /// <summary>
     /// 查询所有
     /// </summary>
     /// <returns></returns>
-    Task<ListResultDto<DataDto>> GetAllAsync();
+    Task<ListResultDto<LanguageTextDto>> GetAllAsync();
 
     /// <summary>
     /// 移动数据字典
@@ -37,7 +37,7 @@ public interface IDataAppService :
     /// <param name="id"></param>
     /// <param name="input"></param>
     /// <returns></returns>
-    Task<DataDto> MoveAsync(Guid id, DataMoveDto input);
+    Task<LanguageTextDto> MoveAsync(Guid id, DataMoveDto input);
 
     /// <summary>
     /// 创建字典数据

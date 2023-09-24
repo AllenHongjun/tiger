@@ -1,13 +1,31 @@
-{
+﻿{
   "culture": "zh-Hans",
   "texts": {
-    "Permission:LanguageManagement": "语言管理",
-    "Permission:Languages": "语言",
-    "Permission:LanguageTexts": "语言文本",
-    "Permission:Create": "创建",
-    "Permission:Update": "编辑",
-    "Permission:Delete": "删除",
-    "Permission:LanguagesChangeDefault": "修改默认语言",
-    
+    "Delete": "删除",
+
+    "Permissions:LocalizationManagement": "语言管理",
+    "Permissions:Language": "语言",
+    "Permissions:LanguageText": "语言文本",
+    "Permissions:Resource": "资源管理",
+    "Permissions:Text": "文档管理",
+    "Permissions:Create": "新增",
+    "Permissions:Update": "编辑",
+    "Permissions:Delete": "删除",
+    "Edit": "编辑",
+    "EditByName": "编辑 - {0}",
+    "Filter": "过滤字符",
+    "SaveAndNext": "保存并下一步",
+    "SearchFilter": "请输入过滤字符",
+    "Text:AddNew": "添加新文档",
+    "DisplayName:ResourceName": "资源名称",
+    "DisplayName:CultureName": "文化名称",
+    "DisplayName:UiCultureName": "界面文化名称",
+    "DisplayName:Name": "名称",
+    "DisplayName:DisplayName": "显示名称",
+    "DisplayName:Value": "值",
+    "DisplayName:Enable": "启用",
+    "DisplayName:CreationTime": "创建时间",
+    "DisplayName:LastModificationTime": "变更时间",
+    "DisplayName:SaveAndNext": "保存并下一步"
   }
 }

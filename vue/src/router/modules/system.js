@@ -100,6 +100,36 @@ const SystemManageRouter = {
       ]
     },
     {
+      path: '/localization',
+      component: () => import('@/views/system/index'),
+      name: 'localization',
+      meta: {
+        title: 'LocalizationManagement["Permissions:LocalizationManagement"]', // the name show in sidebar and breadcrumb (recommend set)
+        icon: 'international' // the icon show in the sidebar<svg-icon icon-class="international" />
+        // policy: 'LocalizationManagement'
+      },
+      children: [
+        {
+          path: 'localization/language',
+          component: () => import('@/views/system/localization/language/index'), // Parent router-view
+          name: 'language',
+          meta: {
+            title: 'LocalizationManagement["Permissions:Language"]' // the name show in sidebar and breadcrumb (recommend set)
+            // policy: 'LocalizationPermissions.Languages'
+          }
+        },
+        {
+          path: 'localization/language-text',
+          component: () => import('@/views/system/localization/language-text/index'), // Parent router-view
+          name: 'language-text',
+          meta: {
+            title: 'LocalizationManagement["Permissions:LanguageText"]' // the name show in sidebar and breadcrumb (recommend set)
+            // policy: 'LocalizationPermissions.Languages'
+          }
+        }
+      ]
+    },
+    {
       path: '/platform',
       component: () => import('@/views/system/index'),
       name: 'platform',

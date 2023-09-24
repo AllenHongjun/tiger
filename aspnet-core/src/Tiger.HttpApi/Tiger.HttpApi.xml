@@ -172,7 +172,7 @@
             语言管理
             </summary>
         </member>
-        <member name="M:Tiger.Module.System.LanguageController.CreateAsync(Tiger.Module.System.Localization.Dtos.LanguageTextDto)">
+        <member name="M:Tiger.Module.System.LanguageController.CreateAsync(Tiger.Module.System.Localization.Dtos.CreateLanguageDto)">
             <summary>
             添加语言
             </summary>
@@ -205,6 +205,35 @@
             <summary>
             语言文本管理
             </summary>
+        </member>
+        <member name="M:Tiger.Module.System.LanguageTextController.CreateAsync(Tiger.Module.System.Localization.Dtos.CreateLanguageTextDto)">
+            <summary>
+            创建语言文本
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.LanguageTextController.DeleteAsync(System.Guid)">
+            <summary>
+            删除语言文本
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.LanguageTextController.GetListAsync(Tiger.Module.System.Localization.Dtos.LanguageTextGetListInput)">
+            <summary>
+            分页获取语言文本列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.LanguageTextController.UpdateAsync(System.Guid,Tiger.Module.System.Localization.Dtos.UpdateLanguageTextDto)">
+            <summary>
+            更新语言文本
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Module.System.LayoutController">
             <summary>

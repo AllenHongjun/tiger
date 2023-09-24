@@ -32,24 +32,24 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
         SettingManager=settingManager;
     }
 
-
+    #region ”Ô—‘π‹¿Ì
 
     /// <summary>
     /// ∑÷“≥≤È—Ø”Ô—‘
     /// </summary>     
-    public async Task<PagedResultDto<LanguageTextDto>> GetListAsync(LanguageGetListInput input)
+    public async Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageGetListInput input)
     {
         var totalCount = await LanguageRepository.CountAsync(input.Filter);
         var languages = await LanguageRepository.GetListAsync(input.MaxResultCount, input.SkipCount, input.Filter);
-        return new PagedResultDto<LanguageTextDto>(totalCount, ObjectMapper.Map<List<Language>, List<LanguageTextDto>>(languages));
+        return new PagedResultDto<LanguageDto>(totalCount, ObjectMapper.Map<List<Language>, List<LanguageDto>>(languages));
     }
 
     /// <summary>
     /// ¥¥Ω®”Ô—‘
     /// </summary>
     [Authorize(LocalizationPermissions.Languages.Create)]
-    public virtual async Task<LanguageTextDto> CreateAsync(LanguageTextDto input)
-    {   
+    public virtual async Task<LanguageDto> CreateAsync(CreateLanguageDto input)
+    {
         var language = await LanguageRepository.FindAsync(x => x.CultureName == input.CultureName);
         if (language != null)
         {
@@ -66,14 +66,14 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
 
         language = await LanguageRepository.InsertAsync(language);
 
-        return ObjectMapper.Map<Language, LanguageTextDto>(language);
+        return ObjectMapper.Map<Language, LanguageDto>(language);
     }
 
     /// <summary>
     /// ±‡º≠”Ô—‘
     /// </summary>
     [Authorize(LocalizationPermissions.Languages.Update)]
-    public async Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageDto input)
+    public async Task<LanguageDto> UpdateAsync(Guid id, UpdateLanguageDto input)
     {
         var language = await LanguageRepository.GetAsync(id);
         if (language == null)
@@ -83,7 +83,7 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
         language = await LanguageRepository.UpdateAsync(language);
 
         await CurrentUnitOfWork.SaveChangesAsync();
-        return ObjectMapper.Map<Language, LanguageTextDto>(language);
+        return ObjectMapper.Map<Language, LanguageDto>(language);
     }
 
     /// <summary>W
@@ -122,6 +122,7 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
         await LanguageRepository.UpdateAsync(defaultLanguge);
         await LanguageRepository.UpdateAsync(language);
         await CurrentUnitOfWork.SaveChangesAsync();
-    }
+    } 
+    #endregion
 
 }

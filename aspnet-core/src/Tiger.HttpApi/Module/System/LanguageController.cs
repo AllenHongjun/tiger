@@ -38,7 +38,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpPost]
         [Authorize(LocalizationPermissions.Languages.Create)]
-        public async Task<LanguageTextDto> CreateAsync(LanguageTextDto input)
+        public async Task<LanguageDto> CreateAsync(CreateLanguageDto input)
         {
             return await LanguageAppService.CreateAsync(input);
         }
@@ -62,7 +62,7 @@ namespace Tiger.Module.System
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<PagedResultDto<LanguageTextDto>> GetListAsync(LanguageGetListInput input)
+        public async Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageGetListInput input)
         {
             return await LanguageAppService.GetListAsync(input);
         }
@@ -75,7 +75,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
-        public async Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageDto input)
+        public async Task<LanguageDto> UpdateAsync(Guid id, UpdateLanguageDto input)
         {
             return await LanguageAppService.UpdateAsync(id, input);
         }

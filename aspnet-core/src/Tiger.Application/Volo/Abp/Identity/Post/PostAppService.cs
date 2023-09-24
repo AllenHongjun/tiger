@@ -11,11 +11,6 @@ namespace Tiger.Volo.Abp.Identity.Post;
 public class PostAppService : CrudAppService<Post, PostDto, Guid, PostGetListInput, CreatePostDto, UpdatePostDto>,
     IPostAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.Post.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.Post.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.Post.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.Post.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.Post.Delete;
 
     private readonly IPostRepository _repository;
 

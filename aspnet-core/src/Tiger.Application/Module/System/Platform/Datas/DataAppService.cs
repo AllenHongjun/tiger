@@ -19,7 +19,7 @@ namespace Tiger.Module.System.Platform.Datas;
 /// </summary>
 //[Authorize(PlatformPermissions.DataDictionary.Default)]
 [RemoteService(IsEnabled = false)]
-public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInput, CreateUpdateDataDto, CreateUpdateDataDto>,
+public class DataAppService : CrudAppService<Data, LanguageTextDto, Guid, DataGetListInput, CreateUpdateDataDto, CreateUpdateDataDto>,
     IDataAppService
 {
     
@@ -38,23 +38,23 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public async Task<DataDto> GetAsync(string name)
+    public async Task<LanguageTextDto> GetAsync(string name)
     {
         var data = await DataRepository.FindByNameAsync(name);
 
-        return ObjectMapper.Map<Data,DataDto>(data);
+        return ObjectMapper.Map<Data,LanguageTextDto>(data);
     }
 
     /// <summary>
     /// 查询所有数据字典
     /// </summary>
     /// <returns></returns>
-    public async Task<ListResultDto<DataDto>> GetAllAsync()
+    public async Task<ListResultDto<LanguageTextDto>> GetAllAsync()
     {
         var datas = await DataRepository.GetListAsync(includeDetails: false);
 
-        return new ListResultDto<DataDto>(
-            ObjectMapper.Map<List<Data>, List<DataDto>>(datas));
+        return new ListResultDto<LanguageTextDto>(
+            ObjectMapper.Map<List<Data>, List<LanguageTextDto>>(datas));
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public override async Task<PagedResultDto<DataDto>> GetListAsync(DataGetListInput input)
+    public override async Task<PagedResultDto<LanguageTextDto>> GetListAsync(DataGetListInput input)
     {
         var count = await DataRepository.GetCountAsync(input.Filter);
 
@@ -70,7 +70,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
             input.Sorting,
             false, input.SkipCount, input.MaxResultCount);
 
-        return new PagedResultDto<DataDto>(count, ObjectMapper.Map<List<Data>, List<DataDto>>(datas));
+        return new PagedResultDto<LanguageTextDto>(count, ObjectMapper.Map<List<Data>, List<LanguageTextDto>>(datas));
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
     /// <param name="input"></param>
     /// <returns></returns>
     /// <exception cref="UserFriendlyException"></exception>
-    public async Task<DataDto> CreateAsync(DataCreateDto input)
+    public async Task<LanguageTextDto> CreateAsync(DataCreateDto input)
     {
         var data = await DataRepository.FindByNameAsync(input.Name);
         if (data != null)
@@ -114,7 +114,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
         data = await DataRepository.InsertAsync(data);
         await CurrentUnitOfWork.SaveChangesAsync();
 
-        return ObjectMapper.Map<Data, DataDto>(data);
+        return ObjectMapper.Map<Data, LanguageTextDto>(data);
 
     }
 
@@ -127,7 +127,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
     /// <remarks>
     /// 修改的时候同时可以修改数据字典数据
     /// </remarks>
-    public async Task<DataDto> UpdateAsync(Guid id, DataUpdateDto input)
+    public async Task<LanguageTextDto> UpdateAsync(Guid id, DataUpdateDto input)
     {
         var data = await DataRepository.GetAsync(id);
 
@@ -137,7 +137,7 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
         data = await DataRepository.UpdateAsync(data);
         await CurrentUnitOfWork.SaveChangesAsync();
 
-        return ObjectMapper.Map<Data, DataDto>(data);
+        return ObjectMapper.Map<Data, LanguageTextDto>(data);
 
     }
 
@@ -167,13 +167,13 @@ public class DataAppService : CrudAppService<Data, DataDto, Guid, DataGetListInp
     /// <param name="id"></param>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<DataDto> MoveAsync(Guid id, DataMoveDto input)
+    public async Task<LanguageTextDto> MoveAsync(Guid id, DataMoveDto input)
     {
         var data = await DataRepository.GetAsync(id);
         data.ParentId = input.ParentId;
         data = await DataRepository.UpdateAsync(data);
         await CurrentUnitOfWork.SaveChangesAsync();
-        return ObjectMapper.Map<Data, DataDto>(data);
+        return ObjectMapper.Map<Data, LanguageTextDto>(data);
     }
 
     /// <summary>

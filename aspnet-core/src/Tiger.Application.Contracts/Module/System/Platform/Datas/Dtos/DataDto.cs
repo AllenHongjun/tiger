@@ -7,7 +7,7 @@ using Volo.Abp.Validation;
 namespace Tiger.Module.System.Platform.Datas.Dtos;
 
 [Serializable]
-public class DataDto : FullAuditedEntityDto<Guid>
+public class LanguageTextDto : FullAuditedEntityDto<Guid>
 {
     /// <summary>
     /// ×ÖµäÃû³Æ

@@ -11,9 +11,9 @@ namespace Tiger.Module.System.Localization;
 /// </summary>
 public interface ILanguageAppService : IApplicationService
 {
-    Task<LanguageTextDto> CreateAsync(LanguageTextDto input);
+    Task<LanguageDto> CreateAsync(CreateLanguageDto input);
     Task DeleteAsync(Guid id);
-    Task<PagedResultDto<LanguageTextDto>> GetListAsync(LanguageGetListInput input);
-    Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageDto input);
+    Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageGetListInput input);
+    Task<LanguageDto> UpdateAsync(Guid id, UpdateLanguageDto input);
 
 }

@@ -195,7 +195,7 @@
             分页查询语言
             </summary>     
         </member>
-        <member name="M:Tiger.Module.System.Localization.LanguageAppService.CreateAsync(Tiger.Module.System.Localization.Dtos.LanguageTextDto)">
+        <member name="M:Tiger.Module.System.Localization.LanguageAppService.CreateAsync(Tiger.Module.System.Localization.Dtos.CreateLanguageDto)">
             <summary>
             创建语言
             </summary>

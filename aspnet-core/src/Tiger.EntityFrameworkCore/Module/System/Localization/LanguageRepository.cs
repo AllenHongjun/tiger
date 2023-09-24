@@ -61,7 +61,7 @@ public class LanguageRepository : EfCoreRepository<TigerDbContext, Language, Gui
     public async Task<List<Language>> GetListAsync(int maxResultCount = 10, int skipCount = 0, string filter = null)
     {
         return await DbSet
-            .WhereIf(filter.IsNullOrWhiteSpace(), e => e.CultureName.Contains(filter) ||
+            .WhereIf(!filter.IsNullOrWhiteSpace(), e => e.CultureName.Contains(filter) ||
             e.UiCultureName.Contains(filter) || e.DisplayName.Contains(filter))
             .OrderByDescending(e => e.CreationTime)
             .PageBy(skipCount, maxResultCount)

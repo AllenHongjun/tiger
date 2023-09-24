@@ -8,8 +8,8 @@ namespace Tiger.Module.System.Localization;
 
 public interface ILanguageTextAppService :IApplicationService
 {
-    Task<LanguageTextDto> CreateAsync(CreateLanguageTextDto input);
+    Task<LanguageDto> CreateAsync(CreateLanguageTextDto input);
     Task DeleteAsync(Guid id);
-    Task<PagedResultDto<LanguageTextDto>> GetListAsync(LanguageTextGetListInput input);
-    Task<LanguageTextDto> UpdateAsync(Guid id, UpdateLanguageTextDto input);
+    Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageTextGetListInput input);
+    Task<LanguageDto> UpdateAsync(Guid id, UpdateLanguageTextDto input);
 }
