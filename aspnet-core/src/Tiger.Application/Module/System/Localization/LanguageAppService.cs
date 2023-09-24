@@ -10,6 +10,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp;
 using Tiger.Module.System.Localization.Permissions;
 using Volo.Abp.SettingManagement;
+using Tiger.Module.System.Platform.Layouts.Dto;
 
 namespace Tiger.Module.System.Localization;
 
@@ -34,6 +35,12 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
 
     #region 语言管理
 
+
+    public async void GetCultureList()
+    {
+
+    }
+
     /// <summary>
     /// 分页查询语言
     /// </summary>     
@@ -42,6 +49,12 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
         var totalCount = await LanguageRepository.CountAsync(input.Filter);
         var languages = await LanguageRepository.GetListAsync(input.MaxResultCount, input.SkipCount, input.Filter);
         return new PagedResultDto<LanguageDto>(totalCount, ObjectMapper.Map<List<Language>, List<LanguageDto>>(languages));
+    }
+
+    public async Task<LanguageDto> GetAsync(Guid id)
+    {
+        var language = await LanguageRepository.GetAsync(id);
+        return ObjectMapper.Map<Language, LanguageDto>(language);
     }
 
     /// <summary>
@@ -80,6 +93,8 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
         {
             throw new BusinessException(LocalizationErrorCodes.LanguageNotFound);
         }
+        language.DisplayName = input.DisplayName;
+        language.Enable = input.Enable;
         language = await LanguageRepository.UpdateAsync(language);
 
         await CurrentUnitOfWork.SaveChangesAsync();
@@ -117,9 +132,13 @@ public class LanguageAppService : ApplicationService, ILanguageAppService
         var defaultLanguge = await LanguageRepository.FindDefaultLanguageAsync();
         if (defaultLanguge != null && language.Id == defaultLanguge.Id) return;
 
-        defaultLanguge.SetDefault(false);
+        if (defaultLanguge != null)
+        {
+            defaultLanguge.SetDefault(false);
+            await LanguageRepository.UpdateAsync(defaultLanguge);
+        }
+        
         language.SetDefault(true);
-        await LanguageRepository.UpdateAsync(defaultLanguge);
         await LanguageRepository.UpdateAsync(language);
         await CurrentUnitOfWork.SaveChangesAsync();
     } 

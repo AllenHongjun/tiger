@@ -13,7 +13,9 @@ public interface ILanguageAppService : IApplicationService
 {
     Task<LanguageDto> CreateAsync(CreateLanguageDto input);
     Task DeleteAsync(Guid id);
+    Task<LanguageDto> GetAsync(Guid id);
     Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageGetListInput input);
+    Task SetDefaultAsync(Guid id);
     Task<LanguageDto> UpdateAsync(Guid id, UpdateLanguageDto input);
 
 }

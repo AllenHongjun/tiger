@@ -29,22 +29,22 @@ namespace Tiger.Module.System.Localization
         /// <summary>
         /// 显示名称
         /// </summary>
-        public string DisplayName { get; protected set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// 图标
         /// </summary>
-        public string FlagIcon { get; protected set; }
+        public string FlagIcon { get;  set; }
 
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool IsEnabled { get; protected set; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// 是否默认
         /// </summary>
-        public bool IsDefault { get; protected set; }
+        public bool IsDefault { get;  set; }
 
         protected Language()
         {
@@ -68,7 +68,7 @@ namespace Tiger.Module.System.Localization
 
         public void SetDefault(bool isDefault)
         {
-            IsDefault = IsDefault;
+            IsDefault = isDefault;
         }
     }
 }

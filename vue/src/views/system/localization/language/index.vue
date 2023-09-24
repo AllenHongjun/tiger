@@ -18,6 +18,7 @@
       <el-table-column :label="$t('LocalizationManagement[\'DisplayName:DisplayName\']')" align="left">
         <template slot-scope="{ row }">
           <span>{{ row.displayName }}</span>
+          <el-tag v-if="row.isDefault">{{ $t('LocalizationManagement[\'DefaultLanguage\']') }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('LocalizationManagement[\'DisplayName:CultureName\']')" align="left" width="220">
@@ -36,10 +37,14 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="200" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
+
           <el-button v-if="checkPermission('LocalizationManagement.Languages.Update')" type="primary" @click="handleUpdate(row)">
             {{ $t("AbpUi['Edit']") }}
+          </el-button>
+          <el-button v-if="checkPermission('LocalizationManagement.Languages.Update')" type="primary" plain @click="handleSetDefaultLanguage(row)">
+            {{ $t("LocalizationManagement['DefaultLanguage']") }}
           </el-button>
           <el-button v-if="checkPermission('LocalizationManagement.Languages.Delete')" type="danger" @click="handleDelete(row, $index)">
             {{ $t("AbpUi['Delete']") }}
@@ -52,25 +57,31 @@
 
     <el-dialog :title=" dialogStatus == 'create'? $t('LocalizationManagement[\'Permissions:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-
-        <el-form-item :label="$t('LocalizationManagement[\'DisplayName:CultureName\']')" prop="cultureName">
-          <el-select v-model="temp.cultureName" placeholder="请选择">
-            <el-option label="en" value="en" />
-            <el-option label="zh-Hans" value="zh-Hans" />
+        <el-form-item v-if="dialogStatus == 'create'" :label="$t('LocalizationManagement[\'DisplayName:CultureName\']')" prop="cultureName">
+          <el-select v-model="temp.cultureName" placeholder="请选择" filterable>
+            <el-option
+              v-for="item in culturelistOptions"
+              :key="item.name"
+              :label="item.displayName"
+              :value="item.name"
+            />
           </el-select>
         </el-form-item>
-        <el-form-item :label="$t('LocalizationManagement[\'DisplayName:UiCultureName\']')" prop="uiCultureName">
-          <el-select v-model="temp.uiCultureName" placeholder="请选择">
-            <el-option label="en" value="en" />
-            <el-option label="zh-Hans" value="zh-Hans" />
+        <el-form-item v-if="dialogStatus == 'create'" :label="$t('LocalizationManagement[\'DisplayName:UiCultureName\']')" prop="uiCultureName">
+          <el-select v-model="temp.uiCultureName" placeholder="请选择" filterable>
+            <el-option
+              v-for="item in culturelistOptions"
+              :key="item.name"
+              :label="item.displayName"
+              :value="item.name"
+            />
           </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('LocalizationManagement[\'DisplayName:DisplayName\']')" prop="displayName">
+          <el-input v-model="temp.displayName" />
         </el-form-item>
         <el-form-item :label="$t('LocalizationManagement[\'DisplayName:Enable\']')" prop="enable">
           <el-switch v-model="temp.enable" />
-        </el-form-item>
-
-        <el-form-item :label="$t('LocalizationManagement[\'DisplayName:DisplayName\']')" prop="displayName">
-          <el-input v-model="temp.displayName" />
         </el-form-item>
 
       </el-form>
@@ -92,12 +103,14 @@ import {
   getLanguage,
   createLanguage,
   updateLanguage,
-  deleteLanguage
+  deleteLanguage,
+  setDefaultLanguage
 } from '@/api/system-manage/localization/language'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
+import culturelist from '../datas/cultures.js'
 
 export default {
   name: 'Languages',
@@ -106,6 +119,7 @@ export default {
   },
   data() {
     return {
+      culturelistOptions: culturelist,
       tableKey: 0,
       list: null,
       total: 0,
@@ -278,7 +292,7 @@ export default {
       this.$confirm(
         // 消息
         this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
-          row.name
+          row.displayName
         ]),
         // title
         this.$i18n.t("AbpUi['AreYouSure']"), {
@@ -290,15 +304,23 @@ export default {
         // 回调函数
         deleteLanguage(row.id).then(() => {
           this.handleFilter(false)
-          this.$notify({
-            title: this.$i18n.t("TigerUi['Success']"),
-            message: this.$i18n.t("TigerUi['SuccessMessage']"),
-            type: 'success',
-            duration: 2000
-          })
+          this.$notify({ title: this.$i18n.t("TigerUi['Success']"), message: this.$i18n.t("TigerUi['SuccessMessage']"), type: 'success', duration: 2000 })
         })
+      })
+    },
+    // 设置默认语言
+    handleSetDefaultLanguage(row) {
+      setDefaultLanguage(row.id).then(response => {
+        this.handleFilter(false)
+        this.$notify({ title: this.$i18n.t("TigerUi['Success']"), message: this.$i18n.t("TigerUi['SuccessMessage']"), type: 'success', duration: 2000 })
       })
     }
   }
 }
 </script>
+
+<style scoped>
+.el-tag{
+  margin-left:10px;
+}
+</style>

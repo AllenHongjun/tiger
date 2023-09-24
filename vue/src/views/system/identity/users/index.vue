@@ -195,7 +195,7 @@
       <el-table-column align="left" label="操作" width="220">
         <template slot-scope="scope">
           <el-dropdown trigger="click" @command="handleCommand">
-            <el-button type="primary" size="small">
+            <el-button type="primary" size="small" icon="el-icon-setting">
               {{ $t("AbpIdentity['Actions']") }}<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">

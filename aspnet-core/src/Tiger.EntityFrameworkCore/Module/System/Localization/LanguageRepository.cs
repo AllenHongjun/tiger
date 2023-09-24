@@ -78,7 +78,7 @@ public class LanguageRepository : EfCoreRepository<TigerDbContext, Language, Gui
     public async Task<long> CountAsync(string filter = null)
     {
         return await DbSet
-            .WhereIf(filter.IsNullOrWhiteSpace(), e => e.CultureName.Contains(filter) ||
+            .WhereIf(!filter.IsNullOrWhiteSpace(), e => e.CultureName.Contains(filter) ||
             e.UiCultureName.Contains(filter) || e.DisplayName.Contains(filter))
             .CountAsync();
     }

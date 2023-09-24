@@ -186,11 +186,25 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.System.LanguageController.GetAsync(System.Guid)">
+            <summary>
+            获取语言
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.System.LanguageController.GetListAsync(Tiger.Module.System.Localization.Dtos.LanguageGetListInput)">
             <summary>
             获取语言列表
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.LanguageController.SetDefaultAsync(System.Guid)">
+            <summary>
+            设置默认语言
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Module.System.LanguageController.UpdateAsync(System.Guid,Tiger.Module.System.Localization.Dtos.UpdateLanguageDto)">

@@ -46,3 +46,10 @@ export function deleteLanguage(id) {
   })
 }
 
+export function setDefaultLanguage(id) {
+  return request({
+    url: `/api/localization/languages/${id}/set-default`,
+    method: 'put'
+  })
+}
+

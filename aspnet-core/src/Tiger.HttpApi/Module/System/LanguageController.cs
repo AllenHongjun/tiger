@@ -57,6 +57,18 @@ namespace Tiger.Module.System
         }
 
         /// <summary>
+        /// 获取语言
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<LanguageDto> GetAsync(Guid id)
+        {
+            return await LanguageAppService.GetAsync(id);
+        }
+
+        /// <summary>
         /// 获取语言列表
         /// </summary>
         /// <param name="input"></param>
@@ -65,6 +77,18 @@ namespace Tiger.Module.System
         public async Task<PagedResultDto<LanguageDto>> GetListAsync(LanguageGetListInput input)
         {
             return await LanguageAppService.GetListAsync(input);
+        }
+
+        /// <summary>
+        /// 设置默认语言
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/set-default")]
+        public async Task SetDefaultAsync(Guid id)
+        {
+            await LanguageAppService.SetDefaultAsync(id);
         }
 
         /// <summary>
