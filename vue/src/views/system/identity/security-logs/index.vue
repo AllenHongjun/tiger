@@ -5,7 +5,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item :label="$t('AbpIdentity[\'SelectDateTime\']')">
-              <el-date-picker v-model="queryDateTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
+              <el-date-picker v-model="queryDateTime" type="datetimerange" value-format="yyyy-MM-dd HH:mm:ss" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
             </el-form-item>
           </el-col>
           <el-col :span="4">

@@ -13,12 +13,14 @@
         </el-select>
         <el-date-picker
           v-model="disableTime"
+          value-format="yyyy-MM-dd HH:mm:ss"
           class="filter-item"
           type="daterange"
           range-separator="至"
           start-placeholder="截止日期开始"
           end-placeholder="截止日期结束"
           :clearable="true"
+          :default-time="['00:00:00', '23:59:59']"
           @change="pickerChangeFn"
         />
         <el-select v-model="listQuery.isActive" class="filter-item" placeholder="活跃状态" clearable>
@@ -151,8 +153,9 @@ export default {
     // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
     pickerChangeFn(value) {
       if (value === null) {
-        this.listQuery.disableBeginTime = value
-        this.listQuery.disableEndTime = value
+        // undefined 这个参数就不会带上去
+        this.listQuery.disableBeginTime = undefined
+        this.listQuery.disableEndTime = undefined
       }
     },
     getList() {

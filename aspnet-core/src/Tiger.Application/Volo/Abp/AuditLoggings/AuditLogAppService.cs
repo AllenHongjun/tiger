@@ -17,6 +17,9 @@ namespace Volo.Abp.AuditLogging
     /// <summary>
     /// 系统审计日志功能
     /// </summary>
+    /// <remarks>
+    /// 审计日志 https://docs.abp.io/zh-Hans/abp/7.0/Audit-Logging
+    /// </remarks>
     [RemoteService(false)]
     [Authorize(AuditLogPermissions.AuditLogs.Default)]
     public class AuditLogAppService : TigerAppService, IAuditLogAppService
@@ -26,7 +29,6 @@ namespace Volo.Abp.AuditLogging
         protected IAuditingManager AuditingManager { get; }
         protected IIdentitySecurityLogRepository IdentitySecurityLogRepository { get; }
 
-        //IDataFilter 服务: 启用/禁用 数据过滤
         private readonly IDataFilter _dataFilter;
         public AuditLogAppService(IAuditLogRepository auditLogRepository, IDataFilter dataFilter)
         {
@@ -91,14 +93,11 @@ namespace Volo.Abp.AuditLogging
                     includeDetails: input.IncludeDetails
                 );
 
-                // 必须先定义映射,然后才能映射对象
-                // 将对象映射到自己自定的对象
                 List<AuditLogDto> auditLogs = new List<AuditLogDto>();
                 ObjectMapper.Map<List<AuditLog>, List<AuditLogDto>>(list, auditLogs);
 
                 return new PagedResultDto<AuditLogDto>(
                     count,
-                    // 自动用List<AuditLog> 创建一个List<AuditLogDto>类型的对象
                     ObjectMapper.Map<List<AuditLog>, List<AuditLogDto>>(list)
                 );
             }

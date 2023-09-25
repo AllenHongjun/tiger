@@ -25,7 +25,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="日期">
-              <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" @change="datePickerChange" />
+              <el-date-picker v-model="queryDateTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" @change="datePickerChange" />
             </el-form-item>
           </el-col>
 

@@ -98,6 +98,9 @@
             <summary>
             配置审计日志
             </summary>
+            <remarks>
+            审计日志配置 https://docs.abp.io/zh-Hans/abp/7.0/Audit-Logging
+            </remarks>
         </member>
         <member name="M:Tiger.TigerHttpApiHostModule.ConfigureHangfire(Volo.Abp.Modularity.ServiceConfigurationContext,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>

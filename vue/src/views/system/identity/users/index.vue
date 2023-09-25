@@ -72,12 +72,12 @@
             <el-row :gutter="10">
               <el-col :span="8">
                 <el-form-item prop="queryCreationTime" label="创建时间">
-                  <el-date-picker v-model="queryCreationTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
+                  <el-date-picker v-model="queryCreationTime" type="datetimerange" value-format="yyyy-MM-dd HH:mm:ss" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item prop="queryModifitionTime" label="修改时间">
-                  <el-date-picker v-model="queryModifitionTime" type="datetimerange" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
+                  <el-date-picker v-model="queryModifitionTime" type="datetimerange" value-format="yyyy-MM-dd HH:mm:ss" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
                 </el-form-item>
               </el-col>
               <el-col :span="4">

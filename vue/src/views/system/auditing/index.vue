@@ -5,7 +5,19 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="日期">
-              <el-date-picker v-model="queryDateTime" type="datetimerange" align="right" unlink-panels :picker-options="pickerOptions" :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')" :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')" :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
+              <el-date-picker
+                v-model="queryDateTime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                type="datetimerange"
+                align="right"
+                unlink-panels
+                :picker-options="pickerOptions"
+                :range-separator="$t('AbpAuditLogging[\'RangeSeparator\']')"
+                :start-placeholder="$t('AbpAuditLogging[\'StartPlaceholder\']')"
+                :end-placeholder="$t('AbpAuditLogging[\'EndPlaceholder\']')"
+                :default-time="['00:00:00', '23:59:59']"
+                @change="datePickerChange"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -123,9 +135,10 @@
             <el-tag effect="dark" :type="row.executionDuration | requestDurationFilter">
               {{ row.executionDuration }} <b>ms</b>
             </el-tag>
-            <span class="api-block" :class="row.httpMethod | requestMethodFilter">
+            <!-- <span class="api-block" :class="row.httpMethod | requestMethodFilter" @click="handleDetail(row)">
               {{ row.url }}
-            </span>
+            </span> -->
+            <el-link class="api-block" :class="row.httpMethod | requestMethodFilter" type="info" @click="handleDetail(row)">{{ row.url }}</el-link>
           </template>
         </el-table-column>
 
@@ -156,7 +169,7 @@
         </el-table-column>
         <el-table-column :label="$t('AbpAuditLogging[\'ApplicationName\']')" prop="applicationName" align="center" width="120" sortable="custom">
           <template slot-scope="{ row }">
-            <span>{{ row.applicationName | empty }}</span>
+            <span>{{ row.clientId | empty }}</span>
           </template>
         </el-table-column>
 
@@ -377,10 +390,7 @@ export default {
 <style lang="scss" scoped>
 .app-container {
     .api-block {
-        height: auto;
-        border: none;
-        padding: 4px 0;
-        margin: 4px 0;
+        margin: 4px 4px 0;
     }
 
     .el-tag {

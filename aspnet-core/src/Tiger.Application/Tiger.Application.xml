@@ -1239,6 +1239,9 @@
             <summary>
             系统审计日志功能
             </summary>
+            <remarks>
+            审计日志 https://docs.abp.io/zh-Hans/abp/7.0/Audit-Logging
+            </remarks>
         </member>
         <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetAsync(System.Guid)">
             <summary>

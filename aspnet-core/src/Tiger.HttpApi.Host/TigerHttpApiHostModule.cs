@@ -500,18 +500,19 @@ namespace Tiger
         /// <summary>
         /// 配置审计日志
         /// </summary>
+        /// <remarks>
+        /// 审计日志配置 https://docs.abp.io/zh-Hans/abp/7.0/Audit-Logging
+        /// </remarks>
         private void ConfigureAuditing(ServiceConfigurationContext context)
         {
             Configure<AbpAuditingOptions>(options =>
             {
-                options.IsEnabled = true; //Disables the auditing system  (默认值: true): 启用或禁用审计系统的总开关. 如果值为 false,则不使用其他选项.
-                options.HideErrors = false; // (默认值: true) 在保存审计日志对象时如果发生任何错误,审计日志系统会将错误隐藏并写入常规日志. 如果保存审计日志对系统非常重要那么将其设置为 false 以便在隐藏错误时抛出异常.
-                options.IsEnabledForAnonymousUsers = true; // 如果只想为经过身份验证的用户记录审计日志,请设置为 false.如果为匿名用户保存审计日志,你将看到这些用户的 UserId 值为 null.
+                options.IsEnabled = true; 
+                options.HideErrors = false; // (默认值: true) 
+                options.IsEnabledForAnonymousUsers = true;
 #if DEBUG
-                options.IsEnabledForGetRequests = false; // HTTP GET请求通常不应该在数据库进行任何更改,审计日志系统不会为GET请求保存审计日志对象. 将此值设置为 true 可为GET请求启用审计日志系统.
-
-                //保存所有实体的所有变化 将占用大量的数据库空间看情况开启
-                options.EntityHistorySelectors.AddAllEntities();
+                options.IsEnabledForGetRequests = false; // 将此值设置为 true 可为GET请求启用审计日志系统.
+                options.EntityHistorySelectors.AddAllEntities(); //保存所有实体的所有变化 将占用大量的数据库空间看情况开启
 #endif
             });
         }
@@ -645,6 +646,7 @@ namespace Tiger
             });
             #endregion
 
+            // 用于创建和保存审计日志
             app.UseAuditing();
             //app.UseAbpSerilogEnrichers(); // 使用Serilog日志
             app.UseConfiguredEndpoints();

@@ -1,34 +1,33 @@
 <template>
   <div class="audit-log-container">
-    <el-dialog
-      :title="logData.url+
-        '-' + $t('AbpAuditLogging[\'Detail\']')"
-      :visible.sync="dialogVisible"
-      top="6vh"
-    >
+    <el-dialog :title="logData.url+ '-' + $t('AbpAuditLogging[\'Detail\']')" :visible.sync="dialogVisible" top="6vh">
       <el-tabs type="border-card">
         <el-tab-pane :label="$t('AbpAuditLogging[\'RequsetInfo\']')">
           <table class="logInfo">
             <tbody>
               <tr>
                 <th>{{ $t("AbpAuditLogging['HttpStatusCode']") }}</th>
-                <td>{{ logData.httpStatusCode }}</td>
+                <td><el-tag type="info">{{ logData.httpStatusCode }}</el-tag></td>
               </tr>
               <tr>
                 <th>{{ $t("AbpAuditLogging['HttpMethod']") }}</th>
-                <td>{{ logData.httpMethod }}</td>
+                <td><el-tag type="danger">{{ logData.httpMethod }}</el-tag></td>
               </tr>
               <tr>
                 <th>{{ $t("AbpAuditLogging['Url']") }}</th>
-                <td>{{ logData.url }}</td>
+                <td><el-link type="primary" disabled>{{ logData.url }}</el-link></td>
               </tr>
               <tr>
                 <th>{{ $t("AbpAuditLogging['ClientIpAddress']") }}</th>
                 <td>{{ logData.clientIpAddress }}</td>
               </tr>
               <tr>
+                <th>{{ $t("AbpAuditLogging['ClientId']") }}</th>
+                <td>{{ logData.clientId }}</td>
+              </tr>
+              <tr>
                 <th>{{ $t("AbpAuditLogging['ClientName']") }}</th>
-                <td>{{ logData.clientName }}</td>
+                <td>{{ logData.ClientName }}</td>
               </tr>
               <tr>
                 <th>{{ $t("AbpAuditLogging['UserName']") }}</th>
@@ -45,16 +44,6 @@
               <tr>
                 <th>{{ $t("AbpAuditLogging['BrowserInfo']") }}</th>
                 <td>{{ logData.browserInfo }}</td>
-              </tr>
-              <tr>
-                <th>{{ $t("AbpAuditLogging['Exceptions']") }}</th>
-                <td style="max-height: 260px;overflow-y: scroll;display: block;">
-                  {{ logData.exceptions }}
-                  <br>
-                  <el-button type="primary" icon="el-icon-document" @click="handleCopyParameters(logData.exceptions,$event)">
-                    {{ $t("table.copy") }}
-                  </el-button>
-                </td>
               </tr>
               <tr>
                 <th>{{ $t("AbpAuditLogging['Comments']") }}</th>
@@ -89,11 +78,12 @@
                   <tr>
                     <th>{{ $t("AbpAuditLogging['Parameters']") }}</th>
                     <td>
-                      <span>{{ action.parameters }}</span>
+                      <!-- 展示JSON格式数据【vue-json-viewer】 -->
+                      <json-viewer :value="JSON.parse(action.parameters)" :expand-depth="25" boxed sort :expanded="true" copyable />
                       <br>
-                      <el-button type="primary" icon="el-icon-document" @click="handleCopyParameters(action.parameters,$event)">
+                      <!-- <el-button type="primary" icon="el-icon-document" @click="handleCopyParameters(action.parameters,$event)">
                         {{ $t("table.copy") }}
-                      </el-button>
+                      </el-button> -->
                     </td>
                   </tr>
                   <tr>
@@ -108,38 +98,22 @@
             {{ $t('table.empty') }}
           </p>
         </el-tab-pane>
-        <el-tab-pane :label="$t('AbpAuditLogging[\'EntityChanges\']')">
-          <el-collapse v-if="logData.entityChanges && logData.entityChanges.length>0">
-            <el-collapse-item v-for="entity in logData.entityChanges" :key="entity.id" :title="entity.entityTypeFullName" :name="entity.entityTypeFullName">
-              <table class="logInfo">
-                <tbody>
-                  <tr>
-                    <th>{{ $t("AbpAuditLogging['EntityTypeFullName']") }}</th>
-                    <td>{{ action.entityTypeFullName }}</td>
-                  </tr>
-                  <tr>
-                    <th>{{ $t("AbpAuditLogging['ChangeType']") }}</th>
-                    <td>{{ action.changeType }}</td>
-                  </tr>
-                  <tr>
-                    <th>{{ $t("AbpAuditLogging['ChangeTime']") }}</th>
-                    <td>{{ action.changeTime | moment }}</td>
-                  </tr>
-                  <tr>
-                    <th>{{ $t("AbpAuditLogging['EntityId']") }}</th>
-                    <td>{{ action.entityId }}</td>
-                  </tr>
-                  <tr>
-                    <th>{{ $t("AbpAuditLogging['ExtraProperties']") }}</th>
-                    <td>{{ action.extraProperties }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </el-collapse-item>
-          </el-collapse>
-          <p v-else>
-            {{ $t('table.empty') }}
-          </p>
+        <el-tab-pane v-if="logData.exceptions" :label="$t('AbpAuditLogging[\'Exceptions\']')">
+          <table class="logInfo">
+            <tbody>
+              <tr>
+                <th>{{ $t("AbpAuditLogging['Exceptions']") }}</th>
+                <td style="max-height: 610px;overflow-y: scroll;display: block;">
+                  <p>{{ logData.exceptions }}</p>
+                  <br>
+                  <el-button type="primary" icon="el-icon-document" @click="handleCopyParameters(logData.exceptions,$event)">
+                    {{ $t("table.copy") }}
+                  </el-button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
         </el-tab-pane>
       </el-tabs>
 
@@ -157,8 +131,12 @@ import {
   getAuditLog
 } from '@/api/system-manage/auditing/auditlog'
 import clip from '@/utils/clipboard' // 引入复制组件
+import JsonViewer from 'vue-json-viewer'
 export default {
   name: 'AuditLogDetails',
+  components: {
+    JsonViewer
+  },
   data() {
     return {
       dialogVisible: false,
@@ -188,6 +166,7 @@ export default {
     .logInfo {
         border-collapse: collapse;
         border-spacing: 2px;
+        width:100%;
 
         tr {
             border: 1px solid #f0f0f0;
@@ -205,8 +184,12 @@ export default {
                 box-sizing: border-box;
                 border-right: #f0f0f0;
                 height: inherit;
+
                 padding: 8px 16px;
             }
+        }
+        .jv-container{
+          overflow-y:scroll;max-height:300px;
         }
     }
 }

@@ -32,13 +32,6 @@
             <!-- 展示JSON格式数据【vue-json-viewer】 -->
             <json-viewer :value="data" :expand-depth="10" boxed sort :expanded="false" />
 
-            <!-- <json-viewer
-              :value="JSON.parse(data)"
-              :expand-depth="5"
-              boxed
-              sort
-            /> -->
-
           </el-card>
         </div>
       </el-col>
