@@ -230,14 +230,33 @@ const SystemManageRouter = {
       }
     },
     {
-      path: 'audit-log/list',
-      component: () => import('@/views/system/auditing/index'), // Parent router-view
-      name: 'audit-log-list',
+      path: '/audit-log',
+      component: () => import('@/views/system/index'), // Parent router-view
+      name: 'audit-log-module',
       meta: {
         title: 'AbpAuditLogging["Menu:AuditLogging"]', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-document', // the icon show in the sidebar
-        policy: 'Auditing.AuditingLog'
-      }
+        icon: 'el-icon-document' // the icon show in the sidebar
+      },
+      children: [
+        {
+          path: 'audit-log/list',
+          component: () => import('@/views/system/auditing/index'), // Parent router-view
+          name: 'audit-log',
+          meta: {
+            title: 'AbpAuditLogging["Menu:AuditLogging"]', // the name show in sidebar and breadcrumb (recommend set)
+            policy: 'Auditing.AuditingLog'
+          }
+        },
+        {
+          path: 'audit-log/entity-changes',
+          component: () => import('@/views/system/auditing/entity-changes/index'),
+          name: 'entity-changes',
+          meta: {
+            title: 'AbpAuditLogging["EntityChanges"]',
+            policy: 'Auditing.AuditingLog'
+          }
+        }
+      ]
     },
     {
       path: 'notice/list',

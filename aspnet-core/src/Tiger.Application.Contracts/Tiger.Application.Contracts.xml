@@ -1441,7 +1441,7 @@
         </member>
         <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.EntityPropertyChangeDto.PropertyTypeFullName">
             <summary>
-            属性原始值
+            属性类型
             </summary>
         </member>
         <member name="P:Tiger.Volo.Abp.AuditLogging.Dto.GetAuditLogDto.StartTime">

@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import qs from 'querystring'
 import { transformAbpListQuery } from '@/utils/abp'
 
 export function getAuditLogs(query) {
@@ -31,3 +30,43 @@ export function deleteManyAuditLog(ids) {
     data: ids
   })
 }
+
+// 获取日志每日请求平均时间
+export function getAuditLogAverageExecutionDurationPerDay(query) {
+  return request({
+    url: '/api/audit-logging/audit-logs/entity-changes',
+    method: 'get',
+    params: query
+  })
+}
+
+export function getAuditLogEntityChanges(query) {
+  return request({
+    url: '/api/audit-logging/audit-logs/entity-changes',
+    method: 'get',
+    params: transformAbpListQuery(query)
+  })
+}
+
+export function getAuditLogEntityChange(id) {
+  return request({
+    url: `/api/audit-logging/audit-logs/entity-changes/${id}`,
+    method: 'get'
+  })
+}
+
+export function getAuditLogEntityChangeListWithUserName(query) {
+  return request({
+    url: `/api/audit-logging/audit-logs/entity-change-with-username`,
+    method: 'get',
+    params: query
+  })
+}
+
+export function getAuditLogEntityChangeWithUserName(id) {
+  return request({
+    url: `/api/audit-logging/audit-logs/entity-change-with-username/${id}`,
+    method: 'get'
+  })
+}
+

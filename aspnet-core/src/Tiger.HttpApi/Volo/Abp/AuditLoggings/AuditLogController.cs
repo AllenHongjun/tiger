@@ -135,7 +135,7 @@ namespace Volo.Abp.AuditLogging
         /// <param name="entityChangeId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("entity-change-with-username/{id}")]
+        [Route("entity-change-with-username/{entityChangeId}")]
         public async Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
         {
             return await AuditLogAppService.GetEntityChangeWithUsernameAsync(entityChangeId);

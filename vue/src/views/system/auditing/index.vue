@@ -135,9 +135,6 @@
             <el-tag effect="dark" :type="row.executionDuration | requestDurationFilter">
               {{ row.executionDuration }} <b>ms</b>
             </el-tag>
-            <!-- <span class="api-block" :class="row.httpMethod | requestMethodFilter" @click="handleDetail(row)">
-              {{ row.url }}
-            </span> -->
             <el-link class="api-block" :class="row.httpMethod | requestMethodFilter" type="info" @click="handleDetail(row)">{{ row.url }}</el-link>
           </template>
         </el-table-column>

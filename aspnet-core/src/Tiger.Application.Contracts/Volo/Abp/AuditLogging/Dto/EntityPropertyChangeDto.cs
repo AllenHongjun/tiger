@@ -26,7 +26,7 @@ namespace Tiger.Volo.Abp.AuditLogging.Dto
         public string PropertyName { get; set; }
 
         /// <summary>
-        /// 属性原始值
+        /// 属性类型
         /// </summary>
         public string PropertyTypeFullName { get; set; }
     }

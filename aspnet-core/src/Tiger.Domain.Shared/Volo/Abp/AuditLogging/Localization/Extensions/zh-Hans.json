@@ -55,6 +55,10 @@
     "PlaceholderInput": "请输入",
     "PlaceholderSelect": "请选择",
     "Reset": "重置",
-    "Search": "查询"
+    "Search": "查询",
+    "NewValue": "新值",
+    "OriginalValue": "原始值",
+    "PropertyName": "属性名称",
+    "PropertyTypeFullName": "属性类型"
   }
 }
