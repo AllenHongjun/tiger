@@ -7,7 +7,6 @@
     "Menu:BookStore": "Book Store",
     "Menu:Books": "Books",
     "Actions": "Actions",
-    "Close": "Close",
     "Delete": "Delete",
     "Edit": "Edit",
     "PublishDate": "Publish date",
@@ -24,7 +23,10 @@
     "Menu:Administration": "Administration",
 
     "DisplayName:Abp.Localization.DefaultLanguage": "DefaultLanguage",
-    "Description:Abp.Localization.DefaultLanguage": "The default language of the application.like zh-Hans, en, fr, zh-Hant "
+    "Description:Abp.Localization.DefaultLanguage": "The default language of the application.like zh-Hans, en, fr, zh-Hant ",
+
+    "Expand": "Expand",
+    "Close": "Close"
 
   }
 }

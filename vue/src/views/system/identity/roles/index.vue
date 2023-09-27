@@ -35,7 +35,7 @@
             <template slot-scope="scope">{{ scope.row.extraProperties.UserCount }}</template>
           </el-table-column>
 
-          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="320">
+          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="520">
             <template slot-scope="scope">
               <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" @click="handleUpdate(scope.row)">
                 {{ $t("AbpIdentity['Edit']") }}

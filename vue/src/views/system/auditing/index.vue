@@ -4,7 +4,7 @@
       <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="queryForm">
         <el-row :gutter="20">
           <el-col :span="8">
-            <el-form-item label="日期">
+            <el-form-item :label="$t('AbpAuditLogging[\'ExecutionTime\']')">
               <el-date-picker
                 v-model="queryDateTime"
                 value-format="yyyy-MM-dd HH:mm:ss"
@@ -49,7 +49,7 @@
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
               <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                {{ advanced ? '收起' : '展开' }}
+                {{ advanced ? $t('TigerUi[\'Close\']') : $t('TigerUi[\'Expand\']') }}
                 <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
               </el-link>
             </el-button-group>
@@ -61,7 +61,7 @@
             <el-row :gutter="20">
               <el-col :span="4">
                 <el-form-item prop="httpMethod" :label="$t('AbpAuditLogging[\'HttpMethod\']')">
-                  <el-select v-model="queryForm.httpMethod" clearable style="width:100%" @clear="queryForm.httpMethod=undefined">
+                  <el-select v-model="queryForm.httpMethod" clearable style="width:100%" filterable="" @clear="queryForm.httpMethod=undefined">
                     <el-option label="GET" value="GET" />
                     <el-option label="PUT" value="PUT" />
                     <el-option label="POST" value="POST" />
@@ -75,11 +75,29 @@
               </el-col>
               <el-col :span="4">
                 <el-form-item prop="httpStatueCode" :label="$t('AbpAuditLogging[\'HttpStatusCode\']')">
-                  <el-select v-model="queryForm.httpStatusCode" clearable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
+                  <el-select v-model="queryForm.httpStatusCode" clearable filterable style="width:100%" @clear="queryForm.httpStatusCode=undefined">
                     <el-option label=" 100 - Continue " value="100" />
+                    <el-option label=" 101 - Switching Protocols " value="101" />
+                    <el-option label=" 102 - Processing " value="102" />
+                    <el-option label=" 103 - Early Hints " value="103" />
                     <el-option label=" 200 - Ok " value="200" />
+                    <el-option label=" 201 - Created  " value="201" />
+                    <el-option label=" 202 - Accepted " value="202" />
+                    <el-option label=" 203 - Non-authoritative Information " value="203" />
+                    <el-option label=" 204 - No Content " value="204" />
+                    <el-option label=" 205 - Reset Content " value="205" />
+                    <el-option label=" 206 - Partial Content " value="206" />
+                    <el-option label=" 207 - Multi-Status " value="207" />
+                    <el-option label=" 208 - Already Registered " value="208" />
                     <el-option label=" 300 - Multiple Choices " value="300" />
                     <el-option label=" 400 - Bad Request " value="400" />
+                    <el-option label=" 401 - Unauthorized " value="401" />
+                    <el-option label=" 402 - Payment Required " value="402" />
+                    <el-option label=" 403 - Forbidden " value="403" />
+                    <el-option label=" 404 - Not Found " value="404" />
+                    <el-option label=" 405 - Method Not Allowed " value="405" />
+                    <el-option label=" 406 - Not Acceptable " value="406" />
+                    <el-option label=" 407 - Proxy Authentication Required " value="407" />
                     <el-option label=" 500 - Internal Server Error " value="500" />
                   </el-select>
                 </el-form-item>
@@ -110,9 +128,6 @@
             <el-button-group style="float:left">
               <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
                 刷新
-              </el-button>
-              <el-button type="reset" icon="el-icon-download" @click="handleDownload">
-                导出
               </el-button>
             </el-button-group>
 
@@ -149,7 +164,7 @@
             <span>{{ row.userName | empty }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpAuditLogging[\'ClientIpAddress\']')" prop="clientIpAddress" align="center" width="120" sortable="custom">
+        <el-table-column :label="$t('AbpAuditLogging[\'ClientIpAddress\']')" prop="clientIpAddress" align="center" width="140" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.clientIpAddress | empty }}</span>
           </template>
@@ -164,7 +179,7 @@
             <span>{{ row.executionDuration }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpAuditLogging[\'ApplicationName\']')" prop="applicationName" align="center" width="120" sortable="custom">
+        <el-table-column :label="$t('AbpAuditLogging[\'ApplicationName\']')" prop="applicationName" align="center" width="160" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.clientId | empty }}</span>
           </template>
@@ -193,9 +208,6 @@ import {
 import {
   pickerRangeWithHotKey
 } from '@/utils/picker'
-import {
-  parseTime
-} from '@/utils'
 
 import Pagination from '@/components/Pagination'
 import baseListQuery from '@/utils/abp'
@@ -350,36 +362,8 @@ export default {
     // 查看详情
     handleDetail(row) {
       this.$refs['auditLogDetailsDialog'].createLogInfo(row)
-    },
-    // 下载数据
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-        const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-
-        // TODO: 修改为当前查询条件下所有页数的数据
-        const list = this.list
-        const data = this.formatJson(filterVal, list)
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: this.filename,
-          autoWidth: this.autoWidth,
-          bookType: this.bookType
-        })
-        this.downloadLoading = false
-      })
-    },
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => {
-        if (j === 'executionTime') {
-          return parseTime(v[j])
-        } else {
-          return v[j]
-        }
-      }))
     }
+
   }
 }
 </script>

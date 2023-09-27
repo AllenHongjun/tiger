@@ -78,12 +78,8 @@
                   <tr>
                     <th>{{ $t("AbpAuditLogging['Parameters']") }}</th>
                     <td>
-                      <!-- 展示JSON格式数据【vue-json-viewer】 -->
                       <json-viewer :value="JSON.parse(action.parameters)" :expand-depth="25" boxed sort :expanded="true" copyable />
                       <br>
-                      <!-- <el-button type="primary" icon="el-icon-document" @click="handleCopyParameters(action.parameters,$event)">
-                        {{ $t("table.copy") }}
-                      </el-button> -->
                     </td>
                   </tr>
                   <tr>

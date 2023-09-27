@@ -4,10 +4,11 @@
     "Permission:AuditLogManagement": "AuditLogManagement",
     "Permission:AuditLogging": "AuditLogging",
     "Permission:Delete": "Delete",
+
     "AuditLogging": "AuditLogging",
     "Menu:AuditLogging": "AuditLogging",
     "RequestInfo": "code | method | duration(ms) | url",
-    "HttpStatusCode": "状态码",
+    "HttpStatusCode": "httpCode",
     "Comments": "comments",
     "Exceptions": "exceptions",
     "Url": "url",
@@ -18,6 +19,8 @@
     "ClientName": "clientName",
     "ClientIpAddress": "clientIpAddress",
     "ExecutionDuration": "executionDuration(ms)",
+    "MinExecutionDuration": "durationMin",
+    "MaxExecutionDuration": "durationMax",
     "ExecutionTime": "executionTime",
     "ImpersonatorTenantId": "impersonatorTenantId",
     "ImpersonatorUserId": "impersonatorUserId",
@@ -25,13 +28,19 @@
     "TenantId": "tenantId",
     "UserName": "userName",
     "UserId": "userId",
-    "ApplicationName": "applicationName",
+    "ApplicationName": "appName",
     "ExtraProperties": "extraProperties",
     "MethodName": "methodName",
     "Parameters": "parameters",
     "RequsetInfo": "requsetInfo",
     "Actions": "actions",
     "EntityChanges": "entityChanges",
+
+    "EntityTypeFullName": "entityTypeFullName",
+    "ChangeType": "changeType",
+    "ChangeTime": "changeTime",
+    "EntityId": "entityId",
+
     "Action": "action",
     "Detail": "details",
     "Close": "close",
@@ -42,6 +51,12 @@
     "PlaceholderInput": "Please enter",
     "PlaceholderSelect": "Please select",
     "Reset": "reset",
-    "Search": "search"
+    "Search": "search",
+
+    "NewValue": "NewValue",
+    "OriginalValue": "OriginalValue",
+    "PropertyName": "PropertyName",
+    "PropertyTypeFullName": "PropertyTypeFullName"
+
   }
 }

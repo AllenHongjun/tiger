@@ -1,8 +1,9 @@
 <template>
   <div class="audit-log-container">
-    <el-dialog :title="logData.entityChange.entityTypeFullName + logData.entityChange.id" :visible.sync="dialogVisible" top="6vh">
+    <el-dialog :title="logData.entityTypeFullName " :visible.sync="dialogVisible" top="6vh">
+      <!-- <row>{{ logData.id }}</row> -->
       <el-collapse v-model="activeNames">
-        <el-collapse-item name="action.serviceName" :title="logData.entityChange.changeTime + '通过' + logData.username">
+        <el-collapse-item name="entity-change-detail" :title=" '时间:  ' + moment(logData.changeTime).format('YYYY-MM-DD HH:mm:ss') + '通过' + username">
           <table class="logInfo">
             <thead>
               <tr>
@@ -12,13 +13,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="propertyChange in logData.entityChange.propertyChanges" :key="propertyChange.id">
+              <tr v-for="propertyChange in logData.propertyChanges" :key="propertyChange.id">
                 <td>{{ propertyChange.propertyName }}</td>
-                <td>{{ propertyChange.originalValue }}</td>
-                <!-- 如果是额外属性使用json插件展示 -->
-                <td>{{ propertyChange.newValue }}</td>
-              </tr>
 
+                <td v-if="propertyChange.propertyName == 'ExtraProperties'">
+                  <json-viewer :value="JSON.parse(propertyChange.originalValue)" :expand-depth="25" boxed sort :expanded="true" copyable />
+                </td>
+                <td v-else>{{ propertyChange.originalValue }}</td>
+
+                <td v-if="propertyChange.propertyName == 'ExtraProperties'">
+                  <json-viewer :value="JSON.parse(propertyChange.newValue)" :expand-depth="25" boxed sort :expanded="true" copyable />
+                </td>
+                <td v-else>{{ propertyChange.newValue }}</td>
+              </tr>
             </tbody>
           </table>
         </el-collapse-item>
@@ -35,13 +42,14 @@
 
 <script>
 import {
-  getAuditLogEntityChange,
-  getAuditLogEntityChangeListWithUserName,
+  // getAuditLogEntityChange,
+  // getAuditLogEntityChangeListWithUserName,
   getAuditLogEntityChangeWithUserName
 } from '@/api/system-manage/auditing/auditlog'
 
 import clip from '@/utils/clipboard' // 引入复制组件
 import JsonViewer from 'vue-json-viewer'
+import moment from 'moment'
 export default {
   name: 'ChangeDetail',
   components: {
@@ -49,16 +57,21 @@ export default {
   },
   data() {
     return {
-      activeNames: ['1'],
+      activeNames: ['entity-change-detail'],
       dialogVisible: false,
-      logData: {}
+      logData: {},
+      username: ''
     }
   },
+  created() {
+    // console.log('this.logData', this.logData)
+  },
   methods: {
+    moment,
     getDetails() {
       getAuditLogEntityChangeWithUserName(this.logData.id).then(response => {
-        console.log('response', response)
-        this.logData = response
+        this.logData = response.entityChange
+        this.username = response.username
       })
     },
     createLogInfo(row) {

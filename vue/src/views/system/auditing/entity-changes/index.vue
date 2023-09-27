@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
-        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
+        <!-- <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" /> -->
         <el-date-picker
           v-model="queryDateTime"
           class="filter-item"
@@ -55,7 +55,7 @@
       </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="200" class-name="small-padding fixed-width">
-        <template slot-scope="{ row, $index }">
+        <template slot-scope="{ row }">
           <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" @click="handleDetail(row)">
             {{ $t("AbpAuditLogging['Detail']") }}
           </el-button>
@@ -66,16 +66,14 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <change-detail ref="ChangeDetail" />
+
+    <!-- //TODO: 增加所有实体变更历史记录 -->
   </div>
 </template>
 
 <script>
 import {
-  getAuditLogAverageExecutionDurationPerDay,
-  getAuditLogEntityChanges,
-  getAuditLogEntityChange,
-  getAuditLogEntityChangeListWithUserName,
-  getAuditLogEntityChangeWithUserName
+  getAuditLogEntityChanges
 } from '@/api/system-manage/auditing/auditlog'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import baseListQuery, {
