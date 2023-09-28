@@ -1139,6 +1139,14 @@
             版本服务
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Editions.EditionAppService.MoveAllTenantAsync(System.Guid,System.Nullable{System.Guid})">
+            <summary>
+            移动所有租户到指定版本
+            </summary>
+            <param name="editionId">当前版本</param>
+            <param name="dstEditionId">目标版本</param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.Sass.Tenants.TenantAppService">
             <summary>
             租户管理

@@ -12,6 +12,7 @@
     "NewEdition": "新版本",
     "EditionName": "版本名称",
     "DisplayName:EditionName": "版本名称",
+    "DisplayName:TenantCount": "版本名称",
     "EditionDeletionConfirmationMessage": "版本 '{0}' 将被删除. 你确定吗?",
     "Tenants": "租户",
     "NewTenant": "新租户",
@@ -28,6 +29,8 @@
     "DisplayName:EnableTime": "启用时间",
     "DisplayName:DisableTime": "截止时间",
     "ManageHostFeatures": "管理Host特性",
+    "MoveAllTenant": "移动所有租户",
+    "MoveAllTenantTips": "移动所有租户到指定版本",
     "Permission:Saas": "Saas",
     "Permission:EditionManagement": "版本管理",
     "Permission:TenantManagement": "租户管理",
@@ -40,6 +43,7 @@
     "DisplayName:AdminPassword": "管理员密码",
     "TenantNotFoundById": "租户: {0} 不存在!",
     "TenantNotFoundByName": "租户: {0} 不存在!",
+    "NoTenantFoundInEdition": "该版本没有租户",
     "UnActived": "未启用"
   }
 }

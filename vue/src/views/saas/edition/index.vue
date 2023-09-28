@@ -3,7 +3,7 @@
     <el-row :gutter="0">
       <el-col :span="24">
         <el-row style="margin-bottom: 20px">
-          <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 150px" class="filter-item" />
+          <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 150px" class="filter-item" clearable="" />
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
           <el-button type="primary" icon="el-icon-edit" @click="handleCreate">创建</el-button>
           <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
@@ -16,10 +16,20 @@
             <template slot-scope="{ row }">{{ row.displayName }}</template>
           </el-table-column>
 
-          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="320">
+          <el-table-column align="left" :label="$t('AbpSaas[\'DisplayName:TenantCount\']')" prop="displayName" width="180">
+            <template slot-scope="{ row }">{{ row.tenantCount }}</template>
+          </el-table-column>
+
+          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="420">
             <template slot-scope="{row,$index}">
               <el-button type="primary" @click="handleUpdate(row)">
                 {{ $t("AbpUi['Edit']") }}
+              </el-button>
+              <el-button v-if="checkPermission('AbpSass.Editions.ManageFeatures')" type="primary" size="mini" @click="handleUpdateFeature(row)">
+                {{ $t("AbpSaas['Permission:ManageFeatures']") }}
+              </el-button>
+              <el-button type="primary" @click="handleMoveAllTenant(row)">
+                {{ $t("AbpSaas['MoveAllTenant']") }}
               </el-button>
               <el-button type="danger" @click="deleteData(row,$index)">
                 {{ $t("AbpUi['Delete']") }}
@@ -42,6 +52,34 @@
             <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">{{ $t("AbpUi['Save']") }}</el-button>
           </div>
         </el-dialog>
+
+        <feature ref="featureDialog" provider-name="E" />
+
+        <!-- 移动所有租户 -->
+        <el-dialog :title="$t('AbpSaas[\'MoveAllTenant\']')" :visible.sync="moveTenantDialogVisible">
+          <el-form :model="temp" label-width="120px" label-position="right">
+            <el-form-item :label="$t('AbpSaas[\'DisplayName:EditionName\']')" prop="displayName">
+              <span slot="label">
+                <el-tooltip :content="$t('AbpSaas[\'MoveAllTenantTips\']')" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpSaas[\'DisplayName:EditionName\']') }}
+              </span>
+              <el-select v-model="dstEditionId" placeholder="请选择">
+                <el-option
+                  v-for="item in editionOptions"
+                  :key="item.id"
+                  :label="item.displayName"
+                  :value="item.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div style="text-align: right">
+            <el-button type="danger" @click="moveTenantDialogVisible = false">{{ $t("AbpUi['Cancel']") }}</el-button>
+            <el-button type="primary" @click="MoveAllTenantData()">{{ $t("AbpUi['Save']") }}</el-button>
+          </div>
+        </el-dialog>
       </el-col>
     </el-row>
   </div>
@@ -53,23 +91,22 @@ import {
   getEditions,
   deleteEdition,
   createEdition,
-  updateEdition
+  updateEdition,
+  moveAllTenants
 } from '@/api/sass/edition'
 
-import {
-  getFeatures,
-  updateFeatures
-} from '@/api/sass/features'
 import {
   checkPermission
 } from '@/utils/abp'
 
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
+import Feature from '../components/Feature.vue'
 
 export default {
   name: 'Edition',
   components: {
-    Pagination
+    Pagination,
+    Feature
   },
   data() {
     return {
@@ -84,23 +121,32 @@ export default {
       dialogFormVisible: false,
       temp: {
         id: undefined,
-        displayName: undefined
+        displayName: undefined,
+        tenantCount: 0
 
       },
       rules: {
         displayName: [
           {
             required: true,
-            message: '请输入版本名称',
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
+              this.$i18n.t("AbpSaas['DisplayName:EditionName']")
+            ]),
             trigger: 'blur'
           },
           {
             max: 256,
-            message: '版本名称不能超过256个字符',
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpSaas['DisplayName:EditionName']"), '256']
+            ),
             trigger: 'blur'
           }
         ]
-      }
+      },
+      editionOptions: [],
+      dstEditionId: undefined,
+      moveTenantDialogVisible: false
     }
   },
 
@@ -115,6 +161,8 @@ export default {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
+
+        this.editionOptions = response.items
       })
     },
     sortChange(data) {
@@ -214,6 +262,30 @@ export default {
         this.$message({
           type: 'info',
           message: '已取消删除'
+        })
+      })
+    },
+    handleUpdateFeature(row) {
+      this.$refs['featureDialog'].handleUpdate(row)
+    },
+    handleMoveAllTenant(row) {
+      console.log('this.row', row)
+      if (row.tenantCount <= 0) {
+        this.$message.error(this.$i18n.t('AbpSaas[\'NoTenantFoundInEdition\']'))
+        return
+      }
+      this.temp = Object.assign({}, row) // copy obj
+      this.moveTenantDialogVisible = true
+    },
+    MoveAllTenantData() {
+      moveAllTenants(this.temp.id, this.dstEditionId).then(() => {
+        this.handleFilter()
+        this.moveTenantDialogVisible = false
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
         })
       })
     }

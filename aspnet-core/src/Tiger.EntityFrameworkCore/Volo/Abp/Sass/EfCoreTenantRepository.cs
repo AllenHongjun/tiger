@@ -171,6 +171,21 @@ namespace Tiger.Volo.Abp.Sass
             }).ToList();
         }
 
+
+
+        /// <summary>
+        /// 获取每个版本的租户数量
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Dictionary<Guid?, int>> GetEditionTenantCount()
+        {
+            var list = await DbContext.Set<Tenant>()
+               .Where(x => x.EditionId != null)
+               .ToListAsync();
+            var editionTenantCountDic = list.GroupBy(x => x.EditionId).ToDictionary(g => g.Key, g => g.Count());
+            return editionTenantCountDic;
+        }
+
         /// <summary>
         /// 包含子集
         /// </summary>

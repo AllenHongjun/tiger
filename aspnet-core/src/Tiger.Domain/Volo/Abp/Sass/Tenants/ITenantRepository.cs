@@ -61,5 +61,12 @@ namespace Tiger.Volo.Abp.Sass.Tenants
             string filter = null,
             CancellationToken cancellationToken = default);
 
+
+        /// <summary>
+        /// 获取每个版本的租户数量
+        /// </summary>
+        /// <returns></returns>
+        Task<Dictionary<Guid?, int>> GetEditionTenantCount();
+
     }
 }

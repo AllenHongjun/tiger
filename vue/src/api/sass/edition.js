@@ -39,3 +39,10 @@ export function deleteEdition(id) {
   })
 }
 
+export function moveAllTenants(editionId, dstEditionId) {
+  return request({
+    url: `/api/saas/editions/${editionId}/move-all-tenant/${dstEditionId}`,
+    method: 'put'
+  })
+}
+

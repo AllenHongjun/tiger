@@ -8,6 +8,12 @@ using Volo.Abp.Validation.StringValues;
 
 namespace Tiger.Module.OssManagement.Features
 {
+    /// <summary>
+    /// Oss 功能特征定义
+    /// </summary>
+    /// <remarks>
+    /// Features https://docs.abp.io/zh-Hans/abp/latest/Features
+    /// </remarks>
     public class AbpOssManagementFeatureDefinitionProvider : FeatureDefinitionProvider
     {
         public override void Define(IFeatureDefinitionContext context)

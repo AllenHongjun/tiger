@@ -51,7 +51,7 @@ import {
 } from '@/api/sass/features'
 
 export default {
-  name: 'FeatureDialog',
+  name: 'Feature',
   props: {
     providerName: {
       type: String,

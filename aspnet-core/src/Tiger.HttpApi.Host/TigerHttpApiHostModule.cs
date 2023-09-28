@@ -1,4 +1,3 @@
-using Autofac.Core;
 using CrystalQuartz.AspNetCore;
 using Hangfire;
 using IdentityServer4;
@@ -14,24 +13,19 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz;
-using Quartz.Impl;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
-using System.Collections.Specialized;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Threading.Tasks;
 using Tiger.BackgroundWorker;
 using Tiger.EntityFrameworkCore;
-using Tiger.Infrastructure.BackgroundTasks.Quartz;
-using Tiger.Infrastructure.BackgroundWorker;
 using Tiger.Module.OssManagement;
 using Tiger.MultiTenancy;
+using Tiger.Volo.Abp.Sass.Permissions;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
@@ -41,7 +35,6 @@ using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
-using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs.Hangfire;
@@ -49,8 +42,9 @@ using Volo.Abp.BackgroundWorkers;
 using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
-using Volo.Abp.Data;
 using Volo.Abp.EventBus;
+using Volo.Abp.FeatureManagement;
+using Volo.Abp.Features;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.Quartz;
@@ -156,6 +150,7 @@ namespace Tiger
             ConfigureLocalization();
             ConfigureVirtualFileSystem(context);
             ConfigureAuditing(context);
+            ConfigureFeatureManagement(context, configuration);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
             ConfigureHangfire(context, configuration);
@@ -494,6 +489,18 @@ namespace Tiger
                 });
             });
         }
+        #endregion
+
+        #region 配置功能特性Provider
+        private void ConfigureFeatureManagement(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            //功能管理提供程序: https://docs.abp.io/en/abp/latest/Modules/Feature-Management
+            Configure<FeatureManagementOptions>(options =>
+            {
+                options.ProviderPolicies[EditionFeatureValueProvider.ProviderName] = AbpSaasPermissions.Editions.ManageFeatures;
+                options.ProviderPolicies[TenantFeatureValueProvider.ProviderName] = AbpSaasPermissions.Tenants.ManageFeatures;
+            });
+        } 
         #endregion
 
         #region 配置审计日志

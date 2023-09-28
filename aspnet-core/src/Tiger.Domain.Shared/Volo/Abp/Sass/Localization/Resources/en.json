@@ -12,6 +12,7 @@
     "NewEdition": "New edition",
     "EditionName": "Edition name",
     "DisplayName:EditionName": "Edition name",
+    "DisplayName:TenantCount": "TenantCount",
     "EditionDeletionConfirmationMessage": "Edition '{0}' will be deleted. Do you confirm that?",
     "Tenants": "Tenants",
     "NewTenant": "New tenant",
@@ -28,6 +29,8 @@
     "DisplayName:EnableTime": "Enable Time",
     "DisplayName:DisableTime": "Disable Time",
     "ManageHostFeatures": "Manage Host features",
+    "MoveAllTenant": "MoveAllTenant",
+    "MoveAllTenantTips": "Move all tenants to a specific version",
     "Permission:Saas": "Saas",
     "Permission:EditionManagement": "Edition management",
     "Permission:TenantManagement": "Tenant management",
@@ -40,6 +43,7 @@
     "DisplayName:AdminPassword": "Admin Password",
     "TenantNotFoundById": "Tenant: {0} not found!",
     "TenantNotFoundByName": "Tenant: {0} not found!",
+    "NoTenantFoundInEdition": "This version has no tenants!",
     "UnActived": "UnActived"
   }
 }

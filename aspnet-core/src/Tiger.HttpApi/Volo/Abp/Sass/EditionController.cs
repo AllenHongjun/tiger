@@ -57,6 +57,20 @@ namespace Tiger.Volo.Abp.Sass
             return await EditionAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// 移动所有租户到指定版本
+        /// </summary>
+        /// <param name="editionId"></param>
+        /// <param name="dstEditionId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPut]
+        [Route("{editionId}/move-all-tenant/{dstEditionId}")]
+        public async Task MoveAllTenantAsync(Guid editionId, Guid? dstEditionId)
+        {
+            await EditionAppService.MoveAllTenantAsync(editionId, dstEditionId);
+        }
+
         [HttpPut]
         [Route("{id}")]
         [Authorize(AbpSaasPermissions.Editions.Update)]
