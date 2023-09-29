@@ -78,5 +78,16 @@ namespace Tiger.Volo.Abp.Sass
         {
             return await EditionAppService.UpdateAsync(id, input);
         }
+
+        /// <summary>
+        /// 获取每个版本的租户数量
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("statistics/usage-statistic")]
+        public async Task<List<EditionDto>> GetUsageStatisticAsync()
+        {
+            return await EditionAppService.GetUsageStatisticAsync();
+        }
     }
 }

@@ -130,4 +130,25 @@ public class EditionAppService : AbpSaasAppServiceBase, IEditionAppService
         await CurrentUnitOfWork.SaveChangesAsync();
     }
     #endregion
+
+
+    /// <summary>
+    /// 统计每个版本的租户数量
+    /// </summary>
+    /// <returns></returns>
+    public async virtual Task<List<EditionDto>> GetUsageStatisticAsync()
+    {
+        var editions = await EditionRepository.GetListAsync();
+        var editionList = ObjectMapper.Map<List<Edition>, List<EditionDto>>(editions);
+
+        #region 关联每个版本的租户数量
+        var editionTenantCountDic = await TenantRepository.GetEditionTenantCount();
+        foreach (var edition in editionList)
+        {
+            edition.TenantCount = editionTenantCountDic.GetOrDefault(edition.Id);
+        }
+        #endregion
+
+        return editionList;
+    }
 }

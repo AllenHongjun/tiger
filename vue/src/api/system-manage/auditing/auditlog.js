@@ -34,7 +34,16 @@ export function deleteManyAuditLog(ids) {
 // 获取日志每日请求平均时间
 export function getAuditLogAverageExecutionDurationPerDay(query) {
   return request({
-    url: '/api/audit-logging/audit-logs/entity-changes',
+    url: '/api/audit-logging/audit-logs/average-execution-duration-per-day',
+    method: 'get',
+    params: query
+  })
+}
+
+// 获取日志中的错误率
+export function getAuditLogErrorRate(query) {
+  return request({
+    url: '/api/audit-logging/audit-logs/error-rate',
     method: 'get',
     params: query
   })

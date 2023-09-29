@@ -26,6 +26,14 @@ namespace Volo.Abp.AuditLogging
 
 
         /// <summary>
+        /// 获取日志中的错误率
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        Task<List<ErrorRateDto>> GetErrorRate(DateTime startDate, DateTime endDate);
+
+        /// <summary>
         /// 每日请求平均执行时间
         /// </summary>
         /// <param name="startDate"></param>

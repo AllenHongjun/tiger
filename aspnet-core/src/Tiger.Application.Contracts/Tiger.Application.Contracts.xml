@@ -2745,6 +2745,12 @@
             <param name="dstEditionId">目标版本</param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Editions.IEditionAppService.GetUsageStatisticAsync">
+            <summary>
+            统计每个版本的租户数量
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.Sass.Permissions.AbpSaasPermissions">
             <summary>
             权限定义
@@ -2905,6 +2911,14 @@
             删除多条数据
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.IAuditLogAppService.GetErrorRate(System.DateTime,System.DateTime)">
+            <summary>
+            获取日志中的错误率
+            </summary>
+            <param name="startDate"></param>
+            <param name="endDate"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.AuditLogging.IAuditLogAppService.GetAverageExecutionDurationPerDayAsync(System.DateTime,System.DateTime)">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
@@ -20,4 +21,11 @@ public interface IEditionAppService :
     /// <param name="dstEditionId">目标版本</param>
     /// <returns></returns>
     Task MoveAllTenantAsync(Guid editionId, Guid? dstEditionId);
+
+
+    /// <summary>
+    /// 统计每个版本的租户数量
+    /// </summary>
+    /// <returns></returns>
+    Task<List<EditionDto>> GetUsageStatisticAsync();
 }

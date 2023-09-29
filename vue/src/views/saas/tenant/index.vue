@@ -62,23 +62,23 @@
       </el-table-column>
       <el-table-column :label="$t('AbpTenantManagement[\'Actions\']')" align="left" width="500" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Update')" type="primary" size="mini" @click="handleUpdate(row)">
+          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Update')" type="primary" @click="handleUpdate(row)">
             {{ $t("AbpTenantManagement['Edit']") }}
           </el-button>
           <el-button
             v-if="checkPermission( 'AbpTenantManagement.Tenants.ManageConnectionStrings')"
             type="primary"
-            size="mini"
+            plain
             @click="handleUpdateConnectionString(row)"
           >
             {{
               $t("AbpTenantManagement['Permission:ManageConnectionStrings']")
             }}
           </el-button>
-          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.ManageFeatures')" type="primary" size="mini" @click="handleUpdateFeature(row)">
+          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
             {{ $t("AbpTenantManagement['Permission:ManageFeatures']") }}
           </el-button>
-          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Delete')" size="mini" type="danger" @click="handleDelete(row, $index)">
+          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Delete')" type="danger" @click="handleDelete(row, $index)">
             {{ $t("AbpTenantManagement['Delete']") }}
           </el-button>
         </template>

@@ -6,10 +6,15 @@
 import echarts from 'echarts'
 require('echarts/theme/macarons') // echarts theme
 import resize from './mixins/resize'
+import {
+  getAuditLogAverageExecutionDurationPerDay
+} from '@/api/system-manage/auditing/auditlog'
+import moment from 'moment'
 
 const animationDuration = 6000
 
 export default {
+  name: 'BarChartAvgExecDuration',
   mixins: [resize],
   props: {
     className: {
@@ -32,7 +37,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.initChart()
+      this.fetchData()
     })
   },
   beforeDestroy() {
@@ -43,7 +48,22 @@ export default {
     this.chart = null
   },
   methods: {
-    initChart() {
+    fetchData() {
+      var req = {
+        startDate: '2023-09-22',
+        endDate: '2023-09-30'
+      }
+      getAuditLogAverageExecutionDurationPerDay(req).then(response => {
+        const arrX = []
+        const arrY = []
+        for (const key in response) {
+          arrX.push(moment(key).format('YYYY-MM-DD')) // ------属性
+          arrY.push(Math.floor(response[key] * 100) / 100) // ------属性值
+        }
+        this.initChart(arrX, arrY)
+      })
+    },
+    initChart(arrX, arrY) {
       this.chart = echarts.init(this.$el, 'macarons')
 
       this.chart.setOption({
@@ -62,7 +82,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: arrX,
           axisTick: {
             alignWithLabel: true
           }
@@ -75,29 +95,14 @@ export default {
         }],
         series: [
           {
-            name: 'pageA',
+            name: '平均处理时间(ms)',
             type: 'bar',
             stack: 'vistors',
             barWidth: '60%',
-            data: [79, 52, 200, 334, 390, 330, 220],
-            animationDuration
-          },
-          {
-            name: 'pageB',
-            type: 'bar',
-            stack: 'vistors',
-            barWidth: '60%',
-            data: [80, 52, 200, 334, 390, 330, 220],
-            animationDuration
-          },
-          {
-            name: 'pageC',
-            type: 'bar',
-            stack: 'vistors',
-            barWidth: '60%',
-            data: [30, 52, 200, 334, 390, 330, 220],
+            data: arrY,
             animationDuration
           }
+
         ]
       })
     }

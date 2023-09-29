@@ -25,10 +25,10 @@
               <el-button type="primary" @click="handleUpdate(row)">
                 {{ $t("AbpUi['Edit']") }}
               </el-button>
-              <el-button v-if="checkPermission('AbpSass.Editions.ManageFeatures')" type="primary" size="mini" @click="handleUpdateFeature(row)">
+              <el-button v-if="checkPermission('AbpSass.Editions.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
                 {{ $t("AbpSaas['Permission:ManageFeatures']") }}
               </el-button>
-              <el-button type="primary" @click="handleMoveAllTenant(row)">
+              <el-button type="primary" plain @click="handleMoveAllTenant(row)">
                 {{ $t("AbpSaas['MoveAllTenant']") }}
               </el-button>
               <el-button type="danger" @click="deleteData(row,$index)">

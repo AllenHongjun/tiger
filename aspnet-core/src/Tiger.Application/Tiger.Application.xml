@@ -1147,6 +1147,12 @@
             <param name="dstEditionId">目标版本</param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Editions.EditionAppService.GetUsageStatisticAsync">
+            <summary>
+            统计每个版本的租户数量
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.Sass.Tenants.TenantAppService">
             <summary>
             租户管理
@@ -1282,6 +1288,14 @@
             删除多条日志
             </summary>
             <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetErrorRate(System.DateTime,System.DateTime)">
+            <summary>
+            获取日志中的错误率
+            </summary>
+            <param name="startDate"></param>
+            <param name="endDate"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.AuditLogging.AuditLogAppService.GetAverageExecutionDurationPerDayAsync(System.DateTime,System.DateTime)">

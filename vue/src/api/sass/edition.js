@@ -46,3 +46,10 @@ export function moveAllTenants(editionId, dstEditionId) {
   })
 }
 
+export function getEditionUsageStat() {
+  return request({
+    url: '/api/saas/editions/statistics/usage-statistic',
+    method: 'get'
+  })
+}
+

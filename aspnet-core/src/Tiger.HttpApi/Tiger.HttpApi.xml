@@ -1084,6 +1084,12 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="M:Tiger.Volo.Abp.Sass.EditionController.GetUsageStatisticAsync">
+            <summary>
+            获取每个版本的租户数量
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Volo.Abp.Sass.TenantController">
             <summary>
             租户
@@ -1184,6 +1190,14 @@
             获取实体变更及操作人明细
             </summary>
             <param name="entityChangeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.AuditLogging.AuditLogController.GetErrorRate(System.DateTime,System.DateTime)">
+            <summary>
+            日志中的错误率
+            </summary>
+            <param name="startDate"></param>
+            <param name="endDate"></param>
             <returns></returns>
         </member>
         <member name="T:Volo.Abp.Identity.OrganizationUnitController">

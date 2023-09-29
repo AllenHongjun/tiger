@@ -11,6 +11,7 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.Data;
 using Tiger.Volo.Abp.Sass.Permissions;
 using Tiger.Volo.Abp.Sass.MultiTenancy;
+using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Sass.Tenants;
 
@@ -116,6 +117,7 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
 
         await TenantRepository.InsertAsync(tenant);
 
+        // TODO: 租户创建时间订阅
         CurrentUnitOfWork.OnCompleted(async () =>
         {
             var createEventData = new CreateEventData
@@ -128,6 +130,10 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
             };
             // 因为项目各自独立，租户增加时添加管理用户必须通过事件总线
             // 而 TenantEto 对象没有包含所需的用户名密码，需要独立发布事件
+
+            // TODO: 租户创建时间在哪里订阅?
+
+            // TODO: 创建租户的默认管理员账号密码 默认 admin
             await EventBus.PublishAsync(createEventData);
         });
 
@@ -135,6 +141,50 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
 
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
+
+
+
+    //#region 创建租户管理员的订阅程序
+    //private async Task SeedTenantAdminAsync(CreateEventData eventData)
+    //{
+    //    const string tenantAdminUserName = "admin";
+    //    const string tenantAdminRoleName = "admin";
+    //    var tenantAdminRoleId = Guid.Empty; ;
+
+    //    if (!await IdentityRoleManager.RoleExistsAsync(tenantAdminRoleName))
+    //    {
+    //        tenantAdminRoleId = GuidGenerator.Create();
+    //        var tenantAdminRole = new IdentityRole(tenantAdminRoleId, tenantAdminRoleName, eventData.Id)
+    //        {
+    //            IsStatic = true,
+    //            IsPublic = true
+    //        };
+    //        (await IdentityRoleManager.CreateAsync(tenantAdminRole)).CheckErrors();
+    //    }
+    //    else
+    //    {
+    //        var tenantAdminRole = await IdentityRoleManager.FindByNameAsync(tenantAdminRoleName);
+    //        tenantAdminRoleId = tenantAdminRole.Id;
+    //    }
+
+    //    var tenantAdminUser = await IdentityUserManager.FindByNameAsync(eventData.AdminEmailAddress);
+    //    if (tenantAdminUser == null)
+    //    {
+    //        tenantAdminUser = new IdentityUser(
+    //            eventData.AdminUserId,
+    //            tenantAdminUserName,
+    //            eventData.AdminEmailAddress,
+    //            eventData.Id);
+
+    //        tenantAdminUser.AddRole(tenantAdminRoleId);
+
+    //        // 创建租户管理用户
+    //        (await IdentityUserManager.CreateAsync(tenantAdminUser)).CheckErrors();
+    //        (await IdentityUserManager.AddPasswordAsync(tenantAdminUser, eventData.AdminPassword)).CheckErrors();
+    //    }
+    //} 
+    //#endregion
+
 
     /// <summary>
     /// 更新租户信息

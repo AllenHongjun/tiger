@@ -12,17 +12,20 @@
     <el-row :gutter="32">
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <pie-chart :chart-data="lineChartData" />
+          <!-- <pie-chart :chart-data="lineChartData" /> -->
+          <pie-chart-error-rate />
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <bar-chart />
+          <!-- <bar-chart /> -->
+          <bar-chart-avg-exec-duration />
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
-          <raddar-chart />
+          <!-- <raddar-chart /> -->
+          <pie-chart-edition-usage-stat />
         </div>
       </el-col>
     </el-row>
@@ -35,8 +38,11 @@ import GithubCorner from '@/components/GithubCorner'
 import PanelGroup from './components/PanelGroup'
 import LineChart from './components/LineChart'
 import RaddarChart from './components/RaddarChart'
-import PieChart from './components/PieChart'
+import PieChart from './components/PieChart' // BarChartAvgExecDuration
+import PieChartErrorRate from './components/PieChartErrorRate.vue' // BarChartAvgExecDuration
 import BarChart from './components/BarChart'
+import BarChartAvgExecDuration from './components/BarChartAvgExecDuration.vue'
+import PieChartEditionUsageStat from './components/PieChartEditionUsageStat.vue'
 import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
@@ -70,6 +76,9 @@ export default {
     RaddarChart,
     PieChart,
     BarChart,
+    PieChartErrorRate,
+    BarChartAvgExecDuration,
+    PieChartEditionUsageStat,
     TransactionTable,
     TodoList,
     BoxCard

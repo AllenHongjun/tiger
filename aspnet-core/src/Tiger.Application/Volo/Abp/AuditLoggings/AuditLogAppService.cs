@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger;
@@ -138,6 +140,27 @@ namespace Volo.Abp.AuditLogging
             }
         }
 
+
+        /// <summary>
+        /// 获取日志中的错误率
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
+        public virtual async Task<List<ErrorRateDto>> GetErrorRate(DateTime startDate, DateTime endDate)
+        {
+            var errorCount = await AuditLogRepository.GetCountAsync(startTime: startDate, endTime: endDate,hasException:true);
+            var successCount = await AuditLogRepository.GetCountAsync( startTime: startDate, endTime: endDate, hasException: false);
+            List<ErrorRateDto> result = new List<ErrorRateDto>
+            {
+                new ErrorRateDto { name = "Success", value = successCount },
+                new ErrorRateDto { name = "Error", value = errorCount }
+            };
+            return result;
+        }
+
+        
 
         /// <summary>
         /// 每日请求平均执行时间

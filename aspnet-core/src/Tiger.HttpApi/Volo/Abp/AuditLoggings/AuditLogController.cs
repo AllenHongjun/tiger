@@ -139,7 +139,20 @@ namespace Volo.Abp.AuditLogging
         public async Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
         {
             return await AuditLogAppService.GetEntityChangeWithUsernameAsync(entityChangeId);
-        } 
+        }
+
+        /// <summary>
+        /// 日志中的错误率
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("error-rate")]
+        public async Task<List<ErrorRateDto>> GetErrorRate(DateTime startDate, DateTime endDate)
+        {
+            return await AuditLogAppService.GetErrorRate(startDate, endDate);
+        }
         #endregion
     }
 }
