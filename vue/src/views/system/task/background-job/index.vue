@@ -269,16 +269,16 @@
             </el-row>
 
             <el-row>
-              <el-col :span="12">
+              <el-col :span="24">
                 <div class="grid-content">
-                  <el-form-item v-if="temp.jobType === JobType.Period" :label="$t('TaskManagement[\'DisplayName:Cron\']')" prop="cron">
-                    <el-input v-model="temp.cron" />
+                  <el-form-item v-if="temp.jobType === JobType.Period" :label="$t('TaskManagement[\'DisplayName:Cron\']')" prop="cron" :inline="true">
+                    <el-input v-model="temp.cron" style="width:200px;" />
+                    <el-button type="primary" @click="showDialog">生成 cron</el-button>
                   </el-form-item>
                 </div>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="24">
                 <div class="grid-content">
-
                   <el-form-item v-if="temp.jobType !== JobType.Period" :label="$t('TaskManagement[\'DisplayName:Interval\']')" prop="interval">
                     <el-input-number v-model="temp.interval" :min="0" />
                   </el-form-item>
@@ -354,6 +354,10 @@
 
     </el-dialog>
 
+    <el-dialog title="生成 cron" :visible.sync="showCron" top="7vh">
+      <vcrontab :expression="expression" @hide="showCron=false" @fill="crontabFill" />
+    </el-dialog>
+
     <job-detail ref="jobDetail" name="" />
 
   </div>
@@ -370,6 +374,7 @@ import {
   bulkOperateBackgroundJob
 } from '@/api/system-manage/task/background-job'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import vcrontab from 'vcrontab'
 import JobDetail from './components/JobDetail'
 import JobParamter from './components/JobParamter.vue'
 import JobAction from './components/JobAction.vue'
@@ -450,6 +455,7 @@ export default {
   name: 'BackgroundJobs',
   components: {
     Pagination,
+    vcrontab, // vue 的 cron 组件 https://github.com/small-stone/vCrontab
     JobDetail,
     JobParamter,
     JobAction
@@ -509,6 +515,8 @@ export default {
         endTime: undefined,
         source: 0
       },
+      expression: '',
+      showCron: false,
       activeName: 'first',
       dialogFormVisible: false,
       dialogStatus: '',
@@ -699,8 +707,6 @@ export default {
     // 点击创建按钮
     handleCreate() {
       this.resetTemp()
-      // this.$options.data()是vue实例初始化时的data数据，只读属性
-      // this.temp = this.$options.data.temp
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
 
@@ -726,7 +732,14 @@ export default {
         }
       })
     },
-
+    crontabFill(value) {
+      // 确定后回传的值
+      this.temp.cron = value
+    },
+    showDialog() {
+      this.expression = this.temp.cron// 传入的 cron 表达式，可以反解析到 UI 上
+      this.showCron = true
+    },
     // 更新按钮点击
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj

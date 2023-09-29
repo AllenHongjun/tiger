@@ -4221,7 +4221,7 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-e-icon-picker@^1.1.7:
+e-icon-picker@^1.1.6:
   version "1.1.7"
   resolved "https://registry.npmmirror.com/e-icon-picker/-/e-icon-picker-1.1.7.tgz"
   integrity sha512-pDQ9DxUEAFd1XDhuOt4dtb2ymHI1GHv9Qh1/AfbkFiz99vzbg8m9F2lLxmBd4m6d/nKqdJ/S0REwjcwCI+GWQA==
@@ -4276,7 +4276,7 @@ electron-to-chromium@^1.3.830:
   resolved "https://registry.nlark.com/electron-to-chromium/download/electron-to-chromium-1.3.836.tgz?cache=0&sync_timestamp=1631311571799&other_urls=https%3A%2F%2Fregistry.nlark.com%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.836.tgz"
   integrity sha1-gjy5yY8oxkxnOSDxyQ6jgmWW6vk=
 
-element-ui@^2.12.0, element-ui@^2.13.2, element-ui@^2.15.13, element-ui@^2.15.6:
+element-ui@^2.12.0, element-ui@^2.13.2, element-ui@^2.15.13, element-ui@^2.15.6, element-ui@^2.4.11:
   version "2.15.13"
   resolved "https://registry.npmmirror.com/element-ui/-/element-ui-2.15.13.tgz"
   integrity sha512-LJoatEYX6WV74FqXBss8Xfho9fh9rjDSzrDrTyREdGb1h1R3uRvmLh5jqp2JU137aj4/BgqA3K06RQpQBX33Bg==
@@ -11376,6 +11376,14 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.nlark.com/vary/download/vary-1.1.2.tgz"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vcrontab@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.npmmirror.com/vcrontab/-/vcrontab-0.3.5.tgz"
+  integrity sha512-RMNrDFhsO68BEtdUwtKgtPAvaQIlXmAJ9MrqFLgWBedhlolLclm3kBwlQx4lpN8DlnascCkVcBiGDr+XXQqTpQ==
+  dependencies:
+    element-ui "^2.4.11"
+    vue "^2.5.17"
 
 vendors@^1.0.0:
   version "1.0.4"
