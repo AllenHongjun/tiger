@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users.Dto;
+using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.DependencyInjection;
@@ -54,5 +55,10 @@ namespace Tiger.Volo.Abp.Identity.Users
         Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input);
         Task LockAsync(Guid id, int seconds);
         Task UnlockAsync(Guid id);
+
+        Task<ListResultDto<IdentityUserClaimDto>> GetClaimsAsync(Guid id);
+        Task AddClaimAsync(Guid id, IdentityUserClaimCreateDto input);
+        Task UpdateClaimAsync(Guid id, IdentityUserClaimUpdateDto input);
+        Task DeleteClaimAsync(Guid id, IdentityUserClaimDeleteDto input);
     }
 }

@@ -21,7 +21,7 @@ namespace Tiger.Volo.Abp.Identity.Roles
         /// <param name="targetRoleId"></param>
         /// <param name="cancelAssign"></param>
         /// <returns></returns>
-        Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign);
+        Task MoveAllUsers(Guid roleId, Guid? targetRoleId);
 
 
         /// <summary>

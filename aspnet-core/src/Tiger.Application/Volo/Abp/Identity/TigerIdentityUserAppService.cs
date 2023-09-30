@@ -172,17 +172,17 @@ namespace Tiger.Volo.Abp.Identity
 
         #region Claim
 
-        public async virtual Task<ListResultDto<IdentityClaimDto>> GetClaimsAsync(Guid id)
+        public async virtual Task<ListResultDto<IdentityUserClaimDto>> GetClaimsAsync(Guid id)
         {
-            var user = await UserManager.GetByIdAsync(id);
+            var user = await UserRepository.GetAsync(id);
 
-            return new ListResultDto<IdentityClaimDto>(ObjectMapper.Map<ICollection<IdentityUserClaim>, List<IdentityClaimDto>>(user.Claims));
+            return new ListResultDto<IdentityUserClaimDto>(ObjectMapper.Map<ICollection<IdentityUserClaim>, List<IdentityUserClaimDto>>(user.Claims));
         }
 
         [Authorize(TigerIdentityPermissions.Users.ManageClaims)]
         public async virtual Task AddClaimAsync(Guid id, IdentityUserClaimCreateDto input)
         {
-            var user = await UserManager.GetByIdAsync(id);
+            var user = await UserRepository.GetAsync(id);
             var claim = new Claim(input.ClaimType, input.ClaimValue);
             if (user.FindClaim(claim) != null)
             {
@@ -209,7 +209,7 @@ namespace Tiger.Volo.Abp.Identity
         [Authorize(TigerIdentityPermissions.Users.ManageClaims)]
         public async virtual Task DeleteClaimAsync(Guid id, IdentityUserClaimDeleteDto input)
         {
-            var user = await UserManager.GetByIdAsync(id);
+            var user = await UserRepository.GetAsync(id);
             user.RemoveClaim(new Claim(input.ClaimType, input.ClaimValue));
             (await UserManager.UpdateAsync(user)).CheckErrors();
 

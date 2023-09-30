@@ -33,6 +33,19 @@
     "Menu:Documentation": "文档",
     "Menu:Administration": "管理",
 
+    "Menu:Notice": "通知管理",
+    "Menu:Monitor": "运维监控",
+    "Menu:ServerMonitor": "主机信息",
+    "Menu:CacheMonitor": "缓存监控",
+    "Menu:CacheManage": "缓存管理",
+    "Menu:CacheTable": "缓存列表",
+    "Menu:Infrastructure": "缓存列表",
+    "Menu:SwaggerApi": "接口文档",
+    "Menu:BackgroundJob": "后台作业",
+    "Menu:BackgroundWorkerCrystal": "定时任务",
+    "Menu:CodeGeneration": "代码生成",
+    "Menu:Vfrom": "表单构建",
+
 
     "AbpAuditLogging": "审计日志",
 

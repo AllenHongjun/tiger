@@ -39,6 +39,13 @@ export function deleteRole(id) {
   })
 }
 
+export function moveAllUsers(roleId, targetRoleId) {
+  return request({
+    url: `/api/identity/roles/${roleId}/move-all-users/${targetRoleId}`,
+    method: 'put'
+  })
+}
+
 export function createRoleToOrg(payload) {
   return request({
     url: '/api/identity/roles/create-to-organization',

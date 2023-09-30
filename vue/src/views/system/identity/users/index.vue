@@ -265,6 +265,8 @@
       </div>
     </el-dialog>
 
+    <user-claim ref="claimTypeDialog" />
+
     <!-- 重置密码对话框 -->
     <el-dialog :title="$t('AbpIdentity[\'Users:ChangePassword\']')" :visible.sync="dialogChangePasswordFormVisible" width="30%">
       <el-form ref="changePasswordForm" :rules="rules" :model="changePasswordForm" label-width="80px" label-position="right">
@@ -292,7 +294,6 @@
         <el-button type="primary" @click="lock()">{{ $t("AbpIdentity['Save']") }}</el-button>
       </div>
     </el-dialog>
-    <claim ref="claimTypeDialog" />
     <permission-dialog ref="permissionDialog" provider-name="U" />
   </div>
 </template>
@@ -319,6 +320,10 @@ import {
 
 import baseListQuery from '@/utils/abp'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import UserClaim from './components/UserClaim.vue'
+import PermissionDialog from '../components/permission-dialog'
+import OrgTree from '../components/org-tree'
+
 import {
   pickerRangeWithHotKey
 } from '@/utils/picker'
@@ -327,15 +332,12 @@ import {
   validEmail,
   validPhone
 } from '@/utils/validate'
-import Claim from '../components/Claim.vue'
-import PermissionDialog from '../components/permission-dialog'
-import OrgTree from '../components/org-tree'
 
 export default {
   name: 'User',
   components: {
     Pagination,
-    Claim,
+    UserClaim,
     PermissionDialog,
     OrgTree
   },

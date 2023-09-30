@@ -2631,7 +2631,7 @@
             <param name="roleInput"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.Roles.ITigerIdentityRoleAppService.MoveAllUsers(System.Guid,System.Guid,System.Boolean)">
+        <member name="M:Tiger.Volo.Abp.Identity.Roles.ITigerIdentityRoleAppService.MoveAllUsers(System.Guid,System.Nullable{System.Guid})">
             <summary>
             移动当前角色用户到目标角色
             </summary>

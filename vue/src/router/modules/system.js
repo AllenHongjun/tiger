@@ -263,7 +263,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/notice/list'), // Parent router-view
       name: 'notice-list',
       meta: {
-        title: '通知', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'TigerUi["Menu:Notice"]', // the name show in sidebar and breadcrumb (recommend set)
         icon: 'el-icon-message' // the icon show in the sidebar
         // policy: 'Auditing.AuditingLog'
       }
@@ -275,7 +275,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/monitor/index'), // Parent router-view
       name: 'monitor',
       meta: {
-        title: '运维监控',
+        title: 'TigerUi["Menu:Monitor"]',
         icon: 'el-icon-monitor'
         // policy: 'SettingUi.ShowSettingPage'
       },
@@ -285,7 +285,7 @@ const SystemManageRouter = {
           name: 'server-monitoring',
           component: () => import('@/views/system/monitor/server/index'),
           meta: {
-            title: '主机信息',
+            title: 'TigerUi["Menu:ServerMonitor"]',
             icon: 'el-icon-s-platform'
             // policy: 'SettingUi.ShowSettingPage'
           }
@@ -295,7 +295,7 @@ const SystemManageRouter = {
           name: 'cache-monitoring',
           component: () => import('@/views/system/monitor/cache/index'),
           meta: {
-            title: '缓存监控',
+            title: 'TigerUi["Menu:CacheMonitor"]',
             icon: 'pc-monitor'
             // policy: 'SettingUi.ShowSettingPage'
           }
@@ -305,7 +305,7 @@ const SystemManageRouter = {
           name: 'cache-manage',
           component: () => import('@/views/system/monitor/cache/manage'),
           meta: {
-            title: '缓存管理',
+            title: 'TigerUi["Menu:CacheManage"]',
             icon: 'Redis'
             // policy: 'SettingUi.ShowSettingPage'
           }
@@ -315,7 +315,7 @@ const SystemManageRouter = {
           name: 'cache-table',
           component: () => import('@/views/system/monitor/cache/table'),
           meta: {
-            title: '缓存列表',
+            title: 'TigerUi["Menu:CacheTable"]',
             icon: 'Redis'
             // policy: 'SettingUi.ShowSettingPage'
           }
@@ -328,7 +328,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/infrastructure/index'), // Parent router-view
       name: 'infrastructure',
       meta: {
-        title: '基础设施',
+        title: 'TigerUi["Menu:Infrastructure"]',
         icon: 'el-icon-user-solid',
         policy: ''
       },
@@ -338,7 +338,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/infrastructure/swagger-api/index'), // Parent router-view,
           name: 'swagger-api',
           meta: {
-            title: '接口文档',
+            title: 'TigerUi["Menu:SwaggerApi"]',
             icon: 'el-icon-notebook-1',
             policy: 'SettingUi.ShowSettingPage'
           }
@@ -348,7 +348,7 @@ const SystemManageRouter = {
           component: Layout, // Parent router-view,
           name: 'background-job',
           meta: {
-            title: '后台作业',
+            title: 'TigerUi["Menu:BackgroundJob"]',
             icon: 'el-icon-message',
             policy: 'SettingUi.ShowSettingPage'
           }
@@ -358,7 +358,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/infrastructure/crystal-quartz/index'), // Parent router-view,
           name: 'background-worker-crystal',
           meta: {
-            title: '定时任务',
+            title: 'TigerUi["Menu:BackgroundWorkerCrystal"]',
             icon: 'el-icon-timer',
             policy: 'SettingUi.ShowSettingPage'
           }
@@ -368,7 +368,7 @@ const SystemManageRouter = {
           component: Layout,
           name: 'code-generation',
           meta: {
-            title: '代码生成',
+            title: 'TigerUi["Menu:CodeGeneration"]',
             icon: 'el-icon-notebook-1',
             policy: 'SettingUi.ShowSettingPage'
           }
@@ -378,7 +378,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/infrastructure/vfrom2/index'),
           name: 'vfrom',
           meta: {
-            title: '表单构建',
+            title: 'TigerUi["Menu:Vfrom"]',
             icon: 'el-icon-notebook-1'
             // policy: 'SettingUi.ShowSettingPage'
           }

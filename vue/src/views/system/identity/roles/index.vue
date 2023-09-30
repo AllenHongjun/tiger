@@ -46,6 +46,9 @@
               <el-button v-if="checkPermission('AbpIdentity.Roles.ManagePermissions')" type="success" plain @click="handleUpdatePermission(scope.row)">
                 {{ $t("AbpIdentity['Permissions']") }}
               </el-button>
+              <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" plain @click="handleMoveAllUsers(scope.row)">
+                {{ $t("AbpIdentity['MoveAllUsers']") }}
+              </el-button>
               <el-button v-if="!scope.row.isStatic && checkPermission('AbpIdentity.Roles.Delete')" type="danger" @click="deleteData(scope.row)">
                 {{ $t("AbpIdentity['Delete']") }}
               </el-button>
@@ -72,7 +75,34 @@
             <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">{{ $t("AbpIdentity['Save']") }}</el-button>
           </div>
         </el-dialog>
-        <claim ref="claimTypeDialog" />
+
+        <!-- 移动所有用户 -->
+        <el-dialog :title="$t('AbpIdentity[\'MoveAllUsers\']')" :visible.sync="moveUserDialogVisible">
+          <el-form :model="temp" label-width="120px" label-position="right">
+            <el-form-item prop="displayName">
+              <span slot="label">
+                <el-tooltip :content="$t('AbpIdentity[\'MoveAllUsersTips\']')" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                {{ $t('AbpIdentity[\'RoleName\']') }}
+              </span>
+              <el-select v-model="targetRoleId" placeholder="请选择">
+                <el-option
+                  v-for="item in roleOptions"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div style="text-align: right">
+            <el-button type="danger" @click="moveUserDialogVisible = false">{{ $t("AbpUi['Cancel']") }}</el-button>
+            <el-button type="primary" @click="moveAllUsersData()">{{ $t("AbpUi['Save']") }}</el-button>
+          </div>
+        </el-dialog>
+
+        <role-claim ref="claimTypeDialog" />
         <permission-dialog ref="permissionDialog" provider-name="R" />
       </el-col>
     </el-row>
@@ -84,7 +114,8 @@ import {
   getRoleList,
   deleteRole,
   createRole,
-  updateRole
+  updateRole,
+  moveAllUsers
 } from '@/api/system-manage/identity/role'
 import {
   checkPermission
@@ -92,14 +123,14 @@ import {
 
 import baseListQuery from '@/utils/abp'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
-import Claim from '../components/Claim.vue'
 import PermissionDialog from '../components/permission-dialog'
+import RoleClaim from './components/RoleClaim.vue'
 
 export default {
   name: 'Role',
   components: {
     Pagination,
-    Claim,
+    RoleClaim,
     PermissionDialog
   },
   data() {
@@ -112,6 +143,9 @@ export default {
       dialogStatus: '',
       dialogFormVisible: false,
       claimTypeDialogFormVisible: false,
+      moveUserDialogVisible: false,
+      targetRoleId: undefined,
+      roleOptions: [],
       temp: {
         id: '',
         name: '',
@@ -146,6 +180,15 @@ export default {
   },
   methods: {
     checkPermission,
+    fetchRoleOptions() {
+      var req = {
+        page: 1,
+        limit: 1000
+      }
+      getRoleList(req).then(response => {
+        this.roleOptions = response.items
+      })
+    },
     fetchData() {
       this.listLoading = true
       getRoleList(this.listQuery).then((response) => {
@@ -205,7 +248,6 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
-      // this.temp.timestamp = new Date(this.temp.timestamp)
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -229,8 +271,29 @@ export default {
         }
       })
     },
+    handleMoveAllUsers(row) {
+      if (row.extraProperties.UserCount <= 0) {
+        this.$message.error(this.$i18n.t('AbpIdentity[\'NoUserFoundInRole\']'))
+        return
+      }
+      this.fetchRoleOptions()
+
+      this.temp = Object.assign({}, row) // copy obj
+      this.moveUserDialogVisible = true
+    },
+    moveAllUsersData() {
+      moveAllUsers(this.temp.id, this.targetRoleId).then(() => {
+        this.handleFilter()
+        this.moveUserDialogVisible = false
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
+        })
+      })
+    },
     deleteData(row) {
-      debugger
       this.$confirm(
         // 消息
         this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [

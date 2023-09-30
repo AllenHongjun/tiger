@@ -46,6 +46,7 @@ namespace Tiger.Volo.Abp.Identity
 
 
         #region Roles
+
         [Authorize(IdentityPermissions.Roles.Default)]
         public  async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
         {
@@ -126,9 +127,9 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="cancelAssign"></param>
         /// <returns></returns>
         [Authorize(IdentityPermissions.Roles.Default)]
-        public virtual async  Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign)
+        public virtual async  Task MoveAllUsers(Guid roleId, Guid? targetRoleId)
         {
-            await TigerIdentityRoleRepository.MoveAllUsersAsync(roleId, targetRoleId, cancelAssign);
+            await TigerIdentityRoleRepository.MoveAllUsersAsync(roleId, targetRoleId);
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 

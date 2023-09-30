@@ -65,7 +65,7 @@ import {
 } from '@/api/system-manage/identity/claim-type'
 
 export default {
-  name: 'Claim',
+  name: 'RoleClaim',
   props: {
     // dialogFormVisible: {
     //   type: Boolean,

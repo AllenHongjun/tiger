@@ -35,7 +35,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="targetRoleId">目标角色id</param>
         /// <param name="cancelAssign">取消分配用户</param>
         /// <returns></returns>
-        Task MoveAllUsersAsync(Guid roleId, Guid targetRoleId, bool cancelAssign);
+        Task MoveAllUsersAsync(Guid roleId, Guid? targetRoleId);
 
 
         /// <summary>

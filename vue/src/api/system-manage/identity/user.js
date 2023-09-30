@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import qs from 'querystring'
 import { transformAbpListQuery } from '@/utils/abp'
 
 // user
@@ -64,6 +63,38 @@ export function deleteUser(id) {
   })
 }
 
+// 用户声明
+export function getUserClaims(userId) {
+  return request({
+    url: `/api/identity/users/${userId}/claims`,
+    method: 'get'
+  })
+}
+
+export function createUserClaim(userId, payload) {
+  return request({
+    url: `/api/identity/users/${userId}/create-claim`,
+    method: 'post',
+    data: payload
+  })
+}
+
+export function updateUserClaim(userId, payload) {
+  return request({
+    url: `/api/identity/users/${userId}/update-claim`,
+    method: 'put',
+    data: payload
+  })
+}
+
+export function deleteUserClaim(userId, payload) {
+  return request({
+    url: `/api/identity/users/${userId}/delete-claim`,
+    method: 'post',
+    data: payload
+  })
+}
+
 // 添加用户同时关联组织机构
 export function createUserToOrg(payload) {
   return request({
@@ -83,17 +114,17 @@ export function updateUserToOrg(payload) {
 }
 
 // 根据用户id获取关联的角色
-export function getRolesByUserId(id) {
+export function getUsersByUserId(id) {
   return request({
-    url: `/api/identity/users/${id}/roles`,
+    url: `/api/identity/users/${id}/users`,
     method: 'get'
   })
 }
 
 //
-export function getAssignableRoles() {
+export function getAssignableUsers() {
   return request({
-    url: '/api/identity/users/assignable-roles',
+    url: '/api/identity/users/assignable-users',
     method: 'get'
   })
 }

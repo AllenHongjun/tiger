@@ -21,8 +21,13 @@
     "Menu:IdentityManagement": "身份标识",
     "Search": "搜索",
     "Reset": "重置",
+
     "Users:ChangePassword": "重置密码",
     "UserCount": "用户数量",
+
+    "NoUserFoundInRole": "该角色没有包含用户!",
+    "MoveAllUsers": "移动所有用户",
+    "MoveAllUsersTips": "移动所有用户到指定的角色",
 
 
     "OrganizationUnits": "组织",

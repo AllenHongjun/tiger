@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users;
 using Tiger.Volo.Abp.Identity.Users.Dto;
+using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
@@ -139,6 +140,35 @@ namespace Tiger.Volo.Abp.Identity
             return (_userAppService.UnlockAsync(id));
         }
 
-        
+        #region UserClaims
+
+        [HttpGet]
+        [Route("{id}/claims")]
+        public async Task<ListResultDto<IdentityUserClaimDto>> GetClaimsAsync(Guid id)
+        {
+            return await _userAppService.GetClaimsAsync(id);
+        }
+
+        [HttpPost]
+        [Route("{id}/create-claim")]
+        public async Task AddClaimAsync(Guid id, IdentityUserClaimCreateDto input)
+        {
+            await _userAppService.AddClaimAsync(id, input);
+        }
+
+        [HttpPut]
+        [Route("{id}/update-claim")]
+        public async Task UpdateClaimAsync(Guid id, IdentityUserClaimUpdateDto input)
+        {
+            await _userAppService.UpdateClaimAsync(id, input);
+        }
+
+        [HttpPost]
+        [Route("{id}/delete-claim")]
+        public async Task DeleteClaimAsync(Guid id, IdentityUserClaimDeleteDto input)
+        {
+            await _userAppService.DeleteClaimAsync(id, input);
+        } 
+        #endregion
     }
 }

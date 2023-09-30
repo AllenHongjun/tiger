@@ -11,6 +11,11 @@
     "Menu:IdentityManagement": "Identity",
 
     "UserCount": "User Count",
+
+    "NoUserFoundInRole": "This role does not contain any users!",
+    "MoveAllUsers": "Move all users",
+    "MoveAllUsersTips": "Move user to specified role",
+
     "OrganizationUnits": "Organization",
     "OrganizationUnit:Tree": "Organization tree",
     "OrganizationUnit:New": "Add New",

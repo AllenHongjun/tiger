@@ -161,7 +161,6 @@ export default {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
-
         this.editionOptions = response.items
       })
     },

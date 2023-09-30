@@ -65,13 +65,12 @@ namespace Volo.Abp.Identity
         /// </summary>
         /// <param name="roleId"></param>
         /// <param name="targetRoleId"></param>
-        /// <param name="cancelAssign"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("{roleId}/move-all-users")]
-        public async Task MoveAllUsers(Guid roleId, Guid targetRoleId, bool cancelAssign)
+        [Route("{roleId}/move-all-users/{targetRoleId}")]
+        public async Task MoveAllUsers(Guid roleId, Guid? targetRoleId)
         {
-            await RoleAppService.MoveAllUsers(roleId, targetRoleId, cancelAssign);
+            await RoleAppService.MoveAllUsers(roleId, targetRoleId);
         }
 
         #region 角色关联组织

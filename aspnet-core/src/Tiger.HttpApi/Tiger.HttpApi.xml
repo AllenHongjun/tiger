@@ -1405,13 +1405,12 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.MoveAllUsers(System.Guid,System.Guid,System.Boolean)">
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.MoveAllUsers(System.Guid,System.Nullable{System.Guid})">
             <summary>
             移动当前角色用户到目标角色
             </summary>
             <param name="roleId"></param>
             <param name="targetRoleId"></param>
-            <param name="cancelAssign"></param>
             <returns></returns>
         </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.AddToOrganizationUnitAsync(System.Guid,System.Guid)">

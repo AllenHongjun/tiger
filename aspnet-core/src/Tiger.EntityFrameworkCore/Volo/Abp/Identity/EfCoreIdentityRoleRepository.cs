@@ -57,14 +57,14 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="targetRoleId">目标角色id</param>
         /// <param name="cancelAssign">取消分配用户</param>
         /// <returns></returns>
-        public  async Task MoveAllUsersAsync(Guid roleId, Guid targetRoleId, bool cancelAssign)
+        public  async Task MoveAllUsersAsync(Guid roleId, Guid? targetRoleId)
         {
-            var users = await DbContext.Set<IdentityUser>()
+            var users = await DbContext.Set<IdentityUser>().IncludeDetails()
                .Where(x => x.Roles.Any(role => role.RoleId == roleId) ).ToListAsync();
             foreach (var user in users)
             {
                 user.RemoveRole(roleId);
-                if (!cancelAssign) user.AddRole(targetRoleId);
+                if (targetRoleId.HasValue) user.AddRole(targetRoleId.Value);
             }
         }
 
