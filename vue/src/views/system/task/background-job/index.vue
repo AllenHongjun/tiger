@@ -3,7 +3,6 @@
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="queryForm">
         <el-row :gutter="20">
-
           <el-col :span="4">
             <el-form-item prop="filter" label="查询关键字">
               <el-input v-model="queryForm.filter" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
@@ -11,7 +10,14 @@
           </el-col>
           <el-col :span="4">
             <el-form-item prop="group" :label="$t('TaskManagement[\'DisplayName:Group\']')">
-              <el-input v-model="queryForm.group" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" />
+              <el-select v-model="queryForm.group" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" filterable="" clearable="">
+                <el-option
+                  v-for="item in backgroundJobGroupOptions"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
 
@@ -201,8 +207,15 @@
             <el-row>
               <el-col :span="12">
                 <div class="grid-content">
-                  <el-form-item :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="group">
-                    <el-input v-model="temp.group" :disabled="isEditModal" />
+                  <el-form-item prop="group" :label="$t('TaskManagement[\'DisplayName:Group\']')">
+                    <el-select v-model="temp.group" :placeholder="$t('AbpAuditLogging[\'PlaceholderInput\']')" :disabled="isEditModal" filterable clearable @blur="jobGroupSelectBlur($event)">
+                      <el-option
+                        v-for="item in backgroundJobGroupOptions"
+                        :key="item"
+                        :label="item"
+                        :value="item"
+                      />
+                    </el-select>
                   </el-form-item>
                 </div>
               </el-col>
@@ -279,8 +292,14 @@
               </el-col>
               <el-col :span="24">
                 <div class="grid-content">
-                  <el-form-item v-if="temp.jobType !== JobType.Period" :label="$t('TaskManagement[\'DisplayName:Interval\']')" prop="interval">
+                  <el-form-item v-if="temp.jobType === JobType.Persistent" :label="$t('TaskManagement[\'DisplayName:Interval\']')" prop="interval" :inline="true">
                     <el-input-number v-model="temp.interval" :min="0" />
+                    <el-button-group style="margin-left:10px;vertical-align: top;">
+                      <el-button type="primary" plain @click="setTaskInterval(15)">15分钟</el-button>
+                      <el-button type="primary" plain @click="setTaskInterval(30)">30分钟</el-button>
+                      <el-button type="primary" plain @click="setTaskInterval(60)">1小时</el-button>
+                      <el-button type="primary" plain @click="setTaskInterval(300)">5小时</el-button>
+                    </el-button-group>
                   </el-form-item>
                 </div>
               </el-col>
@@ -365,6 +384,7 @@
 
 <script>
 import {
+  getBackgroundJobGroups,
   getBackgroundJobs,
   getBackgroundJob,
   createBackgroundJob,
@@ -373,6 +393,14 @@ import {
   operateBackgroundJob,
   bulkOperateBackgroundJob
 } from '@/api/system-manage/task/background-job'
+import {
+  JobPriorityMap,
+  JobPriorityType,
+  JobStatusMap,
+  JobStatusType,
+  JobType,
+  JobTypeMap
+} from './datas/typing'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import vcrontab from 'vcrontab'
 import JobDetail from './components/JobDetail'
@@ -389,68 +417,6 @@ import {
   parseTime
 } from '@/utils'
 
-const JobPriority = {
-  Low: 5,
-  BelowNormal: 10,
-  Normal: 0xF,
-  AboveNormal: 20,
-  High: 25
-}
-
-const JobType = {
-  Once: 0,
-  Period: 1,
-  Persistent: 2
-}
-
-const JobTypeMap = {
-  [JobType.Once]: '一次性的',
-  [JobType.Period]: '周期性的',
-  [JobType.Persistent]: '持续性的'
-}
-
-const JobPriorityMap = {
-  [JobPriority.Low]: 'Low',
-  [JobPriority.BelowNormal]: 'BelowNormal',
-  [JobPriority.Normal]: 'Normal',
-  [JobPriority.AboveNormal]: 'AboveNormal',
-  [JobPriority.High]: 'High'
-}
-
-const JobPriorityType = {
-  [JobPriority.Low]: 'info',
-  [JobPriority.BelowNormal]: 'warning',
-  [JobPriority.Normal]: '',
-  [JobPriority.AboveNormal]: 'success',
-  [JobPriority.High]: 'danger'
-}
-
-const JobStatus = {
-  None: -1,
-  Completed: 0,
-  Running: 10,
-  FailedRetry: 15,
-  Paused: 20,
-  Stopped: 30
-}
-
-const JobStatusMap = {
-  [JobStatus.None]: '未知',
-  [JobStatus.Completed]: '已完成',
-  [JobStatus.Running]: '运行中',
-  [JobStatus.FailedRetry]: '失败重试',
-  [JobStatus.Paused]: '已暂停',
-  [JobStatus.Stopped]: '已停止'
-}
-const JobStatusType = {
-  [JobStatus.None]: 'warning',
-  [JobStatus.Completed]: 'success',
-  [JobStatus.Running]: '',
-  [JobStatus.FailedRetry]: 'danger',
-  [JobStatus.Paused]: 'info',
-  [JobStatus.Stopped]: 'danger'
-}
-
 export default {
   name: 'BackgroundJobs',
   components: {
@@ -465,6 +431,7 @@ export default {
   },
   data() {
     return {
+      backgroundJobGroupOptions: [],
       tableKey: 0,
       list: null,
       total: 0,
@@ -617,10 +584,16 @@ export default {
     }
   },
   created() {
+    this.fetchBackgroundJobGroups()
     this.getList()
   },
   methods: {
     checkPermission, // 检查权限
+    fetchBackgroundJobGroups() {
+      getBackgroundJobGroups().then(response => {
+        this.backgroundJobGroupOptions = response
+      })
+    },
     // 重置查询参数
     resetQueryForm() {
       this.queryForm = Object.assign({
@@ -703,7 +676,12 @@ export default {
     handelDetail(name) {
       this.$refs['jobDetail'].handleDetail(name)
     },
-
+    jobGroupSelectBlur(e) {
+      // select既可以当输入框又可以选中 https://juejin.cn/post/7013271775786041358
+      if (e.target.value) {
+        this.temp.group = e.target.value
+      }
+    },
     // 点击创建按钮
     handleCreate() {
       this.resetTemp()
@@ -739,6 +717,9 @@ export default {
     showDialog() {
       this.expression = this.temp.cron// 传入的 cron 表达式，可以反解析到 UI 上
       this.showCron = true
+    },
+    setTaskInterval(minitues) {
+      this.temp.interval = minitues * 60
     },
     // 更新按钮点击
     handleUpdate(row) {
@@ -777,12 +758,10 @@ export default {
     // 删除
     handleDelete(row, index) {
       this.$confirm(
-        // 消息
-        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']", [
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
           row.name
         ]),
-        // title
-        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']"), {
+        this.$i18n.t("AbpUi['AreYouSure']"), {
           confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
           cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
           type: 'warning' // 弹框类型
@@ -834,37 +813,41 @@ export default {
         JobIds: ids
       }
 
-      bulkOperateBackgroundJob(operator, req).then(() => {
-        this.handleFilter(false)
-        this.$notify({
-          title: this.$i18n.t("TigerUi['Success']"),
-          message: this.$i18n.t("TigerUi['SuccessMessage']"),
-          type: 'success',
-          duration: 2000
+      if (operator === 'bulk-delete') {
+        this.$confirm(
+          this.$i18n.t("AbpUi['ItemsWillBeDeletedMessage']"),
+          this.$i18n.t("AbpUi['AreYouSure']"), {
+            confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
+            cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
+            type: 'warning' // 弹框类型
+          }
+        ).then(async() => {
+          bulkOperateBackgroundJob(operator, req).then(() => {
+            this.handleFilter(false)
+            this.$notify({
+              title: this.$i18n.t("TigerUi['Success']"),
+              message: this.$i18n.t("TigerUi['SuccessMessage']"),
+              type: 'success',
+              duration: 2000
+            })
+          })
         })
-      })
+      } else {
+        bulkOperateBackgroundJob(operator, req).then(() => {
+          this.handleFilter(false)
+          this.$notify({
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+            type: 'success',
+            duration: 2000
+          })
+        })
+      }
     },
     // 下载数据
     handleDownload() {
       this.$alert('开发中...')
       return
-      // this.downloadLoading = true
-      // import('@/vendor/Export2Excel').then(excel => {
-      //   const tHeader = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-      //   const filterVal = ['browserInfo', 'clientId', 'clientIpAddress', 'clientName', 'correlationId', 'exceptions', 'executionDuration', 'executionTime', 'httpMethod', 'httpStatusCode', 'url', 'userId', 'userName']
-
-      //   // TODO: 修改为当前查询条件下所有页数的数据
-      //   const list = this.list
-      //   const data = this.formatJson(filterVal, list)
-      //   excel.export_json_to_excel({
-      //     header: tHeader,
-      //     data,
-      //     filename: this.filename,
-      //     autoWidth: this.autoWidth,
-      //     bookType: this.bookType
-      //   })
-      //   this.downloadLoading = false
-      // })
     },
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {

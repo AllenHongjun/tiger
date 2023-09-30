@@ -518,6 +518,12 @@
             作业管理
             </summary>
         </member>
+        <member name="M:Tiger.Module.TaskManagement.BackgroundJobInfoController.GetAllGroups">
+            <summary>
+            获取作业分组
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.TaskManagement.BackgroundJobInfoController.CreateAsync(Tiger.Module.TaskManagement.Dtos.BackgroundJobInfoCreateDto)">
             <summary>
             创建

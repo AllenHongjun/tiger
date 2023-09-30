@@ -4,5 +4,7 @@
 			"path": "vue"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"vue.codeActions.enabled": false
+	}
 }

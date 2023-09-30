@@ -1,10 +1,10 @@
-﻿using Tiger.Localization;
+﻿using Localization.Resources.AbpUi;
+using Tiger.Localization;
 using Tiger.Module.OssManagement.Localization;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Localization;
 using Tiger.Module.System.TextTemplate.Localization;
 using Tiger.Module.TaskManagement.Localization;
-using Tiger.Volo.Abp.Identity;
 using Tiger.Volo.Abp.Sass.Localization;
 using Tiger.Volo.Abp.SettingUi.Localization;
 using Volo.Abp.AuditLogging;
@@ -22,6 +22,7 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.SettingManagement.Localization;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.UI;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 
@@ -33,6 +34,7 @@ namespace Tiger
     /// 例如 Book 实体和 IBookRepository 接口都适合放在这个项目中.
     /// </summary>
     [DependsOn(
+        typeof(AbpUiModule),
         typeof(AbpAuditLoggingDomainSharedModule),
         typeof(AbpBackgroundJobsDomainSharedModule),
         typeof(AbpFeatureManagementDomainSharedModule),
@@ -63,8 +65,12 @@ namespace Tiger
             // 定义新的资源类 需要在模块中引入配置
             Configure<AbpLocalizationOptions>(options =>
             {
+                // 扩展现有的资源 https://docs.abp.io/zh-Hans/abp/latest/Localization
                 options.Resources
-                        // 添加了一个新的本地化资源, 使用"zh-Hans"（英语）作为默认的本地化.
+                    .Get<AbpUiResource>()
+                    .AddVirtualJson("/Localization/AbpUi/Extensions");
+
+                options.Resources
                         .Add<TigerResource>("zh-Hans")
                         .AddBaseTypes(typeof(AbpValidationResource))
                         .AddBaseTypes(typeof(AbpLocalizationResource))

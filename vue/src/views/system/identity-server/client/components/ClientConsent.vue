@@ -37,14 +37,20 @@
       </span>
       <el-switch v-model="ruleForm.allowRememberConsent" :disabled="!ruleForm.requireConsent" />
     </el-form-item>
-    <el-form-item prop="consentLifetime">
+    <el-form-item prop="consentLifetime" :inline="true">
       <span slot="label">
         <el-tooltip content="Lifetime in seconds" placement="top">
           <i class="el-icon-question" />
         </el-tooltip>
         {{ $t('AbpIdentityServer[\'Client:ConsentLifetime\']') }}
       </span>
-      <el-input v-model="ruleForm.consentLifetime" type="number" :disabled="!ruleForm.requireConsent" />
+      <el-input v-model="ruleForm.consentLifetime" type="number" :disabled="!ruleForm.requireConsent" style="width:300px;" />
+      <el-button-group style="margin-left:10px;vertical-align: top;">
+        <el-button type="primary" plain @click="setConsentLifetime(15)">15分钟</el-button>
+        <el-button type="primary" plain @click="setConsentLifetime(30)">30分钟</el-button>
+        <el-button type="primary" plain @click="setConsentLifetime(60)">1小时</el-button>
+        <el-button type="primary" plain @click="setConsentLifetime(300)">5小时</el-button>
+      </el-button-group>
     </el-form-item>
   </div>
 </template>
@@ -105,6 +111,9 @@ export default {
     this.$emit('set-form-rules', this.rules)
   },
   methods: {
+    setConsentLifetime(minitues) {
+      this.ruleForm.consentLifetime = minitues * 60
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

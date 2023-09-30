@@ -28,13 +28,6 @@
                   {{ jobInfo.isEnabled ? '启用': '禁用' }}
                 </el-descriptions-item>
 
-                <!-- <el-descriptions-item>
-                  <template slot="label">
-                    <i class="el-icon-office-building" />
-                    {{ $t("TaskManagement['DisplayName:Type']") }}
-                  </template>
-                  {{ jobInfo.type }}
-                </el-descriptions-item> -->
                 <el-descriptions-item>
                   <template slot="label">
                     <i class="el-icon-tickets" />
@@ -82,17 +75,12 @@
             <div class="text item">
               <el-table :key="tableKey" v-loading="listLoading" max-height="460px" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
                 <el-table-column type="index" width="80" />
-                <!-- <el-table-column :label="$t('TaskManagement[\'DisplayName:Name\']')" prop="jobName" align="center">
-                  <template slot-scope="{ row }">
-                    <span>{{ row.jobName }}</span>
-                  </template>
-                </el-table-column> -->
-                <el-table-column :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="jobType" sortable align="center" width="130">
+                <el-table-column :label="$t('TaskManagement[\'DisplayName:Type\']')" prop="jobType" sortable align="center" width="160">
                   <template slot-scope="{ row }">
                     <span>{{ row.jobType }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="jobGroup" sortable align="center" width="130">
+                <el-table-column :label="$t('TaskManagement[\'DisplayName:Group\']')" prop="jobGroup" sortable align="center" width="160">
                   <template slot-scope="{ row }">
                     <span>{{ row.jobGroup }}</span>
                   </template>
@@ -103,7 +91,7 @@
                     <span>{{ row.message }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="运行时间" prop="runTime" sortable align="center" width="140">
+                <el-table-column label="运行时间" prop="runTime" sortable align="center" width="160">
                   <template slot-scope="{ row }">
                     <span>{{ row.runTime | moment }}</span>
                   </template>
@@ -117,7 +105,7 @@
                 <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="200" class-name="small-padding fixed-width">
                   <template slot-scope="{ row, $index }">
 
-                    <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" @click="handleDelete(row, $index)">
+                    <el-button type="danger" @click="handleDelete(row, $index)">
                       {{ $t("AbpUi['Delete']") }}
                     </el-button>
                   </template>
@@ -144,7 +132,6 @@
 import { getBackgroundJob } from '@/api/system-manage/task/background-job'
 import {
   getBackgroundJobLogs,
-  getBackgroundJobLog,
   deleteBackgroundJobLog
 } from '@/api/system-manage/task/background-job-log'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
@@ -253,13 +240,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .line{
   text-align: center;
 }
 .pagination-container{
   margin-top: 0px;
   padding: 10px 16px;
+}
+
+</style>
+
+<style lang="scss" >
+/*设置table tooltip宽度 https://blog.csdn.net/qq_45062261/article/details/100773008*/
+.el-tooltip__popper{
+  max-width: 60%!important;
 }
 </style>
 

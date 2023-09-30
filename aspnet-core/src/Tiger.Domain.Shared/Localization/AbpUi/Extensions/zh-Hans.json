@@ -1,0 +1,8 @@
+{
+  "culture": "zh-Hans",
+  "texts": {
+    "ItemWillBeDeletedMessageWithFormat": "{0} 将要被删除!",
+    "ItemWillBeDeletedMessage": "此项将被删除!",
+    "ItemsWillBeDeletedMessage": "这些项将被删除!"
+  }
+}

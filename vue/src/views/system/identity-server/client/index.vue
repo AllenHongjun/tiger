@@ -121,7 +121,13 @@
                     </el-tooltip>
                     {{ $t('AbpIdentityServer[\'Client:DeviceCodeLifetime\']') }}
                   </span>
-                  <el-input v-model="temp.deviceCodeLifetime" type="number" />
+                  <el-input v-model="temp.deviceCodeLifetime" type="number" style="width:300px;" />
+                  <el-button-group style="margin-left:10px;vertical-align: top;">
+                    <el-button type="primary" plain @click="setDeviceCodeLifetime(15)">15分钟</el-button>
+                    <el-button type="primary" plain @click="setDeviceCodeLifetime(30)">30分钟</el-button>
+                    <el-button type="primary" plain @click="setDeviceCodeLifetime(60)">1小时</el-button>
+                    <el-button type="primary" plain @click="setDeviceCodeLifetime(300)">5小时</el-button>
+                  </el-button-group>
                 </el-form-item>
                 <el-form-item label="User Code Generator Type" prop="userCodeType">
                   <span slot="label">
@@ -173,7 +179,13 @@
                     </el-tooltip>
                     {{ $t('AbpIdentityServer[\'Client:UserSsoLifetime\']') }}
                   </span>
-                  <el-input v-model="temp.userSsoLifetime" type="number" />
+                  <el-input v-model="temp.userSsoLifetime" type="number" style="width:300px;" />
+                  <el-button-group style="margin-left:10px;vertical-align: top;">
+                    <el-button type="primary" plain @click="setUserSsoLifetime(15)">15分钟</el-button>
+                    <el-button type="primary" plain @click="setUserSsoLifetime(30)">30分钟</el-button>
+                    <el-button type="primary" plain @click="setUserSsoLifetime(60)">1小时</el-button>
+                    <el-button type="primary" plain @click="setUserSsoLifetime(300)">5小时</el-button>
+                  </el-button-group>
                 </el-form-item>
                 <el-form-item label="Pairwise Subject Salt" prop="pairWiseSubjectSalt">
                   <span slot="label">
@@ -206,7 +218,6 @@ ClientToken
 import {
   getClients,
   getClient,
-  getClientsAll,
   createClient,
   updateClient,
   deleteClient
@@ -438,6 +449,12 @@ export default {
     onSetFormData: function(consent) {
       console.log('consent', consent)
       this.temp.consentLifetime = consent.consentLifetime
+    },
+    setDeviceCodeLifetime(minitues) {
+      this.temp.deviceCodeLifetime = minitues * 60
+    },
+    setUserSsoLifetime(minitues) {
+      this.temp.userSsoLifetime = minitues * 60
     },
     // 点击创建按钮
     handleCreate() {

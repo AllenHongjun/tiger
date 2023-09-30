@@ -9,12 +9,13 @@
         </el-tooltip>
         {{ $t('AbpIdentityServer[\'Client:AccessTokenLifetime\']') }}
       </span>
-      <el-input v-model="ruleForm.accessTokenLifetime" type="number">
-        <el-button slot="append" type="primary">15 分钟</el-button>
-        <el-button slot="append" type="success">30 分钟</el-button>
-        <el-button slot="append" type="primary">1 小时</el-button>
-        <el-button slot="append" type="primary">5 小时</el-button>
-      </el-input>
+      <el-input v-model="ruleForm.accessTokenLifetime" type="number" style="width:300px;" />
+      <el-button-group style="margin-left:10px;vertical-align: top;">
+        <el-button type="primary" plain @click="setAccessTokenLifetime(15)">15分钟</el-button>
+        <el-button type="primary" plain @click="setAccessTokenLifetime(30)">30分钟</el-button>
+        <el-button type="primary" plain @click="setAccessTokenLifetime(60)">1小时</el-button>
+        <el-button type="primary" plain @click="setAccessTokenLifetime(300)">5小时</el-button>
+      </el-button-group>
 
     </el-form-item>
 
@@ -62,6 +63,9 @@ export default {
     }
   },
   methods: {
+    setAccessTokenLifetime(minitues) {
+      this.ruleForm.accessTokenLifetime = minitues * 60
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

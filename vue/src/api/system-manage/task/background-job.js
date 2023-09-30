@@ -1,6 +1,13 @@
 import request from '@/utils/request'
 import { transformAbpListQuery } from '@/utils/abp'
 
+export function getBackgroundJobGroups() {
+  return request({
+    url: '/api/task-management/background-jobs/groups',
+    method: 'get'
+  })
+}
+
 export function getBackgroundJobs(params) {
   return request({
     url: '/api/task-management/background-jobs',

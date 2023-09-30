@@ -1177,6 +1177,12 @@
             结束触发时间
             </summary>
         </member>
+        <member name="M:Tiger.Module.TaskManagement.IBackgroundJobInfoAppService.GetAllGroups">
+            <summary>
+            获取所有作业分组
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:Tiger.Module.TaskManagement.Permissions.TaskManagementPermissions.BackgroundJobs.ManageSystemJobs">
             <summary>
             是否允许管理系统内置作业

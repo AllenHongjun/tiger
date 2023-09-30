@@ -543,6 +543,12 @@
             作业管理
             </summary>
         </member>
+        <member name="M:Tiger.Module.TaskManagement.BackgroundJobInfoAppService.GetAllGroups">
+            <summary>
+            获取所有作业分组
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.TaskManagement.BackgroundJobInfoAppService.GetDefinitionsAsync">
             <summary>
             获取作业定义

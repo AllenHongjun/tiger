@@ -129,6 +129,7 @@
     "Client:PairWiseSubjectSalt": "配对主体盐",
     "Client:RequireConsent": "需要同意",
     "Client:AllowRememberConsent": "允许记住同意",
+    "Client:ConsentLifetime": "记住同意时间",
     "Client:ClientUri": "客户端 Uri",
     "Client:LogoUri": "徽标 Uri",
     "Client:UserCodeType": "用户代码类型",

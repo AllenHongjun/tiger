@@ -46,6 +46,20 @@ public class BackgroundJobInfoAppService : ApplicationService, IBackgroundJobInf
     }
 
     #region 作业管理
+
+    /// <summary>
+    /// 获取所有作业分组
+    /// </summary>
+    /// <returns></returns>
+    public virtual List<string> GetAllGroups()
+    {
+        var groups =  BackgroundJobInfoRepository.Select(x => x.Group)
+            .Distinct()
+            .ToList();
+        return groups;
+    }
+
+
     /// <summary>
     /// 获取作业定义
     /// </summary>

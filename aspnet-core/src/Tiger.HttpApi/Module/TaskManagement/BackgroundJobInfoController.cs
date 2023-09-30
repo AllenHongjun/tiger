@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiger.Module.TaskManagement.Dtos;
 using Tiger.Module.TaskManagement.Localization;
@@ -26,6 +27,17 @@ public class BackgroundJobInfoController : AbpController, IBackgroundJobInfoAppS
         BackgroundJobInfoAppService = backgroundJobInfoAppService;
 
         LocalizationResource = typeof(TaskManagementResource);
+    }
+
+    /// <summary>
+    /// 获取作业分组
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [Route("groups")]
+    public List<string> GetAllGroups()
+    {
+        return BackgroundJobInfoAppService.GetAllGroups();
     }
 
     /// <summary>
@@ -242,4 +254,6 @@ public class BackgroundJobInfoController : AbpController, IBackgroundJobInfoAppS
     {
         return BackgroundJobInfoAppService.GetDefinitionsAsync();
     }
+
+    
 }
