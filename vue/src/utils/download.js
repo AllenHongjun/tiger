@@ -6,7 +6,7 @@ import moment from 'moment'
  * @param {*} name
  */
 export function downloadByData(blobParts, name) {
-  const fileName = moment(new Date().getTime()).format('YYYY-MM-DD-HH-mm-ss') + '--' + name
+  const fileName = moment(new Date().getTime()).format('YYYYMMDDHHmmss') + '-' + name
   // const blob = new Blob([blobParts], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=utf-8' })
   const blob = new Blob([blobParts])
   // for IE

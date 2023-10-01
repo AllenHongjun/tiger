@@ -9,6 +9,7 @@
           <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t("AbpIdentity['NewRole']") }}</el-button>
           <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
           <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">导出</el-button>
+          <el-button type="primary" icon="el-icon-upload" :loading="downloadLoading" @click="handleImport">导入</el-button>
         </el-row>
 
         <!-- 表格数据 -->
@@ -77,6 +78,8 @@
           </div>
         </el-dialog>
 
+        <import-excel ref="ImportExcelDialog" />
+
         <!-- 移动所有用户 -->
         <el-dialog :title="$t('AbpIdentity[\'MoveAllUsers\']')" :visible.sync="moveUserDialogVisible">
           <el-form :model="temp" label-width="120px" label-position="right">
@@ -128,12 +131,14 @@ import { downloadByData } from '@/utils/download'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import PermissionDialog from '../components/permission-dialog'
 import RoleClaim from './components/RoleClaim.vue'
+import ImportExcel from './components/ImportExcel.vue'
 
 export default {
   name: 'Role',
   components: {
     Pagination,
     RoleClaim,
+    ImportExcel,
     PermissionDialog
   },
   data() {
@@ -242,6 +247,9 @@ export default {
           this.$message.warning(err)
         })
       })
+    },
+    handleImport(row) {
+      this.$refs['ImportExcelDialog'].dialogUploadVisible = true
     },
 
     handleCreate() {

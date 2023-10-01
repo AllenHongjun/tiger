@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
@@ -40,6 +41,15 @@ namespace Tiger.Volo.Abp.Identity.Roles
         Task<IdentityRoleDto> CreateAsync(IdentityRoleOrgCreateDto input);
         
         Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input);
+
+
+        /// <summary>
+        /// 从xlsx导入角色
+        /// </summary>
+        /// <param name="importexcelfile"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        Task ImportRoleFromXlsxAsync(IFormFile importexcelfile);
 
         /// <summary>
         /// Export Roles to XLSX

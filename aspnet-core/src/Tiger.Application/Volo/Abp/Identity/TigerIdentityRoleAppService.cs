@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.ExportImport;
 using Tiger.Infrastructure.ExportImport.Help;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
@@ -14,6 +19,7 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
+using IdentityRole = Volo.Abp.Identity.IdentityRole;
 
 namespace Tiger.Volo.Abp.Identity
 {
@@ -96,6 +102,113 @@ namespace Tiger.Volo.Abp.Identity
         {
             await TigerIdentityRoleRepository.MoveAllUsersAsync(roleId, targetRoleId);
             await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+
+        /// <summary>
+        /// Get property list by excel cells
+        /// </summary>
+        /// <typeparam name="T">Type of object</typeparam>
+        /// <param name="worksheet">Excel worksheet</param>
+        /// <returns>Property list</returns>
+        public static IList<PropertyByName<T>> GetPropertiesByExcelCells<T>(IXLWorksheet worksheet)
+        {
+            var properties = new List<PropertyByName<T>>();
+            var poz = 1;
+            while (true)
+            {
+                try
+                {
+                    var cell = worksheet.Row(1).Cell(poz);
+
+                    if (string.IsNullOrEmpty(cell?.Value?.ToString()))
+                        break;
+
+                    poz += 1;
+                    properties.Add(new PropertyByName<T>(cell.Value.ToString()));
+                }
+                catch
+                {
+                    break;
+                }
+            }
+
+            return properties;
+        }
+
+
+        /// <summary>
+        /// 从xlsx导入角色
+        /// </summary>
+        /// <param name="importexcelfile"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public virtual async Task ImportRoleFromXlsxAsync(IFormFile importexcelfile)
+        {
+
+            if (importexcelfile != null && importexcelfile.Length > 0)
+            {
+                using var workbook = new XLWorkbook(importexcelfile.OpenReadStream());
+                // get the first worksheet in the workbook
+                var worksheet = workbook.Worksheets.FirstOrDefault();
+                if (worksheet == null)
+                    throw new Exception("No worksheet found");
+
+                //the columns
+                var properties = GetPropertiesByExcelCells<IdentityRoleDto>(worksheet);
+
+                var manager = new PropertyManager<IdentityRoleDto>(properties);
+                var iRow = 2;
+                var setSeName = properties.Any(p => p.PropertyName == "SeName");
+
+                while (true)
+                {
+                    var allColumnsAreEmpty = manager.GetProperties
+                        .Select(property => worksheet.Row(iRow).Cell(property.PropertyOrderPosition))
+                        .All(cell => cell?.Value == null || string.IsNullOrEmpty(cell.Value.ToString()));
+
+                    if (allColumnsAreEmpty)
+                        break;
+
+                    manager.ReadFromXlsx(worksheet, iRow);
+
+                    var role = await TigerIdentityRoleRepository.GetAsync(manager.GetProperty("Id").GuidValue);
+
+                    var isNew = role == null;
+
+                    role ??= new IdentityRole(GuidGenerator.Create(), manager.GetProperty("Name").StringValue, CurrentTenant.Id);
+
+                    foreach (var property in manager.GetProperties)
+                    {
+                        switch (property.PropertyName)
+                        {
+                            case "IsDefault":
+                                role.IsDefault = property.BooleanValue;
+                                break;
+                            case "Description":
+                                role.IsPublic = property.BooleanValue;
+                                break;
+                            
+                        }
+                    }
+
+                    if (isNew)
+                        await RoleManager.CreateAsync(role);
+                    else
+                        await RoleManager.UpdateAsync(role);
+
+                    iRow++;
+                }
+
+                // TODO:发送异步导入成功通知
+
+                // ToDo: activity log
+            }
+            else
+            {
+                throw new Exception("文件不能空");
+            }
+
         }
 
         /// <summary>

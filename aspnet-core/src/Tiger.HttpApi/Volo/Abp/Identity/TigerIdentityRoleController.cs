@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
@@ -24,15 +25,15 @@ namespace Volo.Abp.Identity
     [Route("api/identity/roles")]
     public class TigerIdentityRoleController : AbpController, ITigerIdentityRoleAppService
     {
+        #region Ctor
         protected ITigerIdentityRoleAppService RoleAppService { get; }
         public TigerIdentityRoleController(ITigerIdentityRoleAppService roleAppService)
         {
             RoleAppService = roleAppService;
-        }
+        } 
+        #endregion
 
-
-        
-
+        #region 角色
         /// <summary>
         /// 查询角色列表
         /// </summary>
@@ -48,7 +49,34 @@ namespace Volo.Abp.Identity
         }
 
         /// <summary>
-        /// 导出角色
+        /// xlsx 导入模板
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("import-xlxs-template")]
+        public async Task<IActionResult> ImportRoleTemplateAsync()
+        {
+            GetIdentityRolesInput input = new GetIdentityRolesInput()
+            {
+                MaxResultCount = 1
+            };
+            return await RoleAppService.ExportRolesToXlsxAsync(input);
+        }
+
+        /// <summary>
+        /// 从xlsx 导入角色
+        /// </summary>
+        /// <param name="importexcelfile"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("import-from-xlsx")]
+        public async Task ImportRoleFromXlsxAsync(IFormFile importexcelfile)
+        {
+            await RoleAppService.ImportRoleFromXlsxAsync(importexcelfile);
+        }
+
+        /// <summary>
+        /// 导出角色到 xlsx
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -71,7 +99,8 @@ namespace Volo.Abp.Identity
         public async Task MoveAllUsers(Guid roleId, Guid? targetRoleId)
         {
             await RoleAppService.MoveAllUsers(roleId, targetRoleId);
-        }
+        } 
+        #endregion
 
         #region 角色关联组织
         /// <summary>
@@ -157,10 +186,6 @@ namespace Volo.Abp.Identity
         {
             return await RoleAppService.GetClaimsAsync(roleId);
         }
-
-        
-
-
         #endregion
     }
 }

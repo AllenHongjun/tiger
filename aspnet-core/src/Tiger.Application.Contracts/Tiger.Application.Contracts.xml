@@ -2655,6 +2655,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.Roles.ITigerIdentityRoleAppService.ImportRoleFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            从xlsx导入角色
+            </summary>
+            <param name="importexcelfile"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.Roles.ITigerIdentityRoleAppService.ExportRolesToXlsxAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
             <summary>
             Export Roles to XLSX

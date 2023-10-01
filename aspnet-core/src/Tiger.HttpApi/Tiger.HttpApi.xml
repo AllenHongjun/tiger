@@ -1406,9 +1406,22 @@
             <remarks>
             </remarks>
         </member>
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.ImportRoleTemplateAsync">
+            <summary>
+            xlsx 导入模板
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.ImportRoleFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            从xlsx 导入角色
+            </summary>
+            <param name="importexcelfile"></param>
+            <returns></returns>
+        </member>
         <member name="M:Volo.Abp.Identity.TigerIdentityRoleController.ExportRolesToXlsxAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
             <summary>
-            导出角色
+            导出角色到 xlsx
             </summary>
             <param name="input"></param>
             <returns></returns>

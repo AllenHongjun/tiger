@@ -699,7 +699,7 @@ export default {
       }).then(response => {
         this.downloadLoading = true
         ExportUserToXlsx(this.listQuery).then(response => {
-          downloadByData(response, 'role.xlsx')
+          downloadByData(response, 'user.xlsx')
           this.downloadLoading = false
         }).catch(err => {
           console.log(err)

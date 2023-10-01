@@ -46,6 +46,28 @@ export function moveAllUsers(roleId, targetRoleId) {
   })
 }
 
+export function ImportRoleXlsxTemplate() {
+  return request({
+    url: `/api/identity/roles/import-xlxs-template`,
+    method: 'get',
+    header: {
+      headers: { 'Content-Type': 'application/x-download' }
+    },
+    responseType: 'blob'
+  })
+}
+
+export function ImportRoleFromXlsx(payload) {
+  return request({
+    url: `/api/identity/roles/import-from-xlsx`,
+    method: 'post',
+    data: payload,
+    headers: {
+      'Content-Type': 'multipart/form-data;charset=utf-8'
+    }
+  })
+}
+
 export function ExportRoleToXlsx(params) {
   return request({
     url: `/api/identity/roles/export-to-xlsx`,
