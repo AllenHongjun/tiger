@@ -8,6 +8,7 @@
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
           <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t("AbpIdentity['NewRole']") }}</el-button>
           <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
+          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">导出</el-button>
         </el-row>
 
         <!-- 表格数据 -->
@@ -115,13 +116,15 @@ import {
   deleteRole,
   createRole,
   updateRole,
-  moveAllUsers
+  moveAllUsers,
+  ExportRoleToXlsx
 } from '@/api/system-manage/identity/role'
 import {
   checkPermission
 } from '@/utils/abp'
 
 import baseListQuery from '@/utils/abp'
+import { downloadByData } from '@/utils/download'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import PermissionDialog from '../components/permission-dialog'
 import RoleClaim from './components/RoleClaim.vue'
@@ -138,6 +141,7 @@ export default {
       tableKey: 0,
       list: null,
       listLoading: true,
+      downloadLoading: false,
       total: 0,
       listQuery: baseListQuery,
       dialogStatus: '',
@@ -221,6 +225,25 @@ export default {
         isPublic: false
       }
     },
+    // 导出 所有
+    handleDownload() {
+      this.$confirm('是否确认导出全部查询结果?', this.$i18n.t("AbpUi['AreYouSure']"), {
+        confirmButtonText: this.$i18n.t("AbpUi['Yes']"),
+        cancelButtonText: this.$i18n.t("AbpUi['Cancel']"),
+        type: 'warning'
+      }).then(response => {
+        this.downloadLoading = true
+        ExportRoleToXlsx(this.listQuery).then(response => {
+          downloadByData(response, 'role.xlsx')
+          this.downloadLoading = false
+        }).catch(err => {
+          console.log(err)
+          this.downloadLoading = false
+          this.$message.warning(err)
+        })
+      })
+    },
+
     handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'

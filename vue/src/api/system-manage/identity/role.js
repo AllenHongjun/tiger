@@ -46,6 +46,18 @@ export function moveAllUsers(roleId, targetRoleId) {
   })
 }
 
+export function ExportRoleToXlsx(params) {
+  return request({
+    url: `/api/identity/roles/export-to-xlsx`,
+    method: 'get',
+    params: transformAbpListQuery(params),
+    header: {
+      headers: { 'Content-Type': 'application/x-download' }
+    },
+    responseType: 'blob'
+  })
+}
+
 export function createRoleToOrg(payload) {
   return request({
     url: '/api/identity/roles/create-to-organization',

@@ -62,6 +62,9 @@ namespace Tiger.Infrastructure.ExportImport.Help
 
                 // get handles to the worksheets
                 var worksheet = workbook.Worksheets.Add(typeof(T).Name);
+
+                
+
                 var fWorksheet = workbook.Worksheets.Add("DataForFilters");
                 fWorksheet.Visibility = XLWorksheetVisibility.VeryHidden;
 
@@ -75,6 +78,9 @@ namespace Tiger.Infrastructure.ExportImport.Help
                     await WriteToXlsxAsync(worksheet, row++, fWorksheet: fWorksheet);
                 }
 
+                //调整列宽: https://stackoverflow.com/questions/46200560/how-to-auto-size-excel-closedxml-cells-in-c-sharp
+                worksheet.Columns().AdjustToContents();  // Adjust column width
+                worksheet.Rows().AdjustToContents();     // Adjust row heights
                 workbook.SaveAs(stream);
             }
 

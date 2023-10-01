@@ -53,8 +53,8 @@ namespace Volo.Abp.Identity
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("role-export")]
-        public async Task<FileResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
+        [Route("export-to-xlsx")]
+        public async Task<IActionResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
         {
             return await RoleAppService.ExportRolesToXlsxAsync(input);
         }

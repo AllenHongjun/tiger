@@ -46,7 +46,7 @@ namespace Tiger.Volo.Abp.Identity.Roles
         /// </summary>
         /// <param name="input">input</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        Task<FileResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input);
+        Task<IActionResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input);
 
         /// <summary>
         /// 添加角色声明

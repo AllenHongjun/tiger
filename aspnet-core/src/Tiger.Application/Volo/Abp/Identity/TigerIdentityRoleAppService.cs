@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.ExtendedProperties;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -43,10 +42,7 @@ namespace Tiger.Volo.Abp.Identity
             OrganizationUnitManager = orgManager;
             TigerIdentityRoleRepository=tigerRoleRepository;
         }
-
-
         #region Roles
-
         [Authorize(IdentityPermissions.Roles.Default)]
         public  async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
         {
@@ -67,37 +63,6 @@ namespace Tiger.Volo.Abp.Identity
 
             return new PagedResultDto<IdentityRoleDto>(roleCount, roleList);
 
-        }
-
-
-        /// <summary>
-        /// Export Roles to XLSX
-        /// </summary>
-        /// <param name="GetIdentityRolesInput">input</param>
-        /// <returns>A task that represents the asynchronous operation</returns>
-        public virtual async Task<FileResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
-        {
-            var roles = await TigerIdentityRoleRepository.GetListAsync(
-                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails: true);
-
-            //property manager 
-            var manager = new PropertyManager<IdentityRole>(new[]
-            {
-                new PropertyByName<IdentityRole>("Id", p => p.Id),
-                new PropertyByName<IdentityRole>("Name", p => p.Name),
-                new PropertyByName<IdentityRole>("NormalizedName", p => p.NormalizedName),
-                new PropertyByName<IdentityRole>("IsDefault", p => p.IsDefault),
-                new PropertyByName<IdentityRole>("IsStatic", p => p.IsStatic),
-                new PropertyByName<IdentityRole>("IsPublic", p => p.IsPublic),
-                
-            });
-
-            var bytes =  await manager.ExportToXlsxAsync(roles);
-            
-            return new FileContentResult(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-            {
-                FileDownloadName = "roles.xlsx"
-            };
         }
 
         /// <summary>
@@ -133,6 +98,32 @@ namespace Tiger.Volo.Abp.Identity
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Export Roles to XLSX
+        /// </summary>
+        /// <param name="GetIdentityRolesInput">input</param>
+        /// <returns>查询到的所有角色</returns>
+        public virtual async Task<IActionResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
+        {
+            var roles = await TigerIdentityRoleRepository.GetListAsync(
+                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails: true);
+
+            //property manager 
+            var manager = new PropertyManager<IdentityRole>(new[]
+            {
+                new PropertyByName<IdentityRole>("Id", p => p.Id),
+                new PropertyByName<IdentityRole>(L["RoleName"], p => p.Name),
+                new PropertyByName<IdentityRole>(L["DisplayName:NormalizedName"], p => p.NormalizedName),
+                new PropertyByName<IdentityRole>(L["DisplayName:IsDefault"], p => p.IsDefault ? "是" : "否"),
+                new PropertyByName<IdentityRole>(L["DisplayName:IsStatic"], p => p.IsStatic),
+                new PropertyByName<IdentityRole>(L["DisplayName:IsPublic"], p => p.IsPublic),
+
+            });
+
+            var bytes = await manager.ExportToXlsxAsync(roles);
+
+            return new FileContentResult(bytes, MimeTypes.TextXlsx);
+        }
         #endregion
 
         #region OrganizationUnit

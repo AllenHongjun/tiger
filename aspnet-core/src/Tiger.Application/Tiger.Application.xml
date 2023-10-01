@@ -986,13 +986,6 @@
             角色服务
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.ExportRolesToXlsxAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
-            <summary>
-            Export Roles to XLSX
-            </summary>
-            <param name="GetIdentityRolesInput">input</param>
-            <returns>A task that represents the asynchronous operation</returns>
-        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.CreateAsync(Tiger.Volo.Abp.Identity.OrganizationUnits.Dto.IdentityRoleOrgCreateDto)">
             <summary>
             添加角色同时关联组织
@@ -1008,6 +1001,13 @@
             <param name="targetRoleId"></param>
             <param name="cancelAssign"></param>
             <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.ExportRolesToXlsxAsync(Tiger.Volo.Abp.Identity.ClaimTypes.Dto.GetIdentityRolesInput)">
+            <summary>
+            Export Roles to XLSX
+            </summary>
+            <param name="GetIdentityRolesInput">input</param>
+            <returns>查询到的所有角色</returns>
         </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.AddToOrganizationUnitAsync(System.Guid,System.Guid)">
             <summary>
