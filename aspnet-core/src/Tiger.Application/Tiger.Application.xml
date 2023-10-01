@@ -1002,14 +1002,6 @@
             <param name="cancelAssign"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.GetPropertiesByExcelCells``1(ClosedXML.Excel.IXLWorksheet)">
-            <summary>
-            Get property list by excel cells
-            </summary>
-            <typeparam name="T">Type of object</typeparam>
-            <param name="worksheet">Excel worksheet</param>
-            <returns>Property list</returns>
-        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityRoleAppService.ImportRoleFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             从xlsx导入角色

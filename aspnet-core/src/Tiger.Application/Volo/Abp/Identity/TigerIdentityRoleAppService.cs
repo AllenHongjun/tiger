@@ -105,36 +105,7 @@ namespace Tiger.Volo.Abp.Identity
         }
 
 
-        /// <summary>
-        /// Get property list by excel cells
-        /// </summary>
-        /// <typeparam name="T">Type of object</typeparam>
-        /// <param name="worksheet">Excel worksheet</param>
-        /// <returns>Property list</returns>
-        public static IList<PropertyByName<T>> GetPropertiesByExcelCells<T>(IXLWorksheet worksheet)
-        {
-            var properties = new List<PropertyByName<T>>();
-            var poz = 1;
-            while (true)
-            {
-                try
-                {
-                    var cell = worksheet.Row(1).Cell(poz);
-
-                    if (string.IsNullOrEmpty(cell?.Value?.ToString()))
-                        break;
-
-                    poz += 1;
-                    properties.Add(new PropertyByName<T>(cell.Value.ToString()));
-                }
-                catch
-                {
-                    break;
-                }
-            }
-
-            return properties;
-        }
+        
 
 
         /// <summary>
@@ -155,11 +126,10 @@ namespace Tiger.Volo.Abp.Identity
                     throw new Exception("No worksheet found");
 
                 //the columns
-                var properties = GetPropertiesByExcelCells<IdentityRoleDto>(worksheet);
+                var properties = ImportManager.GetPropertiesByExcelCells<IdentityRoleDto>(worksheet);
 
                 var manager = new PropertyManager<IdentityRoleDto>(properties);
                 var iRow = 2;
-                var setSeName = properties.Any(p => p.PropertyName == "SeName");
 
                 while (true)
                 {
@@ -176,20 +146,15 @@ namespace Tiger.Volo.Abp.Identity
 
                     var isNew = role == null;
 
+                    // TODO: 增加验证 如果错误抛出异常
+
                     role ??= new IdentityRole(GuidGenerator.Create(), manager.GetProperty("Name").StringValue, CurrentTenant.Id);
 
                     foreach (var property in manager.GetProperties)
                     {
-                        switch (property.PropertyName)
-                        {
-                            case "IsDefault":
-                                role.IsDefault = property.BooleanValue;
-                                break;
-                            case "Description":
-                                role.IsPublic = property.BooleanValue;
-                                break;
-                            
-                        }
+                        if( property.PropertyName == L["DisplayName:IsDefault"] ) role.IsDefault = property.BooleanValue;
+                        if( property.PropertyName == L["DisplayName:IsPublic"] ) role.IsPublic = property.BooleanValue;
+                        if( property.PropertyName == L["RoleName"] ) role.ChangeName(property.StringValue);
                     }
 
                     if (isNew)
@@ -202,7 +167,8 @@ namespace Tiger.Volo.Abp.Identity
 
                 // TODO:发送异步导入成功通知
 
-                // ToDo: activity log
+                // 如何判断数据导入成功？？
+
             }
             else
             {
@@ -226,11 +192,8 @@ namespace Tiger.Volo.Abp.Identity
             {
                 new PropertyByName<IdentityRole>("Id", p => p.Id),
                 new PropertyByName<IdentityRole>(L["RoleName"], p => p.Name),
-                new PropertyByName<IdentityRole>(L["DisplayName:NormalizedName"], p => p.NormalizedName),
-                new PropertyByName<IdentityRole>(L["DisplayName:IsDefault"], p => p.IsDefault ? "是" : "否"),
-                new PropertyByName<IdentityRole>(L["DisplayName:IsStatic"], p => p.IsStatic),
+                new PropertyByName<IdentityRole>(L["DisplayName:IsDefault"], p => p.IsDefault),
                 new PropertyByName<IdentityRole>(L["DisplayName:IsPublic"], p => p.IsPublic),
-
             });
 
             var bytes = await manager.ExportToXlsxAsync(roles);

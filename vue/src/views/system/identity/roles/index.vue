@@ -9,7 +9,7 @@
           <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t("AbpIdentity['NewRole']") }}</el-button>
           <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
           <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">导出</el-button>
-          <el-button type="primary" icon="el-icon-upload" :loading="downloadLoading" @click="handleImport">导入</el-button>
+          <el-button type="primary" icon="el-icon-upload" @click="handleImport">导入</el-button>
         </el-row>
 
         <!-- 表格数据 -->
@@ -78,7 +78,7 @@
           </div>
         </el-dialog>
 
-        <import-excel ref="ImportExcelDialog" />
+        <upload-single-excel ref="ImportExcelDialog" :import-from-xlsx="ImportRoleFromXlsx" :import-xlsx-template="ImportRoleXlsxTemplate" @call-filter="handleFilter" />
 
         <!-- 移动所有用户 -->
         <el-dialog :title="$t('AbpIdentity[\'MoveAllUsers\']')" :visible.sync="moveUserDialogVisible">
@@ -120,8 +120,11 @@ import {
   createRole,
   updateRole,
   moveAllUsers,
+  ImportRoleXlsxTemplate,
+  ImportRoleFromXlsx,
   ExportRoleToXlsx
 } from '@/api/system-manage/identity/role'
+
 import {
   checkPermission
 } from '@/utils/abp'
@@ -131,14 +134,14 @@ import { downloadByData } from '@/utils/download'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import PermissionDialog from '../components/permission-dialog'
 import RoleClaim from './components/RoleClaim.vue'
-import ImportExcel from './components/ImportExcel.vue'
+import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 
 export default {
   name: 'Role',
   components: {
     Pagination,
     RoleClaim,
-    ImportExcel,
+    UploadSingleExcel,
     PermissionDialog
   },
   data() {
@@ -189,6 +192,8 @@ export default {
   },
   methods: {
     checkPermission,
+    ImportRoleXlsxTemplate,
+    ImportRoleFromXlsx,
     fetchRoleOptions() {
       var req = {
         page: 1,
