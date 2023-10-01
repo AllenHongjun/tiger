@@ -33,6 +33,28 @@ export function updateUser(id, payload) {
   })
 }
 
+export function ImportUserXlsxTemplate() {
+  return request({
+    url: `/api/identity/users/import-xlxs-template`,
+    method: 'get',
+    header: {
+      headers: { 'Content-Type': 'application/x-download' }
+    },
+    responseType: 'blob'
+  })
+}
+
+export function ImportUserFromXlsx(payload) {
+  return request({
+    url: `/api/identity/users/import-from-xlsx`,
+    method: 'post',
+    data: payload,
+    headers: {
+      'Content-Type': 'multipart/form-data;charset=utf-8'
+    }
+  })
+}
+
 export function ExportUserToXlsx(params) {
   return request({
     url: `/api/identity/users/export-to-xlsx`,
@@ -147,5 +169,19 @@ export function getOrganizationsByUserId(id, includeDetails = false) {
     url: `/api/identity/users/${id}/organizations`,
     method: 'get',
     params: includeDetails
+  })
+}
+
+export function getRolesByUserId(id) {
+  return request({
+    url: `/api/identity/users/${id}/roles`,
+    method: 'get'
+  })
+}
+
+export function getAssignableRoles() {
+  return request({
+    url: `/api/identity/users/assignable-roles`,
+    method: 'get'
   })
 }

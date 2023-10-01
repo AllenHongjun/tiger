@@ -1069,6 +1069,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.ImportUserFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            从xlsx导入角色
+            </summary>
+            <param name="importexcelfile"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.ExportUsersToXlsxAsync(Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserGetListInput)">
             <summary>
             将用户导出xlxs

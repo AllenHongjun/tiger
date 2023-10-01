@@ -167,14 +167,11 @@ namespace Tiger.Volo.Abp.Identity
 
                 // TODO:发送异步导入成功通知
 
-                // 如何判断数据导入成功？？
-
             }
             else
             {
                 throw new Exception("文件不能空");
             }
-
         }
 
         /// <summary>

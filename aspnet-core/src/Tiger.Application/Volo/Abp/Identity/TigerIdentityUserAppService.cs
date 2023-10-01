@@ -1,13 +1,17 @@
-﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.ExportImport;
 using Tiger.Infrastructure.ExportImport.Help;
 using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
@@ -70,7 +74,10 @@ namespace Tiger.Volo.Abp.Identity
         [Authorize(IdentityPermissions.Users.Default)]
         public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
         {
-            var count = await _tigerIdentityUserRepository.GetCountAsync(input.Filter);
+            var count = await _tigerIdentityUserRepository.GetCountAsync(input.RoleId, input.OrganizationUnitId,
+                input.UserName, input.PhoneNumber, input.Name,
+                input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
+                input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Filter);
             var list = await _tigerIdentityUserRepository.GetListAsync(input.RoleId, input.OrganizationUnitId,
                 input.UserName, input.PhoneNumber, input.Name,
                 input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
@@ -83,14 +90,85 @@ namespace Tiger.Volo.Abp.Identity
         }
 
         /// <summary>
+        /// 从xlsx导入角色
+        /// </summary>
+        /// <param name="importexcelfile"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public virtual async Task ImportUserFromXlsxAsync(IFormFile importExcelFile)
+        {
+
+            if (importExcelFile != null && importExcelFile.Length > 0)
+            {
+                using var workbook = new XLWorkbook(importExcelFile.OpenReadStream());
+                // get the first worksheet in the workbook
+                var worksheet = workbook.Worksheets.FirstOrDefault();
+                if (worksheet == null)
+                    throw new Exception("No worksheet found");
+
+                //the columns
+                var properties = ImportManager.GetPropertiesByExcelCells<IdentityUserDto>(worksheet);
+
+                var manager = new PropertyManager<IdentityUserDto>(properties);
+                var iRow = 2;
+
+                while (true)
+                {
+                    var allColumnsAreEmpty = manager.GetProperties
+                        .Select(property => worksheet.Row(iRow).Cell(property.PropertyOrderPosition))
+                        .All(cell => cell?.Value == null || string.IsNullOrEmpty(cell.Value.ToString()));
+
+                    if (allColumnsAreEmpty)
+                        break;
+
+                    manager.ReadFromXlsx(worksheet, iRow);
+
+                    var user = await _identityUserRepository.GetAsync(manager.GetProperty("Id").GuidValue);
+
+                    var isNew = user == null;
+
+                    user ??= new IdentityUser(
+                        GuidGenerator.Create(), 
+                        manager.GetProperty(L["UserName"]).StringValue,
+                        manager.GetProperty(L["EmailAddress"]).StringValue, 
+                        CurrentTenant.Id);
+
+                    foreach (var property in manager.GetProperties)
+                    {
+                        if (property.PropertyName == L["DisplayName:Surname"]) user.Surname = property.StringValue;
+                        if (property.PropertyName == L["DisplayName:Name"]) user.Surname = property.StringValue;
+                        if (property.PropertyName == L["PhoneNumber"]) user.SetPhoneNumber(property.StringValue, false);
+                    }
+
+                    if (isNew)
+                        await UserManager.CreateAsync(user, manager.GetProperty(L["Password"]).StringValue);
+                    else
+                    {
+                        await ChangePasswordAsync(manager.GetProperty("Id").GuidValue, new IdentityUserSetPasswordInput { Password = manager.GetProperty(L["Password"]).StringValue });
+                        await UserManager.UpdateAsync(user);
+                    }
+                    iRow++;
+                }
+
+            }
+            else
+            {
+                throw new Exception("文件不能空");
+            }
+        }
+
+
+        /// <summary>
         /// 将用户导出xlxs
         /// </summary>
         /// <param name="GetIdentityRolesInput">input</param>
         /// <returns>查询到的所有用户</returns>
         public virtual async Task<IActionResult> ExportUsersToXlsxAsync(IdentityUserGetListInput input)
         {
-            var users = await _tigerIdentityUserRepository.GetListAsync(
-                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails: true);
+            var users = await _tigerIdentityUserRepository.GetListAsync(input.RoleId, input.OrganizationUnitId,
+                input.UserName, input.PhoneNumber, input.Name,
+                input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
+                input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Sorting, int.MaxValue, 0, input.Filter);
             var list = ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(users);
 
             //property manager 
@@ -99,17 +177,13 @@ namespace Tiger.Volo.Abp.Identity
                 new PropertyByName<IdentityUserDto>("Id", p => p.Id),
                 new PropertyByName<IdentityUserDto>(L["TenantId"], p => p.TenantId),
                 new PropertyByName<IdentityUserDto>(L["UserName"], p => p.UserName),
-                new PropertyByName<IdentityUserDto>(L["Name"], p => p.Name),
-                new PropertyByName<IdentityUserDto>(L["Surname"], p => p.Surname),
+                new PropertyByName<IdentityUserDto>(L["Password"], p => ""),
+                new PropertyByName<IdentityUserDto>(L["DisplayName:Surname"], p => p.Surname),
+                new PropertyByName<IdentityUserDto>(L["DisplayName:Name"], p => p.Name),
                 new PropertyByName<IdentityUserDto>(L["EmailAddress"], p => p.Email),
-                new PropertyByName<IdentityUserDto>(L["DisplayName:EmailConfirmed"], p => p.EmailConfirmed),
-                new PropertyByName<IdentityUserDto>(L["DisplayName:PhoneNumber"], p => p.PhoneNumber),
-                new PropertyByName<IdentityUserDto>(L["DisplayName:PhoneNumberConfirmed"], p => p.PhoneNumberConfirmed),
-                new PropertyByName<IdentityUserDto>(L["DisplayName:LockoutEnabled"], p => p.LockoutEnabled),
-                new PropertyByName<IdentityUserDto>(L["DisplayName:LockoutEnd"], p => p.LockoutEnd),
-                new PropertyByName<IdentityUserDto>(L["LastModificationTime"], p => p.LastModificationTime),
+                new PropertyByName<IdentityUserDto>(L["PhoneNumber"], p => p.PhoneNumber),
+                new PropertyByName<IdentityUserDto>(L["LockoutEnd"], p => p.LockoutEnd),
                 new PropertyByName<IdentityUserDto>(L["CreationTime"], p => p.CreationTime),
-
             });
 
             var bytes = await manager.ExportToXlsxAsync(list);

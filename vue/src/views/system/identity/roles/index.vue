@@ -254,7 +254,7 @@ export default {
       })
     },
     handleImport(row) {
-      this.$refs['ImportExcelDialog'].dialogUploadVisible = true
+      this.$refs['ImportExcelDialog'].handleUploadExcel()
     },
 
     handleCreate() {

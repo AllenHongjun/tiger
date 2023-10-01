@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users;
 using Tiger.Volo.Abp.Identity.Users.Dto;
-using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
@@ -24,6 +23,7 @@ namespace Tiger.Volo.Abp.Identity
     [Route("api/identity/users")]
     public class TigerIdentityUserController : AbpController, ITigerIdentityUserAppService
     {
+        #region Ctor
         protected ITigerIdentityUserAppService _userAppService;
         private readonly IIdentityUserAppService _identityUserAppService;
         protected readonly IPermissionAppService _permissionAppService;
@@ -33,9 +33,10 @@ namespace Tiger.Volo.Abp.Identity
         {
             _userAppService = userAppService;
             _identityUserAppService = identityUserAppService;
-        }
+        } 
+        #endregion
 
-
+        #region User
         /// <summary>
         /// 分页获取用户列表
         /// </summary>
@@ -47,6 +48,20 @@ namespace Tiger.Volo.Abp.Identity
         {
             return await _userAppService.GetListAsync(input);
         }
+
+
+        /// <summary>
+        /// 从xlsx导入
+        /// </summary>
+        /// <param name="importExcelFile"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("import-from-xlsx")]
+        public async Task ImportUserFromXlsxAsync(IFormFile importExcelFile)
+        {
+            await _userAppService.ImportUserFromXlsxAsync(importExcelFile);
+        }
+
 
         /// <summary>
         /// 将用户导出xlsx
@@ -62,7 +77,48 @@ namespace Tiger.Volo.Abp.Identity
         }
 
 
+        /// <summary>
+        /// 修改用户密码
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPut]
+        [Route("{id}/change-password")]
+        public Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input)
+        {
+            return _userAppService.ChangePasswordAsync(id, input);
+        }
 
+        /// <summary>
+        /// 锁定用户
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <param name="seconds">锁定时长单位 秒</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/lock")]
+        public Task LockAsync(Guid id, int seconds)
+        {
+            return _userAppService.LockAsync(id, seconds);
+        }
+
+        /// <summary>
+        /// 解锁用户
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPut]
+        [Route("{id}/unlock")]
+        public Task UnlockAsync(Guid id)
+        {
+            return (_userAppService.UnlockAsync(id));
+        } 
+        #endregion
+
+        #region User Relate Organizations
         /// <summary>
         /// 将用户关联组织
         /// </summary>
@@ -112,47 +168,8 @@ namespace Tiger.Volo.Abp.Identity
         public Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input)
         {
             return _userAppService.UpdateAsync(id, input);
-        }
-
-        /// <summary>
-        /// 修改用户密码
-        /// </summary>
-        /// <param name="id">用户id</param>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        [HttpPut]
-        [Route("{id}/change-password")]
-        public Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input)
-        {
-            return _userAppService.ChangePasswordAsync(id, input);
-        }
-
-        /// <summary>
-        /// 锁定用户
-        /// </summary>
-        /// <param name="id">用户id</param>
-        /// <param name="seconds">锁定时长单位 秒</param>
-        /// <returns></returns>
-        [HttpPut]
-        [Route("{id}/lock")]
-        public Task LockAsync(Guid id, int seconds)
-        {
-            return _userAppService.LockAsync(id, seconds);
-        }
-
-        /// <summary>
-        /// 解锁用户
-        /// </summary>
-        /// <param name="id">用户id</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        [HttpPut]
-        [Route("{id}/unlock")]
-        public Task UnlockAsync(Guid id)
-        {
-            return (_userAppService.UnlockAsync(id));
-        }
+        } 
+        #endregion
 
         #region UserClaims
 
@@ -184,7 +201,6 @@ namespace Tiger.Volo.Abp.Identity
             await _userAppService.DeleteClaimAsync(id, input);
         }
 
-        
         #endregion
     }
 }

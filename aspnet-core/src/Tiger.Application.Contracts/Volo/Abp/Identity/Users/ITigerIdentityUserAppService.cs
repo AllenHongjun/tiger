@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,6 +23,14 @@ namespace Tiger.Volo.Abp.Identity.Users
         /// <param name="input"></param>
         /// <returns></returns>
         Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input);
+
+        /// <summary>
+        /// 从xlsx导入角色
+        /// </summary>
+        /// <param name="importExcelFile"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        Task ImportUserFromXlsxAsync(IFormFile importExcelFile);
 
         /// <summary>
         /// 将用户导出xlxs

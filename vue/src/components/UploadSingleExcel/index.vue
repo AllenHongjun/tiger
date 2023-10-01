@@ -52,6 +52,11 @@ export default {
     }
   },
   methods: {
+    // ToDO: 创建一个初始化方法
+    handleUploadExcel() {
+      this.dialogUploadVisible = true
+      this.fileList = []
+    },
     // 获取导入模板
     downloadTemplate() {
       this.importXlsxTemplate().then(response => {

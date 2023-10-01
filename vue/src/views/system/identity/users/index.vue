@@ -40,17 +40,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <!-- <el-col :span="4">
-            <el-form-item prop="userName" label="用户名">
-              <el-input v-model="listQuery.userName" placeholder="用户名" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="4">
-            <el-form-item prop="phoneNumber" label="手机号">
-              <el-input v-model="listQuery.phoneNumber" placeholder="手机号" />
-            </el-form-item>
-          </el-col> -->
-
           <el-col :span="4">
             <el-button-group>
               <el-button type="primary" icon="el-icon-search" @click="handleFilter">
@@ -88,23 +77,7 @@
                   </el-select>
                 </el-form-item>
               </el-col>
-              <!-- <el-col :span="4">
-                <el-form-item prop="notActive" label="启用">
-                  <el-select v-model="listQuery.notActive" class="filter-item" placeholder="请选择" clearable>
-                    <el-option label="是" :value="true" />
-                    <el-option label="否" :value="false" />
-                  </el-select>
-                </el-form-item>
-              </el-col> -->
-
-              <!-- <el-col :span="4">
-                <el-form-item prop="minModifitionTime" label="修改时间">
-                  <el-input v-model="listQuery.minModifitionTime" placeholder="修改时间" />
-                </el-form-item>
-              </el-col> -->
-
             </el-row>
-
           </div>
         </el-collapse-transition>
 
@@ -117,12 +90,10 @@
               <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
                 {{ $t("AbpIdentity['Refresh']") }}
               </el-button>
-              <el-button type="primary" icon="el-icon-import">
-                导入
-              </el-button>
               <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">
                 导出
               </el-button>
+              <el-button type="primary" icon="el-icon-upload" @click="handleImport">导入</el-button>
             </el-button-group>
 
           </el-col>
@@ -156,11 +127,6 @@
         </template>
       </el-table-column>
 
-      <!-- <el-table-column label="是否删除" align="center">
-            <template slot-scope="scope">
-                <el-tag :type="( scope.row.isDeleted ? 'danger' : 'success')" :class="[scope.row.isDeleted ?  'el-icon-close' : 'el-icon-check']"></el-tag>
-            </template>
-        </el-table-column> -->
       <el-table-column :label="$t('AbpIdentity[\'DisplayName:LockoutEnabled\']')" align="center">
         <template slot-scope="scope">
           <el-tag :type="( scope.row.lockoutEnabled ? 'success' : 'danger')">
@@ -265,6 +231,8 @@
       </div>
     </el-dialog>
 
+    <upload-single-excel ref="ImportExcelDialog" :import-from-xlsx="ImportUserFromXlsx" :import-xlsx-template="ImportUserXlsxTemplate" @call-filter="handleFilter" />
+
     <user-claim ref="claimTypeDialog" />
 
     <!-- 重置密码对话框 -->
@@ -301,6 +269,8 @@
 <script>
 import {
   getUserList,
+  ImportUserXlsxTemplate,
+  ImportUserFromXlsx,
   ExportUserToXlsx,
   createUserToOrg,
   updateUserToOrg,
@@ -321,7 +291,8 @@ import {
 
 import baseListQuery from '@/utils/abp'
 import { downloadByData } from '@/utils/download'
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
+import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 import UserClaim from './components/UserClaim.vue'
 import PermissionDialog from '../components/permission-dialog'
 import OrgTree from '../components/org-tree'
@@ -339,6 +310,7 @@ export default {
   name: 'User',
   components: {
     Pagination,
+    UploadSingleExcel,
     UserClaim,
     PermissionDialog,
     OrgTree
@@ -616,6 +588,8 @@ export default {
     this.fetchOrgOptions()
   },
   methods: {
+    ImportUserXlsxTemplate,
+    ImportUserFromXlsx,
     fetchRoleOptions() {
       getRoleList({
         page: 1,
@@ -707,6 +681,9 @@ export default {
           this.$message.warning(err)
         })
       })
+    },
+    handleImport(row) {
+      this.$refs['ImportExcelDialog'].handleUploadExcel()
     },
 
     handleCommand(param) {
@@ -813,7 +790,6 @@ export default {
             tempArr.push(obj[key].name)
           })
         }
-
         this.checkedRoles = tempArr
       })
     },
