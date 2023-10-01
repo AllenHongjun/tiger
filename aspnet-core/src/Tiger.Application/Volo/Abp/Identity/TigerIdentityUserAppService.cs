@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.ExportImport.Help;
+using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users;
 using Tiger.Volo.Abp.Identity.Users.Dto;
@@ -57,6 +61,7 @@ namespace Tiger.Volo.Abp.Identity
         }
 
 
+        #region IdentityUser
         /// <summary>
         /// 分页查询用户列表
         /// </summary>
@@ -66,10 +71,10 @@ namespace Tiger.Volo.Abp.Identity
         public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
         {
             var count = await _tigerIdentityUserRepository.GetCountAsync(input.Filter);
-            var list = await _tigerIdentityUserRepository.GetListAsync(input.RoleId,input.OrganizationUnitId,
-                input.UserName,input.PhoneNumber,input.Name,
+            var list = await _tigerIdentityUserRepository.GetListAsync(input.RoleId, input.OrganizationUnitId,
+                input.UserName, input.PhoneNumber, input.Name,
                 input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
-                input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime,input.MaxModifitionTime, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
+                input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
 
             return new PagedResultDto<IdentityUserDto>(
                 count,
@@ -77,8 +82,44 @@ namespace Tiger.Volo.Abp.Identity
             );
         }
 
+        /// <summary>
+        /// 将用户导出xlxs
+        /// </summary>
+        /// <param name="GetIdentityRolesInput">input</param>
+        /// <returns>查询到的所有用户</returns>
+        public virtual async Task<IActionResult> ExportUsersToXlsxAsync(IdentityUserGetListInput input)
+        {
+            var users = await _tigerIdentityUserRepository.GetListAsync(
+                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails: true);
+            var list = ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(users);
 
-        #region IdentityUser
+            //property manager 
+            var manager = new PropertyManager<IdentityUserDto>(new[]
+            {
+                new PropertyByName<IdentityUserDto>("Id", p => p.Id),
+                new PropertyByName<IdentityUserDto>(L["TenantId"], p => p.TenantId),
+                new PropertyByName<IdentityUserDto>(L["UserName"], p => p.UserName),
+                new PropertyByName<IdentityUserDto>(L["Name"], p => p.Name),
+                new PropertyByName<IdentityUserDto>(L["Surname"], p => p.Surname),
+                new PropertyByName<IdentityUserDto>(L["EmailAddress"], p => p.Email),
+                new PropertyByName<IdentityUserDto>(L["DisplayName:EmailConfirmed"], p => p.EmailConfirmed),
+                new PropertyByName<IdentityUserDto>(L["DisplayName:PhoneNumber"], p => p.PhoneNumber),
+                new PropertyByName<IdentityUserDto>(L["DisplayName:PhoneNumberConfirmed"], p => p.PhoneNumberConfirmed),
+                new PropertyByName<IdentityUserDto>(L["DisplayName:LockoutEnabled"], p => p.LockoutEnabled),
+                new PropertyByName<IdentityUserDto>(L["DisplayName:LockoutEnd"], p => p.LockoutEnd),
+                new PropertyByName<IdentityUserDto>(L["LastModificationTime"], p => p.LastModificationTime),
+                new PropertyByName<IdentityUserDto>(L["CreationTime"], p => p.CreationTime),
+
+            });
+
+            var bytes = await manager.ExportToXlsxAsync(list);
+
+            return new FileContentResult(bytes, MimeTypes.TextXlsx);
+        } 
+        #endregion
+
+
+        #region IdentityUserOrganizationUnits
         /// <summary>
         /// 将用户关联组织机构
         /// </summary>

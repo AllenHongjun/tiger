@@ -109,7 +109,7 @@
         </el-collapse-transition>
 
         <el-row>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-button-group style="float:left">
               <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
                 {{ $t("AbpIdentity['NewUser']") }}
@@ -117,10 +117,10 @@
               <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
                 {{ $t("AbpIdentity['Refresh']") }}
               </el-button>
-              <el-button type="reset" icon="el-icon-import">
+              <el-button type="primary" icon="el-icon-import">
                 导入
               </el-button>
-              <el-button type="reset" icon="el-icon-download" @click="handleDownload">
+              <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">
                 导出
               </el-button>
             </el-button-group>
@@ -301,6 +301,7 @@
 <script>
 import {
   getUserList,
+  ExportUserToXlsx,
   createUserToOrg,
   updateUserToOrg,
   ChangePassword,
@@ -319,6 +320,7 @@ import {
 } from '@/api/system-manage/identity/organization-unit'
 
 import baseListQuery from '@/utils/abp'
+import { downloadByData } from '@/utils/download'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 import UserClaim from './components/UserClaim.vue'
 import PermissionDialog from '../components/permission-dialog'
@@ -462,6 +464,7 @@ export default {
     }
 
     return {
+      downloadLoading: false,
       list: null,
       listLoading: true,
       advanced: false, // 判断搜索栏展开/收起
@@ -686,6 +689,24 @@ export default {
     handleRefresh() {
       this.listQuery.filter = undefined
       this.fetchData()
+    },
+    // 导出 所有
+    handleDownload() {
+      this.$confirm('是否确认导出全部查询结果?', this.$i18n.t("AbpUi['AreYouSure']"), {
+        confirmButtonText: this.$i18n.t("AbpUi['Yes']"),
+        cancelButtonText: this.$i18n.t("AbpUi['Cancel']"),
+        type: 'warning'
+      }).then(response => {
+        this.downloadLoading = true
+        ExportUserToXlsx(this.listQuery).then(response => {
+          downloadByData(response, 'role.xlsx')
+          this.downloadLoading = false
+        }).catch(err => {
+          console.log(err)
+          this.downloadLoading = false
+          this.$message.warning(err)
+        })
+      })
     },
 
     handleCommand(param) {
@@ -994,10 +1015,8 @@ export default {
       if (orgIds) {
         this.temp.orgIds = orgIds
       }
-    },
-    handleDownload() {
-      console.log('开发中..')
     }
+
   }
 }
 </script>

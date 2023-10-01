@@ -48,6 +48,20 @@ namespace Tiger.Volo.Abp.Identity
             return await _userAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// 将用户导出xlsx
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpGet]
+        [Route("export-to-xlsx")]
+        public async Task<IActionResult> ExportUsersToXlsxAsync(IdentityUserGetListInput input)
+        {
+            return await _userAppService.ExportUsersToXlsxAsync(input);
+        }
+
+
 
         /// <summary>
         /// 将用户关联组织
@@ -168,7 +182,9 @@ namespace Tiger.Volo.Abp.Identity
         public async Task DeleteClaimAsync(Guid id, IdentityUserClaimDeleteDto input)
         {
             await _userAppService.DeleteClaimAsync(id, input);
-        } 
+        }
+
+        
         #endregion
     }
 }

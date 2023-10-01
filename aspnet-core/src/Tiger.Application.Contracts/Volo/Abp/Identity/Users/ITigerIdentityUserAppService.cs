@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,13 @@ namespace Tiger.Volo.Abp.Identity.Users
         /// <param name="input"></param>
         /// <returns></returns>
         Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input);
+
+        /// <summary>
+        /// 将用户导出xlxs
+        /// </summary>
+        /// <param name="input">input</param>
+        /// <returns>查询到的所有用户</returns>
+        Task<IActionResult> ExportUsersToXlsxAsync(IdentityUserGetListInput input);
 
         /// <summary>
         /// 添加用户同时关联组织机构
