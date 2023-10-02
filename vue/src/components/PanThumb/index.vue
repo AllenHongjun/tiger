@@ -30,6 +30,9 @@ export default {
       type: String,
       default: '150px'
     }
+  },
+  mounted() {
+    console.log('image', this.image)
   }
 }
 </script>

@@ -6,7 +6,7 @@
 
     <div class="user-profile">
       <div class="box-center">
-        <pan-thumb :image="getFilePathByName(user.avatar)" :height="'100px'" :width="'100px'" :hoverable="false">
+        <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
           <div>欢迎</div>
           {{ user.userName }}
         </pan-thumb>
@@ -42,10 +42,6 @@
 
 <script>
 import PanThumb from '@/components/PanThumb'
-import {
-  createFile
-} from '@/api/file-management.js'
-
 import {
   createObject
 } from '@/api/system-manage/oss/object'
@@ -87,18 +83,15 @@ export default {
 
     },
     uploadAvatar(data) {
-      // if (this.fileList.length < 1) return
-
       const formData = new FormData()
-      // 下面数据是我自己设置的数据,可自行添加数据到formData(使用键值对方式存储)
-      formData.append('Bucket', 'tiger-blob')
-      formData.append('Path', 'tiger-blob')
+      formData.append('Path', 'account')
       formData.append('FileName', data.file.name)
-      // formData.append('ExpirationTime', undefined)
-      formData.append('File', data.file)// 拿到存在fileList的文件存放到formData中
+      formData.append('File', data.file)
 
       createObject(formData).then(resData => {
-        this.user.avatar = 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/tiger-blob/' + resData.name
+        // bug: 文件名如果有空格无法显示
+        this.user.avatar = process.env.VUE_APP_IMG_URL + resData.path + resData.name
+        console.log('this.user.avatar', this.user.avatar)
         const userInfo = {
           surname: this.user.surname,
           userName: this.user.userName,
@@ -106,7 +99,7 @@ export default {
           name: this.user.name,
           phoneNumber: this.user.phoneNumber,
           extraProperties: {
-            Avatar: 'https://tiger-blob.oss-cn-hangzhou.aliyuncs.com/host/tiger-blob/' + resData.name,
+            Avatar: process.env.VUE_APP_IMG_URL + resData.path + resData.name,
             Introduction: this.user.introduction
           }
         }

@@ -16,11 +16,13 @@ export function getObject(id) {
   })
 }
 
-export function createObject(payload) {
+export function createObject(formData) {
+  formData.append('Bucket', process.env.VUE_APP_BUCKET)
+  formData.append('Overwrite', 'true')
   return request({
     url: '/api/oss-management/objects',
     method: 'post',
-    data: payload,
+    data: formData,
     headers: {
       'Content-Type': 'multipart/form-data;charset=utf-8'
     }

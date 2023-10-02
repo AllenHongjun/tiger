@@ -113,6 +113,11 @@ export function checkPermission(policy) {
   }
 }
 
+/**
+ * 如果是相对路径拼接图片oss地址
+ * @param {*} name
+ * @returns
+ */
 export function getFilePathByName(name) {
   const reg = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/
 
@@ -120,7 +125,7 @@ export function getFilePathByName(name) {
     return name
   }
 
-  return process.env.VUE_APP_BASE_API + '/api/file-management/' + name
+  return process.env.VUE_APP_IMG_URL + name
 }
 
 export default baseListQuery

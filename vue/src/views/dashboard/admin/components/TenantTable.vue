@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="list" style="width: 100%;padding-top: 15px;">
+  <el-table :data="list" style="width: 100%;">
     <el-table-column :label="$t('AbpSaas[\'TenantName\']')" min-width="120">
       <template slot-scope="scope">
         {{ scope.row.name }}
@@ -49,11 +49,14 @@ export default {
   },
   methods: {
     fetchData() {
-      // bug: 这个值添加了没有重置会引起其他页面的错误
-      // this.listQuery.sort = 'creationTime desc'
-      getTenants(this.listQuery).then(response => {
+      var req = {
+        page: 1,
+        limit: 10,
+        sort: 'creationTime desc'
+      }
+      getTenants(req).then(response => {
         console.log('response', response)
-        this.list = response.items.slice(0, 6)
+        this.list = response.items.slice(0, 8)
       })
     }
   }

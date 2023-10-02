@@ -3,7 +3,7 @@
 
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="userQueryForm" label-position="left" label-width="100px" :model="listQuery">
-        <el-row :gutter="20">
+        <el-row :gutter="10">
           <el-col :span="4">
             <el-form-item prop="filter" :label="$t('AbpUi.Search')">
               <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi.PagerSearch')" clearable />
@@ -47,11 +47,11 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpUi.Reset') }}
               </el-button>
-              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
-                <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link>
             </el-button-group>
+            <el-link type="info" :underline="false" style="margin-left: 5px;" @click="toggleAdvanced">
+              {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
+              <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
+            </el-link>
           </el-col>
         </el-row>
 
@@ -92,7 +92,6 @@
               {{ $t('AbpUi.Export') }}
             </el-button>
             <el-button type="primary" icon="el-icon-upload" @click="handleImport"> {{ $t('AbpUi.Import') }}</el-button>
-
           </el-col>
         </el-row>
       </el-form>

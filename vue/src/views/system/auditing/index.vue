@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="queryForm">
-        <el-row :gutter="20">
+        <el-row :gutter="5">
           <el-col :span="8">
             <el-form-item :label="$t('AbpAuditLogging[\'ExecutionTime\']')">
               <el-date-picker
@@ -48,11 +48,11 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                {{ advanced ? $t('TigerUi[\'Close\']') : $t('TigerUi[\'Expand\']') }}
-                <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link>
             </el-button-group>
+            <el-link type="info" :underline="false" style="margin-left: 8px;" @click="toggleAdvanced">
+              {{ advanced ? $t('TigerUi[\'Close\']') : $t('TigerUi[\'Expand\']') }}
+              <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
+            </el-link>
           </el-col>
         </el-row>
 
@@ -139,7 +139,7 @@
 
     <div class="table-container">
       <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%;" :default-sort="{prop: 'date', order: 'descending'}" @sort-change="sortChange">
-        <el-table-column :label="$t('AbpAuditLogging[\'RequestInfo\']')" align="left" width="" prop="httpStatusCode" sortable="custom">
+        <el-table-column :label="$t('AbpAuditLogging[\'RequestInfo\']')" align="left" width="700" prop="httpStatusCode" sortable="custom">
           <template slot-scope="{ row }">
             <el-tag :type="row.httpStatusCode | requestStatusCode">
               {{ row.httpStatusCode }}
@@ -154,7 +154,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column :label="$t('AbpAuditLogging[\'TenantName\']')" prop="tenantName" align="center" width="120" sortable="custom">
+        <el-table-column :label="$t('AbpAuditLogging[\'TenantName\']')" prop="tenantName" align="center" width="140" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.tenantName | empty }}</span>
           </template>
@@ -164,7 +164,7 @@
             <span>{{ row.userName | empty }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpAuditLogging[\'ClientIpAddress\']')" prop="clientIpAddress" align="center" width="140" sortable="custom">
+        <el-table-column :label="$t('AbpAuditLogging[\'ClientIpAddress\']')" prop="clientIpAddress" align="center" width="160" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.clientIpAddress | empty }}</span>
           </template>
@@ -174,7 +174,7 @@
             <span>{{ row.executionTime | moment }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpAuditLogging[\'ExecutionDuration\']')" prop="executionDuration" align="center" width="180" sortable="custom">
+        <el-table-column :label="$t('AbpAuditLogging[\'ExecutionDuration\']')" prop="executionDuration" align="center" width="80" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.executionDuration }}</span>
           </template>
@@ -185,7 +185,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column :label="$t('AbpAuditLogging[\'Action\']')" prop="action" align="center" width="120">
+        <el-table-column :label="$t('AbpAuditLogging[\'Action\']')" prop="action" align="left" width="120" fixed="right">
           <template slot-scope="{ row }">
             <el-button type="primary" @click="handleDetail(row)">
               {{ $t('AbpAuditLogging.Detail') }}

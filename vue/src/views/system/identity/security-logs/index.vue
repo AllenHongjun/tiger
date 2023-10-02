@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="queryForm">
-        <el-row :gutter="20">
+        <el-row :gutter="2">
           <el-col :span="8">
             <el-form-item :label="$t('AbpIdentity[\'SelectDateTime\']')">
               <el-date-picker v-model="queryDateTime" type="datetimerange" value-format="yyyy-MM-dd HH:mm:ss" align="left" unlink-panels :picker-options="pickerOptions" :start-placeholder="$t('AbpIdentity[\'StartTime\']')" :end-placeholder="$t('AbpIdentity[\'EndTime\']')" :default-time="['00:00:00', '23:59:59']" @change="datePickerChange" />
@@ -32,11 +32,11 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpIdentity.Reset') }}
               </el-button>
-              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                {{ advanced ? $t('AbpUi.Close') : $t('AbpUi.Expand') }}
-                <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link>
             </el-button-group>
+            <el-link type="info" :underline="false" style="padding-left: 5px;" @click="toggleAdvanced">
+              {{ advanced ? $t('AbpUi.Close') : $t('AbpUi.Expand') }}
+              <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
+            </el-link>
           </el-col>
         </el-row>
 

@@ -4,6 +4,7 @@
     "ItemWillBeDeletedMessageWithFormat": "{0} 将要被删除!",
     "ItemWillBeDeletedMessage": "此项将被删除!",
     "ItemsWillBeDeletedMessage": "这些项将被删除!",
+    "Expand": "展开",
     "Reset": "重置",
     "Export": "导出",
     "Import": "导入",

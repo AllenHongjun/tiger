@@ -5,12 +5,16 @@
 
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
 
-    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;" :gutter="20">
-      <el-col :span="16">
-        <line-chart :chart-data="lineChartData" />
+    <el-row style="padding:16px 0px 0;margin-bottom:32px;" :gutter="32">
+      <el-col :xs="24" :sm="24" :lg="16">
+        <div class="chart-wrapper">
+          <line-chart :chart-data="lineChartData" />
+        </div>
       </el-col>
-      <el-col :span="8">
-        <tenant-table />
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <tenant-table />
+        </div>
       </el-col>
 
     </el-row>

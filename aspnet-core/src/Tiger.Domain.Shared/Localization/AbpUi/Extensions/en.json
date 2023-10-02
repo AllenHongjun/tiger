@@ -2,6 +2,7 @@
   "Culture": "en",
   "Texts": {
     "ItemsWillBeDeletedMessage": "These items will be deleted!",
+    "Expand": "Expand",
     "Reset": "Reset",
     "Export": "Export",
     "Import": "Import",
