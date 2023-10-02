@@ -84,6 +84,7 @@ namespace Volo.Abp.Identity
         [Route("export-to-xlsx")]
         public async Task<IActionResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
         {
+            input.MaxResultCount = int.MaxValue;
             return await RoleAppService.ExportRolesToXlsxAsync(input);
         }
 

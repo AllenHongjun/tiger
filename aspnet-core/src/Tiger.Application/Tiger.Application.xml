@@ -1084,6 +1084,48 @@
             <param name="GetIdentityRolesInput">input</param>
             <returns>查询到的所有用户</returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.GetRolesAsync(System.Guid)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <remarks>
+            用户管理角色 如果部门管理了角色那么部门下面的员工也都有这个角色
+            </remarks>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.ChangePasswordAsync(System.Guid,Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserSetPasswordInput)">
+            <summary>
+            修改用户密码
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.BusinessException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.ChangeTwoFactorEnableAsync(System.Guid,Tiger.Volo.Abp.Identity.Users.Dto.TwoFactorEnabledDto)">
+            <summary>
+            启用双因素认证
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.LockAsync(System.Guid,System.Int32)">
+            <summary>
+            锁定用户
+            </summary>
+            <param name="id"></param>
+            <param name="seconds">锁定时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.UnlockAsync(System.Guid)">
+            <summary>
+            解锁用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.AddToOrganizationUnitsAsync(System.Guid,System.Collections.Generic.List{System.Guid})">
             <summary>
             将用户关联组织机构
@@ -1129,38 +1171,6 @@
             </summary>
             <param name="id"></param>
             <param name="ouId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.ChangePasswordAsync(System.Guid,Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserSetPasswordInput)">
-            <summary>
-            修改用户密码
-            </summary>
-            <param name="id"></param>
-            <param name="input"></param>
-            <returns></returns>
-            <exception cref="T:Volo.Abp.BusinessException"></exception>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.ChangeTwoFactorEnableAsync(System.Guid,Tiger.Volo.Abp.Identity.Users.Dto.TwoFactorEnabledDto)">
-            <summary>
-            启用双因素认证
-            </summary>
-            <param name="id"></param>
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.LockAsync(System.Guid,System.Int32)">
-            <summary>
-            锁定用户
-            </summary>
-            <param name="id"></param>
-            <param name="seconds">锁定时间</param>
-            <returns></returns>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserAppService.UnlockAsync(System.Guid)">
-            <summary>
-            解锁用户
-            </summary>
-            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:Tiger.Volo.Abp.Sass.Editions.EditionAppService">

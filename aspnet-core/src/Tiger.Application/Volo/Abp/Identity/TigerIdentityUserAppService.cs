@@ -165,10 +165,11 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns>查询到的所有用户</returns>
         public virtual async Task<IActionResult> ExportUsersToXlsxAsync(IdentityUserGetListInput input)
         {
+            int maxResultCount = input.MaxResultCount == 1 ? 1 : int.MaxValue;
             var users = await _tigerIdentityUserRepository.GetListAsync(input.RoleId, input.OrganizationUnitId,
                 input.UserName, input.PhoneNumber, input.Name,
                 input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
-                input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Sorting, int.MaxValue, 0, input.Filter);
+                input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Sorting, maxResultCount, 0, input.Filter);
             var list = ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(users);
 
             //property manager 
@@ -189,7 +190,115 @@ namespace Tiger.Volo.Abp.Identity
             var bytes = await manager.ExportToXlsxAsync(list);
 
             return new FileContentResult(bytes, MimeTypes.TextXlsx);
-        } 
+        }
+
+
+        #region 账号安全
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 用户管理角色 如果部门管理了角色那么部门下面的员工也都有这个角色
+        /// </remarks>
+        public override Task<ListResultDto<IdentityRoleDto>> GetRolesAsync(Guid id)
+        {
+            return base.GetRolesAsync(id);
+        }
+
+        /// <summary>
+        /// 修改用户密码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="BusinessException"></exception>
+        [Authorize(TigerIdentityPermissions.Users.ResetPassword)]
+        public async Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input)
+        {
+            var user = await GetUserAsync(id);
+
+            if (user.IsExternal)
+            {
+                throw new BusinessException(code: Volo.Abp.Identity.IdentityErrorCodes.ExternalUserPasswordChange);
+            }
+
+            if (user.PasswordHash == null)
+            {
+                (await UserManager.AddPasswordAsync(user, input.Password)).CheckErrors();
+            }
+            else
+            {
+                var token = await UserManager.GeneratePasswordResetTokenAsync(user);
+
+                (await UserManager.ResetPasswordAsync(user, token, input.Password)).CheckErrors();
+            }
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+        }
+
+        /// <summary>
+        /// 启用双因素认证
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [Authorize(IdentityPermissions.Users.Update)]
+        public async Task ChangeTwoFactorEnableAsync(Guid id, TwoFactorEnabledDto input)
+        {
+            var user = await GetUserAsync(id);
+
+            (await UserManager.SetTwoFactorEnabledAsync(user, input.Enabled)).CheckErrors();
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+
+
+        /// <summary>
+        /// 锁定用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="seconds">锁定时间</param>
+        /// <returns></returns>
+        public async Task LockAsync(Guid id, int seconds)
+        {
+            var user = await GetUserAsync(id);
+
+            var endDate = new DateTimeOffset(Clock.Now).AddSeconds(seconds);
+            (await UserManager.SetLockoutEndDateAsync(user, endDate)).CheckErrors();
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+
+
+        /// <summary>
+        /// 解锁用户
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(IdentityPermissions.Users.Update)]
+        public async Task UnlockAsync(Guid id)
+        {
+            var user = await GetUserAsync(id);
+            (await UserManager.SetLockoutEndDateAsync(user, null)).CheckErrors();
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+
+        protected async virtual Task<IdentityUser> GetUserAsync(Guid id)
+        {
+            //await IdentityOptions.SetAsync();
+            var user = await UserManager.GetByIdAsync(id);
+
+            return user;
+        }
+        #endregion
         #endregion
 
 
@@ -333,98 +442,7 @@ namespace Tiger.Volo.Abp.Identity
 
         #endregion
 
-        #region 账号安全
-        /// <summary>
-        /// 修改用户密码
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        /// <exception cref="BusinessException"></exception>
-        [Authorize(TigerIdentityPermissions.Users.ResetPassword)]
-        public async Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input)
-        {
-            var user = await GetUserAsync(id);
-
-            if (user.IsExternal)
-            {
-                throw new BusinessException(code: Volo.Abp.Identity.IdentityErrorCodes.ExternalUserPasswordChange);
-            }
-
-            if (user.PasswordHash == null)
-            {
-                (await UserManager.AddPasswordAsync(user, input.Password)).CheckErrors();
-            }
-            else
-            {
-                var token = await UserManager.GeneratePasswordResetTokenAsync(user);
-
-                (await UserManager.ResetPasswordAsync(user, token, input.Password)).CheckErrors();
-            }
-
-            await CurrentUnitOfWork.SaveChangesAsync();
-
-        }
-
-        /// <summary>
-        /// 启用双因素认证
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        [Authorize(IdentityPermissions.Users.Update)]
-        public async Task ChangeTwoFactorEnableAsync(Guid id, TwoFactorEnabledDto input)
-        {
-            var user = await GetUserAsync(id);
-
-            (await UserManager.SetTwoFactorEnabledAsync(user, input.Enabled)).CheckErrors();
-
-            await CurrentUnitOfWork.SaveChangesAsync();
-        }
-
-
-
-        /// <summary>
-        /// 锁定用户
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="seconds">锁定时间</param>
-        /// <returns></returns>
-        public async Task LockAsync(Guid id, int seconds)
-        {
-            var user = await GetUserAsync(id);
-
-            var endDate = new DateTimeOffset(Clock.Now).AddSeconds(seconds);
-            (await UserManager.SetLockoutEndDateAsync(user, endDate)).CheckErrors();
-
-            await CurrentUnitOfWork.SaveChangesAsync();
-        }
-
-
-
-        /// <summary>
-        /// 解锁用户
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Authorize(IdentityPermissions.Users.Update)]
-        public async Task UnlockAsync(Guid id)
-        {
-            var user = await GetUserAsync(id);
-            (await UserManager.SetLockoutEndDateAsync(user, null)).CheckErrors();
-
-            await CurrentUnitOfWork.SaveChangesAsync();
-        }
-
-
-        protected async virtual Task<IdentityUser> GetUserAsync(Guid id)
-        {
-            //await IdentityOptions.SetAsync();
-            var user = await UserManager.GetByIdAsync(id);
-
-            return user;
-        } 
-        #endregion
+        
 
     }
 }

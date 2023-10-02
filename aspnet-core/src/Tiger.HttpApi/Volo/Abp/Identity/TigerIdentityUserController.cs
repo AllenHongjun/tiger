@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users;
 using Tiger.Volo.Abp.Identity.Users.Dto;
@@ -49,6 +50,20 @@ namespace Tiger.Volo.Abp.Identity
             return await _userAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// xlsx 导入模板
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("import-xlxs-template")]
+        public async Task<IActionResult> ImportUserTemplateAsync()
+        {
+            IdentityUserGetListInput input = new IdentityUserGetListInput()
+            {
+                MaxResultCount = 1
+            };
+            return await _userAppService.ExportUsersToXlsxAsync(input);
+        }
 
         /// <summary>
         /// 从xlsx导入

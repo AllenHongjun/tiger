@@ -7,9 +7,9 @@
           <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" clearable style="width: 150px" class="filter-item" />
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
           <el-button type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t("AbpIdentity['NewRole']") }}</el-button>
-          <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
-          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">导出</el-button>
-          <el-button type="primary" icon="el-icon-upload" @click="handleImport">导入</el-button>
+          <el-button type="primary" plain class="filter-item" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
+          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">{{ $t('AbpUi.Export') }}</el-button>
+          <el-button type="primary" icon="el-icon-upload" @click="handleImport">{{ $t('AbpUi.Import') }}</el-button>
         </el-row>
 
         <!-- 表格数据 -->
@@ -42,11 +42,11 @@
               <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" @click="handleUpdate(scope.row)">
                 {{ $t("AbpIdentity['Edit']") }}
               </el-button>
+              <el-button v-if="checkPermission('AbpIdentity.Roles.ManagePermissions')" type="primary" @click="handleUpdatePermission(scope.row)">
+                {{ $t("AbpIdentity['Permissions']") }}
+              </el-button>
               <el-button v-if="checkPermission('AbpIdentity.Roles.ManageClaims')" type="primary" plain @click="handleManageClaims(scope.row)">
                 {{ $t("AbpIdentity['ClaimTypes']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpIdentity.Roles.ManagePermissions')" type="success" plain @click="handleUpdatePermission(scope.row)">
-                {{ $t("AbpIdentity['Permissions']") }}
               </el-button>
               <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" plain @click="handleMoveAllUsers(scope.row)">
                 {{ $t("AbpIdentity['MoveAllUsers']") }}
@@ -78,7 +78,7 @@
           </div>
         </el-dialog>
 
-        <upload-single-excel ref="ImportExcelDialog" :import-from-xlsx="ImportRoleFromXlsx" :import-xlsx-template="ImportRoleXlsxTemplate" @call-filter="handleFilter" />
+        <upload-single-excel ref="ImportExcelDialog" file-name="role" :import-from-xlsx="ImportRoleFromXlsx" :import-xlsx-template="ImportRoleXlsxTemplate" @call-filter="handleFilter" />
 
         <!-- 移动所有用户 -->
         <el-dialog :title="$t('AbpIdentity[\'MoveAllUsers\']')" :visible.sync="moveUserDialogVisible">
@@ -131,8 +131,8 @@ import {
 
 import baseListQuery from '@/utils/abp'
 import { downloadByData } from '@/utils/download'
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
-import PermissionDialog from '../components/permission-dialog'
+import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
+import PermissionDialog from '../components/permission-dialog.vue'
 import RoleClaim from './components/RoleClaim.vue'
 import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 

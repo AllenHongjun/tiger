@@ -105,7 +105,7 @@ namespace Tiger.Volo.Abp.Identity
             string sorting = null, int maxResultCount = 50, int skipCount = 0, 
             string filter = null,  CancellationToken cancellationToken = default)
         {
-            return await DbContext.Set<IdentityUser>()
+            return await DbContext.Set<IdentityUser>().Include(x => x.Roles)
                     .WhereIf(roleId.HasValue, x => x.Roles.Any( role => role.RoleId == roleId))
                     .WhereIf(organizationUnitId.HasValue, x=> x.OrganizationUnits.Any( og => og.OrganizationUnitId == organizationUnitId))
                     .WhereIf( !userName.IsNullOrEmpty(), x => x.UserName.Contains(userName))

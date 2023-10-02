@@ -1,14 +1,14 @@
 <template>
   <!-- permissionsQuery.providerKey -->
-  <el-dialog :title="'用户授权'" :visible.sync="dialogPermissionFormVisible" top="7vh">
+  <el-dialog :title="$t('AbpIdentity.PermissionGrant')" :visible.sync="dialogPermissionFormVisible" top="7vh">
     <!-- `checked` 为 true 或 false -->
-    <el-checkbox v-model="allPermissionChecked" @change="toggleCheckAll">授予所有权限</el-checkbox>
+    <el-checkbox v-model="allPermissionChecked" @change="toggleCheckAll">{{ $t('AbpIdentity.GrantAllPermissions') }}</el-checkbox>
     <!-- <el-button type="primary" icon="el-icon-sort" class="filter-item" style="margin-left: 10px;" @click="toggleRowExpansion">全部{{ isExpansion ? "收缩" : "展开" }}</el-button> -->
     <el-divider />
     <el-form label-position="top" style="min-height:500px;">
       <el-tabs v-model="activeName" tab-position="left">
         <el-tab-pane v-for="group in permissionData.groups" :key="group.name" :label="group.displayName">
-          <el-checkbox v-model="groupAllPermissionChecked" @change="toggleCheckGroupAll">全选</el-checkbox>
+          <el-checkbox v-model="groupAllPermissionChecked" @change="toggleCheckGroupAll">{{ $t('AbpUi.SelectAll') }}</el-checkbox>
           <el-divider />
           <el-form-item :label="group.displayName">
             <el-tree ref="permissionTree" :data="transformPermissionTree(group.permissions)" :props="treeDefaultProps" show-checkbox node-key="name" :default-expand-all="true" />

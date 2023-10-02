@@ -35,6 +35,10 @@ import { downloadByData } from '@/utils/download'
 export default {
   name: 'UploadSingleExcel',
   props: {
+    fileName: {
+      type: String,
+      default: ''
+    },
     importFromXlsx: {
       type: Function,
       default: function() { }
@@ -60,8 +64,7 @@ export default {
     // 获取导入模板
     downloadTemplate() {
       this.importXlsxTemplate().then(response => {
-        downloadByData(response, 'role-template.xlsx')
-        this.downloadLoading = false
+        downloadByData(response, this.fileName + '-template.xlsx')
       })
     },
     uploadFile() {
@@ -83,6 +86,10 @@ export default {
           type: 'success',
           duration: 2000
         })
+      }).catch((err) => {
+        this.uploadLoading = false
+        // this.$message.error(err)
+        console.log(err)
       })
     },
     handleChange(file, fileList) {

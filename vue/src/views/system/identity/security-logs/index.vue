@@ -64,16 +64,10 @@
         </el-collapse-transition>
 
         <el-row>
-          <el-col :span="4">
-            <el-button-group style="float:left">
-              <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
-                刷新
-              </el-button>
-              <!-- <el-button type="reset" icon="el-icon-download" @click="handleDownload">
-                            导出
-                        </el-button> -->
-            </el-button-group>
-
+          <el-col :span="18">
+            <el-button type="primary" plain icon="el-icon-refresh" @click="handleRefresh">
+              {{ $t('AbpUi.Refresh') }}
+            </el-button>
           </el-col>
         </el-row>
       </el-form>

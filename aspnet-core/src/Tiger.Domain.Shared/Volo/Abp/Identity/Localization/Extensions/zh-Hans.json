@@ -22,9 +22,19 @@
     "Search": "搜索",
     "Reset": "重置",
 
+    // 用户
     "Users:ChangePassword": "重置密码",
     "UserCount": "用户数量",
+    "LastModificationTime": "最近修改时间",
+    "EmailConfirmed": "邮箱已确认",
+    "LockOut": "锁定",
+    "Lock": "锁定",
+    "UnLock": "解锁",
+    "IsExternal": "外部用户",
+    "PermissionGrant": "授权",
+    "GrantAllPermissions": "授与所有权限",
 
+    // 角色
     "NoUserFoundInRole": "该角色没有包含用户!",
     "MoveAllUsers": "移动所有用户",
     "MoveAllUsersTips": "移动所有用户到指定的角色",

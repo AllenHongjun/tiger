@@ -1020,6 +1020,12 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.ImportUserTemplateAsync">
+            <summary>
+            xlsx 导入模板
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Volo.Abp.Identity.TigerIdentityUserController.ImportUserFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             从xlsx导入

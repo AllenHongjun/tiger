@@ -1,7 +1,10 @@
 {
   "Culture": "en",
   "Texts": {
-    "ItemsWillBeDeletedMessage": "These items will be deleted!"
-
+    "ItemsWillBeDeletedMessage": "These items will be deleted!",
+    "Reset": "Reset",
+    "Export": "Export",
+    "Import": "Import",
+    "SelectAll": "Select all"
   }
 }

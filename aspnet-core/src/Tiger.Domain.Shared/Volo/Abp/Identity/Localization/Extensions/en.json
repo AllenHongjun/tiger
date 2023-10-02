@@ -11,6 +11,16 @@
     "Menu:IdentityManagement": "Identity",
 
     "UserCount": "User Count",
+    "LastModificationTime": "LastModificationTime",
+    "EmailConfirmed": "Email Confirmed",
+    "StartTime": "StartTime",
+    "EndTime": "EndTime",
+    "LockOut": "LockOut",
+    "Lock": "Lock",
+    "UnLock": "UnLock",
+    "IsExternal": "IsExternal",
+    "PermissionGrant": "PermissionGrant",
+    "GrantAllPermissions": "Grant all permissions",
 
     "NoUserFoundInRole": "This role does not contain any users!",
     "MoveAllUsers": "Move all users",

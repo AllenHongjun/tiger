@@ -481,6 +481,9 @@ namespace Tiger
                                 .Select(o => o.RemovePostFix("/"))
                                 .ToArray()
                         )
+                        //火狐浏览器需要明确指明方法， * 不生效 https://www.cnblogs.com/wangjinya/p/14767852.html
+                        .WithMethods("GET", "POST", "HEAD", "PUT", "DELETE", "OPTIONS")
+                        .WithHeaders("Origin", "X-Requested-With", "Content-Type", "Accept", "x-token")
                         .WithAbpExposedHeaders()
                         .SetIsOriginAllowedToAllowWildcardSubdomains()
                         .AllowAnyHeader()
