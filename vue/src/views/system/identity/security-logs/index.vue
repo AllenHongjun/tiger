@@ -9,7 +9,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item prop="applicationName" :label="$t('AbpIdentity[\'ApplicationName\']')">
+            <el-form-item prop="applicationName" :label="$t('AbpIdentity[\'ApplicationName\']')" label-width="160px">
               <el-input v-model="queryForm.applicationName" :placeholder="$t('AbpIdentity[\'ApplicationName\']')" />
             </el-form-item>
           </el-col>
@@ -33,7 +33,7 @@
                 {{ $t('AbpIdentity.Reset') }}
               </el-button>
               <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                {{ advanced ? '收起' : '展开' }}
+                {{ advanced ? $t('AbpUi.Close') : $t('AbpUi.Expand') }}
                 <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
               </el-link>
             </el-button-group>
@@ -88,7 +88,7 @@
         @sort-change="sortChange"
       >
         <el-table-column type="index" width="80" />
-        <el-table-column :label="$t('AbpIdentity[\'CreationTime\']')" prop="creationTime" align="center" width="150" sortable="custom">
+        <el-table-column :label="$t('AbpIdentity[\'CreationTime\']')" prop="creationTime" align="center" width="170" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.creationTime | moment }}</span>
           </template>
@@ -108,7 +108,7 @@
             <span>{{ row.browserInfo | empty }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('AbpIdentity[\'ApplicationName\']')" prop="applicationName" align="center" width="140" sortable="custom">
+        <el-table-column :label="$t('AbpIdentity[\'ApplicationName\']')" prop="applicationName" align="center" width="160" sortable="custom">
           <template slot-scope="{ row }">
             <span>{{ row.applicationName | empty }}</span>
           </template>

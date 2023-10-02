@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Distributed;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,7 @@ namespace Volo.Abp.Identity
     [Authorize(TigerIdentityPermissions.OrganizationUnits.Default)]
     public class OrganizationUnitAppService : IdentityAppServiceBase, IOrganizationUnitAppService
     {
+        #region 构造函数和字段
         private readonly IDistributedCache<OrganizationUnitDto> _cache;
         private readonly IDistributedCache<ListResultDto<OrganizationUnitDto>> _cacheList;
         private readonly IDistributedCache<PagedResultDto<OrganizationUnitDto>> _cachePage;
@@ -58,7 +60,8 @@ namespace Volo.Abp.Identity
             _cache = cache;
             _cacheList = cacheList;
             _cachePage = cachePage;
-        }
+        } 
+        #endregion
 
         #region Utility
         /// <summary>
@@ -358,7 +361,6 @@ namespace Volo.Abp.Identity
             var selfAndChildren = await OrganizationUnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
             selfAndChildren.Add(ou);
 
-            // Todo:减少查询数据库次数
             foreach (var child in selfAndChildren)
             {
                 list = Enumerable.Union(list, await OrganizationUnitRepository.GetRolesAsync(
@@ -462,30 +464,45 @@ namespace Volo.Abp.Identity
             {
                 return await UserAppService.GetListAsync(userInput);
             }
-            IEnumerable<IdentityUser> list = new List<IdentityUser>();
+
             var ou = await OrganizationUnitRepository.GetAsync(ouId.Value);
-            var selfAndChildren = await OrganizationUnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
-            selfAndChildren.Add(ou);
-            //Consider submitting PR to get its own overloading method containing all the members of the child node
-            foreach (var child in selfAndChildren)
-            {
-                // Find child nodes where users have duplicates (users can have multiple organizations)
-                //count += await UnitRepository.GetMembersCountAsync(child, usersInput.Filter);
-                list = Enumerable.Union(list, await OrganizationUnitRepository.GetMembersAsync(
-                       child,
+            var userCount = await OrganizationUnitRepository.GetMembersCountAsync(ou );
+            var userList =  await OrganizationUnitRepository.GetMembersAsync(
+                       ou,
                        userInput.Sorting,
-                       //usersInput.MaxResultCount, // So let's think about looking up all the members of the subset
-                       //usersInput.SkipCount,  
+                       userInput.MaxResultCount,
+                       userInput.SkipCount,
                        filter: userInput.Filter
-                ));
-            }
-            return new PagedResultDto<IdentityUserDto>(
-                list.Count(),
-                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(
-                    list.Skip(userInput.SkipCount).Take(userInput.MaxResultCount)
-                    .ToList()
-                )
-            );
+                );
+
+            return new PagedResultDto<IdentityUserDto>(userCount, ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(userList));
+
+            #region 获取组织以及子组织关联的用户
+            //IEnumerable<IdentityUser> list = new List<IdentityUser>();
+            //var ou = await OrganizationUnitRepository.GetAsync(ouId.Value);
+            //var selfAndChildren = await OrganizationUnitRepository.GetAllChildrenWithParentCodeAsync(ou.Code, ou.Id);
+            //selfAndChildren.Add(ou);
+            ////Consider submitting PR to get its own overloading method containing all the members of the child node
+            //foreach (var child in selfAndChildren)
+            //{
+            //    // Find child nodes where users have duplicates (users can have multiple organizations)
+            //    //count += await UnitRepository.GetMembersCountAsync(child, usersInput.Filter);
+            //    list = Enumerable.Union(list, await OrganizationUnitRepository.GetMembersAsync(
+            //           child,
+            //           userInput.Sorting,
+            //           //usersInput.MaxResultCount, // So let's think about looking up all the members of the subset
+            //           //usersInput.SkipCount,  
+            //           filter: userInput.Filter
+            //    ));
+            //}
+            //return new PagedResultDto<IdentityUserDto>(
+            //    list.Count(),
+            //    ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(
+            //        list.Skip(userInput.SkipCount).Take(userInput.MaxResultCount)
+            //        .ToList()
+            //    )
+            //); 
+            #endregion
         }
 
 

@@ -1,8 +1,11 @@
 <template>
   <div class="app-container">
     <!-- 组织选择关联多个角色 -->
-    <el-dialog :title="$t('AbpIdentity[\'OrganizationUnit:SelectUsers\']')" :visible.sync="dialogFormVisible">
-      <!--@select-all="handleSelectionChange" @selection-change="handleSelectionChange"   -->
+    <el-dialog :title="$t('AbpIdentity[\'OrganizationUnit:SelectUsers\']')" :visible.sync="dialogFormVisible" top="7vh">
+      <el-row style="margin-bottom: 20px">
+        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" clearable style="width: 150px" class="filter-item" />
+        <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
+      </el-row>
       <el-table
         ref="userSelectTable"
         :key="tableKey"
@@ -19,6 +22,13 @@
         <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="name" sortable align="left">
           <template slot-scope="{ row }">
             <span>{{ row.userName }}</span>
+            <el-tag>{{ row.surname + row.name }}</el-tag>
+          </template>
+        </el-table-column>
+
+        <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" prop="name" sortable align="left">
+          <template slot-scope="{ row }">
+            <span>{{ row.email }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -52,14 +62,9 @@ export default {
     Pagination
   },
   props: {
-    // 定义props属性
-    // dialogUserFormVisible: {
-    //     type:Boolean,
-    //     default:false
-    // }
-    // 是否显示dialog + 用户选择的table
     ouId: {
-      type: String
+      type: String,
+      default: ''
     },
     refreshParentUsers: {
       type: Function,
@@ -241,8 +246,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .line {
     text-align: center;
+}
+
+.el-tag{
+  margin-left: 8px;
+}
+
+.pagination-container{
+  padding: 5 0;
 }
 </style>

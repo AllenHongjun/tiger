@@ -134,6 +134,7 @@
     "Fields": "字段",
     "Exceptions": "错误信息",
 
+    // 声明
     "IdentityClaimTypeAlreadyExists": "声明类型 {0} 已经存在!",
     "UserClaimAlreadyExists": "已经添加相同参数的用户声明!",
     "RoleClaimAlreadyExists": "已经添加相同参数的角色声明",

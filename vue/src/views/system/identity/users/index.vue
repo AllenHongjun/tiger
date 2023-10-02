@@ -6,7 +6,7 @@
         <el-row :gutter="20">
           <el-col :span="4">
             <el-form-item prop="filter" :label="$t('AbpUi.Search')">
-              <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi.PagerSearch')" />
+              <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi.PagerSearch')" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -137,7 +137,7 @@
 
       <el-table-column :label="$t('AbpIdentity[\'DisplayName:LockoutEnabled\']')" align="center">
         <template slot-scope="scope">
-          <el-tag :type="( scope.row.lockoutEnabled ? 'success' : 'danger')" :class="[scope.row.emailConfirmed ? 'el-icon-check':'el-icon-close' ]" />
+          <el-tag :type="( scope.row.lockoutEnabled ? 'success' : 'danger')" :class="[scope.row.lockoutEnabled ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
       <el-table-column :label="$t('AbpIdentity[\'EmailConfirmed\']')" align="center">
@@ -190,6 +190,7 @@
         </template>
       </el-table-column>
     </el-table>
+
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
 
     <!-- 创建 修改用户对话框 -->
@@ -307,8 +308,8 @@ import { downloadByData } from '@/utils/download'
 import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
 import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 import UserClaim from './components/UserClaim.vue'
-import PermissionDialog from '../components/permission-dialog'
-import OrgTree from '../components/org-tree'
+import PermissionDialog from '../components/permission-dialog.vue'
+import OrgTree from '../components/org-tree.vue'
 
 import {
   pickerRangeWithHotKey
@@ -474,7 +475,7 @@ export default {
         name: '',
         surname: '',
         email: '',
-        lockoutEnabled: '',
+        lockoutEnabled: false,
         lockoutEnd: '',
         phoneNumber: '',
         roleNames: [],
@@ -648,8 +649,8 @@ export default {
     toggleAdvanced() {
       this.advanced = !this.advanced
     },
-    handleFilter() {
-      this.listQuery.page = 1
+    handleFilter(firstPage = false) {
+      if (firstPage) this.listQuery.page = 1
       this.fetchData()
     },
     sortChange(data) {
@@ -725,11 +726,11 @@ export default {
       this.temp = {
         id: '',
         userName: '',
-        password: '',
+        password: '1q2w3E*',
         name: '',
         surname: '',
         email: '',
-        lockoutEnabled: '',
+        lockoutEnabled: false,
         lockoutEnd: '',
         phoneNumber: '',
         roleNames: [],
@@ -744,6 +745,8 @@ export default {
       this.singleChecked = false
       this.fetchRoles()
       this.$nextTick(() => {
+        // 1.reset dialog tree
+        this.$refs.dialogOrgTree.$refs.orgTree.setCheckedKeys([])
         this.$refs['dataForm'].clearValidate()
       })
     },
@@ -752,7 +755,8 @@ export default {
         if (valid) {
           this.temp.roleNames = this.checkedRoles
           createUserToOrg(this.temp).then(() => {
-            this.list.unshift(this.temp)
+            // this.list.unshift(this.temp)
+            this.handleFilter()
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -831,8 +835,9 @@ export default {
           this.temp.roleNames = this.checkedRoles
           const tempData = Object.assign({}, this.temp)
           updateUserToOrg(tempData).then(() => {
-            const index = this.list.findIndex((v) => v.id === this.temp.id)
-            this.list.splice(index, 1, this.temp)
+            // const index = this.list.findIndex((v) => v.id === this.temp.id)
+            // this.list.splice(index, 1, this.temp)
+            this.handleFilter()
             this.dialogFormVisible = false
 
             this.$notify({
@@ -862,8 +867,9 @@ export default {
         .then(() => {
           deleteUser(row.id)
             .then((response) => {
-              const index = this.list.findIndex((v) => v.id === row.id)
-              this.list.splice(index, 1)
+              // const index = this.list.findIndex((v) => v.id === row.id)
+              // this.list.splice(index, 1)
+              this.handleFilter()
               this.$message({
                 title: this.$i18n.t("TigerUi['Success']"),
                 message: this.$i18n.t("TigerUi['SuccessMessage']"),

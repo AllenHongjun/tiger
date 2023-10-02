@@ -63,7 +63,7 @@ namespace Tiger.Volo.Abp.Identity
                     .WhereIf(maxCreationTime.HasValue, x => x.CreationTime <= maxCreationTime)
                     .WhereIf(minModifitionTime.HasValue, x => x.LastModificationTime >= minModifitionTime)
                     .WhereIf(maxModifitionTime.HasValue, x => x.LastModificationTime <= maxModifitionTime)
-                    .WhereIf(!filter.IsNullOrEmpty(), x => x.UserName.Contains(filter) || x.PhoneNumber.Contains(filter) || x.Email.Contains(filter))
+                    .WhereIf(!filter.IsNullOrEmpty(), x => x.UserName.Contains(filter) || x.PhoneNumber.Contains(filter) || x.Email.Contains(filter) || x.Surname.Contains(filter) || x.Name.Contains(filter))
                     .LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
@@ -121,7 +121,7 @@ namespace Tiger.Volo.Abp.Identity
                     .WhereIf(maxCreationTime.HasValue, x => x.CreationTime <= maxCreationTime)
                     .WhereIf(minModifitionTime.HasValue, x => x.LastModificationTime >= minModifitionTime)
                     .WhereIf(maxModifitionTime.HasValue, x => x.LastModificationTime <= maxModifitionTime)
-                    .WhereIf(!filter.IsNullOrEmpty(), x => x.UserName.Contains(filter) || x.PhoneNumber.Contains(filter) || x.Email.Contains(filter))
+                    .WhereIf(!filter.IsNullOrEmpty(), x => x.UserName.Contains(filter) || x.PhoneNumber.Contains(filter) || x.Email.Contains(filter) || x.Surname.Contains(filter) || x.Name.Contains(filter))
                     .OrderBy(sorting.IsNullOrEmpty() ? nameof(IdentityUser.CreationTime) : sorting)
                     .PageBy(skipCount, maxResultCount)
                     .ToListAsync(GetCancellationToken(cancellationToken));

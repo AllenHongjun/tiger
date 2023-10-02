@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- 组织选择关联多个角色 -->
-    <el-dialog :title="$t('AbpIdentity[\'OrganizationUnit:SelectRoles\']')" :visible.sync="dialogFormVisible">
+    <el-dialog :title="$t('AbpIdentity[\'OrganizationUnit:SelectRoles\']')" :visible.sync="dialogFormVisible" top="7vh">
       <!--@select-all="handleSelectionChange" @selection-change="handleSelectionChange"   -->
       <el-table
         ref="roleSelectTable"
@@ -245,5 +245,8 @@ export default {
 <style scoped>
 .line {
     text-align: center;
+}
+.pagination-container{
+  padding: 5 0;
 }
 </style>

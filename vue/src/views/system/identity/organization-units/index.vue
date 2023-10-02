@@ -38,14 +38,15 @@
                 </el-row>
 
                 <el-table :key="tableKey" v-loading="listLoading" :data="orgUserList" border fit highlight-current-row style="width: 100%" max-height="600" @sort-change="sortChangeUsers">
-                  <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="name" sortable align="center">
+                  <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="name" sortable align="left">
                     <template slot-scope="{ row }">
                       <span>{{ row.userName }}</span>
+                      <el-tag v-if="row.name">{{ row.surname + row.name }}</el-tag>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" prop="email" sortable align="center">
                     <template slot-scope="{ row }">
-                      <span>{{ row.email }}</span>
+                      <el-tag type="info">{{ row.email }}</el-tag>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('AbpIdentity[\'Actions\']')" align="center" width="300" class-name="small-padding fixed-width">
@@ -313,28 +314,6 @@ export default {
     border-radius: 4px;
 }
 
-.bg-purple-dark {
-    background: #99a9bf;
-}
-
-.bg-purple {
-    background: #d3dce6;
-}
-
-.bg-purple-light {
-    background: #e5e9f2;
-}
-
-.grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-}
-
-.row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-}
-
 .el-table .warning-row {
     background: oldlace;
 }
@@ -349,5 +328,8 @@ export default {
 
 h3{
     margin: 0px;
+}
+.el-tag{
+  margin-left: 8px;
 }
 </style>

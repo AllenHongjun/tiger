@@ -19,10 +19,11 @@
       :filter-node-method="filterOrg"
       :expand-on-click-node="false"
       :show-checkbox="showCheckbox"
-      :check-strictly="checkStrictly"
+      :check-strictly="true"
       node-key="id"
       highlight-current
       :default-expand-all="true"
+      style="height: 500px;"
       @node-click="handleOrgClick"
       @check-change="checkChange"
     >
@@ -43,9 +44,9 @@
     </el-tree>
 
     <el-dialog
-      :title="
-        dialogStatus == 'create'? $t('AbpIdentity[\'AddClaim\']'): $t('AbpUi[\'Edit\']')"
+      :title="dialogStatus == 'create'? $t('AbpIdentity[\'AddClaim\']'): $t('AbpUi[\'Edit\']')"
       :visible.sync="dialogFormVisible"
+      append-to-body
     >
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
         <el-form-item v-if="currentParentName!==''" :label="$t('AbpIdentity[\'OrganizationUnit:ParentDisplayName\']')">
@@ -96,6 +97,7 @@ export default {
   data() {
     return {
       orgTreeData: null,
+      checkStrictly: true,
       orgTreeProps: {
         label: 'displayName',
         children: 'children',
@@ -181,21 +183,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           createOrganization(this.temp).then((res) => {
-            // TODO: 修改为前端添加节点数据刷新
-            // debugger
-            // this.$refs.orgTree
-            // const newChild = {
-            //     id: res.id,
-            //     label: res.displayName,
-            //     children: res.children
-            // };
-            // if (!this.orgTreeData.children) {
-            //     this.$set(this.orgTreeData, 'children', []);
-            // }
-            // this.orgTreeData.push(newChild);
-
             this.handleRefresh()
-
             this.dialogFormVisible = false
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
@@ -335,6 +323,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.app-container{
+  overflow-y: scroll;
+}
 .custom-tree-node {
     flex: 1;
     display: flex;

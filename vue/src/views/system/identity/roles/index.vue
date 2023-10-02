@@ -37,7 +37,7 @@
             <template slot-scope="scope">{{ scope.row.extraProperties.UserCount }}</template>
           </el-table-column>
 
-          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="520">
+          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="700">
             <template slot-scope="scope">
               <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" @click="handleUpdate(scope.row)">
                 {{ $t("AbpIdentity['Edit']") }}
@@ -114,6 +114,11 @@
 </template>
 
 <script>
+import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
+import PermissionDialog from '../components/permission-dialog.vue'
+import RoleClaim from './components/RoleClaim.vue'
+import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
+
 import {
   getRoleList,
   deleteRole,
@@ -131,10 +136,6 @@ import {
 
 import baseListQuery from '@/utils/abp'
 import { downloadByData } from '@/utils/download'
-import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
-import PermissionDialog from '../components/permission-dialog.vue'
-import RoleClaim from './components/RoleClaim.vue'
-import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 
 export default {
   name: 'Role',
