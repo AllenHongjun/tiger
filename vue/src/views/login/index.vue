@@ -80,7 +80,7 @@
         <el-col :span="24">
           <el-link href="#/register" type="primary">{{ $t("AbpAccount['Register']") }}</el-link>
           <el-link href="#/send-reset-password-link" type="primary">{{ $t("AbpAccount['ForgotPassword']") }}</el-link>
-          <el-link href="#/reset-password" type="primary">{{ $t("AbpAccount['ResetPassword']") }}</el-link>
+          <!-- <el-link href="#/reset-password" type="primary">{{ $t("AbpAccount['ResetPassword']") }}</el-link> -->
         </el-col>
       </el-row>
 
@@ -120,9 +120,6 @@
 </template>
 
 <script>
-import {
-  validUsername
-} from '@/utils/validate'
 import {
   getTenantByName
 } from '@/api/user'
@@ -333,7 +330,6 @@ export default {
     handleSetTenant() {
       debugger
       this.$store.dispatch('app/setTenant', this.tenant.name).then(response => {
-        debugger
         if (response && !response.success) {
           this.$notify({
             title: this.$i18n.t("AbpUi['Error']"),
@@ -346,7 +342,6 @@ export default {
           })
           return
         }
-
         this.dialogVisible = false
       })
     }

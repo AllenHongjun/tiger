@@ -83,6 +83,7 @@ export default {
           this.loading = true
           sendPasswordResetCode(this.dataForm)
             .then(res => {
+              /* Account recovery email sent to your e-mail address. If you don't see this email in your inbox within 15 minutes, look for it in your junk mail folder. If you find it there, please mark it as -Not Junk-.*/
               this.$alert('帐户恢复电子邮件已发送到你的电子邮件地址.如果你在15分钟内未在收件箱中看到此电子邮件,请检查垃圾邮件,并标记为非垃圾邮件', '提醒')
               this.loading = false
             })
