@@ -1,22 +1,20 @@
 <template>
   <div class="login-container">
     <div class="title-container">
-      <h1 class="title">Tiger</h1>
+      <h1 class="title">{{ $t('AbpUi.AppName') }}</h1>
       <lang-select class="set-language" />
-      <div>基于abp的后台管理系统</div>
+      <div>{{ $t('AbpUi.AppAbout') }}</div>
 
-      <!-- <h5 class="title">登录</h5> -->
     </div>
     <el-tabs v-model="activeName" class="login-tab" @tab-click="handleClick">
-
-      <el-tab-pane label="密码登录" name="pwd-login">
+      <el-tab-pane :label="$t('AbpAccount[\'PasswordLogin\']')" name="pwd-login">
         <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
           <el-form-item prop="tenent">
             <span class="svg-container">
               <svg-icon icon-class="international" />
             </span>
-            <el-input v-model="tenant" placeholder="默认宿主" name="tenent" type="text" tabindex="1" auto-complete="on" />
+            <el-input v-model="tenant.name" :placeholder="$t('AbpUiMultiTenancy[\'NotSelected\']')" name="tenent" type="text" tabindex="1" auto-complete="on" />
             <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">{{ $t('AbpUiMultiTenancy[\'Switch\']') }}</el-button>
           </el-form-item>
 
@@ -24,14 +22,14 @@
             <span class="svg-container">
               <svg-icon icon-class="user" />
             </span>
-            <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text" tabindex="1" auto-complete="on" />
+            <el-input ref="username" v-model="loginForm.username" :placeholder="$t('AbpAccount[\'UserNamePlaceholder\']')" name="username" type="text" tabindex="1" auto-complete="on" />
           </el-form-item>
 
           <el-form-item prop="password">
             <span class="svg-container">
               <svg-icon icon-class="password" />
             </span>
-            <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="Password" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
+            <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" :placeholder="$t('AbpAccount[\'Password\']')" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
             <span class="show-pwd" @click="showPwd">
               <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
             </span>
@@ -39,75 +37,74 @@
 
           <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t("AbpAccount['Login']") }}</el-button>
 
-          <div style="text-align: right;">
-            <el-button class="thirdparty-button" type="primary" size="small" @click="showDialog = true">
-              第三方登录
-            </el-button>
-          </div>
-          <el-row>
-            <el-col :span="12">
-              <el-link href="#/register" type="primary">{{ $t("AbpAccount['Register']") }}</el-link>
-              <el-link href="#/send-reset-password-link" type="primary">忘记密码</el-link>
-              <el-link href="#/reset-password" type="primary">{{ $t("AbpAccount['ResetPassword']") }}</el-link>
-            </el-col>
-            <el-col :span="12" />
-          </el-row>
-
-          <el-row style="margin-top:10px;">
-            <el-col>
-              <div class="tips">
-                <span style="margin-right:20px;">用户名: admin</span>
-                <span> 密码: 1q2w3E*</span>
-              </div>
-            </el-col>
-
-          </el-row>
-
         </el-form>
       </el-tab-pane>
-      <el-tab-pane label="短信登录" name="sms-login">
+      <el-tab-pane :label="$t('AbpAccount[\'SmsLogin\']')" name="sms-login">
         <el-form ref="smsLoginForm" :model="smsLoginForm" class="login-form" auto-complete="on" label-position="left">
           <el-form-item prop="tenent">
             <span class="svg-container">
               <svg-icon icon-class="international" />
             </span>
-            <el-input v-model="tenant" placeholder="默认宿主" name="tenent" type="text" tabindex="1" auto-complete="on" />
-            <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">切换租户</el-button>
+            <el-input v-model="tenant.name" :placeholder="$t('AbpUiMultiTenancy[\'NotSelected\']')" name="tenent" type="text" tabindex="1" auto-complete="on" />
+            <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">{{ $t('AbpUiMultiTenancy[\'Switch\']') }}</el-button>
           </el-form-item>
 
           <el-form-item prop="phone">
             <span class="svg-container">
-              <svg-icon icon-class="phone" />
+              <svg-icon icon-class="user" />
             </span>
-            <el-input ref="phone" v-model="smsLoginForm.phone" placeholder="请输入手机号" name="phone" type="text" tabindex="1" auto-complete="on" />
+            <el-input ref="phone" v-model="smsLoginForm.phone" :placeholder="$t('AbpAccount[\'DisplayName:PhoneNumber\']')" name="phone" type="text" tabindex="1" auto-complete="on" />
           </el-form-item>
 
           <el-form-item prop="code">
             <span class="svg-container">
-              <svg-icon icon-class="code" />
+              <svg-icon icon-class="password" />
             </span>
-            <el-input ref="code" v-model="smsLoginForm.code" type="text" placeholder="请输入验证码" name="code" class="el-input-code">
-              <el-button slot="append" :disabled="codeDisabled" style="width:105px;" @click="handelSendSmsCode">{{ codeMsg }}</el-button>
-            </el-input>
+            <el-input ref="code" v-model="smsLoginForm.code" type="text" :placeholder="$t('AbpAccount[\'DisplayName:SmsVerifyCode\']')" name="code" class="el-input-code" />
+            <el-button :disabled="codeDisabled" type="primary" class="switchBth" @click="handelSendSmsCode">{{ codeMsg }}</el-button>
 
           </el-form-item>
 
-          <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSmsLogin">登 录</el-button>
+          <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSmsLogin">{{ $t("AbpAccount['Login']") }}</el-button>
         </el-form>
       </el-tab-pane>
     </el-tabs>
 
+    <div class="login-form" style="padding: 0 35px 0;">
+      <!-- <div style="text-align: right;">
+        <el-button class="thirdparty-button" type="primary" size="small" @click="showDialog = true">
+          第三方登录
+        </el-button>
+      </div> -->
+      <el-row>
+        <el-col :span="24">
+          <el-link href="#/register" type="primary">{{ $t("AbpAccount['Register']") }}</el-link>
+          <el-link href="#/send-reset-password-link" type="primary">{{ $t("AbpAccount['ForgotPassword']") }}</el-link>
+          <el-link href="#/reset-password" type="primary">{{ $t("AbpAccount['ResetPassword']") }}</el-link>
+        </el-col>
+      </el-row>
+
+      <el-row style="margin-top:10px;">
+        <el-col>
+          <div class="tips">
+            <span style="margin-right:20px;">username: admin</span>
+            <span> password: 1q2w3E*</span>
+          </div>
+        </el-col>
+
+      </el-row></div>
+
     <el-dialog :title="$t('AbpUiMultiTenancy[\'SwitchTenant\']')" :visible.sync="dialogVisible" width="30%">
-      <el-form label-width="80px" label-position="top">
+      <el-form ref="dataForm" :model="tenant" label-width="80px" label-position="top">
         <el-form-item :label="$t('AbpUiMultiTenancy[\'Name\']')">
-          <el-input v-model="tenant" />
+          <el-input v-model="tenant.name" type="text" />
         </el-form-item>
         <span>{{ $t("AbpUiMultiTenancy['SwitchTenantHint']") }}</span>
       </el-form>
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">{{ $t("AbpUi['Cancel']") }}</el-button>
-        <el-button type="primary" @click="handleSwichTenant"> {{ $t("AbpUi['Save']") }}</el-button>
+        <el-button type="primary" :disabled="tenantDisabled" @click="handleSetTenant()"> {{ $t("AbpUi['Save']") }}</el-button>
       </span>
     </el-dialog>
 
@@ -142,43 +139,31 @@ export default {
     SocialSign
   },
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
     return {
       activeName: 'pwd-login',
       dialogVisible: false,
       loginForm: {
-        username: 'admin',
-        password: '1q2w3E*'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{
           required: true,
-          trigger: 'blur',
-          validator: validateUsername
+          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+          trigger: ['blur', 'change']
         }],
         password: [{
           required: true,
-          trigger: 'blur',
-          validator: validatePassword
+          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+          trigger: ['blur', 'change']
         }]
       },
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      tenant: '',
+      tenant: {
+        name: this.$store.getters.abpConfig.currentTenant.name
+      },
       showDialog: false,
 
       smsLoginForm: {
@@ -190,10 +175,25 @@ export default {
       // 倒计时秒数
       countdown: 60,
       // 按钮上的文字
-      codeMsg: '获取验证码',
+      codeMsg: this.$i18n.t("AbpAccount['SendVerifyCode']"),
       // 定时器
       timer: null
 
+    }
+  },
+  computed: {
+    currentTenant() {
+      return this.$store.getters.abpConfig.currentTenant.name
+    },
+    features() {
+      return this.$store.getters.abpConfig.features.values
+    },
+    tenantDisabled() {
+      if (this.tenant.name && this.tenant.name === this.$store.getters.abpConfig.currentTenant.name
+      ) {
+        return true
+      }
+      return false
     }
   },
   watch: {
@@ -203,6 +203,9 @@ export default {
       },
       immediate: true
     }
+  },
+  created() {
+    console.log(this.tenant.name)
   },
   methods: {
     handleClick(tab, event) {
@@ -247,11 +250,11 @@ export default {
       if (this.countdown > 0 && this.countdown <= 60) {
         this.countdown--
         if (this.countdown !== 0) {
-          this.codeMsg = '重新发送(' + this.countdown + ')'
+          this.codeMsg = this.$i18n.t("AbpAccount['ReSendVerifyCode']") + '(' + this.countdown + ')'
           this.codeDisabled = true
         } else {
           clearInterval(this.timer)
-          this.codeMsg = '获取验证码'
+          this.codeMsg = this.$i18n.t("AbpAccount['SendVerifyCode']")
           this.countdown = 60
           this.timer = null
           this.codeDisabled = false
@@ -280,7 +283,7 @@ export default {
       })
     },
     handleSmsLogin() {
-      this.$message('短信登录中...')
+      this.$message('开发中...')
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
@@ -298,8 +301,12 @@ export default {
         .catch(_ => {})
     },
 
-    // 切换租户
+    // 切换租户 作废
     handleSwichTenant() {
+      if (!this.tenant) {
+        this.dialogVisible = false
+        return
+      }
       getTenantByName(this.tenant).then((response) => {
         if (response.success) {
           // 请求头设置租户信息
@@ -319,6 +326,28 @@ export default {
             duration: 2000
           })
         }
+      })
+    },
+
+    // 设置当前租户
+    handleSetTenant() {
+      debugger
+      this.$store.dispatch('app/setTenant', this.tenant.name).then(response => {
+        debugger
+        if (response && !response.success) {
+          this.$notify({
+            title: this.$i18n.t("AbpUi['Error']"),
+            message: this.$i18n.t(
+              "AbpUiMultiTenancy['GivenTenantIsNotAvailable']",
+              [this.tenant.name]
+            ),
+            type: 'error',
+            duration: 2000
+          })
+          return
+        }
+
+        this.dialogVisible = false
       })
     }
   }

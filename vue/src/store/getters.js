@@ -14,8 +14,10 @@ const getters = {
   email: state => state.user.email,
   phoneNumber: state => state.user.phoneNumber,
   language: state => state.app.language,
-  abpConfig: state => state.app.abpConfig,
   permission_routes: state => state.permission.routes,
-  errorLogs: state => state.errorLog.logs
+  errorLogs: state => state.errorLog.logs,
+  abpConfig: state => state.app.abpConfig,
+  tenant: state => state.app.tenant
+
 }
 export default getters

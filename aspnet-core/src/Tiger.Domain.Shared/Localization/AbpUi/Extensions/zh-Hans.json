@@ -1,6 +1,8 @@
 {
   "culture": "zh-Hans",
   "texts": {
+    "AppName": "小老虎",
+    "AppAbout": "基于abp的Web开发框架",
     "ItemWillBeDeletedMessageWithFormat": "{0} 将要被删除!",
     "ItemWillBeDeletedMessage": "此项将被删除!",
     "ItemsWillBeDeletedMessage": "这些项将被删除!",

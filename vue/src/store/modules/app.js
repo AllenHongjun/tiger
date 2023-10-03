@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import { getLanguage, setLocale } from '@/lang/index'
-import { getApplicationConfiguration } from '@/api/user'
+import { getApplicationConfiguration, getTenantByName } from '@/api/user'
 
 const state = {
   sidebar: {
@@ -10,7 +10,8 @@ const state = {
   device: 'desktop',
   size: Cookies.get('size') || 'mini',
   language: getLanguage(),
-  abpConfig: null // TODO: 添加读取这个配置会无法登录
+  abpConfig: null,
+  tenant: Cookies.get('tenant')
 }
 
 const mutations = {
@@ -41,6 +42,10 @@ const mutations = {
   },
   SET_ABPCONFIG: (state, abpConfig) => {
     state.abpConfig = abpConfig
+  },
+  SET_TENANT: (state, tenant) => {
+    state.tenant = tenant
+    Cookies.set('tenant', tenant)
   }
 }
 
@@ -68,6 +73,32 @@ const actions = {
           const language = response.localization.currentCulture.cultureName
           const values = response.localization.values
           setLocale(language, values)
+
+          resolve(response)
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
+  setTenant({ commit, dispatch }, name) {
+    return new Promise((resolve, reject) => {
+      if (!name) {
+        commit('SET_TENANT', '')
+        dispatch('applicationConfiguration').then(() => {
+          resolve()
+        })
+        return
+      }
+      getTenantByName(name)
+        .then(response => {
+          if (response.success) {
+            commit('SET_TENANT', response.tenantId)
+            dispatch('applicationConfiguration').then(() => {
+              resolve(response)
+            })
+            return
+          }
 
           resolve(response)
         })
