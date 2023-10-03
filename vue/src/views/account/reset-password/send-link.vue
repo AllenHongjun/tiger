@@ -1,28 +1,44 @@
 <template>
   <div class="login-container">
     <el-form ref="dataForm" :model="dataForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
       <div class="title-container">
-        <h3 class="title">密码重置</h3>
+        <h3 class="title">
+          {{ $t('AbpAccount.ForgotPassword') }}
+          <lang-select class="set-language" />
+        </h3>
+        <p class="explain">
+          {{ $t("AbpUiMultiTenancy['Tenant']") }}
+          <el-tooltip :content="$t('AbpUiMultiTenancy[\'Switch\']')" effect="dark" placement="bottom">
+            <el-link :underline="false" @click="handleSetTenant()"><i>{{
+              currentTenantName
+                ? currentTenantName
+                : $t("AbpUiMultiTenancy['NotSelected']")
+            }}</i></el-link>
+          </el-tooltip>
+        </p>
+
+        <el-form-item prop="email">
+          <el-tooltip class="item" effect="dark" :content="$t('AbpAccount[\'SendPasswordResetLink_Information\']')" placement="left-end">
+            <span class="svg-container">
+              <svg-icon icon-class="email" />
+            </span>
+          </el-tooltip>
+
+          <el-input ref="email" v-model="dataForm.email" :placeholder="$t('AbpAccount[\'DisplayName:EmailAddress\']')" name="email" type="text" tabindex="1" auto-complete="on" />
+        </el-form-item>
+
+        <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSendPasswordResetCode">
+          {{ $t('AbpUi.Submit') }}
+        </el-button>
+
+        <el-row>
+          <el-col :span="12">
+            <el-link href="#/login" type="primary">{{ $t('AbpAccount.BackToLogin') }}</el-link>
+          </el-col>
+        </el-row>
       </div>
-
-      <el-form-item prop="email">
-        <span class="svg-container">
-          <svg-icon icon-class="email" />
-        </span>
-        <el-input ref="email" v-model="dataForm.email" placeholder="邮箱" name="email" type="text" tabindex="1" auto-complete="on" />
-      </el-form-item>
-
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleSendPasswordResetCode">发送邮件</el-button>
-
-      <el-row>
-        <el-col :span="12">
-          <el-link href="#/login" type="primary">返回 登录</el-link>
-        </el-col>
-      </el-row>
-
     </el-form>
-
+    <switch-tenant ref="SwitchTenantDialog" @setTenantName="getTenantName" />
   </div>
 </template>
 
@@ -34,12 +50,19 @@ import {
   sendPasswordResetCode
 } from '@/api/account'
 
+import LangSelect from '@/components/LangSelect/index.vue'
+import SwitchTenant from '../components/SwitchTenant.vue'
+
 export default {
   name: 'ResetPassword',
+  components: {
+    LangSelect,
+    SwitchTenant
+  },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validEmail(value)) {
-        callback(new Error('请输入正确的邮箱'))
+        callback(new Error(this.$i18n.t("AbpAccount['ThisFieldIsNotAValidEmailAddress.']")))
       } else {
         callback()
       }
@@ -59,12 +82,12 @@ export default {
           trigger: 'blur',
           validator: validateUsername
         }]
-
       },
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      tenant: undefined
+      tenant: undefined,
+      currentTenantName: ''
     }
   },
   watch: {
@@ -84,7 +107,9 @@ export default {
           sendPasswordResetCode(this.dataForm)
             .then(res => {
               /* Account recovery email sent to your e-mail address. If you don't see this email in your inbox within 15 minutes, look for it in your junk mail folder. If you find it there, please mark it as -Not Junk-.*/
-              this.$alert('帐户恢复电子邮件已发送到你的电子邮件地址.如果你在15分钟内未在收件箱中看到此电子邮件,请检查垃圾邮件,并标记为非垃圾邮件', '提醒')
+              // this.$message({ type: 'success', message: this.$i18n.t('AbpAccount.SendPasswordResetLink_Information'), duration: 8000, showClose: true })
+              this.$message({ type: 'success', message: this.$i18n.t('AbpAccount.PasswordResetMailSentMessage'), duration: 8000, showClose: true })
+              this.dataForm.email = ''
               this.loading = false
             })
             .catch(() => {
@@ -94,8 +119,14 @@ export default {
           return false
         }
       })
+    },
+    handleSetTenant() {
+      this.$refs['SwitchTenantDialog'].tenantDialogFormVisible = true
+    },
+    getTenantName(name) {
+      // TODO: 优化 计算属性从 getters中获取
+      this.currentTenantName = name
     }
-
   }
 }
 </script>
@@ -147,6 +178,8 @@ $cursor: #fff;
 }
 </style>
 
+<!--TODO: 账号管理的页面分装一个统一的样式引入 https://blog.csdn.net/weixin_53072519/article/details/120526935 -->
+
 <style lang="scss" scoped>
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
@@ -165,6 +198,12 @@ $light_gray:#eee;
         padding: 160px 35px 0;
         margin: 0 auto;
         overflow: hidden;
+
+        .explain {
+          color: #fff;
+          font-size: 14px;
+          padding-right: 15px;
+      }
     }
 
     .tips {
@@ -197,6 +236,24 @@ $light_gray:#eee;
             text-align: center;
             font-weight: bold;
         }
+
+        h5 {
+            color: #fff;
+            font-size: 16px;
+
+            .el-button {
+                font-size: 16px;
+            }
+        }
+
+      .set-language {
+          color: #fff;
+          position: absolute;
+          top: 3px;
+          font-size: 18px;
+          right: 0px;
+          cursor: pointer;
+      }
     }
 
     .show-pwd {
