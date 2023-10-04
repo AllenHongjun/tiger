@@ -98,7 +98,8 @@ namespace Tiger
 
                 options.Resources
                         .Get<AbpIdentityServerResource>()
-                        .AddVirtualJson("/Volo/Abp/IdentityServer/Localization/Resources");
+                        .AddVirtualJson("/Volo/Abp/IdentityServer/Localization/Resources")
+                        .AddVirtualJson("/Volo/Abp/IdentityServer/Localization/SmsValidator/Resources");
 
                 options.Resources
                         .Get<AuditLoggingResource>() // 扩展现有的资源

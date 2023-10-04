@@ -40,7 +40,7 @@
         </el-form>
       </el-tab-pane>
       <el-tab-pane :label="$t('AbpAccount[\'SmsLogin\']')" name="sms-login">
-        <el-form ref="smsLoginForm" :model="smsLoginForm" class="login-form" auto-complete="on" label-position="left">
+        <el-form ref="smsLoginForm" :model="smsLoginForm" :rules="smsLoginRules" class="login-form" auto-complete="on" label-position="left">
           <el-form-item prop="tenent">
             <span class="svg-container">
               <svg-icon icon-class="international" />
@@ -126,6 +126,7 @@ import {
 import {
   SendSignCode
 } from '@/api/account'
+import { validPhone } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 import SocialSign from './components/SocialSignin'
 
@@ -151,7 +152,7 @@ export default {
         }],
         password: [{
           required: true,
-          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+          message: this.$i18n.t("AbpAccount['The {0} field is required.']", [this.$i18n.t("AbpAccount['Password']")]),
           trigger: ['blur', 'change']
         }]
       },
@@ -166,6 +167,18 @@ export default {
       smsLoginForm: {
         phone: '', // 手机号
         code: '' // 短信验证码
+      },
+      smsLoginRules: {
+        phone: [{
+          required: true,
+          message: this.$i18n.t("AbpAccount['The {0} field is required.']", [this.$i18n.t("AbpAccount['DisplayName:PhoneNumber']")]),
+          trigger: ['blur', 'change']
+        }],
+        code: [{
+          required: true,
+          message: this.$i18n.t("AbpAccount['The {0} field is required.']", [this.$i18n.t("AbpAccount['DisplayName:SmsVerifyCode']")]),
+          trigger: ['blur', 'change']
+        }]
       },
       // 是否禁用按钮
       codeDisabled: false,
@@ -260,20 +273,36 @@ export default {
     },
     // 发送短信验证码
     handelSendSmsCode() {
-      console.log('smsLoginForm', this.smsLoginForm)
+      if (!this.smsLoginForm.phone) {
+        this.$message({
+          message: this.$i18n.t("AbpAccount['The {0} field is required.']", [this.$i18n.t("AbpAccount['DisplayName:PhoneNumber']")]),
+          type: 'error',
+          duration: 2000
+        })
+        return
+      }
+
+      if (!validPhone(this.smsLoginForm.phone)) {
+        this.$message({
+          message: this.$i18n.t("AbpAccount['The {0} field is not a valid phone number.']", [this.$i18n.t("AbpAccount['DisplayName:PhoneNumber']")]),
+          type: 'error',
+          duration: 2000
+        })
+        return
+      }
+
       var input = {
         phoneNumber: this.smsLoginForm.phone
       }
       SendSignCode(input).then((response) => {
-        console.log('response', response)
         // 验证码60秒倒计时
         if (!this.timer) {
           this.execCountdown()
           this.timer = setInterval(this.execCountdown, 1000)
         }
         this.$notify({
-          title: '成功',
-          message: '请求成功',
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
           type: 'success',
           duration: 2000
         })
@@ -328,8 +357,8 @@ export default {
           // 请求头设置租户信息
           this.dialogVisible = false
           this.$notify({
-            title: '成功',
-            message: '获取成功',
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: this.$i18n.t("TigerUi['SuccessMessage']"),
             type: 'success',
             duration: 2000
           })

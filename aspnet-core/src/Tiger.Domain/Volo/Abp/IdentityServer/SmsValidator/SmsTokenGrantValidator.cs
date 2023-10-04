@@ -21,6 +21,14 @@ using Tiger.Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.IdentityServer.SmsValidator
 {
+    /// <summary>
+    /// 扩展短信授权登录
+    /// </summary>
+    /// <remarks>
+    /// ABP vNext 拓展短信授权登陆 https://blog.csdn.net/csdn102347501/article/details/116524580
+    /// 
+    /// TODO:将这个扩展放到服务层 或者接口层当中去
+    /// </remarks>
     public class SmsTokenGrantValidator : IExtensionGrantValidator
     {
         protected ILogger<SmsTokenGrantValidator> Logger { get; }
