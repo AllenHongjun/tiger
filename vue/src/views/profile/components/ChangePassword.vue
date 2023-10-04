@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="aForm" :model="aForm" :rules="aRules">
+  <el-form ref="aForm" :model="aForm" :rules="aRules" :label-position="right" label-width="200px">
     <el-form-item :label="$t('AbpAccount[\'DisplayName:CurrentPassword\']')" prop="password">
       <el-input v-model.trim="aForm.password" type="password" />
     </el-form-item>
@@ -43,17 +43,17 @@ export default {
       aRules: {
         password: [{
           required: true,
-          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:CurrentPassword']")]),
           trigger: ['blur', 'change']
         }],
         newPassword: [{
           required: true,
-          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:NewPassword']")]),
           trigger: ['blur', 'change']
         }],
         againPassword: [{
           required: true,
-          message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:NewPasswordConfirm']")]),
           trigger: ['blur', 'change']
         },
         {

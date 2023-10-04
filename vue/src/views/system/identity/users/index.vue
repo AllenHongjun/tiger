@@ -497,33 +497,23 @@ export default {
       rules: {
         userName: [{
           required: true,
-          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [
-            this.$i18n.t("AbpIdentity['UserName']")
-          ]),
+          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['UserName']")]),
           trigger: 'blur'
         },
         {
           max: 256,
-          message: this.$i18n.t(
-            "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
-            [this.$i18n.t("AbpIdentity['UserName']"), '256']
-          ),
+          message: this.$i18n.t("AbpIdentity['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AbpIdentity['UserName']"), '256']),
           trigger: 'blur'
         }
         ],
         email: [{
           required: true,
-          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [
-            this.$i18n.t("AbpIdentity['EmailAddress']")
-          ]),
+          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['EmailAddress']")]),
           trigger: 'blur'
         },
         {
           type: 'email',
-          message: this.$i18n.t(
-            "AbpIdentity['The {0} field is not a valid e-mail address.']",
-            [this.$i18n.t("AbpIdentity['EmailAddress']")]
-          ),
+          message: this.$i18n.t("AbpIdentity['The {0} field is not a valid e-mail address.']", [this.$i18n.t("AbpIdentity['EmailAddress']")]),
           trigger: ['blur', 'change']
         },
         {
@@ -552,26 +542,14 @@ export default {
           trigger: 'blur'
         }],
         phoneNumber: [
-          // {
-          //     required: true,
-          //     message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [
-          //         this.$i18n.t("AbpIdentity['PhoneNumber']")
-          //     ]),
-          //     trigger: 'blur'
-          // },
           {
             validator: checkPhone,
-            message: this.$i18n.t("AbpIdentity['The {0} field is not a valid phone number.']", [
-              this.$i18n.t("AbpIdentity['PhoneNumber']")
-            ]),
+            message: this.$i18n.t("AbpIdentity['The {0} field is not a valid phone number.']", [this.$i18n.t("AbpIdentity['PhoneNumber']")]),
             trigger: 'blur'
           },
           {
             max: 16,
-            message: this.$i18n.t(
-              "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AbpIdentity['PhoneNumber']"), '16']
-            ),
+            message: this.$i18n.t("AbpIdentity['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AbpIdentity['PhoneNumber']"), '16']),
             trigger: 'blur'
           }
         ],

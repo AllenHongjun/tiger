@@ -28,6 +28,11 @@
     "VerifyAuthenticatorCode": "验证身份代码",
     "RememberBrowser": "在浏览器中记住我",
     "TwoFactorAuthenticationInvaidUser": "认证失败,您的会话已失效,请程序登录!",
-    "InvaidGenerateTwoFactorToken": "验证码生成失败,请联系管理员!"
+    "InvaidGenerateTwoFactorToken": "验证码生成失败,请联系管理员!",
+    "UploadAvatar": "上传头像",
+    "Introduction": "自我介绍",
+    "ProfileTab:PersonalInfo": "个人信息",
+    "ProfileTab:Password": "修改密码"
+
   }
 }

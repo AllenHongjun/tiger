@@ -11,11 +11,11 @@
           <el-card>
             <el-tabs v-model="activeTab">
 
-              <el-tab-pane label="管理个人资料" name="PersonalSettings">
+              <el-tab-pane :label="$t('AbpAccount[\'ProfileTab:PersonalInfo\']')" name="PersonalSettings">
                 <PersonalSettings :user="user" />
               </el-tab-pane>
 
-              <el-tab-pane label="修改密码" name="ChangePassword">
+              <el-tab-pane :label="$t('AbpAccount[\'ProfileTab:Password\']')" name="ChangePassword">
                 <changePassword />
               </el-tab-pane>
             </el-tabs>

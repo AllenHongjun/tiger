@@ -1,37 +1,38 @@
 <template>
-  <el-form ref="aForm" :model="userInfo" :rules="aRules" label-position="right" label-width="80px">
+  <el-form ref="aForm" :model="userInfo" :rules="aRules" label-position="right" label-width="120px">
     <el-row>
       <el-col :span="12">
-        <el-form-item label="姓" prop="surname">
+        <el-form-item :label="$t('AbpIdentity[\'DisplayName:Surname\']')" prop="surname">
           <el-input v-model.trim="userInfo.surname" />
         </el-form-item>
       </el-col>
       <el-col :span="12">
-        <el-form-item label="名" prop="name">
+        <el-form-item :label="$t('AbpIdentity[\'DisplayName:Name\']')" prop="name">
           <el-input v-model.trim="userInfo.name" />
         </el-form-item>
       </el-col>
     </el-row>
-
-    <el-form-item label="邮箱" prop="email">
-      <el-input v-model.trim="userInfo.email" />
-    </el-form-item>
-    <el-form-item label="用户名" prop="userName">
+    <el-form-item :label="$t('AbpIdentity.UserName')" prop="userName">
       <el-input v-model.trim="userInfo.userName" />
     </el-form-item>
-    <el-form-item label="手机号" prop="phoneNumber">
+    <el-form-item :label="$t('AbpIdentity.EmailAddress')" prop="email">
+      <el-input v-model.trim="userInfo.email" />
+    </el-form-item>
+    <el-form-item :label="$t('AbpIdentity.PhoneNumber')" prop="phoneNumber">
       <el-input v-model.trim="userInfo.phoneNumber" />
     </el-form-item>
-    <el-form-item label="个人介绍">
-      <el-input v-model.trim="userInfo.extraProperties.Introduction" type="textarea" :rows="2" placeholder="请输入自我介绍" />
+    <el-form-item :label="$t('AbpAccount[\'Introduction\']')">
+      <el-input v-model.trim="userInfo.extraProperties.Introduction" type="textarea" :rows="3" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submit">提交</el-button>
+      <el-button type="primary" @click="submit">{{ $t('AbpUi.Submit') }}</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+import { validPhone } from '@/utils/validate'
+
 export default {
   props: {
     user: {
@@ -51,23 +52,82 @@ export default {
     }
   },
   data() {
+    var checkPhone = (rule, value, callback) => {
+      if (!value) {
+        // 默认设置手机号可以为空
+        return callback()
+      }
+      setTimeout(() => {
+        // Number.isInteger是es6验证数字是否为整数的方法,但是我实际用的时候输入的数字总是识别成字符串
+        // 所以我就在前面加了一个+实现隐式转换
+        if (!Number.isInteger(+value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (validPhone(value)) {
+            callback()
+          } else {
+            callback(new Error(this.$i18n.t("AbpIdentity['The {0} field is not a valid phone number.']", [this.$i18n.t("AbpIdentity['PhoneNumber']")])))
+          }
+        }
+      }, 100)
+    }
     return {
       aRules: {
-        email: [{
-          required: true,
-          message: '邮箱不能为空',
-          trigger: ['blur', 'change']
+        surname: [{
+          max: 64,
+          message: this.$i18n.t("AbpIdentity['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AbpIdentity['DisplayName:Surname']"), '64']),
+          trigger: 'blur'
+        }],
+        name: [{
+          max: 64,
+          message: this.$i18n.t(
+            "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+            [this.$i18n.t("AbpIdentity['DisplayName:Name']"), '64']
+          ),
+          trigger: 'blur'
         }],
         userName: [{
           required: true,
-          message: '用户名不能为空',
-          trigger: ['blur', 'change']
-        }],
-        phoneNumber: [{
+          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['UserName']")]),
+          trigger: 'blur'
+        },
+        {
+          max: 256,
+          message: this.$i18n.t("AbpIdentity['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AbpIdentity['UserName']"), '256']),
+          trigger: 'blur'
+        }
+        ],
+        email: [{
           required: true,
-          message: '手机号不能为空',
+          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['EmailAddress']")]),
+          trigger: 'blur'
+        },
+        {
+          type: 'email',
+          message: this.$i18n.t("AbpIdentity['The {0} field is not a valid e-mail address.']", [this.$i18n.t("AbpIdentity['EmailAddress']")]),
           trigger: ['blur', 'change']
-        }]
+        },
+        {
+          max: 256,
+          message: this.$i18n.t(
+            "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+            [this.$i18n.t("AbpIdentity['EmailAddress']"), '256']
+          ),
+          trigger: 'blur'
+        }
+        ],
+        phoneNumber: [
+          {
+            validator: checkPhone,
+            message: this.$i18n.t("AbpIdentity['The {0} field is not a valid phone number.']", [this.$i18n.t("AbpIdentity['PhoneNumber']")]),
+            trigger: 'blur'
+          },
+          {
+            max: 16,
+            message: this.$i18n.t("AbpIdentity['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AbpIdentity['PhoneNumber']"), '16']),
+            trigger: 'blur'
+          }
+        ]
       },
       loading: false,
       userInfo: {
@@ -95,8 +155,8 @@ export default {
             .then((res) => {
               this.loading = false
               this.$notify({
-                title: '成功',
-                message: '修改成功',
+                title: this.$i18n.t("TigerUi['Success']"),
+                message: this.$i18n.t("TigerUi['SuccessMessage']"),
                 type: 'success',
                 duration: 2000
               })

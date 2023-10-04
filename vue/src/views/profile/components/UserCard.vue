@@ -1,13 +1,13 @@
 <template>
   <el-card style="margin-bottom:20px;">
     <div slot="header" class="clearfix">
-      <span>关于我</span>
+      <span>{{ $t('AbpAccount[\'PersonalInfo\']') }}</span>
     </div>
 
     <div class="user-profile">
       <div class="box-center">
         <pan-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
-          <div>欢迎</div>
+          <div>{{ $t('AbpAccount[\'Welcome\']') }}</div>
           {{ user.userName }}
         </pan-thumb>
       </div>
@@ -20,7 +20,7 @@
       </div>
       <div class="box-center">
         <el-upload action name="file" :before-upload="beforeUpload" :http-request="uploadAvatar" :show-file-list="false">
-          <el-button type="primary" icon="el-icon-upload">修改头像</el-button>
+          <el-button type="primary" icon="el-icon-upload">{{ $t('AbpAccount[\'UploadAvatar\']') }}</el-button>
         </el-upload>
       </div>
     </div>
@@ -28,11 +28,11 @@
       <div class="user-education user-bio-section">
         <div class="user-bio-section-header">
           <svg-icon icon-class="education" />
-          <span>个人介绍</span>
+          <span>{{ $t('AbpAccount[\'Introduction\']') }}</span>
         </div>
         <div class="user-bio-section-body">
           <div class="text-muted">
-            {{ user.introduction? user.introduction: '自我介绍' }}
+            {{ user.introduction }}
           </div>
         </div>
       </div>

@@ -28,6 +28,9 @@
     "VerifyAuthenticatorCode": "Authentication code",
     "RememberBrowser": "Remember me in the browser",
     "TwoFactorAuthenticationInvaidUser": "Authentication failed. Your session is invalid. Please re login try again!",
-    "InvaidGenerateTwoFactorToken": "Verification code generation failed. Please contact your administrator!"
+    "InvaidGenerateTwoFactorToken": "Verification code generation failed. Please contact your administrator!",
+    "UploadAvatar": "Upload Avatar",
+    "Introduction": "Introduction"
+
   }
 }
