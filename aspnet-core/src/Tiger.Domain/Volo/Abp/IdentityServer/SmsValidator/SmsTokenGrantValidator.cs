@@ -9,15 +9,15 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
-using Tiger.Volo.Abp.Identity;
 using Volo.Abp.Identity;
-using Volo.Abp.IdentityServer;
 using Volo.Abp.IdentityServer.Localization;
+using Volo.Abp.IdentityServer;
 using Volo.Abp.Security.Claims;
 using Volo.Abp.Uow;
-using IdentityResource = Volo.Abp.Identity.Localization.IdentityResource;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
+using Tiger.Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.IdentityServer.SmsValidator
 {
@@ -27,7 +27,6 @@ namespace Tiger.Volo.Abp.IdentityServer.SmsValidator
         protected IEventService EventService { get; }
         protected IIdentityUserRepository UserRepository { get; }
         protected ITigerIdentityUserRepository TigerUserRepository { get; }
-
         protected UserManager<IdentityUser> UserManager { get; }
         protected IdentitySecurityLogManager IdentitySecurityLogManager { get; }
         protected IStringLocalizer<IdentityResource> IdentityLocalizer { get; }
@@ -186,4 +185,5 @@ namespace Tiger.Volo.Abp.IdentityServer.SmsValidator
             return Task.CompletedTask;
         }
     }
+
 }

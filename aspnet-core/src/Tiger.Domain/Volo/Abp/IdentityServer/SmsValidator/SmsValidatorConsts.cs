@@ -1,4 +1,8 @@
-﻿namespace Tiger.Volo.Abp.IdentityServer.SmsValidator
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Tiger.Volo.Abp.IdentityServer.SmsValidator
 {
     public class SmsValidatorConsts
     {

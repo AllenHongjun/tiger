@@ -280,7 +280,26 @@ export default {
       })
     },
     handleSmsLogin() {
-      this.$message('开发中...')
+      this.$refs.smsLoginForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          console.log('this.smsLoginForm', this.smsLoginForm)
+          this.$store.dispatch('user/smsLogin', this.smsLoginForm)
+            .then(() => {
+              this.$router.push({
+                path: this.redirect || '/',
+                query: this.otherQuery
+              })
+              this.loading = false
+            }).catch(() => {
+              console.log('login err')
+              this.loading = false
+            })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {

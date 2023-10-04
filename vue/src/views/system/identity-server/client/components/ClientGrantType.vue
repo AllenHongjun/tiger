@@ -38,6 +38,7 @@
             <el-option label="password" value="password" />
             <el-option label="device_flow" value="device_flow" />
             <el-option label="ciba" value="ciba" />
+            <el-option label="phone_verify" value="phone_verify" />
             <el-option label="Custom" value="Custom" />
           </el-select>
         </el-form-item>

@@ -15,6 +15,19 @@ const clientSetting = {
   client_secret: '1q2w3e*' // 客户端secert
 }
 
+// IdentityServer客户端sms授权信息配置
+const clientSmsSetting = {
+  grant_type: 'phone_verify',
+  issuer: 'dev-api',
+  redirectUri: 'http://dev.tiger.com/', // process.env.VUE_APP_BASE_API,
+  responseType: 'code',
+  scope: 'Tiger',
+  phone_number: '',
+  phone_verify_code: '',
+  client_id: 'Tiger_App', // 客户端id
+  client_secret: '1q2w3e*' // 客户端secert
+}
+
 const getDefaultState = () => {
   return {
     token: getToken(),
@@ -84,6 +97,24 @@ const actions = {
     clientSetting.password = password
     return new Promise((resolve, reject) => {
       login(clientSetting).then(response => {
+        commit('SET_TOKEN', response.access_token)
+        setToken(response.access_token).then(() => {
+          resolve()
+        })
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  // user sms login
+  smsLogin({ commit }, userInfo) {
+    debugger
+    const { phone, code } = userInfo
+    clientSmsSetting.phone_number = phone.trim()
+    clientSmsSetting.phone_verify_code = code
+    return new Promise((resolve, reject) => {
+      login(clientSmsSetting).then(response => {
         commit('SET_TOKEN', response.access_token)
         setToken(response.access_token).then(() => {
           resolve()

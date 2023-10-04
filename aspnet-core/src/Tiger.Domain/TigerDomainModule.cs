@@ -50,6 +50,7 @@ using Volo.Abp.Guids;
 using Volo.Abp.EventBus;
 using Tiger.Module.TaskManagement;
 using Volo.Abp.Sms;
+using Tiger.Volo.Abp.IdentityServer.SmsValidator;
 
 namespace Tiger
 {
@@ -98,6 +99,12 @@ namespace Tiger
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
             AutoAddDefinitionProviders(context.Services);
+
+            // 拓展短信授权登陆
+            PreConfigure<IIdentityServerBuilder>(builder =>
+            {
+                builder.AddExtensionGrantValidator<SmsTokenGrantValidator>();
+            });
         }
 
         #region 任务定义注入
