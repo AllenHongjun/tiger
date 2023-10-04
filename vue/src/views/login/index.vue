@@ -61,7 +61,9 @@
               <svg-icon icon-class="password" />
             </span>
             <el-input ref="code" v-model="smsLoginForm.code" type="text" :placeholder="$t('AbpAccount[\'DisplayName:SmsVerifyCode\']')" name="code" class="el-input-code" />
-            <el-button :disabled="codeDisabled" type="primary" class="switchBth" @click="handelSendSmsCode">{{ codeMsg }}</el-button>
+            <el-button :disabled="codeDisabled" type="primary" class="switchBth" @click="handelSendSmsCode">
+              {{ timer != null ? codeMsg : $t("AbpAccount['SendVerifyCode']") }}
+            </el-button>
 
           </el-form-item>
 
@@ -87,8 +89,8 @@
       <el-row style="margin-top:10px;">
         <el-col>
           <div class="tips">
-            <span style="margin-right:20px;">username: admin</span>
-            <span> password: 1q2w3E*</span>
+            <span style="margin-right:20px;">默认账号: admin</span>
+            <span>默认密码: 1q2w3E*</span>
           </div>
         </el-col>
 
@@ -240,6 +242,7 @@ export default {
 
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
+              // TODO: 增加调用用户登录接口
               this.$router.push({
                 path: this.redirect || '/',
                 query: this.otherQuery
@@ -312,7 +315,6 @@ export default {
       this.$refs.smsLoginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          console.log('this.smsLoginForm', this.smsLoginForm)
           this.$store.dispatch('user/smsLogin', this.smsLoginForm)
             .then(() => {
               this.$router.push({

@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="aForm" :model="aForm" :rules="aRules" :label-position="right" label-width="200px">
+  <el-form ref="aForm" :model="aForm" :rules="aRules" label-width="200px">
     <el-form-item :label="$t('AbpAccount[\'DisplayName:CurrentPassword\']')" prop="password">
       <el-input v-model.trim="aForm.password" type="password" />
     </el-form-item>

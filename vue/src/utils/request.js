@@ -61,9 +61,11 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    console.log('response', response) // for debug
     const res = response.data
     return res
   },
+
   // 统一的错误处理
   error => {
     console.log('error', error) // for debug
@@ -83,6 +85,7 @@ service.interceptors.response.use(
         })
       })
     }
+
     let message = ''
     if (error.response && error.response.data && error.response.data.error && error.response.data.error.validationErrors) {
       error.response.data.error.validationErrors.forEach(element => {

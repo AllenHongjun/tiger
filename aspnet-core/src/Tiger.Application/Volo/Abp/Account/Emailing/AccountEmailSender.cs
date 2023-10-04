@@ -16,6 +16,7 @@ using Volo.Abp.TextTemplating;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.Identity;
 using System.Web;
+using Tiger.Volo.Abp.Account.Emailing.Templates;
 
 namespace Tiger.Volo.Abp.Account.Emailing
 {
@@ -133,34 +134,34 @@ namespace Tiger.Volo.Abp.Account.Emailing
             string returnUrl = null,
             string returnUrlHash = null)
         {
-            await Task.FromResult(0);
-            throw new NotImplementedException();
-            //Debug.Assert(CurrentTenant.Id == user.TenantId, "This method can only work for current tenant!");
 
-            //var url = await AppUrlProvider.GetUrlAsync(appName, AccountUrlNames.EmailConfirm);
+            Debug.Assert(CurrentTenant.Id == user.TenantId, "This method can only work for current tenant!");
 
-            //var link = $"{url}?userId={user.Id}&{TenantResolverConsts.DefaultTenantKey}={user.TenantId}&confirmToken={UrlEncoder.Default.Encode(confirmToken)}";
+            //AppName, AppUrlOptions https://github.com/abpframework/abp/issues/6178
+            var url = await AppUrlProvider.GetUrlAsync(appName, AppAccountUrlNames.EmailConfirm);
 
-            //if (!returnUrl.IsNullOrEmpty())
-            //{
-            //    link += "&returnUrl=" + NormalizeReturnUrl(returnUrl);
-            //}
+            var link = $"{url}?userId={user.Id}&{TenantResolverConsts.DefaultTenantKey}={user.TenantId}&confirmToken={UrlEncoder.Default.Encode(confirmToken)}";
 
-            //if (!returnUrlHash.IsNullOrEmpty())
-            //{
-            //    link += "&returnUrlHash=" + returnUrlHash;
-            //}
+            if (!returnUrl.IsNullOrEmpty())
+            {
+                link += "&returnUrl=" + NormalizeReturnUrl(returnUrl);
+            }
 
-            //var emailContent = await TemplateRenderer.RenderAsync(
-            //    AccountEmailTemplates.MailConfirmLink,
-            //    new { link = link }
-            //);
+            if (!returnUrlHash.IsNullOrEmpty())
+            {
+                link += "&returnUrlHash=" + returnUrlHash;
+            }
 
-            //await EmailSender.SendAsync(
-            //    user.Email,
-            //    StringLocalizer["EmailConfirm"],
-            //    emailContent
-            //);
+            var emailContent = await TemplateRenderer.RenderAsync(
+                AppAccountEmailTemplates.MailConfirmLink,
+                new { link = link }
+            );
+
+            await EmailSender.SendAsync(
+                user.Email,
+                StringLocalizer["EmailConfirm"],
+                emailContent
+            );
         }
     }
 

@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="aForm" :model="userInfo" :rules="aRules" label-position="right" label-width="120px">
+  <el-form ref="aForm" :model="userInfo" :rules="aRules" label-width="120px">
     <el-row>
       <el-col :span="12">
         <el-form-item :label="$t('AbpIdentity[\'DisplayName:Surname\']')" prop="surname">
@@ -16,10 +16,15 @@
       <el-input v-model.trim="userInfo.userName" />
     </el-form-item>
     <el-form-item :label="$t('AbpIdentity.EmailAddress')" prop="email">
-      <el-input v-model.trim="userInfo.email" />
+      <el-input v-model.trim="userInfo.email">
+        <el-button slot="append" type="primary" icon="el-icon-postcard" @click="handleSendEmailConfirmLink()">验证</el-button>
+      </el-input>
+
     </el-form-item>
     <el-form-item :label="$t('AbpIdentity.PhoneNumber')" prop="phoneNumber">
-      <el-input v-model.trim="userInfo.phoneNumber" />
+      <el-input v-model.trim="userInfo.phoneNumber">
+        <el-button slot="append" type="primary" icon="el-icon-postcard" @click="handleSendChangePhoneNumberCode()">验证</el-button>
+      </el-input>
     </el-form-item>
     <el-form-item :label="$t('AbpAccount[\'Introduction\']')">
       <el-input v-model.trim="userInfo.extraProperties.Introduction" type="textarea" :rows="3" />
@@ -31,6 +36,13 @@
 </template>
 
 <script>
+import {
+  sendChangePhoneNumberCode,
+  changePhoneNumber,
+  sendEmailConfirmLink,
+  confirmEmail
+} from '@/api/profile'
+
 import { validPhone } from '@/utils/validate'
 
 export default {
@@ -149,6 +161,35 @@ export default {
     console.log(this.user)
   },
   methods: {
+    handleSendEmailConfirmLink() {
+      var req = {
+        email: this.userInfo.email,
+        appName: 'FrontWeb',
+        returnUrl: '',
+        returnUrlHash: ''
+      }
+      sendEmailConfirmLink(req).then(() => {
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
+        })
+      })
+    },
+    handleSendChangePhoneNumberCode() {
+      var req = {
+        newPhoneNumber: this.userInfo.phoneNumber
+      }
+      sendChangePhoneNumberCode(req).then(() => {
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
+        })
+      })
+    },
     submit() {
       this.$refs.aForm.validate(valid => {
         if (valid) {
@@ -171,3 +212,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+.el-input-group__append button.el-button {
+  background-color: #fff;
+}
+</style>

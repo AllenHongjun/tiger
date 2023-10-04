@@ -631,17 +631,20 @@
             它依赖 .Domain 项目,因为它需要使用领域对象(实体,仓储接口等)执行应用程序逻辑.
             </summary>
         </member>
+        <member name="F:Tiger.Volo.Abp.Account.Emailing.Templates.AppAccountEmailTemplates.MailConfirmLink">
+            <summary>
+            邮件地址确认
+            </summary>
+        </member>
+        <member name="F:Tiger.Volo.Abp.Account.Emailing.Templates.AppAccountEmailTemplates.MailSecurityVerifyLink">
+            <summary>
+            邮件安全验证
+            </summary>
+        </member>
         <member name="T:Tiger.Volo.Abp.Account.ProfileAppService">
             <summary>
             Profile服务
             </summary>
-        </member>
-        <member name="M:Tiger.Volo.Abp.Account.ProfileAppService.ChangePhoneNumberAsync(Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput)">
-            <summary>
-            修改绑定的手机号
-            </summary>
-            <param name="input"></param>
-            <returns></returns>
         </member>
         <member name="M:Tiger.Volo.Abp.Account.ProfileAppService.SendChangePhoneNumberCodeAsync(Tiger.Volo.Abp.Account.Dto.SendChangePhoneNumberCodeInput)">
             <summary>
@@ -650,6 +653,13 @@
             <param name="input"></param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Account.ProfileAppService.ChangePhoneNumberAsync(Tiger.Volo.Abp.Account.Dto.ChangePhoneNumberInput)">
+            <summary>
+            修改绑定的手机号
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="M:Tiger.Volo.Abp.Account.ProfileAppService.SendEmailConfirmLinkAsync(Tiger.Volo.Abp.Account.Dto.SendEmailConfirmCodeDto)">
             <summary>

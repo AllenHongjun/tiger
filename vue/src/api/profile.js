@@ -1,6 +1,4 @@
 import request from '@/utils/request'
-import qs from 'querystring'
-import { transformAbpListQuery } from '@/utils/abp'
 
 // profile
 export function getInfo() {
@@ -25,3 +23,36 @@ export function changePassword(payload) {
     data: payload
   })
 }
+
+export function sendChangePhoneNumberCode(payload) {
+  return request({
+    url: `/api/account/profile/send-change-phone-number-code`,
+    method: 'post',
+    data: payload
+  })
+}
+
+export function changePhoneNumber(payload) {
+  return request({
+    url: `/api/account/profile/change-phone-number`,
+    method: 'post',
+    data: payload
+  })
+}
+
+export function sendEmailConfirmLink(payload) {
+  return request({
+    url: `/api/account/profile/send-email-confirm-link`,
+    method: 'post',
+    data: payload
+  })
+}
+
+export function confirmEmail(payload) {
+  return request({
+    url: `/api/account/profile/confirm-email`,
+    method: 'post',
+    data: payload
+  })
+}
+

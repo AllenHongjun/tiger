@@ -109,7 +109,6 @@ const actions = {
 
   // user sms login
   smsLogin({ commit }, userInfo) {
-    debugger
     const { phone, code } = userInfo
     clientSmsSetting.phone_number = phone.trim()
     clientSmsSetting.phone_verify_code = code

@@ -25,6 +25,7 @@ using Tiger.BackgroundWorker;
 using Tiger.EntityFrameworkCore;
 using Tiger.Module.OssManagement;
 using Tiger.MultiTenancy;
+using Tiger.Volo.Abp.Account;
 using Tiger.Volo.Abp.Sass.Permissions;
 using Volo.Abp;
 using Volo.Abp.Account;
@@ -208,14 +209,12 @@ namespace Tiger
             {   
                 // 配置应用MVC项目的根路径
                 options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
-
                 options.Applications["MVC"].Urls["EmailVerifyLogin"] = "Account/VerifyCode";
                 options.Applications["MVC"].Urls["EmailConfirm"] = "Account/EmailConfirm";
 
                 options.Applications["FrontWeb"].RootUrl = configuration["App:FrontWebUrl"];
-
-                // 不配置地址，重制密码链接无法使用
                 options.Applications["FrontWeb"].Urls[AccountUrlNames.PasswordReset] = "admin/#/reset-password";
+                options.Applications["FrontWeb"].Urls[AppAccountUrlNames.EmailConfirm] = "admin/#/email-confirm";
             });
         } 
         #endregion

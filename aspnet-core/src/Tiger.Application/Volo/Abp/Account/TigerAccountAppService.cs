@@ -33,12 +33,6 @@ namespace Tiger.Volo.Abp.Account
     [RemoteService(false)]
     public class TigerAccountAppService : AccountAppService, ITigerAccountAppService
     {
-        //protected IOptions<IdentityOptions> IdentityOptions { get { 
-        //    return LazyGetRequiredService<IOptions<IdentityOptions>>();
-        //    } }
-
-        //protected IdentityUserStore UserStore => LazyServiceProvider.LazyGetRequiredService<IdentityUserStore>();
-        //protected IdentityUserManager UserManager => LazyServiceProvider.LazyGetRequiredService<IdentityUserManager>();
 
         protected SignInManager<IdentityUser> SignInManager { get; }
         protected IdentityUserStore UserStore { get; }
@@ -53,11 +47,6 @@ namespace Tiger.Volo.Abp.Account
         protected IAuditLogRepository AuditLogRepository { get; }
         protected ITigerIdentityUserRepository UserRepository { get; }
         protected IDistributedCache<SecurityTokenCacheItem> SecurityTokenCache { get; }
-
-
-        //protected IAbpApiDefinition
-
-        //protected IApplicationConfiguration
 
         public TigerAccountAppService(
             IdentityUserManager userManager,

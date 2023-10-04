@@ -16,6 +16,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.Sms;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.VirtualFileSystem;
 
 namespace Tiger
 {
@@ -49,6 +50,13 @@ namespace Tiger
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var configuration = context.Services.GetConfiguration();
+
+            #region 配置虚拟路径
+            Configure<AbpVirtualFileSystemOptions>(options =>
+                {
+                    options.FileSets.AddEmbedded<TigerApplicationModule>();
+                }); 
+            #endregion
 
             #region 配置使用 AutoMapper
             Configure<AbpAutoMapperOptions>(options =>

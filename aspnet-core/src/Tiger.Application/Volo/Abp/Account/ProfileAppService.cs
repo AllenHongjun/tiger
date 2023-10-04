@@ -25,10 +25,11 @@ namespace Tiger.Volo.Abp.Account
     [RemoteService(false)]
     public class ProfileAppService : ApplicationService, IProfileAppService
     {
+        #region 构造函数
         public ProfileAppService(
-            IDistributedCache<SecurityTokenCacheItem> securityTokenCache, 
-            ITigerIdentityUserRepository userRepository, 
-            IdentitySecurityLogManager identitySecurityLogManager, 
+            IDistributedCache<SecurityTokenCacheItem> securityTokenCache,
+            ITigerIdentityUserRepository userRepository,
+            IdentitySecurityLogManager identitySecurityLogManager,
             IdentityUserManager userManager)
         {
             SecurityTokenCache=securityTokenCache;
@@ -42,32 +43,9 @@ namespace Tiger.Volo.Abp.Account
         protected IdentitySecurityLogManager IdentitySecurityLogManager { get; }
 
         protected IdentityUserManager UserManager { get; }
+        #endregion
 
-
-        /// <summary>
-        /// 修改绑定的手机号
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public async Task ChangePhoneNumberAsync(ChangePhoneNumberInput input)
-        {
-            if (await UserRepository.IsEmailConfirmedAsync(input.NewPhoneNumber))
-            {
-                throw new BusinessException(Identity.IdentityErrorCodes.DuplicatePhoneNumber);
-            }
-
-            var user = await UserManager.GetByIdAsync(CurrentUser.GetId());
-
-            (await UserManager.ChangePhoneNumberAsync(user, input.NewPhoneNumber, input.Code))
-                .CheckErrors();
-            await CurrentUnitOfWork.SaveChangesAsync();
-
-            var securityTokenCacheKey = SecurityTokenCacheItem.CalculateSmsCacheKey(input.NewPhoneNumber, "SmsChangePhoneNumber");
-            await SecurityTokenCache.RemoveAsync(securityTokenCacheKey);
-        }
-
-        
-
+        #region 验证手机号
         /// <summary>
         /// 发送修改手机号验证码
         /// </summary>
@@ -109,7 +87,30 @@ namespace Tiger.Volo.Abp.Account
                     });
         }
 
+        /// <summary>
+        /// 修改绑定的手机号
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task ChangePhoneNumberAsync(ChangePhoneNumberInput input)
+        {
+            if (await UserRepository.IsPhoneNumberConfirmedAsync(input.NewPhoneNumber))
+            {
+                throw new BusinessException(Identity.IdentityErrorCodes.DuplicatePhoneNumber);
+            }
 
+            var user = await UserManager.GetByIdAsync(CurrentUser.GetId());
+
+            (await UserManager.ChangePhoneNumberAsync(user, input.NewPhoneNumber, input.Code))
+                .CheckErrors();
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            var securityTokenCacheKey = SecurityTokenCacheItem.CalculateSmsCacheKey(input.NewPhoneNumber, "SmsChangePhoneNumber");
+            await SecurityTokenCache.RemoveAsync(securityTokenCacheKey);
+        }
+        #endregion
+
+        #region 验证邮箱
         /// <summary>
         /// 发送邮箱确认链接
         /// </summary>
@@ -162,7 +163,8 @@ namespace Tiger.Volo.Abp.Account
                 Identity = IdentitySecurityLogIdentityConsts.Identity,
                 Action = "ConfirmEmail"
             });
-        }
+        } 
+        #endregion
 
 
         /// <summary>
