@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Infrastructure.Notification.Core
+namespace Tiger.Infrastructure.Notification
 {
     /// <summary>
     /// 通知类型

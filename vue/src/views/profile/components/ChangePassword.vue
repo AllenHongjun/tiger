@@ -41,25 +41,30 @@ export default {
         againPassword: ''
       },
       aRules: {
-        password: [{
-          required: true,
-          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:CurrentPassword']")]),
-          trigger: ['blur', 'change']
-        }],
-        newPassword: [{
-          required: true,
-          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:NewPassword']")]),
-          trigger: ['blur', 'change']
-        }],
-        againPassword: [{
-          required: true,
-          message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:NewPasswordConfirm']")]),
-          trigger: ['blur', 'change']
-        },
-        {
-          validator: avalidatePass,
-          trigger: ['blur', 'change']
-        }
+        password: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:CurrentPassword']")]),
+            trigger: ['blur', 'change']
+          }
+        ],
+        newPassword: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:NewPassword']")]),
+            trigger: ['blur', 'change']
+          }
+        ],
+        againPassword: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpIdentity['DisplayName:NewPasswordConfirm']")]),
+            trigger: ['blur', 'change']
+          },
+          {
+            validator: avalidatePass,
+            trigger: ['blur', 'change']
+          }
         ]
       },
       loading: false

@@ -9,7 +9,7 @@
         <p class="explain">
           {{ $t("AbpUiMultiTenancy['Tenant']") }}
           <el-tooltip :content="$t('AbpUiMultiTenancy[\'Switch\']')" effect="dark" placement="bottom">
-            <el-link :underline="false" @click="tenantDialogFormVisible = true"><i>{{
+            <el-link :underline="false" @click="handleSetTenant()"><i>{{
               currentTenant
                 ? currentTenant
                 : $t("AbpUiMultiTenancy['NotSelected']")
@@ -48,22 +48,7 @@
       </div>
     </el-form>
 
-    <el-dialog :title="$t('AbpUiMultiTenancy[\'SwitchTenant\']')" :visible.sync="tenantDialogFormVisible">
-      <el-form ref="dataForm" :model="tenant" label-position="top">
-        <el-form-item :label="$t('AbpUiMultiTenancy[\'Name\']')">
-          <el-input v-model="tenant.name" type="text" />
-          <span>{{ $t("AbpUiMultiTenancy['SwitchTenantHint']") }}</span>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="tenantDialogFormVisible = false">
-          {{ $t("AbpTenantManagement['Cancel']") }}
-        </el-button>
-        <el-button type="primary" :disabled="tenantDisabled" @click="saveTenant()">
-          {{ $t("AbpTenantManagement['Save']") }}
-        </el-button>
-      </div>
-    </el-dialog>
+    <switch-tenant ref="SwitchTenantDialog" />
   </div>
 </template>
 
@@ -71,11 +56,13 @@
 import {
   register
 } from '@/api/account'
-import LangSelect from '@/components/LangSelect'
+import LangSelect from '@/components/LangSelect/index.vue'
+import SwitchTenant from '../components/SwitchTenant.vue'
 export default {
   name: 'Register',
   components: {
-    LangSelect
+    LangSelect,
+    SwitchTenant
   },
   data() {
     return {
@@ -89,20 +76,40 @@ export default {
         username: [
           {
             required: true,
-            message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
-            trigger: ['blur', 'change']
-          }],
+            message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpAccount['UserName']")]),
+            trigger: 'blur'
+          },
+          {
+            max: 256,
+            message: this.$i18n.t("AbpIdentity['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AbpAccount['UserName']"), '256']),
+            trigger: 'blur'
+          }
+        ],
         password: [
           {
             required: true,
-            message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+            message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpAccount['Password']")]),
             trigger: ['blur', 'change']
-          }],
+          }
+        ],
         emailAddress: [
           {
             required: true,
-            message: this.$i18n.t("AbpAccount['ThisFieldIsRequired.']"),
+            message: this.$i18n.t("AbpIdentity['The {0} field is required.']", [this.$i18n.t("AbpAccount['EmailAddress']")]),
+            trigger: 'blur'
+          },
+          {
+            type: 'email',
+            message: this.$i18n.t("AbpIdentity['The {0} field is not a valid e-mail address.']", [this.$i18n.t("AbpAccount['EmailAddress']")]),
             trigger: ['blur', 'change']
+          },
+          {
+            max: 256,
+            message: this.$i18n.t(
+              "AbpIdentity['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AbpAccount['EmailAddress']"), '256']
+            ),
+            trigger: 'blur'
           }
         ]
       },
@@ -117,15 +124,6 @@ export default {
   computed: {
     currentTenant() {
       return this.$store.getters.abpConfig.currentTenant.name
-    },
-    tenantDisabled() {
-      if (
-        this.tenant.name &&
-                this.tenant.name === this.$store.getters.abpConfig.currentTenant.name
-      ) {
-        return true
-      }
-      return false
     }
   },
   mounted() {},
@@ -166,22 +164,8 @@ export default {
         }
       })
     },
-    saveTenant() {
-      this.$store.dispatch('app/setTenant', this.tenant.name).then(response => {
-        if (response && !response.success) {
-          this.$notify({
-            title: this.$i18n.t("AbpUi['Error']"),
-            message: this.$i18n.t(
-              "AbpUiMultiTenancy['GivenTenantIsNotAvailable']",
-              [this.tenant.name]
-            ),
-            type: 'error',
-            duration: 2000
-          })
-          return
-        }
-        this.tenantDialogFormVisible = false
-      })
+    handleSetTenant() {
+      this.$refs['SwitchTenantDialog'].tenantDialogFormVisible = true
     }
   }
 }
