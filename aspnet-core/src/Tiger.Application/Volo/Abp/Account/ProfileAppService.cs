@@ -14,7 +14,9 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Caching;
 using Volo.Abp.Identity;
 using Volo.Abp.Settings;
+using Volo.Abp.Sms;
 using Volo.Abp.Users;
+using static IdentityServer4.Models.IdentityResources;
 
 namespace Tiger.Volo.Abp.Account
 {
@@ -30,19 +32,21 @@ namespace Tiger.Volo.Abp.Account
             IDistributedCache<SecurityTokenCacheItem> securityTokenCache,
             ITigerIdentityUserRepository userRepository,
             IdentitySecurityLogManager identitySecurityLogManager,
-            IdentityUserManager userManager)
+            IdentityUserManager userManager,
+            ISmsSender smsSender)
         {
             SecurityTokenCache=securityTokenCache;
             UserRepository=userRepository;
             IdentitySecurityLogManager=identitySecurityLogManager;
             UserManager=userManager;
+            SmsSender=smsSender;
         }
 
         protected IDistributedCache<SecurityTokenCacheItem> SecurityTokenCache { get; }
         protected ITigerIdentityUserRepository UserRepository { get; }
         protected IdentitySecurityLogManager IdentitySecurityLogManager { get; }
-
         protected IdentityUserManager UserManager { get; }
+        protected ISmsSender SmsSender { get; }
         #endregion
 
         #region 验证手机号
@@ -75,7 +79,13 @@ namespace Tiger.Volo.Abp.Account
             var template = await SettingProvider.GetOrNullAsync(Identity.Settings.IdentitySettingNames.User.SmsPhoneNumberConfirmed);
             var token = await UserManager.GenerateChangePhoneNumberTokenAsync(user, input.NewPhoneNumber);
             // 发送验证码
-            //await SecurityCodeSender.SendSmsCodeAsync(input.NewPhoneNumber, token, template);
+
+            Check.NotNullOrWhiteSpace(template, nameof(template));
+            var smsMessage = new SmsMessage(input.NewPhoneNumber, token);
+            smsMessage.Properties.Add("code", token);
+            smsMessage.Properties.Add("TemplateCode", template);
+
+            await SmsSender.SendAsync(smsMessage);
 
             // 缓存发送的验证码
             securityTokenCacheItem = new SecurityTokenCacheItem(token, user.ConcurrencyStamp);

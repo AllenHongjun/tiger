@@ -181,12 +181,30 @@ export default {
       var req = {
         newPhoneNumber: this.userInfo.phoneNumber
       }
+
       sendChangePhoneNumberCode(req).then(() => {
-        this.$notify({
-          title: this.$i18n.t("TigerUi['Success']"),
-          message: this.$i18n.t("TigerUi['SuccessMessage']"),
-          type: 'success',
-          duration: 2000
+        this.$prompt('验证码已发送到你的电话号码. <br />请输入验证码以验证你的电话号码:', '提示', {
+          dangerouslyUseHTMLString: true, // 配置允许文字换行
+          confirmButtonText: this.$i18n.t('AbpUi.Save'),
+          cancelButtonText: this.$i18n.t('AbpUi.Cancel'),
+          inputPattern: /\S+/,
+          inputErrorMessage: '验证码不能为空'
+        }).then(({ value }) => {
+          changePhoneNumber({ newPhoneNumber: this.userInfo.phoneNumber, code: value }).then((res) => {
+            // TODO: 触发重新加载一下用户信息
+            console.log('res', res)
+            this.$notify({
+              title: this.$i18n.t("TigerUi['Success']"),
+              message: this.$i18n.t("TigerUi['SuccessMessage']"),
+              type: 'success',
+              duration: 2000
+            })
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          })
         })
       })
     },

@@ -112,19 +112,18 @@ namespace Tiger.Volo.Abp.Account.Emailing
             string userName,
             string emailAddress)
         {
-            await Task.FromResult(0);
-            throw new NotImplementedException();
+            
 
-            //var emailContent = await TemplateRenderer.RenderAsync(
-            //    AccountEmailTemplates.MailSecurityVerifyLink,
-            //    new { code = code, user = userName }
-            //);
+            var emailContent = await TemplateRenderer.RenderAsync(
+                AppAccountEmailTemplates.MailSecurityVerifyLink,
+                new { code = code, user = userName }
+            );
 
-            //await EmailSender.SendAsync(
-            //    emailAddress,
-            //    StringLocalizer["MailSecurityVerify"],
-            //    emailContent
-            //);
+            await EmailSender.SendAsync(
+                emailAddress,
+                StringLocalizer["MailSecurityVerify"],
+                emailContent
+            );
         }
 
         public async virtual Task SendEmailConfirmLinkAsync(
