@@ -1,14 +1,14 @@
 <template>
-  <div class="login-container">
+  <div class="app-container">
     <div class="title-container">
-      <h1 class="title">{{ $t('AbpUi.AppName') }}</h1>
+      <h3 class="title">{{ $t('AbpUi.AppName') }}</h3>
       <lang-select class="set-language" />
-      <div>{{ $t('AbpUi.AppAbout') }}</div>
+      <h5>{{ $t('AbpUi.AppAbout') }}</h5>
 
     </div>
-    <el-tabs v-model="activeName" class="login-tab" @tab-click="handleClick">
+    <el-tabs v-model="activeName" class="data-tab" @tab-click="handleClick">
       <el-tab-pane :label="$t('AbpAccount[\'PasswordLogin\']')" name="pwd-login">
-        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="data-form" auto-complete="on" label-position="left">
 
           <el-form-item prop="tenent">
             <span class="svg-container">
@@ -40,7 +40,7 @@
         </el-form>
       </el-tab-pane>
       <el-tab-pane :label="$t('AbpAccount[\'SmsLogin\']')" name="sms-login">
-        <el-form ref="smsLoginForm" :model="smsLoginForm" :rules="smsLoginRules" class="login-form" auto-complete="on" label-position="left">
+        <el-form ref="smsLoginForm" :model="smsLoginForm" :rules="smsLoginRules" class="data-form" auto-complete="on" label-position="left">
           <el-form-item prop="tenent">
             <span class="svg-container">
               <svg-icon icon-class="international" />
@@ -72,7 +72,7 @@
       </el-tab-pane>
     </el-tabs>
 
-    <div class="login-form" style="padding: 0 35px 0;">
+    <div class="bottom-container">
       <!-- <div style="text-align: right;">
         <el-button class="thirdparty-button" type="primary" size="small" @click="showDialog = true">
           第三方登录
@@ -94,7 +94,8 @@
           </div>
         </el-col>
 
-      </el-row></div>
+      </el-row>
+    </div>
 
     <el-dialog :title="$t('AbpUiMultiTenancy[\'SwitchTenant\']')" :visible.sync="dialogVisible" width="30%">
       <el-form ref="dataForm" :model="tenant" label-width="80px" label-position="top">
