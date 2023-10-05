@@ -8,13 +8,13 @@
     </div>
     <el-tabs v-model="activeName" class="data-tab" @tab-click="handleClick">
       <el-tab-pane :label="$t('AbpAccount[\'PasswordLogin\']')" name="pwd-login">
-        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="data-form" auto-complete="on" label-position="left">
+        <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="data-form" auto-complete="off" label-position="left">
 
           <el-form-item prop="tenent">
             <span class="svg-container">
               <svg-icon icon-class="international" />
             </span>
-            <el-input v-model="tenant.name" :placeholder="$t('AbpUiMultiTenancy[\'NotSelected\']')" name="tenent" type="text" tabindex="1" auto-complete="on" />
+            <el-input v-model="tenant.name" :placeholder="$t('AbpUiMultiTenancy[\'NotSelected\']')" name="tenent" type="text" tabindex="1" auto-complete="off" />
             <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">{{ $t('AbpUiMultiTenancy[\'Switch\']') }}</el-button>
           </el-form-item>
 
@@ -22,14 +22,14 @@
             <span class="svg-container">
               <svg-icon icon-class="user" />
             </span>
-            <el-input ref="username" v-model="loginForm.username" :placeholder="$t('AbpAccount[\'UserNamePlaceholder\']')" name="username" type="text" tabindex="1" auto-complete="on" />
+            <el-input ref="username" v-model="loginForm.username" :placeholder="$t('AbpAccount[\'UserNamePlaceholder\']')" name="username" type="text" tabindex="1" auto-complete="off" />
           </el-form-item>
 
           <el-form-item prop="password">
             <span class="svg-container">
               <svg-icon icon-class="password" />
             </span>
-            <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" :placeholder="$t('AbpAccount[\'Password\']')" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
+            <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" :placeholder="$t('AbpAccount[\'Password\']')" name="password" tabindex="2" auto-complete="new-password" @keyup.enter.native="handleLogin" />
             <span class="show-pwd" @click="showPwd">
               <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
             </span>
@@ -40,12 +40,12 @@
         </el-form>
       </el-tab-pane>
       <el-tab-pane :label="$t('AbpAccount[\'SmsLogin\']')" name="sms-login">
-        <el-form ref="smsLoginForm" :model="smsLoginForm" :rules="smsLoginRules" class="data-form" auto-complete="on" label-position="left">
+        <el-form ref="smsLoginForm" :model="smsLoginForm" :rules="smsLoginRules" class="data-form" auto-complete="off" label-position="left">
           <el-form-item prop="tenent">
             <span class="svg-container">
               <svg-icon icon-class="international" />
             </span>
-            <el-input v-model="tenant.name" :placeholder="$t('AbpUiMultiTenancy[\'NotSelected\']')" name="tenent" type="text" tabindex="1" auto-complete="on" />
+            <el-input v-model="tenant.name" :placeholder="$t('AbpUiMultiTenancy[\'NotSelected\']')" name="tenent" type="text" tabindex="1" auto-complete="off" />
             <el-button type="info" size="mini" class="switchBth" @click="dialogVisible = true">{{ $t('AbpUiMultiTenancy[\'Switch\']') }}</el-button>
           </el-form-item>
 
@@ -53,7 +53,7 @@
             <span class="svg-container">
               <svg-icon icon-class="user" />
             </span>
-            <el-input ref="phone" v-model="smsLoginForm.phone" :placeholder="$t('AbpAccount[\'DisplayName:PhoneNumber\']')" name="phone" type="text" tabindex="1" auto-complete="on" />
+            <el-input ref="phone" v-model="smsLoginForm.phone" :placeholder="$t('AbpAccount[\'DisplayName:PhoneNumber\']')" name="phone" type="text" tabindex="1" auto-complete="off" />
           </el-form-item>
 
           <el-form-item prop="code">
@@ -222,6 +222,9 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
+      // this.$router.go(0)
+      // this.loginForm.password = ''
+      // this.loginForm.username = ''
       console.log(tab, event)
     },
     showPwd() {

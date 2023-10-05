@@ -3,11 +3,20 @@ $dark_gray:#889aa4;
 $light_gray:#eee;
 
 .app-container {
-    min-height: 100%;
-    width: 100%;
-    background-color: $bg;
-    overflow: hidden;
+    // min-height: 100%;
+    // width: 100%;
+    // background-color: $bg;
+    // overflow: hidden;
     color: $light_gray;
+
+    // TODO: 引入自定义的背景图片
+    width: 100%;
+    height: 100%;
+    background-image: url("~@/assets/account_images/account-bg3.jpg");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
 
     .title-container {
       position: relative;

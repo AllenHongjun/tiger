@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="swich-tenant-container">
     <el-dialog :title="$t('AbpUiMultiTenancy[\'SwitchTenant\']')" :visible.sync="tenantDialogFormVisible">
       <el-form ref="dataForm" :model="tenant" label-position="top">
         <el-form-item :label="$t('AbpUiMultiTenancy[\'Name\']')">

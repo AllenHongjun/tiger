@@ -115,7 +115,7 @@ const SystemManageRouter = {
           name: 'language',
           meta: {
             title: 'LocalizationManagement["Permissions:Language"]',
-            policy: 'LocalizationPermissions.Languages'
+            policy: 'LocalizationManagement.Languages'
           }
         },
         {
@@ -124,7 +124,7 @@ const SystemManageRouter = {
           name: 'language-text',
           meta: {
             title: 'LocalizationManagement["Permissions:LanguageText"]',
-            policy: 'LocalizationPermissions.LanguageTexts'
+            policy: 'LocalizationManagement.LanguageTexts'
           }
         }
       ]
@@ -136,7 +136,7 @@ const SystemManageRouter = {
       meta: {
         title: 'AppPlatform["Permission:Platform"]',
         icon: 'el-icon-s-platform',
-        policy: 'AbpTextTemplating.TextTemplates'
+        policy: ''
       },
       children: [
         {

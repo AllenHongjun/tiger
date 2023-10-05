@@ -46,11 +46,21 @@ $cursor: #fff;
             height: 47px;
             caret-color: $cursor;
 
-            &:-webkit-autofill {
-                box-shadow: 0 0 0px 1000px $bg inset !important;
-                -webkit-text-fill-color: $cursor !important;
-            }
         }
+
+        // bug fix: 登录页面tab切换 谷歌浏览器会input有自动填充的样式 禁止密码自动填充  https://blog.csdn.net/a576736858/article/details/81228264
+        // input:-webkit-autofill:输入框自动填充背景问题 https://blog.csdn.net/sunshine641/article/details/108754175
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+              transition-delay: 99999s;
+              transition: color 99999s ease-out, background-color 99999s ease-out  !important;
+              -webkit-transition-delay: 99999s  !important;
+              -webkit-transition: color 99999s ease-out, background-color 99999s ease-out  !important;
+              -webkit-text-fill-color: #747474  !important;
+        }
+
     }
     .el-input-code{
       width: 93%;
@@ -59,7 +69,7 @@ $cursor: #fff;
 
     .el-form-item {
         border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(0, 0, 0, 0.1);
+        // background: rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         color: #454545;
     }

@@ -1,28 +1,43 @@
 <template>
   <div class="app-container documentation-container">
     <el-row>
-      <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/aspnet/core/getting-started/?view=aspnetcore-3.1&tabs=windows">asp.net core</a>
-      <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/ef/core/">ef core</a>
-      <a class="document-btn" target="_blank" href="https://identityserver4docs.readthedocs.io/zh_CN/latest/intro/big_picture.html">identity server</a>
-      <a class="document-btn" target="_blank" href="https://docs.abp.io/zh-Hans/abp/latest/">abp</a>
+      <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/dotnet/?WT.mc_id=dotnet-35129-website">.NET 文档</a>
+      <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/aspnet/core/?view=aspnetcore-3.1">asp.net-core</a>
+      <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/ef/">ef-core</a>
+      <a class="document-btn" target="_blank" href="https://identityserver4docs.readthedocs.io/zh_CN/latest/intro/big_picture.html">identity-server</a>
+      <a class="document-btn" target="_blank" href="https://docs.abp.io/zh-Hans/abp/3.2">abp</a>
+      <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/sql/sql-server/sql-docs-navigation-guide?view=sql-server-2016">sql-server</a>
+      <a class="document-btn" target="_blank" href="https://github.com/jasonhua95/awesome-dotnet-core">awesome-dotnet-core</a>
       <a class="document-btn" target="_blank" href="https://github.com/EasyAbp/awesome-abp">awesome-abp</a>
-      <a class="document-btn" target="_blank" href="https://github.com/EasyAbp/EasyAbpGuide">EasyAbpGuide</a>
-      <a class="document-btn" target="_blank" href="https://github.com/abpframework/abp-samples">abp-samples</a>
-      <a class="document-btn" target="_blank" href="https://github.com/EasyAbp/AbpHelper.GUI">AbpHelper.GUI</a>
+      <a class="document-btn" target="_blank" href="https://easyabp.io/">easyabp</a>
+      <a class="document-btn" target="_blank" href="https://www.aliyun.com/resources?spm=5176.28055625.J_4VYgf18xNlTAyFFbOuOQe.11.e939154aSYsv0S">aliyun</a>
+    </el-row>
+    <el-row>
+      <dropdown-menu class="document-btn" :items="articleList" title="系列文章" />
+      <a class="document-btn" target="_blank" href="https://v2.cn.vuejs.org/">vue</a>
+
+      <a class="document-btn" target="_blank" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/">element-admin-doc</a>
+      <a class="document-btn" target="_blank" href="https://v3.vuex.vuejs.org/zh/">vuex</a>
+      <a class="document-btn" target="_blank" href="https://cli.vuejs.org/zh/">vue cli</a>
+      <a class="document-btn" target="_blank" href="https://es6.ruanyifeng.com//">es2015+</a>
+      <a class="document-btn" target="_blank" href="https://element.eleme.cn/#/zh-CN/component/installation">element-ui</a>
+      <a class="document-btn" target="_blank" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/">国内文档</a>
+      <a class="document-btn" target="_blank" href="https://axios-http.com/zh/docs/intro">axios</a>
+
     </el-row>
 
     <el-row>
-      <a class="document-btn" target="_blank" href="https://v2.cn.vuejs.org/">vue</a>
-      <a class="document-btn" target="_blank" href="https://v3.vuex.vuejs.org/zh/">vuex</a>
-      <a class="document-btn" target="_blank" href="https://element.eleme.cn/#/zh-CN/component/installation">element-ui</a>
-      <a class="document-btn" target="_blank" href="https://axios-http.com/zh/docs/intro">axios</a>
-      <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/">element-admin-site</a>
       <a class="document-btn" target="_blank" href="https://panjiachen.github.io/vue-element-admin/#/dashboard">element-admin</a>
-      <a class="document-btn" target="_blank" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/">国内文档</a>
-      <dropdown-menu class="document-btn" :items="articleList" title="系列文章" />
+      <a class="document-btn" target="_blank" href="https://commercial-demo.abp.io/">abp-demo</a>
+      <a class="document-btn" target="_blank" href="http://dashboard.yudao.iocoder.cn/index">yudao</a>
+      <a class="document-btn" target="_blank" href="https://demo.devqd.com/#/dashboard/home">admin.net</a>
+      <a class="document-btn" target="_blank" href="https://github.com/colinin/abp-next-admin">abp-next-admin</a>
+      <a class="document-btn" target="_blank" href="https://github.com/WilliamXu96/ABP-MicroService">abp-microservice</a>
+      <a class="document-btn" target="_blank" href="http://116.205.177.85/dashboard/analysis">abp-pro</a>
+      <a class="document-btn" target="_blank" href="http://v2.volcore.xyz/home">vol.vue</a>
+      <a class="document-btn" target="_blank" href="http://vue.ruoyi.vip/index">ruoyi.vue</a>
     </el-row>
     <el-row />
-
   </div>
 </template>
 

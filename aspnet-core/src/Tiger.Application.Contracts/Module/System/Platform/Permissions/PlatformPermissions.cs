@@ -7,7 +7,7 @@ namespace Tiger.Module.System.Platform.Permissions
 {
     public static class PlatformPermissions
     {
-        public const string GroupName = "Platform";
+        public const string GroupName = "PlatformPermissions";
 
         public class DataDictionary
         {
