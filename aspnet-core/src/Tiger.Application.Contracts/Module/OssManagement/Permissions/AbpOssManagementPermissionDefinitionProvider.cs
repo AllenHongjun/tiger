@@ -23,8 +23,7 @@ namespace Tiger.Module.OssManagement.Permissions
 
             // 通过权限控制特性
             //.RequireFeatures(AbpOssManagementFeatureNames.OssObject.Default);
-            ossobject
-                .AddChild(AbpOssManagementPermissions.OssObject.Create, L("Permission:Create"));
+            ossobject.AddChild(AbpOssManagementPermissions.OssObject.Create, L("Permission:Create"));
                 //.RequireFeatures(AbpOssManagementFeatureNames.OssObject.UploadFile);
             ossobject.AddChild(AbpOssManagementPermissions.OssObject.Delete, L("Permission:Delete"));
             ossobject

@@ -149,13 +149,12 @@ export default {
         if (this.permissionsQuery.providerName === 'R') {
           label = parents[i].displayName
         } else if (this.permissionsQuery.providerName === 'U') {
-          label =
-                        parents[i].displayName +
-                        ' ' +
-                        parents[i].grantedProviders.map(provider => {
-                          // return `${provider.providerName}: ${provider.providerKey}`
-                          return `${provider.providerName}`
-                        })
+          label = parents[i].displayName +
+                  ' ' +
+                  parents[i].grantedProviders.map(provider => {
+                    // return `${provider.providerName}: ${provider.providerKey}`
+                    return `${provider.providerName}`
+                  })
         }
         arr.push({
           name: parents[i].name,

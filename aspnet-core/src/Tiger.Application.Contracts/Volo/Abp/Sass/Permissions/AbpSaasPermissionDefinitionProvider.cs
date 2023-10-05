@@ -20,21 +20,17 @@ namespace Tiger.Volo.Abp.Sass.Permissions
                 AbpSaasPermissions.Editions.Default, 
                 L("Permission:EditionManagement"), 
                 multiTenancySide: MultiTenancySides.Host);
-            editionsPermission.AddChild(AbpSaasPermissions.Editions.Create, L("Permission:Create"), multiTenancySide: MultiTenancySides.Host);
-            editionsPermission.AddChild(AbpSaasPermissions.Editions.Update, L("Permission:Edit"), multiTenancySide: MultiTenancySides.Host);
-            editionsPermission.AddChild(AbpSaasPermissions.Editions.Delete, L("Permission:Delete"), multiTenancySide: MultiTenancySides.Host);
-            editionsPermission.AddChild(AbpSaasPermissions.Editions.ManageFeatures, L("Permission:ManageFeatures"), multiTenancySide: MultiTenancySides.Host);
+                editionsPermission.AddChild(AbpSaasPermissions.Editions.Create, L("Permission:Create"), multiTenancySide: MultiTenancySides.Host);
+                editionsPermission.AddChild(AbpSaasPermissions.Editions.Update, L("Permission:Edit"), multiTenancySide: MultiTenancySides.Host);
+                editionsPermission.AddChild(AbpSaasPermissions.Editions.Delete, L("Permission:Delete"), multiTenancySide: MultiTenancySides.Host);
+                editionsPermission.AddChild(AbpSaasPermissions.Editions.ManageFeatures, L("Permission:ManageFeatures"), multiTenancySide: MultiTenancySides.Host);
 
-            var tenantsPermission = saasGroup.
-                AddPermission(
-                AbpSaasPermissions.Tenants.Default, 
-                L("Permission:TenantManagement"), 
-                multiTenancySide: MultiTenancySides.Host);
-            tenantsPermission.AddChild(AbpSaasPermissions.Tenants.Create, L("Permission:Create"), multiTenancySide: MultiTenancySides.Host);
-            tenantsPermission.AddChild(AbpSaasPermissions.Tenants.Update, L("Permission:Edit"), multiTenancySide: MultiTenancySides.Host);
-            tenantsPermission.AddChild(AbpSaasPermissions.Tenants.Delete, L("Permission:Delete"), multiTenancySide: MultiTenancySides.Host);
-            tenantsPermission.AddChild(AbpSaasPermissions.Tenants.ManageFeatures, L("Permission:ManageFeatures"), multiTenancySide: MultiTenancySides.Host);
-            tenantsPermission.AddChild(AbpSaasPermissions.Tenants.ManageConnectionStrings, L("Permission:ManageConnectionStrings"), multiTenancySide: MultiTenancySides.Host);
+            var tenantsPermission = saasGroup.AddPermission(AbpSaasPermissions.Tenants.Default, L("Permission:TenantManagement"), multiTenancySide: MultiTenancySides.Host);
+                tenantsPermission.AddChild(AbpSaasPermissions.Tenants.Create, L("Permission:Create"), multiTenancySide: MultiTenancySides.Host);
+                tenantsPermission.AddChild(AbpSaasPermissions.Tenants.Update, L("Permission:Edit"), multiTenancySide: MultiTenancySides.Host);
+                tenantsPermission.AddChild(AbpSaasPermissions.Tenants.Delete, L("Permission:Delete"), multiTenancySide: MultiTenancySides.Host);
+                tenantsPermission.AddChild(AbpSaasPermissions.Tenants.ManageFeatures, L("Permission:ManageFeatures"), multiTenancySide: MultiTenancySides.Host);
+                tenantsPermission.AddChild(AbpSaasPermissions.Tenants.ManageConnectionStrings, L("Permission:ManageConnectionStrings"), multiTenancySide: MultiTenancySides.Host);
         }
 
 

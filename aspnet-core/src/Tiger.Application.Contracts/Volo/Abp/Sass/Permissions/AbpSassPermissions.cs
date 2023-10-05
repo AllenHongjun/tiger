@@ -10,7 +10,7 @@ namespace Tiger.Volo.Abp.Sass.Permissions
     /// </summary>
     public static class AbpSaasPermissions
     {
-        public const string GroupName = "AbpSass";
+        public const string GroupName = "AbpSaasPermissions";
 
         public static class Editions
         {

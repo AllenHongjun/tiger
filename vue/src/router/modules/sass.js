@@ -10,7 +10,7 @@ const sassRouter = {
   name: 'Saas',
   meta: {
     title: 'AbpSaas["Menu:Saas"]',
-    policy: 'AbpTenantManagement.Tenants',
+    policy: '',
     icon: 'el-icon-cloudy'
   },
   children: [
@@ -20,7 +20,7 @@ const sassRouter = {
       name: 'Tenant',
       meta: {
         title: 'AbpSaas["Tenants"]',
-        policy: 'AbpTenantManagement.Tenants',
+        policy: 'AbpSaasPermissions.Tenants',
         icon: 'el-icon-wallet'
       }
     },
@@ -31,10 +31,8 @@ const sassRouter = {
       meta: {
         title: 'AbpSaas["Editions"]',
         icon: 'el-icon-notebook-2',
-        // TODO: 增加权限控制
-        policy: 'AbpTenantManagement.Tenants'
+        policy: 'AbpSaasPermissions.Editions'
       }
-      // meta: { title: '版本', policy: 'AbpTenantManagement.Editions' }
     }
   ]
 }

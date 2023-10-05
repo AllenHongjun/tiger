@@ -13,7 +13,7 @@ const SystemManageRouter = {
   children: [
     {
       path: '/identity',
-      component: () => import('@/views/system/index'), // Parent router-view
+      component: () => import('@/views/system/index'),
       name: 'identity',
       redirect: '/user/list',
       meta: {
@@ -60,7 +60,7 @@ const SystemManageRouter = {
     },
     {
       path: '/identity-server',
-      component: () => import('@/views/system/index'), // Parent router-view
+      component: () => import('@/views/system/index'),
       name: 'identity-server',
       // redirect: '/user/list',
       meta: {
@@ -80,8 +80,8 @@ const SystemManageRouter = {
           component: () => import('@/views/system/identity-server/api-resource/index'),
           name: 'api-resource',
           meta: {
-            title: 'AbpIdentityServer["DisplayName:ApiResources"]'
-            // policy: 'IdentityServer.ApiResources'
+            title: 'AbpIdentityServer["DisplayName:ApiResources"]',
+            policy: 'IdentityServer.ApiResources'
           }
         },
         {
@@ -94,7 +94,7 @@ const SystemManageRouter = {
           path: '/persisted-grant/list',
           component: () => import('@/views/system/identity-server/persisted-grant/index'),
           name: 'persisted-grant',
-          meta: { title: 'AbpIdentityServer["DisplayName:PersistedGrants"]', policy: 'IdentityServer.IdentityResources' }
+          meta: { title: 'AbpIdentityServer["DisplayName:PersistedGrants"]', policy: 'IdentityServer.Grants' }
         }
 
       ]
@@ -104,27 +104,27 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'localization',
       meta: {
-        title: 'LocalizationManagement["Permissions:LocalizationManagement"]', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'international' // the icon show in the sidebar<svg-icon icon-class="international" />
-        // policy: 'LocalizationManagement'
+        title: 'LocalizationManagement["Permissions:LocalizationManagement"]',
+        icon: 'international',
+        policy: ''
       },
       children: [
         {
           path: 'localization/language',
-          component: () => import('@/views/system/localization/language/index'), // Parent router-view
+          component: () => import('@/views/system/localization/language/index'),
           name: 'language',
           meta: {
-            title: 'LocalizationManagement["Permissions:Language"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'LocalizationPermissions.Languages'
+            title: 'LocalizationManagement["Permissions:Language"]',
+            policy: 'LocalizationPermissions.Languages'
           }
         },
         {
           path: 'localization/language-text',
-          component: () => import('@/views/system/localization/language-text/index'), // Parent router-view
+          component: () => import('@/views/system/localization/language-text/index'),
           name: 'language-text',
           meta: {
-            title: 'LocalizationManagement["Permissions:LanguageText"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'LocalizationPermissions.Languages'
+            title: 'LocalizationManagement["Permissions:LanguageText"]',
+            policy: 'LocalizationPermissions.LanguageTexts'
           }
         }
       ]
@@ -134,36 +134,36 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'platform',
       meta: {
-        title: 'AppPlatform["Permission:Platform"]', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-s-platform' // the icon show in the sidebar
-        // policy: 'AbpTextTemplating.TextTemplates'
+        title: 'AppPlatform["Permission:Platform"]',
+        icon: 'el-icon-s-platform',
+        policy: 'AbpTextTemplating.TextTemplates'
       },
       children: [
         {
           path: 'data/list',
-          component: () => import('@/views/system/platform/data/index'), // Parent router-view
+          component: () => import('@/views/system/platform/data/index'),
           name: 'data',
           meta: {
-            title: 'AppPlatform["Permission:Data"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'AbpTextTemplating.TextTemplates'
+            title: 'AppPlatform["Permission:Data"]',
+            policy: 'PlatformPermissions.DataDictionary'
           }
         },
         {
           path: 'menu/list',
-          component: () => import('@/views/system/platform/menu/index'), // Parent router-view
+          component: () => import('@/views/system/platform/menu/index'),
           name: 'menu',
           meta: {
-            title: 'AppPlatform["DisplayName:Menus"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'AbpTextTemplating.TextTemplates'
+            title: 'AppPlatform["DisplayName:Menus"]',
+            policy: 'PlatformPermissions.Menu'
           }
         },
         {
           path: 'layout/list',
-          component: () => import('@/views/system/platform/layout/index'), // Parent router-view
+          component: () => import('@/views/system/platform/layout/index'),
           name: 'layout',
           meta: {
-            title: 'AppPlatform["Permission:Layout"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'AbpTextTemplating.TextTemplates'
+            title: 'AppPlatform["Permission:Layout"]',
+            policy: 'PlatformPermissions.Layout'
           }
         }
       ]
@@ -173,27 +173,27 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'oss',
       meta: {
-        title: 'AbpOssManagement["Permission:OssManagement"]', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-files' // the icon show in the sidebar
-        // policy: 'AbpTextTemplating.TextTemplates'
+        title: 'AbpOssManagement["Permission:OssManagement"]',
+        icon: 'el-icon-files', // the icon show in the sidebar
+        policy: ''
       },
       children: [
         {
           path: 'container/list',
-          component: () => import('@/views/system/oss/container/index'), // Parent router-view
+          component: () => import('@/views/system/oss/container/index'),
           name: 'container',
           meta: {
-            title: 'AbpOssManagement["Permission:Container"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'AbpTextTemplating.TextTemplates'
+            title: 'AbpOssManagement["Permission:Container"]',
+            policy: 'AbpOssManagementPermissions.Container'
           }
         },
         {
           path: 'object/list',
-          component: () => import('@/views/system/oss/object/index'), // Parent router-view
+          component: () => import('@/views/system/oss/object/index'),
           name: 'object',
           meta: {
-            title: 'AbpOssManagement["Permission:OssObject"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'AbpTextTemplating.TextTemplates'
+            title: 'AbpOssManagement["Permission:OssObject"]',
+            policy: 'AbpOssManagementPermissions.OssObject'
           }
         }
       ]
@@ -203,48 +203,49 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'task',
       meta: {
-        title: 'TaskManagement["Permissions:TaskManagement"]', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-time' // the icon show in the sidebar
-        // policy: 'AbpTextTemplating.TextTemplates'
+        title: 'TaskManagement["Permissions:TaskManagement"]',
+        icon: 'el-icon-time',
+        policy: ''
       },
       children: [
         {
           path: 'background-worker/list',
-          component: () => import('@/views/system/task/background-job/index'), // Parent router-view
+          component: () => import('@/views/system/task/background-job/index'),
           name: 'background-worker',
           meta: {
-            title: 'TaskManagement["Permissions:BackgroundJobs"]' // the name show in sidebar and breadcrumb (recommend set)
-            // policy: 'AbpTextTemplating.TextTemplates'
+            title: 'TaskManagement["Permissions:BackgroundJobs"]',
+            policy: 'TaskManagementPermissions.BackgroundJobs'
           }
         }
       ]
     },
     {
       path: 'text-template/list',
-      component: () => import('@/views/system/text-template/text-template-table'), // Parent router-view
+      component: () => import('@/views/system/text-template/text-template-table'),
       name: 'text-template',
       meta: {
-        title: 'AbpTextTemplate["Permission:TextTemplating"]', // the name show in sidebar and breadcrumb (recommend set)
+        title: 'AbpTextTemplate["Permission:TextTemplating"]',
         icon: 'el-icon-document-copy', // the icon show in the sidebar
-        policy: 'AbpTextTemplating.TextTemplates'
+        policy: 'AbpTextTemplatePermissions.TextTemplate'
       }
     },
     {
       path: '/audit-log',
-      component: () => import('@/views/system/index'), // Parent router-view
+      component: () => import('@/views/system/index'),
       name: 'audit-log-module',
       meta: {
-        title: 'AbpAuditLogging["Menu:AuditLogging"]', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-document' // the icon show in the sidebar
+        title: 'AbpAuditLogging["Menu:AuditLogging"]',
+        icon: 'el-icon-document',
+        policy: ''
       },
       children: [
         {
           path: 'audit-log/list',
-          component: () => import('@/views/system/auditing/index'), // Parent router-view
+          component: () => import('@/views/system/auditing/index'),
           name: 'audit-log',
           meta: {
-            title: 'AbpAuditLogging["Menu:AuditLogging"]', // the name show in sidebar and breadcrumb (recommend set)
-            policy: 'Auditing.AuditingLog'
+            title: 'AbpAuditLogging["Menu:AuditLogging"]',
+            policy: 'AuditLogPermissions.AuditLogs'
           }
         },
         {
@@ -253,31 +254,31 @@ const SystemManageRouter = {
           name: 'entity-changes',
           meta: {
             title: 'AbpAuditLogging["EntityChanges"]',
-            policy: 'Auditing.AuditingLog'
+            policy: 'AuditLogPermissions.AuditLogs'
           }
         }
       ]
     },
     {
       path: 'notice/list',
-      component: () => import('@/views/system/notice/list'), // Parent router-view
+      component: () => import('@/views/system/notice/list'),
       name: 'notice-list',
       meta: {
-        title: 'TigerUi["Menu:Notice"]', // the name show in sidebar and breadcrumb (recommend set)
-        icon: 'el-icon-message' // the icon show in the sidebar
-        // policy: 'Auditing.AuditingLog'
+        title: 'TigerUi["Menu:Notice"]',
+        icon: 'el-icon-message', // the icon show in the sidebar
+        policy: '11'
       }
     },
 
     // 运维监控
     {
       path: 'monitor/index',
-      component: () => import('@/views/system/monitor/index'), // Parent router-view
+      component: () => import('@/views/system/monitor/index'),
       name: 'monitor',
       meta: {
         title: 'TigerUi["Menu:Monitor"]',
-        icon: 'el-icon-monitor'
-        // policy: 'SettingUi.ShowSettingPage'
+        icon: 'el-icon-monitor',
+        policy: 'SettingUi.ShowSettingPage'
       },
       children: [
         {
@@ -286,8 +287,8 @@ const SystemManageRouter = {
           component: () => import('@/views/system/monitor/server/index'),
           meta: {
             title: 'TigerUi["Menu:ServerMonitor"]',
-            icon: 'el-icon-s-platform'
-            // policy: 'SettingUi.ShowSettingPage'
+            icon: 'el-icon-s-platform',
+            policy: 'SettingUi.ShowSettingPage'
           }
         },
         {
@@ -296,8 +297,8 @@ const SystemManageRouter = {
           component: () => import('@/views/system/monitor/cache/index'),
           meta: {
             title: 'TigerUi["Menu:CacheMonitor"]',
-            icon: 'pc-monitor'
-            // policy: 'SettingUi.ShowSettingPage'
+            icon: 'pc-monitor',
+            policy: 'SettingUi.ShowSettingPage'
           }
         },
         {
@@ -306,8 +307,8 @@ const SystemManageRouter = {
           component: () => import('@/views/system/monitor/cache/manage'),
           meta: {
             title: 'TigerUi["Menu:CacheManage"]',
-            icon: 'Redis'
-            // policy: 'SettingUi.ShowSettingPage'
+            icon: 'Redis',
+            policy: 'SettingUi.ShowSettingPage'
           }
         },
         {
@@ -316,8 +317,8 @@ const SystemManageRouter = {
           component: () => import('@/views/system/monitor/cache/table'),
           meta: {
             title: 'TigerUi["Menu:CacheTable"]',
-            icon: 'Redis'
-            // policy: 'SettingUi.ShowSettingPage'
+            icon: 'Redis',
+            policy: 'SettingUi.ShowSettingPage'
           }
         }
       ]
@@ -325,7 +326,7 @@ const SystemManageRouter = {
     // 基础设施
     {
       path: '/infrastructure',
-      component: () => import('@/views/system/infrastructure/index'), // Parent router-view
+      component: () => import('@/views/system/infrastructure/index'),
       name: 'infrastructure',
       meta: {
         title: 'TigerUi["Menu:Infrastructure"]',
@@ -335,7 +336,7 @@ const SystemManageRouter = {
       children: [
         {
           path: 'swagger-api/index',
-          component: () => import('@/views/system/infrastructure/swagger-api/index'), // Parent router-view,
+          component: () => import('@/views/system/infrastructure/swagger-api/index'),
           name: 'swagger-api',
           meta: {
             title: 'TigerUi["Menu:SwaggerApi"]',
@@ -345,7 +346,7 @@ const SystemManageRouter = {
         },
         {
           path: 'https://localhost:44306/hangfire/?period=week',
-          component: Layout, // Parent router-view,
+          component: Layout,
           name: 'background-job',
           meta: {
             title: 'TigerUi["Menu:BackgroundJob"]',
@@ -355,7 +356,7 @@ const SystemManageRouter = {
         },
         {
           path: 'quartz/index',
-          component: () => import('@/views/system/infrastructure/crystal-quartz/index'), // Parent router-view,
+          component: () => import('@/views/system/infrastructure/crystal-quartz/index'),
           name: 'background-worker-crystal',
           meta: {
             title: 'TigerUi["Menu:BackgroundWorkerCrystal"]',
@@ -379,8 +380,8 @@ const SystemManageRouter = {
           name: 'vfrom',
           meta: {
             title: 'TigerUi["Menu:Vfrom"]',
-            icon: 'el-icon-notebook-1'
-            // policy: 'SettingUi.ShowSettingPage'
+            icon: 'el-icon-notebook-1',
+            policy: 'SettingUi.ShowSettingPage'
           }
         }
 
@@ -388,7 +389,7 @@ const SystemManageRouter = {
     },
     {
       path: 'setting/index',
-      component: () => import('@/views/system/setting/index'), // Parent router-view
+      component: () => import('@/views/system/setting/index'),
       name: 'system',
       meta: {
         title: 'AbpSettingUi["Settings"]',
