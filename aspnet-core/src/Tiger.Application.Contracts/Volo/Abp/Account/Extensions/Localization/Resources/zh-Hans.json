@@ -32,7 +32,11 @@
     "UploadAvatar": "上传头像",
     "Introduction": "自我介绍",
     "ProfileTab:PersonalInfo": "个人信息",
-    "ProfileTab:Password": "修改密码"
+    "ProfileTab:Password": "修改密码",
+    "EmailConfirmation": "邮件确认",
+    "EmailConfirmSuccessMessage": "你的电子邮件地址已成功确认.",
+    "InvalidToken": "token失效",
+    "LoginApplication": "登录应用程序"
 
   }
 }

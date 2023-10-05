@@ -19,7 +19,6 @@ namespace Tiger.Volo.Abp.Sass.Tenants;
 /// 租户管理
 /// </summary>
 [RemoteService(isEnabled:false)]
-[Authorize(AbpSaasPermissions.Tenants.Default)]
 public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
 {
     protected IDistributedEventBus EventBus { get; }
@@ -43,6 +42,7 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
     /// <param name="id"></param>
     /// <returns></returns>
     /// <exception cref="UserFriendlyException"></exception>
+    [Authorize(AbpSaasPermissions.Tenants.Default)]
     public async virtual Task<TenantDto> GetAsync(Guid id)
     {
         var tenant = await TenantRepository.FindAsync(id);
@@ -60,6 +60,7 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
     /// <param name="name"></param>
     /// <returns></returns>
     /// <exception cref="UserFriendlyException"></exception>
+    [Authorize(AbpSaasPermissions.Tenants.Default)]
     public async virtual Task<TenantDto> GetAsync(string name)
     {
         var tenant = await TenantRepository.FindByNameAsync(name);
@@ -75,6 +76,7 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    [Authorize]
     public async virtual Task<PagedResultDto<TenantDto>> GetListAsync(TenantGetListInput input)
     {
         var count = await TenantRepository.GetCountAsync(input.Filter);

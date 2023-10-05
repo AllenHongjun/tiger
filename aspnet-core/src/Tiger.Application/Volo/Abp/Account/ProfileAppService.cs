@@ -23,7 +23,7 @@ namespace Tiger.Volo.Abp.Account
     /// <summary>
     /// Profile服务
     /// </summary>
-    [Authorize]
+    [Authorize] // 需要用户登录
     [RemoteService(false)]
     public class ProfileAppService : ApplicationService, IProfileAppService
     {

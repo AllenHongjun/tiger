@@ -16,7 +16,6 @@ namespace Tiger.Volo.Abp.Sass
     /// 版本
     /// </summary>
     [Controller]
-    [Authorize(AbpSaasPermissions.Editions.Default)]
     [RemoteService(Name = AbpSaasRemoteServiceConsts.RemoteServiceName)]
     [Area(AbpSaasRemoteServiceConsts.ModuleName)]
     [Route("api/saas/editions")]

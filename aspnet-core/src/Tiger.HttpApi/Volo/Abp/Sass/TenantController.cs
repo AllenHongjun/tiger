@@ -18,7 +18,6 @@ namespace Tiger.Volo.Abp.Sass
     /// 换一个模块重新定义名称一样的控制器，但是服务的名称可以是和原来一样的。
     /// </remarks>
     [Controller]
-    [Authorize(AbpSaasPermissions.Tenants.Default)] //权限
     [RemoteService(Name = AbpSaasRemoteServiceConsts.RemoteServiceName)] // 服务名称
     [Area(AbpSaasRemoteServiceConsts.ModuleName)] // 域名称
     [Route("api/saas/tenants")] // 跟路由

@@ -86,6 +86,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/email-confirm',
+    component: () => import('@/views/account/email-confirm/index'),
+    hidden: true
+  },
+  {
     path: '/send-reset-password-link',
     component: () => import('@/views/account/reset-password/send-link'),
     hidden: true

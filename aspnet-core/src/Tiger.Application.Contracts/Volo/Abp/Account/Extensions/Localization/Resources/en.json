@@ -30,7 +30,11 @@
     "TwoFactorAuthenticationInvaidUser": "Authentication failed. Your session is invalid. Please re login try again!",
     "InvaidGenerateTwoFactorToken": "Verification code generation failed. Please contact your administrator!",
     "UploadAvatar": "Upload Avatar",
-    "Introduction": "Introduction"
+    "Introduction": "Introduction",
+    "EmailConfirmation": "Email Confirmation",
+    "EmailConfirmSuccessMessage": "Your email address has been successfully confirmed.",
+    "InvalidToken": "Invalid Token",
+    "LoginApplication": "Login Application"
 
   }
 }

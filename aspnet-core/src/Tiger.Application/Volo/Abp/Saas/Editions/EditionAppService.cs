@@ -13,7 +13,7 @@ namespace Tiger.Volo.Abp.Sass.Editions;
 /// <summary>
 /// 版本服务
 /// </summary>
-[Authorize(AbpSaasPermissions.Editions.Default)]
+
 [RemoteService(IsEnabled = false)]
 public class EditionAppService : AbpSaasAppServiceBase, IEditionAppService
 {
@@ -61,6 +61,7 @@ public class EditionAppService : AbpSaasAppServiceBase, IEditionAppService
         return ObjectMapper.Map<Edition, EditionDto>(edition);
     }
 
+    [Authorize(AbpSaasPermissions.Editions.Default)]
     public async virtual Task<PagedResultDto<EditionDto>> GetListAsync(EditionGetListInput input)
     {
         var totalCount = await EditionRepository.GetCountAsync(input.Filter);
@@ -136,6 +137,7 @@ public class EditionAppService : AbpSaasAppServiceBase, IEditionAppService
     /// 统计每个版本的租户数量
     /// </summary>
     /// <returns></returns>
+    [Authorize]
     public async virtual Task<List<EditionDto>> GetUsageStatisticAsync()
     {
         var editions = await EditionRepository.GetListAsync();

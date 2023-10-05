@@ -23,7 +23,7 @@ namespace Volo.Abp.AuditLogging
     /// 审计日志 https://docs.abp.io/zh-Hans/abp/7.0/Audit-Logging
     /// </remarks>
     [RemoteService(false)]
-    [Authorize(AuditLogPermissions.AuditLogs.Default)]
+    
     public class AuditLogAppService : TigerAppService, IAuditLogAppService
     {
         protected IAuditLogRepository AuditLogRepository { get; }
@@ -44,6 +44,7 @@ namespace Volo.Abp.AuditLogging
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
         public virtual async Task<AuditLogDto> GetAsync(Guid id)
         {
             return ObjectMapper.Map<AuditLog, AuditLogDto>(await AuditLogRepository.GetAsync(id, true));
@@ -59,6 +60,7 @@ namespace Volo.Abp.AuditLogging
         /// Get api/Values/1
         /// </remarks>
         /// <returns>测试字符串</returns> 
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
         public virtual async Task<PagedResultDto<AuditLogDto>> GetListAsync(GetAuditLogDto input)
         {
             //临时禁用软删除的数据过滤
@@ -147,7 +149,7 @@ namespace Volo.Abp.AuditLogging
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        [Authorize(AuditLogPermissions.AuditLogs.Default)]
+        [Authorize]
         public virtual async Task<List<ErrorRateDto>> GetErrorRate(DateTime startDate, DateTime endDate)
         {
             var errorCount = await AuditLogRepository.GetCountAsync(startTime: startDate, endTime: endDate,hasException:true);
@@ -160,7 +162,7 @@ namespace Volo.Abp.AuditLogging
             return result;
         }
 
-        
+
 
         /// <summary>
         /// 每日请求平均执行时间
@@ -168,7 +170,7 @@ namespace Volo.Abp.AuditLogging
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        [Authorize(AuditLogPermissions.AuditLogs.Default)]
+        [Authorize]
         public virtual async Task<Dictionary<DateTime, double>> GetAverageExecutionDurationPerDayAsync(DateTime startDate, DateTime endDate)
         {
             return await AuditLogRepository.GetAverageExecutionDurationPerDayAsync(startDate, endDate);
@@ -181,6 +183,7 @@ namespace Volo.Abp.AuditLogging
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
         public virtual async Task<EntityChangeDto> GetEntityChangeAsync(Guid id)
         {
             return ObjectMapper.
@@ -196,6 +199,7 @@ namespace Volo.Abp.AuditLogging
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
         public virtual async Task<PagedResultDto<EntityChangeDto>> GetEntityChangeListAsync(GetEntityChangeDto input)
         {
             var entityChangeCount = await AuditLogRepository.GetEntityChangeCountAsync(
@@ -228,6 +232,7 @@ namespace Volo.Abp.AuditLogging
         /// <param name="entityChangeId"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
         public virtual async Task<EntityChangeWithUsernameDto> GetEntityChangeWithUsernameAsync(Guid entityChangeId)
         {
             return ObjectMapper.Map<EntityChangeWithUsername, EntityChangeWithUsernameDto>(await AuditLogRepository.GetEntityChangeWithUsernameAsync(entityChangeId));
@@ -239,6 +244,7 @@ namespace Volo.Abp.AuditLogging
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
+        [Authorize(AuditLogPermissions.AuditLogs.Default)]
         public virtual async Task<List<EntityChangeWithUsernameDto>> GetEntityChangesWithUsernameAsync(GetEntityChangeWithUsernameDto input)
         {
             return ObjectMapper.Map<List<EntityChangeWithUsername>, List<EntityChangeWithUsernameDto>>(

@@ -1,5 +1,5 @@
 <template>
-  <div class="register-container">
+  <div class="app-container">
     <div class="title-container">
       <h3 class="title">
         {{ $t('AbpAccount.ResetPassword') }}
@@ -36,10 +36,9 @@
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
-      <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleResetPassword">
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleResetPassword">
         {{ $t('AbpUi.Submit') }}
       </el-button>
-
     </el-form>
 
     <div class="bottom-container">
