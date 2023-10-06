@@ -51,6 +51,8 @@ using Volo.Abp.EventBus;
 using Tiger.Module.TaskManagement;
 using Volo.Abp.Sms;
 using Tiger.Volo.Abp.IdentityServer.SmsValidator;
+using Tiger.Infrastructure.IdGenerator.Snowflake;
+using Tiger.Infrastructure.IdGenerator;
 
 namespace Tiger
 {
@@ -74,14 +76,12 @@ namespace Tiger
         typeof(AbpPermissionManagementDomainIdentityServerModule),
         typeof(AbpSettingManagementDomainModule),
         typeof(AbpTenantManagementDomainModule),
-        typeof(AbpEmailingModule)
-
+        typeof(AbpEmailingModule),
+        typeof(AbpBackgroundJobsAbstractionsModule), // AbpBackgroundJobsAbstractions 定时任务需要集成 abp后台作业模块
+        typeof(AbpEventBusModule),
+        typeof(AbpBackgroundWorkersModule),
+        typeof(AbpGuidsModule)
     )]
-
-    [DependsOn(typeof(AbpBackgroundJobsAbstractionsModule))] // AbpBackgroundJobsAbstractions 定时任务需要集成 abp后台作业模块
-    [DependsOn(typeof(AbpEventBusModule))]
-    [DependsOn(typeof(AbpBackgroundWorkersModule))]
-    [DependsOn(typeof(AbpGuidsModule))]
     public class TigerDomainModule : AbpModule
     {
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -92,7 +92,6 @@ namespace Tiger
             _scheduler.ListenerManager.AddJobListener(context.ServiceProvider.GetRequiredService<QuartzJobListener>());
             _scheduler.ListenerManager.AddTriggerListener(context.ServiceProvider.GetRequiredService<QuartzTriggerListener>());
 
-
             #endregion
         }
 
@@ -100,11 +99,12 @@ namespace Tiger
         {
             AutoAddDefinitionProviders(context.Services);
 
-            // 拓展短信授权登陆
+            #region 拓展短信授权登陆
             PreConfigure<IIdentityServerBuilder>(builder =>
-            {
-                builder.AddExtensionGrantValidator<SmsTokenGrantValidator>();
-            });
+                {
+                    builder.AddExtensionGrantValidator<SmsTokenGrantValidator>();
+                }); 
+            #endregion
         }
 
         #region 任务定义注入
@@ -129,7 +129,15 @@ namespace Tiger
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAutoMapperObjectMapper<TigerDomainModule>();
+            #region 配置加载雪花算法单例模块
+            var snowflakeIdOptions = new SnowflakeIdOptions();
+            context.Services.ExecutePreConfiguredActions(snowflakeIdOptions);
+            context.Services.TryAddSingleton<IDistributedIdGenerator>(SnowflakeIdGenerator.Create(snowflakeIdOptions)); 
+            #endregion
+
+            #region AutoMapper
+            context.Services.AddAutoMapperObjectMapper<TigerDomainModule>(); 
+            #endregion
 
             #region BackgroundWorkers初始化（类注入）
             context.Services.AddTransient(typeof(BackgroundJobAdapter<>));
@@ -163,14 +171,12 @@ namespace Tiger
             });
             #endregion
 
+            #region Saas
 
             Configure<AbpMultiTenancyOptions>(options =>
             {
                 options.IsEnabled = MultiTenancyConsts.IsEnabled;
             });
-            
-
-            #region Saas
 
             // 配置Domain模块使用automapper
             Configure<AbpAutoMapperOptions>(options =>
@@ -227,11 +233,15 @@ namespace Tiger
             });
             #endregion
 
+            #region 测试配置邮件和短信使用 NullEmailSender NullSmsSender
 #if DEBUG
             //NullEmailSender 是实现 IEmailSender 的内置类，但将电子邮件内容写入 标准日志系统，而不是实际发送电子邮件。
             context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
             context.Services.Replace(ServiceDescriptor.Singleton<ISmsSender, NullSmsSender>());
 #endif
+
+            #endregion
+
         }
 
 
