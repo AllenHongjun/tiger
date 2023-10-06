@@ -9,6 +9,9 @@ namespace Tiger.Volo.Abp.SettingUi
     {
         public const string GroupName = "SettingUi";
         public const string ShowSettingPage = GroupName + ".ShowSettingPage";
+        public const string Host = GroupName + ".Host";
+        public const string Tenant = GroupName + ".Tenant";
+        public const string User = GroupName + ".User";
 
         public static string[] GetAll()
         {

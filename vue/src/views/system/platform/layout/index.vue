@@ -97,9 +97,7 @@ import {
   deleteLayout
 } from '@/api/system-manage/platform/layout'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import baseListQuery, {
-  checkPermission
-} from '@/utils/abp'
+import baseListQuery, { checkPermission } from '@/utils/abp'
 
 export default {
   name: 'Layouts',

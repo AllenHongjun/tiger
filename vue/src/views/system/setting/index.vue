@@ -2,6 +2,12 @@
   <div class="app-container">
 
     <el-tabs tab-position="left">
+      <el-tab-pane v-if="checkPermission('FeatureManagement.ManageHostFeatures')" :label="$t(`AbpSettingUi.FeatureManage`)">
+        <el-card class="box-card">
+          <p>{{ $t(`AbpSettingUi['SettingUi.ManageHostFeatures.Tips']`) }}</p>
+          <el-button icon="el-icon-setting" type="primary" @click="handleManageHostFeatures()">{{ $t(`AbpSettingUi['SettingUi.ManageHostFeatures']`) }}</el-button>
+        </el-card>
+      </el-tab-pane>
       <el-tab-pane v-for="(group,sIndex) in settingData" :key="group.groupName" :label="group.groupDisplayName">
         <el-tabs tab-position="top">
           <el-tab-pane v-for="card in group.settingInfos" :key="card[0].properties.Group2" :label="$t(`AbpSettingUi.${card[0].properties.Group2}`)">
@@ -36,6 +42,7 @@
       </el-tab-pane>
     </el-tabs>
 
+    <feature ref="featureDialog" provider-name="T" />
   </div>
 </template>
 
@@ -45,8 +52,15 @@ import {
   setSettingValues,
   resetSettingValues
 } from '@/api/system-manage/setting'
+
+import Feature from '../../saas/components/Feature.vue'
+import baseListQuery, { checkPermission } from '@/utils/abp'
+
 export default {
   name: 'Setting',
+  components: {
+    Feature
+  },
   data() {
     return {
       settingData: [],
@@ -57,6 +71,10 @@ export default {
     this.getGroupSettingDefinitions()
   },
   methods: {
+    checkPermission, // 检查权限
+    handleManageHostFeatures() {
+      this.$refs['featureDialog'].handleUpdate({ id: undefined })
+    },
     getGroupSettingDefinitions() {
       getSettingValues().then(setting => {
         for (const s of setting) {

@@ -3,9 +3,14 @@
   "texts": {
     "Permission:SettingUi": "设置UI",
     "Permission:SettingUi.ShowSettingPage": "显示设置页面",
-    "Permission:SettingUi.Tenant": "租户设置",
-    "Permission:SettingUi.User": "用户设置",
-    "Permission:SettingUi.Host": "宿主设置",
+    "Permission:SettingUi.Tenant": "管理租户功能",
+    "Permission:SettingUi.User": "管理用户功能",
+    "Permission:SettingUi.Host": "管理宿主功能",
+
+
+    "SettingUi.ManageHostFeatures": "管理宿主功能",
+    "SettingUi.ManageHostFeatures.Tips": "您可以通过单击以下按钮来管理宿主功能。",
+    "FeatureManage": "功能管理",
 
     "Settings": "设置",
     "System": "系统",
@@ -25,7 +30,6 @@
     "OssManagement": "容器管理",
 
     "Others": "其它",
-
     "Save": "保存",
     "Reset": "重置",
     "SuccessfullySaved": "保存成功",

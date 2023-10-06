@@ -27,6 +27,7 @@ using Tiger.Module.OssManagement;
 using Tiger.MultiTenancy;
 using Tiger.Volo.Abp.Account;
 using Tiger.Volo.Abp.Sass.Permissions;
+using Tiger.Volo.Abp.SettingUi;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;

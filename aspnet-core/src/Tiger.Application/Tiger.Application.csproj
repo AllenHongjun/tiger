@@ -29,6 +29,7 @@
     <Compile Remove="Volo\Abp\BackgroundJobs\**" />
     <Compile Remove="Volo\Abp\Blogging\**" />
     <Compile Remove="Volo\Abp\CmsKit\**" />
+    <Compile Remove="Volo\Abp\PermissionManagement\**" />
     <EmbeddedResource Remove="AuditLogs\**" />
     <EmbeddedResource Remove="Business\**" />
     <EmbeddedResource Remove="Infrastructure\BackgroundWorker\DogApi\**" />
@@ -38,6 +39,7 @@
     <EmbeddedResource Remove="Volo\Abp\BackgroundJobs\**" />
     <EmbeddedResource Remove="Volo\Abp\Blogging\**" />
     <EmbeddedResource Remove="Volo\Abp\CmsKit\**" />
+    <EmbeddedResource Remove="Volo\Abp\PermissionManagement\**" />
     <None Remove="AuditLogs\**" />
     <None Remove="Business\**" />
     <None Remove="Infrastructure\BackgroundWorker\DogApi\**" />
@@ -47,6 +49,7 @@
     <None Remove="Volo\Abp\BackgroundJobs\**" />
     <None Remove="Volo\Abp\Blogging\**" />
     <None Remove="Volo\Abp\CmsKit\**" />
+    <None Remove="Volo\Abp\PermissionManagement\**" />
   </ItemGroup>
 
   <ItemGroup>
