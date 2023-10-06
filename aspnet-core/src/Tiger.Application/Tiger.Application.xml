@@ -1237,6 +1237,16 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.SeedTenantAdminAsync(Tiger.Volo.Abp.Sass.MultiTenancy.CreateEventData)">
+            <summary>
+            创建租户管理员的账号
+            </summary>
+            <param name="eventData"></param>
+            <returns></returns>
+            <remarks>
+            TODO: 如果分开多个独立项目使用事件总线订阅方式创建
+            </remarks>
+        </member>
         <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.UpdateAsync(System.Guid,Tiger.Volo.Abp.Sass.Tenants.TenantUpdateDto)">
             <summary>
             更新租户信息

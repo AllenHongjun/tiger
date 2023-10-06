@@ -31,8 +31,7 @@ service.interceptors.request.use(
       config.headers['authorization'] = 'Bearer ' + store.getters.token
     }
     if (store.getters.tenant) {
-      // TODO: 待后台租户添加完成之后 在请求头添加 租户字段 然后使用租户账号登录
-      // config.headers['__tenant'] = store.getters.tenant
+      config.headers['__tenant'] = store.getters.tenant
     }
 
     config.paramsSerializer = function(params) {

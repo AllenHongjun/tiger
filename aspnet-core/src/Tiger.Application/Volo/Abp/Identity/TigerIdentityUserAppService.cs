@@ -1,23 +1,18 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Tiger.Infrastructure.ExportImport;
 using Tiger.Infrastructure.ExportImport.Help;
-using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users;
 using Tiger.Volo.Abp.Identity.Users.Dto;
-using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.BlobStoring;
@@ -28,7 +23,7 @@ using Volo.Abp.Sms;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
 namespace Tiger.Volo.Abp.Identity
-{   
+{
     /// <summary>
     /// 用户管理
     /// </summary>
@@ -41,6 +36,7 @@ namespace Tiger.Volo.Abp.Identity
     public class TigerIdentityUserAppService : IdentityUserAppService, 
         ITigerIdentityUserAppService
     {
+        #region 构造函数
         private readonly IBlobContainer _blobContainer;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
@@ -62,8 +58,8 @@ namespace Tiger.Volo.Abp.Identity
             _smsSender = smsSender;
             _identityUserRepository = identityUserRepository;
             _tigerIdentityUserRepository=tigerIdentityUserRepository;
-        }
-
+        } 
+        #endregion
 
         #region IdentityUser
         /// <summary>
@@ -301,7 +297,6 @@ namespace Tiger.Volo.Abp.Identity
         #endregion
         #endregion
 
-
         #region IdentityUserOrganizationUnits
         /// <summary>
         /// 将用户关联组织机构
@@ -441,8 +436,6 @@ namespace Tiger.Volo.Abp.Identity
         }
 
         #endregion
-
-        
 
     }
 }

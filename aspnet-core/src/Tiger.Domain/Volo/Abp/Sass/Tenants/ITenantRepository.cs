@@ -13,6 +13,18 @@ namespace Tiger.Volo.Abp.Sass.Tenants
     public interface ITenantRepository: IBasicRepository<Tenant, Guid>
     {
 
+        [Obsolete("Use FindByNameAsync method.")]
+        Tenant FindByName(
+            string name,
+            bool includeDetails = true
+        );
+
+        [Obsolete("Use FindAsync method.")]
+        Tenant FindById(
+            Guid id,
+            bool includeDetails = true
+        );
+
         /// <summary>
         /// 通过名称查找租户
         /// </summary>

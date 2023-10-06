@@ -36,9 +36,10 @@ namespace Tiger.Volo.Abp.Identity
     [Authorize(IdentityPermissions.Roles.Default)]
     public class TigerIdentityRoleAppService : IdentityRoleAppService, ITigerIdentityRoleAppService
     {
+        #region 构造函数
         protected OrganizationUnitManager OrganizationUnitManager { get; }
         protected ITigerIdentityRoleRepository TigerIdentityRoleRepository { get; }
-        
+
         protected IIdentityUserRepository IdentityUserRepository { get; }
         public TigerIdentityRoleAppService(IdentityRoleManager roleManager,
             IIdentityRoleRepository roleRepository,
@@ -47,7 +48,9 @@ namespace Tiger.Volo.Abp.Identity
         {
             OrganizationUnitManager = orgManager;
             TigerIdentityRoleRepository=tigerRoleRepository;
-        }
+        } 
+        #endregion
+
         #region Roles
         [Authorize(IdentityPermissions.Roles.Default)]
         public  async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)

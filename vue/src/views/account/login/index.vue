@@ -222,9 +222,6 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      // this.$router.go(0)
-      // this.loginForm.password = ''
-      // this.loginForm.username = ''
       console.log(tab, event)
     },
     showPwd() {

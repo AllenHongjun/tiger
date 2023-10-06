@@ -116,6 +116,74 @@ namespace Tiger.Volo.Abp.Sass
                 .FirstOrDefaultAsync(t => t.Name == name, GetCancellationToken(cancellationToken));
         }
 
+        [Obsolete("Use FindByNameAsync method.")]
+        public virtual Tenant FindByName(string name, bool includeDetails = true)
+        {
+            var tenantDbSet = DbContext.Set<Tenant>()
+                    .IncludeDetails(includeDetails);
+
+            if (includeDetails)
+            {
+                var editionDbSet = DbContext.Set<Edition>();
+                var queryable = from tenant in tenantDbSet
+                                join edition in editionDbSet on tenant.EditionId equals edition.Id into eg
+                                from e in eg.DefaultIfEmpty()
+                                where tenant.Name.Equals(name)
+                                orderby tenant.Id
+                                select new
+                                {
+                                    Tenant = tenant,
+                                    Edition = e,
+                                };
+                var result = queryable
+                    .FirstOrDefault();
+                if (result != null && result.Tenant != null)
+                {
+                    result.Tenant.Edition = result.Edition;
+                }
+
+                return result?.Tenant;
+            }
+
+            return tenantDbSet
+                .OrderBy(t => t.Id)
+                .FirstOrDefault(t => t.Name == name);
+        }
+
+        [Obsolete("Use FindAsync method.")]
+        public virtual Tenant FindById(Guid id, bool includeDetails = true)
+        {
+            var tenantDbSet = DbContext.Set<Tenant>()
+                    .IncludeDetails(includeDetails);
+
+            if (includeDetails)
+            {
+                var editionDbSet = DbContext.Set<Edition>();
+                var queryable = from tenant in tenantDbSet
+                                join edition in editionDbSet on tenant.EditionId equals edition.Id into eg
+                                from e in eg.DefaultIfEmpty()
+                                where tenant.Id.Equals(id)
+                                orderby tenant.Id
+                                select new
+                                {
+                                    Tenant = tenant,
+                                    Edition = e,
+                                };
+                var result = queryable
+                    .FirstOrDefault();
+                if (result != null && result.Tenant != null)
+                {
+                    result.Tenant.Edition = result.Edition;
+                }
+
+                return result?.Tenant;
+            }
+
+            return tenantDbSet
+                .OrderBy(t => t.Id)
+                .FirstOrDefault(t => t.Id == id);
+        }
+
         public  async Task<int> GetCountAsync(string filter = null, CancellationToken cancellationToken = default)
         {
             return await DbContext.Set<Tenant>().Include(x => x.Edition)
