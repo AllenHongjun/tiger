@@ -15,8 +15,8 @@ namespace Tiger.Module.System.Platform.Permissions
 
             var appVersion = platform
                 .AddPermission(PlatformPermissions.AppVersion.Default, L("Permission:AppVersion"));
-            appVersion.AddChild(PlatformPermissions.AppVersion.Create, L("Permission:CreateVersion"));
-            appVersion.AddChild(PlatformPermissions.AppVersion.Delete, L("Permission:DeleteVersion"));
+            appVersion.AddChild(PlatformPermissions.AppVersion.Create, L("Permission:Create"));
+            appVersion.AddChild(PlatformPermissions.AppVersion.Delete, L("Permission:Delete"));
 
             var versionFile = appVersion
                 .AddChild(PlatformPermissions.AppVersion.FileManager.Default, L("Permission:FileManager"));

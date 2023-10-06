@@ -104,7 +104,7 @@ const SystemManageRouter = {
       component: () => import('@/views/system/index'),
       name: 'localization',
       meta: {
-        title: 'LocalizationManagement["Permissions:LocalizationManagement"]',
+        title: 'LocalizationManagement["Permission:LocalizationManagement"]',
         icon: 'international',
         policy: ''
       },
@@ -114,7 +114,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/localization/language/index'),
           name: 'language',
           meta: {
-            title: 'LocalizationManagement["Permissions:Language"]',
+            title: 'LocalizationManagement["Permission:Languages"]',
             policy: 'LocalizationManagement.Languages'
           }
         },
@@ -123,7 +123,7 @@ const SystemManageRouter = {
           component: () => import('@/views/system/localization/language-text/index'),
           name: 'language-text',
           meta: {
-            title: 'LocalizationManagement["Permissions:LanguageText"]',
+            title: 'LocalizationManagement["Permission:LanguageTexts"]',
             policy: 'LocalizationManagement.LanguageTexts'
           }
         }

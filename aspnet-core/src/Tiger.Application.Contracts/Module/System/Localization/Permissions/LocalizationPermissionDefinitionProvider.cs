@@ -13,7 +13,7 @@ namespace Tiger.Module.System.Localization.Permissions
     {
         public override void Define(IPermissionDefinitionContext context)
         {
-            var localizationGroup = context.AddGroup(LocalizationPermissions.GroupName, L("Permission:LanguageManagement"));
+            var localizationGroup = context.AddGroup(LocalizationPermissions.GroupName, L("Permission:LocalizationManagement"));
 
 
             var languages = localizationGroup.AddPermission(LocalizationPermissions.Languages.Default, L("Permission:Languages"));

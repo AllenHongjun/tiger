@@ -7,7 +7,7 @@
           {{ $t('AbpUi.Search') }}
         </el-button>
         <el-button v-if="checkPermission('LocalizationManagement.Languages.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-          {{ $t("LocalizationManagement['Permissions:Create']") }}
+          {{ $t("LocalizationManagement['Permission:Create']") }}
         </el-button>
       </el-row>
     </div>
