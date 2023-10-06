@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Identity.Users.Dto;
 using Tiger.Volo.Abp.Sass.Permissions;
 using Tiger.Volo.Abp.Sass.Tenants;
 using Volo.Abp;
@@ -14,14 +15,11 @@ namespace Tiger.Volo.Abp.Sass
     /// <summary>
     /// 租户
     /// </summary>
-    /// <remarks>
-    /// 换一个模块重新定义名称一样的控制器，但是服务的名称可以是和原来一样的。
-    /// </remarks>
     [Controller]
     [RemoteService(Name = AbpSaasRemoteServiceConsts.RemoteServiceName)] // 服务名称
     [Area(AbpSaasRemoteServiceConsts.ModuleName)] // 域名称
     [Route("api/saas/tenants")] // 跟路由
-    public class TenantController
+    public class TenantController: ITenantAppService
     {
         protected ITenantAppService TenantAppService { get;}
 
@@ -47,13 +45,12 @@ namespace Tiger.Volo.Abp.Sass
         }
 
         [HttpGet]
-        public virtual async Task<PagedResultDto<TenantDto>> ListInputAsync(TenantGetListInput input)
+        public virtual async Task<PagedResultDto<TenantDto>> GetListAsync(TenantGetListInput input)
         {
             return await TenantAppService.GetListAsync(input);
         }
 
         [HttpPost]
-        [Authorize(AbpSaasPermissions.Tenants.Create)]
         public virtual Task<TenantDto> CreateAsync(TenantCreateDto input)
         {
             return TenantAppService.CreateAsync(input);
@@ -61,7 +58,6 @@ namespace Tiger.Volo.Abp.Sass
 
         [HttpPut]
         [Route("{id}")]
-        [Authorize(AbpSaasPermissions.Tenants.Update)]
         public virtual Task<TenantDto> UpdateAsync(Guid id, TenantUpdateDto input)
         {
             return TenantAppService.UpdateAsync(id, input);
@@ -69,11 +65,25 @@ namespace Tiger.Volo.Abp.Sass
 
         [HttpDelete]
         [Route("{id}")]
-        [Authorize(AbpSaasPermissions.Tenants.Delete)]
         public virtual Task DeleteAsync(Guid id)
         {
             return TenantAppService.DeleteAsync(id);
-        } 
+        }
+
+        /// <summary>
+        /// 修改租户用户的密码
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("change-user-password")]
+        public async Task ChangePasswordAsync(string userName, IdentityUserSetPasswordInput input)
+        {
+            await TenantAppService.ChangePasswordAsync(userName, input);
+        }
+
+        
         #endregion
 
         #region ConnectionString
@@ -107,7 +117,9 @@ namespace Tiger.Volo.Abp.Sass
         public virtual Task DeleteConnectionStringAsync(Guid id, string name)
         {
             return TenantAppService.DeleteConnectionStringAsync(id, name);
-        } 
+        }
+
+        
         #endregion
 
 

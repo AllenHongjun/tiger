@@ -95,6 +95,14 @@ namespace Tiger.EventBus.Handlers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 订阅租户创建事件
+        /// </remarks>
         public async Task HandleEventAsync(CreateEventData eventData)
         {
             using (var unitOfWork = UnitOfWorkManager.Begin())

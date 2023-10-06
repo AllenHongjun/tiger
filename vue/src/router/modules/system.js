@@ -245,7 +245,7 @@ const SystemManageRouter = {
           name: 'audit-log',
           meta: {
             title: 'AbpAuditLogging["Menu:AuditLogging"]',
-            policy: 'AuditLogPermissions.AuditLogs'
+            policy: 'Auditing.AuditingLog'
           }
         },
         {
@@ -254,7 +254,7 @@ const SystemManageRouter = {
           name: 'entity-changes',
           meta: {
             title: 'AbpAuditLogging["EntityChanges"]',
-            policy: 'AuditLogPermissions.AuditLogs'
+            policy: 'Auditing.AuditingLog'
           }
         }
       ]

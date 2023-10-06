@@ -11,6 +11,16 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.EventBus.Handlers.TenantSynchronizer.HandleEventAsync(Tiger.Volo.Abp.Sass.MultiTenancy.CreateEventData)">
+            <summary>
+            
+            </summary>
+            <param name="eventData"></param>
+            <returns></returns>
+            <remarks>
+            订阅租户创建事件
+            </remarks>
+        </member>
         <member name="T:Tiger.Pages.Account.TwoFactorSupportedLoginModel">
             <summary>
             重写登录模型,实现双因素登录

@@ -5,7 +5,7 @@
         <el-row style="margin-bottom: 20px">
           <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 150px" class="filter-item" clearable="" />
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">搜索</el-button>
-          <el-button type="primary" icon="el-icon-edit" @click="handleCreate">创建</el-button>
+          <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Create')" type="primary" icon="el-icon-edit" @click="handleCreate">创建</el-button>
           <el-button class="filter-item" style="margin-left: 10px;" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
         </el-row>
         <el-table :key="tableKey" v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row @sort-change="sortChange">
@@ -22,16 +22,16 @@
 
           <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="420">
             <template slot-scope="{row,$index}">
-              <el-button type="primary" @click="handleUpdate(row)">
+              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Update')" type="primary" @click="handleUpdate(row)">
                 {{ $t("AbpUi['Edit']") }}
               </el-button>
-              <el-button v-if="checkPermission('AbpSass.Editions.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
+              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
                 {{ $t("AbpSaas['Permission:ManageFeatures']") }}
               </el-button>
-              <el-button type="primary" plain @click="handleMoveAllTenant(row)">
+              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Update')" type="primary" plain @click="handleMoveAllTenant(row)">
                 {{ $t("AbpSaas['MoveAllTenant']") }}
               </el-button>
-              <el-button type="danger" @click="deleteData(row,$index)">
+              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Delete')" type="danger" @click="deleteData(row,$index)">
                 {{ $t("AbpUi['Delete']") }}
               </el-button>
             </template>

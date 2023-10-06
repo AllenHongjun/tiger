@@ -44,6 +44,7 @@ namespace Tiger.Volo.Abp.Sass.Permissions
             /// 关联连接字符串
             /// </summary>
             public const string ManageConnectionStrings = Default + ".ManageConnectionStrings";
+            public const string ChangeUserPassword = Default + ".ChangeUserPassword";
         }
 
         public static string[] GetAll()

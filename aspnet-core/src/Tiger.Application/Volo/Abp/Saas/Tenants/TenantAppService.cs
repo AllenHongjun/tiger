@@ -1,28 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tiger.Volo.Abp.Identity.Users.Dto;
+using Tiger.Volo.Abp.Sass.MultiTenancy;
+using Tiger.Volo.Abp.Sass.Permissions;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.EventBus.Distributed;
-using Volo.Abp.ObjectExtending;
-using Volo.Abp.Domain.Entities;
-using Volo.Abp.Data;
-using Tiger.Volo.Abp.Sass.Permissions;
-using Tiger.Volo.Abp.Sass.MultiTenancy;
-using Volo.Abp.Identity;
-using Microsoft.AspNetCore.Identity;
-using IdentityUser = Volo.Abp.Identity.IdentityUser;
-using IdentityRole = Volo.Abp.Identity.IdentityRole;
-using Volo.Abp.TenantManagement;
-using Microsoft.Extensions.Logging;
-using System.Text;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Domain.Entities.Events.Distributed;
-using Volo.Abp.MultiTenancy;
-using Volo.Abp.PermissionManagement;
-using Volo.Abp.Uow;
+using Volo.Abp.EventBus.Distributed;
+using Volo.Abp.Identity;
+using Volo.Abp.ObjectExtending;
+using IdentityRole = Volo.Abp.Identity.IdentityRole;
+using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
 namespace Tiger.Volo.Abp.Sass.Tenants;
 
@@ -32,6 +24,7 @@ namespace Tiger.Volo.Abp.Sass.Tenants;
 [RemoteService(isEnabled:false)]
 public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
 {
+    #region 构造函数
     protected IDistributedEventBus EventBus { get; }
     protected ITenantRepository TenantRepository { get; }
     protected ITenantManager TenantManager { get; }
@@ -50,7 +43,8 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
         TenantManager = tenantManager;
         IdentityUserManager=identityUserManager;
         IdentityRoleManager=identityRoleManager;
-    }
+    } 
+    #endregion
 
     #region 租户
     /// <summary>
@@ -159,11 +153,7 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
                  2. 创建租户的种子数据
                  3. 创建租户的账号和密码
                  4，给租户的管理员授予所有租户端的权限
-                 5. 
-
-                 
                  */
-
                 await SeedTenantAdminAsync(createEventData);
             }
         });
@@ -247,6 +237,15 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
 
         await CurrentUnitOfWork.SaveChangesAsync();
 
+        //CurrentUnitOfWork.OnCompleted(async () =>
+        //{
+        //    var tenantEto = new TenantEto();
+        //    tenantEto.Name = tenant.Name;
+        //    tenantEto.Id = tenant.Id;
+        //    var createEventData = new EntityDeletedEto<TenantEto>(tenantEto);
+        //    await EventBus.PublishAsync(createEventData);
+        //});
+
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
 
@@ -269,6 +268,37 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
     }
 
 
+    /// <summary>
+    /// 修改租户用户密码
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    /// <exception cref="BusinessException"></exception>
+    [Authorize(AbpSaasPermissions.Tenants.ChangeUserPassword)]
+    public async Task ChangePasswordAsync(string userName, IdentityUserSetPasswordInput input)
+    {
+        var user =  await IdentityUserManager.FindByNameAsync(userName);
+
+        if (user.IsExternal)
+        {
+            throw new BusinessException(code:Identity.IdentityErrorCodes.ExternalUserPasswordChange);
+        }
+
+        if (user.PasswordHash == null)
+        {
+            (await IdentityUserManager.AddPasswordAsync(user, input.Password)).CheckErrors();
+        }
+        else
+        {
+            var token = await IdentityUserManager.GeneratePasswordResetTokenAsync(user);
+
+            (await IdentityUserManager.ResetPasswordAsync(user, token, input.Password)).CheckErrors();
+        }
+
+        await CurrentUnitOfWork.SaveChangesAsync();
+
+    }
     #endregion
 
     #region 数据库连接字符串

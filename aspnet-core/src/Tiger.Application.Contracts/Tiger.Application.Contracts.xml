@@ -2830,6 +2830,15 @@
             是否启用
             </summary>
         </member>
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.ITenantAppService.ChangePasswordAsync(System.String,Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserSetPasswordInput)">
+            <summary>
+            修改租户用户密码
+            </summary>
+            <param name="userName">用户名</param>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.BusinessException"></exception>
+        </member>
         <member name="T:Tiger.Volo.Abp.SettingManagementAppService.IdentitySettingsDto">
             <summary>
             身份标识管理

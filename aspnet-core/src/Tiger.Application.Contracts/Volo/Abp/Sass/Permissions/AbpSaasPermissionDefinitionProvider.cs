@@ -14,7 +14,7 @@ namespace Tiger.Volo.Abp.Sass.Permissions
         {
             var saasGroup = context.AddGroup(AbpSaasPermissions.GroupName, L("Permission:Saas"));
 
-            // 限制了是租户权限还是宿主权限
+            //  配置租户权限还是宿主权限
             var editionsPermission = saasGroup.
                 AddPermission(
                 AbpSaasPermissions.Editions.Default, 
@@ -31,6 +31,7 @@ namespace Tiger.Volo.Abp.Sass.Permissions
                 tenantsPermission.AddChild(AbpSaasPermissions.Tenants.Delete, L("Permission:Delete"), multiTenancySide: MultiTenancySides.Host);
                 tenantsPermission.AddChild(AbpSaasPermissions.Tenants.ManageFeatures, L("Permission:ManageFeatures"), multiTenancySide: MultiTenancySides.Host);
                 tenantsPermission.AddChild(AbpSaasPermissions.Tenants.ManageConnectionStrings, L("Permission:ManageConnectionStrings"), multiTenancySide: MultiTenancySides.Host);
+                tenantsPermission.AddChild(AbpSaasPermissions.Tenants.ChangeUserPassword, L("Permission:ChangeUserPassword"), multiTenancySide: MultiTenancySides.Host);
         }
 
 

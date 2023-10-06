@@ -1121,9 +1121,14 @@
             <summary>
             租户
             </summary>
-            <remarks>
-            换一个模块重新定义名称一样的控制器，但是服务的名称可以是和原来一样的。
-            </remarks>
+        </member>
+        <member name="M:Tiger.Volo.Abp.Sass.TenantController.ChangePasswordAsync(System.String,Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserSetPasswordInput)">
+            <summary>
+            修改租户用户的密码
+            </summary>
+            <param name="userName"></param>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Volo.Abp.Setting.SettingController">
             <summary>
