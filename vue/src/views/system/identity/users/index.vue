@@ -82,7 +82,7 @@
 
         <el-row>
           <el-col :span="24">
-            <el-button type="primary" icon="el-icon-plus" @click="handleCreate">
+            <el-button v-if="checkPermission('AbpIdentity.Users.Create')" type="primary" icon="el-icon-plus" @click="handleCreate">
               {{ $t("AbpIdentity['NewUser']") }}
             </el-button>
             <el-button type="primary" plain icon="el-icon-refresh" @click="handleRefresh">
@@ -302,7 +302,7 @@ import {
   getOrganizations
 } from '@/api/system-manage/identity/organization-unit'
 
-import baseListQuery from '@/utils/abp'
+import baseListQuery, { checkPermission } from '@/utils/abp'
 import { downloadByData } from '@/utils/download'
 import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
 import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
@@ -566,6 +566,7 @@ export default {
     this.fetchOrgOptions()
   },
   methods: {
+    checkPermission,
     ImportUserXlsxTemplate,
     ImportUserFromXlsx,
     fetchRoleOptions() {
@@ -604,6 +605,7 @@ export default {
         this.listQuery.minModifitionTime = this.queryModifitionTime[0]
         this.listQuery.maxModifitionTime = this.queryModifitionTime[1]
       }
+      this.listQuery.sort = 'creationTime desc'
       getUserList(this.listQuery).then((response) => {
         this.list = response.items
         this.total = response.totalCount

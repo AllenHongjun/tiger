@@ -52,7 +52,7 @@ export default {
       activeName: '',
       permissionData: {
         groups: []
-      },
+      }, // 所有权限数据
       treeDefaultProps: {
         children: 'children',
         label: 'label'
@@ -120,19 +120,27 @@ export default {
       }
 
       getPermissions(this.permissionsQuery).then(response => {
+        // 绑定权限数据
         this.permissionData = response
 
         for (const i in this.permissionData.groups) {
-          const keys = []
+          const checkedKeys = []
           const group = this.permissionData.groups[i]
           for (const j in group.permissions) {
-            if (group.permissions[j].isGranted) {
-              keys.push(group.permissions[j].name)
+            // 如果不是子权限，并且所有子权限isGrand = true 才选中
+            if (group.permissions[j].parentName == null && group.permissions.every(v => v.isGranted === true)) {
+              checkedKeys.push(group.permissions[j].name)
+            }
+
+            if (group.permissions[j].parentName !== null && group.permissions[j].isGranted) {
+              checkedKeys.push(group.permissions[j].name)
             }
           }
+
           // 修改数据后立刻得到更新后的DOM结构，可以使用Vue.nextTick()
           this.$nextTick(() => {
-            this.$refs['permissionTree'][i].setCheckedKeys(keys)
+            this.$refs['permissionTree'][i].setCheckedKeys(checkedKeys)
+            // this.$refs['permissionTree'][i].setHalfCheckedKeys(halfCheckedKeys)
           })
         }
       })
@@ -170,21 +178,19 @@ export default {
     updatePermissionData() {
       const tempData = []
       for (const i in this.permissionData.groups) {
-        const keys = this.$refs['permissionTree'][i].getCheckedKeys()
+        const checkedKeys = this.$refs['permissionTree'][i].getCheckedKeys()
+        // Bugfix: 增加返回半选的节点
+        const haleCheckedKeys = this.$refs['permissionTree'][i].getHalfCheckedKeys()
+        const keys = [].concat(checkedKeys, haleCheckedKeys)
+
         const group = this.permissionData.groups[i]
         for (const j in group.permissions) {
-          if (
-            group.permissions[j].isGranted &&
-                        !keys.some(v => v === group.permissions[j].name)
-          ) {
+          if (group.permissions[j].isGranted && !keys.some(v => v === group.permissions[j].name)) {
             tempData.push({
               isGranted: false,
               name: group.permissions[j].name
             })
-          } else if (
-            !group.permissions[j].isGranted &&
-                        keys.some(v => v === group.permissions[j].name)
-          ) {
+          } else if (!group.permissions[j].isGranted && keys.some(v => v === group.permissions[j].name)) {
             tempData.push({
               isGranted: true,
               name: group.permissions[j].name
@@ -192,23 +198,21 @@ export default {
           }
         }
       }
-      updatePermissions(this.permissionsQuery, {
-        permissions: tempData
-      }).then(
-        () => {
-          this.dialogPermissionFormVisible = false
-          this.$notify({
-            title: '成功',
-            message: '操作成功',
-            type: 'success',
-            duration: 2000
-          })
-          fetchAppConfig(
-            this.permissionsQuery.providerKey,
-            this.permissionsQuery.providerName
-          )
-        }
-      )
+      updatePermissions(this.permissionsQuery, { permissions: tempData }).then(() => {
+        this.dialogPermissionFormVisible = false
+
+        this.$notify({
+          title: '成功',
+          message: '操作成功',
+          type: 'success',
+          duration: 2000
+        })
+
+        fetchAppConfig(
+          this.permissionsQuery.providerKey,
+          this.permissionsQuery.providerName
+        )
+      })
     },
     isGrantedByOtherProviderName(grantedProviders) {
       if (grantedProviders.length) {
