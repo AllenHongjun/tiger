@@ -144,72 +144,25 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
             // 而 TenantEto 对象没有包含所需的用户名密码，需要独立发布事件
             await EventBus.PublishAsync(createEventData);
 
-            // 要保存当前租户的用户需要 ChangeTenant 参考abp的源码
-            using (CurrentTenant.Change(tenant.Id, tenant.Name))
-            {
-                /*
-                 * 通过事件订阅
-                 1. 发送租户创建成功邮件通知
-                 2. 创建租户的种子数据
-                 3. 创建租户的账号和密码
-                 4，给租户的管理员授予所有租户端的权限
-                 */
-                await SeedTenantAdminAsync(createEventData);
-            }
+            //// 要保存当前租户的用户需要 ChangeTenant 参考abp的源码
+            //using (CurrentTenant.Change(tenant.Id, tenant.Name))
+            //{
+            //    /*
+            //     * 通过事件订阅
+            //     1. 发送租户创建成功邮件通知
+            //     2. 创建租户的种子数据
+
+            //     3. 创建租户的账号和密码
+            //     4，给租户的管理员授予所有租户端的权限
+            //     */
+            //    await SeedTenantAdminAsync(createEventData);
+            //}
         });
 
         await CurrentUnitOfWork.SaveChangesAsync();
 
         return ObjectMapper.Map<Tenant, TenantDto>(tenant);
     }
-    
-
-    /// <summary>
-    /// 创建租户管理员的账号
-    /// </summary>
-    /// <param name="eventData"></param>
-    /// <returns></returns>
-    /// <remarks>
-    /// TODO: 如果分开多个独立项目使用事件总线订阅方式创建
-    /// </remarks>
-    private async Task SeedTenantAdminAsync(CreateEventData eventData)
-    {
-        // 创建租户的默认管理员账号密码 默认 admin
-        const string tenantAdminUserName = "admin";
-        const string tenantAdminRoleName = "admin";
-        var tenantAdminRoleId = Guid.Empty; ;
-
-        if (!await IdentityRoleManager.RoleExistsAsync(tenantAdminRoleName))
-        {
-            tenantAdminRoleId = GuidGenerator.Create();
-            var tenantAdminRole = new IdentityRole(tenantAdminRoleId, tenantAdminRoleName, eventData.Id)
-            {
-                IsStatic = true,
-                IsPublic = true
-            };
-            (await IdentityRoleManager.CreateAsync(tenantAdminRole)).CheckErrors();
-        }
-        else
-        {
-            var tenantAdminRole = await IdentityRoleManager.FindByNameAsync(tenantAdminRoleName);
-            tenantAdminRoleId = tenantAdminRole.Id;
-        }
-
-        var tenantAdminUser = await IdentityUserManager.FindByNameAsync(eventData.AdminEmailAddress);
-        if (tenantAdminUser == null)
-        {
-            tenantAdminUser = new IdentityUser(
-                eventData.AdminUserId,
-                tenantAdminUserName,
-                eventData.AdminEmailAddress,
-                eventData.Id);
-
-            tenantAdminUser.AddRole(tenantAdminRoleId);
-            // 创建租户管理用户
-            var userReuslt = await IdentityUserManager.CreateAsync(tenantAdminUser, eventData.AdminPassword);
-        }
-    }
-
 
     /// <summary>
     /// 更新租户信息

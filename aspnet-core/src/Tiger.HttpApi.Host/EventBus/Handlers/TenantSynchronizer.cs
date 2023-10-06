@@ -1,26 +1,36 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
+using Tiger.Datas;
+using Tiger.EntityFrameworkCore;
 using Tiger.Volo.Abp.Sass.MultiTenancy;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities.Events.Distributed;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Guids;
+using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.Uow;
-using Tiger.Volo.Abp.Sass.Tenants;
-using Volo.Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Tiger.Datas;
-using Tiger.EntityFrameworkCore;
+using IdentityRole = Volo.Abp.Identity.IdentityRole;
+using IdentityUser = Volo.Abp.Identity.IdentityUser;
+using TenantEto = Tiger.Volo.Abp.Sass.Tenants.TenantEto;
 
 namespace Tiger.EventBus.Handlers
 {
+    /// <summary>
+    /// 租户同步
+    /// </summary>
+    /// <remarks>
+    /// 事件处理程序  https://docs.abp.io/zh-Hans/abp/3.2/Local-Event-Bus
+    /// </remarks>
     public class TenantSynchronizer :
         IDistributedEventHandler<CreateEventData>,
         IDistributedEventHandler<EntityDeletedEto<TenantEto>>,
@@ -35,6 +45,8 @@ namespace Tiger.EventBus.Handlers
         protected IDbSchemaMigrator DbSchemaMigrator { get; }
         protected IPermissionGrantRepository PermissionGrantRepository { get; }
         protected IPermissionDefinitionManager PermissionDefinitionManager { get; }
+        protected IdentityUserManager IdentityUserManager { get; }
+        protected IdentityRoleManager IdentityRoleManager { get; }
         public TenantSynchronizer(
             ICurrentTenant currentTenant,
             IGuidGenerator guidGenerator,
@@ -42,7 +54,9 @@ namespace Tiger.EventBus.Handlers
             IDbSchemaMigrator dbSchemaMigrator,
             IPermissionGrantRepository permissionGrantRepository,
             IPermissionDefinitionManager permissionDefinitionManager,
-            ILogger<TenantSynchronizer> logger)
+            ILogger<TenantSynchronizer> logger,
+            IdentityUserManager identityUserManager,
+            IdentityRoleManager identityRoleManager)
         {
             CurrentTenant = currentTenant;
             GuidGenerator = guidGenerator;
@@ -52,6 +66,8 @@ namespace Tiger.EventBus.Handlers
             PermissionDefinitionManager = permissionDefinitionManager;
 
             Logger = logger;
+            IdentityUserManager=identityUserManager;
+            IdentityRoleManager=identityRoleManager;
         }
 
         public async Task HandleEventAsync(EntityDeletedEto<TenantEto> eventData)
@@ -162,6 +178,56 @@ namespace Tiger.EventBus.Handlers
 
                         Logger.LogInformation("The new tenant permissions data initialized!");
                     }
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 创建租户管理员的账号
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// 测试在一个事件处理程序中能否两个方法订阅同一个事件
+        /// </remarks>
+        public async Task SeedTenantAdminAsync(CreateEventData eventData)
+        {
+            using (CurrentTenant.Change(eventData.Id, eventData.Name))
+            {
+                // 创建租户的默认管理员账号密码 默认 admin
+                const string tenantAdminUserName = "admin";
+                const string tenantAdminRoleName = "admin";
+                var tenantAdminRoleId = Guid.Empty;
+
+                if (!await IdentityRoleManager.RoleExistsAsync(tenantAdminRoleName))
+                {
+                    tenantAdminRoleId = GuidGenerator.Create();
+                    var tenantAdminRole = new IdentityRole(tenantAdminRoleId, tenantAdminRoleName, eventData.Id)
+                    {
+                        IsStatic = true,
+                        IsPublic = true
+                    };
+                    (await IdentityRoleManager.CreateAsync(tenantAdminRole)).CheckErrors();
+                }
+                else
+                {
+                    var tenantAdminRole = await IdentityRoleManager.FindByNameAsync(tenantAdminRoleName);
+                    tenantAdminRoleId = tenantAdminRole.Id;
+                }
+
+                var tenantAdminUser = await IdentityUserManager.FindByNameAsync(eventData.AdminEmailAddress);
+                if (tenantAdminUser == null)
+                {
+                    tenantAdminUser = new IdentityUser(
+                        eventData.AdminUserId,
+                        tenantAdminUserName,
+                        eventData.AdminEmailAddress,
+                        eventData.Id);
+
+                    tenantAdminUser.AddRole(tenantAdminRoleId);
+                    // 创建租户管理用户
+                    await IdentityUserManager.CreateAsync(tenantAdminUser, eventData.AdminPassword);
                 }
             }
         }

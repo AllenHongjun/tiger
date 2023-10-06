@@ -11,6 +11,14 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.EventBus.Handlers.TenantSynchronizer">
+            <summary>
+            租户同步
+            </summary>
+            <remarks>
+            事件处理程序  https://docs.abp.io/zh-Hans/abp/3.2/Local-Event-Bus
+            </remarks>
+        </member>
         <member name="M:Tiger.EventBus.Handlers.TenantSynchronizer.HandleEventAsync(Tiger.Volo.Abp.Sass.MultiTenancy.CreateEventData)">
             <summary>
             
@@ -19,6 +27,16 @@
             <returns></returns>
             <remarks>
             订阅租户创建事件
+            </remarks>
+        </member>
+        <member name="M:Tiger.EventBus.Handlers.TenantSynchronizer.SeedTenantAdminAsync(Tiger.Volo.Abp.Sass.MultiTenancy.CreateEventData)">
+            <summary>
+            创建租户管理员的账号
+            </summary>
+            <param name="eventData"></param>
+            <returns></returns>
+            <remarks>
+            测试在一个事件处理程序中能否两个方法订阅同一个事件
             </remarks>
         </member>
         <member name="T:Tiger.Pages.Account.TwoFactorSupportedLoginModel">
