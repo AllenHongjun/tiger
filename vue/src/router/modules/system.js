@@ -226,7 +226,7 @@ const SystemManageRouter = {
       meta: {
         title: 'AbpTextTemplate["Permission:TextTemplating"]',
         icon: 'el-icon-document-copy', // the icon show in the sidebar
-        policy: 'AbpTextTemplatePermissions.TextTemplate'
+        policy: 'AbpTextTemplating.TextTemplates'
       }
     },
     {

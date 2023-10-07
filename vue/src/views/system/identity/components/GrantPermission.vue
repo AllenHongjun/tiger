@@ -37,7 +37,7 @@ import {
 } from '@/utils/abp'
 
 export default {
-  name: 'PermissionDialog',
+  name: 'GrandPermission',
   props: {
     providerName: {
       type: String,

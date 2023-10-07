@@ -60,7 +60,8 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
-import TextTemplateModel from './components/text-template-model'
+
+import TextTemplateModel from './components/TextTemplateModel.vue'
 
 export default {
   name: 'TextTemplates',

@@ -107,7 +107,7 @@
         </el-dialog>
 
         <role-claim ref="claimTypeDialog" />
-        <permission-dialog ref="permissionDialog" provider-name="R" />
+        <grant-permission ref="permissionDialog" provider-name="R" />
       </el-col>
     </el-row>
   </div>
@@ -115,7 +115,7 @@
 
 <script>
 import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
-import PermissionDialog from '../components/permission-dialog.vue'
+import GrantPermission from '../components/GrantPermission.vue'
 import RoleClaim from './components/RoleClaim.vue'
 import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 
@@ -143,7 +143,7 @@ export default {
     Pagination,
     RoleClaim,
     UploadSingleExcel,
-    PermissionDialog
+    GrantPermission
   },
   data() {
     return {

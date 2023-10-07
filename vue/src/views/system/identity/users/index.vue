@@ -275,7 +275,7 @@
         <el-button type="primary" @click="lock()">{{ $t("AbpIdentity['Save']") }}</el-button>
       </div>
     </el-dialog>
-    <permission-dialog ref="permissionDialog" provider-name="U" />
+    <grant-permission ref="permissionDialog" provider-name="U" />
   </div>
 </template>
 
@@ -307,8 +307,8 @@ import { downloadByData } from '@/utils/download'
 import Pagination from '@/components/Pagination/index.vue' // Secondary package based on el-pagination
 import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 import UserClaim from './components/UserClaim.vue'
-import PermissionDialog from '../components/permission-dialog.vue'
-import OrgTree from '../components/org-tree.vue'
+import GrantPermission from '../components/GrantPermission.vue'
+import OrgTree from '../components/OrgTree.vue'
 
 import {
   pickerRangeWithHotKey
@@ -324,7 +324,7 @@ export default {
     Pagination,
     UploadSingleExcel,
     UserClaim,
-    PermissionDialog,
+    GrantPermission,
     OrgTree
   },
   filters: {

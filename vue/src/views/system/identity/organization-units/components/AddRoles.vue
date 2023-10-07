@@ -47,7 +47,7 @@ import {
 var row
 
 export default {
-  name: 'AddRolesDialog',
+  name: 'AddRoles',
   components: {
     Pagination
   },

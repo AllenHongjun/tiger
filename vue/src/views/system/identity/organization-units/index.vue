@@ -61,7 +61,7 @@
                 <pagination v-show="orgUserTotal > 0" :total="orgUserTotal" :page.sync="listQueryUsers.page" :limit.sync="listQueryUsers.limit" @pagination="getOrgUserList" />
 
                 <!-- 组织选择关联多个用户 -->
-                <add-users-dialog ref="addUsersDialog" :refresh-parent-users="handleRefreshUsers" :ou-id="orgData.id" />
+                <add-users ref="addUsersDialog" :refresh-parent-users="handleRefreshUsers" :ou-id="orgData.id" />
               </div>
               <el-row v-else>
                 <p style="color: #606266">选择一个组织机构来查看用户</p>
@@ -98,7 +98,7 @@
                 <pagination v-show="orgRoleTotal > 0" :total="orgRoleTotal" :page.sync="listQueryRoles.page" :limit.sync="listQueryRoles.limit" @pagination="getOrgRoleList" />
 
                 <!-- 组织选择关联多个角色 -->
-                <add-roles-dialog ref="addRolesDialog" :refresh-parent-roles="handleRefreshRoles" :ou-id="orgData.id" />
+                <add-roles ref="addRolesDialog" :refresh-parent-roles="handleRefreshRoles" :ou-id="orgData.id" />
               </div>
               <el-row v-else>
                 <p style="color: #606266">选择一个组织机构来查看角色</p>
@@ -112,10 +112,10 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
-import OrgTree from '../components/org-tree'
-import AddRolesDialog from './components/add-roles-dialog'
-import AddUsersDialog from './components/add-users-dialog'
+import Pagination from '@/components/Pagination/index.vue'
+import OrgTree from '../components/OrgTree.vue'
+import AddRoles from './components/AddRoles.vue'
+import AddUsers from './components/AddUsers.vue'
 
 import {
   getOrgUsers,
@@ -134,8 +134,8 @@ export default {
   components: {
     Pagination,
     OrgTree,
-    AddRolesDialog,
-    AddUsersDialog
+    AddRoles,
+    AddUsers
   },
   data() {
     return {

@@ -89,7 +89,7 @@
 
     <tenant-dialog ref="tenantDialog" @handleFilter="handleFilter" />
     <connectionstring-dialog ref="connectionstringDialog" />
-    <feature-dialog ref="featureDialog" provider-name="T" />
+    <feature ref="featureDialog" provider-name="T" />
   </div>
 </template>
 
@@ -103,13 +103,13 @@ import {
   getEditions
 } from '@/api/sass/edition'
 
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
 import baseListQuery, {
   checkPermission
 } from '@/utils/abp'
-import TenantDialog from './components/tenant-dialog'
-import ConnectionstringDialog from './components/connectionstring-dialog'
-import FeatureDialog from './components/feature-dialog'
+import TenantDialog from './components/TenantDialog.vue'
+import ConnectionstringDialog from './components/ConnectionstringDialog.vue'
+import Feature from '../components/Feature.vue'
 
 export default {
   name: 'Tenants',
@@ -117,7 +117,7 @@ export default {
     Pagination,
     TenantDialog,
     ConnectionstringDialog,
-    FeatureDialog
+    Feature
   },
   data() {
     return {
