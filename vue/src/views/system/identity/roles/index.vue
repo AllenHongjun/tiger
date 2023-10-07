@@ -8,8 +8,8 @@
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter" />
           <el-button v-if="checkPermission('AbpIdentity.Roles.Create')" type="primary" icon="el-icon-edit" @click="handleCreate">{{ $t("AbpIdentity['NewRole']") }}</el-button>
           <el-button type="primary" plain class="filter-item" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
-          <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">{{ $t('AbpUi.Export') }}</el-button>
-          <el-button type="primary" icon="el-icon-upload" @click="handleImport">{{ $t('AbpUi.Import') }}</el-button>
+          <el-button v-if="checkPermission('AbpIdentity.Roles.ExportXlsx')" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">{{ $t('AbpUi.Export') }}</el-button>
+          <el-button v-if="checkPermission('AbpIdentity.Roles.ImportXlsx')" type="primary" icon="el-icon-upload" @click="handleImport">{{ $t('AbpUi.Import') }}</el-button>
         </el-row>
 
         <!-- 表格数据 -->

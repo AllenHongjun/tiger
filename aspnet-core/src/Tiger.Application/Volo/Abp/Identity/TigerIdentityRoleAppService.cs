@@ -184,8 +184,9 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns>查询到的所有角色</returns>
         public virtual async Task<IActionResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
         {
+            int maxResultCount = input.MaxResultCount == 1 ? 1 : int.MaxValue;
             var roles = await TigerIdentityRoleRepository.GetListAsync(
-                input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails: true);
+                input.Sorting ?? "Id desc", maxResultCount, input.SkipCount, input.Filter, includeDetails: true);
 
             //property manager 
             var manager = new PropertyManager<IdentityRole>(new[]

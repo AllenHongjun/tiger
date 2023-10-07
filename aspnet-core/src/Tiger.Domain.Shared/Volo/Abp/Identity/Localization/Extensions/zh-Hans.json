@@ -17,6 +17,8 @@
     "Permission:Edit": "更新",
     "Permission:Clone": "克隆",
     "Permission:Delete": "删除",
+    "Permission:ImportXlsx": "导入Xlsx",
+    "Permission:ExportXlsx": "导出Xlsx",
     "Permission:ChangePermissions": "授权",
     "Menu:IdentityManagement": "身份标识",
     "Search": "搜索",

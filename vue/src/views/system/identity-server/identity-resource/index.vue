@@ -136,10 +136,10 @@
             </el-form-item>
 
           </el-tab-pane>
-          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="second">
+          <el-tab-pane v-if="checkPermission('IdentityServer.IdentityResources.ManageClaims')" :label="$t('AbpIdentityServer[\'UserClaim\']')" name="second">
             <user-claim :user-claims="temp.userClaims" @set-user-claims="temp.userClaims = $event" />
           </el-tab-pane>
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Propertites\']')" name="third">
+          <el-tab-pane v-if="checkPermission('IdentityServer.IdentityResources.ManageProperties')" :label="$t('AbpIdentityServer[\'Propertites\']')" name="third">
             <properties :properties="temp.properties" @set-properties="temp.properties = $event" />
           </el-tab-pane>
         </el-tabs>

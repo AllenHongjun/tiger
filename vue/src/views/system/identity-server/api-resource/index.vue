@@ -99,19 +99,19 @@
             </el-form-item>
           </el-tab-pane>
           <!-- Api 资源范围 -->
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Scope\']')" name="scope">
+          <el-tab-pane v-if="checkPermission('IdentityServer.ApiResources.ManageScopes')" :label="$t('AbpIdentityServer[\'Scope\']')" name="scope">
             <!-- @set-api-scopes="temp.scopes = $event" -->
             <scope v-if="temp && formDataFlag" :api-resource-id="temp.id" :scopes="temp.scopes" />
           </el-tab-pane>
           <!-- Api 资源用户声明 -->
-          <el-tab-pane :label="$t('AbpIdentityServer[\'UserClaim\']')" name="claim">
+          <el-tab-pane v-if="checkPermission('IdentityServer.ApiResources.ManageClaims')" :label="$t('AbpIdentityServer[\'UserClaim\']')" name="claim">
             <user-claim v-if="temp && formDataFlag" :user-claims="temp.userClaims" @set-user-claims="temp.userClaims = $event" />
           </el-tab-pane>
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Secret\']')" name="secret">
+          <el-tab-pane v-if="checkPermission('IdentityServer.ApiResources.ManageSecrets')" :label="$t('AbpIdentityServer[\'Secret\']')" name="secret">
             <secret v-if="temp && formDataFlag" :secrets="temp.secrets" @set-client-secret="temp.secrets = $event" />
           </el-tab-pane>
           <!-- Api 资源密钥/属性 -->
-          <el-tab-pane :label="$t('AbpIdentityServer[\'Advanced\']')" name="properties">
+          <el-tab-pane v-if="checkPermission('IdentityServer.ApiResources.ManageProperties')" :label="$t('AbpIdentityServer[\'Advanced\']')" name="properties">
             <properties v-if="temp && formDataFlag" :properties="temp.properties" @set-properties="temp.properties = $event" />
           </el-tab-pane>
         </el-tabs>

@@ -7,7 +7,7 @@
         </el-col>
         <el-col :span="8">
           <div class="grid-content">
-            <el-button type="primary" @click="() => handleCreate()">添加根机构</el-button>
+            <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Create')" type="primary" @click="() => handleCreate()">添加根机构</el-button>
           </div>
         </el-col>
       </el-row>
@@ -30,13 +30,13 @@
       <span slot-scope="{ node, data }" class="custom-tree-node">
         <span>{{ node.label }}</span>
         <span>
-          <el-button type="text" @click="() => handleUpdate(data)">
+          <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Update')" type="text" @click="() => handleUpdate(data)">
             {{ $t('AbpUi[\'Edit\']') }}
           </el-button>
-          <el-button type="text" @click="() => handleCreate(data)">
+          <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Create')" type="text" @click="() => handleCreate(data)">
             创建子组织
           </el-button>
-          <el-button type="text" @click="() => remove(node, data)">
+          <el-button v-if="checkPermission('AbpIdentity.OrganizationUnits.Delete')" type="text" @click="() => remove(node, data)">
             {{ $t('AbpUi[\'Delete\']') }}
           </el-button>
         </span>
@@ -81,6 +81,9 @@ import {
 import {
   Tree
 } from 'element-ui'
+
+import { checkPermission } from '@/utils/abp'
+
 export default {
   name: 'OrgTree',
   mixins: [Tree],
@@ -149,6 +152,7 @@ export default {
     this.getOrgs()
   },
   methods: {
+    checkPermission,
     getOrgs() {
       getOrganizationsAllTree(this.treeQuery).then(response => {
         this.orgTreeData = response.items

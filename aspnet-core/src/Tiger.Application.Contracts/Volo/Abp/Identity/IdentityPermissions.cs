@@ -14,20 +14,24 @@ namespace Volo.Abp.Identity
 
         public static class Users
         {
-            public const string ResetPassword = Volo.Abp.Identity.IdentityPermissions.Users.Default + ".ResetPassword";
-            public const string ManageClaims = Volo.Abp.Identity.IdentityPermissions.Users.Default + ".ManageClaims";
-            public const string ManageOrganizationUnits = Volo.Abp.Identity.IdentityPermissions.Users.Default + ".ManageOrganizationUnits";
+            public const string ImportXlsx = IdentityPermissions.Users.Default + ".ImportXlsx";
+            public const string ExportXlsx = IdentityPermissions.Users.Default + ".ExportXlsx";
+            public const string ResetPassword = IdentityPermissions.Users.Default + ".ResetPassword";
+            public const string ManageClaims = IdentityPermissions.Users.Default + ".ManageClaims";
+            public const string ManageOrganizationUnits = IdentityPermissions.Users.Default + ".ManageOrganizationUnits";
         }
 
         public static class Roles
         {
-            public const string ManageClaims = Volo.Abp.Identity.IdentityPermissions.Roles.Default + ".ManageClaims";
-            public const string ManageOrganizationUnits = Volo.Abp.Identity.IdentityPermissions.Roles.Default + ".ManageOrganizationUnits";
+            public const string ImportXlsx = IdentityPermissions.Roles.Default + ".ImportXlsx";
+            public const string ExportXlsx = IdentityPermissions.Roles.Default + ".ExportXlsx";
+            public const string ManageClaims = IdentityPermissions.Roles.Default + ".ManageClaims";
+            public const string ManageOrganizationUnits = IdentityPermissions.Roles.Default + ".ManageOrganizationUnits";
         }
 
         public static class OrganizationUnits
         {
-            public const string Default = Volo.Abp.Identity.IdentityPermissions.GroupName + ".OrganizationUnits";
+            public const string Default = IdentityPermissions.GroupName + ".OrganizationUnits";
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";
@@ -38,7 +42,7 @@ namespace Volo.Abp.Identity
 
         public static class IdentityClaimType
         {
-            public const string Default = Volo.Abp.Identity.IdentityPermissions.GroupName + ".IdentityClaimTypes";
+            public const string Default = IdentityPermissions.GroupName + ".IdentityClaimTypes";
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";

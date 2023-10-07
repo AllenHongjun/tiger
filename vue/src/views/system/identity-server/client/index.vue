@@ -93,7 +93,7 @@
             </el-form-item>
 
           </el-tab-pane>
-          <el-tab-pane v-if="dialogStatus == 'update'" :label="$t('AbpIdentityServer[\'Secret\']')" name="second">
+          <el-tab-pane v-if="checkPermission('IdentityServer.Clients.ManageSecrets') && dialogStatus == 'update'" :label="$t('AbpIdentityServer[\'Secret\']')" name="second">
             <secret v-if="temp && formDataFlag" :secrets="temp.clientSecrets" @set-client-secret="temp.clientSecrets = $event" />
           </el-tab-pane>
           <el-tab-pane v-if="dialogStatus == 'update'" :label="$t('AbpIdentityServer[\'Client:Resources\']')" name="third">
@@ -159,7 +159,7 @@
                   <el-switch v-model="temp.allowPlainTextPkce" />
                 </el-form-item>
               </el-tab-pane>
-              <el-tab-pane :label="$t('AbpIdentityServer[\'Claims\']')">
+              <el-tab-pane v-if="checkPermission('IdentityServer.Clients.ManageClaims')" :label="$t('AbpIdentityServer[\'Claims\']')">
                 <userClaim :user-claims="temp.claims" @set-user-claims="temp.claims = $event" />
               </el-tab-pane>
               <el-tab-pane :label="$t('AbpIdentityServer[\'Client:AllowedGrantTypes\']')">
@@ -168,7 +168,7 @@
               <el-tab-pane label="Identity Providers">
                 <client-identity-provider v-if="temp && formDataFlag" :rule-form="temp" :identity-provider-restrictions="temp.identityProviderRestrictions" @set-form-rules="Object.assign(rules,$event)" />
               </el-tab-pane>
-              <el-tab-pane :label="$t('AbpIdentityServer[\'Permissions:ManageProperties\']')">
+              <el-tab-pane v-if="checkPermission('IdentityServer.Clients.ManageProperties')" :label="$t('AbpIdentityServer[\'Permissions:ManageProperties\']')">
                 <client-properties v-if="temp && formDataFlag" :properties="temp.properties" />
               </el-tab-pane>
               <el-tab-pane label="Others">

@@ -21,8 +21,8 @@
       <el-col :span="16">
         <div class="grid-content">
           <el-tabs v-model="activeName" type="border-card">
-            <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:Members\']')" name="users">
-              <div v-if="orgData">
+            <el-tab-pane v-if="checkPermission('AbpIdentity.OrganizationUnits.ManageUsers')" :label="$t('AbpIdentity[\'OrganizationUnit:Members\']')" name="users">
+              <div v-if="this.orgData">
                 <el-row>
                   <el-col :span="18">
                     <h3 type="info">{{ orgData.displayName }}</h3>
@@ -51,7 +51,7 @@
                   </el-table-column>
                   <el-table-column :label="$t('AbpIdentity[\'Actions\']')" align="center" width="300" class-name="small-padding fixed-width">
                     <template slot-scope="{ row, $index }">
-                      <el-button v-if="checkPermission('AbpIdentity.Users.Delete')" type="danger" @click="handleRemoveUser(row, $index)">
+                      <el-button type="danger" @click="handleRemoveUser(row, $index)">
                         {{ $t("AbpIdentity['Delete']") }}
                       </el-button>
                     </template>
@@ -67,8 +67,8 @@
                 <p style="color: #606266">选择一个组织机构来查看用户</p>
               </el-row>
             </el-tab-pane>
-            <el-tab-pane :label="$t('AbpIdentity[\'OrganizationUnit:Roles\']')" name="roles">
-              <div v-if="this.orgData">
+            <el-tab-pane v-if="checkPermission('AbpIdentity.OrganizationUnits.ManageRoles')" :label="$t('AbpIdentity[\'OrganizationUnit:Roles\']')" name="roles">
+              <div v-if="orgData">
                 <el-row>
                   <el-col :span="5" :offset="19">
                     <el-button v-if="checkPermission('AbpIdentity.Roles.Create')" class="filter-item" style="margin-left: 10px" type="primary" icon="el-icon-edit" @click="handleAddRoles">
@@ -124,10 +124,7 @@ import {
   removeRole
 } from '@/api/system-manage/identity/organization-unit'
 
-import {
-  baseListQuery,
-  checkPermission
-} from '@/utils/abp'
+import { checkPermission } from '@/utils/abp'
 
 export default {
   name: 'OrganizationUnits',

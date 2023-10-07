@@ -30,7 +30,7 @@
         <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
           {{ $t('AbpUi.Search') }}
         </el-button>
-        <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
+        <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
           {{ $t("AbpTenantManagement['NewTenant']") }}
         </el-button>
       </el-row>
@@ -62,11 +62,11 @@
       </el-table-column>
       <el-table-column :label="$t('AbpTenantManagement[\'Actions\']')" align="left" width="500" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Update')" type="primary" @click="handleUpdate(row)">
+          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Update')" type="primary" @click="handleUpdate(row)">
             {{ $t("AbpTenantManagement['Edit']") }}
           </el-button>
           <el-button
-            v-if="checkPermission( 'AbpTenantManagement.Tenants.ManageConnectionStrings')"
+            v-if="checkPermission( 'AbpSaasPermissions.Tenants.ManageConnectionStrings')"
             type="primary"
             plain
             @click="handleUpdateConnectionString(row)"
@@ -75,10 +75,10 @@
               $t("AbpTenantManagement['Permission:ManageConnectionStrings']")
             }}
           </el-button>
-          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
+          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
             {{ $t("AbpTenantManagement['Permission:ManageFeatures']") }}
           </el-button>
-          <el-button v-if="checkPermission('AbpTenantManagement.Tenants.Delete')" type="danger" @click="handleDelete(row, $index)">
+          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Delete')" type="danger" @click="handleDelete(row, $index)">
             {{ $t("AbpTenantManagement['Delete']") }}
           </el-button>
         </template>

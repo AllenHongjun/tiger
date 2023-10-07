@@ -43,7 +43,7 @@
           <el-button v-if="checkPermission('LocalizationManagement.Languages.Update')" type="primary" @click="handleUpdate(row)">
             {{ $t("AbpUi['Edit']") }}
           </el-button>
-          <el-button v-if="checkPermission('LocalizationManagement.Languages.Update')" type="primary" plain @click="handleSetDefaultLanguage(row)">
+          <el-button v-if="checkPermission('LocalizationManagement.Languages.ChangeDefault')" type="primary" plain @click="handleSetDefaultLanguage(row)">
             {{ $t("LocalizationManagement['DefaultLanguage']") }}
           </el-button>
           <el-button v-if="checkPermission('LocalizationManagement.Languages.Delete')" type="danger" @click="handleDelete(row, $index)">
@@ -55,10 +55,10 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog :title=" dialogStatus == 'create'? $t('LocalizationManagement[\'Permissions:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
+    <el-dialog :title=" dialogStatus == 'create'? $t('LocalizationManagement[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
         <el-form-item v-if="dialogStatus == 'create'" :label="$t('LocalizationManagement[\'DisplayName:CultureName\']')" prop="cultureName">
-          <el-select v-model="temp.cultureName" placeholder="请选择" filterable>
+          <el-select v-model="temp.cultureName" placeholder="-" filterable>
             <el-option
               v-for="item in culturelistOptions"
               :key="item.name"
@@ -68,7 +68,7 @@
           </el-select>
         </el-form-item>
         <el-form-item v-if="dialogStatus == 'create'" :label="$t('LocalizationManagement[\'DisplayName:UiCultureName\']')" prop="uiCultureName">
-          <el-select v-model="temp.uiCultureName" placeholder="请选择" filterable>
+          <el-select v-model="temp.uiCultureName" placeholder="-" filterable>
             <el-option
               v-for="item in culturelistOptions"
               :key="item.name"

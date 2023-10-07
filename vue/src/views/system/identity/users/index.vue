@@ -88,10 +88,10 @@
             <el-button type="primary" plain icon="el-icon-refresh" @click="handleRefresh">
               {{ $t("AbpIdentity['Refresh']") }}
             </el-button>
-            <el-button type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">
+            <el-button v-if="checkPermission('AbpIdentity.Users.ExportXlsx')" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">
               {{ $t('AbpUi.Export') }}
             </el-button>
-            <el-button type="primary" icon="el-icon-upload" @click="handleImport"> {{ $t('AbpUi.Import') }}</el-button>
+            <el-button v-if="checkPermission('AbpIdentity.Users.ImportXlsx')" type="primary" icon="el-icon-upload" @click="handleImport"> {{ $t('AbpUi.Import') }}</el-button>
           </el-col>
         </el-row>
       </el-form>
@@ -175,15 +175,15 @@
               {{ $t("AbpIdentity['Actions']") }}<i class="el-icon-arrow-down el-icon--right" />
             </el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :command="beforeHandleCommand(scope, 'edit')">{{ $t("AbpIdentity['Edit']") }}</el-dropdown-item>
-              <el-dropdown-item :command="beforeHandleCommand(scope, 'manageClaims')">{{ $t("AbpIdentity['ManageClaim']") }}</el-dropdown-item>
-              <el-dropdown-item :command="beforeHandleCommand(scope, 'updatePermission')">{{ $t("AbpIdentity['Permissions']") }}</el-dropdown-item>
-              <el-dropdown-item :command="beforeHandleCommand(scope, 'changePassword')">{{ $t('AbpIdentity[\'ChangePassword\']') }}</el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.Update')" :command="beforeHandleCommand(scope, 'edit')">{{ $t("AbpIdentity['Edit']") }}</el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ManageClaims')" :command="beforeHandleCommand(scope, 'manageClaims')">{{ $t("AbpIdentity['ManageClaim']") }}</el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ManagePermissions')" :command="beforeHandleCommand(scope, 'updatePermission')">{{ $t("AbpIdentity['Permissions']") }}</el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ResetPassword')" :command="beforeHandleCommand(scope, 'changePassword')">{{ $t('AbpIdentity[\'ChangePassword\']') }}</el-dropdown-item>
               <el-dropdown-item v-if="scope.row.lockoutEnd && (new Date(scope.row.lockoutEnd)) >= new Date()" :command="beforeHandleCommand(scope, 'unlock')">
                 {{ $t('AbpIdentity.UnLock') }}
               </el-dropdown-item>
               <el-dropdown-item v-else :command="beforeHandleCommand(scope, 'lock')">{{ $t('AbpIdentity.Lock') }}</el-dropdown-item>
-              <el-dropdown-item :command="beforeHandleCommand(scope, 'delete')">{{ $t("AbpIdentity['Delete']") }}</el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.Delete')" :command="beforeHandleCommand(scope, 'delete')">{{ $t("AbpIdentity['Delete']") }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -275,6 +275,7 @@
         <el-button type="primary" @click="lock()">{{ $t("AbpIdentity['Save']") }}</el-button>
       </div>
     </el-dialog>
+
     <grant-permission ref="permissionDialog" provider-name="U" />
   </div>
 </template>

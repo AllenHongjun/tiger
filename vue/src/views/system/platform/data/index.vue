@@ -43,8 +43,8 @@
           <el-button v-if="checkPermission('Platform.DataDictionary.Update')" type="primary" size="mini" @click="handleUpdate(row)">
             {{ $t("AppPlatform['Data:Edit']") }}
           </el-button>
-          <el-button v-if="checkPermission('Platform.DataDictionary.Update')" type="primary" size="mini" @click="handleDataItem(row)">
-            字典项目
+          <el-button v-if="checkPermission('Platform.DataDictionary.ManageItems')" type="primary" size="mini" @click="handleDataItem(row)">
+            {{ $t("AppPlatform['Data:Items']") }}
           </el-button>
           <el-button v-if="checkPermission('Platform.DataDictionary.Delete')" size="mini" type="danger" @click="handleDelete(row, $index)">
             {{ $t("AppPlatform['Data:Delete']") }}

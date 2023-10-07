@@ -9,6 +9,8 @@
     "Permission:ManageOrganizationUnits": "Management organization units",
     "Permission:IdentityClaimTypeManagement": "Management claim types",
     "Menu:IdentityManagement": "Identity",
+    "Permission:ImportXlsx": "Import Xlsx",
+    "Permission:ExportXlsx": "Export Xlsx",
 
     "UserCount": "User Count",
     "LastModificationTime": "LastModificationTime",

@@ -145,7 +145,7 @@ const SystemManageRouter = {
           name: 'data',
           meta: {
             title: 'AppPlatform["Permission:Data"]',
-            policy: 'PlatformPermissions.DataDictionary'
+            policy: 'Platform.DataDictionary'
           }
         },
         {
@@ -154,7 +154,7 @@ const SystemManageRouter = {
           name: 'menu',
           meta: {
             title: 'AppPlatform["DisplayName:Menus"]',
-            policy: 'PlatformPermissions.Menu'
+            policy: 'Platform.Menu'
           }
         },
         {
@@ -163,7 +163,7 @@ const SystemManageRouter = {
           name: 'layout',
           meta: {
             title: 'AppPlatform["Permission:Layout"]',
-            policy: 'PlatformPermissions.Layout'
+            policy: 'Platform.Layout'
           }
         }
       ]

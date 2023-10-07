@@ -24,6 +24,8 @@ namespace Tiger.Volo.Abp.Identity
                 var userPermission = identityGroup.GetPermissionOrNull(IdentityPermissions.Users.Default);
                 if (userPermission != null)
                 {
+                    userPermission.AddChild(TigerIdentityPermissions.Users.ImportXlsx, L("Permission:ImportXlsx"));
+                    userPermission.AddChild(TigerIdentityPermissions.Users.ExportXlsx, L("Permission:ExportXlsx"));
                     userPermission.AddChild(TigerIdentityPermissions.Users.ResetPassword, L("Permission:ResetPassword"));
                     userPermission.AddChild(TigerIdentityPermissions.Users.ManageClaims, L("Permission:ManageClaims"));
                     userPermission.AddChild(TigerIdentityPermissions.Users.ManageOrganizationUnits, L("Permission:ManageOrganizationUnits"));
@@ -33,6 +35,8 @@ namespace Tiger.Volo.Abp.Identity
                 var rolePermission = identityGroup.GetPermissionOrNull(IdentityPermissions.Roles.Default);
                 if (rolePermission != null)
                 {
+                    rolePermission.AddChild(TigerIdentityPermissions.Roles.ImportXlsx, L("Permission:ImportXlsx"));
+                    rolePermission.AddChild(TigerIdentityPermissions.Roles.ExportXlsx, L("Permission:ExportXlsx"));
                     rolePermission.AddChild(TigerIdentityPermissions.Roles.ManageClaims, L("Permission:ManageClaims"));
                     rolePermission.AddChild(TigerIdentityPermissions.Roles.ManageOrganizationUnits, L("Permission:ManageOrganizationUnits"));
                 }
