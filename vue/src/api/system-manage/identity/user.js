@@ -83,6 +83,14 @@ export function Lock(id, payload) {
   })
 }
 
+export function ChangeTwoFactorEnable(id, payload) {
+  return request({
+    url: `/api/identity/users/${id}/change-two-factor-enable`,
+    method: 'put',
+    data: payload
+  })
+}
+
 export function UnLock(id) {
   return request({
     url: `/api/identity/users/${id}/unlock`,

@@ -183,6 +183,9 @@
                 {{ $t('AbpIdentity.UnLock') }}
               </el-dropdown-item>
               <el-dropdown-item v-else :command="beforeHandleCommand(scope, 'lock')">{{ $t('AbpIdentity.Lock') }}</el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ResetPassword')" :command="beforeHandleCommand(scope, 'changeTwoFactorEnable')">
+                {{ $t('AbpIdentity["DisplayName:TwoFactorEnabled"]') }}
+              </el-dropdown-item>
               <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.Delete')" :command="beforeHandleCommand(scope, 'delete')">{{ $t("AbpIdentity['Delete']") }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -276,6 +279,19 @@
       </div>
     </el-dialog>
 
+    <!-- 二次认证 -->
+    <el-dialog :title="$t('AbpIdentity[\'DisplayName:TwoFactorEnabled\']')" :visible.sync="dialogChangeTwoFactorEnableFormVisible" width="30%">
+      <el-form :model="changeTwoFactorEnableForm">
+        <el-form-item :label="$t('AbpIdentity[\'DisplayName:TwoFactorEnabled\']')" label-width="100px">
+          <el-switch v-model="changeTwoFactorEnableForm.enable" active-color="#13ce66" inactive-color="#ff4949" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogChangeTwoFactorEnableFormVisible = false">{{ $t("AbpIdentity['Cancel']") }}</el-button>
+        <el-button type="primary" @click="changeTwoFactorEnableData()">{{ $t("AbpIdentity['Save']") }}</el-button>
+      </div>
+    </el-dialog>
+
     <grant-permission ref="permissionDialog" provider-name="U" />
   </div>
 </template>
@@ -289,6 +305,7 @@ import {
   createUserToOrg,
   updateUserToOrg,
   ChangePassword,
+  ChangeTwoFactorEnable,
   Lock,
   UnLock,
   deleteUser,
@@ -559,7 +576,12 @@ export default {
           validator: passwordValidator,
           trigger: ['blur', 'change']
         }]
-      }
+      },
+      changeTwoFactorEnableForm: {
+        id: undefined,
+        enable: false
+      },
+      dialogChangeTwoFactorEnableFormVisible: false
     }
   },
   created() {
@@ -688,6 +710,9 @@ export default {
           break
         case 'changePassword':
           this.handelChangePassword(param.scope.row)
+          break
+        case 'changeTwoFactorEnable':
+          this.handleChangeTwoFactorEnable(param.scope.row)
           break
         case 'delete':
           this.deleteData(param.scope.row)
@@ -937,6 +962,24 @@ export default {
             })
           })
         }
+      })
+    },
+    handleChangeTwoFactorEnable(row) {
+      this.dialogChangeTwoFactorEnableFormVisible = true
+      this.changeTwoFactorEnableForm = Object.assign({}, row)
+    },
+    changeTwoFactorEnableData() {
+      ChangeTwoFactorEnable(this.changeTwoFactorEnableForm.id, {
+        enabled: this.changeTwoFactorEnableForm.enable
+      }).then(() => {
+        this.dialogChangeTwoFactorEnableFormVisible = false
+        this.handleFilter()
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
+        })
       })
     },
     handleCheckChange(data, orgIds) {

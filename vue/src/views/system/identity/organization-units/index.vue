@@ -22,7 +22,7 @@
         <div class="grid-content">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane v-if="checkPermission('AbpIdentity.OrganizationUnits.ManageUsers')" :label="$t('AbpIdentity[\'OrganizationUnit:Members\']')" name="users">
-              <div v-if="this.orgData">
+              <div v-if="orgData">
                 <el-row>
                   <el-col :span="18">
                     <h3 type="info">{{ orgData.displayName }}</h3>
@@ -215,7 +215,6 @@ export default {
       this.$refs['addUsersDialog'].handleAddUsers(this.orgData)
     },
     handleRemoveUser(row, index) {
-      debugger
       this.$confirm(
         this.$i18n.t("AbpIdentity['OrganizationUnit:AreYouSureRemoveUser']", [
           row.name

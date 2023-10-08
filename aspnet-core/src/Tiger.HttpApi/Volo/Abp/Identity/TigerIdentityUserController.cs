@@ -107,6 +107,19 @@ namespace Tiger.Volo.Abp.Identity
         }
 
         /// <summary>
+        /// 双因素验证
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/change-two-factor-enable")]
+        public Task ChangeTwoFactorEnableAsync(Guid id, TwoFactorEnabledDto input)
+        {
+            return _userAppService.ChangeTwoFactorEnableAsync(id, input);
+        }
+
+        /// <summary>
         /// 锁定用户
         /// </summary>
         /// <param name="id">用户id</param>
@@ -129,7 +142,7 @@ namespace Tiger.Volo.Abp.Identity
         [Route("{id}/unlock")]
         public Task UnlockAsync(Guid id)
         {
-            return (_userAppService.UnlockAsync(id));
+            return _userAppService.UnlockAsync(id);
         } 
         #endregion
 
@@ -215,6 +228,8 @@ namespace Tiger.Volo.Abp.Identity
         {
             await _userAppService.DeleteClaimAsync(id, input);
         }
+
+        
 
         #endregion
     }

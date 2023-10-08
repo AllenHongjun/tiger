@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,15 @@ namespace Tiger.Volo.Abp.Identity.Users
         /// <returns></returns>
         Task<IdentityUserDto> UpdateAsync(Guid id, IdentityUserOrgUpdateDto input);
         Task ChangePasswordAsync(Guid id, IdentityUserSetPasswordInput input);
+
+        /// <summary>
+        /// 启用双因素认证
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task ChangeTwoFactorEnableAsync(Guid id, TwoFactorEnabledDto input);
+
         Task LockAsync(Guid id, int seconds);
         Task UnlockAsync(Guid id);
 

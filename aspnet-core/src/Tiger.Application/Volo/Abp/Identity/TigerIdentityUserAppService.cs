@@ -79,6 +79,7 @@ namespace Tiger.Volo.Abp.Identity
                 input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
                 input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
 
+            // TODO: 增加返回 TwoFactorEnabled
             return new PagedResultDto<IdentityUserDto>(
                 count,
                 ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(list)
@@ -252,8 +253,6 @@ namespace Tiger.Volo.Abp.Identity
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-
-
         /// <summary>
         /// 锁定用户
         /// </summary>
@@ -269,8 +268,6 @@ namespace Tiger.Volo.Abp.Identity
 
             await CurrentUnitOfWork.SaveChangesAsync();
         }
-
-
 
         /// <summary>
         /// 解锁用户
