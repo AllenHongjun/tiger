@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.Users.Dto;
 using Tiger.Volo.Abp.Sass.Permissions;
 using Tiger.Volo.Abp.Sass.Tenants;
+using Tiger.Volo.Abp.Sass.Tenants.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 
@@ -73,14 +74,13 @@ namespace Tiger.Volo.Abp.Sass
         /// <summary>
         /// 修改租户用户的密码
         /// </summary>
-        /// <param name="userName"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPut]
         [Route("change-user-password")]
-        public async Task ChangePasswordAsync(string userName, IdentityUserSetPasswordInput input)
+        public async Task ChangePasswordAsync(TenantChangePasswordInput input)
         {
-            await TenantAppService.ChangePasswordAsync(userName, input);
+            await TenantAppService.ChangePasswordAsync(input);
         }
 
         

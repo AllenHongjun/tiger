@@ -1122,11 +1122,10 @@
             租户
             </summary>
         </member>
-        <member name="M:Tiger.Volo.Abp.Sass.TenantController.ChangePasswordAsync(System.String,Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserSetPasswordInput)">
+        <member name="M:Tiger.Volo.Abp.Sass.TenantController.ChangePasswordAsync(Tiger.Volo.Abp.Sass.Tenants.Dto.TenantChangePasswordInput)">
             <summary>
             修改租户用户的密码
             </summary>
-            <param name="userName"></param>
             <param name="input"></param>
             <returns></returns>
         </member>

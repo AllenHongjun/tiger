@@ -39,6 +39,14 @@ export function deleteTenant(id) {
   })
 }
 
+export function changePassword(payload) {
+  return request({
+    url: `/api/saas/tenants/change-user-password`,
+    method: 'put',
+    data: payload
+  })
+}
+
 export function getDefaultConnectionString(id) {
   return request({
     url: `/api/saas/tenants/${id}/connection-string`,

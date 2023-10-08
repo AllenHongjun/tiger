@@ -60,10 +60,10 @@
           <span>{{ row.disableTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpTenantManagement[\'Actions\']')" align="left" width="500" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="680" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
           <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Update')" type="primary" @click="handleUpdate(row)">
-            {{ $t("AbpTenantManagement['Edit']") }}
+            {{ $t("AbpSaas['Permission:Edit']") }}
           </el-button>
           <el-button
             v-if="checkPermission( 'AbpSaasPermissions.Tenants.ManageConnectionStrings')"
@@ -72,14 +72,17 @@
             @click="handleUpdateConnectionString(row)"
           >
             {{
-              $t("AbpTenantManagement['Permission:ManageConnectionStrings']")
+              $t("AbpSaas['Permission:ManageConnectionStrings']")
             }}
           </el-button>
           <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
-            {{ $t("AbpTenantManagement['Permission:ManageFeatures']") }}
+            {{ $t("AbpSaas['Permission:ManageFeatures']") }}
+          </el-button>
+          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.ChangeUserPassword')" type="primary" plain @click="handelChangePassword(row)">
+            {{ $t('AbpSaas[\'Permission:ChangeUserPassword\']') }}
           </el-button>
           <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Delete')" type="danger" @click="handleDelete(row, $index)">
-            {{ $t("AbpTenantManagement['Delete']") }}
+            {{ $t("AbpSaas['Permission:Delete']") }}
           </el-button>
         </template>
       </el-table-column>
@@ -90,13 +93,30 @@
     <tenant-dialog ref="tenantDialog" @handleFilter="handleFilter" />
     <connectionstring-dialog ref="connectionstringDialog" />
     <feature ref="featureDialog" provider-name="T" />
+    <!-- 重置密码对话框 -->
+    <el-dialog :title="$t('AbpSaas[\'Permission:ChangeUserPassword\']')" :visible.sync="dialogChangePasswordFormVisible" width="30%">
+      <el-form ref="changePasswordForm" :model="changePasswordForm" label-width="120px" label-position="right">
+        <el-form-item :label="$t('AbpSaas[\'DisplayName:UserName\']')" :inline="true">
+          <el-input v-model="changePasswordForm.userName" prop="userName" type="text" auto-complete="off" style="width:90%" />
+        </el-form-item>
+        <el-form-item :label="$t('AbpIdentity[\'Password\']')" :inline="true">
+          <el-input v-model="changePasswordForm.password" prop="password" type="text" auto-complete="off" show-password style="width:90%" />
+          <el-button type="primary" icon="el-icon-refresh" @click="generateRandomPassword( 8 )" />
+        </el-form-item>
+      </el-form>
+      <div style="text-align: right">
+        <el-button type="danger" @click="dialogChangePasswordFormVisible = false">{{ $t("AbpUi['Cancel']") }}</el-button>
+        <el-button type="primary" @click="changePassword()">{{ $t("AbpUi['Save']") }}</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import {
   getTenants,
-  deleteTenant
+  deleteTenant,
+  changePassword
 } from '@/api/sass/tenant'
 
 import {
@@ -104,9 +124,8 @@ import {
 } from '@/api/sass/edition'
 
 import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
-import baseListQuery, {
-  checkPermission
-} from '@/utils/abp'
+import baseListQuery, { checkPermission } from '@/utils/abp'
+import { generateRandomPassword } from '@/utils/random'
 import TenantDialog from './components/TenantDialog.vue'
 import ConnectionstringDialog from './components/ConnectionstringDialog.vue'
 import Feature from '../components/Feature.vue'
@@ -132,7 +151,14 @@ export default {
         disableBeginTime: undefined,
         disableEndTime: undefined,
         isActive: undefined
-      }, baseListQuery)
+      }, baseListQuery),
+      changePasswordForm: {
+        tenantId: undefined,
+        tenantName: '',
+        userName: 'admin',
+        password: '' // 重置后的密码
+      },
+      dialogChangePasswordFormVisible: false
     }
   },
   created() {
@@ -141,6 +167,7 @@ export default {
   },
   methods: {
     checkPermission,
+    generateRandomPassword,
     fetchEditionOptions() {
       var input = {
         page: 1,
@@ -216,6 +243,28 @@ export default {
     },
     handleUpdateFeature(row) {
       this.$refs['featureDialog'].handleUpdate(row)
+    },
+    handelChangePassword(row) {
+      this.changePasswordForm.tenantId = row.id
+      this.changePasswordForm.tenantName = row.name
+      this.changePasswordForm.password = ''
+      this.dialogChangePasswordFormVisible = true
+    },
+
+    changePassword(row) {
+      this.$refs['changePasswordForm'].validate((valid) => {
+        if (valid) {
+          changePassword(this.changePasswordForm).then(() => {
+            this.dialogChangePasswordFormVisible = false
+            this.$notify({
+              title: this.$i18n.t("TigerUi['Success']"),
+              message: this.$i18n.t("TigerUi['SuccessMessage']"),
+              type: 'success',
+              duration: 2000
+            })
+          })
+        }
+      })
     }
   }
 }

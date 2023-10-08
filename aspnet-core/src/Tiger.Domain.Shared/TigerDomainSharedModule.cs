@@ -78,6 +78,7 @@ namespace Tiger
 
                 options.Resources
                        .Add<AbpSaasResource>("zh-Hans")
+                       .AddBaseTypes(typeof(AbpUiResource))
                        .AddVirtualJson("/Volo/Abp/Sass/Localization/Resources");
 
                 options.Resources

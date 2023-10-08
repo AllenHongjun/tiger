@@ -184,7 +184,7 @@ const SystemManageRouter = {
           name: 'container',
           meta: {
             title: 'AbpOssManagement["Permission:Container"]',
-            policy: 'AbpOssManagementPermissions.Container'
+            policy: 'AbpOssManagement.Container'
           }
         },
         {
@@ -193,7 +193,7 @@ const SystemManageRouter = {
           name: 'object',
           meta: {
             title: 'AbpOssManagement["Permission:OssObject"]',
-            policy: 'AbpOssManagementPermissions.OssObject'
+            policy: 'AbpOssManagement.OssObject'
           }
         }
       ]

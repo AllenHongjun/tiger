@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.Users.Dto;
 using Tiger.Volo.Abp.Sass.MultiTenancy;
 using Tiger.Volo.Abp.Sass.Permissions;
+using Tiger.Volo.Abp.Sass.Tenants.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities.Events.Distributed;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
+using Volo.Abp.TenantManagement;
 using IdentityRole = Volo.Abp.Identity.IdentityRole;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
@@ -229,27 +231,30 @@ public class TenantAppService : AbpSaasAppServiceBase, ITenantAppService
     /// <returns></returns>
     /// <exception cref="BusinessException"></exception>
     [Authorize(AbpSaasPermissions.Tenants.ChangeUserPassword)]
-    public async Task ChangePasswordAsync(string userName, IdentityUserSetPasswordInput input)
+    public async Task ChangePasswordAsync(TenantChangePasswordInput input)
     {
-        var user =  await IdentityUserManager.FindByNameAsync(userName);
-
-        if (user.IsExternal)
+        using (CurrentTenant.Change(input.TenantId, input.TenantName))
         {
-            throw new BusinessException(code:Identity.IdentityErrorCodes.ExternalUserPasswordChange);
-        }
+            var user = await IdentityUserManager.FindByNameAsync(input.UserName);
 
-        if (user.PasswordHash == null)
-        {
-            (await IdentityUserManager.AddPasswordAsync(user, input.Password)).CheckErrors();
-        }
-        else
-        {
-            var token = await IdentityUserManager.GeneratePasswordResetTokenAsync(user);
+            if (user.IsExternal)
+            {
+                throw new BusinessException(code: Identity.IdentityErrorCodes.ExternalUserPasswordChange);
+            }
 
-            (await IdentityUserManager.ResetPasswordAsync(user, token, input.Password)).CheckErrors();
-        }
+            if (user.PasswordHash == null)
+            {
+                (await IdentityUserManager.AddPasswordAsync(user, input.Password)).CheckErrors();
+            }
+            else
+            {
+                var token = await IdentityUserManager.GeneratePasswordResetTokenAsync(user);
 
-        await CurrentUnitOfWork.SaveChangesAsync();
+                (await IdentityUserManager.ResetPasswordAsync(user, token, input.Password)).CheckErrors();
+            }
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
 
     }
     #endregion

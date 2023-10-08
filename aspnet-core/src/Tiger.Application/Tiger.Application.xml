@@ -1255,7 +1255,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.ChangePasswordAsync(System.String,Tiger.Volo.Abp.Identity.Users.Dto.IdentityUserSetPasswordInput)">
+        <member name="M:Tiger.Volo.Abp.Sass.Tenants.TenantAppService.ChangePasswordAsync(Tiger.Volo.Abp.Sass.Tenants.Dto.TenantChangePasswordInput)">
             <summary>
             修改租户用户密码
             </summary>

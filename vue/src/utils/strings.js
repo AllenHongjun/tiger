@@ -20,6 +20,7 @@ export function format(formatted, args) {
   }
   return formatted
 }
+
 /**
  *
  * @param str 字符串是否为空或空格
@@ -43,3 +44,4 @@ export function getUnique(val) {
   const newArr = [...new Set(arr)]
   return newArr.join('')
 }
+

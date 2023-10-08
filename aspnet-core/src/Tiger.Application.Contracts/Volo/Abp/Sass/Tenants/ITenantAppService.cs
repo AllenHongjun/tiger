@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.Users.Dto;
 using Tiger.Volo.Abp.Sass.Permissions;
+using Tiger.Volo.Abp.Sass.Tenants.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -43,5 +44,5 @@ public interface ITenantAppService :
     /// <param name="input"></param>
     /// <returns></returns>
     /// <exception cref="BusinessException"></exception>
-    Task ChangePasswordAsync(string userName, IdentityUserSetPasswordInput input);
+    Task ChangePasswordAsync(TenantChangePasswordInput input);
 }
