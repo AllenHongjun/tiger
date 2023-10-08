@@ -28,11 +28,27 @@ export default {
     height: {
       type: String,
       default: '300px'
+    },
+    queryDateTime: {
+      type: Array,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function() {
+        return []
+      }
     }
   },
   data() {
     return {
       chart: null
+    }
+  },
+  watch: {
+    // 此处监听variable变量，当期有变化时执行
+    queryDateTime(oldValue, newValue) {
+      console.log('oldValue', oldValue, 'newValue', newValue)
+      this.$nextTick(() => {
+        this.fetchData()
+      })
     }
   },
   mounted() {
@@ -50,8 +66,8 @@ export default {
   methods: {
     fetchData() {
       var req = {
-        startDate: '2023-09-22',
-        endDate: '2023-09-30'
+        startDate: this.queryDateTime[0],
+        endDate: this.queryDateTime[1]
       }
       getAuditLogAverageExecutionDurationPerDay(req).then(response => {
         const arrX = []

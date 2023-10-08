@@ -3,6 +3,26 @@
 
     <github-corner class="github-corner" />
 
+    <el-row>
+      <el-form label-width="200px;" label-position="right" style="margin:0 auto; width:500px;">
+        <el-form-item :label="$t('AbpIdentity[\'SelectDateTime\']')">
+          <el-date-picker
+            v-model="queryDateTime"
+            type="datetimerange"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            align="left"
+            unlink-panels
+            :picker-options="pickerOptions"
+            :start-placeholder="$t('AbpIdentity[\'StartTime\']')"
+            :end-placeholder="$t('AbpIdentity[\'EndTime\']')"
+            :default-time="['00:00:00', '23:59:59']"
+          />
+        </el-form-item>
+      </el-form>
+
+      <!-- <el-button type="primary" style="margin-left:10px;" @click="handleRefresh()">{{ $t('AbpUi.Refresh') }}</el-button> -->
+    </el-row>
+
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
 
     <el-row style="padding:16px 0px 0;margin-bottom:32px;" :gutter="32">
@@ -23,13 +43,13 @@
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
           <!-- <pie-chart :chart-data="lineChartData" /> -->
-          <pie-chart-error-rate />
+          <pie-chart-error-rate :query-date-time="queryDateTime" />
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
           <!-- <bar-chart /> -->
-          <bar-chart-avg-exec-duration />
+          <bar-chart-avg-exec-duration :query-date-time="queryDateTime" />
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
@@ -70,6 +90,9 @@ import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 
+import { pickerRangeWithHotKey } from '@/utils/picker'
+import moment from 'moment'
+
 // 有这个图表想要的数据
 const lineChartData = {
   newVisitis: {
@@ -109,10 +132,26 @@ export default {
   },
   data() {
     return {
+      pickerOptions: pickerRangeWithHotKey,
+      // momentjs获取零点时间 https://www.cnblogs.com/ybixian/p/13213670.html
+      queryDateTime: [moment().startOf('day').add(-1, 'M').format('YYYY-MM-DD HH:mm:ss'), moment().endOf('day').format('YYYY-MM-DD HH:mm:ss')],
+      // queryForm: {
+      //   startTime: moment().add(-30, 'day').format('YYYY-MM-DD HH:mm:ss'),
+      //   endTime: moment().format('YYYY-MM-DD HH:mm:ss')
+      // },
       lineChartData: lineChartData.newVisitis
     }
   },
   methods: {
+    // TODO: 优化增加刷新按钮，点击按钮刷新属性，当时间为空的时候，显示空的图表
+    // datePickerChange(value) {
+    //   if (!value) {
+    //     // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
+    //     // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
+    //     this.queryForm.startTime = undefined
+    //     this.queryForm.endTime = undefined
+    //   }
+    // },
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
     }

@@ -151,9 +151,7 @@ import {
   getSecurityLogs
 } from '@/api/system-manage/identity/security-log'
 
-import {
-  pickerRangeWithHotKey
-} from '@/utils/picker'
+import { pickerRangeWithHotKey } from '@/utils/picker'
 import {
   parseTime
 } from '@/utils'

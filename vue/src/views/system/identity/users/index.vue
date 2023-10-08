@@ -842,11 +842,8 @@ export default {
           this.temp.roleNames = this.checkedRoles
           const tempData = Object.assign({}, this.temp)
           updateUserToOrg(tempData).then(() => {
-            // const index = this.list.findIndex((v) => v.id === this.temp.id)
-            // this.list.splice(index, 1, this.temp)
             this.handleFilter()
             this.dialogFormVisible = false
-
             this.$notify({
               title: this.$i18n.t("TigerUi['Success']"),
               message: this.$i18n.t("TigerUi['SuccessMessage']"),
