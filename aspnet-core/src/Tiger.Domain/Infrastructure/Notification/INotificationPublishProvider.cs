@@ -14,8 +14,6 @@ namespace Tiger.Infrastructure.Notification
         string Name { get; }
         /// <summary>
         /// 发布通知
-        /// 
-        /// 
         /// </summary>
         /// <param name="notification">通知信息</param>
         /// <param name="identifiers">接收用户列表</param>

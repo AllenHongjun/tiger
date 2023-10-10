@@ -214,7 +214,7 @@ const SystemManageRouter = {
           name: 'background-worker',
           meta: {
             title: 'TaskManagement["Permissions:BackgroundJobs"]',
-            policy: 'TaskManagementPermissions.BackgroundJobs'
+            policy: 'TaskManagement.BackgroundJobs'
           }
         }
       ]
