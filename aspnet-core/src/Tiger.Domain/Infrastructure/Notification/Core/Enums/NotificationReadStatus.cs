@@ -7,7 +7,7 @@ namespace Tiger.Infrastructure.Notification
     /// <summary>
     /// 阅读状态
     /// </summary>
-    public enum NotificationReadState
+    public enum NotificationReadStatus
     {
         /// <summary>
         /// 已读

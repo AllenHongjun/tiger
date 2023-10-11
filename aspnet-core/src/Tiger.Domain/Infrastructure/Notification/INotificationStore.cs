@@ -95,7 +95,7 @@ namespace Tiger.Infrastructure.Notification
         Task<List<NotificationInfo>> GetUserNotificationsAsync(
             Guid? tenantId,
             Guid userId,
-            NotificationReadState? readState = null,
+            NotificationReadStatus? readState = null,
             int maxResultCount = 10,
             CancellationToken cancellationToken = default);
 
@@ -103,7 +103,7 @@ namespace Tiger.Infrastructure.Notification
             Guid? tenantId,
             Guid userId,
             string filter = "",
-            NotificationReadState? readState = null,
+            NotificationReadStatus? readState = null,
             CancellationToken cancellationToken = default);
 
         Task<List<NotificationInfo>> GetUserNotificationsAsync(
@@ -111,7 +111,7 @@ namespace Tiger.Infrastructure.Notification
             Guid userId,
             string filter = "",
             string sorting = nameof(NotificationInfo.CreationTime),
-            NotificationReadState? readState = null,
+            NotificationReadStatus? readState = null,
             int skipCount = 1,
             int maxResultCount = 10,
             CancellationToken cancellationToken = default);
@@ -120,14 +120,14 @@ namespace Tiger.Infrastructure.Notification
             Guid? tenantId,
             Guid userId,
             long notificationId,
-            NotificationReadState readState,
+            NotificationReadStatus readState,
             CancellationToken cancellationToken = default);
 
         Task ChangeUserNotificationsReadStateAsync(
             Guid? tenantId,
             Guid userId,
             IEnumerable<long> notificationIds,
-            NotificationReadState readState,
+            NotificationReadStatus readState,
             CancellationToken cancellationToken = default);
     }
 }

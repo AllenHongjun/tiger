@@ -7,6 +7,9 @@ using Volo.Abp.Threading;
 
 namespace Tiger.Infrastructure.Notification
 {
+    /// <summary>
+    /// 通知发布提供者
+    /// </summary>
     public abstract class NotificationPublishProvider :
         INotificationPublishProvider, ITransientDependency
     {
