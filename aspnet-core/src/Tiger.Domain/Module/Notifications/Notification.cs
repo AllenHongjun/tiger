@@ -9,6 +9,9 @@ using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.Notifications
 {
+    /// <summary>
+    /// 通知
+    /// </summary>
     public class Notification : Entity<long>, IMultiTenant, IHasCreationTime, IHasExtraProperties
     {
         public Notification()

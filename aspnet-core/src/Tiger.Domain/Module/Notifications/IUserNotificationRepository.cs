@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.Notification;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Module.Notifications
@@ -17,6 +18,36 @@ namespace Tiger.Module.Notifications
             long notificationId,
             CancellationToken cancellationToken = default);
 
+        Task<UserNotificationInfo> GetByIdAsync(
+            Guid userId,
+            long notificationId,
+            CancellationToken cancellationToken = default);
+
+        Task<List<UserNotification>> GetListAsync(
+            Guid userId,
+            IEnumerable<long> notificationIds,
+            CancellationToken cancellationToken = default);
+
+        Task<List<UserNotificationInfo>> GetNotificationsAsync(
+        Guid userId,
+            NotificationReadStatus? readStatus = null,
+            int maxResultCount = 10,
+            CancellationToken cancellationToken = default);
+
+        Task<int> GetCountAsync(
+            Guid userId,
+        string filter = "",
+            NotificationReadStatus? readStatus = null,
+            CancellationToken cancellationToken = default);
+
+        Task<List<UserNotificationInfo>> GetListAsync(
+            Guid userId,
+            string filter = "",
+            string sorting = nameof(Notification.CreationTime),
+            NotificationReadStatus? readStatus = null,
+            int skipCount = 0,
+            int maxResultCount = 10,
+            CancellationToken cancellationToken = default);
 
     }
 }

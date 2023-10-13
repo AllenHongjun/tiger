@@ -27,7 +27,7 @@ namespace Tiger.Module.Notifications
             IEnumerable<Guid> userIds = null,
             CancellationToken cancellationToken = default);
 
-        Task<List<string>> GetUserSubscribeAsync(
+        Task<List<string>> GetUserSubscribesAsync(
             Guid userId,
             CancellationToken cancellationToken = default);
 
@@ -35,7 +35,7 @@ namespace Tiger.Module.Notifications
             string userName,
             CancellationToken cancellationToken= default);
 
-        Task<List<Guid>> GetUserSubscribeAsync(
+        Task<List<Guid>> GetUserSubscribesAsync(
             string notificationName,
             CancellationToken cancellationToken = default);
 

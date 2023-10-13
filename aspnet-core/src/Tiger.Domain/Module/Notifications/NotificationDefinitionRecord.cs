@@ -14,24 +14,54 @@ namespace Tiger.Module.Notifications
     /// </summary>
     public class NotificationDefinitionRecord : BasicAggregateRoot<Guid>, IHasExtraProperties
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
         public virtual string Name { get; set; }
 
+        /// <summary>
+        /// 分组名
+        /// </summary>
         public virtual string GroupName { get; set; }
 
+        /// <summary>
+        /// 显示名称
+        /// </summary>
         public virtual string DisplayName { get; set; }
 
+        /// <summary>
+        /// 描述
+        /// </summary>
         public virtual string Description { get; set; } 
 
+        /// <summary>
+        /// 存货时间
+        /// </summary>
         public virtual NotificationLifetime NotificationLifetime { get; set; }
 
+        /// <summary>
+        /// 类型
+        /// </summary>
         public virtual NotificationType NotificationType { get; set; }
 
+        /// <summary>
+        /// 内容类型
+        /// </summary>
         public virtual NotificationContentType ContentType { get; set; }
 
+        /// <summary>
+        /// 提供者
+        /// </summary>
         public virtual string Providers { get; protected set; }
 
+        /// <summary>
+        /// 允许客户端订阅
+        /// </summary>
         public virtual bool AllowSubscriptionToClients { get; set; }
-
+         
+        /// <summary>
+        /// 额外属性
+        /// </summary>
         public Dictionary<string, object> ExtraProperties { get; set; }
 
         public NotificationDefinitionRecord(
