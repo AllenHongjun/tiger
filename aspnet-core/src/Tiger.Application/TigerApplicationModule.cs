@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Tiger.Blob.Qinui;
+using Tiger.Infrastructure.Notification.Emailing;
+using Tiger.Infrastructure.Notification;
 using Tiger.Module.OssManagement;
 using Tiger.Module.OssManagement.Aliyun;
 using Volo.Abp.Account;
@@ -17,6 +19,7 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.Sms;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.VirtualFileSystem;
+using Tiger.Infrastructure.Notification.SignalR;
 
 namespace Tiger
 {
@@ -131,14 +134,52 @@ namespace Tiger
             context.Services.AddTransient<IOssContainerFactory, AliyunOssContainerFactory>();
             #endregion
 
+            #region StackExchangeRedis缓存
             // 注入StackExchangeRedis缓存管理实现
-            //context.Services.AddSingleton<ICacheManager, StackExchangeRedisCacheManager>();
+            //context.Services.AddSingleton<ICacheManager, StackExchangeRedisCacheManager>(); 
+            #endregion
+
+            #region 通知提供者注入
+            Configure<AbpNotificationsPublishOptions>(options =>
+                {
+                    options.PublishProviders.Add<EmailingNotificationPublishProvider>();
+                    options.NotificationDataMappings
+                           .MappingDefault(EmailingNotificationPublishProvider.ProviderName, data => data);
+                });
+
+            //var preSmsActions = context.Services.GetPreConfigureActions<AbpNotificationsSmsOptions>();
+            //Configure<AbpNotificationsSmsOptions>(options =>
+            //{
+            //    preSmsActions.Configure(options);
+            //});
+
+            //Configure<AbpNotificationsPublishOptions>(options =>
+            //{
+            //    options.PublishProviders.Add<SmsNotificationPublishProvider>();
+
+            //    var smsOptions = preSmsActions.Configure(options);
+
+            //    options.NotificationDataMappings
+            //           .MappingDefault(
+            //                SmsNotificationPublishProvider.ProviderName,
+            //                data => NotificationData.ToStandardData(smsOptions.TemplateParamsPrefix, data));
+            //});
+
+
+            Configure<AbpNotificationsPublishOptions>(options =>
+            {
+                options.PublishProviders.Add<SignalRNotificationPublishProvider>();
+                options.NotificationDataMappings
+                       .MappingDefault(SignalRNotificationPublishProvider.ProviderName,
+                       data => data.ToSignalRData());
+            });
+            #endregion
 
 
         }
 
 
-        
-        
+
+
     }
 }

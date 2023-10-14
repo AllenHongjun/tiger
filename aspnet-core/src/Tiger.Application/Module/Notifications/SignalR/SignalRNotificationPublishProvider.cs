@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.Notification.SignalR.Hubs;
 
 namespace Tiger.Infrastructure.Notification.SignalR
 {
@@ -16,7 +17,7 @@ namespace Tiger.Infrastructure.Notification.SignalR
 
         private readonly IHubContext<NotificationsHub> _hubContext;
 
-        private readonly AbpNotificationsOptions _options;
+        private readonly AbpNotificationsSignalROptions _options;
 
         public SignalRNotificationPublishProvider(
             IHubContext<NotificationsHub> hubContext,

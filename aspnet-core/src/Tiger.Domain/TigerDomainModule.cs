@@ -54,9 +54,7 @@ using Tiger.Volo.Abp.IdentityServer.SmsValidator;
 using Tiger.Infrastructure.IdGenerator.Snowflake;
 using Tiger.Infrastructure.IdGenerator;
 using Tiger.Infrastructure.Notification;
-using Tiger.Infrastructure.Notification.Emailing;
-using Tiger.Infrastructure.Notification.Sms;
-using Tiger.Infrastructure.Notification.SignalR;
+
 using Tiger.Module.Notifications;
 using Volo.Abp.Threading;
 using System.Threading.Tasks;
@@ -229,39 +227,7 @@ namespace Tiger
                 preActions.Configure(options);
             });
 
-            Configure<AbpNotificationsPublishOptions>(options =>
-            {
-                options.PublishProviders.Add<EmailingNotificationPublishProvider>();
-                options.NotificationDataMappings
-                       .MappingDefault(EmailingNotificationPublishProvider.ProviderName, data => data);
-            });
-
-            //var preSmsActions = context.Services.GetPreConfigureActions<AbpNotificationsSmsOptions>();
-            //Configure<AbpNotificationsSmsOptions>(options =>
-            //{
-            //    preSmsActions.Configure(options);
-            //});
-
-            //Configure<AbpNotificationsPublishOptions>(options =>
-            //{
-            //    options.PublishProviders.Add<SmsNotificationPublishProvider>();
-
-            //    var smsOptions = preSmsActions.Configure(options);
-
-            //    options.NotificationDataMappings
-            //           .MappingDefault(
-            //                SmsNotificationPublishProvider.ProviderName,
-            //                data => NotificationData.ToStandardData(smsOptions.TemplateParamsPrefix, data));
-            //});
-
-
-            //Configure<AbpNotificationsPublishOptions>(options =>
-            //{
-            //    options.PublishProviders.Add<SignalRNotificationPublishProvider>();
-            //    options.NotificationDataMappings
-            //           .MappingDefault(SignalRNotificationPublishProvider.ProviderName,
-            //           data => data.ToSignalRData());
-            //});
+            
 
             #endregion
 

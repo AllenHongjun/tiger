@@ -95,8 +95,6 @@
     <Compile Remove="Infrastructure\ExportImport\IExportManager.cs" />
     <Compile Remove="Infrastructure\ExportImport\ImportOrderMetadata.cs" />
     <Compile Remove="Infrastructure\ExportImport\ImportProductMetadata.cs" />
-    <Compile Remove="Infrastructure\Notification\SignalR\Hubs\NotificationsHub.cs" />
-    <Compile Remove="Infrastructure\Notification\SignalR\SignalRNotificationPublishProvider.cs" />
     <Compile Remove="Module\OssManagement\OssStaticContainerDataSeedContributor.cs" />
   </ItemGroup>
 
@@ -113,6 +111,7 @@
     <PackageReference Include="MQiniu.CoreSdk" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.1.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.SignalR" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BackgroundJobs.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BackgroundWorkers.Quartz" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.BlobStoring" Version="3.2.1" />
@@ -142,7 +141,6 @@
     <Folder Include="Infrastructure\CloudTencent\QQ.Tencent\" />
     <Folder Include="Infrastructure\Exception\" />
     <Folder Include="Infrastructure\Authorization\" />
-    <Folder Include="Infrastructure\Notification\SignalR\Hubs\" />
     <Folder Include="Infrastructure\UI.Navication\" />
     <Folder Include="Module\System\Message\Email\" />
     <Folder Include="Module\System\Message\Chat\" />

@@ -21,6 +21,83 @@
             资源消耗
             </summary>
         </member>
+        <member name="T:Tiger.Infrastructure.Notification.Emailing.EmailingNotificationPublishProvider">
+            <summary>
+            邮件通知发布提供者
+            </summary>
+        </member>
+        <member name="P:Tiger.Infrastructure.Notification.SignalR.AbpNotificationsSignalROptions.MethodName">
+            <summary>
+            自定义的客户端订阅通知方法名称
+            </summary>
+        </member>
+        <member name="M:Tiger.Infrastructure.Notification.SignalR.Hubs.NotificationsHub.OnConnectedAsync">
+            <summary>
+            建立连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Infrastructure.Notification.SignalR.Hubs.NotificationsHub.OnDisconnectedAsync(System.Exception)">
+            <summary>
+            断开连接
+            </summary>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Infrastructure.Notification.SignalR.Hubs.NotificationsHub.GetMySubscriptionsAsync">
+            <summary>
+            获取我订阅的通知
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Infrastructure.Notification.SignalR.Hubs.NotificationsHub.GetNotificationAsync">
+            <summary>
+            获取我的通知列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Infrastructure.Notification.SignalR.Hubs.NotificationsHub.ChangeStateAsync(System.String,Tiger.Module.Notifications.Enums.NotificationReadStatus)">
+            <summary>
+            修改通知状态
+            </summary>
+            <param name="id"></param>
+            <param name="readState"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Tiger.Infrastructure.Notification.Sms.AbpNotificationsSmsOptions.TemplateParamsPrefix">
+            <summary>
+            短信模板变量前缀
+            </summary>
+        </member>
+        <member name="T:Tiger.Infrastructure.Notification.Sms.ISmsNotificationSender">
+            <summary>
+            短信通知发送接口
+            </summary>
+            <remarks>
+            重写实现自定义的短信消息处理
+            </remarks>
+        </member>
+        <member name="M:Tiger.Infrastructure.Notification.Sms.ISmsNotificationSender.SendAsync(Tiger.Infrastructure.Notification.NotificationInfo,System.String)">
+            <summary>
+            发送通知
+            </summary>
+            <param name="notification">通知数据</param>
+            <param name="phoneNumbers">手机号列表,多个手机号通过,分隔</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Infrastructure.Notification.Sms.SmsNotificationSender">
+            <summary>
+            短信通知的默认实现者
+            </summary>
+        </member>
+        <member name="M:Tiger.Infrastructure.Notification.Sms.SmsNotificationSender.SendAsync(Tiger.Infrastructure.Notification.NotificationInfo,System.String)">
+            <summary>
+            发送通知
+            </summary>
+            <param name="notification"></param>
+            <param name="phoneNumbers"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.BackgroundWorker.MyQuartzLogWorker">
             <summary>
             Demo 定时任务

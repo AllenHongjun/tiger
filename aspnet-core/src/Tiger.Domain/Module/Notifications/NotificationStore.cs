@@ -445,7 +445,10 @@ namespace Tiger.Module.Notifications
             }
         }
 
-        public Task ChangeUserNotificationReadStateAsync(Guid? tenantId, Guid userId, long notificationId, NotificationReadStatus readState, CancellationToken cancellationToken = default)
+        public Task ChangeUserNotificationReadStateAsync(
+            Guid? tenantId, Guid userId, long notificationId, 
+            NotificationReadStatus readState, 
+            CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
