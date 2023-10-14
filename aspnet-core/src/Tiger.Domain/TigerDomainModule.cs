@@ -53,6 +53,14 @@ using Volo.Abp.Sms;
 using Tiger.Volo.Abp.IdentityServer.SmsValidator;
 using Tiger.Infrastructure.IdGenerator.Snowflake;
 using Tiger.Infrastructure.IdGenerator;
+using Tiger.Infrastructure.Notification;
+using Tiger.Infrastructure.Notification.Emailing;
+using Tiger.Infrastructure.Notification.Sms;
+using Tiger.Infrastructure.Notification.SignalR;
+using Tiger.Module.Notifications;
+using Volo.Abp.Threading;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Tiger
 {
@@ -84,8 +92,16 @@ namespace Tiger
     )]
     public class TigerDomainModule : AbpModule
     {
-        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+        public override async void OnApplicationInitialization(ApplicationInitializationContext context)
         {
+            #region Notification Definition Initializer
+            await context.ServiceProvider
+                    .GetRequiredService<NotificationDefinitionInitializer>()
+                    .InitializeDynamicNotifications(_cancellationTokenSource.Token); 
+            #endregion
+
             #region Abp.BackgroundTasks.Quartz模块注入
 
             var _scheduler = context.ServiceProvider.GetRequiredService<IScheduler>();
@@ -95,9 +111,17 @@ namespace Tiger
             #endregion
         }
 
+
+        public override void OnApplicationShutdown(ApplicationShutdownContext context)
+        {
+            _cancellationTokenSource.Cancel();
+            
+        }
+
         public override void PreConfigureServices(ServiceConfigurationContext context)
         {
-            AutoAddDefinitionProviders(context.Services);
+            AutoAddJobDefinitionProviders(context.Services);
+            AutoAddNotificationDefinitionProviders(context.Services);
 
             #region 拓展短信授权登陆
             PreConfigure<IIdentityServerBuilder>(builder =>
@@ -107,8 +131,8 @@ namespace Tiger
             #endregion
         }
 
-        #region 任务定义注入
-        private static void AutoAddDefinitionProviders(IServiceCollection services)
+        #region 自动添加任务定义提供者
+        private static void AutoAddJobDefinitionProviders(IServiceCollection services)
         {
             var definitionProviders = new List<Type>();
 
@@ -125,6 +149,26 @@ namespace Tiger
                 options.DefinitionProviders.AddIfNotContains(definitionProviders);
             });
         }
+        #endregion
+
+        #region 自动添加通知定义提供者
+        private void AutoAddNotificationDefinitionProviders(IServiceCollection services)
+        {
+            var definitionProviders = new List<Type>();
+
+            services.OnRegistred(context =>
+            {
+                if (typeof(INotificationDefinitionProvider).IsAssignableFrom(context.ImplementationType))
+                {
+                    definitionProviders.Add(context.ImplementationType);
+                }
+            });
+
+            Configure<AbpNotificationsOptions>(options =>
+            {
+                options.DefinitionProviders.AddIfNotContains(definitionProviders);
+            });
+        } 
         #endregion
 
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -169,6 +213,56 @@ namespace Tiger
                 // 决定是否应该针对给定的实体类型发布事件. 
                 options.AutoEventSelectors.Add<Module.TaskManagement.BackgroundJobInfo>();
             });
+            #endregion
+
+            #region Notification模块
+
+            Configure<AbpAutoMapperOptions>(options =>
+            {
+                options.AddProfile<AbpNotificationsDomainAutoMapperProfile>(validate: true);
+            });
+
+
+            var preActions = context.Services.GetPreConfigureActions<AbpNotificationsOptions>();
+            Configure<AbpNotificationsOptions>(options =>
+            {
+                preActions.Configure(options);
+            });
+
+            Configure<AbpNotificationsPublishOptions>(options =>
+            {
+                options.PublishProviders.Add<EmailingNotificationPublishProvider>();
+                options.NotificationDataMappings
+                       .MappingDefault(EmailingNotificationPublishProvider.ProviderName, data => data);
+            });
+
+            //var preSmsActions = context.Services.GetPreConfigureActions<AbpNotificationsSmsOptions>();
+            //Configure<AbpNotificationsSmsOptions>(options =>
+            //{
+            //    preSmsActions.Configure(options);
+            //});
+
+            //Configure<AbpNotificationsPublishOptions>(options =>
+            //{
+            //    options.PublishProviders.Add<SmsNotificationPublishProvider>();
+
+            //    var smsOptions = preSmsActions.Configure(options);
+
+            //    options.NotificationDataMappings
+            //           .MappingDefault(
+            //                SmsNotificationPublishProvider.ProviderName,
+            //                data => NotificationData.ToStandardData(smsOptions.TemplateParamsPrefix, data));
+            //});
+
+
+            //Configure<AbpNotificationsPublishOptions>(options =>
+            //{
+            //    options.PublishProviders.Add<SignalRNotificationPublishProvider>();
+            //    options.NotificationDataMappings
+            //           .MappingDefault(SignalRNotificationPublishProvider.ProviderName,
+            //           data => data.ToSignalRData());
+            //});
+
             #endregion
 
             #region Saas

@@ -6,6 +6,9 @@ using Volo.Abp.Localization;
 
 namespace Tiger.Infrastructure.Notification.Internal
 {
+    /// <summary>
+    /// 默认通知定义提供者
+    /// </summary>
     internal class DefaultNotificationDefinitionProvider : NotificationDefinitionProvider
     {
         public override void Define(INotificationDefinitionContext context)

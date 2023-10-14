@@ -12,6 +12,12 @@ namespace Tiger.Module.Notifications
     /// </summary>
     public class NotificationDefinitionGroupRecord:BasicAggregateRoot<Guid>,IHasExtraProperties
     {
+        public NotificationDefinitionGroupRecord()
+        {
+            ExtraProperties = new Dictionary<string, object>();
+            this.SetDefaultsForExtraProperties();
+        }
+
         public NotificationDefinitionGroupRecord(
             Guid id,
             string name, 

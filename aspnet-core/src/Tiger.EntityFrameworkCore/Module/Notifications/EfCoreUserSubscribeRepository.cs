@@ -59,9 +59,13 @@ namespace Tiger.Module.Notifications
             return userSubScribe;
         }
 
-        public Task<List<string>> GetUserSubscribesAsync(Guid userId, CancellationToken cancellationToken = default)
+        public async Task<List<string>> GetUserSubscribesAsync(Guid userId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await DbContext.Set<UserSubscribe>()
+                .Where(x => x.UserId.Equals(userId))
+                .AsNoTracking()
+                .Select(x => x.NotificationName)
+                .ToListAsync(GetCancellationToken(cancellationToken));
         }
 
         public async Task<List<Guid>> GetUserSubscribesAsync(string notificationName, CancellationToken cancellationToken = default)
@@ -82,7 +86,7 @@ namespace Tiger.Module.Notifications
                 .Distinct()
                 .Where(x => x.UserId.Equals(userId))
                 .OrderBy(sorting ?? nameof(UserSubscribe.Id))
-                .Page(skipCount, maxResultCount)
+                .PageBy(skipCount, maxResultCount)
                 .AsNoTracking()
                 .ToListAsync(GetCancellationToken(cancellationToken));
 

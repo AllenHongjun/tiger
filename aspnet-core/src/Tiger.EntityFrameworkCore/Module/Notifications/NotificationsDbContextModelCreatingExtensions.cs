@@ -16,7 +16,9 @@ namespace Tiger.Module.Notifications
         {
             Check.NotNull(builder, nameof(builder));
 
-            var options = new AbpModelBuilderConfigurationOptions();
+            var options = new AbpModelBuilderConfigurationOptions(
+                TigerConsts.DbTablePrefix,
+                TigerConsts.DbSchema);
 
             optionsAction?.Invoke(options);
 
@@ -31,6 +33,7 @@ namespace Tiger.Module.Notifications
 
                 b.Property(p => p.ContentType)
                  .HasDefaultValue(NotificationContentType.Text);
+
 
                 b.ConfigureByConvention();
 

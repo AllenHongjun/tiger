@@ -7,6 +7,9 @@ using Volo.Abp.DependencyInjection;
 
 namespace Tiger.Infrastructure.Notification.Internal
 {
+    /// <summary>
+    /// 通知订阅处理器
+    /// </summary>
     internal class NotificationSubscriptionManager : INotificationSubscriptionManager, ITransientDependency
     {
         private readonly INotificationStore _store;

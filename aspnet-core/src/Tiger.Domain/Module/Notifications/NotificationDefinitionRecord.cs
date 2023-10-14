@@ -88,6 +88,12 @@ namespace Tiger.Module.Notifications
             AllowSubscriptionToClients = true;
         }
 
+        public NotificationDefinitionRecord()
+        {
+            ExtraProperties = new Dictionary<string, object>();
+            this.SetDefaultsForExtraProperties();
+        }
+
         public void UseProviders(params string[] providers)
         {
             var currentProviders = Providers.IsNullOrWhiteSpace()

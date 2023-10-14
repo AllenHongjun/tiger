@@ -55,9 +55,9 @@ namespace Tiger.Module.Notifications
 
         public virtual NotificationSeverity Severity { get; protected set;}
 
-        public virtual NotificationType Type { get; protected set;}
+        public virtual NotificationType Type { get;  set;}
 
-        public virtual NotificationContentType ContentType { get; protected set;}
+        public virtual NotificationContentType ContentType { get;  set;}
 
         public virtual long NotificationId { get; protected set;}
 

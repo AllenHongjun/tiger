@@ -12,6 +12,9 @@ using Volo.Abp;
 
 namespace Tiger.Infrastructure.Notification
 {
+    /// <summary>
+    /// 静态通知定义 存储
+    /// </summary>
     public class StaticNotificationDefinitionStore : IStaticNotificationDefinitionStore, ISingletonDependency
     {
         protected IDictionary<string, NotificationGroupDefinition> NotificationGroupDefinitions => _lazyNotificationGroupDefinitions.Value;

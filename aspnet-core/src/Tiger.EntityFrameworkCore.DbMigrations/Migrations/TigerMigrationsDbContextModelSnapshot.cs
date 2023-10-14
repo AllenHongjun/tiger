@@ -21,50 +21,45 @@ namespace Tiger.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Tiger.Books.Book", b =>
+            modelBuilder.Entity("Tiger.Module.Notifications.Notification", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AuthorId1")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ContentType")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnName("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
+                    b.Property<DateTime?>("ExpirationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<long>("NotificationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("NotificationName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("通知名称")
+                        .HasMaxLength(100);
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<string>("NotificationTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)")
+                        .HasMaxLength(512);
 
-                    b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Severity")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
@@ -75,75 +70,159 @@ namespace Tiger.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("TenantId", "NotificationName");
 
-                    b.HasIndex("AuthorId1");
-
-                    b.ToTable("AppBooks");
+                    b.ToTable("AppNotifications");
                 });
 
-            modelBuilder.Entity("Tiger.Business.Demo.Author", b =>
+            modelBuilder.Entity("Tiger.Module.Notifications.NotificationDefinitionGroupRecord", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<bool>("AllowSubscriptionToClients")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnName("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(40)")
-                        .HasMaxLength(40);
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnName("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnName("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnName("DeleterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnName("DeletionTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnName("ExtraProperties")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnName("LastModificationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnName("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<string>("ShortBio")
+                    b.HasKey("Id");
+
+                    b.ToTable("AppNotificationDefinitionGroups");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Notifications.NotificationDefinitionRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("AllowSubscriptionToClients")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ContentType")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.Property<int>("NotificationLifetime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NotificationType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Providers")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
+                    b.ToTable("AppNotificationDefinitions");
+                });
 
-                    b.ToTable("AppAuthors");
+            modelBuilder.Entity("Tiger.Module.Notifications.UserNotification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("NotificationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("ReadStatus")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "UserId", "NotificationId")
+                        .HasName("IX_Tenant_User_Notification_Id");
+
+                    b.ToTable("AppUserNotifications");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Notifications.UserSubscribe", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NotificationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128)
+                        .HasDefaultValue("/");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId", "UserId", "NotificationName")
+                        .IsUnique()
+                        .HasName("IX_Tenant_User_Notification_Name")
+                        .HasFilter("[TenantId] IS NOT NULL");
+
+                    b.ToTable("AppUserSubscribes");
                 });
 
             modelBuilder.Entity("Tiger.Module.System.Localization.Language", b =>
@@ -3023,19 +3102,6 @@ namespace Tiger.Migrations
                     b.HasIndex("Name", "ProviderName", "ProviderKey");
 
                     b.ToTable("AbpSettings");
-                });
-
-            modelBuilder.Entity("Tiger.Books.Book", b =>
-                {
-                    b.HasOne("Tiger.Business.Demo.Author", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Business.Demo.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorId1");
                 });
 
             modelBuilder.Entity("Tiger.Module.System.Platform.Datas.DataItem", b =>

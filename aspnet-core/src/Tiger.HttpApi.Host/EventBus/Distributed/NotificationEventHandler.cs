@@ -116,11 +116,13 @@ namespace Tiger.EventBus.Distributed
 
         public Task HandleEventAsync(NotificationEto<NotificationData> eventData)
         {
+            return Task.CompletedTask;
             throw new System.NotImplementedException();
         }
 
         public Task HandleEventAsync(NotificationEto<NotificationTemplate> eventData)
         {
+            return Task.CompletedTask;
             throw new System.NotImplementedException();
         }
     }

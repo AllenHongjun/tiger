@@ -1,5 +1,6 @@
 ﻿using log4net.Core;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,17 @@ namespace Tiger.Infrastructure.Notification.Internal
     /// </remarks>
     public class NotificationSender : INotificationSender, ITransientDependency
     {
-        public NotificationSender(IClock clock, IDistributedEventBus distributedEventBus, IDistributedIdGenerator distributedIdGenerator, IUnitOfWorkManager unitOfWorkManager, AbpNotificationsOptions options)
+        public NotificationSender(IClock clock, 
+            IDistributedEventBus distributedEventBus, 
+            IDistributedIdGenerator distributedIdGenerator, 
+            IUnitOfWorkManager unitOfWorkManager,
+            IOptions<AbpNotificationsPublishOptions> options)
         {
             Clock=clock;
             DistributedEventBus=distributedEventBus;
             DistributedIdGenerator=distributedIdGenerator;
             UnitOfWorkManager=unitOfWorkManager;
-            Options=options;
+            Options=options.Value;
         }
 
         protected IClock Clock { get; }
@@ -42,7 +47,7 @@ namespace Tiger.Infrastructure.Notification.Internal
 
         protected IUnitOfWorkManager UnitOfWorkManager { get; }
 
-        protected AbpNotificationsOptions Options { get; }
+        protected AbpNotificationsPublishOptions Options { get; }
 
 
         public async Task<string> SendNofiterAsync(string name, NotificationData data, IEnumerable<UserIdentifier> users = null, Guid? tenantId = null, NotificationSeverity severity = NotificationSeverity.Info, IEnumerable<string> useProviders = null)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tiger.Module.Notifications;
 using Tiger.Module.TaskManagement;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace Tiger.EntityFrameworkCore
 
             builder.ConfigureTiger();
             builder.ConfigureTaskManagement();
+            builder.ConfigureNotifications();
         }
     }
 }
