@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiger.Infrastructure.IdGenerator;
 using Tiger.Infrastructure.Notification.Core;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.Timing;

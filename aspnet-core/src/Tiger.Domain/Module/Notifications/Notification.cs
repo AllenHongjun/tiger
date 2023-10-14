@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Infrastructure.Notification;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.Auditing;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;

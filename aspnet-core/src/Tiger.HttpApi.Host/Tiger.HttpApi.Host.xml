@@ -11,6 +11,76 @@
             <param name="file"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.EventBus.Distributed.NotificationEventHandler">
+            <summary>
+            订阅通知发布事件,统一发布消息
+            </summary>
+            <remarks>
+            作用在于SignalR客户端只会与一台服务器建立连接,
+            只有启用了SignlR服务端的才能真正将消息发布到客户端
+            </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Tiger.EventBus.Distributed.NotificationEventHandler.Logger" -->
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.Options">
+            <summary>
+            Reference to <see cref="T:Tiger.Infrastructure.Notification.AbpNotificationsPublishOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.CurrentTenant">
+            <summary>
+            Reference to <see cref="T:Volo.Abp.MultiTenancy.ICurrentTenant"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.JsonSerializer">
+            <summary>
+            Reference to <see cref="T:Volo.Abp.Json.IJsonSerializer"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.BackgroundJobManager">
+            <summary>
+            Reference to <see cref="T:Volo.Abp.BackgroundJobs.IBackgroundJobManager"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.TemplateRenderer">
+            <summary>
+            Reference to <see cref="T:Volo.Abp.TextTemplating.ITemplateRenderer"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.NotificationStore">
+            <summary>
+            Reference to <see cref="T:Tiger.Infrastructure.Notification.INotificationStore"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.StringLocalizerFactory">
+            <summary>
+            Reference to <see cref="T:Microsoft.Extensions.Localization.IStringLocalizerFactory"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.NotificationDataSerializer">
+            <summary>
+            Reference to <see cref="T:Tiger.Infrastructure.Notification.INotificationDataSerializer"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.NotificationDefinitionManager">
+            <summary>
+            Reference to <see cref="T:Tiger.Infrastructure.Notification.INotificationDefinitionManager"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.NotificationSubscriptionManager">
+            <summary>
+            Reference to <see cref="T:Tiger.Infrastructure.Notification.INotificationSubscriptionManager"/>.
+            </summary>
+        </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.NotificationPublishProviderManager">
+            <summary>
+            Reference to <see cref="T:Tiger.Infrastructure.Notification.INotificationPublishProviderManager"/>.
+            </summary>
+        </member>
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.#ctor(Volo.Abp.MultiTenancy.ICurrentTenant,Volo.Abp.Json.IJsonSerializer,Volo.Abp.TextTemplating.ITemplateRenderer,Volo.Abp.BackgroundJobs.IBackgroundJobManager,Microsoft.Extensions.Localization.IStringLocalizerFactory,Microsoft.Extensions.Options.IOptions{Tiger.Infrastructure.Notification.AbpNotificationsPublishOptions},Tiger.Infrastructure.Notification.INotificationStore,Tiger.Infrastructure.Notification.INotificationDataSerializer,Tiger.Infrastructure.Notification.INotificationDefinitionManager,Tiger.Infrastructure.Notification.INotificationSubscriptionManager,Tiger.Infrastructure.Notification.INotificationPublishProviderManager)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tiger.EventBus.Distributed.NotificationEventHandler"/> class.
+            </summary>
+        </member>
         <member name="T:Tiger.EventBus.Handlers.TenantSynchronizer">
             <summary>
             租户同步

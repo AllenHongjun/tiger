@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading.Tasks;
 using Tiger.Infrastructure.Notification.Core;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp;
 
 namespace Tiger.Infrastructure.Notification

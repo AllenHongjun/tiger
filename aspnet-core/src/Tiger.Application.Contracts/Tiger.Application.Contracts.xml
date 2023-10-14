@@ -9,6 +9,70 @@
             Api资源管理器
             </summary>
         </member>
+        <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.Name">
+            <summary>
+            通知名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.DisplayName">
+            <summary>
+            显示名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.Lifetime">
+            <summary>
+            存活类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.Type">
+            <summary>
+            通知类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.ContentType">
+            <summary>
+            通知内容类型
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.Notifications.IMySubscriptionAppService.IsSubscribedAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByNameDto)">
+            <summary>
+            是否已订阅消息
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.IMySubscriptionAppService.SubscribeAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByNameDto)">
+            <summary>
+            订阅消息
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.IMySubscriptionAppService.UnSubscribeAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByNameDto)">
+            <summary>
+            退订消息
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.IMySubscriptionAppService.GetListAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByPagedDto)">
+            <summary>
+            获取订阅列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.IMySubscriptionAppService.GetAllListAsync">
+            <summary>
+            获取所有订阅列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Tiger.Module.OssManagement.Dtos.CreateOssObjectInput.File">
             <summary>
             文件

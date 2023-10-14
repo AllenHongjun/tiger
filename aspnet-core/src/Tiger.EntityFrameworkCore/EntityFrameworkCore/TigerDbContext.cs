@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Tiger.Module.Notifications;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Platform.Layouts;
@@ -39,13 +40,16 @@ namespace Tiger.EntityFrameworkCore
          */
 
         public DbSet<AppUser> Users { get; set; }
-
         // 如何扩展abp原有的租户表 迁移里面文档了解
         public DbSet<Edition> Editions { get; set; }
-
         public DbSet<Tenant> Tenants { get; set; }
-
         public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
+        public DbSet<UserSubscribe> UserSubscribes { get; set; }
+        public DbSet<NotificationDefinitionGroupRecord> NotificationDefinitionGroupRecords { get; set; }
+        public DbSet<NotificationDefinitionRecord> NotificationDefinitionRecords { get; set; }
 
 
         public DbSet<Post> Posts { get; set; }
@@ -108,6 +112,7 @@ namespace Tiger.EntityFrameworkCore
 
             builder.ConfigureTiger();
             builder.ConfigureTaskManagement();
+            builder.ConfigureNotifications();
         }
 
         

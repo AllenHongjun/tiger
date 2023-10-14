@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Infrastructure.Notification

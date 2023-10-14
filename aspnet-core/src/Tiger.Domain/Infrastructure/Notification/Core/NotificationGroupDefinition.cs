@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp;
 using Volo.Abp.Localization;
 

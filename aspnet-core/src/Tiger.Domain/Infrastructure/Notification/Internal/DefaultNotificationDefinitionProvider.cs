@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.Localization;
 
 namespace Tiger.Infrastructure.Notification.Internal

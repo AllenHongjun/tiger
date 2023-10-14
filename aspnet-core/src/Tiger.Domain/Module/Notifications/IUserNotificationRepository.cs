@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Tiger.Infrastructure.Notification;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Module.Notifications

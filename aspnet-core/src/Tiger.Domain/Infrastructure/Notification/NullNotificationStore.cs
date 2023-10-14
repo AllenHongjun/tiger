@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Volo.Abp.DependencyInjection;
+using Tiger.Module.Notifications.Enums;
 
 namespace Tiger.Infrastructure.Notification
 {

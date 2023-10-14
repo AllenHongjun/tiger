@@ -4,6 +4,22 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Module.Notifications.MyNotificationController">
+            <summary>
+            我的通知
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Notifications.NotificationController">
+            <summary>
+            通知定义
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.Notifications.NotificationController.GetAssignableNotifiersAsync">
+            <summary>
+            获取可分配的通知者
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.OssManagement.FileUploadOperation">
             <summary>
             Add extra parameters for uploading files in swagger.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-using Tiger.Infrastructure.Notification;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.MultiTenancy;
 

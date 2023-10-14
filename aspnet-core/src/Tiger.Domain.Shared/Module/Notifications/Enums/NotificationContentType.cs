@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Infrastructure.Notification
+namespace Tiger.Module.Notifications.Enums
 {
     /// <summary>
     /// 通知内容类型

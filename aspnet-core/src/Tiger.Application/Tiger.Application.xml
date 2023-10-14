@@ -93,6 +93,48 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
+        <member name="T:Tiger.Module.Notifications.MyNotificationAppService">
+            <summary>
+            我的通知服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MyNotificationAppService.MarkReadStateAsync(Tiger.Module.Notifications.Dto.NotificationMarkReadStateInput)">
+            <summary>
+            修改用户通知读取状态
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Tiger.Module.Notifications.MySubscriptionAppService">
+            <summary>
+            我的订阅
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Notifications.NotificationAppService">
+            <summary>
+            通知服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.Notifications.NotificationAppService.GetNotificationDefinition(System.String)">
+            <summary>
+            获取通知定义
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.NotificationAppService.GetAssignableNotifiersAsync">
+            <summary>
+            获取可分配的通知者
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.NotificationAppService.GetAssignableTemplatesAsync">
+            <summary>
+            获取可分配的通知模板
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.OssManagement.FileAppServiceBase.UploadAsync(Tiger.Module.OssManagement.Dtos.UploadFileChunkInput)">
             <summary>
             文件直接上传

@@ -2,7 +2,6 @@
 using System;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
-using Volo.Abp.EntityFrameworkCore.ValueComparers;
 using Volo.Abp.EntityFrameworkCore.ValueConverters;
 
 namespace Tiger.Module.TaskManagement;

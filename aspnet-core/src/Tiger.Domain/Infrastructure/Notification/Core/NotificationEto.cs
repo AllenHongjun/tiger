@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tiger.Infrastructure.RealTime;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.EventBus;
 using Volo.Abp.MultiTenancy;
 

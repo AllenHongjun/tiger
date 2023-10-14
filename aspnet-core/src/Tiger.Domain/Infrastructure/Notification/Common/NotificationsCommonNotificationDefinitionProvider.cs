@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Infrastructure.Notification.Common;
 using Tiger.Infrastructure.Notification.Core;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp.Localization;
 using Volo.Abp.TextTemplating;
 

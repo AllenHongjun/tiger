@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using Tiger.Module.Notifications.Enums;
 using Volo.Abp;
 using Volo.Abp.Localization;
 using Volo.Abp.TextTemplating;

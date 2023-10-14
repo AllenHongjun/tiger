@@ -1,4 +1,5 @@
 ﻿using System;
+using Tiger.Module.Notifications.Enums;
 
 namespace Tiger.Infrastructure.Notification
 {
