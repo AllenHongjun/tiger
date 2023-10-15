@@ -9,14 +9,94 @@
             我的通知
             </summary>
         </member>
+        <member name="M:Tiger.Module.Notifications.MyNotificationController.MarkReadStateAsync(Tiger.Module.Notifications.Dto.NotificationMarkReadStateInput)">
+            <summary>
+            标记阅读状态
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MyNotificationController.DeleteAsync(System.Int64)">
+            <summary>
+            删除我的通知
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MyNotificationController.GetAsync(System.Int64)">
+            <summary>
+            获取我的通知详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MyNotificationController.GetListAsync(Tiger.Module.Notifications.Dto.UserNotificationGetByPagedDto)">
+            <summary>
+            获取我的通知列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiger.Module.Notifications.MySubscriptionController">
+            <summary>
+            我的订阅
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MySubscriptionController.GetAllListAsync">
+            <summary>
+            获取所有我的订阅列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MySubscriptionController.GetListAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByPagedDto)">
+            <summary>
+            分页获取我的订阅列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MySubscriptionController.IsSubscribedAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByNameDto)">
+            <summary>
+            是否订阅
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MySubscriptionController.SubscribeAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByNameDto)">
+            <summary>
+            订阅通知
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.MySubscriptionController.UnSubscribeAsync(Tiger.Module.Notifications.Dto.SubscriptionsGetByNameDto)">
+            <summary>
+            取消订阅
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Notifications.NotificationController">
             <summary>
             通知定义
             </summary>
         </member>
+        <member name="M:Tiger.Module.Notifications.NotificationController.SendAsync(Tiger.Module.Notifications.Dto.NotificationSendDto)">
+            <summary>
+            发送通知
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.Notifications.NotificationController.GetAssignableNotifiersAsync">
             <summary>
             获取可分配的通知者
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Notifications.NotificationController.GetAssignableTemplatesAsync">
+            <summary>
+            获取可分配的通知模板
             </summary>
             <returns></returns>
         </member>

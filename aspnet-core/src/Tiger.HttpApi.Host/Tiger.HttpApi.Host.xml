@@ -31,6 +31,11 @@
             Reference to <see cref="T:Volo.Abp.MultiTenancy.ICurrentTenant"/>.
             </summary>
         </member>
+        <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.TenantConfigurationCache">
+            <summary>
+            Reference to <see cref="T:Tiger.MultiTenancy.ITenantConfigurationCache"/>.
+            </summary>
+        </member>
         <member name="P:Tiger.EventBus.Distributed.NotificationEventHandler.JsonSerializer">
             <summary>
             Reference to <see cref="T:Volo.Abp.Json.IJsonSerializer"/>.
@@ -76,10 +81,64 @@
             Reference to <see cref="T:Tiger.Infrastructure.Notification.INotificationPublishProviderManager"/>.
             </summary>
         </member>
-        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.#ctor(Volo.Abp.MultiTenancy.ICurrentTenant,Volo.Abp.Json.IJsonSerializer,Volo.Abp.TextTemplating.ITemplateRenderer,Volo.Abp.BackgroundJobs.IBackgroundJobManager,Microsoft.Extensions.Localization.IStringLocalizerFactory,Microsoft.Extensions.Options.IOptions{Tiger.Infrastructure.Notification.AbpNotificationsPublishOptions},Tiger.Infrastructure.Notification.INotificationStore,Tiger.Infrastructure.Notification.INotificationDataSerializer,Tiger.Infrastructure.Notification.INotificationDefinitionManager,Tiger.Infrastructure.Notification.INotificationSubscriptionManager,Tiger.Infrastructure.Notification.INotificationPublishProviderManager)">
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.#ctor(Volo.Abp.MultiTenancy.ICurrentTenant,Tiger.MultiTenancy.ITenantConfigurationCache,Volo.Abp.Json.IJsonSerializer,Volo.Abp.TextTemplating.ITemplateRenderer,Volo.Abp.BackgroundJobs.IBackgroundJobManager,Microsoft.Extensions.Localization.IStringLocalizerFactory,Microsoft.Extensions.Options.IOptions{Tiger.Infrastructure.Notification.AbpNotificationsPublishOptions},Tiger.Infrastructure.Notification.INotificationStore,Tiger.Infrastructure.Notification.INotificationDataSerializer,Tiger.Infrastructure.Notification.INotificationDefinitionManager,Tiger.Infrastructure.Notification.INotificationSubscriptionManager,Tiger.Infrastructure.Notification.INotificationPublishProviderManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Tiger.EventBus.Distributed.NotificationEventHandler"/> class.
             </summary>
+        </member>
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.SendToTenantAsync(System.Nullable{System.Guid},Tiger.Infrastructure.Notification.NotificationDefinition,Tiger.Infrastructure.Notification.NotificationEto{Tiger.Infrastructure.Notification.Core.NotificationTemplate})">
+            <summary>
+            给指定租户用户发送 模板通知
+            </summary>
+            <param name="tenantId"></param>
+            <param name="notification"></param>
+            <param name="eventData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.SendToTenantAsync(System.Nullable{System.Guid},Tiger.Infrastructure.Notification.NotificationDefinition,Tiger.Infrastructure.Notification.NotificationEto{Tiger.Infrastructure.Notification.NotificationData})">
+            <summary>
+            给指定租户用户发送通知
+            </summary>
+            <param name="tenantId"></param>
+            <param name="notification"></param>
+            <param name="eventData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.GerSubscriptionUsersAsync(System.String,System.Collections.Generic.IEnumerable{Tiger.Infrastructure.Notification.UserIdentifier},System.Nullable{System.Guid})">
+            <summary>
+            获取用户订阅列表
+            </summary>
+            <param name="notificationName">通知名称</param>
+            <param name="sendToUsers">接收用户列表</param>
+            <param name="tenantId">租户标识</param>
+            <returns>用户订阅列表</returns>
+        </member>
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.PersistentNotificationAsync(Tiger.Infrastructure.Notification.NotificationInfo,System.Collections.Generic.IEnumerable{Tiger.Infrastructure.Notification.UserIdentifier},System.Collections.Generic.IEnumerable{Tiger.Infrastructure.Notification.INotificationPublishProvider})">
+            <summary>
+            持久化通知并返回订阅用户列表
+            </summary>
+            <param name="notificationInfo">通知实体</param>
+            <param name="subscriptionUsers">订阅用户列表</param>
+            <param name="sendToProviders">通知发送提供者</param>
+            <returns>返回订阅者列表</returns>
+        </member>
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.PublishToSubscriberAsync(Tiger.Infrastructure.Notification.INotificationPublishProvider,Tiger.Infrastructure.Notification.NotificationInfo,System.Collections.Generic.IEnumerable{Tiger.Infrastructure.Notification.UserIdentifier})">
+            <summary>
+            发布订阅者通知
+            </summary>
+            <param name="provider">通知发布者</param>
+            <param name="notificationInfo">通知信息</param>
+            <param name="subscriptionUsers">订阅用户列表</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.EventBus.Distributed.NotificationEventHandler.ProcessingFailedToQueueAsync(Tiger.Infrastructure.Notification.INotificationPublishProvider,Tiger.Infrastructure.Notification.NotificationInfo,System.Collections.Generic.IEnumerable{Tiger.Infrastructure.Notification.UserIdentifier})">
+            <summary>
+            处理失败的消息进入后台队列
+            </summary>
+            <param name="provider">通知发布者</param>
+            <param name="notificationInfo">通知信息</param>
+            <param name="subscriptionUsers">订阅用户列表</param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.EventBus.Handlers.TenantSynchronizer">
             <summary>
@@ -108,6 +167,26 @@
             <remarks>
             测试在一个事件处理程序中能否两个方法订阅同一个事件
             </remarks>
+        </member>
+        <member name="T:Tiger.EventBus.Local.UserCreateSendWelcomeEventHandler">
+            <summary>
+            用户创建发送欢迎 事件处理程序
+            </summary>
+        </member>
+        <member name="M:Tiger.EventBus.Local.UserCreateSendWelcomeEventHandler.SubscribeInternalNotifers(Tiger.Infrastructure.Notification.UserIdentifier,System.Nullable{System.Guid})">
+            <summary>
+            订阅内置通知
+            </summary>
+            <param name="userIdentifier"></param>
+            <param name="tenantId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.EventBus.Local.UserCreateSendWelcomeEventHandler.HandleEventAsync(Volo.Abp.Domain.Entities.Events.EntityCreatedEventData{Volo.Abp.Users.UserEto})">
+            <summary>
+            用户
+            </summary>
+            <param name="eventData"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Pages.Account.TwoFactorSupportedLoginModel">
             <summary>

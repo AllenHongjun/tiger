@@ -31,6 +31,14 @@
             自定义的客户端订阅通知方法名称
             </summary>
         </member>
+        <member name="T:Tiger.Infrastructure.Notification.SignalR.Hubs.NotificationsHub">
+            <summary>
+            通知Hub
+            </summary>
+            <remarks>
+            signalR 模块集成 https://docs.abp.io/zh-Hans/abp/7.0/SignalR-Integration
+            </remarks>
+        </member>
         <member name="M:Tiger.Infrastructure.Notification.SignalR.Hubs.NotificationsHub.OnConnectedAsync">
             <summary>
             建立连接

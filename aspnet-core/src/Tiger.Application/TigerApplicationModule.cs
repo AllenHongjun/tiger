@@ -20,6 +20,7 @@ using Volo.Abp.Sms;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.VirtualFileSystem;
 using Tiger.Infrastructure.Notification.SignalR;
+using Volo.Abp.AspNetCore.SignalR;
 
 namespace Tiger
 {
@@ -42,11 +43,9 @@ namespace Tiger
         typeof(AbpBackgroundJobsQuartzModule), //Add the new module dependency Quartz
         typeof(AbpSmsModule), //Add the new module dependency
         typeof(AbpCachingModule), // 缓存
-                                  //typeof(AbpBackgroundJobsModule), // 后台任务  默认后台作业管理器
-        typeof(AbpEventBusModule)
-
-
-
+      //typeof(AbpBackgroundJobsModule), // 后台任务  默认后台作业管理器
+        typeof(AbpEventBusModule),
+        typeof(AbpAspNetCoreSignalRModule) //Add the new module dependency
         )]
     public class TigerApplicationModule : AbpModule
     {

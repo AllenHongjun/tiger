@@ -11,6 +11,12 @@ using Volo.Abp.Users;
 
 namespace Tiger.Infrastructure.Notification.SignalR.Hubs
 {
+    /// <summary>
+    /// 通知Hub
+    /// </summary>
+    /// <remarks>
+    /// signalR 模块集成 https://docs.abp.io/zh-Hans/abp/7.0/SignalR-Integration
+    /// </remarks>
     [Authorize]
     public class NotificationsHub : AbpHub
     {

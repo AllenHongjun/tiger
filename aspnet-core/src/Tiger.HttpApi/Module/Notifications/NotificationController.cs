@@ -29,6 +29,11 @@ namespace Tiger.Module.Notifications
             NotificationAppService = notificationAppService;
         }
 
+        /// <summary>
+        /// 发送通知
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         public async virtual Task SendAsync(NotificationSendDto input)
         {
@@ -46,6 +51,10 @@ namespace Tiger.Module.Notifications
             return await NotificationAppService.GetAssignableNotifiersAsync();
         }
 
+        /// <summary>
+        /// 获取可分配的通知模板
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("assignable-templates")]
         public async virtual Task<ListResultDto<NotificationTemplateDto>> GetAssignableTemplatesAsync()

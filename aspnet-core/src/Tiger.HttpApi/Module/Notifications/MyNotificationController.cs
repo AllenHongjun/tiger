@@ -30,6 +30,11 @@ namespace Tiger.Module.Notifications
             MyNotificationAppService = myNotificationAppService;
         }
 
+        /// <summary>
+        /// 标记阅读状态
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("mark-read-state")]
         public async virtual Task MarkReadStateAsync(NotificationMarkReadStateInput input)
@@ -37,6 +42,11 @@ namespace Tiger.Module.Notifications
             await MyNotificationAppService.MarkReadStateAsync(input);
         }
 
+        /// <summary>
+        /// 删除我的通知
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
         public async virtual Task DeleteAsync(long id)
@@ -44,7 +54,11 @@ namespace Tiger.Module.Notifications
             await MyNotificationAppService.DeleteAsync(id);
         }
 
-
+        /// <summary>
+        /// 获取我的通知详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public async virtual Task<UserNotificationDto> GetAsync(long id)
@@ -52,6 +66,11 @@ namespace Tiger.Module.Notifications
             return await MyNotificationAppService.GetAsync(id);
         }
 
+        /// <summary>
+        /// 获取我的通知列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         public async virtual Task<PagedResultDto<UserNotificationDto>> GetListAsync(UserNotificationGetByPagedDto input)
         {

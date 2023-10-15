@@ -19,24 +19,24 @@ namespace Tiger.Infrastructure.Notification
             Guid? tenantId,
             IEnumerable<UserIdentifier> userIdentifiers,
             string notificationName,
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken = default);
 
         Task DeleteUserSubscriptionAsync(
             Guid? tenantId,
             Guid userId,
             string notificationName,
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken = default);
 
         Task DeleteAllUserSubscriptionAsync(
             Guid? tenantId,
             string notificationName,
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken = default);
 
         Task DeleteUserSubscriptionAsync(
             Guid? tenantId,
             IEnumerable<UserIdentifier> identifiers,
             string notificationName,
-            CancellationToken cancellationToken);
+            CancellationToken cancellationToken = default);
 
         Task<List<NotificationSubscriptionInfo>> GetUserSubscriptionsAsync(
             Guid? tenantId,
