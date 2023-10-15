@@ -16,10 +16,10 @@
       </el-form-item>
 
       <el-form-item v-if="!temp.id" :label="$t('AbpSaas[\'DisplayName:AdminEmailAddress\']')" prop="adminEmailAddress">
-        <el-input v-model="temp.adminEmailAddress" :autocomplete="false" />
+        <el-input v-model="temp.adminEmailAddress" autocomplete="false" />
       </el-form-item>
       <el-form-item v-if="!temp.id" :label="$t('AbpSaas[\'DisplayName:AdminPassword\']')" prop="adminPassword">
-        <el-input v-model="temp.adminPassword" type="password" auto-complete="off" show-password :autocomplete="false" />
+        <el-input v-model="temp.adminPassword" type="password" auto-complete="off" show-password autocomplete="false" />
       </el-form-item>
 
       <el-form-item :label="$t('AbpSaas[\'DisplayName:IsActive\']')" prop="isActive">

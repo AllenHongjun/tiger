@@ -18,6 +18,7 @@
 
         <lang-select class="right-menu-item hover-effect" />
 
+        <my-notification id="my-notification" class="right-menu-item hover-effect" />
       </template>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -68,6 +69,7 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import LangSelect from '@/components/LangSelect'
 import Search from '@/components/HeaderSearch'
+import MyNotification from '@/components/Notice/MyNotification.vue'
 import {
   logout
 } from '@/api/user'
@@ -84,7 +86,8 @@ export default {
     Screenfull,
     SizeSelect,
     LangSelect,
-    Search
+    Search,
+    MyNotification
   },
   computed: {
     ...mapGetters([

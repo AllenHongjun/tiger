@@ -20,20 +20,24 @@
             <template slot-scope="{ row }">{{ row.tenantCount }}</template>
           </el-table-column>
 
-          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="420">
+          <el-table-column :label="$t('AbpIdentity[\'Actions\']')" align="center" width="280" fixed="right">
             <template slot-scope="{row,$index}">
-              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Update')" type="primary" @click="handleUpdate(row)">
-                {{ $t("AbpUi['Edit']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
-                {{ $t("AbpSaas['Permission:ManageFeatures']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Update')" type="primary" plain @click="handleMoveAllTenant(row)">
-                {{ $t("AbpSaas['MoveAllTenant']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Delete')" type="danger" @click="deleteData(row,$index)">
-                {{ $t("AbpUi['Delete']") }}
-              </el-button>
+
+              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Update')" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" type="primary" @click="handleUpdate(row)" />
+              <el-button v-if="checkPermission('AbpSaasPermissions.Editions.Delete')" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" type="danger" @click="handleDelete(row, $index)" />
+
+              <el-dropdown style="margin-left:8px;" @command="handleCommand">
+                <el-button class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" type="primary" plain />
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item v-if="checkPermission('AbpSaasPermissions.Editions.ManageFeatures')" :command="beforeHandleCommand(row, 'updateFeature')">
+                    {{ $t("AbpSaas['Permission:ManageFeatures']") }}
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="checkPermission('AbpSaasPermissions.Editions.Update')" :command="beforeHandleCommand(row, 'moveAllTenant')">
+                    {{ $t("AbpSaas['MoveAllTenant']") }}
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+
             </template>
           </el-table-column>
         </el-table>
@@ -185,6 +189,24 @@ export default {
         displayName: undefined
       }
     },
+    handleCommand(param) {
+      switch (param.command) {
+        case 'updateFeature':
+          this.handleUpdateFeature(param.scope)
+          break
+        case 'moveAllTenant':
+          this.handleMoveAllTenant(param.scope)
+          break
+        default:
+          break
+      }
+    },
+    beforeHandleCommand(scope, command) {
+      return {
+        scope: scope,
+        command: command
+      }
+    },
     handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'
@@ -237,12 +259,18 @@ export default {
         }
       })
     },
-    deleteData(row) {
-      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+    handleDelete(row) {
+      this.$confirm(
+        this.$i18n.t(
+          "AbpUi['ItemWillBeDeletedMessageWithFormat']",
+          [row.displayName]
+        ),
+        this.$i18n.t("AbpTenantManagement['AreYouSure']"), {
+          confirmButtonText: this.$i18n.t("AbpTenantManagement['Yes']"),
+          cancelButtonText: this.$i18n.t("AbpTenantManagement['Cancel']"),
+          type: 'warning'
+        }
+      ).then(() => {
         deleteEdition(row.id)
           .then((response) => {
             const index = this.list.findIndex((v) => v.id === row.id)

@@ -37,23 +37,26 @@
             <template slot-scope="scope">{{ scope.row.extraProperties.UserCount }}</template>
           </el-table-column>
 
-          <el-table-column align="left" :label="$t('AbpIdentity[\'Actions\']')" width="700">
-            <template slot-scope="scope">
-              <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" @click="handleUpdate(scope.row)">
-                {{ $t("AbpIdentity['Edit']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpIdentity.Roles.ManagePermissions')" type="primary" @click="handleUpdatePermission(scope.row)">
-                {{ $t("AbpIdentity['Permissions']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpIdentity.Roles.ManageClaims')" type="primary" plain @click="handleManageClaims(scope.row)">
-                {{ $t("AbpIdentity['ClaimTypes']") }}
-              </el-button>
-              <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" type="primary" plain @click="handleMoveAllUsers(scope.row)">
-                {{ $t("AbpIdentity['MoveAllUsers']") }}
-              </el-button>
-              <el-button v-if="!scope.row.isStatic && checkPermission('AbpIdentity.Roles.Delete')" type="danger" @click="deleteData(scope.row)">
-                {{ $t("AbpIdentity['Delete']") }}
-              </el-button>
+          <el-table-column :label="$t('AbpIdentity[\'Actions\']')" align="center" width="280" fixed="right">
+            <template slot-scope="{ row, $index }">
+              <el-button v-if="checkPermission('AbpIdentity.Roles.Update')" class="el-icon-edit" :title="$t('AbpIdentity[\'Edit\']')" type="primary" @click="handleUpdate(row)" />
+
+              <el-button v-if="!row.isStatic && checkPermission('AbpIdentity.Roles.Delete')" class="el-icon-delete" :title="$t('AbpIdentity[\'Delete\']')" type="danger" @click="handleDelete(row, $index)" />
+              <el-dropdown style="margin-left:12px;" @command="handleCommand">
+                <el-button class="el-icon-more" :title="$t('AbpUi[\'Actions\']')" type="primary" plain />
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ManageClaims')" :command="beforeHandleCommand(row, 'manageClaims')">
+                    {{ $t("AbpIdentity['ManageClaim']") }}
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ManagePermissions')" :command="beforeHandleCommand(row, 'updatePermission')">
+                    {{ $t("AbpIdentity['Permissions']") }}
+                  </el-dropdown-item>
+                  <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ResetPassword')" :command="beforeHandleCommand(row, 'moveAllUsers')">
+                    {{ $t("AbpIdentity['MoveAllUsers']") }}
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+
             </template>
           </el-table-column>
         </el-table>
@@ -258,6 +261,28 @@ export default {
       this.$refs['ImportExcelDialog'].handleUploadExcel()
     },
 
+    handleCommand(param) {
+      switch (param.command) {
+        case 'manageClaims':
+          this.handleManageClaims(param.scope)
+          break
+        case 'updatePermission':
+          this.handleUpdatePermission(param.scope)
+          break
+        case 'moveAllUsers':
+          this.handleMoveAllUsers(param.scope)
+          break
+        default:
+          break
+      }
+    },
+    beforeHandleCommand(scope, command) {
+      return {
+        scope: scope,
+        command: command
+      }
+    },
+
     handleCreate() {
       this.resetTemp()
       this.dialogStatus = 'create'
@@ -283,6 +308,7 @@ export default {
         }
       })
     },
+
     handleUpdate(row) {
       this.temp = Object.assign({}, row) // copy obj
       this.dialogStatus = 'update'

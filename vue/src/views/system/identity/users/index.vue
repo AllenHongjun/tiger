@@ -168,12 +168,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" :label="$t('AbpIdentity[\'Actions\']')" width="140" fixed="right">
+      <el-table-column align="center" :label="$t('AbpIdentity[\'Actions\']')" width="230" fixed="right">
         <template slot-scope="scope">
-          <el-dropdown trigger="click" @command="handleCommand">
-            <el-button type="primary" size="small" icon="el-icon-setting">
-              {{ $t("AbpIdentity['Actions']") }}<i class="el-icon-arrow-down el-icon--right" />
-            </el-button>
+          <el-button v-if="checkPermission('AbpIdentity.Users.Update')" class="el-icon-edit" :title="$t('AbpIdentity[\'Edit\']')" type="primary" @click="handleUpdate(scope.row)" />
+          <el-button v-if="checkPermission('AbpIdentity.Users.Delete')" class="el-icon-delete" :title="$t('AbpIdentity[\'Delete\']')" type="danger" @click="handleDelete(scope.row, $index)" />
+          <el-dropdown style="margin-left:12px;" @command="handleCommand">
+            <el-button class="el-icon-more" :title="$t('AbpUi[\'Actions\']')" type="primary" plain />
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.Update')" :command="beforeHandleCommand(scope, 'edit')">{{ $t("AbpIdentity['Edit']") }}</el-dropdown-item>
               <el-dropdown-item v-if="checkPermission('AbpIdentity.Users.ManageClaims')" :command="beforeHandleCommand(scope, 'manageClaims')">{{ $t("AbpIdentity['ManageClaim']") }}</el-dropdown-item>
@@ -715,7 +715,7 @@ export default {
           this.handleChangeTwoFactorEnable(param.scope.row)
           break
         case 'delete':
-          this.deleteData(param.scope.row)
+          this.handleDelete(param.scope.row)
           break
         default:
           // this.handlePasswd(command.scope.row)
@@ -860,7 +860,7 @@ export default {
         }
       })
     },
-    deleteData(row) {
+    handleDelete(row) {
       this.$confirm(this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
         row.userName
       ]), this.$i18n.t("AbpUi['AreYouSure']"), {

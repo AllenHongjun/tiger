@@ -178,14 +178,12 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="180" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="180" fixed="right" class-name="small-padding fixed-width">
         <template slot-scope="{ row, $index }">
-          <el-link v-if="checkPermission('TaskManagement.BackgroundJobs.Update')" class="el-icon-edit" title="编辑" plain circle type="primary" @click="handleUpdate(row)" />
-          <!-- <el-link class="el-icon-video-play" title="启动" plain circle type="success" @click="handleUpdate(row)" /> -->
-          <el-link v-if="checkPermission('TaskManagement.BackgroundJobs.Delete')" class="el-icon-delete" title="删除" plain circle type="danger" @click="handleDelete(row, $index)" />
-
-          <el-dropdown trigger="click" @command="handleCommand">
-            <el-link class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" plain circle type="primary" />
+          <el-button v-if="checkPermission('TaskManagement.BackgroundJobs.Update')" class="el-icon-edit" title="编辑" type="primary" @click="handleUpdate(row)" />
+          <el-button v-if="checkPermission('TaskManagement.BackgroundJobs.Delete')" class="el-icon-delete" title="删除" type="danger" @click="handleDelete(row, $index)" />
+          <el-dropdown style="margin-left:8px;" @command="handleCommand">
+            <el-button class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" type="primary" plain />
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="el-icon-video-play" :command="beforeHandleCommand(row, 'start')">{{ $t("TaskManagement['BackgroundJobs:Start']") }}</el-dropdown-item>
               <el-dropdown-item icon="el-icon-video-pause" :command="beforeHandleCommand(row, 'pause')">{{ $t("TaskManagement['BackgroundJobs:Pause']") }}</el-dropdown-item>
@@ -865,11 +863,9 @@ export default {
 <style lang="scss" scoped>
 .fixed-width {
   .el-button--mini {
-    padding: 7px 10px;
+    /*padding: 7px 10px;*/
     min-width: 20px;
   }
 }
-.el-link{
-  margin-right: 12px;
-}
+
 </style>

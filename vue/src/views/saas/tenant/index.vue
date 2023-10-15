@@ -60,30 +60,26 @@
           <span>{{ row.disableTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="680" class-name="small-padding fixed-width">
-        <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Update')" type="primary" @click="handleUpdate(row)">
-            {{ $t("AbpSaas['Permission:Edit']") }}
-          </el-button>
-          <el-button
-            v-if="checkPermission( 'AbpSaasPermissions.Tenants.ManageConnectionStrings')"
-            type="primary"
-            plain
-            @click="handleUpdateConnectionString(row)"
-          >
-            {{
-              $t("AbpSaas['Permission:ManageConnectionStrings']")
-            }}
-          </el-button>
-          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.ManageFeatures')" type="primary" plain @click="handleUpdateFeature(row)">
-            {{ $t("AbpSaas['Permission:ManageFeatures']") }}
-          </el-button>
-          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.ChangeUserPassword')" type="primary" plain @click="handelChangePassword(row)">
-            {{ $t('AbpSaas[\'Permission:ChangeUserPassword\']') }}
-          </el-button>
-          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Delete')" type="danger" @click="handleDelete(row, $index)">
-            {{ $t("AbpSaas['Permission:Delete']") }}
-          </el-button>
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="center" width="280" fixed="right">
+        <template slot-scope="{row, $index}">
+          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Update')" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" type="primary" @click="handleUpdate(row)" />
+          <el-button v-if="checkPermission('AbpSaasPermissions.Tenants.Delete')" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" type="danger" @click="handleDelete(row, $index)" />
+
+          <el-dropdown style="margin-left:8px;" @command="handleCommand">
+            <el-button class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" type="primary" plain />
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-if="checkPermission('AbpSaasPermissions.Tenants.ManageConnectionStrings')" :command="beforeHandleCommand(row, 'updateConnectionString')">
+                {{ $t("AbpSaas['Permission:ManageConnectionStrings']") }}
+              </el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpSaasPermissions.Tenants.ManageFeatures')" :command="beforeHandleCommand(row, 'updateFeature')">
+                {{ $t("AbpSaas['Permission:ManageFeatures']") }}
+              </el-dropdown-item>
+              <el-dropdown-item v-if="checkPermission('AbpSaasPermissions.Tenants.ChangeUserPassword')" :command="beforeHandleCommand(row, 'changePassword')">
+                {{ $t('AbpSaas[\'Permission:ChangeUserPassword\']') }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
         </template>
       </el-table-column>
     </el-table>
@@ -209,6 +205,27 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
+    handleCommand(param) {
+      switch (param.command) {
+        case 'updateConnectionString':
+          this.handleUpdateConnectionString(param.scope)
+          break
+        case 'updateFeature':
+          this.handleUpdateFeature(param.scope)
+          break
+        case 'changePassword':
+          this.handelChangePassword(param.scope)
+          break
+        default:
+          break
+      }
+    },
+    beforeHandleCommand(scope, command) {
+      return {
+        scope: scope,
+        command: command
+      }
+    },
     handleCreate() {
       this.$refs['tenantDialog'].handleCreate()
     },
@@ -238,6 +255,7 @@ export default {
         })
       })
     },
+
     handleUpdateConnectionString(row) {
       this.$refs['connectionstringDialog'].handleUpdate(row)
     },

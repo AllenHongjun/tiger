@@ -260,14 +260,46 @@ const SystemManageRouter = {
       ]
     },
     {
-      path: 'notice/list',
-      component: () => import('@/views/system/notice/list'),
+      path: 'notice/index',
+      component: () => import('@/views/system/notice/index'),
       name: 'notice-list',
       meta: {
         title: 'TigerUi["Menu:Notice"]',
-        icon: 'el-icon-message', // the icon show in the sidebar
-        policy: '11'
-      }
+        icon: 'el-icon-message-solid' // the icon show in the sidebar
+        // policy: '11'
+      },
+      children: [
+        {
+          path: 'notice/list',
+          component: () => import('@/views/system/notice/notification/index'),
+          name: 'notice-list',
+          meta: {
+            title: 'TigerUi["Menu:Notice"]',
+            icon: 'el-icon-message' // the icon show in the sidebar
+            // policy: '11'
+          }
+        },
+        {
+          path: '/notice/my-notification/list',
+          name: 'my-notification',
+          component: () => import('@/views/system/notice/my-notification/index'),
+          meta: {
+            title: '我的消息',
+            icon: 'el-icon-s-comment'
+            // policy: 'SettingUi.ShowSettingPage'
+          }
+        },
+        {
+          path: '/notice/my-subcribe/list',
+          name: 'my-notification',
+          component: () => import('@/views/system/notice/my-subscribe/index'),
+          meta: {
+            title: '我的订阅',
+            icon: 'el-icon-bell'
+            // policy: 'SettingUi.ShowSettingPage'
+          }
+        }
+      ]
     },
 
     // 运维监控
