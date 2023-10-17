@@ -15,6 +15,7 @@ using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
+using Tiger.Module.System.Area;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -67,6 +68,7 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<BackgroundJobAction> BackgroundJobActions { get; set; }
         public DbSet<BackgroundJobLog> BackgroundJobLogs { get; set; }
 
+    public DbSet<Region> Regions { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

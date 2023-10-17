@@ -1,3 +1,4 @@
+using Tiger.Module.System.Area;
 using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.TextTemplate;
@@ -53,6 +54,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Resource, ResourceRepository>();
                 options.AddRepository<LanguageText, LanguageTextRepository>();
             options.AddRepository<Tiger.Module.System.Platform.Datas.Data, DataRepository>();
+            options.AddRepository<Region, RegionRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

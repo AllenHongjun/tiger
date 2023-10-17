@@ -307,6 +307,48 @@
             静态文件上传服务
             </summary>
         </member>
+        <member name="T:Tiger.Module.System.Area.RegionAppService">
+            <summary>
+            区域服务
+            </summary>
+        </member>
+        <member name="M:Tiger.Module.System.Area.RegionAppService.CreateAsync(Tiger.Module.System.Area.Dtos.CreateUpdateRegionDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:Volo.Abp.UserFriendlyException"></exception>
+        </member>
+        <member name="M:Tiger.Module.System.Area.RegionAppService.UpdateAsync(System.Int32,Tiger.Module.System.Area.Dtos.CreateUpdateRegionDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="id">id</param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Area.RegionAppService.DeleteAsync(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Area.RegionAppService.GetAsync(System.Int32)">
+            <summary>
+            详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.System.Area.RegionAppService.GetListAsync(Tiger.Module.System.Area.Dtos.RegionGetListInput)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.System.Cache.CacheAppService">
             <summary>
             缓存管理服务

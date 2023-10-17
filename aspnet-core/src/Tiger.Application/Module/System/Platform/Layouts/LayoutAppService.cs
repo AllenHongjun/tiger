@@ -114,7 +114,6 @@ namespace Tiger.Module.System.Platform.Layouts
 
             return new PagedResultDto<LayoutDto>(count,
                 ObjectMapper.Map<List<Layout>, List<LayoutDto>>(layouts));
-            throw new NotImplementedException();
         }
 
         /// <summary>

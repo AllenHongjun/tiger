@@ -1,3 +1,4 @@
+using Tiger.Module.System.Area;
 using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.TextTemplate;
@@ -279,6 +280,16 @@ namespace Tiger.EntityFrameworkCore
             #endregion
 
 
+
+
+        builder.Entity<Region>(b =>
+        {
+            b.ToTable(TigerConsts.DbTablePrefix + "Regions", TigerConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
         }
 
 
