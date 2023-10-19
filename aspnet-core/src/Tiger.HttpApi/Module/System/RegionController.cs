@@ -12,8 +12,8 @@ namespace Tiger.Module.System
     /// 区域
     /// </summary>
     [RemoteService(Name = "region")]
-    [Area("system")]
-    [Route("api/system/regions")]
+    [Area("area")]
+    [Route("api/area/regions")]
     public class RegionController : AbpController, IRegionAppService
     {
         #region 构造函数

@@ -68,7 +68,7 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<BackgroundJobAction> BackgroundJobActions { get; set; }
         public DbSet<BackgroundJobLog> BackgroundJobLogs { get; set; }
 
-    public DbSet<Region> Regions { get; set; }
+        public DbSet<Region> Regions { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

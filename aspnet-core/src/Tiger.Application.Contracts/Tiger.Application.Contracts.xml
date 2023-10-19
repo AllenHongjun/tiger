@@ -111,6 +111,16 @@
             块总数
             </summary>
         </member>
+        <member name="T:Tiger.Module.System.Area.Permissions.AbpAreaPermissionDefinitionProvider">
+            <summary>
+            定义文本模板权限
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.System.Area.Permissions.AbpAreaPermissions">
+            <summary>
+            区域权限
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.Cache.CacheRefreshInput">
             <summary>
             缓存刷新输入参数
@@ -858,12 +868,12 @@
             布局页
             </summary>
         </member>
-        <member name="T:Tiger.Module.System.TextTemplate.Permissions.AbpTextTemplatePermissionDefinitionProvider">
+        <member name="T:Tiger.Module.System.TextTemplate.Permissions.AbpAreaPermissionDefinitionProvider">
             <summary>
             定义文本模板权限
             </summary>
         </member>
-        <member name="T:Tiger.Module.System.TextTemplate.Permissions.AbpTextTemplatePermissions">
+        <member name="T:Tiger.Module.System.TextTemplate.Permissions.AbpAreaPermissions">
             <summary>
             文本模板权限常量
             </summary>

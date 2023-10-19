@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Reflection;
 
-namespace Tiger.Module.System.TextTemplate.Permissions
+namespace Tiger.Module.System.Area.Permissions
 {
     /// <summary>
-    /// 文本模板权限常量
+    /// 区域权限
     /// </summary>
     public class AbpAreaPermissions
     {
-        public const string GroupName = "AbpTextTemplating";
+        public const string GroupName = "AbpArea";
 
-        public static class TextTemplate
+        public static class Region
         {
-            public const string Default = GroupName + ".TextTemplates";
+            public const string Default = GroupName + ".Region";
             public const string Create = Default + ".Create";
             public const string Update = Default + ".Update";
             public const string Delete = Default + ".Delete";

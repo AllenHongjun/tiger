@@ -17,7 +17,7 @@ namespace Tiger.Module.System.TextTemplate;
 /// <summary>
 /// 文本模板服务
 /// </summary>
-[Authorize(AbpTextTemplatePermissions.TextTemplate.Default)]
+[Authorize(AbpAreaPermissions.TextTemplate.Default)]
 [RemoteService(IsEnabled = false)]
 public class TextTemplateAppService : ApplicationService,
     ITextTemplateAppService
@@ -154,7 +154,7 @@ public class TextTemplateAppService : ApplicationService,
     /// </summary>
     /// <param name="restoreInput"></param>
     /// <returns></returns>
-    [Authorize(AbpTextTemplatePermissions.TextTemplate.Delete)]
+    [Authorize(AbpAreaPermissions.TextTemplate.Delete)]
     public async Task RestoreToDefaultAsync(TextTemplateRestoreInput restoreInput)
     {
         var templateDefinition = GetTemplateDefinition(restoreInput.Name);
@@ -174,7 +174,7 @@ public class TextTemplateAppService : ApplicationService,
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Authorize(AbpTextTemplatePermissions.TextTemplate.Update)]
+    [Authorize(AbpAreaPermissions.TextTemplate.Update)]
     public async Task<TextTemplateDefinitionDto> UpdateAsync(TextTemplateUpdateInput input)
     {
         var templateDefinition = GetTemplateDefinition(input.Name);

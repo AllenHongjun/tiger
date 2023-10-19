@@ -1,6 +1,7 @@
 ﻿using Localization.Resources.AbpUi;
 using Tiger.Localization;
 using Tiger.Module.OssManagement.Localization;
+using Tiger.Module.System.Area.Localization;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Localization;
 using Tiger.Module.System.TextTemplate.Localization;
@@ -84,6 +85,10 @@ namespace Tiger
                 options.Resources
                        .Add<AbpOssManagementResource>("zh-Hans")
                        .AddVirtualJson("/Module/OssManagement/Localization/Resources");
+
+                options.Resources
+                       .Add<AbpAreaResources>("zh-Hans")
+                       .AddVirtualJson("/Module/System/Area/Localization/Resources");
 
                 options.Resources
                        .Add<PlatformResource>("zh-Hans")

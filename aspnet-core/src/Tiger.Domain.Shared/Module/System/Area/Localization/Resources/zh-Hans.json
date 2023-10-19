@@ -1,0 +1,39 @@
+﻿{
+  "culture": "zh-Hans",
+  "texts": {
+    "Permission:Regioning": "地区管理",
+    "Permission:Regions": "地区",
+    "Permission:Create": "新增",
+    "Permission:Edit": "修改",
+    "Permission:Delete": "删除",
+    "Regions": "地区",
+    "DisplayName:Level": "地区级别",
+    "DisplayName:ParentCode": "父级行政地区编码",
+    "DisplayName:AreaCode": "行政地区编码",
+    "DisplayName:ZipCode": "邮政编码",
+    "DisplayName:CityCode": "区号",
+    "DisplayName:Name": "地区名称",
+    "DisplayName:ShortName": "地区缩写",
+    "DisplayName:MergerName": "组合名称",
+    "DisplayName:Pinyin": "拼音",
+    "DisplayName:Lng": "经度",
+    "DisplayName:Lat": "纬度",
+
+
+    "Contents": "内容",
+    "Layout": "布局页",
+    "LocalizationResource": "本地化资源",
+    "SeeContents": "查看内容",
+    "EditContents": "编辑内容",
+    "BaseCultureName": "参考文化名称",
+    "TargetCultureName": "目标文化名称",
+    "BaseContent": "参考内容",
+    "TargetContent": "目标内容",
+    "SaveContent": "保存内容",
+    "TemplateContent": "模板内容",
+    "RestoreToDefault": "还原为默认",
+    "RestoreToDefaultMessage": "你确定吗? 此操作会将内容转换为默认值.",
+    "TemplateContentUpdated": "模板内容已更新"
+
+  }
+}

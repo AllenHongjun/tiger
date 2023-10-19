@@ -302,6 +302,29 @@ const SystemManageRouter = {
       ]
     },
 
+    {
+      path: 'area/index',
+      component: () => import('@/views/system/area/index'),
+      name: 'area',
+      meta: {
+        title: '区域管理',
+        icon: 'el-icon-map-location' // the icon show in the sidebar
+        // policy: '11'
+      },
+      children: [
+        {
+          path: 'region/list',
+          component: () => import('@/views/system/area/region/index'),
+          name: 'region-list',
+          meta: {
+            title: '行政地区',
+            icon: 'el-icon-map-location' // the icon show in the sidebar
+            // policy: '11'
+          }
+        }
+      ]
+    },
+
     // 运维监控
     {
       path: 'monitor/index',

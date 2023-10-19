@@ -18,7 +18,7 @@ namespace Tiger.Module.System
     /// 文本模板
     /// </summary>
     [Controller]
-    [Authorize(AbpTextTemplatePermissions.TextTemplate.Default)]
+    [Authorize(AbpAreaPermissions.TextTemplate.Default)]
     [RemoteService(Name = AbpTextTemplatieRemoteServiceConsts.RemoteServiceName)]
     [Area(AbpTextTemplatieRemoteServiceConsts.ModuleName)]
     [Route("api/text-template/templates")]
@@ -76,7 +76,7 @@ namespace Tiger.Module.System
         /// <returns></returns>
         [HttpPut]
         [Route("restore-to-default")]
-        [Authorize(AbpTextTemplatePermissions.TextTemplate.Delete)]
+        [Authorize(AbpAreaPermissions.TextTemplate.Delete)]
         public Task RestoreToDefaultAsync(TextTemplateRestoreInput restoreInput)
         {
             return TextTemplateAppService.RestoreToDefaultAsync(restoreInput);
@@ -88,7 +88,7 @@ namespace Tiger.Module.System
         /// <param name="input"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(AbpTextTemplatePermissions.TextTemplate.Update)]
+        [Authorize(AbpAreaPermissions.TextTemplate.Update)]
         public Task<TextTemplateDefinitionDto> UpdateAsync(TextTemplateUpdateInput input)
         {
             return TextTemplateAppService.UpdateAsync(input);

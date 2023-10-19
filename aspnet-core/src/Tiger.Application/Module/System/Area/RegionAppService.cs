@@ -19,11 +19,6 @@ public class RegionAppService : CrudAppService<Region, RegionDto, int, RegionGet
     IRegionAppService
 {
     #region ¹¹Ôìº¯Êý
-    protected override string GetPolicyName { get; set; } = TigerPermissions.Region.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.Region.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.Region.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.Region.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.Region.Delete;
 
     protected IRegionRepository RegionRepository { get; }
 
@@ -139,7 +134,7 @@ public class RegionAppService : CrudAppService<Region, RegionDto, int, RegionGet
     {
         var count = await RegionRepository.GetCountAsync();
 
-        var regions = await RegionRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount, input.Sorting);
+        var regions = await RegionRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount, input.Sorting ?? "Id DESC");
 
         return new PagedResultDto<RegionDto>(count,
             ObjectMapper.Map<List<Region>, List<RegionDto>>(regions));
