@@ -7,7 +7,7 @@
 --
 -- this script is for SQL Server and Azure SQL
 
-USE Quartz;
+USE [Tiger.Quartz];
 GO
 
 IF OBJECT_ID(N'[dbo].[FK_QRTZ_TRIGGERS_QRTZ_JOB_DETAILS]', N'F') IS NOT NULL
@@ -141,7 +141,7 @@ CREATE TABLE [dbo].[QRTZ_JOB_DETAILS] (
   [JOB_NAME] nvarchar(150) NOT NULL,
   [JOB_GROUP] nvarchar(150) NOT NULL,
   [DESCRIPTION] nvarchar(250) NULL,
-  [JOB_CLASS_NAME] nvarchar(250) NOT NULL,
+  [JOB_CLASS_NAME] nvarchar(450) NOT NULL,
   [IS_DURABLE] bit NOT NULL,
   [IS_NONCONCURRENT] bit NOT NULL,
   [IS_UPDATE_DATA] bit NOT NULL,

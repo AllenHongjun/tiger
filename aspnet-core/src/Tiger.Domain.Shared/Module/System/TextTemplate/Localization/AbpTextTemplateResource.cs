@@ -1,8 +1,11 @@
 ﻿using Volo.Abp.Localization;
 
-namespace Tiger.Module.System.TextTemplate.Localization;
-
-[LocalizationResourceName("AbpTextTemplate")]
-public class AbpTextTemplateResource
+namespace Tiger.Module.System.TextTemplate.Localization
 {
+    [LocalizationResourceName("AbpTextTemplate")]
+    public class AbpTextTemplateResource
+    {
+    }
 }
+
+
