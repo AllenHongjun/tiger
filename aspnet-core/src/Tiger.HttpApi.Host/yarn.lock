@@ -1843,6 +1843,11 @@
   "resolved" "https://registry.npm.taobao.org/pinkie/download/pinkie-2.0.4.tgz"
   "version" "2.0.4"
 
+"popper.js@^1.16.0", "popper.js@^1.16.1":
+  "integrity" "sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ=="
+  "resolved" "https://registry.npmmirror.com/popper.js/-/popper.js-1.16.1.tgz"
+  "version" "1.16.1"
+
 "posix-character-classes@^0.1.0":
   "integrity" "sha1-AerA/jta9xoqbAL+q7jB/vfgDqs="
   "resolved" "https://registry.npm.taobao.org/posix-character-classes/download/posix-character-classes-0.1.1.tgz"
