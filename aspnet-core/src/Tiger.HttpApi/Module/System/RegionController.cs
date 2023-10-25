@@ -50,6 +50,17 @@ namespace Tiger.Module.System
         }
 
         /// <summary>
+        /// 获取所有地区
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public ListResultDto<RegionDto> GetAllList()
+        {
+            return RegionAppService.GetAllList();
+        }
+
+        /// <summary>
         /// 详情
         /// </summary>
         /// <param name="id"></param>
@@ -70,6 +81,13 @@ namespace Tiger.Module.System
         public async Task<PagedResultDto<RegionDto>> GetListAsync(RegionGetListInput input)
         {
             return await RegionAppService.GetListAsync(input);
+        }
+
+        [HttpGet]
+        [Route("get-by-parentCode/{parentCode}")]
+        public ListResultDto<RegionDto> GetListByParentCode(long parentCode)
+        {
+            return RegionAppService.GetListByParentCode(parentCode);
         }
 
         /// <summary>
