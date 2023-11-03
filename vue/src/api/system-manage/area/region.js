@@ -46,3 +46,10 @@ export function deleteRegion(id) {
   })
 }
 
+export function getRegionsByParentCode(parentCode) {
+  return request({
+    url: `/api/area/regions/get-by-parentCode/${parentCode}`,
+    method: 'get'
+  })
+}
+

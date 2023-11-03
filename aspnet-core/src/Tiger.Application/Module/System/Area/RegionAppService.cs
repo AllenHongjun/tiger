@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Tiger.Module.System.Area.Dtos;
 using Tiger.Permissions;
@@ -132,9 +133,12 @@ public class RegionAppService : CrudAppService<Region, RegionDto, int, RegionGet
     /// <returns></returns>
     public override async Task<PagedResultDto<RegionDto>> GetListAsync(RegionGetListInput input)
     {
-        var count = await RegionRepository.GetCountAsync();
+        var count =  RegionRepository.WhereIf(input.ParentCode > -1, x => x.ParentCode == input.ParentCode).Count();
 
-        var regions = await RegionRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount, input.Sorting ?? "Id DESC");
+        var regions = RegionRepository.WhereIf(input.ParentCode > -1, x => x.ParentCode == input.ParentCode)
+            .Skip(input.SkipCount).Take(input.MaxResultCount)
+            .OrderBy(input.Sorting ?? "Name ASC")
+            .ToList();
 
         return new PagedResultDto<RegionDto>(count,
             ObjectMapper.Map<List<Region>, List<RegionDto>>(regions));
@@ -142,8 +146,18 @@ public class RegionAppService : CrudAppService<Region, RegionDto, int, RegionGet
 
     #endregion
 
+    public ListResultDto<RegionDto> GetListByParentCode(long parentCode)
+    {
+        var regions = RegionRepository.Where(x => x.ParentCode.Equals(parentCode)).ToList();
+        return new ListResultDto<RegionDto>(
+            ObjectMapper.Map<List<Region>, List<RegionDto>>(regions));
+    }
 
-
-
+    public ListResultDto<RegionDto> GetAllList()
+    {
+        var regions = RegionRepository.Where(x => x.Level < 3).ToList();
+        return new ListResultDto<RegionDto>(
+            ObjectMapper.Map<List<Region>, List<RegionDto>>(regions));
+    }
 
 }
