@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using Volo.Abp.Validation;
 
 namespace Tiger.Module.Schools.Dtos;
 
@@ -8,11 +10,14 @@ public class CreateUpdateClassInfoDto
     /// <summary>
     /// 名称
     /// </summary>
+    [Required]
+    [DynamicStringLength(typeof(SchoolConsts), nameof(SchoolConsts.MaxNameLength))]
     public string Name { get; set; }
 
     /// <summary>
     /// 学校
     /// </summary>
+    [Required]
     public Guid SchoolId { get; set; }
 
     /// <summary>

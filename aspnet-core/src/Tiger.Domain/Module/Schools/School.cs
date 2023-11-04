@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Module.Exams;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -59,6 +60,11 @@ namespace Tiger.Module.Schools
         public VipLevel VipLevel { get; set; }
 
         public virtual ICollection<ClassInfo> ClassInfos { get; set; }
+
+        /// <summary>
+        /// 学校老师可以批改的试卷
+        /// </summary>
+        public virtual ICollection<TestPaper> TestPapers { get; set; }
         
 
         protected School()

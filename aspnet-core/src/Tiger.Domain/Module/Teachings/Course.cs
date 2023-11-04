@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Module.Exams;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
-namespace Tiger.Module.Teaching
+namespace Tiger.Module.Teachings
 {
     /// <summary>
     /// 课程
     /// </summary>
-    public class Course:FullAuditedEntity<Guid>
+    public class Course:FullAuditedEntity<Guid>,IMultiTenant
     {
+        public Guid? TenantId { get; set; }
+
         /// <summary>
         /// 课程类型：1、公开课程  2、私有课程
         /// </summary>
-        public int Type { get; set; }
+        public CourseType Type { get; set; }
 
         /// <summary>
         /// 课程名称
@@ -26,24 +30,21 @@ namespace Tiger.Module.Teaching
         public string Description { get; set; }
 
         /// <summary>
-        /// 课程图片
-        /// </summary>
-        public string CourseImage { get; set; }
-
-        /// <summary>
         /// 封面图片
         /// </summary>
-        public string CoverImage { get; set; }
+        public string Cover { get; set; }
         
         /// <summary>
         /// 是否启用
         /// </summary>
-        public bool IsEnable { get; set; }
+        public bool Enable { get; set; }
 
         /// <summary>
         /// 顺序
         /// </summary>
         public int Sorting { get; set; }
+
+        //public virtual ICollection<TestPaper> TestPaper { get; set; }
         
     }
 }
