@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Tiger.Module.Schools;
 using Tiger.Module.Teachings;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -78,6 +79,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 允许阅卷的学校(默认全部)
         /// </summary>
+        [NotMapped]
         public virtual ICollection<School> Schools { get; set; }
 
         /////允许阅卷的老师

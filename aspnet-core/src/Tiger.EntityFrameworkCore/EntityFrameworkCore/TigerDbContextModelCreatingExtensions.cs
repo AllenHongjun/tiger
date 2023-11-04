@@ -339,8 +339,8 @@ namespace Tiger.EntityFrameworkCore
                     .HasComment("学校Id");
                 b.Property(p => p.Sorting)
                     .HasComment("顺序");
-                b.Property(p => p.Sorting)
-                    .HasComment("是否启用");
+                b.Property(p => p.IsEnable)
+                    .HasComment("顺序");
 
                 b.ConfigureByConvention(); 
 
@@ -362,11 +362,15 @@ namespace Tiger.EntityFrameworkCore
                     .HasMaxLength(CourseConsts.MaxCoverLenght)
                     .HasComment("封面图片");
                 b.ConfigureByConvention();
+                b.Property(p => p.Sorting)
+                    .HasComment("顺序");
+                b.Property(p => p.Enable)
+                    .HasComment("启用");
 
-                b.HasMany(p => p.TestPaper)
-                .WithOne(p => p.Course)
-                .HasForeignKey(p => p.CourseId)
-                .IsRequired(false);
+                //b.HasMany(p => p.TestPaper)
+                //    .WithOne(p => p.Course)
+                //    .HasForeignKey(p => p.CourseId)
+                //    .IsRequired(false);
 
                 /* Configure more properties here */
             });

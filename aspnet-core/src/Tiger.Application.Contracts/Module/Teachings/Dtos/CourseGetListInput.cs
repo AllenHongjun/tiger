@@ -31,9 +31,5 @@ public class CourseGetListInput : PagedAndSortedResultRequestDto
     /// 是否启用
     /// </summary>
     public bool? Enable { get; set; }
-
-    /// <summary>
-    /// 顺序
-    /// </summary>
-    public int? Sorting { get; set; }
+    
 }

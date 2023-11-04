@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Tiger.Permissions;
 using Tiger.Module.Schools.Dtos;
+using Tiger.Permissions;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.Schools;

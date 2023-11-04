@@ -1538,11 +1538,6 @@
             是否启用
             </summary>
         </member>
-        <member name="P:Tiger.Module.Teachings.Dtos.CourseGetListInput.Sorting">
-            <summary>
-            顺序
-            </summary>
-        </member>
         <member name="P:Tiger.Module.Teachings.Dtos.CreateUpdateCourseDto.Type">
             <summary>
             课程类型：1、公开课程  2、私有课程

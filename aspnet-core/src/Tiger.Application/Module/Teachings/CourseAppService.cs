@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Tiger.Permissions;
 using Tiger.Module.Teachings.Dtos;
+using Tiger.Permissions;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.Teachings;
@@ -11,6 +11,9 @@ namespace Tiger.Module.Teachings;
 /// <summary>
 /// 课程
 /// </summary>
+[RemoteService(IsEnabled = false)]
+//[Area("Training")]
+//[Route($"api/course")]
 public class CourseAppService : CrudAppService<Course, CourseDto, Guid, CourseGetListInput, CreateUpdateCourseDto, CreateUpdateCourseDto>,
     ICourseAppService
 {
@@ -36,7 +39,6 @@ public class CourseAppService : CrudAppService<Course, CourseDto, Guid, CourseGe
             .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
             .WhereIf(!input.Cover.IsNullOrWhiteSpace(), x => x.Cover.Contains(input.Cover))
             .WhereIf(input.Enable != null, x => x.Enable == input.Enable)
-            .WhereIf(input.Sorting != null, x => x.Sorting == input.Sorting)
             ;
     }
 }

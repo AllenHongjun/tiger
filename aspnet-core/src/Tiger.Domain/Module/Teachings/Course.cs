@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Module.Exams;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -44,7 +45,8 @@ namespace Tiger.Module.Teachings
         /// </summary>
         public int Sorting { get; set; }
 
-        public virtual ICollection<TestPaper> TestPaper { get; set; }
+        //[NotMapped]
+        //public virtual ICollection<TestPaper> TestPaper { get; set; }
 
 
         protected Course()

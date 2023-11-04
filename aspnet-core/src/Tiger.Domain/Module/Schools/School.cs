@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Module.Exams;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -64,6 +65,7 @@ namespace Tiger.Module.Schools
         /// <summary>
         /// 学校老师可以批改的试卷
         /// </summary>
+        [NotMapped]
         public virtual ICollection<TestPaper> TestPapers { get; set; }
         
 
