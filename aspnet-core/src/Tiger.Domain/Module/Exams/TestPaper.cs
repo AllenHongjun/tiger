@@ -42,7 +42,7 @@ namespace Tiger.Module.Exams
         public bool IsComposing { get; set; }
 
         /// <summary>
-        /// 状态
+        /// 启用
         /// </summary>
         public bool Enable { get; set; }
 

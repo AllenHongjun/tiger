@@ -31,7 +31,7 @@
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.IsComposing">
             <summary>
-            是否已组卷        固定题目需要组卷，随机选题不需要
+            是否已组卷        (固定题目需要组卷，随机选题不需要)
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.Enable">

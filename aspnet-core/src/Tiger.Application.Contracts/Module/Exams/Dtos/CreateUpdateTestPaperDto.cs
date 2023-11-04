@@ -1,4 +1,6 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using Volo.Abp.Validation;
 
 namespace Tiger.Module.Exams.Dtos;
 
@@ -13,11 +15,14 @@ public class CreateUpdateTestPaperDto
     /// <summary>
     /// 编号
     /// </summary>
+    [Required]
+    [DynamicStringLength(typeof(TestPaperConsts), nameof(TestPaperConsts.MaxNameLength))]
     public string Number { get; set; }
 
     /// <summary>
     /// 名称
     /// </summary>
+    [DynamicStringLength(typeof(TestPaperConsts), nameof(TestPaperConsts.MaxNameLength))]
     public string Name { get; set; }
 
     /// <summary>
@@ -26,7 +31,7 @@ public class CreateUpdateTestPaperDto
     public TestPaperType Type { get; set; }
 
     /// <summary>
-    /// 是否已组卷        固定题目需要组卷，随机选题不需要
+    /// 是否已组卷        (固定题目需要组卷，随机选题不需要)
     /// </summary>
     public bool IsComposing { get; set; }
 

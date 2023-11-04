@@ -380,10 +380,31 @@ namespace Tiger.EntityFrameworkCore
             builder.Entity<TestPaper>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "TestPapers", TigerConsts.DbSchema);
-                b.ConfigureByConvention(); 
-            
+                b.Property(p => p.Name)
+                   .HasMaxLength(TestPaperConsts.MaxNameLength)
+                   .IsRequired()
+                   .HasComment("名称");
+                b.Property(p => p.Number)
+                   .HasMaxLength(TestPaperConsts.MaxNumberLength)
+                   .IsRequired()
+                   .HasComment("编号");
+                b.Property(p => p.Type)
+                    .HasComment("类型 1.固定题目（手动或自动选题） 2.随机题目（根据策略每个学员的题目都不同） 3.固定题目打乱显示");
+                b.Property(p => p.IsComposing)
+                    .HasComment("是否已组卷");
+                b.Property(p => p.Enable)
+                    .HasComment("启用");
+                b.Property(p => p.IsIncludeAllSchoolTeachers)
+                    .HasComment("是否包含全校老师");
+                b.Property(p => p.IsLimitJudgeTime)
+                    .HasComment("是否限制评卷时间");
+                b.Property(p => p.JudgeStartTime)
+                    .HasComment("评卷开始时间");
+                b.Property(p => p.JudgeEndTime)
+                    .HasComment("评卷结束时间");
 
-                /* Configure more properties here */
+                b.ConfigureByConvention(); 
+
             });
         }
 
