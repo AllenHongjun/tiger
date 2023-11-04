@@ -9,6 +9,10 @@ namespace Tiger.Module.Schools
         {
             CreateMap<School, SchoolDto>();
             CreateMap<CreateUpdateSchoolDto, School>();
+
+            CreateMap<ClassInfo, ClassInfoDto>();
+            CreateMap<CreateUpdateClassInfoDto, ClassInfo>();
+
         }
     }
 }

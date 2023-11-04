@@ -44,7 +44,8 @@ namespace Tiger.Module.Schools
         /// <summary>
         /// 班级的老师和学生
         /// </summary>
-        public virtual ICollection<IdentityUser> Users { get; set; }
+        /// <remarks> 用户表不能直接加字段</remarks>
+        //public virtual ICollection<IdentityUser> Users { get; set; }
 
         
 
@@ -59,8 +60,7 @@ namespace Tiger.Module.Schools
             Guid schoolId,
             int sorting,
             bool isEnable,
-            School school,
-            ICollection<IdentityUser> users
+            School school
         ) : base(id)
         {
             TenantId = tenantId;
@@ -69,7 +69,6 @@ namespace Tiger.Module.Schools
             Sorting = sorting;
             IsEnable = isEnable;
             School = school;
-            Users = users;
         }
     }
 }

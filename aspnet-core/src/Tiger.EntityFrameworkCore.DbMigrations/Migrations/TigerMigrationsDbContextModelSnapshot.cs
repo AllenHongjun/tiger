@@ -2212,9 +2212,6 @@ namespace Tiger.Migrations
                         .HasColumnType("nvarchar(1024)")
                         .HasMaxLength(1024);
 
-                    b.Property<Guid?>("ClassInfoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnName("ConcurrencyStamp")
@@ -2347,8 +2344,6 @@ namespace Tiger.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClassInfoId");
 
                     b.HasIndex("Email");
 
@@ -3348,7 +3343,7 @@ namespace Tiger.Migrations
             modelBuilder.Entity("Tiger.Module.Schools.ClassInfo", b =>
                 {
                     b.HasOne("Tiger.Module.Schools.School", "School")
-                        .WithMany()
+                        .WithMany("ClassInfos")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3413,13 +3408,6 @@ namespace Tiger.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Volo.Abp.Identity.IdentityUser", b =>
-                {
-                    b.HasOne("Tiger.Module.Schools.ClassInfo", null)
-                        .WithMany("Users")
-                        .HasForeignKey("ClassInfoId");
                 });
 
             modelBuilder.Entity("Volo.Abp.Identity.IdentityUserClaim", b =>
