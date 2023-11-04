@@ -413,6 +413,7 @@ namespace Tiger.EventBus.Distributed
         {
             try
             {
+                throw new NotImplementedException();
                 //var notificationPublishJobArgs = new NotificationPublishJobArgs(
                 //    notificationInfo.GetId(),
                 //    provider.GetType().AssemblyQualifiedName,

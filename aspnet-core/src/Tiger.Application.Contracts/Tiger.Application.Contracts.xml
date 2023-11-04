@@ -111,6 +111,151 @@
             块总数
             </summary>
         </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.ShortName">
+            <summary>
+            学校简称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.Sort">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.IsEnable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.ImpowerDate">
+            <summary>
+            授权截止时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.MaxPerson">
+            <summary>
+            最大人数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.IsAudit">
+            <summary>
+            是否需要审核帖子
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.VipLevel">
+            <summary>
+            Vip等级：1.免费客户 2.付费客户
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Schools.Dtos.SchoolDto">
+            <summary>
+            学校管理
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.ShortName">
+            <summary>
+            学校简称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.Sort">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.IsEnable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.ImpowerDate">
+            <summary>
+            授权截止时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.MaxPerson">
+            <summary>
+            最大人数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.IsAudit">
+            <summary>
+            是否需要审核帖子
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolDto.VipLevel">
+            <summary>
+            Vip等级：1.免费客户 2.付费客户
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.ShortName">
+            <summary>
+            学校简称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.Sort">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.IsEnable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.ImpowerDate">
+            <summary>
+            授权截止时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.MaxPerson">
+            <summary>
+            最大人数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.IsAudit">
+            <summary>
+            是否需要审核帖子
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.VipLevel">
+            <summary>
+            Vip等级：1.免费客户 2.付费客户
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Schools.ISchoolAppService">
+            <summary>
+            学校管理
+            </summary>
+        </member>
         <member name="T:Tiger.Module.System.Area.Permissions.AbpAreaPermissionDefinitionProvider">
             <summary>
             定义文本模板权限
@@ -1269,6 +1414,11 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Permissions.TigerPermissionDefinitionProvider" -->
+        <member name="T:Tiger.Permissions.TigerPermissions.School">
+            <summary>
+            学校管理
+            </summary>
+        </member>
         <member name="T:Tiger.TigerApplicationContractsModule">
             <summary>
             项目主要包含 应用服务 interfaces 和应用层的 数据传输对象 (DTO). 它用于分离应用层的接口和实现. 这种方式可以将接口项目做为约定包共享给客户端.

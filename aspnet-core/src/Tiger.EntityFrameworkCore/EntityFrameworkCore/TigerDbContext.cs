@@ -71,6 +71,10 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<Region> Regions { get; set; }
         
+        /// <summary>
+        /// 学校管理
+        /// </summary>
+        public DbSet<School> Schools { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

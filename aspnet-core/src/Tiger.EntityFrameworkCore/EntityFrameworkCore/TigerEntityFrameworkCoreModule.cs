@@ -1,3 +1,4 @@
+using Tiger.Module.Schools;
 using Tiger.Module.System.Area;
 using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Localization;
@@ -53,8 +54,9 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Language, LanguageRepository>();
                 options.AddRepository<Resource, ResourceRepository>();
                 options.AddRepository<LanguageText, LanguageTextRepository>();
-            options.AddRepository<Tiger.Module.System.Platform.Datas.Data, DataRepository>();
-            options.AddRepository<Region, RegionRepository>();
+                options.AddRepository<Tiger.Module.System.Platform.Datas.Data, DataRepository>();
+                options.AddRepository<Region, RegionRepository>();
+                options.AddRepository<School, SchoolRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

@@ -29,8 +29,7 @@ namespace Tiger.Module.System.Platform
                 return queryable;
             }
 
-            return queryable
-               ;
+            return queryable;
         }
 
         public static IQueryable<Data> IncludeDetails(this IQueryable<Data> queryable, bool include = true)

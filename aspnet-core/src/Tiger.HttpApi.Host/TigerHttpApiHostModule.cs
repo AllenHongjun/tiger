@@ -191,11 +191,11 @@ namespace Tiger
             #endregion
 
             #region 绕过授权服务.
-            //if (hostingEnvironment.IsDevelopment())
-            //{
-            //    context.Services.AddAlwaysAllowAuthorization();
-            //}
-            
+            if (hostingEnvironment.IsDevelopment())
+            {
+                context.Services.AddAlwaysAllowAuthorization();
+            }
+
             #endregion
 
 

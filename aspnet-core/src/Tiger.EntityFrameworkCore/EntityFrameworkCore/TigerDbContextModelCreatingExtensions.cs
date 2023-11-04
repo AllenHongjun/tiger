@@ -1,3 +1,4 @@
+using Tiger.Module.Schools;
 using Tiger.Module.System.Area;
 using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Localization;
@@ -282,14 +283,24 @@ namespace Tiger.EntityFrameworkCore
 
 
 
-        builder.Entity<Region>(b =>
-        {
-            b.ToTable(TigerConsts.DbTablePrefix + "Regions", TigerConsts.DbSchema);
-            b.ConfigureByConvention(); 
+            builder.Entity<Region>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Regions", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
             
 
-            /* Configure more properties here */
-        });
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<School>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Schools", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+            
+
+                /* Configure more properties here */
+            });
         }
 
 

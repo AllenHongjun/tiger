@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -62,5 +62,37 @@ namespace Tiger.Module.Schools
         public ICollection<Class> Classes { get; set; }
 
         
-    }
+
+        protected School()
+        {
+        }
+
+        public School(
+            Guid id,
+            Guid? tenantId,
+            string name,
+            string shortName,
+            int sort,
+            bool isEnable,
+            string number,
+            DateTime? impowerDate,
+            int maxPerson,
+            bool isAudit,
+            VipLevel vipLevel,
+            ICollection<Class> classes
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            Name = name;
+            ShortName = shortName;
+            Sort = sort;
+            IsEnable = isEnable;
+            Number = number;
+            ImpowerDate = impowerDate;
+            MaxPerson = maxPerson;
+            IsAudit = isAudit;
+            VipLevel = vipLevel;
+            Classes = classes;
+        }
+        }
 }
