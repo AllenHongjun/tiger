@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Tiger.Module.Schools;
 using Volo.Abp.Domain.Entities;
 
@@ -28,7 +26,7 @@ namespace Tiger.Volo.Abp.Identity.Users
         public Guid RoleId { get; set; }
 
 
-        public Class Class { get; set; }
+        public ClassInfo Class { get; set; }
 
 
         public IdentityUser User { get; set; }

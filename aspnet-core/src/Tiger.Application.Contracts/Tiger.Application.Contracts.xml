@@ -111,6 +111,66 @@
             块总数
             </summary>
         </member>
+        <member name="T:Tiger.Module.Schools.Dtos.ClassInfoDto">
+            <summary>
+            班级
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.ClassInfoDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.ClassInfoDto.SchoolId">
+            <summary>
+            学校
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.ClassInfoDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.ClassInfoDto.IsEnable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.ClassInfoGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.ClassInfoGetListInput.SchoolId">
+            <summary>
+            学校
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.ClassInfoGetListInput.IsEnable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateClassInfoDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateClassInfoDto.SchoolId">
+            <summary>
+            学校
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateClassInfoDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateClassInfoDto.IsEnable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto.Name">
             <summary>
             名称
@@ -249,6 +309,11 @@
         <member name="P:Tiger.Module.Schools.Dtos.SchoolGetListInput.VipLevel">
             <summary>
             Vip等级：1.免费客户 2.付费客户
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Schools.IClassInfoAppService">
+            <summary>
+            班级
             </summary>
         </member>
         <member name="T:Tiger.Module.Schools.ISchoolAppService">

@@ -75,6 +75,10 @@ namespace Tiger.EntityFrameworkCore
         /// 学校管理
         /// </summary>
         public DbSet<School> Schools { get; set; }
+        /// <summary>
+        /// 班级
+        /// </summary>
+        public DbSet<ClassInfo> ClassInfos { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

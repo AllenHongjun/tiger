@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Identity;
@@ -9,7 +9,10 @@ namespace Tiger.Module.Schools
     /// <summary>
     /// 班级
     /// </summary>
-    public class Class:FullAuditedEntity<Guid>, IMultiTenant
+    /// <remarks>
+    /// 为了和 class关键子区分 添加info后缀
+    /// </remarks>
+    public class ClassInfo:FullAuditedEntity<Guid>, IMultiTenant
     {
         public Guid? TenantId { get; set; }
 
@@ -43,5 +46,29 @@ namespace Tiger.Module.Schools
         public virtual ICollection<IdentityUser> Users { get; set; }
 
         
+
+        protected ClassInfo()
+        {
+        }
+
+        public ClassInfo(
+            Guid id,
+            Guid? tenantId,
+            string name,
+            Guid schoolId,
+            int sorting,
+            bool isEnable,
+            School school,
+            ICollection<IdentityUser> users
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            Name = name;
+            SchoolId = schoolId;
+            Sorting = sorting;
+            IsEnable = isEnable;
+            School = school;
+            Users = users;
+        }
     }
 }

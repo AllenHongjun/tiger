@@ -318,6 +318,16 @@ namespace Tiger.EntityFrameworkCore
                     .HasComment("Vip等级：1.免费客户 2.付费客户");
                 b.ConfigureByConvention(); 
             });
+
+
+            builder.Entity<ClassInfo>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ClassInfos", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+            
+
+                /* Configure more properties here */
+            });
         }
 
 

@@ -57,6 +57,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Tiger.Module.System.Platform.Datas.Data, DataRepository>();
                 options.AddRepository<Region, RegionRepository>();
                 options.AddRepository<School, SchoolRepository>();
+                options.AddRepository<ClassInfo, ClassInfoRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>
