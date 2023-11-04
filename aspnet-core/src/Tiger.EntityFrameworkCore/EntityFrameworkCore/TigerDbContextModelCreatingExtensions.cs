@@ -287,19 +287,35 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Regions", TigerConsts.DbSchema);
                 b.ConfigureByConvention(); 
-            
-
-                /* Configure more properties here */
             });
 
 
             builder.Entity<School>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Schools", TigerConsts.DbSchema);
+                b.Property(p => p.Name)
+                    .HasMaxLength(SchoolConsts.MaxNameLength)
+                    .HasColumnName(nameof(School.Name))
+                    .HasComment("名称");
+                b.Property(p => p.ShortName)
+                    .HasMaxLength(SchoolConsts.MaxShortNameLength)
+                    .HasColumnName(nameof(School.ShortName))
+                    .HasComment("简称");
+                b.Property(p => p.Sort)
+                    .HasComment("顺序");
+                b.Property(p => p.IsEnable)
+                    .HasComment("是否启用");
+                b.Property(p => p.Number).HasMaxLength(SchoolConsts.MaxShortNameLength)
+                    .HasComment("编号");
+                b.Property(p => p.ImpowerDate)
+                    .HasComment("授权截止时间");
+                b.Property(p => p.MaxPerson)
+                    .HasComment("最大人数");
+                b.Property(p => p.IsAudit)
+                    .HasComment("是否需要审核帖子");
+                b.Property(p => p.VipLevel)
+                    .HasComment("Vip等级：1.免费客户 2.付费客户");
                 b.ConfigureByConvention(); 
-            
-
-                /* Configure more properties here */
             });
         }
 

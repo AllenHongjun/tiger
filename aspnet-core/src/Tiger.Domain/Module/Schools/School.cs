@@ -57,10 +57,6 @@ namespace Tiger.Module.Schools
         /// Vip等级：1.免费客户 2.付费客户
         /// </summary>
         public VipLevel VipLevel { get; set; }
-
-
-        public ICollection<Class> Classes { get; set; }
-
         
 
         protected School()
@@ -78,8 +74,7 @@ namespace Tiger.Module.Schools
             DateTime? impowerDate,
             int maxPerson,
             bool isAudit,
-            VipLevel vipLevel,
-            ICollection<Class> classes
+            VipLevel vipLevel
         ) : base(id)
         {
             TenantId = tenantId;
@@ -92,7 +87,6 @@ namespace Tiger.Module.Schools
             MaxPerson = maxPerson;
             IsAudit = isAudit;
             VipLevel = vipLevel;
-            Classes = classes;
         }
-        }
+    }
 }
