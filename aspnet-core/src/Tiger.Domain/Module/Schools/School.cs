@@ -57,6 +57,8 @@ namespace Tiger.Module.Schools
         /// Vip等级：1.免费客户 2.付费客户
         /// </summary>
         public VipLevel VipLevel { get; set; }
+
+        public virtual ICollection<ClassInfo> ClassInfos { get; set; }
         
 
         protected School()

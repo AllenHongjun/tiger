@@ -225,6 +225,70 @@ namespace Tiger.Migrations
                     b.ToTable("AppUserSubscribes");
                 });
 
+            modelBuilder.Entity("Tiger.Module.Schools.ClassInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsEnable")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("名称")
+                        .HasMaxLength(128);
+
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("学校Id");
+
+                    b.Property<int>("Sorting")
+                        .HasColumnType("int")
+                        .HasComment("是否启用");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("AppClasses");
+                });
+
             modelBuilder.Entity("Tiger.Module.Schools.School", b =>
                 {
                     b.Property<Guid>("Id")
@@ -248,10 +312,12 @@ namespace Tiger.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ImpowerDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("授权截止时间");
 
                     b.Property<bool>("IsAudit")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("是否需要审核帖子");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -260,7 +326,8 @@ namespace Tiger.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsEnable")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("是否启用");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnName("LastModificationTime")
@@ -271,26 +338,38 @@ namespace Tiger.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("MaxPerson")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("最大人数");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnName("Name")
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("名称")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Number")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(64)")
+                        .HasComment("编号")
+                        .HasMaxLength(64);
 
                     b.Property<string>("ShortName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ShortName")
+                        .HasColumnType("nvarchar(64)")
+                        .HasComment("简称")
+                        .HasMaxLength(64);
 
                     b.Property<int>("Sort")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("顺序");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("VipLevel")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Vip等级：1.免费客户 2.付费客户");
 
                     b.HasKey("Id");
 
@@ -2133,6 +2212,9 @@ namespace Tiger.Migrations
                         .HasColumnType("nvarchar(1024)")
                         .HasMaxLength(1024);
 
+                    b.Property<Guid?>("ClassInfoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnName("ConcurrencyStamp")
@@ -2265,6 +2347,8 @@ namespace Tiger.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClassInfoId");
 
                     b.HasIndex("Email");
 
@@ -3261,9 +3345,18 @@ namespace Tiger.Migrations
                     b.ToTable("AbpSettings");
                 });
 
+            modelBuilder.Entity("Tiger.Module.Schools.ClassInfo", b =>
+                {
+                    b.HasOne("Tiger.Module.Schools.School", "School")
+                        .WithMany()
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Tiger.Module.System.Platform.Datas.DataItem", b =>
                 {
-                    b.HasOne("Tiger.Module.System.Platform.Datas.Data", null)
+                    b.HasOne("Tiger.Module.System.Platform.Datas.Data", "Data")
                         .WithMany("Items")
                         .HasForeignKey("DataId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -3320,6 +3413,13 @@ namespace Tiger.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Volo.Abp.Identity.IdentityUser", b =>
+                {
+                    b.HasOne("Tiger.Module.Schools.ClassInfo", null)
+                        .WithMany("Users")
+                        .HasForeignKey("ClassInfoId");
                 });
 
             modelBuilder.Entity("Volo.Abp.Identity.IdentityUserClaim", b =>

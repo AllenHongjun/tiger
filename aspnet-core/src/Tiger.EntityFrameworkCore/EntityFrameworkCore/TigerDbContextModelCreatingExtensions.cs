@@ -296,6 +296,7 @@ namespace Tiger.EntityFrameworkCore
                 b.ToTable(TigerConsts.DbTablePrefix + "Schools", TigerConsts.DbSchema);
                 b.Property(p => p.Name)
                     .HasMaxLength(SchoolConsts.MaxNameLength)
+                    .IsRequired()
                     .HasColumnName(nameof(School.Name))
                     .HasComment("名称");
                 b.Property(p => p.ShortName)
@@ -316,17 +317,32 @@ namespace Tiger.EntityFrameworkCore
                     .HasComment("是否需要审核帖子");
                 b.Property(p => p.VipLevel)
                     .HasComment("Vip等级：1.免费客户 2.付费客户");
+
+                b.HasMany(p => p.ClassInfos)
+                        .WithOne(p => p.School)
+                        .HasForeignKey(fk => fk.SchoolId)
+                        .IsRequired();
+
                 b.ConfigureByConvention(); 
             });
 
 
             builder.Entity<ClassInfo>(b =>
             {
-                b.ToTable(TigerConsts.DbTablePrefix + "ClassInfos", TigerConsts.DbSchema);
-                b.ConfigureByConvention(); 
-            
+                b.ToTable(TigerConsts.DbTablePrefix + "Classes", TigerConsts.DbSchema);
+                b.Property(p => p.Name)
+                    .HasMaxLength(ClassConsts.MaxNameLength)
+                    .IsRequired()
+                    .HasComment("名称");
+                b.Property(p => p.SchoolId)
+                    .HasComment("学校Id");
+                b.Property(p => p.Sorting)
+                    .HasComment("顺序");
+                b.Property(p => p.Sorting)
+                    .HasComment("是否启用");
 
-                /* Configure more properties here */
+                b.ConfigureByConvention(); 
+
             });
         }
 

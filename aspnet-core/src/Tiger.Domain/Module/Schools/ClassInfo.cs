@@ -17,13 +17,14 @@ namespace Tiger.Module.Schools
         public Guid? TenantId { get; set; }
 
         /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
         /// 学校
         /// </summary>
         public Guid SchoolId { get; set; }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
         
         /// <summary>
         /// 顺序
