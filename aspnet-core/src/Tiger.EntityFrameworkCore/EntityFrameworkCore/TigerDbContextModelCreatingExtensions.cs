@@ -17,6 +17,7 @@ using Tiger.Module.System.Platform.Layouts;
 using Tiger.Volo.Abp.Sass.Tenants;
 using Tiger.Volo.Abp.Sass;
 using Tiger.Volo.Abp.Sass.Editions;
+using Volo.Abp.Identity;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -368,10 +369,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.Enable)
                     .HasComment("启用");
 
-                //b.HasMany(p => p.TestPaper)
-                //    .WithOne(p => p.Course)
-                //    .HasForeignKey(p => p.CourseId)
-                //    .IsRequired(false);
+                
 
                 /* Configure more properties here */
             });
@@ -403,7 +401,25 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.JudgeEndTime)
                     .HasComment("评卷结束时间");
 
+                b.HasMany(u => u.Schools).WithOne().HasForeignKey(tjs => tjs.SchoolId).IsRequired();
+
                 b.ConfigureByConvention(); 
+
+            });
+
+            // 试卷和评卷学校 多对多关联配置: https://github.com/abpframework/abp/blob/dev/modules/identity/src/Volo.Abp.Identity.EntityFrameworkCore/Volo/Abp/Identity/EntityFrameworkCore/IdentityDbContextModelBuilderExtensions.cs
+            builder.Entity<TestPaperJudgeSchool>(b =>
+            {
+                b.ToTable(AbpIdentityDbProperties.DbTablePrefix + "TestPaperJudgeSchool", AbpIdentityDbProperties.DbSchema);
+
+                b.ConfigureByConvention();
+
+                b.HasKey(tjs => new { tjs.TestPaperId, tjs.SchoolId });
+
+                b.HasOne<TestPaper>().WithMany().HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
+                b.HasOne<School>().WithMany(s => s.TestPapers).HasForeignKey(tjs => tjs.SchoolId).IsRequired();
+
+                b.HasIndex(ur => new { ur.TestPaperId, ur.SchoolId });
 
             });
         }

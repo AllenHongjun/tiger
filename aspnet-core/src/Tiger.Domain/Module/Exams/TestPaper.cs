@@ -68,9 +68,9 @@ namespace Tiger.Module.Exams
 
 
         ///// <summary>
-        ///// 允许阅卷的学校(默认全部老师)
+        ///// 允许阅卷的学校(默认该学校全部老师)
         ///// </summary>
-        //public virtual ICollection<School> Schools { get; set; }
+        public virtual ICollection<TestPaperJudgeSchool> Schools { get; set; }
 
         /////允许阅卷的老师
         //public virtual ICollection<IdentityUser> Users {get;set;}

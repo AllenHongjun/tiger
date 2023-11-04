@@ -65,7 +65,7 @@ namespace Tiger.Module.Schools
         /// <summary>
         /// 学校老师可以批改的试卷
         /// </summary>
-        public virtual ICollection<TestPaper> TestPapers { get; set; }
+        public virtual ICollection<TestPaperJudgeSchool> TestPapers { get; set; }
         
 
         protected School()

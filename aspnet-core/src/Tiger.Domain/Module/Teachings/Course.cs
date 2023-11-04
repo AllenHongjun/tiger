@@ -46,7 +46,7 @@ namespace Tiger.Module.Teachings
         public int Sorting { get; set; }
 
         //[NotMapped]
-        //public virtual ICollection<TestPaper> TestPaper { get; set; }
+        public virtual ICollection<TestPaper> TestPaper { get; set; }
 
 
         protected Course()

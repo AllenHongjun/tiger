@@ -81,14 +81,18 @@ namespace Tiger.EntityFrameworkCore
         /// 班级
         /// </summary>
         public DbSet<ClassInfo> ClassInfos { get; set; }
-    /// <summary>
-    /// 课程
-    /// </summary>
-    public DbSet<Course> Courses { get; set; }
-    /// <summary>
-    /// 试卷
-    /// </summary>
-    public DbSet<TestPaper> TestPapers { get; set; }
+        /// <summary>
+        /// 课程
+        /// </summary>
+        public DbSet<Course> Courses { get; set; }
+        /// <summary>
+        /// 试卷
+        /// </summary>
+        public DbSet<TestPaper> TestPapers { get; set; }
+        /// <summary>
+        /// 试卷关联阅卷学校
+        /// </summary>
+        public DbSet<TestPaperJudgeSchool> TestPaperJudgeSchools { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)
