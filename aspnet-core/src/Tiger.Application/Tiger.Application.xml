@@ -798,6 +798,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Module.Teachings.CourseAppService">
+            <summary>
+            课程
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Test.TestAppservice">
             <summary>
             测试服务

@@ -1,3 +1,4 @@
+using Tiger.Module.Teachings;
 using Tiger.Module.Schools;
 using Tiger.Module.System.Area;
 using Tiger.Module.System.Platform.Datas;
@@ -58,6 +59,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Region, RegionRepository>();
                 options.AddRepository<School, SchoolRepository>();
                 options.AddRepository<ClassInfo, ClassInfoRepository>();
+            options.AddRepository<Course, CourseRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

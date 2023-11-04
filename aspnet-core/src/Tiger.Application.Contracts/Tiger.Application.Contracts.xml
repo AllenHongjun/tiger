@@ -1478,10 +1478,115 @@
             管理作业行为
             </summary>
         </member>
+        <member name="T:Tiger.Module.Teachings.Dtos.CourseDto">
+            <summary>
+            课程
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseDto.Type">
+            <summary>
+            课程类型：1、公开课程  2、私有课程
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseDto.Name">
+            <summary>
+            课程名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseDto.Description">
+            <summary>
+            课程描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseDto.Cover">
+            <summary>
+            封面图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseDto.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseGetListInput.Type">
+            <summary>
+            课程类型：1、公开课程  2、私有课程
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseGetListInput.Name">
+            <summary>
+            课程名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseGetListInput.Description">
+            <summary>
+            课程描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseGetListInput.Cover">
+            <summary>
+            封面图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseGetListInput.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CourseGetListInput.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CreateUpdateCourseDto.Type">
+            <summary>
+            课程类型：1、公开课程  2、私有课程
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CreateUpdateCourseDto.Name">
+            <summary>
+            课程名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CreateUpdateCourseDto.Description">
+            <summary>
+            课程描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CreateUpdateCourseDto.Cover">
+            <summary>
+            封面图片
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CreateUpdateCourseDto.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Teachings.Dtos.CreateUpdateCourseDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Teachings.ICourseAppService">
+            <summary>
+            课程
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Tiger.Permissions.TigerPermissionDefinitionProvider" -->
         <member name="T:Tiger.Permissions.TigerPermissions.School">
             <summary>
             学校管理
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.Course">
+            <summary>
+            课程
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

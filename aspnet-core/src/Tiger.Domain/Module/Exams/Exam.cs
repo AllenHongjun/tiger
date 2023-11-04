@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tiger.Module.Teaching;
+using Tiger.Module.Teachings;
 using Tiger.Module.TestQuestions;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -187,6 +187,9 @@ namespace Tiger.Module.Exams
 
         public TestPaper TestPaper { get; set; }
 
+        /// <summary>
+        /// 题目分类
+        /// </summary>
         public QuestionCategory QuestionCategory { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using Tiger.Module.Teachings;
 using Tiger.Module.Schools;
 using Tiger.Module.System.Area;
 using Tiger.Module.System.Platform.Datas;
@@ -343,6 +344,31 @@ namespace Tiger.EntityFrameworkCore
 
                 b.ConfigureByConvention(); 
 
+            });
+
+
+            builder.Entity<Course>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Courses", TigerConsts.DbSchema);
+                b.Property(p => p.Name)
+                   .HasMaxLength(CourseConsts.MaxNameLength)
+                   .IsRequired()
+                   .HasComment("名称");
+                b.Property(p => p.Description)
+                   .HasMaxLength(CourseConsts.MaxDescriptionLength)
+                   .IsRequired()
+                   .HasComment("描述");
+                b.Property(p => p.Cover)
+                    .HasMaxLength(CourseConsts.MaxCoverLenght)
+                    .HasComment("封面图片");
+                b.ConfigureByConvention();
+
+                b.HasMany(p => p.TestPaper)
+                .WithOne(p => p.Course)
+                .HasForeignKey(p => p.CourseId)
+                .IsRequired(false);
+
+                /* Configure more properties here */
             });
         }
 

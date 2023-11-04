@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.Exams;
@@ -44,7 +44,31 @@ namespace Tiger.Module.Teachings
         /// </summary>
         public int Sorting { get; set; }
 
-        //public virtual ICollection<TestPaper> TestPaper { get; set; }
-        
+        public virtual ICollection<TestPaper> TestPaper { get; set; }
+
+
+        protected Course()
+        {
+        }
+
+        public Course(
+            Guid id,
+            Guid? tenantId,
+            CourseType type,
+            string name,
+            string description,
+            string cover,
+            bool enable,
+            int sorting
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            Type = type;
+            Name = name;
+            Description = description;
+            Cover = cover;
+            Enable = enable;
+            Sorting = sorting;
+        }
     }
 }
