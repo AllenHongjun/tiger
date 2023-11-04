@@ -1,6 +1,7 @@
 ﻿using Localization.Resources.AbpUi;
 using Tiger.Localization;
 using Tiger.Module.OssManagement.Localization;
+using Tiger.Module.Schools.Localization;
 using Tiger.Module.System.Area.Localization;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Localization;
@@ -123,6 +124,10 @@ namespace Tiger
                 options.Resources
                        .Add<TaskManagementResource>("zh-Hans")
                        .AddVirtualJson("/Module/TaskManagement/Localization/Resources");
+
+                options.Resources
+                       .Add<SchoolResources>("zh-Hans")
+                       .AddVirtualJson("/Module/Schools/Localization/Resources");
 
                 options.DefaultResourceType = typeof(TigerResource);
             });

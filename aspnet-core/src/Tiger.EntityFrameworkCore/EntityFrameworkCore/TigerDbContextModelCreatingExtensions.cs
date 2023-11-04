@@ -241,8 +241,9 @@ namespace Tiger.EntityFrameworkCore
 
                     x.ConfigureByConvention();
 
+                    //EFcore 一对多关系配置 https://learn.microsoft.com/zh-cn/ef/core/modeling/relationships/one-to-many
                     x.HasMany(p => p.Items)
-                        .WithOne()
+                        .WithOne(p => p.Data)
                         .HasForeignKey(fk => fk.DataId)
                         .IsRequired();
 

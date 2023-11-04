@@ -55,6 +55,8 @@ namespace Tiger.Module.System.Platform.Datas
 
         public virtual Guid DataId { get; protected set; }
 
+        public virtual Data Data { get; protected set; }
+
         internal DataItem(
             [NotNull] Guid id,
             [NotNull] Guid dataId,

@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.Schools
@@ -33,13 +32,15 @@ namespace Tiger.Module.Schools
         /// </summary>
         public bool IsEnable { get; set; }
 
-
-        public School School { get; set;}
+        /// <summary>
+        /// 学校
+        /// </summary>
+        public virtual School School { get; set;}
 
         /// <summary>
         /// 班级的老师和学生
         /// </summary>
-        public ICollection<IdentityUser> Users { get; set; }
+        public virtual ICollection<IdentityUser> Users { get; set; }
 
         
     }
