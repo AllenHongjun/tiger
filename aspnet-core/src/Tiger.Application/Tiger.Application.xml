@@ -178,6 +178,11 @@
             <returns></returns>
             <exception cref="T:System.Exception"></exception>
         </member>
+        <member name="T:Tiger.Module.Exams.TestPaperAppService">
+            <summary>
+            试卷
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Notifications.MyNotificationAppService">
             <summary>
             我的通知服务

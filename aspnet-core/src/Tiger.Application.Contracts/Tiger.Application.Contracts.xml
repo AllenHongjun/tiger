@@ -9,6 +9,166 @@
             Api资源管理器
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.TestPaperMainId">
+            <summary>
+            主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.Type">
+            <summary>
+            类型 1.固定题目（手动或自动选题） 2.随机题目（根据策略每个学员的题目都不同） 3.固定题目打乱显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.IsComposing">
+            <summary>
+            是否已组卷        固定题目需要组卷，随机选题不需要
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.Enable">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.IsIncludeAllSchoolTeachers">
+            <summary>
+            是否包含全校老师
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.IsLimitJudgeTime">
+            <summary>
+            是否限制评卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.JudgeStartTime">
+            <summary>
+            评卷开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.JudgeEndTime">
+            <summary>
+            评卷结束时间
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Dtos.TestPaperDto">
+            <summary>
+            试卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.TestPaperMainId">
+            <summary>
+            主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.Type">
+            <summary>
+            类型 1.固定题目（手动或自动选题） 2.随机题目（根据策略每个学员的题目都不同） 3.固定题目打乱显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.IsComposing">
+            <summary>
+            是否已组卷        固定题目需要组卷，随机选题不需要
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.Enable">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.IsIncludeAllSchoolTeachers">
+            <summary>
+            是否包含全校老师
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.IsLimitJudgeTime">
+            <summary>
+            是否限制评卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.JudgeStartTime">
+            <summary>
+            评卷开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperDto.JudgeEndTime">
+            <summary>
+            评卷结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.TestPaperMainId">
+            <summary>
+            主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.Type">
+            <summary>
+            类型 1.固定题目（手动或自动选题） 2.随机题目（根据策略每个学员的题目都不同） 3.固定题目打乱显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.IsComposing">
+            <summary>
+            是否已组卷        固定题目需要组卷，随机选题不需要
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.Enable">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.IsIncludeAllSchoolTeachers">
+            <summary>
+            是否包含全校老师
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.IsLimitJudgeTime">
+            <summary>
+            是否限制评卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.JudgeStartTime">
+            <summary>
+            评卷开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.JudgeEndTime">
+            <summary>
+            评卷结束时间
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.ITestPaperAppService">
+            <summary>
+            试卷
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.Name">
             <summary>
             通知名称
@@ -1582,6 +1742,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.Course">
             <summary>
             课程
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.TestPaper">
+            <summary>
+            试卷
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

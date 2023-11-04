@@ -18,6 +18,7 @@ using Volo.Abp.Users.EntityFrameworkCore;
 using Tiger.Module.System.Area;
 using Tiger.Module.Schools;
 using Tiger.Module.Teachings;
+using Tiger.Module.Exams;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -84,6 +85,10 @@ namespace Tiger.EntityFrameworkCore
     /// 课程
     /// </summary>
     public DbSet<Course> Courses { get; set; }
+    /// <summary>
+    /// 试卷
+    /// </summary>
+    public DbSet<TestPaper> TestPapers { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

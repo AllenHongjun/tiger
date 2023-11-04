@@ -1,3 +1,4 @@
+using Tiger.Module.Exams;
 using Tiger.Module.Teachings;
 using Tiger.Module.Schools;
 using Tiger.Module.System.Area;
@@ -371,6 +372,16 @@ namespace Tiger.EntityFrameworkCore
                 //    .WithOne(p => p.Course)
                 //    .HasForeignKey(p => p.CourseId)
                 //    .IsRequired(false);
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<TestPaper>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TestPapers", TigerConsts.DbSchema);
+                b.ConfigureByConvention(); 
+            
 
                 /* Configure more properties here */
             });

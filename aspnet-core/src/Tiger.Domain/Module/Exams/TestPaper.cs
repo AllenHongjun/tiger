@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Tiger.Module.Schools;
@@ -19,11 +19,6 @@ namespace Tiger.Module.Exams
         /// 主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
         /// </summary>
         public Guid? TestPaperMainId { get; set; }
-
-        /// <summary>
-        /// 课程Id
-        /// </summary>
-        public Guid? CourseId { get; set; }
 
         /// <summary>
         /// 编号
@@ -71,20 +66,47 @@ namespace Tiger.Module.Exams
         /// </summary>
         public DateTime? JudgeEndTime { get; set; }
 
-        /// <summary>
-        /// 课程
-        /// </summary>
-        public virtual Course Course { get; set; }
 
-        /// <summary>
-        /// 允许阅卷的学校(默认全部)
-        /// </summary>
-        [NotMapped]
-        public virtual ICollection<School> Schools { get; set; }
+        ///// <summary>
+        ///// 允许阅卷的学校(默认全部老师)
+        ///// </summary>
+        //public virtual ICollection<School> Schools { get; set; }
 
         /////允许阅卷的老师
         //public virtual ICollection<IdentityUser> Users {get;set;}
 
 
+
+        protected TestPaper()
+        {
+        }
+
+        public TestPaper(
+            Guid id,
+            Guid? tenantId,
+            Guid? testPaperMainId,
+            string number,
+            string name,
+            TestPaperType type,
+            bool isComposing,
+            bool enable,
+            bool isIncludeAllSchoolTeachers,
+            bool isLimitJudgeTime,
+            DateTime? judgeStartTime,
+            DateTime? judgeEndTime
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            TestPaperMainId = testPaperMainId;
+            Number = number;
+            Name = name;
+            Type = type;
+            IsComposing = isComposing;
+            Enable = enable;
+            IsIncludeAllSchoolTeachers = isIncludeAllSchoolTeachers;
+            IsLimitJudgeTime = isLimitJudgeTime;
+            JudgeStartTime = judgeStartTime;
+            JudgeEndTime = judgeEndTime;
+        }
     }
 }

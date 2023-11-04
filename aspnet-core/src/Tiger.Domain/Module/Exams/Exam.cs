@@ -15,7 +15,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 课程Id
         /// </summary>
-        public Guid CourseId { get; set; }
+        public Guid? CourseId { get; set; }
 
         /// <summary>
         /// 考试的试卷（母卷）
