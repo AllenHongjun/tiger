@@ -145,6 +145,9 @@
     <Folder Include="Module\System\Message\Email\" />
     <Folder Include="Module\System\Message\Chat\" />
     <Folder Include="Module\Message\" />
+    <Folder Include="Module\Practices\" />
+    <Folder Include="Module\OpenApi\" />
+    <Folder Include="Module\Train\" />
     <Folder Include="PlatfromSdk\" />
   </ItemGroup>
 
