@@ -21,6 +21,119 @@ namespace Tiger.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaper", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Enable")
+                        .HasColumnType("bit")
+                        .HasComment("启用");
+
+                    b.Property<bool>("IsComposing")
+                        .HasColumnType("bit")
+                        .HasComment("是否已组卷");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsIncludeAllSchoolTeachers")
+                        .HasColumnType("bit")
+                        .HasComment("是否包含全校老师");
+
+                    b.Property<bool>("IsLimitJudgeTime")
+                        .HasColumnType("bit")
+                        .HasComment("是否限制评卷时间");
+
+                    b.Property<DateTime?>("JudgeEndTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("评卷结束时间");
+
+                    b.Property<DateTime?>("JudgeStartTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("评卷开始时间");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("名称")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("编号")
+                        .HasMaxLength(128);
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TestPaperMainId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasComment("类型 1.固定题目（手动或自动选题） 2.随机题目（根据策略每个学员的题目都不同） 3.固定题目打乱显示");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("AppTestPapers");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperJudgeSchool", b =>
+                {
+                    b.Property<Guid>("TestPaperId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SchoolId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("TestPaperId", "SchoolId");
+
+                    b.HasIndex("SchoolId");
+
+                    b.HasIndex("TestPaperId", "SchoolId");
+
+                    b.ToTable("AppTestPaperJudgeSchool");
+                });
+
             modelBuilder.Entity("Tiger.Module.Notifications.Notification", b =>
                 {
                     b.Property<long>("Id")
@@ -254,7 +367,8 @@ namespace Tiger.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<bool>("IsEnable")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("顺序");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnName("LastModificationTime")
@@ -276,7 +390,7 @@ namespace Tiger.Migrations
 
                     b.Property<int>("Sorting")
                         .HasColumnType("int")
-                        .HasComment("是否启用");
+                        .HasComment("顺序");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
@@ -1466,7 +1580,8 @@ namespace Tiger.Migrations
                         .HasMaxLength(1024);
 
                     b.Property<bool>("Enable")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("启用");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -1489,7 +1604,8 @@ namespace Tiger.Migrations
                         .HasMaxLength(128);
 
                     b.Property<int>("Sorting")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("顺序");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
@@ -3409,6 +3525,34 @@ namespace Tiger.Migrations
                     b.HasIndex("Name", "ProviderName", "ProviderKey");
 
                     b.ToTable("AbpSettings");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaper", b =>
+                {
+                    b.HasOne("Tiger.Module.Teachings.Course", null)
+                        .WithMany("TestPaper")
+                        .HasForeignKey("CourseId");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperJudgeSchool", b =>
+                {
+                    b.HasOne("Tiger.Module.Exams.TestPaper", null)
+                        .WithMany("Schools")
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Tiger.Module.Schools.School", null)
+                        .WithMany("TestPapers")
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tiger.Module.Exams.TestPaper", null)
+                        .WithMany()
+                        .HasForeignKey("TestPaperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tiger.Module.Schools.ClassInfo", b =>

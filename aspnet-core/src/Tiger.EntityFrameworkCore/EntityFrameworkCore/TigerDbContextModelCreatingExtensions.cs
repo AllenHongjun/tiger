@@ -401,7 +401,8 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.JudgeEndTime)
                     .HasComment("评卷结束时间");
 
-                b.HasMany(u => u.Schools).WithOne().HasForeignKey(tjs => tjs.SchoolId).IsRequired();
+                // bugfix: 将 FOREIGN KEY 约束 'FK_AbpTestPaperJudgeSchool_AppTestPapers_TestPaperId' 引入表 'AbpTestPaperJudgeSchool' 可能会导致循环或多重级联路径。请指定 ON DELETE NO ACTION 或 ON UPDATE NO ACTION，或修改其他 FOREIGN KEY 约束。
+                b.HasMany(u => u.Schools).WithOne().HasForeignKey(tjs => tjs.SchoolId).IsRequired().OnDelete(DeleteBehavior.Restrict); ;
 
                 b.ConfigureByConvention(); 
 
@@ -410,7 +411,7 @@ namespace Tiger.EntityFrameworkCore
             // 试卷和评卷学校 多对多关联配置: https://github.com/abpframework/abp/blob/dev/modules/identity/src/Volo.Abp.Identity.EntityFrameworkCore/Volo/Abp/Identity/EntityFrameworkCore/IdentityDbContextModelBuilderExtensions.cs
             builder.Entity<TestPaperJudgeSchool>(b =>
             {
-                b.ToTable(AbpIdentityDbProperties.DbTablePrefix + "TestPaperJudgeSchool", AbpIdentityDbProperties.DbSchema);
+                b.ToTable(TigerConsts.DbTablePrefix + "TestPaperJudgeSchool", TigerConsts.DbSchema);
 
                 b.ConfigureByConvention();
 

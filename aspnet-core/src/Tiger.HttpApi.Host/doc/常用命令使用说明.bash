@@ -12,4 +12,7 @@ Add-Migration Created_Book_Entity
 
 Update-Database 
 
+-- 以下命令将生成一个从指定 from 迁移到指定 to 迁移的 SQL 脚本。
+Script-Migration AddNewTables AddAuditTable
+
 ```
