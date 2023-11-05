@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -44,11 +44,14 @@ namespace Tiger.Module.QuestionBank
         /// 选项内容（用|分隔）
         /// </summary>
         [Obsolete("使用单个选项填充")]
+        [NotMapped]
         public string OptionContent { get; set; }
 
         /// <summary>
         /// 选项数量
         /// </summary>
+        [Obsolete]
+        [NotMapped]
         public int? OptionSize { get; set; }
 
         /// <summary>
@@ -135,5 +138,67 @@ namespace Tiger.Module.QuestionBank
         //public virtual ICollection<QuestionAttachment> QuestionAttachments { get; set;}
 
         
+
+        protected Question()
+        {
+        }
+
+        public Question(
+            Guid id,
+            Guid? tenantId,
+            Guid questionCategoryId,
+            Guid? practicalTrainingId,
+            QuestionType type,
+            string name,
+            string content,
+            string optionContent,
+            int? optionSize,
+            string optionA,
+            string optionB,
+            string optionC,
+            string optionD,
+            string optionE,
+            string answer,
+            QuestionDegree degree,
+            string analysis,
+            string source,
+            string helpMessage,
+            string helpVideo,
+            string fileUrl,
+            string fileName,
+            bool isShow,
+            bool enable,
+            bool isShowTextButton,
+            bool isShowImageButton,
+            bool isShowLinkButton
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            QuestionCategoryId = questionCategoryId;
+            PracticalTrainingId = practicalTrainingId;
+            Type = type;
+            Name = name;
+            Content = content;
+            OptionContent = optionContent;
+            OptionSize = optionSize;
+            OptionA = optionA;
+            OptionB = optionB;
+            OptionC = optionC;
+            OptionD = optionD;
+            OptionE = optionE;
+            Answer = answer;
+            Degree = degree;
+            Analysis = analysis;
+            Source = source;
+            HelpMessage = helpMessage;
+            HelpVideo = helpVideo;
+            FileUrl = fileUrl;
+            FileName = fileName;
+            IsShow = isShow;
+            Enable = enable;
+            IsShowTextButton = isShowTextButton;
+            IsShowImageButton = isShowImageButton;
+            IsShowLinkButton = isShowLinkButton;
+        }
     }
 }

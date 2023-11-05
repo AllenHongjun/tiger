@@ -98,6 +98,10 @@ namespace Tiger.EntityFrameworkCore
     /// 题目分类
     /// </summary>
     public DbSet<QuestionCategory> QuestionCategories { get; set; }
+    /// <summary>
+    /// 题目表
+    /// </summary>
+    public DbSet<Question> Questions { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

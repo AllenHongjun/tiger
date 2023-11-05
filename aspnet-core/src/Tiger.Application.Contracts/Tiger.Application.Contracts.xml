@@ -301,6 +301,111 @@
             是否公开
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.QuestionCategoryId">
+            <summary>
+            题库
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.PracticalTrainingId">
+            <summary>
+            实训链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Type">
+            <summary>
+            类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Name">
+            <summary>
+            题目名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Content">
+            <summary>
+            题目内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.OptionContent">
+            <summary>
+            选项内容（用|分隔）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.OptionSize">
+            <summary>
+            选项数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.OptionA">
+            <summary>
+            A 选项
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Degree">
+            <summary>
+            难易度：1.简单 2.普通 3.困难
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Analysis">
+            <summary>
+            试题解析
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Source">
+            <summary>
+            出处
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.HelpMessage">
+            <summary>
+            帮助文本
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.HelpVideo">
+            <summary>
+            帮助视频
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.FileUrl">
+            <summary>
+            附件URL
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.FileName">
+            <summary>
+            附件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.IsShow">
+            <summary>
+            是否显示在试题练习中
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.IsShowTextButton">
+            <summary>
+            是否显示上传文本按钮
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.IsShowImageButton">
+            <summary>
+            是否显示上传图片按钮
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.IsShowLinkButton">
+            <summary>
+            是否显示上传附件按钮
+            </summary>
+        </member>
         <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto">
             <summary>
             题目分类
@@ -359,6 +464,226 @@
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput.IsPublic">
             <summary>
             是否公开
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionDto">
+            <summary>
+            题目表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.QuestionCategoryId">
+            <summary>
+            题库
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.PracticalTrainingId">
+            <summary>
+            实训链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Type">
+            <summary>
+            类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Name">
+            <summary>
+            题目名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Content">
+            <summary>
+            题目内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.OptionContent">
+            <summary>
+            选项内容（用|分隔）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.OptionSize">
+            <summary>
+            选项数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.OptionA">
+            <summary>
+            A 选项
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Degree">
+            <summary>
+            难易度：1.简单 2.普通 3.困难
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Analysis">
+            <summary>
+            试题解析
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Source">
+            <summary>
+            出处
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.HelpMessage">
+            <summary>
+            帮助文本
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.HelpVideo">
+            <summary>
+            帮助视频
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.FileUrl">
+            <summary>
+            附件URL
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.FileName">
+            <summary>
+            附件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.IsShow">
+            <summary>
+            是否显示在试题练习中
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.IsShowTextButton">
+            <summary>
+            是否显示上传文本按钮
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.IsShowImageButton">
+            <summary>
+            是否显示上传图片按钮
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.IsShowLinkButton">
+            <summary>
+            是否显示上传附件按钮
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.QuestionCategoryId">
+            <summary>
+            题库
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.PracticalTrainingId">
+            <summary>
+            实训链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Type">
+            <summary>
+            类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Name">
+            <summary>
+            题目名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Content">
+            <summary>
+            题目内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.OptionContent">
+            <summary>
+            选项内容（用|分隔）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.OptionSize">
+            <summary>
+            选项数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.OptionA">
+            <summary>
+            A 选项
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Degree">
+            <summary>
+            难易度：1.简单 2.普通 3.困难
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Analysis">
+            <summary>
+            试题解析
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Source">
+            <summary>
+            出处
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.HelpMessage">
+            <summary>
+            帮助文本
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.HelpVideo">
+            <summary>
+            帮助视频
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.FileUrl">
+            <summary>
+            附件URL
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.FileName">
+            <summary>
+            附件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShow">
+            <summary>
+            是否显示在试题练习中
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShowTextButton">
+            <summary>
+            是否显示上传文本按钮
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShowImageButton">
+            <summary>
+            是否显示上传图片按钮
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShowLinkButton">
+            <summary>
+            是否显示上传附件按钮
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.IQuestionAppService">
+            <summary>
+            题目表
             </summary>
         </member>
         <member name="T:Tiger.Module.QuestionBank.IQuestionCategoryAppService">
@@ -1847,6 +2172,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.QuestionCategory">
             <summary>
             题目分类
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.Question">
+            <summary>
+            题目表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

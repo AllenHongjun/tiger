@@ -12,6 +12,9 @@ namespace Tiger.Module.QuestionBank
         {
             CreateMap<QuestionCategory, QuestionCategoryDto>();
             CreateMap<CreateUpdateQuestionCategoryDto, QuestionCategory>();
+
+            CreateMap<Question,QuestionDto>();
+            CreateMap<CreateUpdateQuestionDto, Question>();
         }
     }
 }

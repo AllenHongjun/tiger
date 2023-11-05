@@ -175,6 +175,11 @@
             题目分类
             </summary>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.QuestionController">
+            <summary>
+            题目
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Classes.ClassController">
             <summary>
             班级

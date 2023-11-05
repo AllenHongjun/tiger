@@ -447,6 +447,32 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<Question>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Questions", TigerConsts.DbSchema);
+                b.Property(p => p.Type).HasComment("类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务");
+                b.Property(p => p.Name).HasMaxLength(QuestionConsts.MaxNameLength).IsRequired(false).HasComment("题目名称");
+                b.Property(p => p.Content).IsRequired().HasComment("题目内容");
+                b.Property(p => p.OptionA).HasMaxLength(QuestionConsts.MaxOptionLength).HasComment("A 选项");
+                b.Property(p => p.OptionB).HasMaxLength(QuestionConsts.MaxOptionLength).HasComment("B 选项");
+                b.Property(p => p.OptionC).HasMaxLength(QuestionConsts.MaxOptionLength).HasComment("C 选项");
+                b.Property(p => p.OptionD).HasMaxLength(QuestionConsts.MaxOptionLength).HasComment("D 选项");
+                b.Property(p => p.OptionE).HasMaxLength(QuestionConsts.MaxOptionLength).HasComment("E 选项");
+                b.Property(p => p.Degree).HasComment("难易度：1.简单 2.普通 3.困难");
+                b.Property(p => p.Analysis).HasMaxLength(QuestionConsts.MaxAnalysisLength).HasComment("试题解析");
+                b.Property(p => p.Source).HasMaxLength(QuestionConsts.MaxSourceLength).HasComment("出处");
+                b.Property(p => p.HelpMessage).HasMaxLength(QuestionConsts.MaxHelpMessageLength).HasComment("帮助文本");
+                b.Property(p => p.FileUrl).HasMaxLength(QuestionConsts.MaxFileUrlLength).HasComment("附件URL");
+                b.Property(p => p.FileName).HasMaxLength(QuestionConsts.MaxFileNameLength).HasComment("附件名称");
+                b.Property(p => p.IsShowTextButton).HasComment("是否显示上传文本按钮");
+                b.Property(p => p.IsShowImageButton).HasComment("是否显示上传图片按钮");
+                b.Property(p => p.IsShowLinkButton).HasComment("是否显示上传附件按钮");
+                b.ConfigureByConvention(); 
+
+                /* Configure more properties here */
+            });
         }
 
 
