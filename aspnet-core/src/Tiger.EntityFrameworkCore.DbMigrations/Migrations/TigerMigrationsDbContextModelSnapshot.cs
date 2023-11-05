@@ -338,6 +338,159 @@ namespace Tiger.Migrations
                     b.ToTable("AppUserSubscribes");
                 });
 
+            modelBuilder.Entity("Tiger.Module.QuestionBank.Question", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Analysis")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("试题解析")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("题目内容");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Degree")
+                        .HasColumnType("int")
+                        .HasComment("难易度：1.简单 2.普通 3.困难");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Enable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("附件名称")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("FileUrl")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("附件URL")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("HelpMessage")
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("帮助文本")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("HelpVideo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsShow")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsShowImageButton")
+                        .HasColumnType("bit")
+                        .HasComment("是否显示上传图片按钮");
+
+                    b.Property<bool>("IsShowLinkButton")
+                        .HasColumnType("bit")
+                        .HasComment("是否显示上传附件按钮");
+
+                    b.Property<bool>("IsShowTextButton")
+                        .HasColumnType("bit")
+                        .HasComment("是否显示上传文本按钮");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("题目名称")
+                        .HasMaxLength(1024);
+
+                    b.Property<string>("OptionA")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("A 选项")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("OptionB")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("B 选项")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("OptionC")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("C 选项")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("OptionD")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("D 选项")
+                        .HasMaxLength(512);
+
+                    b.Property<string>("OptionE")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("E 选项")
+                        .HasMaxLength(512);
+
+                    b.Property<Guid?>("PracticalTrainingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("QuestionCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Source")
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("出处")
+                        .HasMaxLength(256);
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasComment("类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppQuestions");
+                });
+
             modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionCategory", b =>
                 {
                     b.Property<Guid>("Id")
