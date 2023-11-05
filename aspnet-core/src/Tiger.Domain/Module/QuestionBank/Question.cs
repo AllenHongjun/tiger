@@ -134,7 +134,7 @@ namespace Tiger.Module.QuestionBank
 
         //public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
 
-        //public virtual ICollection<QuestionAttachment> QuestionAttachments { get; set;}
+        public virtual ICollection<QuestionAttachment> QuestionAttachments { get; set; }
 
 
 

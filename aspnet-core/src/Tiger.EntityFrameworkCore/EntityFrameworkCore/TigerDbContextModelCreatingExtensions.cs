@@ -473,6 +473,23 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.IsShowTextButton).HasComment("是否显示上传文本按钮");
                 b.Property(p => p.IsShowImageButton).HasComment("是否显示上传图片按钮");
                 b.Property(p => p.IsShowLinkButton).HasComment("是否显示上传附件按钮");
+
+                b.HasMany( q => q.QuestionAttachments).WithOne( qa => qa.Question).HasForeignKey( qa => qa.QuestionId).IsRequired();
+                b.ConfigureByConvention(); 
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<QuestionAttachment>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "QuestionAttachments", TigerConsts.DbSchema);
+                b.Property(p => p.QuestionId).HasComment("试题题目Id");
+                b.Property(p => p.AttachmentType).HasComment("附件类型：1.内容，2.照片，3.文档，4.本地附件，5.本地视频，6.添加链接");
+                b.Property(p => p.Name).HasMaxLength(QuestionAttachmentConsts.MaxNameLength).IsRequired().HasComment("名称");
+                b.Property(p => p.Content).HasMaxLength(QuestionAttachmentConsts.MaxContextLength).IsRequired().HasComment("附件内容");
+                b.Property(p => p.Sorting).HasComment("排序");
+
                 b.ConfigureByConvention(); 
 
                 /* Configure more properties here */

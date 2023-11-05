@@ -65,6 +65,7 @@ namespace Tiger.EntityFrameworkCore
             options.AddRepository<TestPaper, TestPaperRepository>();
             options.AddRepository<QuestionCategory, QuestionCategoryRepository>();
             options.AddRepository<Question, QuestionRepository>();
+            options.AddRepository<QuestionAttachment, QuestionAttachmentRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

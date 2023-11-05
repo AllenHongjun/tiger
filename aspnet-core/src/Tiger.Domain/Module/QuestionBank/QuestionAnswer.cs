@@ -19,7 +19,6 @@ namespace Tiger.Module.QuestionBank
         /// 题目答案
         /// </summary>
         /// <remarks>
-        /// 
         /// 如果一个填空有多个答案请用 & 开隔 ,三个连续下划线___ (提示：在英文输入法下，按Shift键+减号键可敲出下划线)
         /// </remarks>
         public string Answer { get; set; }  

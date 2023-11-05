@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -23,12 +23,12 @@ namespace Tiger.Module.QuestionBank
         /// <summary>
         /// 附件名称
         /// </summary>
-        public string AttachmentTitle { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 附件内容
         /// </summary>
-        public string AttachmentContent { get; set; }
+        public string Content { get; set; }
 
         /// <summary>
         /// 排序
@@ -36,6 +36,26 @@ namespace Tiger.Module.QuestionBank
         public int Sorting { get; set; }
 
 
-        public Question Question { get; set; }
+        public virtual Question Question { get; set; }
+
+        protected QuestionAttachment()
+        {
+        }
+
+        public QuestionAttachment(
+            Guid id,
+            Guid questionId,
+            QuestionAttachmentType attachmentType,
+            string name,
+            string content,
+            int sorting
+        ) : base(id)
+        {
+            QuestionId = questionId;
+            AttachmentType = attachmentType;
+            Name = name;
+            Content = content;
+            Sorting = sorting;
+        }
     }
 }

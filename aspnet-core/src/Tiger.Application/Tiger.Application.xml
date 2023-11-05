@@ -317,6 +317,11 @@
             题目表
             </summary>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.QuestionAttachmentAppService">
+            <summary>
+            题目附件表
+            </summary>
+        </member>
         <member name="T:Tiger.Module.QuestionBank.QuestionCategoryAppService">
             <summary>
             题目分类

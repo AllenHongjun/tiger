@@ -271,6 +271,31 @@
             块总数
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAttachmentDto.QuestionId">
+            <summary>
+            试题题目Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAttachmentDto.AttachmentType">
+            <summary>
+            附件类型：1.内容，2.照片，3.文档，4.本地附件，5.本地视频，6.添加链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAttachmentDto.Name">
+            <summary>
+            附件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAttachmentDto.Content">
+            <summary>
+            附件内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAttachmentDto.Sorting">
+            <summary>
+            排序
+            </summary>
+        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto.Name">
             <summary>
             名称
@@ -404,6 +429,61 @@
         <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.IsShowLinkButton">
             <summary>
             是否显示上传附件按钮
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentDto">
+            <summary>
+            题目附件表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentDto.QuestionId">
+            <summary>
+            试题题目Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentDto.AttachmentType">
+            <summary>
+            附件类型：1.内容，2.照片，3.文档，4.本地附件，5.本地视频，6.添加链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentDto.Name">
+            <summary>
+            附件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentDto.Content">
+            <summary>
+            附件内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentDto.Sorting">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentGetListInput.QuestionId">
+            <summary>
+            试题题目Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentGetListInput.AttachmentType">
+            <summary>
+            附件类型：1.内容，2.照片，3.文档，4.本地附件，5.本地视频，6.添加链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentGetListInput.Name">
+            <summary>
+            附件名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentGetListInput.Content">
+            <summary>
+            附件内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentGetListInput.Sorting">
+            <summary>
+            排序
             </summary>
         </member>
         <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto">
@@ -684,6 +764,11 @@
         <member name="T:Tiger.Module.QuestionBank.IQuestionAppService">
             <summary>
             题目表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.IQuestionAttachmentAppService">
+            <summary>
+            题目附件表
             </summary>
         </member>
         <member name="T:Tiger.Module.QuestionBank.IQuestionCategoryAppService">
@@ -2177,6 +2262,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.Question">
             <summary>
             题目表
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.QuestionAttachment">
+            <summary>
+            题目附件表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">
