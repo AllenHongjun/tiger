@@ -54,30 +54,30 @@ namespace Tiger.Module.QuestionBank
 
         
 
-    protected QuestionCategory()
-    {
-    }
+        protected QuestionCategory()
+        {
+        }
 
-    public QuestionCategory(
-        Guid id,
-        Guid? tenantId,
-        Guid? parentId,
-        string name,
-        string cover,
-        string code,
-        bool enable,
-        int sorting,
-        bool isPublic
-    ) : base(id)
-    {
-        TenantId = tenantId;
-        ParentId = parentId;
-        Name = name;
-        Cover = cover;
-        Code = code;
-        Enable = enable;
-        Sorting = sorting;
-        IsPublic = isPublic;
-    }
+        public QuestionCategory(
+            Guid id,
+            Guid? tenantId,
+            Guid? parentId,
+            string name,
+            string cover,
+            string code,
+            bool enable,
+            int sorting,
+            bool isPublic
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            ParentId = parentId;
+            Name = name;
+            Cover = cover;
+            Code = code;
+            Enable = enable;
+            Sorting = sorting;
+            IsPublic = isPublic;
+        }
     }
 }
