@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Tiger.Module.TestQuestions
+namespace Tiger.Module.QuestionBank
 {
     /// <summary>
     /// 题目附件表

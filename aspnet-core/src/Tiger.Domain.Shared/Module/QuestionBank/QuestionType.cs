@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tiger.Module.TestQuestions
+namespace Tiger.Module.QuestionBank
 {
     /// <summary>
     /// 题目类型

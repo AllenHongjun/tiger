@@ -4,7 +4,7 @@ using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Tiger.Module.TestQuestions
+namespace Tiger.Module.QuestionBank
 {
     /// <summary>
     /// 题目分类
@@ -48,9 +48,9 @@ namespace Tiger.Module.TestQuestions
         /// </summary>
         public bool IsPublic { get; set; }
 
-        public virtual QuestionCategory Parent { get; set; }
+        //public virtual QuestionCategory Parent { get; set; }
 
-        public virtual ICollection<Question> Questions { get; set; }
+        //public virtual ICollection<Question> Questions { get; set; }
 
         
     }

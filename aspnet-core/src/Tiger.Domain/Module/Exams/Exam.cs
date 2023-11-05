@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.Teachings;
-using Tiger.Module.TestQuestions;
+using Tiger.Module.QuestionBank;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tiger.Module.Exams

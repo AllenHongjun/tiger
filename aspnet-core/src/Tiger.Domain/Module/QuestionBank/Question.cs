@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Tiger.Module.TestQuestions
+namespace Tiger.Module.QuestionBank
 {
     /// <summary>
     /// 题目表

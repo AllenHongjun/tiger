@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tiger.Module.TestQuestions;
+using Tiger.Module.QuestionBank;
 
 namespace Tiger.Module.Exams
 {
