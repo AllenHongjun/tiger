@@ -488,6 +488,8 @@ namespace Tiger.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("QuestionCategoryId");
+
                     b.ToTable("AppQuestions");
                 });
 
@@ -572,6 +574,8 @@ namespace Tiger.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("AppQuestionCategories");
                 });
@@ -3791,6 +3795,22 @@ namespace Tiger.Migrations
                         .HasForeignKey("TestPaperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Tiger.Module.QuestionBank.Question", b =>
+                {
+                    b.HasOne("Tiger.Module.QuestionBank.QuestionCategory", "QuestionCategory")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuestionCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionCategory", b =>
+                {
+                    b.HasOne("Tiger.Module.QuestionBank.QuestionCategory", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("Tiger.Module.Schools.ClassInfo", b =>

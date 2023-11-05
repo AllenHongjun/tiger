@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -48,11 +49,13 @@ namespace Tiger.Module.QuestionBank
         /// </summary>
         public bool IsPublic { get; set; }
 
-        //public virtual QuestionCategory Parent { get; set; }
+        public virtual QuestionCategory Parent { get; set; }
 
-        //public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<QuestionCategory>  Children { get; set; }
 
-        
+        public virtual ICollection<Question> Questions { get; set; }
+
+
 
         protected QuestionCategory()
         {

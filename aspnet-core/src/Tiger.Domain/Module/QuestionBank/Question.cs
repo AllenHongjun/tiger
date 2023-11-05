@@ -128,16 +128,15 @@ namespace Tiger.Module.QuestionBank
         /// 是否显示上传附件按钮
         /// </summary>
         public bool IsShowLinkButton { get; set; }
-        
 
 
-        //public virtual QuestionCategory QuestionCategory { get; set; }
+        public virtual QuestionCategory QuestionCategory { get; set; }
 
         //public virtual ICollection<QuestionAnswer> QuestionAnswers { get; set; }
 
         //public virtual ICollection<QuestionAttachment> QuestionAttachments { get; set;}
 
-        
+
 
         protected Question()
         {

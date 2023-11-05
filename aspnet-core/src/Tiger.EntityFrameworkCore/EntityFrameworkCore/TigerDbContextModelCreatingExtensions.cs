@@ -443,8 +443,12 @@ namespace Tiger.EntityFrameworkCore
                     .HasComment("启用");
                 b.Property(p => p.Sorting)
                     .HasComment("顺序");
-                b.ConfigureByConvention(); 
 
+                b.HasOne( qc => qc.Parent).WithMany( qc => qc.Children).HasForeignKey(qc => qc.ParentId); // ParentId可以为空 注意不要IsRequired() 需要把ChildRen些明确
+
+                b.ConfigureByConvention();
+
+                b.HasMany( qc => qc.Questions).WithOne(q => q.QuestionCategory).HasForeignKey(q => q.QuestionCategoryId).IsRequired();
                 /* Configure more properties here */
             });
 
