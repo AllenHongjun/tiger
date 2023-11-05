@@ -23,6 +23,11 @@ namespace Tiger.Module.Exams
         public Guid TestPaperId { get; set; }
 
         /// <summary>
+        /// 题目分类
+        /// </summary>
+        public Guid QuestionCategoryId { get; set; }
+
+        /// <summary>
         /// 考试名称
         /// </summary>
         public string Name { get; set; }
@@ -38,7 +43,7 @@ namespace Tiger.Module.Exams
         public string Number { get; set; }
 
         /// <summary>
-        /// 类型：1.考试 2.练习
+        /// 类型：1.考试 2.练习 , 3 比赛
         /// </summary>
         public bool IsEaxm { get; set; }
 
@@ -46,11 +51,6 @@ namespace Tiger.Module.Exams
         /// 题型：1.实操考试 2.理论考试 
         /// </summary>
         public int ExamType { get; set; }
-
-        /// <summary>
-        /// 题目分类
-        /// </summary>
-        public Guid QuestionCategoryId { get; set; }
         
         /// <summary>
         /// 考试时间
@@ -81,6 +81,7 @@ namespace Tiger.Module.Exams
         /// 提交后是否显示成绩
         /// </summary>
         public bool IsShowScore { get; set; }
+
         /// <summary>
         /// 是否可以查看错题
         /// </summary>
@@ -130,10 +131,12 @@ namespace Tiger.Module.Exams
         /// 是否中场休息
         /// </summary>
         public bool HalftimeFlag { get; set; }
+
         /// <summary>
         /// 中场休息开始时间
         /// </summary>
         public DateTime HalftimeStart { get; set; }
+
         /// <summary>
         /// 中场休息结束时间
         /// </summary>
@@ -143,10 +146,12 @@ namespace Tiger.Module.Exams
         /// 扣款金额
         /// </summary>
         public decimal DeductionAmounnt { get; set; }
+
         /// <summary>
         /// 扣款间隔（单位: 分钟）
         /// </summary>
         public int DeductionInterval { get; set; }
+
         /// <summary>
         /// 比赛间隔（单位: 分钟）
         /// </summary>

@@ -14,11 +14,17 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 试卷ID
         /// </summary>
-        public Guid TestPaperID { get; set; }
+        public Guid TestPaperId { get; set; }
+
+        /// <summary>
+        /// 题目分类
+        /// </summary>
+        public Guid QuestionCategoryId { get; set; }
+
         /// <summary>
         /// 试题ID
         /// </summary>
-        public Guid QuestionID { get; set; }
+        public Guid QuestionId { get; set; }
 
         /// <summary>
         /// 选题方式 1.自主选题 2.随机生成
@@ -41,22 +47,17 @@ namespace Tiger.Module.Exams
         public bool MissOptionInvalid { get; set; }
 
         /// <summary>
-        /// 题目分类
-        /// </summary>
-        public Guid QuestionCategoryId { get; set; }
-
-        /// <summary>
         /// 难易度：1.简单 2.普通 3.困难
         /// </summary>
         public QuestionDegree QuestionDegree { get; set; }
 
         /// <summary>
-        /// 题库
+        /// 题目分类
         /// </summary>
-        public QuestionCategory QuestionCategory { get; set; }
+        public virtual QuestionCategory QuestionCategory { get; set; }
 
-        public TestPaper TestPaper { get; set; }
+        public virtual TestPaper TestPaper { get; set; }
 
-        public Question Question { get; set; }
+        public virtual Question Question { get; set; }
     }
 }

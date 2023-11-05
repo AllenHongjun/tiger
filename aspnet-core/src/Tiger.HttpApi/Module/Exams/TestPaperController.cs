@@ -18,9 +18,9 @@ namespace Tiger.Module.TestPapers
     [Route($"api/{ExamRemoteServiceConsts.ModuleName}/test-papers")]
     public class TestPaperController : AbpController, ITestPaperAppService
     {
-        public TestPaperController(ITestPaperAppService schoolAppService)
+        public TestPaperController(ITestPaperAppService testPaperAppService)
         {
-            TestPaperAppService=schoolAppService;
+            TestPaperAppService=testPaperAppService;
         }
 
         protected ITestPaperAppService TestPaperAppService { get; }

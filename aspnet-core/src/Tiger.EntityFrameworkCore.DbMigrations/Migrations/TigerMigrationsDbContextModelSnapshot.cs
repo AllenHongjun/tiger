@@ -493,6 +493,69 @@ namespace Tiger.Migrations
                     b.ToTable("AppQuestions");
                 });
 
+            modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionAnswer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("答案")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("题目Id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("AppQuestionAnswers");
+                });
+
             modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionAttachment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -547,7 +610,7 @@ namespace Tiger.Migrations
 
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier")
-                        .HasComment("试题题目Id");
+                        .HasComment("题目Id");
 
                     b.Property<int>("Sorting")
                         .HasColumnType("int")
@@ -3869,6 +3932,15 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Module.QuestionBank.QuestionCategory", "QuestionCategory")
                         .WithMany("Questions")
                         .HasForeignKey("QuestionCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionAnswer", b =>
+                {
+                    b.HasOne("Tiger.Module.QuestionBank.Question", "Question")
+                        .WithMany("QuestionAnswers")
+                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
