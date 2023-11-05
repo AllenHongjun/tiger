@@ -10,6 +10,8 @@ namespace Tiger.Module.QuestionBank
 
         public static int MaxOptionLength { get; set; } = 512;
 
+        public static int MaxAnswerLength { get; set; } = 256;
+
         public static int MaxAnalysisLength { get; set; } = 512;
 
         public static int MaxSourceLength { get; set; } = 256;

@@ -312,6 +312,11 @@
             静态文件上传服务
             </summary>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.QuestionAnswerAppService">
+            <summary>
+            题目答案
+            </summary>
+        </member>
         <member name="T:Tiger.Module.QuestionBank.QuestionAppService">
             <summary>
             题目表

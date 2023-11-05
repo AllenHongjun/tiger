@@ -271,6 +271,12 @@
             块总数
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAnswerDto.QuestionId">
+            <summary>
+            题目Id
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAnswerDto.Answer" -->
         <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionAttachmentDto.QuestionId">
             <summary>
             试题题目Id
@@ -431,6 +437,23 @@
             是否显示上传附件按钮
             </summary>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionAnswerDto">
+            <summary>
+            题目答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAnswerDto.QuestionId">
+            <summary>
+            题目Id
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Tiger.Module.QuestionBank.Dtos.QuestionAnswerDto.Answer" -->
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionAnswerGetListInput.QuestionId">
+            <summary>
+            题目Id
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Tiger.Module.QuestionBank.Dtos.QuestionAnswerGetListInput.Answer" -->
         <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionAttachmentDto">
             <summary>
             题目附件表
@@ -759,6 +782,11 @@
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShowLinkButton">
             <summary>
             是否显示上传附件按钮
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.IQuestionAnswerAppService">
+            <summary>
+            题目答案
             </summary>
         </member>
         <member name="T:Tiger.Module.QuestionBank.IQuestionAppService">
@@ -2267,6 +2295,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.QuestionAttachment">
             <summary>
             题目附件表
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.QuestionAnswer">
+            <summary>
+            题目答案
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">
