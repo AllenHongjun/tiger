@@ -1,6 +1,7 @@
 ﻿using Localization.Resources.AbpUi;
 using Tiger.Localization;
 using Tiger.Module.OssManagement.Localization;
+using Tiger.Module.QuestionBank.Localization;
 using Tiger.Module.Schools.Localization;
 using Tiger.Module.System.Area.Localization;
 using Tiger.Module.System.Localization;
@@ -128,6 +129,10 @@ namespace Tiger
                 options.Resources
                        .Add<SchoolResources>("zh-Hans")
                        .AddVirtualJson("/Module/Schools/Localization/Resources");
+
+                options.Resources
+                       .Add<QuestionBankResources>("zh-Hans")
+                       .AddVirtualJson("/Module/QuestionBank/Localization/Resources");
 
                 options.DefaultResourceType = typeof(TigerResource);
             });

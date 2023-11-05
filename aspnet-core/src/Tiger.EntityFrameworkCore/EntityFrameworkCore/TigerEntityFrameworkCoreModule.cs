@@ -1,3 +1,4 @@
+using Tiger.Module.QuestionBank;
 using Tiger.Module.Exams;
 using Tiger.Module.Teachings;
 using Tiger.Module.Schools;
@@ -62,6 +63,7 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<ClassInfo, ClassInfoRepository>();
             options.AddRepository<Course, CourseRepository>();
             options.AddRepository<TestPaper, TestPaperRepository>();
+            options.AddRepository<QuestionCategory, QuestionCategoryRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

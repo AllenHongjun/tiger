@@ -19,6 +19,7 @@ using Tiger.Module.System.Area;
 using Tiger.Module.Schools;
 using Tiger.Module.Teachings;
 using Tiger.Module.Exams;
+using Tiger.Module.QuestionBank;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -93,6 +94,10 @@ namespace Tiger.EntityFrameworkCore
         /// 试卷关联阅卷学校
         /// </summary>
         public DbSet<TestPaperJudgeSchool> TestPaperJudgeSchools { get; set; }
+    /// <summary>
+    /// 题目分类
+    /// </summary>
+    public DbSet<QuestionCategory> QuestionCategories { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

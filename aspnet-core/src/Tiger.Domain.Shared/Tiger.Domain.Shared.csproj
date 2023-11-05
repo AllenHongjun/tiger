@@ -59,6 +59,8 @@
     <None Remove="Localization\AbpUi\Extensions\zh-Hans.json" />
     <None Remove="Module\OssManagement\Localization\Resources\en.json" />
     <None Remove="Module\OssManagement\Localization\Resources\zh-Hans.json" />
+    <None Remove="Module\QuestionBank\Localization\Resources\en.json" />
+    <None Remove="Module\QuestionBank\Localization\Resources\zh-Hans.json" />
     <None Remove="Module\Schools\Localization\Resources\en.json" />
     <None Remove="Module\Schools\Localization\Resources\zh-Hans.json" />
     <None Remove="Module\System\Area\Localization\Resources\en.json" />
@@ -90,6 +92,8 @@
     <EmbeddedResource Include="Localization\AbpUi\Extensions\zh-Hans.json" />
     <EmbeddedResource Include="Module\OssManagement\Localization\Resources\en.json" />
     <EmbeddedResource Include="Module\OssManagement\Localization\Resources\zh-Hans.json" />
+    <EmbeddedResource Include="Module\QuestionBank\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Module\QuestionBank\Localization\Resources\zh-Hans.json" />
     <EmbeddedResource Include="Module\Schools\Localization\Resources\en.json" />
     <EmbeddedResource Include="Module\Schools\Localization\Resources\zh-Hans.json" />
     <EmbeddedResource Include="Module\System\Area\Localization\Resources\en.json" />

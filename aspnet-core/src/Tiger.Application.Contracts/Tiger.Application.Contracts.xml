@@ -271,6 +271,101 @@
             块总数
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto.Code">
+            <summary>
+            Hierarchical Code of this QuestionCategory.        Example: "00001.00042.00005".        This is a unique code for an QuestionCategory.        It's changeable if QC hierarchy is changed.
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto.Enable">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto.IsPublic">
+            <summary>
+            是否公开
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto.Code">
+            <summary>
+            Hierarchical Code of this QuestionCategory.        Example: "00001.00042.00005".        This is a unique code for an QuestionCategory.        It's changeable if QC hierarchy is changed.
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto.Enable">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryDto.IsPublic">
+            <summary>
+            是否公开
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput.Code">
+            <summary>
+            Hierarchical Code of this QuestionCategory.        Example: "00001.00042.00005".        This is a unique code for an QuestionCategory.        It's changeable if QC hierarchy is changed.
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput.Enable">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput.IsPublic">
+            <summary>
+            是否公开
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.IQuestionCategoryAppService">
+            <summary>
+            题目分类
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Schools.Dtos.ClassInfoDto">
             <summary>
             班级
@@ -1747,6 +1842,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.TestPaper">
             <summary>
             试卷
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.QuestionCategory">
+            <summary>
+            题目分类
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

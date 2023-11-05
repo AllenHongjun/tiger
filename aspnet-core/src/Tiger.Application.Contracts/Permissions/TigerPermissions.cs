@@ -37,5 +37,15 @@ namespace Tiger.Permissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 题目分类
+    /// </summary>
+    public class QuestionCategory
+    {
+        public const string Default = GroupName + ".QuestionCategory";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
     }
 }

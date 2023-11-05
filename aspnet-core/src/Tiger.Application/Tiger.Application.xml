@@ -312,6 +312,11 @@
             静态文件上传服务
             </summary>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.QuestionCategoryAppService">
+            <summary>
+            题目分类
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Schools.ClassInfoAppService">
             <summary>
             班级

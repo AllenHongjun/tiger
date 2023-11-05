@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -34,7 +34,7 @@ namespace Tiger.Module.QuestionBank
         public virtual string Code { get; internal set; }
 
         /// <summary>
-        /// 是否显示
+        /// 启用
         /// </summary>
         public bool Enable { get; set; }
 
@@ -53,5 +53,31 @@ namespace Tiger.Module.QuestionBank
         //public virtual ICollection<Question> Questions { get; set; }
 
         
+
+    protected QuestionCategory()
+    {
+    }
+
+    public QuestionCategory(
+        Guid id,
+        Guid? tenantId,
+        Guid? parentId,
+        string name,
+        string cover,
+        string code,
+        bool enable,
+        int sorting,
+        bool isPublic
+    ) : base(id)
+    {
+        TenantId = tenantId;
+        ParentId = parentId;
+        Name = name;
+        Cover = cover;
+        Code = code;
+        Enable = enable;
+        Sorting = sorting;
+        IsPublic = isPublic;
+    }
     }
 }

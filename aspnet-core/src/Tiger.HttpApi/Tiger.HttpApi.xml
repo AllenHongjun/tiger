@@ -170,6 +170,11 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.QuestionCategoryController">
+            <summary>
+            题目分类
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Classes.ClassController">
             <summary>
             班级

@@ -1,3 +1,4 @@
+using Tiger.Module.QuestionBank;
 using Tiger.Module.Exams;
 using Tiger.Module.Teachings;
 using Tiger.Module.Schools;
@@ -422,6 +423,29 @@ namespace Tiger.EntityFrameworkCore
 
                 b.HasIndex(ur => new { ur.TestPaperId, ur.SchoolId });
 
+            });
+
+
+            builder.Entity<QuestionCategory>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "QuestionCategories", TigerConsts.DbSchema);
+                b.Property(p => p.Name)
+                   .HasMaxLength(QuestionCategoryConsts.MaxNameLength)
+                   .IsRequired()
+                   .HasComment("名称");
+                b.Property(p => p.Cover)
+                   .HasMaxLength(QuestionCategoryConsts.MaxCodeLength)
+                   .IsRequired()
+                   .HasComment("封面");
+                b.Property(p => p.Code)
+                    .HasComment("层次编码");
+                b.Property(p => p.Enable)
+                    .HasComment("启用");
+                b.Property(p => p.Sorting)
+                    .HasComment("顺序");
+                b.ConfigureByConvention(); 
+
+                /* Configure more properties here */
             });
         }
 

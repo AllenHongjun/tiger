@@ -16,3 +16,12 @@ Update-Database
 Script-Migration AddNewTables AddAuditTable
 
 ```
+
+开发步骤
+1. 定义实体类 定义常量
+1.1 多语言资源配置
+2. 使用代码生成器生成基本的crud代码和类型
+3. 修改表结构注释长度显示
+4. Dto添加表单验证
+5. HttpApi 添加接口
+6. 更新数据库
