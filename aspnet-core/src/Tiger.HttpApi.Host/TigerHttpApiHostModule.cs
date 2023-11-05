@@ -376,7 +376,14 @@ namespace Tiger
                         Title = "Oss Management接口",
                         Description = "Oss管理接口",
                     });
-                    
+
+                    options.SwaggerDoc(ApiExplorerConsts.ExamGroupName, new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "考试模块接口",
+                        Description = "考试模块管理接口",
+                    });
+
 
 
 
@@ -633,6 +640,7 @@ namespace Tiger
                 options.SwaggerEndpoint("/swagger/admin/swagger.json", "SystemSettings");
                 options.SwaggerEndpoint("/swagger/oss-management/swagger.json", "OssManagement");
                 options.SwaggerEndpoint("/swagger/identity-server/swagger.json", "IdentityServer");
+                options.SwaggerEndpoint($"/swagger/{ApiExplorerConsts.ExamGroupName}/swagger.json", "Exam");
 
                 //options.SwaggerEndpoint("/swagger/admin-erp/swagger.json", "Admin-采购库存");
                 //options.SwaggerEndpoint("/swagger/api/swagger.json", "API-App接口");
@@ -650,7 +658,6 @@ namespace Tiger
                 options.RoutePrefix = string.Empty;
                 // API页面Title
                 options.DocumentTitle = "Tiger接口文档 - 花生了什么树";
-
 
                 options.OAuthClientId("testOauthClientId");
             });

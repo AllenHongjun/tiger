@@ -11,9 +11,13 @@ using Volo.Abp.AspNetCore.Mvc;
 
 namespace Tiger.Module.Teachings
 {
-    [RemoteService(Name = "course")]
-    [Area("course")]
-    [Route($"api/training/courses")]
+    /// <summary>
+    /// 课程
+    /// </summary>
+    [ApiExplorerSettings(GroupName = ApiExplorerConsts.ExamGroupName)]
+    [RemoteService(Name = TeachingRemoteServiceConsts.RemoteServiceName)]
+    [Area(TeachingRemoteServiceConsts.ModuleName)]
+    [Route($"api/{TeachingRemoteServiceConsts.ModuleName}/courses")]
     public class CourseController : AbpController, ICourseAppService
     {
         public CourseController(ICourseAppService courseAppService)
@@ -30,6 +34,7 @@ namespace Tiger.Module.Teachings
         }
 
         [HttpDelete]
+        [Route("{id}")]
         public Task DeleteAsync(Guid id)
         {
             return CourseAppService.DeleteAsync(id);
@@ -43,13 +48,13 @@ namespace Tiger.Module.Teachings
         }
 
         [HttpGet]
-        [Route("list")]
         public Task<PagedResultDto<CourseDto>> GetListAsync(CourseGetListInput input)
         {
             return CourseAppService.GetListAsync(input);
         }
 
         [HttpPut]
+        [Route("{id}")]
         public Task<CourseDto> UpdateAsync(Guid id, CreateUpdateCourseDto input)
         {
             return CourseAppService.UpdateAsync(id, input);

@@ -12,5 +12,7 @@ namespace Tiger
         public const string IdentityServerGroupName = "identity-server";
 
         public const string OssManagementGroupName = "oss-management";
+
+        public const string ExamGroupName = "exam";
     }
 }

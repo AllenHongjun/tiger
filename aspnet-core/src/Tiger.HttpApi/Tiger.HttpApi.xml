@@ -4,6 +4,11 @@
         <name>Tiger.HttpApi</name>
     </assembly>
     <members>
+        <member name="T:Tiger.Module.TestPapers.TestPaperController">
+            <summary>
+            试卷管理
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Notifications.MyNotificationController">
             <summary>
             我的通知
@@ -164,6 +169,16 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.Module.Classes.ClassController">
+            <summary>
+            班级
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Schools.SchoolController">
+            <summary>
+            学校
+            </summary>
         </member>
         <member name="T:Tiger.Module.System.CacheController">
             <summary>
@@ -811,6 +826,11 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:Tiger.Module.Teachings.CourseController">
+            <summary>
+            课程
+            </summary>
         </member>
         <member name="T:Tiger.TigerHttpApiModule">
             <summary>
