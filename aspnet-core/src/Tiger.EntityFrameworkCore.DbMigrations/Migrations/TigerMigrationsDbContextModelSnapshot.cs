@@ -493,6 +493,73 @@ namespace Tiger.Migrations
                     b.ToTable("AppQuestions");
                 });
 
+            modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionAttachment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AttachmentType")
+                        .HasColumnType("int")
+                        .HasComment("附件类型：1.内容，2.照片，3.文档，4.本地附件，5.本地视频，6.添加链接");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(2048)")
+                        .HasComment("附件内容")
+                        .HasMaxLength(2048);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("名称")
+                        .HasMaxLength(256);
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试题题目Id");
+
+                    b.Property<int>("Sorting")
+                        .HasColumnType("int")
+                        .HasComment("排序");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("AppQuestionAttachments");
+                });
+
             modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionCategory", b =>
                 {
                     b.Property<Guid>("Id")
@@ -3802,6 +3869,15 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Module.QuestionBank.QuestionCategory", "QuestionCategory")
                         .WithMany("Questions")
                         .HasForeignKey("QuestionCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tiger.Module.QuestionBank.QuestionAttachment", b =>
+                {
+                    b.HasOne("Tiger.Module.QuestionBank.Question", "Question")
+                        .WithMany("QuestionAttachments")
+                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
