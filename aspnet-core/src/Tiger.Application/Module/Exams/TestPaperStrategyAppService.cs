@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Module.Exams;
 
@@ -11,6 +12,7 @@ namespace Tiger.Module.Exams;
 /// <summary>
 /// 组卷策略配置表
 /// </summary>
+[RemoteService(IsEnabled = false)]
 public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, TestPaperStrategyDto, Guid, TestPaperStrategyGetListInput, CreateUpdateTestPaperStrategyDto, CreateUpdateTestPaperStrategyDto>,
     ITestPaperStrategyAppService
 {

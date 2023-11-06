@@ -125,13 +125,108 @@ namespace Tiger.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("SchoolId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TestPaperId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("TestPaperId", "SchoolId");
 
                     b.HasIndex("SchoolId");
 
+                    b.HasIndex("SchoolId1");
+
+                    b.HasIndex("TestPaperId1");
+
                     b.HasIndex("TestPaperId", "SchoolId");
 
                     b.ToTable("AppTestPaperJudgeSchool");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperStrategy", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DifficultCount")
+                        .HasColumnType("int")
+                        .HasComment("困难的数量");
+
+                    b.Property<int>("EasyCount")
+                        .HasColumnType("int")
+                        .HasComment("简单的数量");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("OrdinaryCount")
+                        .HasColumnType("int")
+                        .HasComment("普通的数量");
+
+                    b.Property<Guid?>("QuestionCategoryId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("题目分类Id");
+
+                    b.Property<int>("QuestionType")
+                        .HasColumnType("int")
+                        .HasComment("题型");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TestPaperId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试卷Id");
+
+                    b.Property<int>("UnlimitedDifficultyCount")
+                        .HasColumnType("int")
+                        .HasComment("不限难度数量");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestPaperId");
+
+                    b.ToTable("AppTestPaperStrategies");
                 });
 
             modelBuilder.Entity("Tiger.Module.Notifications.Notification", b =>
@@ -3908,20 +4003,31 @@ namespace Tiger.Migrations
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperJudgeSchool", b =>
                 {
-                    b.HasOne("Tiger.Module.Exams.TestPaper", null)
-                        .WithMany("Schools")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Tiger.Module.Schools.School", null)
                         .WithMany("TestPapers")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tiger.Module.Exams.TestPaper", null)
+                    b.HasOne("Tiger.Module.Schools.School", "School")
                         .WithMany()
+                        .HasForeignKey("SchoolId1");
+
+                    b.HasOne("Tiger.Module.Exams.TestPaper", null)
+                        .WithMany("JudgeSchools")
+                        .HasForeignKey("TestPaperId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
+                        .WithMany()
+                        .HasForeignKey("TestPaperId1");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperStrategy", b =>
+                {
+                    b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
+                        .WithMany("TestPaperStrategies")
                         .HasForeignKey("TestPaperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

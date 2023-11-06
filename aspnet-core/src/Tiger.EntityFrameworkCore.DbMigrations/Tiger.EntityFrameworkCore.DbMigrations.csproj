@@ -11,6 +11,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20230809160301_background-job-add.cs" />
     <Compile Remove="Migrations\20230809160301_background-job-add.Designer.cs" />
+    <Compile Remove="Migrations\20231106153942_TestPaperStrategyInit.cs" />
+    <Compile Remove="Migrations\20231106153942_TestPaperStrategyInit.Designer.cs" />
+    <Compile Remove="Migrations\20231106154838_TestPaperStrategyCreate.cs" />
+    <Compile Remove="Migrations\20231106154838_TestPaperStrategyCreate.Designer.cs" />
+    <Compile Remove="Migrations\20231106155314_TestPaperStrategyCreate.cs" />
+    <Compile Remove="Migrations\20231106155314_TestPaperStrategyCreate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

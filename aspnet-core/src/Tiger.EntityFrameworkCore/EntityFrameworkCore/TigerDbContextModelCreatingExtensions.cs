@@ -395,8 +395,8 @@ namespace Tiger.EntityFrameworkCore
                     .HasComment("评卷开始时间");
                 b.Property(p => p.JudgeEndTime)
                     .HasComment("评卷结束时间");
-                
-                b.HasMany(u => u.Schools).WithOne().HasForeignKey(tjs => tjs.SchoolId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+
+                b.HasMany(t => t.JudgeSchools).WithOne(ts => ts.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired().OnDelete(DeleteBehavior.Restrict);
                 b.HasMany(t => t.TestPaperStrategies).WithOne(tps => tps.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
 
                 b.ConfigureByConvention(); 
@@ -418,19 +418,17 @@ namespace Tiger.EntityFrameworkCore
                 /* Configure more properties here */
             });
 
-            // 试卷和评卷学校 多对多关联配置: https://github.com/abpframework/abp/blob/dev/modules/identity/src/Volo.Abp.Identity.EntityFrameworkCore/Volo/Abp/Identity/EntityFrameworkCore/IdentityDbContextModelBuilderExtensions.cs
+            // 试卷和评卷学校
             builder.Entity<TestPaperJudgeSchool>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "TestPaperJudgeSchool", TigerConsts.DbSchema);
-
-                b.ConfigureByConvention();
-
                 b.HasKey(tjs => new { tjs.TestPaperId, tjs.SchoolId });
 
-                b.HasOne<TestPaper>().WithMany().HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
+                b.HasOne<TestPaper>().WithMany(t => t.JudgeSchools).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
                 b.HasOne<School>().WithMany(s => s.TestPapers).HasForeignKey(tjs => tjs.SchoolId).IsRequired();
 
                 b.HasIndex(ur => new { ur.TestPaperId, ur.SchoolId });
+                b.ConfigureByConvention();
 
             });
 
