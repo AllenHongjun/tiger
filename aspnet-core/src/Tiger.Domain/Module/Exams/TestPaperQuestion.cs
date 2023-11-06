@@ -9,7 +9,7 @@ namespace Tiger.Module.Exams
     /// <summary>
     /// 试卷内容(题目)表
     /// </summary>
-    public class TestPaperDetail:AuditedEntity<Guid>
+    public class TestPaperQuestion:AuditedEntity<Guid>
     {
         /// <summary>
         /// 试卷ID
@@ -39,7 +39,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 每题分数
         /// </summary>
-        public decimal Score { get; set; }
+        public decimal ScorePerQuestion { get; set; }
 
         /// <summary>
         /// 漏选按错误处理
@@ -56,8 +56,14 @@ namespace Tiger.Module.Exams
         /// </summary>
         public virtual QuestionCategory QuestionCategory { get; set; }
 
+        /// <summary>
+        /// 试卷
+        /// </summary>
         public virtual TestPaper TestPaper { get; set; }
 
+        /// <summary>
+        /// 题目
+        /// </summary>
         public virtual Question Question { get; set; }
     }
 }

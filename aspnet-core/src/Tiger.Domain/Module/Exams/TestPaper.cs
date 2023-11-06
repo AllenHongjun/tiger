@@ -66,6 +66,15 @@ namespace Tiger.Module.Exams
         /// </summary>
         public DateTime? JudgeEndTime { get; set; }
 
+        /// <summary>
+        /// 试卷大题
+        /// </summary>
+        //public virtual ICollection<TestPaperSection> TestPaperSections { get; set; }
+
+        /// <summary>
+        /// 试卷小题
+        /// </summary>
+        public virtual ICollection<TestPaperQuestion> TestPaperQuestions { get; set; }
 
         ///// <summary>
         ///// 允许阅卷的学校(默认该学校全部老师)
