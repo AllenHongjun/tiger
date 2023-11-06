@@ -1,17 +1,21 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.QuestionBank;
+using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.Exams
 {
     /// <summary>
     /// 组卷策略配置表
     /// </summary>
-    public class TestPaperStrategy
+    public class TestPaperStrategy:FullAuditedAggregateRoot<Guid>,IMultiTenant
     {
+        public Guid? TenantId { get; set; }
+
         /// <summary>
-        /// 试卷
+        /// 试卷Id
         /// </summary>
         public Guid TestPaperId { get; set; }
 
@@ -52,6 +56,32 @@ namespace Tiger.Module.Exams
 
         //public virtual QuestionCategory QuestionCategory { get; set; }
 
-        //public virtual TestPaper TestPaper { get; set; }
+        public virtual TestPaper TestPaper { get; set; }
+
+        protected TestPaperStrategy()
+        {
+        }
+
+        public TestPaperStrategy(
+            Guid id,
+            Guid? tenantId,
+            Guid testPaperId,
+            Guid? questionCategoryId,
+            QuestionType questionType,
+            int unlimitedDifficultyCount,
+            int easyCount,
+            int ordinaryCount,
+            int difficultCount
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            TestPaperId = testPaperId;
+            QuestionCategoryId = questionCategoryId;
+            QuestionType = questionType;
+            UnlimitedDifficultyCount = unlimitedDifficultyCount;
+            EasyCount = easyCount;
+            OrdinaryCount = ordinaryCount;
+            DifficultCount = difficultCount;
+        }
     }
 }

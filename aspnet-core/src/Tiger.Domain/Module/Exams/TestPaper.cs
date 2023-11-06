@@ -67,6 +67,11 @@ namespace Tiger.Module.Exams
         public DateTime? JudgeEndTime { get; set; }
 
         /// <summary>
+        /// 组题策略
+        /// </summary>
+        public virtual ICollection<TestPaperStrategy> TestPaperStrategies { get; set; }
+
+        /// <summary>
         /// 试卷大题
         /// </summary>
         //public virtual ICollection<TestPaperSection> TestPaperSections { get; set; }

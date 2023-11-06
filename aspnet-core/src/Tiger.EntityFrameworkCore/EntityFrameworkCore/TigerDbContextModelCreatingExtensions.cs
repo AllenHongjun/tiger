@@ -379,14 +379,8 @@ namespace Tiger.EntityFrameworkCore
             builder.Entity<TestPaper>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "TestPapers", TigerConsts.DbSchema);
-                b.Property(p => p.Name)
-                   .HasMaxLength(TestPaperConsts.MaxNameLength)
-                   .IsRequired()
-                   .HasComment("名称");
-                b.Property(p => p.Number)
-                   .HasMaxLength(TestPaperConsts.MaxNumberLength)
-                   .IsRequired()
-                   .HasComment("编号");
+                b.Property(p => p.Name).HasMaxLength(TestPaperConsts.MaxNameLength).IsRequired().HasComment("名称");
+                b.Property(p => p.Number).HasMaxLength(TestPaperConsts.MaxNumberLength).IsRequired().HasComment("编号");
                 b.Property(p => p.Type)
                     .HasComment("类型 1.固定题目（手动或自动选题） 2.随机题目（根据策略每个学员的题目都不同） 3.固定题目打乱显示");
                 b.Property(p => p.IsComposing)
@@ -401,12 +395,27 @@ namespace Tiger.EntityFrameworkCore
                     .HasComment("评卷开始时间");
                 b.Property(p => p.JudgeEndTime)
                     .HasComment("评卷结束时间");
-
-                // bugfix: 将 FOREIGN KEY 约束 'FK_AbpTestPaperJudgeSchool_AppTestPapers_TestPaperId' 引入表 'AbpTestPaperJudgeSchool' 可能会导致循环或多重级联路径。请指定 ON DELETE NO ACTION 或 ON UPDATE NO ACTION，或修改其他 FOREIGN KEY 约束。
-                b.HasMany(u => u.Schools).WithOne().HasForeignKey(tjs => tjs.SchoolId).IsRequired().OnDelete(DeleteBehavior.Restrict); ;
+                
+                b.HasMany(u => u.Schools).WithOne().HasForeignKey(tjs => tjs.SchoolId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+                b.HasMany(t => t.TestPaperStrategies).WithOne(tps => tps.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
 
                 b.ConfigureByConvention(); 
 
+            });
+
+            builder.Entity<TestPaperStrategy>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TestPaperStrategies", TigerConsts.DbSchema);
+                b.Property(p => p.TestPaperId).HasComment("试卷Id");
+                b.Property(p => p.QuestionCategoryId).HasComment("题目分类Id");
+                b.Property(p => p.QuestionType).HasComment("题型");
+                b.Property(p => p.UnlimitedDifficultyCount).HasComment("不限难度数量");
+                b.Property(p => p.EasyCount).HasComment("简单的数量");
+                b.Property(p => p.OrdinaryCount).HasComment("普通的数量");
+                b.Property(p => p.DifficultCount).HasComment("困难的数量");
+
+                b.ConfigureByConvention();
+                /* Configure more properties here */
             });
 
             // 试卷和评卷学校 多对多关联配置: https://github.com/abpframework/abp/blob/dev/modules/identity/src/Volo.Abp.Identity.EntityFrameworkCore/Volo/Abp/Identity/EntityFrameworkCore/IdentityDbContextModelBuilderExtensions.cs
@@ -506,6 +515,9 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            
         }
 
 

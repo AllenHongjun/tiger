@@ -77,5 +77,15 @@ namespace Tiger.Permissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 组卷策略配置表
+    /// </summary>
+    public class TestPaperStrategy
+    {
+        public const string Default = GroupName + ".TestPaperStrategy";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
     }
 }

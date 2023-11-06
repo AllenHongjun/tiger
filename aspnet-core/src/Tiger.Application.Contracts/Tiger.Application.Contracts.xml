@@ -59,6 +59,41 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.TestPaperId">
+            <summary>
+            试卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.QuestionCategoryId">
+            <summary>
+            题目分类Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.QuestionType">
+            <summary>
+            题型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.UnlimitedDifficultyCount">
+            <summary>
+            不限难度数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.EasyCount">
+            <summary>
+            简单的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.OrdinaryCount">
+            <summary>
+            普通的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.DifficultCount">
+            <summary>
+            困难的数量
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperDto">
             <summary>
             试卷
@@ -164,9 +199,89 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.TestPaperStrategyDto">
+            <summary>
+            组卷策略配置表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TestPaperId">
+            <summary>
+            试卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.QuestionCategoryId">
+            <summary>
+            题目分类Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.QuestionType">
+            <summary>
+            题型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.UnlimitedDifficultyCount">
+            <summary>
+            不限难度数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.EasyCount">
+            <summary>
+            简单的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.OrdinaryCount">
+            <summary>
+            普通的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.DifficultCount">
+            <summary>
+            困难的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.TestPaperId">
+            <summary>
+            试卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.QuestionCategoryId">
+            <summary>
+            题目分类Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.QuestionType">
+            <summary>
+            题型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.UnlimitedDifficultyCount">
+            <summary>
+            不限难度数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.EasyCount">
+            <summary>
+            简单的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.OrdinaryCount">
+            <summary>
+            普通的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.DifficultCount">
+            <summary>
+            困难的数量
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.ITestPaperAppService">
             <summary>
             试卷
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.ITestPaperStrategyAppService">
+            <summary>
+            组卷策略配置表
             </summary>
         </member>
         <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.Name">
@@ -2300,6 +2415,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.QuestionAnswer">
             <summary>
             题目答案
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.TestPaperStrategy">
+            <summary>
+            组卷策略配置表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

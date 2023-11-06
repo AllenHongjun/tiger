@@ -183,6 +183,11 @@
             试卷
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.TestPaperStrategyAppService">
+            <summary>
+            组卷策略配置表
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Notifications.MyNotificationAppService">
             <summary>
             我的通知服务
