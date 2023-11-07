@@ -36,7 +36,6 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             .WhereIf(input.QuestionId != null, x => x.QuestionId == input.QuestionId)
             .WhereIf(input.TestPaperType != null, x => x.TestPaperType == input.TestPaperType)
             .WhereIf(input.QuestionDegree != null, x => x.QuestionDegree == input.QuestionDegree)
-            .WhereIf(input.Sorting != null, x => x.Sorting == input.Sorting)
             .WhereIf(input.Score != null, x => x.Score == input.Score)
             .WhereIf(input.MissOptionInvalid != null, x => x.MissOptionInvalid == input.MissOptionInvalid)
             ;

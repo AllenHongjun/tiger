@@ -32,11 +32,7 @@ public class TestPaperQuestionGetListInput : PagedAndSortedResultRequestDto
     /// 难易度：1.简单 2.普通 3.困难
     /// </summary>
     public QuestionDegree? QuestionDegree { get; set; }
-
-    /// <summary>
-    /// 顺序
-    /// </summary>
-    public int? Sorting { get; set; }
+    
 
     /// <summary>
     /// 每题分数

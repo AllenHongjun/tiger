@@ -309,11 +309,6 @@
             难易度：1.简单 2.普通 3.困难
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.Sorting">
-            <summary>
-            顺序
-            </summary>
-        </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.Score">
             <summary>
             每题分数

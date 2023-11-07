@@ -144,6 +144,71 @@ namespace Tiger.Migrations
                     b.ToTable("AppTestPaperJudgeSchool");
                 });
 
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("MissOptionInvalid")
+                        .HasColumnType("bit")
+                        .HasComment("漏选按错误处理");
+
+                    b.Property<Guid>("QuestionCategoryId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("题目分类");
+
+                    b.Property<int>("QuestionDegree")
+                        .HasColumnType("int")
+                        .HasComment("难易度：1.简单 2.普通 3.困难");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试题ID");
+
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("每题分数");
+
+                    b.Property<int>("Sorting")
+                        .HasColumnType("int")
+                        .HasComment("顺序");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TestPaperId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试卷ID");
+
+                    b.Property<int>("TestPaperType")
+                        .HasColumnType("int")
+                        .HasComment("选题方式 1.自主选题 2.随机生成");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestPaperId");
+
+                    b.ToTable("AppTestPaperQuestions");
+                });
+
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperStrategy", b =>
                 {
                     b.Property<Guid>("Id")
@@ -4022,6 +4087,15 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
                         .WithMany()
                         .HasForeignKey("TestPaperId1");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperQuestion", b =>
+                {
+                    b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
+                        .WithMany("TestPaperQuestions")
+                        .HasForeignKey("TestPaperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperStrategy", b =>
