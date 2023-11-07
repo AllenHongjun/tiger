@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.Teachings;
@@ -160,11 +160,77 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 试卷
         /// </summary>
-        //public virtual TestPaper TestPaper { get; set; }
+        public virtual TestPaper TestPaper { get; set; }
 
         /// <summary>
         /// 题目分类
         /// </summary>
         //public virtual QuestionCategory QuestionCategory { get; set; }
+
+        protected Exam()
+    {
+    }
+
+    public Exam(
+        Guid id,
+        Guid? courseId,
+        Guid testPaperId,
+        Guid questionCategoryId,
+        string name,
+        string coverUrl,
+        string number,
+        ExamType examType,
+        DateTime startDate,
+        DateTime endDate,
+        int examDuration,
+        bool isDifferent,
+        bool isDifferentOrder,
+        bool isShowScore,
+        bool isShowError,
+        bool isEnable,
+        bool isExamAnyTime,
+        bool isShowWindowOnblur,
+        int maxExamCount,
+        int sorting,
+        bool onlyExamDayVisible,
+        bool isStartSync,
+        bool isShowHelp,
+        bool halftimeFlag,
+        DateTime halftimeStart,
+        DateTime halftimeEnd,
+        decimal? deductionAmounnt,
+        int? deductionInterval,
+        int? interval
+    ) : base(id)
+    {
+        CourseId = courseId;
+        TestPaperId = testPaperId;
+        QuestionCategoryId = questionCategoryId;
+        Name = name;
+        CoverUrl = coverUrl;
+        Number = number;
+        ExamType = examType;
+        StartDate = startDate;
+        EndDate = endDate;
+        ExamDuration = examDuration;
+        IsDifferent = isDifferent;
+        IsDifferentOrder = isDifferentOrder;
+        IsShowScore = isShowScore;
+        IsShowError = isShowError;
+        IsEnable = isEnable;
+        IsExamAnyTime = isExamAnyTime;
+        IsShowWindowOnblur = isShowWindowOnblur;
+        MaxExamCount = maxExamCount;
+        Sorting = sorting;
+        OnlyExamDayVisible = onlyExamDayVisible;
+        IsStartSync = isStartSync;
+        IsShowHelp = isShowHelp;
+        HalftimeFlag = halftimeFlag;
+        HalftimeStart = halftimeStart;
+        HalftimeEnd = halftimeEnd;
+        DeductionAmounnt = deductionAmounnt;
+        DeductionInterval = deductionInterval;
+        Interval = interval;
+    }
     }
 }

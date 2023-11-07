@@ -532,11 +532,46 @@ namespace Tiger.EntityFrameworkCore
                 /* Configure more properties here */
             });
 
+            builder.Entity<Exam>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Exams", TigerConsts.DbSchema);
+                b.Property(p => p.CourseId).HasComment("课程Id");
+                b.Property(p => p.TestPaperId).HasComment("考试的试卷");
+                b.Property(p => p.QuestionCategoryId).HasComment("题目分类");
+                b.Property(p => p.Name).HasMaxLength(ExamConsts.MaxNameLength).IsRequired().HasComment("考试名称");
+                b.Property(p => p.CoverUrl).HasMaxLength(ExamConsts.MaxCoverLength).IsRequired(false).HasComment("封面");
+                b.Property(p => p.Number).HasMaxLength(ExamConsts.MaxNumberLength).IsRequired(false).HasComment("编号");
+                b.Property(p => p.ExamType).HasComment("类型：1.考试 2.练习 , 3 比赛");
+                b.Property(p => p.StartDate).HasComment("开始时间");
+                b.Property(p => p.EndDate).HasComment("结束时间");
+                b.Property(p => p.ExamDuration).HasComment("考试时长 单位：分钟");
+                b.Property(p => p.IsDifferent).HasComment("是否每个人都不同");
+                b.Property(p => p.IsDifferentOrder).HasComment("顺序不同");
+                b.Property(p => p.IsShowScore).HasComment("提交后是否显示成绩");
+                b.Property(p => p.IsShowError).HasComment("是否可以查看错题");
+                b.Property(p => p.IsEnable).HasComment("启用状态");
+                b.Property(p => p.IsExamAnyTime).HasComment("是否随到随考");
+                b.Property(p => p.IsShowWindowOnblur).HasComment("提示切屏次数");
+                b.Property(p => p.MaxExamCount).HasComment("考试最大次数");
+                b.Property(p => p.Sorting).HasComment("顺序");
+                b.Property(p => p.OnlyExamDayVisible).HasComment("仅考试当天可见");
+                b.Property(p => p.IsStartSync).HasComment("是否启动自动实操评分");
+                b.Property(p => p.IsShowHelp).HasComment("是否显示帮助内容");
+                b.Property(p => p.HalftimeFlag).HasComment("是否中场休息");
+                b.Property(p => p.HalftimeStart).HasComment("中场休息开始时间");
+                b.Property(p => p.HalftimeEnd).HasComment("中场休息结束时间");
+                b.Property(p => p.DeductionAmounnt).HasComment("扣款金额");
+                b.Property(p => p.DeductionInterval).HasComment("扣款间隔（单位: 分钟）");
+                b.Property(p => p.DeductionInterval).HasComment("扣款间隔（单位: 分钟）");
+                b.Property(p => p.Interval).HasComment("比赛间隔（单位: 分钟）");
 
+                b.HasOne( e => e.TestPaper).WithMany( t => t.Exams).HasForeignKey(e => e.TestPaperId).IsRequired();
+
+                b.ConfigureByConvention(); 
             
 
-
-            
+                /* Configure more properties here */
+            });
         }
 
 

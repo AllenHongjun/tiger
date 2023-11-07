@@ -9,6 +9,146 @@
             Api资源管理器
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.CourseId">
+            <summary>
+            课程Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.TestPaperId">
+            <summary>
+            考试的试卷（母卷）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.QuestionCategoryId">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.Name">
+            <summary>
+            考试名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.CoverUrl">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.ExamType">
+            <summary>
+            类型：1.考试 2.练习 , 3 比赛
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.StartDate">
+            <summary>
+            考试时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.ExamDuration">
+            <summary>
+            考试时长 单位：分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsDifferent">
+            <summary>
+            是否每个人都不同
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsDifferentOrder">
+            <summary>
+            顺序不同（试卷相同时）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsShowScore">
+            <summary>
+            提交后是否显示成绩
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsShowError">
+            <summary>
+            是否可以查看错题
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsEnable">
+            <summary>
+            启用状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsExamAnyTime">
+            <summary>
+            是否随到随考
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsShowWindowOnblur">
+            <summary>
+            提示切屏次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.MaxExamCount">
+            <summary>
+            考试最大次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.OnlyExamDayVisible">
+            <summary>
+            仅考试当天可见
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsStartSync">
+            <summary>
+            是否启动自动实操评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.IsShowHelp">
+            <summary>
+            是否显示帮助内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.HalftimeFlag">
+            <summary>
+            是否中场休息
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.HalftimeStart">
+            <summary>
+            中场休息开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.HalftimeEnd">
+            <summary>
+            中场休息结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.DeductionAmounnt">
+            <summary>
+            扣款金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.DeductionInterval">
+            <summary>
+            扣款间隔（单位: 分钟）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.Interval">
+            <summary>
+            比赛间隔（单位: 分钟）
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.TestPaperMainId">
             <summary>
             主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
@@ -132,6 +272,291 @@
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.DifficultCount">
             <summary>
             困难的数量
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Dtos.ExamDto">
+            <summary>
+            考试
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.CourseId">
+            <summary>
+            课程Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.TestPaperId">
+            <summary>
+            考试的试卷（母卷）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.QuestionCategoryId">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.Name">
+            <summary>
+            考试名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.CoverUrl">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.ExamType">
+            <summary>
+            类型：1.考试 2.练习 , 3 比赛
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.StartDate">
+            <summary>
+            考试时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.ExamDuration">
+            <summary>
+            考试时长 单位：分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsDifferent">
+            <summary>
+            是否每个人都不同
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsDifferentOrder">
+            <summary>
+            顺序不同（试卷相同时）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsShowScore">
+            <summary>
+            提交后是否显示成绩
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsShowError">
+            <summary>
+            是否可以查看错题
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsEnable">
+            <summary>
+            启用状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsExamAnyTime">
+            <summary>
+            是否随到随考
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsShowWindowOnblur">
+            <summary>
+            提示切屏次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.MaxExamCount">
+            <summary>
+            考试最大次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.OnlyExamDayVisible">
+            <summary>
+            仅考试当天可见
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsStartSync">
+            <summary>
+            是否启动自动实操评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.IsShowHelp">
+            <summary>
+            是否显示帮助内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.HalftimeFlag">
+            <summary>
+            是否中场休息
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.HalftimeStart">
+            <summary>
+            中场休息开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.HalftimeEnd">
+            <summary>
+            中场休息结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.DeductionAmounnt">
+            <summary>
+            扣款金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.DeductionInterval">
+            <summary>
+            扣款间隔（单位: 分钟）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.Interval">
+            <summary>
+            比赛间隔（单位: 分钟）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.CourseId">
+            <summary>
+            课程Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.TestPaperId">
+            <summary>
+            考试的试卷（母卷）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.QuestionCategoryId">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Name">
+            <summary>
+            考试名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.CoverUrl">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Number">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.ExamType">
+            <summary>
+            类型：1.考试 2.练习 , 3 比赛
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.StartDate">
+            <summary>
+            考试时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.ExamDuration">
+            <summary>
+            考试时长 单位：分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsDifferent">
+            <summary>
+            是否每个人都不同
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsDifferentOrder">
+            <summary>
+            顺序不同（试卷相同时）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsShowScore">
+            <summary>
+            提交后是否显示成绩
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsShowError">
+            <summary>
+            是否可以查看错题
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsEnable">
+            <summary>
+            启用状态
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsExamAnyTime">
+            <summary>
+            是否随到随考
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsShowWindowOnblur">
+            <summary>
+            提示切屏次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.MaxExamCount">
+            <summary>
+            考试最大次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.OnlyExamDayVisible">
+            <summary>
+            仅考试当天可见
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsStartSync">
+            <summary>
+            是否启动自动实操评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.IsShowHelp">
+            <summary>
+            是否显示帮助内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.HalftimeFlag">
+            <summary>
+            是否中场休息
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.HalftimeStart">
+            <summary>
+            中场休息开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.HalftimeEnd">
+            <summary>
+            中场休息结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.DeductionAmounnt">
+            <summary>
+            扣款金额
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.DeductionInterval">
+            <summary>
+            扣款间隔（单位: 分钟）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Interval">
+            <summary>
+            比赛间隔（单位: 分钟）
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperDto">
@@ -392,6 +817,11 @@
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.DifficultCount">
             <summary>
             困难的数量
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.IExamAppService">
+            <summary>
+            考试
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.ITestPaperAppService">
@@ -2550,6 +2980,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.TestPaperQuestion">
             <summary>
             试卷内容(题目)表
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.Exam">
+            <summary>
+            考试
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

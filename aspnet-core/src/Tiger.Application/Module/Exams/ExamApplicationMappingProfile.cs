@@ -10,6 +10,9 @@ namespace Tiger.Module.Exams
     {
         public ExamApplicationMappingProfile()
         {
+            CreateMap<Exam, ExamDto>();
+            CreateMap<CreateUpdateExamDto, Exam>();
+
             CreateMap<TestPaper, TestPaperDto>();
             CreateMap<CreateUpdateTestPaperDto, TestPaper>();
 
