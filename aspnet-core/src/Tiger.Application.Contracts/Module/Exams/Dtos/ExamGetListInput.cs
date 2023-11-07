@@ -97,10 +97,6 @@ public class ExamGetListInput : PagedAndSortedResultRequestDto
     /// </summary>
     public int? MaxExamCount { get; set; }
 
-    /// <summary>
-    /// 顺序
-    /// </summary>
-    public int? Sorting { get; set; }
 
     /// <summary>
     /// 仅考试当天可见

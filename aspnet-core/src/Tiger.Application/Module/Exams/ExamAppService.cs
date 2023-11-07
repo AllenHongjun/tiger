@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Module.Exams;
 
@@ -11,6 +12,7 @@ namespace Tiger.Module.Exams;
 /// <summary>
 /// 考试
 /// </summary>
+[RemoteService(false)]
 public class ExamAppService : CrudAppService<Exam, ExamDto, Guid, ExamGetListInput, CreateUpdateExamDto, CreateUpdateExamDto>,
     IExamAppService
 {
@@ -49,7 +51,6 @@ public class ExamAppService : CrudAppService<Exam, ExamDto, Guid, ExamGetListInp
             .WhereIf(input.IsExamAnyTime != null, x => x.IsExamAnyTime == input.IsExamAnyTime)
             .WhereIf(input.IsShowWindowOnblur != null, x => x.IsShowWindowOnblur == input.IsShowWindowOnblur)
             .WhereIf(input.MaxExamCount != null, x => x.MaxExamCount == input.MaxExamCount)
-            .WhereIf(input.Sorting != null, x => x.Sorting == input.Sorting)
             .WhereIf(input.OnlyExamDayVisible != null, x => x.OnlyExamDayVisible == input.OnlyExamDayVisible)
             .WhereIf(input.IsStartSync != null, x => x.IsStartSync == input.IsStartSync)
             .WhereIf(input.IsShowHelp != null, x => x.IsShowHelp == input.IsShowHelp)

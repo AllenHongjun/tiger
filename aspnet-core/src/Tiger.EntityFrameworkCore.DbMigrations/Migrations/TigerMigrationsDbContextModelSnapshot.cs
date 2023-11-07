@@ -21,6 +21,165 @@ namespace Tiger.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Tiger.Module.Exams.Exam", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("课程Id");
+
+                    b.Property<string>("CoverUrl")
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("封面")
+                        .HasMaxLength(1024);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal?>("DeductionAmounnt")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("扣款金额");
+
+                    b.Property<int?>("DeductionInterval")
+                        .HasColumnType("int")
+                        .HasComment("扣款间隔（单位: 分钟）");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("结束时间");
+
+                    b.Property<int>("ExamDuration")
+                        .HasColumnType("int")
+                        .HasComment("考试时长 单位：分钟");
+
+                    b.Property<int>("ExamType")
+                        .HasColumnType("int")
+                        .HasComment("类型：1.考试 2.练习 , 3 比赛");
+
+                    b.Property<DateTime>("HalftimeEnd")
+                        .HasColumnType("datetime2")
+                        .HasComment("中场休息结束时间");
+
+                    b.Property<bool>("HalftimeFlag")
+                        .HasColumnType("bit")
+                        .HasComment("是否中场休息");
+
+                    b.Property<DateTime>("HalftimeStart")
+                        .HasColumnType("datetime2")
+                        .HasComment("中场休息开始时间");
+
+                    b.Property<int?>("Interval")
+                        .HasColumnType("int")
+                        .HasComment("比赛间隔（单位: 分钟）");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsDifferent")
+                        .HasColumnType("bit")
+                        .HasComment("是否每个人都不同");
+
+                    b.Property<bool>("IsDifferentOrder")
+                        .HasColumnType("bit")
+                        .HasComment("顺序不同");
+
+                    b.Property<bool>("IsEnable")
+                        .HasColumnType("bit")
+                        .HasComment("启用状态");
+
+                    b.Property<bool>("IsExamAnyTime")
+                        .HasColumnType("bit")
+                        .HasComment("是否随到随考");
+
+                    b.Property<bool>("IsShowError")
+                        .HasColumnType("bit")
+                        .HasComment("是否可以查看错题");
+
+                    b.Property<bool>("IsShowHelp")
+                        .HasColumnType("bit")
+                        .HasComment("是否显示帮助内容");
+
+                    b.Property<bool>("IsShowScore")
+                        .HasColumnType("bit")
+                        .HasComment("提交后是否显示成绩");
+
+                    b.Property<bool>("IsShowWindowOnblur")
+                        .HasColumnType("bit")
+                        .HasComment("提示切屏次数");
+
+                    b.Property<bool>("IsStartSync")
+                        .HasColumnType("bit")
+                        .HasComment("是否启动自动实操评分");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("MaxExamCount")
+                        .HasColumnType("int")
+                        .HasComment("考试最大次数");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("考试名称")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(128)")
+                        .HasComment("编号")
+                        .HasMaxLength(128);
+
+                    b.Property<bool>("OnlyExamDayVisible")
+                        .HasColumnType("bit")
+                        .HasComment("仅考试当天可见");
+
+                    b.Property<Guid>("QuestionCategoryId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("题目分类");
+
+                    b.Property<int>("Sorting")
+                        .HasColumnType("int")
+                        .HasComment("顺序");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("开始时间");
+
+                    b.Property<Guid>("TestPaperId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("考试的试卷");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestPaperId");
+
+                    b.ToTable("AppExams");
+                });
+
             modelBuilder.Entity("Tiger.Module.Exams.TestPaper", b =>
                 {
                     b.Property<Guid>("Id")
@@ -4057,6 +4216,15 @@ namespace Tiger.Migrations
                     b.HasIndex("Name", "ProviderName", "ProviderKey");
 
                     b.ToTable("AbpSettings");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.Exam", b =>
+                {
+                    b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
+                        .WithMany("Exams")
+                        .HasForeignKey("TestPaperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaper", b =>

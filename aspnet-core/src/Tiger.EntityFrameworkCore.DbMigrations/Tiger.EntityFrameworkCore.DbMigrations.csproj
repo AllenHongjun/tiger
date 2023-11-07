@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20231106154838_TestPaperStrategyCreate.Designer.cs" />
     <Compile Remove="Migrations\20231106155314_TestPaperStrategyCreate.cs" />
     <Compile Remove="Migrations\20231106155314_TestPaperStrategyCreate.Designer.cs" />
+    <Compile Remove="Migrations\20231107141950_ExamCreat.cs" />
+    <Compile Remove="Migrations\20231107141950_ExamCreat.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

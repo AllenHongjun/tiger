@@ -509,11 +509,6 @@
             考试最大次数
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Sorting">
-            <summary>
-            顺序
-            </summary>
-        </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.OnlyExamDayVisible">
             <summary>
             仅考试当天可见
