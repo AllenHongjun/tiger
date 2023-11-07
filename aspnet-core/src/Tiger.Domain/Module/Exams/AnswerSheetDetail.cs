@@ -12,23 +12,27 @@ namespace Tiger.Module.Exams
     public class AnswerSheetDetail:FullAuditedEntity<Guid>
     {
         /// <summary>
-        /// 答卷ID
+        /// 答卷Id
         /// </summary>
         public Guid AnswerSheetId { get; set; }
+
         /// <summary>
-        /// 试卷ID
+        /// 试卷Id
         /// </summary>
         public Guid TestPaperId { get; set; }
+
         /// <summary>
-        /// 试题ID
+        /// 试题Id
         /// </summary>
         public Guid QuestionId { get; set; }
+
         /// <summary>
         /// 答案
         /// </summary>
         public string Answer { get; set; }
+
         /// <summary>
-        /// 试卷详情ID
+        /// 试卷详情Id
         /// </summary>
         public int TestPaperDetailId { get; set; }
 
@@ -36,14 +40,16 @@ namespace Tiger.Module.Exams
         /// 实操题自动评分分数
         /// </summary>
         public double OperateAutoScore { get; set; }
+
         /// <summary>
         /// 实操题人工评分分数
         /// </summary>
         public double OperateManualScore { get; set; }
+
         /// <summary>
-        /// 实操ID
+        /// 实操Id
         /// </summary>
-        public string OperateID { get; set; }
+        public string OperateId { get; set; }
         
         /// <summary>
         /// 上次同步时间
@@ -55,10 +61,19 @@ namespace Tiger.Module.Exams
         /// </summary>
         public string SyncMessage { get; set; }
 
-        public AnswerSheet AnswerSheet { get; set; }
+        ///// <summary>
+        ///// 答卷
+        ///// </summary>
+        //public AnswerSheet AnswerSheet { get; set; }
 
-        public TestPaper TestPaper { get; set; }
+        ///// <summary>
+        ///// 试卷
+        ///// </summary>
+        //public TestPaper TestPaper { get; set; }
 
-        public Question Question { get; set; }
+        ///// <summary>
+        ///// 试题
+        ///// </summary>
+        //public Question Question { get; set; }
     }
 }

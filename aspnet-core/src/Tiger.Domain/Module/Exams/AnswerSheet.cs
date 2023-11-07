@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Identity;
 
 namespace Tiger.Module.Exams
 {
@@ -20,10 +21,17 @@ namespace Tiger.Module.Exams
         /// 试卷ID
         /// </summary>
         public Guid TestPaperId { get; set; }
+
         /// <summary>
         /// 考试ID
         /// </summary>
         public Guid ExamId { get; set; }
+
+        /// <summary>
+        /// 学员Id
+        /// </summary>
+        public Guid StudentId { get; set; }
+
         /// <summary>
         /// 总分数
         /// </summary>
@@ -33,13 +41,14 @@ namespace Tiger.Module.Exams
         /// 是否交卷 True为交卷
         /// </summary>
         public bool IsSubmit { get; set; }
+
         /// <summary>
         /// 交卷时间
         /// </summary>
         public DateTime? SubmitDateTime { get; set; }
 
         /// <summary>
-        /// 登录IP
+        /// 客户端IP
         /// </summary>
         public string IP { get; set; }
 
@@ -96,11 +105,12 @@ namespace Tiger.Module.Exams
         /// 客观题评分时间
         /// </summary>
         public DateTime? ObjectScoreTime { get; set; }
-        
 
-        /// <summary>
-        /// 学员ID
-        /// </summary>
-        public int StudentID { get; set; }
+        //public virtual Exam Exam { get; set; }
+
+        //public virtual TestPaper TestPaper { get; set; }    
+
+        //public virtual IdentityUser Student { get; set; }
+        
     }
 }

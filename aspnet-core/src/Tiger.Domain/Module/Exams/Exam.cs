@@ -45,12 +45,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 类型：1.考试 2.练习 , 3 比赛
         /// </summary>
-        public bool IsEaxm { get; set; }
-
-        /// <summary>
-        /// 题型：1.实操考试 2.理论考试 
-        /// </summary>
-        public int ExamType { get; set; }
+        public ExamType ExamType { get; set; }
         
         /// <summary>
         /// 考试时间
@@ -145,56 +140,31 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 扣款金额
         /// </summary>
-        public decimal DeductionAmounnt { get; set; }
+        public decimal? DeductionAmounnt { get; set; }
 
         /// <summary>
         /// 扣款间隔（单位: 分钟）
         /// </summary>
-        public int DeductionInterval { get; set; }
+        public int? DeductionInterval { get; set; }
 
         /// <summary>
         /// 比赛间隔（单位: 分钟）
         /// </summary>
-        public int Interval { get; set; }
+        public int? Interval { get; set; }
 
         /// <summary>
-        /// 考试学校 格式：,1,2,
-        /// 不选学校就是公开
+        /// 课程
         /// </summary>
-        public string SchoolID { get; set; }
-        /// <summary>
-        /// 是否是全校的考试
-        /// </summary>
-        public bool IsSchool { get; set; }
-        /// <summary>
-        /// 是否是全班的考试
-        /// </summary>
-        public bool IsClass { get; set; }
-        /// <summary>
-        /// 考试班级 格式：,1,2,
-        /// 不选班级就是公开
-        /// </summary>
-        public string ClassID { get; set; }
-        /// <summary>
-        /// 学生数量
-        /// </summary>
-        public int StudentQuantity { get; set; }
+        //public virtual Course Course { get; set; }
 
         /// <summary>
-        /// 当是个别学员的考试，则存入学员ID
+        /// 试卷
         /// </summary>
-        public string Students { get; set; }
-
-        
-
-
-        public Course Course { get; set; }
-
-        public TestPaper TestPaper { get; set; }
+        //public virtual TestPaper TestPaper { get; set; }
 
         /// <summary>
         /// 题目分类
         /// </summary>
-        public QuestionCategory QuestionCategory { get; set; }
+        //public virtual QuestionCategory QuestionCategory { get; set; }
     }
 }
