@@ -114,6 +114,10 @@ namespace Tiger.EntityFrameworkCore
     /// 组卷策略配置表
     /// </summary>
     public DbSet<TestPaperStrategy> TestPaperStrategies { get; set; }
+    /// <summary>
+    /// 试卷内容(题目)表
+    /// </summary>
+    public DbSet<TestPaperQuestion> TestPaperQuestions { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

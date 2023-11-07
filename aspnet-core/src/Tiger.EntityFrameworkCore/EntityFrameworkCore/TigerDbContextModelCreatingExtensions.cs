@@ -398,9 +398,27 @@ namespace Tiger.EntityFrameworkCore
 
                 b.HasMany(t => t.JudgeSchools).WithOne(ts => ts.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired().OnDelete(DeleteBehavior.Restrict);
                 b.HasMany(t => t.TestPaperStrategies).WithOne(tps => tps.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
-
+                b.HasMany(t => t.TestPaperQuestions).WithOne(tpq => tpq.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
                 b.ConfigureByConvention(); 
 
+            });
+
+            builder.Entity<TestPaperQuestion>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TestPaperQuestions", TigerConsts.DbSchema);
+                b.Property(p => p.TestPaperId).HasComment("试卷ID");
+                b.Property(p => p.QuestionCategoryId).HasComment("题目分类");
+                b.Property(p => p.QuestionId).HasComment("试题ID");
+                b.Property(p => p.TestPaperType).HasComment("选题方式 1.自主选题 2.随机生成");
+                b.Property(p => p.QuestionDegree).HasComment("难易度：1.简单 2.普通 3.困难");
+                b.Property(p => p.Sorting).HasComment("顺序");
+                b.Property(p => p.Score).HasComment("每题分数");
+                b.Property(p => p.MissOptionInvalid).HasComment("漏选按错误处理");
+
+                b.ConfigureByConvention();
+
+
+                /* Configure more properties here */
             });
 
             builder.Entity<TestPaperStrategy>(b =>
@@ -513,6 +531,9 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            
 
 
             

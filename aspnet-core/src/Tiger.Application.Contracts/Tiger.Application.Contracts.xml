@@ -59,6 +59,46 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.TestPaperId">
+            <summary>
+            试卷ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.QuestionCategoryId">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.QuestionId">
+            <summary>
+            试题ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.TestPaperType">
+            <summary>
+            选题方式 1.自主选题 2.随机生成
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.QuestionDegree">
+            <summary>
+            难易度：1.简单 2.普通 3.困难
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.Score">
+            <summary>
+            每题分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.MissOptionInvalid">
+            <summary>
+            漏选按错误处理
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.TestPaperId">
             <summary>
             试卷
@@ -199,6 +239,91 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.TestPaperQuestionDto">
+            <summary>
+            试卷内容(题目)表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.TestPaperId">
+            <summary>
+            试卷ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.QuestionCategoryId">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.QuestionId">
+            <summary>
+            试题ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.TestPaperType">
+            <summary>
+            选题方式 1.自主选题 2.随机生成
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.QuestionDegree">
+            <summary>
+            难易度：1.简单 2.普通 3.困难
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.Score">
+            <summary>
+            每题分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.MissOptionInvalid">
+            <summary>
+            漏选按错误处理
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.TestPaperId">
+            <summary>
+            试卷ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.QuestionCategoryId">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.QuestionId">
+            <summary>
+            试题ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.TestPaperType">
+            <summary>
+            选题方式 1.自主选题 2.随机生成
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.QuestionDegree">
+            <summary>
+            难易度：1.简单 2.普通 3.困难
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.Sorting">
+            <summary>
+            顺序
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.Score">
+            <summary>
+            每题分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.MissOptionInvalid">
+            <summary>
+            漏选按错误处理
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperStrategyDto">
             <summary>
             组卷策略配置表
@@ -277,6 +402,11 @@
         <member name="T:Tiger.Module.Exams.ITestPaperAppService">
             <summary>
             试卷
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.ITestPaperQuestionAppService">
+            <summary>
+            试卷内容(题目)表
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.ITestPaperStrategyAppService">
@@ -2420,6 +2550,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.TestPaperStrategy">
             <summary>
             组卷策略配置表
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.TestPaperQuestion">
+            <summary>
+            试卷内容(题目)表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

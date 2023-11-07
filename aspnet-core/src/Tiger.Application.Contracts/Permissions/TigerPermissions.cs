@@ -87,5 +87,15 @@ namespace Tiger.Permissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 试卷内容(题目)表
+    /// </summary>
+    public class TestPaperQuestion
+    {
+        public const string Default = GroupName + ".TestPaperQuestion";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
     }
 }

@@ -79,10 +79,11 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 试卷小题
         /// </summary>
-        //public virtual ICollection<TestPaperQuestion> TestPaperQuestions { get; set; }
+        public virtual ICollection<TestPaperQuestion> TestPaperQuestions { get; set; }
 
         ///// <summary>
         ///// 允许阅卷的学校(默认该学校全部老师)
+        /// TODO:关联评卷学校的多对多关系配置调整
         ///// </summary>
         public virtual ICollection<TestPaperJudgeSchool> JudgeSchools { get; set; }
 

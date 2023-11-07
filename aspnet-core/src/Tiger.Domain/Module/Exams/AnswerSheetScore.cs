@@ -8,7 +8,7 @@ namespace Tiger.Module.Exams
     public class AnswerSheetScore:FullAuditedEntity<Guid>
     {
         /// <summary>
-        /// 答卷表ID
+        /// 答卷表Id
         /// </summary>
         public Guid AnswerSheetId { get; set; }
 
