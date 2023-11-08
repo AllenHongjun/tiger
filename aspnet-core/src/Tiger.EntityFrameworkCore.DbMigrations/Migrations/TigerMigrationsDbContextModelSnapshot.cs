@@ -21,6 +21,129 @@ namespace Tiger.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Tiger.Module.Exams.AnswerSheet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AnswerTotalDuration")
+                        .HasColumnType("int")
+                        .HasComment("答题总时长（分钟）");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DeviceType")
+                        .HasColumnType("int")
+                        .HasComment("设备类型： 1.电脑 2.手机 3.平板");
+
+                    b.Property<int>("ExamDuration")
+                        .HasColumnType("int")
+                        .HasComment("考试总时长");
+
+                    b.Property<Guid>("ExamId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("考试ID");
+
+                    b.Property<string>("IP")
+                        .HasColumnType("nvarchar(64)")
+                        .HasComment("客户端IP")
+                        .HasMaxLength(64);
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsSubmit")
+                        .HasColumnType("bit")
+                        .HasComment("是否交卷 True为交卷");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal?>("ObjectiveScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("客观题评分");
+
+                    b.Property<DateTime?>("ObjectiveScoreTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("客观题评分时间");
+
+                    b.Property<decimal?>("OperateAutoScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("实操题自动评分");
+
+                    b.Property<DateTime?>("OperateAutoScoreTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("实操自动评分时间");
+
+                    b.Property<decimal?>("OperateManualScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("实操题人工打分");
+
+                    b.Property<DateTime?>("OperateManualScoreTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("实操题自动评分时间");
+
+                    b.Property<DateTime?>("ScoreTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("学员Id");
+
+                    b.Property<DateTime?>("SubmitDateTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("交卷时间");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TestPaperId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试卷ID");
+
+                    b.Property<int>("TestPaperMainId")
+                        .HasColumnType("int")
+                        .HasComment("主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID");
+
+                    b.Property<decimal>("TotalScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("总分数");
+
+                    b.Property<int>("WindowOnblur")
+                        .HasColumnType("int")
+                        .HasComment("考试切屏次数");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamId");
+
+                    b.ToTable("AppAnswerSheets");
+                });
+
             modelBuilder.Entity("Tiger.Module.Exams.Exam", b =>
                 {
                     b.Property<Guid>("Id")
@@ -4216,6 +4339,15 @@ namespace Tiger.Migrations
                     b.HasIndex("Name", "ProviderName", "ProviderKey");
 
                     b.ToTable("AbpSettings");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.AnswerSheet", b =>
+                {
+                    b.HasOne("Tiger.Module.Exams.Exam", "Exam")
+                        .WithMany("AnswerSheets")
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tiger.Module.Exams.Exam", b =>
