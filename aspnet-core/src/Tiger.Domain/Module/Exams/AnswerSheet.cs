@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Identity;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.Exams
 {
     /// <summary>
     /// 答卷表
     /// </summary>
-    public class AnswerSheet:FullAuditedEntity<Guid>
+    public class AnswerSheet:FullAuditedEntity<Guid>,IMultiTenant
     {
-
+        public Guid? TenantId { get; set; }
         /// <summary>
         /// 主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
         /// </summary>
@@ -100,17 +101,19 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 客观题评分
         /// </summary>
-        public decimal? ObjectScore { get; set; }
+        public decimal? ObjectiveScore { get; set; }
         /// <summary>
         /// 客观题评分时间
         /// </summary>
-        public DateTime? ObjectScoreTime { get; set; }
+        public DateTime? ObjectiveScoreTime { get; set; }
+
+        
 
         //public virtual Exam Exam { get; set; }
 
         //public virtual TestPaper TestPaper { get; set; }    
 
         //public virtual IdentityUser Student { get; set; }
-        
+
     }
 }

@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.QuestionBank;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.Exams
 {
     /// <summary>
     /// 答卷明细表
     /// </summary>
-    public class AnswerSheetDetail:FullAuditedEntity<Guid>
+    public class AnswerSheetDetail : FullAuditedEntity<Guid>, IMultiTenant
     {
+        public Guid? TenantId { get; set; }
         /// <summary>
         /// 答卷Id
         /// </summary>
@@ -60,6 +62,8 @@ namespace Tiger.Module.Exams
         /// 上次同步结果
         /// </summary>
         public string SyncMessage { get; set; }
+
+        
 
         ///// <summary>
         ///// 答卷
