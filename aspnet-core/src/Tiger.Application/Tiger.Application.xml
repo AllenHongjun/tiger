@@ -183,6 +183,11 @@
             答卷表
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.AnswerSheetDetailAppService">
+            <summary>
+            答卷明细表
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.ExamAppService">
             <summary>
             考试

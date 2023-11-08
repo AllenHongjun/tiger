@@ -16,6 +16,9 @@ namespace Tiger.Module.Exams
             CreateMap<AnswerSheet, AnswerSheetDto>();
             CreateMap<CreateUpdateAnswerSheetDto, AnswerSheet>();
 
+            CreateMap<AnswerSheetDetail, AnswerSheetDetailDto>();
+            CreateMap<CreateUpdateAnswerSheetDetailDto, AnswerSheetDetail>();
+
             CreateMap<TestPaper, TestPaperDto>();
             CreateMap<CreateUpdateTestPaperDto, TestPaper>();
 

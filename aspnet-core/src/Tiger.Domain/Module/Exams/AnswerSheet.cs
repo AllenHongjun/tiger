@@ -111,6 +111,8 @@ namespace Tiger.Module.Exams
 
         public virtual Exam Exam { get; set; }
 
+        public virtual ICollection<AnswerSheetDetail> AnswerSheetDetails { get; set; }
+
         //public virtual TestPaper TestPaper { get; set; }    
 
         //public virtual IdentityUser Student { get; set; }

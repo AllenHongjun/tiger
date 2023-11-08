@@ -9,6 +9,121 @@
             Api资源管理器
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto">
+            <summary>
+            答卷明细表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.AnswerSheetId">
+            <summary>
+            答卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.TestPaperId">
+            <summary>
+            试卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.TestPaperDetailId">
+            <summary>
+            试卷详情Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.QuestionId">
+            <summary>
+            试题Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.ObjectiveScore">
+            <summary>
+            客观题评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.OperateAutoScore">
+            <summary>
+            实操题自动评分分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.OperateManualScore">
+            <summary>
+            实操题人工评分分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.OperateId">
+            <summary>
+            实操Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.SyncTime">
+            <summary>
+            上次同步时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailDto.SyncMessage">
+            <summary>
+            上次同步结果
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.AnswerSheetId">
+            <summary>
+            答卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.TestPaperId">
+            <summary>
+            试卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.TestPaperDetailId">
+            <summary>
+            试卷详情Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.QuestionId">
+            <summary>
+            试题Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.ObjectiveScore">
+            <summary>
+            客观题评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.OperateAutoScore">
+            <summary>
+            实操题自动评分分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.OperateManualScore">
+            <summary>
+            实操题人工评分分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.OperateId">
+            <summary>
+            实操Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.SyncTime">
+            <summary>
+            上次同步时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDetailGetListInput.SyncMessage">
+            <summary>
+            上次同步结果
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.AnswerSheetDto">
             <summary>
             答卷表
@@ -202,6 +317,61 @@
         <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.ObjectiveScoreTime">
             <summary>
             客观题评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.AnswerSheetId">
+            <summary>
+            答卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.TestPaperId">
+            <summary>
+            试卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.TestPaperDetailId">
+            <summary>
+            试卷详情Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.QuestionId">
+            <summary>
+            试题Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.ObjectiveScore">
+            <summary>
+            客观题评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.OperateAutoScore">
+            <summary>
+            实操题自动评分分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.OperateManualScore">
+            <summary>
+            实操题人工评分分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.OperateId">
+            <summary>
+            实操Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.SyncTime">
+            <summary>
+            上次同步时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDetailDto.SyncMessage">
+            <summary>
+            上次同步结果
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.TestPaperMainId">
@@ -1107,6 +1277,11 @@
         <member name="T:Tiger.Module.Exams.IAnswerSheetAppService">
             <summary>
             答卷表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.IAnswerSheetDetailAppService">
+            <summary>
+            答卷明细表
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.IExamAppService">
@@ -3280,6 +3455,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.AnswerSheet">
             <summary>
             答卷表
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.AnswerSheetDetail">
+            <summary>
+            答卷明细表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

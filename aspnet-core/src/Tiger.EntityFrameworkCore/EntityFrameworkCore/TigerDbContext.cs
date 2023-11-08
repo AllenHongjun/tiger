@@ -126,6 +126,10 @@ namespace Tiger.EntityFrameworkCore
     /// 答卷表
     /// </summary>
     public DbSet<AnswerSheet> AnswerSheets { get; set; }
+    /// <summary>
+    /// 答卷明细表
+    /// </summary>
+    public DbSet<AnswerSheetDetail> AnswerSheetDetails { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

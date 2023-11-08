@@ -598,6 +598,26 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention(); 
 
                 b.HasOne( ans => ans.Exam).WithMany(e => e.AnswerSheets).HasForeignKey( ans => ans.ExamId).IsRequired();
+                b.HasMany(ans => ans.AnswerSheetDetails).WithOne(asd => asd.AnswerSheet).HasForeignKey(asd => asd.AnswerSheetId).IsRequired();
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<AnswerSheetDetail>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "AnswerSheetDetails", TigerConsts.DbSchema);
+                b.Property(p => p.AnswerSheetId).HasComment("答卷Id");
+                b.Property(p => p.TestPaperId).HasComment("试卷Id");
+                b.Property(p => p.TestPaperDetailId).HasComment("试卷详情Id");
+                b.Property(p => p.QuestionId).HasComment("试题Id");
+                b.Property(p => p.Answer).HasMaxLength(512).IsRequired(false).HasComment("答案");
+                b.Property(p => p.ObjectiveScore).HasComment("客观题评分");
+                b.Property(p => p.OperateManualScore).HasComment("实操题自动评分分数");
+                b.Property(p => p.OperateId).HasComment("实操Id");
+                b.Property(p => p.SyncTime).HasComment("上次自动评分同步时间");
+                b.Property(p => p.SyncMessage).HasComment("上次自动评分同步结果");
+                b.ConfigureByConvention(); 
+
                 /* Configure more properties here */
             });
         }

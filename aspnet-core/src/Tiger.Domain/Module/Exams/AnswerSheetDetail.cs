@@ -1,4 +1,4 @@
-﻿using NUglify.JavaScript.Syntax;
+using NUglify.JavaScript.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,6 +25,11 @@ namespace Tiger.Module.Exams
         public Guid TestPaperId { get; set; }
 
         /// <summary>
+        /// 试卷详情Id
+        /// </summary>
+        public Guid TestPaperDetailId { get; set; }
+
+        /// <summary>
         /// 试题Id
         /// </summary>
         public Guid QuestionId { get; set; }
@@ -35,10 +40,8 @@ namespace Tiger.Module.Exams
         public string Answer { get; set; }
 
         /// <summary>
-        /// 试卷详情Id
+        /// 客观题评分
         /// </summary>
-        public int TestPaperDetailId { get; set; }
-
         public decimal? ObjectiveScore { get; set; }
 
         /// <summary>
@@ -66,12 +69,12 @@ namespace Tiger.Module.Exams
         /// </summary>
         public string SyncMessage { get; set; }
 
-        
 
-        ///// <summary>
-        ///// 答卷
-        ///// </summary>
-        //public AnswerSheet AnswerSheet { get; set; }
+
+        /// <summary>
+        /// 答卷
+        /// </summary>
+        public AnswerSheet AnswerSheet { get; set; }
 
         ///// <summary>
         ///// 试卷
@@ -82,5 +85,39 @@ namespace Tiger.Module.Exams
         ///// 试题
         ///// </summary>
         //public Question Question { get; set; }
+
+        protected AnswerSheetDetail()
+        {
+        }
+
+        public AnswerSheetDetail(
+            Guid id,
+            Guid? tenantId,
+            Guid answerSheetId,
+            Guid testPaperId,
+            Guid testPaperDetailId,
+            Guid questionId,
+            string answer,
+            decimal? objectiveScore,
+            decimal? operateAutoScore,
+            decimal? operateManualScore,
+            string operateId,
+            DateTime? syncTime,
+            string syncMessage
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            AnswerSheetId = answerSheetId;
+            TestPaperId = testPaperId;
+            TestPaperDetailId = testPaperDetailId;
+            QuestionId = questionId;
+            Answer = answer;
+            ObjectiveScore = objectiveScore;
+            OperateAutoScore = operateAutoScore;
+            OperateManualScore = operateManualScore;
+            OperateId = operateId;
+            SyncTime = syncTime;
+            SyncMessage = syncMessage;
+        }
     }
 }
