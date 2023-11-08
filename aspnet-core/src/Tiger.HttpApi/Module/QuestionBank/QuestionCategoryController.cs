@@ -52,12 +52,24 @@ namespace Tiger.Module.QuestionBank
         }
 
         /// <summary>
+        /// 查询所有题目分类
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public ListResultDto<QuestionCategoryDto> GetAllList(QuestionCategoryGetListInput input)
+        {
+            return QuestionCategoryAppService.GetAllList(input);
+        }
+
+        /// <summary>
         /// 详情
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("id")]
+        [Route("{id}")]
         public Task<QuestionCategoryDto> GetAsync(Guid id)
         {
             return QuestionCategoryAppService.GetAsync(id);
@@ -72,6 +84,18 @@ namespace Tiger.Module.QuestionBank
         public Task<PagedResultDto<QuestionCategoryDto>> GetListAsync(QuestionCategoryGetListInput input)
         {
             return QuestionCategoryAppService.GetListAsync(input);
+        }
+
+        /// <summary>
+        /// 根据父级id查询分类
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{parentId}")]
+        public ListResultDto<QuestionCategoryDto> GetListByParentId(Guid? parentId)
+        {
+            return QuestionCategoryAppService.GetListByParentId(parentId);
         }
 
         /// <summary>

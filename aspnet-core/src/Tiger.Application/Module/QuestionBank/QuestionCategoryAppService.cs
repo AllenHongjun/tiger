@@ -70,7 +70,7 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
         var questionCategory =  _repository.Where(x => x.Name == input.Name).FirstOrDefault();
         if (questionCategory != null)
         {
-            throw new UserFriendlyException(L["DuplicateLayout", input.Name]);
+            throw new UserFriendlyException(L["DuplicateQuestionCategory", input.Name]);
         }
 
         return await base.CreateAsync(input);
@@ -78,6 +78,12 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
 
     public override async Task<QuestionCategoryDto> UpdateAsync(Guid id, CreateUpdateQuestionCategoryDto input)
     {
+        var questionCategory = _repository.Where(x => x.Name == input.Name).FirstOrDefault();
+        if (questionCategory != null)
+        {
+            throw new UserFriendlyException(L["DuplicateQuestionCategory", input.Name]);
+        }
+
         return await base.UpdateAsync(id, input); 
     }
 }

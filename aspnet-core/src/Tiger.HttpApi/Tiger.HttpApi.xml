@@ -394,6 +394,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.GetAllList(Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput)">
+            <summary>
+            查询所有题目分类
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.GetAsync(System.Guid)">
             <summary>
             详情
@@ -406,6 +413,13 @@
             分页列表
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.GetListByParentId(System.Nullable{System.Guid})">
+            <summary>
+            根据父级id查询分类
+            </summary>
+            <param name="parentId"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.UpdateAsync(System.Guid,Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionCategoryDto)">

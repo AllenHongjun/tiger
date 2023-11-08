@@ -1,15 +1,19 @@
 using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp.Application.Services;
+using Tiger.Module.System.Platform.Layouts.Dto;
+using Volo.Abp.Application.Dtos;
+using System.Collections.Generic;
 
 namespace Tiger.Module.QuestionBank;
 
 
 /// <summary>
-/// 题目表
+/// 题目
 /// </summary>
 public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, QuestionGetListInput, CreateUpdateQuestionDto, CreateUpdateQuestionDto>,
     IQuestionAppService
@@ -32,7 +36,7 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
         // TODO: AbpHelper generated
         return  base.CreateFilteredQuery(input)
             .WhereIf(input.QuestionCategoryId != null, x => x.QuestionCategoryId == input.QuestionCategoryId)
-            .WhereIf(input.PracticalTrainingId != null, x => x.PracticalTrainingId == input.PracticalTrainingId)
+            .WhereIf(input.PracticalTrainingId != null, x => x.TrainPlatformId == input.PracticalTrainingId)
             .WhereIf(input.Type != null, x => x.Type == input.Type)
             .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
             .WhereIf(!input.Content.IsNullOrWhiteSpace(), x => x.Content.Contains(input.Content))
@@ -58,4 +62,30 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
             .WhereIf(input.IsShowLinkButton != null, x => x.IsShowLinkButton == input.IsShowLinkButton)
             ;
     }
+
+    public override async Task<PagedResultDto<QuestionDto>> GetListAsync(QuestionGetListInput input)
+    {
+        return await base.GetListAsync(input);
+    }
+
+    public override async Task<QuestionDto> GetAsync(Guid id)
+    {
+        return await base.GetAsync(id);
+    }
+
+    public override async Task<QuestionDto> CreateAsync(CreateUpdateQuestionDto input)
+    {
+        return await base.CreateAsync(input);
+    }
+
+    public override async Task DeleteAsync(Guid id)
+    {
+         await base.DeleteAsync(id);
+    }
+
+    public override async Task<QuestionDto> UpdateAsync(Guid id, CreateUpdateQuestionDto input)
+    {
+        return await base.UpdateAsync(id, input);
+    }
+
 }

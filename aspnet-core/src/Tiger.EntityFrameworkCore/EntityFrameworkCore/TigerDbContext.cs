@@ -90,46 +90,43 @@ namespace Tiger.EntityFrameworkCore
         /// 试卷
         /// </summary>
         public DbSet<TestPaper> TestPapers { get; set; }
+        
         /// <summary>
-        /// 试卷关联阅卷学校
+        /// 题目分类
         /// </summary>
-        public DbSet<TestPaperJudgeSchool> TestPaperJudgeSchools { get; set; }
-    /// <summary>
-    /// 题目分类
-    /// </summary>
-    public DbSet<QuestionCategory> QuestionCategories { get; set; }
-    /// <summary>
-    /// 题目表
-    /// </summary>
-    public DbSet<Question> Questions { get; set; }
-    /// <summary>
-    /// 题目附件表
-    /// </summary>
-    public DbSet<QuestionAttachment> QuestionAttachments { get; set; }
-    /// <summary>
-    /// 题目答案
-    /// </summary>
-    public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
-    /// <summary>
-    /// 组卷策略配置表
-    /// </summary>
-    public DbSet<TestPaperStrategy> TestPaperStrategies { get; set; }
-    /// <summary>
-    /// 试卷内容(题目)表
-    /// </summary>
-    public DbSet<TestPaperQuestion> TestPaperQuestions { get; set; }
-    /// <summary>
-    /// 考试
-    /// </summary>
-    public DbSet<Exam> Exams { get; set; }
-    /// <summary>
-    /// 答卷表
-    /// </summary>
-    public DbSet<AnswerSheet> AnswerSheets { get; set; }
-    /// <summary>
-    /// 答卷明细表
-    /// </summary>
-    public DbSet<AnswerSheetDetail> AnswerSheetDetails { get; set; }
+        public DbSet<QuestionCategory> QuestionCategories { get; set; }
+        /// <summary>
+        /// 题目表
+        /// </summary>
+        public DbSet<Question> Questions { get; set; }
+        /// <summary>
+        /// 题目附件表
+        /// </summary>
+        public DbSet<QuestionAttachment> QuestionAttachments { get; set; }
+        /// <summary>
+        /// 题目答案
+        /// </summary>
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        /// <summary>
+        /// 组卷策略配置表
+        /// </summary>
+        public DbSet<TestPaperStrategy> TestPaperStrategies { get; set; }
+        /// <summary>
+        /// 试卷内容(题目)表
+        /// </summary>
+        public DbSet<TestPaperQuestion> TestPaperQuestions { get; set; }
+        /// <summary>
+        /// 考试
+        /// </summary>
+        public DbSet<Exam> Exams { get; set; }
+        /// <summary>
+        /// 答卷表
+        /// </summary>
+        public DbSet<AnswerSheet> AnswerSheets { get; set; }
+        /// <summary>
+        /// 答卷明细表
+        /// </summary>
+        public DbSet<AnswerSheetDetail> AnswerSheetDetails { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

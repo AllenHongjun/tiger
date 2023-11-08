@@ -344,7 +344,7 @@
         </member>
         <member name="T:Tiger.Module.QuestionBank.QuestionAppService">
             <summary>
-            题目表
+            题目
             </summary>
         </member>
         <member name="T:Tiger.Module.QuestionBank.QuestionAttachmentAppService">
