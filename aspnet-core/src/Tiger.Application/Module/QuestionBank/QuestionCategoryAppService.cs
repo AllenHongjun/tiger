@@ -4,6 +4,13 @@ using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp.Application.Services;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using Volo.Abp.Application.Dtos;
+using Tiger.Module.System.Platform.Layouts.Dto;
+using System.Collections.Generic;
+using Qiniu.Storage;
+using System.Linq.Dynamic.Core;
+using Volo.Abp;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -38,5 +45,39 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
             .WhereIf(input.Enable != null, x => x.Enable == input.Enable)
             .WhereIf(input.IsPublic != null, x => x.IsPublic == input.IsPublic)
             ;
+    }
+
+
+    public  ListResultDto<QuestionCategoryDto> GetListByParentId(Guid? parentId)
+    {
+        var questionCategories = _repository.WhereIf(parentId !=null, x=> x.ParentId == parentId)
+                .ToList();
+        return new ListResultDto<QuestionCategoryDto>(
+            ObjectMapper.Map<List<QuestionCategory>, List<QuestionCategoryDto>>(questionCategories));
+
+    }
+
+
+    public ListResultDto<QuestionCategoryDto> GetAllList(QuestionCategoryGetListInput input)
+    {
+        var questionCategories = CreateFilteredQuery(input).ToList();
+        return new ListResultDto<QuestionCategoryDto>(
+            ObjectMapper.Map<List<QuestionCategory>, List<QuestionCategoryDto>>(questionCategories));
+    }
+
+    public override async Task<QuestionCategoryDto> CreateAsync(CreateUpdateQuestionCategoryDto input)
+    {
+        var questionCategory =  _repository.Where(x => x.Name == input.Name).FirstOrDefault();
+        if (questionCategory != null)
+        {
+            throw new UserFriendlyException(L["DuplicateLayout", input.Name]);
+        }
+
+        return await base.CreateAsync(input);
+    }
+
+    public override async Task<QuestionCategoryDto> UpdateAsync(Guid id, CreateUpdateQuestionCategoryDto input)
+    {
+        return await base.UpdateAsync(id, input); 
     }
 }

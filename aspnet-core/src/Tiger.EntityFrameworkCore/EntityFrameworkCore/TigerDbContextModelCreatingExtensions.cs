@@ -396,7 +396,6 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.JudgeEndTime)
                     .HasComment("评卷结束时间");
 
-                b.HasMany(t => t.JudgeSchools).WithOne(ts => ts.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired().OnDelete(DeleteBehavior.Restrict);
                 b.HasMany(t => t.TestPaperStrategies).WithOne(tps => tps.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
                 b.HasMany(t => t.TestPaperQuestions).WithOne(tpq => tpq.TestPaper).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
                 b.ConfigureByConvention(); 
@@ -455,11 +454,10 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.Sorting)
                     .HasComment("顺序");
 
-                b.HasOne( qc => qc.Parent).WithMany( qc => qc.Children).HasForeignKey(qc => qc.ParentId); // ParentId可以为空 注意不要IsRequired() 需要把ChildRen些明确
+                b.HasOne( qc => qc.Parent).WithMany( qc => qc.Children).HasForeignKey(qc => qc.ParentId); // ParentId可以为空 注意不要IsRequired() 需要把ChildRen写明确
+                b.HasMany(qc => qc.Questions).WithOne(q => q.QuestionCategory).HasForeignKey(q => q.QuestionCategoryId).IsRequired();
 
                 b.ConfigureByConvention();
-
-                b.HasMany( qc => qc.Questions).WithOne(q => q.QuestionCategory).HasForeignKey(q => q.QuestionCategoryId).IsRequired();
                 /* Configure more properties here */
             });
 
