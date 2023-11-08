@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Tiger.Module.Teaching
 {
-    public class TaskCategory
+    /// <summary>
+    /// 章节
+    /// </summary>
+    public class Chapeter
     {
 
     }

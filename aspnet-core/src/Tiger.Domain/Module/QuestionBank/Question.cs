@@ -21,9 +21,9 @@ namespace Tiger.Module.QuestionBank
         public Guid QuestionCategoryId { get; set; }
 
         /// <summary>
-        /// 实训链接
+        /// 实训平台Id
         /// </summary>
-        public Guid? PracticalTrainingId { get; set; }
+        public Guid? TrainPlatformId { get; set; }
 
         /// <summary>
         /// 类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
@@ -136,6 +136,8 @@ namespace Tiger.Module.QuestionBank
 
         public virtual ICollection<QuestionAttachment> QuestionAttachments { get; set; }
 
+        //public virtual TrainPlatform TrainPlatform { get; set; }
+
 
 
         protected Question()
@@ -146,7 +148,7 @@ namespace Tiger.Module.QuestionBank
             Guid id,
             Guid? tenantId,
             Guid questionCategoryId,
-            Guid? practicalTrainingId,
+            Guid? trainPlatformId,
             QuestionType type,
             string name,
             string content,
@@ -174,7 +176,7 @@ namespace Tiger.Module.QuestionBank
         {
             TenantId = tenantId;
             QuestionCategoryId = questionCategoryId;
-            PracticalTrainingId = practicalTrainingId;
+            TrainPlatformId = trainPlatformId;
             Type = type;
             Name = name;
             Content = content;

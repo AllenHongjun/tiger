@@ -61,11 +61,6 @@ namespace Tiger.Module.Schools
         public VipLevel VipLevel { get; set; }
 
         public virtual ICollection<ClassInfo> ClassInfos { get; set; }
-
-        /// <summary>
-        /// 学校老师可以批改的试卷
-        /// </summary>
-        public virtual ICollection<TestPaperJudgeSchool> TestPapers { get; set; }
         
 
         protected School()

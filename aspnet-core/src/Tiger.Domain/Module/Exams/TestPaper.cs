@@ -83,12 +83,6 @@ namespace Tiger.Module.Exams
 
         public virtual ICollection<Exam> Exams { get; set; }
 
-        ///// <summary>
-        ///// 允许阅卷的学校(默认该学校全部老师)
-        /// TODO:关联评卷学校的多对多关系配置调整
-        ///// </summary>
-        public virtual ICollection<TestPaperJudgeSchool> JudgeSchools { get; set; }
-
         /////允许阅卷的老师
         //public virtual ICollection<IdentityUser> Users {get;set;}
 

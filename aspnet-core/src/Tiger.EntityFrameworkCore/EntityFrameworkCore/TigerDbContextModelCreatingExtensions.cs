@@ -436,20 +436,6 @@ namespace Tiger.EntityFrameworkCore
                 /* Configure more properties here */
             });
 
-            // 试卷和评卷学校
-            builder.Entity<TestPaperJudgeSchool>(b =>
-            {
-                b.ToTable(TigerConsts.DbTablePrefix + "TestPaperJudgeSchool", TigerConsts.DbSchema);
-                b.HasKey(tjs => new { tjs.TestPaperId, tjs.SchoolId });
-
-                b.HasOne<TestPaper>().WithMany(t => t.JudgeSchools).HasForeignKey(tjs => tjs.TestPaperId).IsRequired();
-                b.HasOne<School>().WithMany(s => s.TestPapers).HasForeignKey(tjs => tjs.SchoolId).IsRequired();
-
-                b.HasIndex(ur => new { ur.TestPaperId, ur.SchoolId });
-                b.ConfigureByConvention();
-
-            });
-
 
             builder.Entity<QuestionCategory>(b =>
             {

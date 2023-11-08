@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Module.Exams;
 
@@ -11,6 +12,7 @@ namespace Tiger.Module.Exams;
 /// <summary>
 /// 答卷明细表
 /// </summary>
+[RemoteService(IsEnabled = false)]
 public class AnswerSheetDetailAppService : CrudAppService<AnswerSheetDetail, AnswerSheetDetailDto, Guid, AnswerSheetDetailGetListInput, CreateUpdateAnswerSheetDetailDto, CreateUpdateAnswerSheetDetailDto>,
     IAnswerSheetDetailAppService
 {
