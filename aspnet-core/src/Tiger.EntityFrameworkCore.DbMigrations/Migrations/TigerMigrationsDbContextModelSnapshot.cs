@@ -144,6 +144,97 @@ namespace Tiger.Migrations
                     b.ToTable("AppAnswerSheets");
                 });
 
+            modelBuilder.Entity("Tiger.Module.Exams.AnswerSheetDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("答案")
+                        .HasMaxLength(512);
+
+                    b.Property<Guid>("AnswerSheetId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("答卷Id");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal?>("ObjectiveScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("客观题评分");
+
+                    b.Property<decimal?>("OperateAutoScore")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("OperateId")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("实操Id");
+
+                    b.Property<decimal?>("OperateManualScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("实操题自动评分分数");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试题Id");
+
+                    b.Property<string>("SyncMessage")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("上次自动评分同步结果");
+
+                    b.Property<DateTime?>("SyncTime")
+                        .HasColumnType("datetime2")
+                        .HasComment("上次自动评分同步时间");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TestPaperDetailId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试卷详情Id");
+
+                    b.Property<Guid>("TestPaperId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试卷Id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerSheetId");
+
+                    b.ToTable("AppAnswerSheetDetails");
+                });
+
             modelBuilder.Entity("Tiger.Module.Exams.Exam", b =>
                 {
                     b.Property<Guid>("Id")
@@ -4346,6 +4437,15 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Module.Exams.Exam", "Exam")
                         .WithMany("AnswerSheets")
                         .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.AnswerSheetDetail", b =>
+                {
+                    b.HasOne("Tiger.Module.Exams.AnswerSheet", "AnswerSheet")
+                        .WithMany("AnswerSheetDetails")
+                        .HasForeignKey("AnswerSheetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
