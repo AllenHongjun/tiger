@@ -163,6 +163,11 @@ namespace Tiger.Module.Exams
         public virtual TestPaper TestPaper { get; set; }
 
         /// <summary>
+        /// 答卷
+        /// </summary>
+        public virtual ICollection<AnswerSheet> AnswerSheets { get; set; }
+
+        /// <summary>
         /// 题目分类
         /// </summary>
         //public virtual QuestionCategory QuestionCategory { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUglify.JavaScript.Syntax;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.QuestionBank;
@@ -38,15 +39,17 @@ namespace Tiger.Module.Exams
         /// </summary>
         public int TestPaperDetailId { get; set; }
 
+        public decimal? ObjectiveScore { get; set; }
+
         /// <summary>
         /// 实操题自动评分分数
         /// </summary>
-        public double OperateAutoScore { get; set; }
+        public decimal? OperateAutoScore { get; set; }
 
         /// <summary>
         /// 实操题人工评分分数
         /// </summary>
-        public double OperateManualScore { get; set; }
+        public decimal? OperateManualScore { get; set; }
 
         /// <summary>
         /// 实操Id

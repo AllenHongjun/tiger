@@ -572,6 +572,34 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<AnswerSheet>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "AnswerSheets", TigerConsts.DbSchema);
+                b.Property(p => p.TestPaperMainId).HasComment("主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID");
+                b.Property(p => p.TestPaperId).HasComment("试卷ID");
+                b.Property(p => p.ExamId).HasComment("考试ID");
+                b.Property(p => p.StudentId).HasComment("学员Id");
+                b.Property(p => p.TotalScore).HasComment("总分数");
+                b.Property(p => p.IsSubmit).HasComment("是否交卷 True为交卷");
+                b.Property(p => p.SubmitDateTime).HasComment("交卷时间");
+                b.Property(p => p.IP).HasMaxLength(64).HasComment("客户端IP");
+                b.Property(p => p.DeviceType).HasComment("设备类型： 1.电脑 2.手机 3.平板");
+                b.Property(p => p.ExamDuration).HasComment("考试总时长");
+                b.Property(p => p.AnswerTotalDuration).HasComment("答题总时长（分钟）");
+                b.Property(p => p.WindowOnblur).HasComment("考试切屏次数");
+                b.Property(p => p.OperateAutoScore).HasComment("实操题自动评分");
+                b.Property(p => p.OperateAutoScoreTime).HasComment("实操自动评分时间");
+                b.Property(p => p.OperateManualScore).HasComment("实操题人工打分");
+                b.Property(p => p.OperateManualScoreTime).HasComment("实操题自动评分时间");
+                b.Property(p => p.ObjectiveScore).HasComment("客观题评分");
+                b.Property(p => p.ObjectiveScoreTime).HasComment("客观题评分时间");
+                b.ConfigureByConvention(); 
+
+                b.HasOne( ans => ans.Exam).WithMany(e => e.AnswerSheets).HasForeignKey( ans => ans.ExamId).IsRequired();
+                /* Configure more properties here */
+            });
         }
 
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -107,13 +107,63 @@ namespace Tiger.Module.Exams
         /// </summary>
         public DateTime? ObjectiveScoreTime { get; set; }
 
-        
 
-        //public virtual Exam Exam { get; set; }
+
+        public virtual Exam Exam { get; set; }
 
         //public virtual TestPaper TestPaper { get; set; }    
 
         //public virtual IdentityUser Student { get; set; }
 
+
+        protected AnswerSheet()
+    {
+    }
+
+    public AnswerSheet(
+        Guid id,
+        Guid? tenantId,
+        int testPaperMainId,
+        Guid testPaperId,
+        Guid examId,
+        Guid studentId,
+        decimal totalScore,
+        bool isSubmit,
+        DateTime? submitDateTime,
+        string iP,
+        int deviceType,
+        int examDuration,
+        int answerTotalDuration,
+        int windowOnblur,
+        DateTime? scoreTime,
+        decimal? operateAutoScore,
+        DateTime? operateAutoScoreTime,
+        decimal? operateManualScore,
+        DateTime? operateManualScoreTime,
+        decimal? objectiveScore,
+        DateTime? objectiveScoreTime
+    ) : base(id)
+    {
+        TenantId = tenantId;
+        TestPaperMainId = testPaperMainId;
+        TestPaperId = testPaperId;
+        ExamId = examId;
+        StudentId = studentId;
+        TotalScore = totalScore;
+        IsSubmit = isSubmit;
+        SubmitDateTime = submitDateTime;
+        IP = iP;
+        DeviceType = deviceType;
+        ExamDuration = examDuration;
+        AnswerTotalDuration = answerTotalDuration;
+        WindowOnblur = windowOnblur;
+        ScoreTime = scoreTime;
+        OperateAutoScore = operateAutoScore;
+        OperateAutoScoreTime = operateAutoScoreTime;
+        OperateManualScore = operateManualScore;
+        OperateManualScoreTime = operateManualScoreTime;
+        ObjectiveScore = objectiveScore;
+        ObjectiveScoreTime = objectiveScoreTime;
+    }
     }
 }

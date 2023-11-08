@@ -9,6 +9,296 @@
             Api资源管理器
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.AnswerSheetDto">
+            <summary>
+            答卷表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.TestPaperMainId">
+            <summary>
+            主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.TestPaperId">
+            <summary>
+            试卷ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.ExamId">
+            <summary>
+            考试ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.StudentId">
+            <summary>
+            学员Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.TotalScore">
+            <summary>
+            总分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.IsSubmit">
+            <summary>
+            是否交卷 True为交卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.SubmitDateTime">
+            <summary>
+            交卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.IP">
+            <summary>
+            客户端IP
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.DeviceType">
+            <summary>
+            设备类型： 1.电脑 2.手机 3.平板
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.ExamDuration">
+            <summary>
+            考试总时长
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.AnswerTotalDuration">
+            <summary>
+            答题总时长（分钟）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.WindowOnblur">
+            <summary>
+            考试切屏次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.ScoreTime">
+            <summary>
+            阅卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.OperateAutoScore">
+            <summary>
+            实操题自动评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.OperateAutoScoreTime">
+            <summary>
+            实操自动评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.OperateManualScore">
+            <summary>
+            实操题人工打分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.OperateManualScoreTime">
+            <summary>
+            实操题自动评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.ObjectiveScore">
+            <summary>
+            客观题评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.ObjectiveScoreTime">
+            <summary>
+            客观题评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.TestPaperMainId">
+            <summary>
+            主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.TestPaperId">
+            <summary>
+            试卷ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.ExamId">
+            <summary>
+            考试ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.StudentId">
+            <summary>
+            学员Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.TotalScore">
+            <summary>
+            总分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.IsSubmit">
+            <summary>
+            是否交卷 True为交卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.SubmitDateTime">
+            <summary>
+            交卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.IP">
+            <summary>
+            客户端IP
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.DeviceType">
+            <summary>
+            设备类型： 1.电脑 2.手机 3.平板
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.ExamDuration">
+            <summary>
+            考试总时长
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.AnswerTotalDuration">
+            <summary>
+            答题总时长（分钟）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.WindowOnblur">
+            <summary>
+            考试切屏次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.ScoreTime">
+            <summary>
+            阅卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.OperateAutoScore">
+            <summary>
+            实操题自动评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.OperateAutoScoreTime">
+            <summary>
+            实操自动评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.OperateManualScore">
+            <summary>
+            实操题人工打分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.OperateManualScoreTime">
+            <summary>
+            实操题自动评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.ObjectiveScore">
+            <summary>
+            客观题评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.ObjectiveScoreTime">
+            <summary>
+            客观题评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.TestPaperMainId">
+            <summary>
+            主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.TestPaperId">
+            <summary>
+            试卷ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.ExamId">
+            <summary>
+            考试ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.StudentId">
+            <summary>
+            学员Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.TotalScore">
+            <summary>
+            总分数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.IsSubmit">
+            <summary>
+            是否交卷 True为交卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.SubmitDateTime">
+            <summary>
+            交卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.IP">
+            <summary>
+            客户端IP
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.DeviceType">
+            <summary>
+            设备类型： 1.电脑 2.手机 3.平板
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.ExamDuration">
+            <summary>
+            考试总时长
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.AnswerTotalDuration">
+            <summary>
+            答题总时长（分钟）
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.WindowOnblur">
+            <summary>
+            考试切屏次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.ScoreTime">
+            <summary>
+            阅卷时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.OperateAutoScore">
+            <summary>
+            实操题自动评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.OperateAutoScoreTime">
+            <summary>
+            实操自动评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.OperateManualScore">
+            <summary>
+            实操题人工打分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.OperateManualScoreTime">
+            <summary>
+            实操题自动评分时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.ObjectiveScore">
+            <summary>
+            客观题评分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateAnswerSheetDto.ObjectiveScoreTime">
+            <summary>
+            客观题评分时间
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.CourseId">
             <summary>
             课程Id
@@ -812,6 +1102,11 @@
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.DifficultCount">
             <summary>
             困难的数量
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.IAnswerSheetAppService">
+            <summary>
+            答卷表
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.IExamAppService">
@@ -2980,6 +3275,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.Exam">
             <summary>
             考试
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.AnswerSheet">
+            <summary>
+            答卷表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">
