@@ -63,6 +63,12 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
     public override async Task<PagedResultDto<QuestionDto>> GetListAsync(QuestionGetListInput input)
     {
+        // TODO:获取关联表的数据 
+        /*
+         1. 二次查询
+         2. joio关联查询数据
+         3. 导航属性 关联数据
+         */
         return await base.GetListAsync(input);
     }
 

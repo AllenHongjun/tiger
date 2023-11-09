@@ -10,6 +10,9 @@
     "Reset": "重置",
     "Export": "导出",
     "Import": "导入",
-    "SelectAll": "全选"
+    "SelectAll": "全选",
+    "DisplayName:CreationTime": "创建时间"
+
+
   }
 }

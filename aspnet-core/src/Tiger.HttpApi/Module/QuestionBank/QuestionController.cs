@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Tiger.Module.Teachings.Dtos;
-using Tiger.Module.Teachings;
+using Tiger.Module.QuestionBank.Dtos;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp;
-using Tiger.Module.QuestionBank.Dtos;
 
 namespace Tiger.Module.QuestionBank
 {
@@ -28,12 +24,22 @@ namespace Tiger.Module.QuestionBank
 
         protected IQuestionAppService QuestionAppService { get; }
 
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         public Task<QuestionDto> CreateAsync(CreateUpdateQuestionDto input)
         {
             return QuestionAppService.CreateAsync(input);
         }
 
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
         public Task DeleteAsync(Guid id)
@@ -41,19 +47,35 @@ namespace Tiger.Module.QuestionBank
             return QuestionAppService.DeleteAsync(id);
         }
 
+        /// <summary>
+        /// 详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
-        [Route("id")]
+        [Route("{id}")]
         public Task<QuestionDto> GetAsync(Guid id)
         {
             return QuestionAppService.GetAsync(id);
         }
 
+        /// <summary>
+        /// 分页列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         public Task<PagedResultDto<QuestionDto>> GetListAsync(QuestionGetListInput input)
         {
             return QuestionAppService.GetListAsync(input);
         }
 
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
         public Task<QuestionDto> UpdateAsync(Guid id, CreateUpdateQuestionDto input)

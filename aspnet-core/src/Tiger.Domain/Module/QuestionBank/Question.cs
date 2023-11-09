@@ -26,7 +26,7 @@ namespace Tiger.Module.QuestionBank
         public Guid? TrainPlatformId { get; set; }
 
         /// <summary>
-        /// 类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
+        /// 题型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
         /// </summary>
         public QuestionType Type { get; set; }
 
@@ -55,7 +55,7 @@ namespace Tiger.Module.QuestionBank
         public int? OptionSize { get; set; }
 
         /// <summary>
-        /// A 选项
+        /// A选项
         /// </summary>
         public string OptionA { get; set; }
         public string OptionB { get; set; }

@@ -15,11 +15,21 @@ const questionBankRouter = {
   },
   children: [
     {
-      path: '/question-bank/list',
+      path: '/question-bank/question-category/list',
       component: () => import('@/views/question-bank/question-category/index'),
-      name: 'Tenant',
+      name: 'QuestionCategory',
       meta: {
         title: 'AppQuestionBank["Menu:QuestionCategory"]',
+        // policy: 'AbpSaasPermissions.Tenants',
+        icon: 'el-icon-wallet'
+      }
+    },
+    {
+      path: '/question-bank/question/list',
+      component: () => import('@/views/question-bank/question/index'),
+      name: 'Question',
+      meta: {
+        title: 'AppQuestionBank["Menu:Question"]',
         // policy: 'AbpSaasPermissions.Tenants',
         icon: 'el-icon-wallet'
       }

@@ -41,14 +41,10 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="200" class-name="small-padding fixed-width">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" @click="handleUpdate(row)">
-            {{ $t("AbpUi['Edit']") }}
-          </el-button>
-          <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" @click="handleDelete(row, $index)">
-            {{ $t("AbpUi['Delete']") }}
-          </el-button>
+          <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
+          <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
         </template>
       </el-table-column>
     </el-table>

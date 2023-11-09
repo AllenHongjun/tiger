@@ -16,18 +16,31 @@ namespace Tiger.Module.QuestionBank.Permissions
                 QuestionBankPermissions.GroupName,
                 L("Permissions:QuestionBank"));
 
-            var backgroundJobs = group.AddPermission(
+            var questionCategory = group.AddPermission(
                 QuestionBankPermissions.QuestionCategory.Default,
                 L("Permissions:QuestionCategory"));
-            backgroundJobs.AddChild(
-                QuestionBankPermissions.QuestionCategory.Create,
-                L("Permissions:Create"));
-            backgroundJobs.AddChild(
-                QuestionBankPermissions.QuestionCategory.Update,
-                L("Permissions:Update"));
-            backgroundJobs.AddChild(
-                QuestionBankPermissions.QuestionCategory.Delete,
-                L("Permissions:Delete"));
+                questionCategory.AddChild(
+                        QuestionBankPermissions.QuestionCategory.Create,
+                        L("Permissions:Create"));
+                questionCategory.AddChild(
+                        QuestionBankPermissions.QuestionCategory.Update,
+                        L("Permissions:Update"));
+                questionCategory.AddChild(
+                        QuestionBankPermissions.QuestionCategory.Delete,
+                        L("Permissions:Delete"));
+
+            var question = group.AddPermission(
+                QuestionBankPermissions.Question.Default,
+                L("Permissions:Question"));
+                question.AddChild(
+                    QuestionBankPermissions.Question.Create,
+                    L("Permissions:Create"));
+                question.AddChild(
+                    QuestionBankPermissions.Question.Update,
+                    L("Permissions:Update"));
+                question.AddChild(
+                    QuestionBankPermissions.Question.Delete,
+                    L("Permissions:Delete"));
         }
 
         private ILocalizableString L(string name)
