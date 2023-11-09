@@ -18,5 +18,5 @@ public interface IQuestionCategoryAppService :
         CreateUpdateQuestionCategoryDto>
 {
     ListResultDto<QuestionCategoryDto> GetAllList(QuestionCategoryGetListInput input);
-    ListResultDto<QuestionCategoryDto> GetListByParentId(Guid? parentId);
+    ListResultDto<QuestionCategoryDto> GetListByParentId(QuestionCategoryGetListInput input);
 }

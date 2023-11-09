@@ -5,7 +5,7 @@ using Volo.Abp.Localization;
 
 namespace Tiger.Module.QuestionBank.Localization
 {
-    [LocalizationResourceName("QuestionBank")]
+    [LocalizationResourceName("AppQuestionBank")]
     public class QuestionBankResources
     {
     }

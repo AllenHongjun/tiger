@@ -1814,6 +1814,11 @@
             是否显示上传附件按钮
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Filter">
+            <summary>
+            其他过滤条件
+            </summary>
+        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.QuestionCategoryId">
             <summary>
             题库
@@ -1937,6 +1942,26 @@
         <member name="T:Tiger.Module.QuestionBank.IQuestionCategoryAppService">
             <summary>
             题目分类
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Permissions.QuestionBankPermissions.QuestionCategory">
+            <summary>
+            题目分类
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Permissions.QuestionBankPermissions.Question">
+            <summary>
+            题目表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Permissions.QuestionBankPermissions.QuestionAttachment">
+            <summary>
+            题目附件表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Permissions.QuestionBankPermissions.QuestionAnswer">
+            <summary>
+            题目答案
             </summary>
         </member>
         <member name="T:Tiger.Module.Schools.Dtos.ClassInfoDto">
@@ -3415,26 +3440,6 @@
         <member name="T:Tiger.Permissions.TigerPermissions.TestPaper">
             <summary>
             试卷
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.QuestionCategory">
-            <summary>
-            题目分类
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.Question">
-            <summary>
-            题目表
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.QuestionAttachment">
-            <summary>
-            题目附件表
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.QuestionAnswer">
-            <summary>
-            题目答案
             </summary>
         </member>
         <member name="T:Tiger.Permissions.TigerPermissions.TestPaperStrategy">

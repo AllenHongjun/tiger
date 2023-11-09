@@ -445,7 +445,7 @@ namespace Tiger.EntityFrameworkCore
                    .HasComment("名称");
                 b.Property(p => p.Cover)
                    .HasMaxLength(QuestionCategoryConsts.MaxCodeLength)
-                   .IsRequired()
+                   .IsRequired(false)
                    .HasComment("封面");
                 b.Property(p => p.Code)
                     .HasComment("层次编码");

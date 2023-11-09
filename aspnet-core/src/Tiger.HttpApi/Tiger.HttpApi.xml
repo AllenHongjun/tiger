@@ -415,7 +415,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.GetListByParentId(System.Nullable{System.Guid})">
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.GetListByParentId(Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput)">
             <summary>
             根据父级id查询分类
             </summary>

@@ -16,11 +16,6 @@ namespace Tiger.Module.QuestionBank;
 public class QuestionAttachmentAppService : CrudAppService<QuestionAttachment, QuestionAttachmentDto, Guid, QuestionAttachmentGetListInput, CreateUpdateQuestionAttachmentDto, CreateUpdateQuestionAttachmentDto>,
     IQuestionAttachmentAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.QuestionAttachment.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.QuestionAttachment.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.QuestionAttachment.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.QuestionAttachment.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.QuestionAttachment.Delete;
 
     private readonly IQuestionAttachmentRepository _repository;
 

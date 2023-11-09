@@ -8,6 +8,11 @@ namespace Tiger.Module.QuestionBank.Dtos;
 public class QuestionGetListInput : PagedAndSortedResultRequestDto
 {
     /// <summary>
+    /// 其他过滤条件
+    /// </summary>
+    public string Filter { get; set; }
+
+    /// <summary>
     /// 题库
     /// </summary>
     public Guid? QuestionCategoryId { get; set; }

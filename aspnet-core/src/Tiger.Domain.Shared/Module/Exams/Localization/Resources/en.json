@@ -9,7 +9,6 @@
     "Platform:03001": "The metadata format does not match!",
     "Platform:04400": "The user favorites the menu repeatedly!",
     "Platform:04404": "User Favorites menu not found!",
-
     "Permission:Platform": "Platform",
     "Permission:AppVersion": "AppVersion",
     "Permission:FileManager": "FileManager",
@@ -31,7 +30,6 @@
     "Permission:ManageRoleMenus": "Manage Role Menus",
     "Permission:ManageUserMenus": "Manage User Menus",
     "Permission:ManageUserFavoriteMenus": "Manage User Favorite Menus",
-
     "UploadFileSizeBeyondLimit": "Upload file size cannot exceed {0} MB!",
     "NotAllowedFileExtensionName": "Not allowed file extension: {0}!",
     "DisplayName:VersionFileLimitLength": "File limit size",
@@ -59,7 +57,6 @@
     "DisplayName:Basic": "Basic",
     "DisplayName:DataDictionary": "Data Dictionary",
     "DisplayName:RoleName": "Role Name",
-
     "Layout:AddNew": "Add New",
     "Layout:Edit": "Edit",
     "Layout:EditByName": "Edit Layout - {0}",
@@ -79,7 +76,6 @@
     "Data:EditItem": "Edit Item",
     "Data:RemoveItem": "Remove Item",
     "Data:Items": "Data Items",
-
     "DuplicateData": "A data dictionary named {0} already exists!",
     "DuplicateDataItem": "A data dictionary entry named {0} already exists!",
     "DataItemNotFound": "There is no data dictionary entry named {0}!",

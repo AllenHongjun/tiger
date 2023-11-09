@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Layout from '@/layout'
 
 /* Router Modules */
+import QuestionBankRouter from './modules/question-bank'
 import SystemManageRouter from './modules/system'
 import SassRouter from './modules/sass'
 
@@ -159,6 +160,7 @@ export const asyncRoutes = [
   // identityRouter,
   // dictionaryRouter,
   // auditlogRouter,
+  QuestionBankRouter,
   SassRouter,
   SystemManageRouter,
   // 404 page must be placed at the end !!!

@@ -1,16 +1,12 @@
 using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Tiger.Permissions;
-using Tiger.Module.QuestionBank.Dtos;
-using Volo.Abp.Application.Services;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using Volo.Abp.Application.Dtos;
-using Tiger.Module.System.Platform.Layouts.Dto;
 using System.Collections.Generic;
-using Qiniu.Storage;
+using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
+using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -18,14 +14,10 @@ namespace Tiger.Module.QuestionBank;
 /// <summary>
 /// 题目分类
 /// </summary>
+[RemoteService(false)]
 public class QuestionCategoryAppService : CrudAppService<QuestionCategory, QuestionCategoryDto, Guid, QuestionCategoryGetListInput, CreateUpdateQuestionCategoryDto, CreateUpdateQuestionCategoryDto>,
     IQuestionCategoryAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.QuestionCategory.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.QuestionCategory.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.QuestionCategory.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.QuestionCategory.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.QuestionCategory.Delete;
 
     private readonly IQuestionCategoryRepository _repository;
 
@@ -38,6 +30,7 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
     {
         // TODO: AbpHelper generated
         return  base.CreateFilteredQuery(input)
+            .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter))
             .WhereIf(input.ParentId != null, x => x.ParentId == input.ParentId)
             .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
             .WhereIf(!input.Cover.IsNullOrWhiteSpace(), x => x.Cover.Contains(input.Cover))
@@ -48,9 +41,9 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
     }
 
 
-    public  ListResultDto<QuestionCategoryDto> GetListByParentId(Guid? parentId)
+    public  ListResultDto<QuestionCategoryDto> GetListByParentId(QuestionCategoryGetListInput input)
     {
-        var questionCategories = _repository.WhereIf(parentId !=null, x=> x.ParentId == parentId)
+        var questionCategories = _repository.WhereIf(input.ParentId !=null, x=> x.ParentId == input.ParentId)
                 .ToList();
         return new ListResultDto<QuestionCategoryDto>(
             ObjectMapper.Map<List<QuestionCategory>, List<QuestionCategoryDto>>(questionCategories));
@@ -68,6 +61,7 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
     public override async Task<QuestionCategoryDto> CreateAsync(CreateUpdateQuestionCategoryDto input)
     {
         var questionCategory =  _repository.Where(x => x.Name == input.Name).FirstOrDefault();
+        var pid = input.ParentId;
         if (questionCategory != null)
         {
             throw new UserFriendlyException(L["DuplicateQuestionCategory", input.Name]);
@@ -78,12 +72,6 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
 
     public override async Task<QuestionCategoryDto> UpdateAsync(Guid id, CreateUpdateQuestionCategoryDto input)
     {
-        var questionCategory = _repository.Where(x => x.Name == input.Name).FirstOrDefault();
-        if (questionCategory != null)
-        {
-            throw new UserFriendlyException(L["DuplicateQuestionCategory", input.Name]);
-        }
-
         return await base.UpdateAsync(id, input); 
     }
 }

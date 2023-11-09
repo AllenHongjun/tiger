@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -11,14 +12,10 @@ namespace Tiger.Module.QuestionBank;
 /// <summary>
 /// 题目答案
 /// </summary>
+[RemoteService(false)]
 public class QuestionAnswerAppService : CrudAppService<QuestionAnswer, QuestionAnswerDto, Guid, QuestionAnswerGetListInput, CreateUpdateQuestionAnswerDto, CreateUpdateQuestionAnswerDto>,
     IQuestionAnswerAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.QuestionAnswer.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.QuestionAnswer.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.QuestionAnswer.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.QuestionAnswer.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.QuestionAnswer.Delete;
 
     private readonly IQuestionAnswerRepository _repository;
 

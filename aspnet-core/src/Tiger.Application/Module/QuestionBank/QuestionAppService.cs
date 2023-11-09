@@ -8,6 +8,7 @@ using Volo.Abp.Application.Services;
 using Tiger.Module.System.Platform.Layouts.Dto;
 using Volo.Abp.Application.Dtos;
 using System.Collections.Generic;
+using Volo.Abp;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -15,14 +16,10 @@ namespace Tiger.Module.QuestionBank;
 /// <summary>
 /// 题目
 /// </summary>
+[RemoteService(false)]
 public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, QuestionGetListInput, CreateUpdateQuestionDto, CreateUpdateQuestionDto>,
     IQuestionAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.Question.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.Question.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.Question.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.Question.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.Question.Delete;
 
     private readonly IQuestionRepository _repository;
 
@@ -35,19 +32,20 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
     {
         // TODO: AbpHelper generated
         return  base.CreateFilteredQuery(input)
+            .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter))
             .WhereIf(input.QuestionCategoryId != null, x => x.QuestionCategoryId == input.QuestionCategoryId)
             .WhereIf(input.PracticalTrainingId != null, x => x.TrainPlatformId == input.PracticalTrainingId)
             .WhereIf(input.Type != null, x => x.Type == input.Type)
             .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
             .WhereIf(!input.Content.IsNullOrWhiteSpace(), x => x.Content.Contains(input.Content))
-            .WhereIf(!input.OptionContent.IsNullOrWhiteSpace(), x => x.OptionContent.Contains(input.OptionContent))
-            .WhereIf(input.OptionSize != null, x => x.OptionSize == input.OptionSize)
+            //.WhereIf(!input.OptionContent.IsNullOrWhiteSpace(), x => x.OptionContent.Contains(input.OptionContent))
+            //.WhereIf(input.OptionSize != null, x => x.OptionSize == input.OptionSize)
             .WhereIf(!input.OptionA.IsNullOrWhiteSpace(), x => x.OptionA.Contains(input.OptionA))
             .WhereIf(!input.OptionB.IsNullOrWhiteSpace(), x => x.OptionB.Contains(input.OptionB))
             .WhereIf(!input.OptionC.IsNullOrWhiteSpace(), x => x.OptionC.Contains(input.OptionC))
             .WhereIf(!input.OptionD.IsNullOrWhiteSpace(), x => x.OptionD.Contains(input.OptionD))
             .WhereIf(!input.OptionE.IsNullOrWhiteSpace(), x => x.OptionE.Contains(input.OptionE))
-            .WhereIf(!input.Answer.IsNullOrWhiteSpace(), x => x.Answer.Contains(input.Answer))
+            //.WhereIf(!input.Answer.IsNullOrWhiteSpace(), x => x.Answer.Contains(input.Answer))
             .WhereIf(input.Degree != null, x => x.Degree == input.Degree)
             .WhereIf(!input.Analysis.IsNullOrWhiteSpace(), x => x.Analysis.Contains(input.Analysis))
             .WhereIf(!input.Source.IsNullOrWhiteSpace(), x => x.Source.Contains(input.Source))

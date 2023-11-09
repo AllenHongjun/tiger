@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.QuestionBank.Dtos;
@@ -7,6 +8,8 @@ namespace Tiger.Module.QuestionBank.Dtos;
 [Serializable]
 public class QuestionCategoryGetListInput : PagedAndSortedResultRequestDto
 {
+    public string Filter { get;set; }
+
     public Guid? ParentId { get; set; }
 
     /// <summary>

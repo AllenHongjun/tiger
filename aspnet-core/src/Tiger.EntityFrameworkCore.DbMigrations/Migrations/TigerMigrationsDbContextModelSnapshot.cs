@@ -487,36 +487,6 @@ namespace Tiger.Migrations
                     b.ToTable("AppTestPapers");
                 });
 
-            modelBuilder.Entity("Tiger.Module.Exams.TestPaperJudgeSchool", b =>
-                {
-                    b.Property<Guid>("TestPaperId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SchoolId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("SchoolId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TestPaperId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TestPaperId", "SchoolId");
-
-                    b.HasIndex("SchoolId");
-
-                    b.HasIndex("SchoolId1");
-
-                    b.HasIndex("TestPaperId1");
-
-                    b.HasIndex("TestPaperId", "SchoolId");
-
-                    b.ToTable("AppTestPaperJudgeSchool");
-                });
-
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperQuestion", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1000,9 +970,6 @@ namespace Tiger.Migrations
                         .HasComment("E 选项")
                         .HasMaxLength(512);
 
-                    b.Property<Guid?>("PracticalTrainingId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("QuestionCategoryId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1013,6 +980,9 @@ namespace Tiger.Migrations
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("TrainPlatformId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Type")
@@ -1173,7 +1143,6 @@ namespace Tiger.Migrations
                         .HasMaxLength(40);
 
                     b.Property<string>("Cover")
-                        .IsRequired()
                         .HasColumnType("nvarchar(128)")
                         .HasComment("封面")
                         .HasMaxLength(128);
@@ -4464,29 +4433,6 @@ namespace Tiger.Migrations
                     b.HasOne("Tiger.Module.Teachings.Course", null)
                         .WithMany("TestPaper")
                         .HasForeignKey("CourseId");
-                });
-
-            modelBuilder.Entity("Tiger.Module.Exams.TestPaperJudgeSchool", b =>
-                {
-                    b.HasOne("Tiger.Module.Schools.School", null)
-                        .WithMany("TestPapers")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Module.Schools.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId1");
-
-                    b.HasOne("Tiger.Module.Exams.TestPaper", null)
-                        .WithMany("JudgeSchools")
-                        .HasForeignKey("TestPaperId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
-                        .WithMany()
-                        .HasForeignKey("TestPaperId1");
                 });
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperQuestion", b =>

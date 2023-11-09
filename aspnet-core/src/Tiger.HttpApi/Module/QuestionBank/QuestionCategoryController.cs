@@ -92,10 +92,10 @@ namespace Tiger.Module.QuestionBank
         /// <param name="parentId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{parentId}")]
-        public ListResultDto<QuestionCategoryDto> GetListByParentId(Guid? parentId)
+        [Route("by-parentId")]
+        public ListResultDto<QuestionCategoryDto> GetListByParentId(QuestionCategoryGetListInput input)
         {
-            return QuestionCategoryAppService.GetListByParentId(parentId);
+            return QuestionCategoryAppService.GetListByParentId(input);
         }
 
         /// <summary>
