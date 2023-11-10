@@ -1,5 +1,6 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Tiger.Module.Train;
 
 namespace Tiger.Module.Teachings;
 

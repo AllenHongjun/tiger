@@ -147,7 +147,7 @@
     <Folder Include="Module\Message\" />
     <Folder Include="Module\Practices\" />
     <Folder Include="Module\OpenApi\" />
-    <Folder Include="Module\Train\" />
+    <Folder Include="Module\Teachings\" />
     <Folder Include="PlatfromSdk\" />
   </ItemGroup>
 

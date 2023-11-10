@@ -19,6 +19,7 @@ using Tiger.Volo.Abp.Sass.Tenants;
 using Tiger.Volo.Abp.Sass;
 using Tiger.Volo.Abp.Sass.Editions;
 using Volo.Abp.Identity;
+using Tiger.Module.Train;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -445,7 +446,7 @@ namespace Tiger.EntityFrameworkCore
                    .HasComment("名称");
                 b.Property(p => p.Cover)
                    .HasMaxLength(QuestionCategoryConsts.MaxCodeLength)
-                   .IsRequired(false)
+                   .IsRequired()
                    .HasComment("封面");
                 b.Property(p => p.Code)
                     .HasComment("层次编码");

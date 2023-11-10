@@ -17,9 +17,9 @@ using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
 using Tiger.Module.System.Area;
 using Tiger.Module.Schools;
-using Tiger.Module.Teachings;
 using Tiger.Module.Exams;
 using Tiger.Module.QuestionBank;
+using Tiger.Module.Train;
 
 namespace Tiger.EntityFrameworkCore
 {

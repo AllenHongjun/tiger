@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Repositories;
 
-namespace Tiger.Module.Teachings;
+namespace Tiger.Module.Train;
 
 /// <summary>
 /// 课程

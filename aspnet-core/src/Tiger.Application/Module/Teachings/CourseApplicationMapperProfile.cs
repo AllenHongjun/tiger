@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Tiger.Module.Teachings.Dtos;
+using Tiger.Module.Train;
 
 namespace Tiger.Module.Teachings
 {

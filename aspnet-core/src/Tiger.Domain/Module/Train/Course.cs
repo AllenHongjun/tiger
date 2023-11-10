@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Tiger.Module.Exams;
+using Tiger.Module.Teachings;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Tiger.Module.Teachings
+namespace Tiger.Module.Train
 {
     /// <summary>
     /// 课程
     /// </summary>
-    public class Course:FullAuditedEntity<Guid>,IMultiTenant
+    public class Course : FullAuditedEntity<Guid>, IMultiTenant
     {
         public Guid? TenantId { get; set; }
 
@@ -34,7 +35,7 @@ namespace Tiger.Module.Teachings
         /// 封面图片
         /// </summary>
         public string Cover { get; set; }
-        
+
         /// <summary>
         /// 是否启用
         /// </summary>

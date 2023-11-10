@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Tiger.Module.Teachings.Dtos;
+using Tiger.Module.Train;
 using Tiger.Permissions;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
