@@ -1,7 +1,7 @@
 const DEFAULT_CONFIG = {
   id: 'id',
   children: 'children',
-  pid: 'pid'
+  pid: 'parentId'
 }
 
 const getConfig = config => Object.assign({}, DEFAULT_CONFIG, config)

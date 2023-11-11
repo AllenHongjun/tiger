@@ -11,7 +11,8 @@
     "Export": "导出",
     "Import": "导入",
     "SelectAll": "全选",
-    "DisplayName:CreationTime": "创建时间"
+    "DisplayName:CreationTime": "创建时间",
+    "PlaceholderInput": "请输入..."
 
 
   }
