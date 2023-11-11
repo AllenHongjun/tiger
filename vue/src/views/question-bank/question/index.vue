@@ -21,32 +21,37 @@
           学校
         </template>
       </el-table-column> -->
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:QuestionCategory\']')" prop="QuestionCategoryId" sortable align="left" width="180">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCateogryName" align="left" width="180">
         <template slot-scope="{ row }">
-          <span>{{ row.questionCategoryId }}</span>
+          <span>{{ row.questionCateogryName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" sortable align="left">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left">
         <template slot-scope="{ row }">
           <span>{{ row.content }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:CreatorId\']')" prop="creatorId" sortable align="left" width="180">
+      <!-- <el-table-column :label="$t('AppQuestionBank[\'DisplayName:CreatorId\']')" prop="creatorId" sortable align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.creatorId }}</span>
         </template>
-      </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" sortable align="left" width="180">
+      </el-table-column> -->
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="180">
         <template slot-scope="{ row }">
-          <span>{{ row.type }}</span>
+          <el-tag v-if="QuestionTypeMap[row.type]" type="primary">{{ QuestionTypeMap[row.type] }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="Enable" sortable align="left" width="180">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Degree\']')" prop="Degree" align="left" width="180">
         <template slot-scope="{ row }">
-          <span>{{ row.enable }}</span>
+          <el-tag v-if="QuestionDegreeMap[row.degree]" type="primary">{{ QuestionDegreeMap[row.degree] }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" sortable align="left" width="180">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="Enable" align="left" width="180">
+        <template slot-scope="{ row }">
+          <el-tag :type="( row.enable ? 'success' : 'danger')" :class="[ row.enable ? 'el-icon-check':'el-icon-close' ]" />
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.creationTime | moment }}</span>
         </template>
@@ -92,6 +97,8 @@ import {
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import baseListQuery, { checkPermission } from '@/utils/abp'
 
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap } from './datas/typing'
+
 export default {
   name: 'Questions',
   components: {
@@ -99,6 +106,10 @@ export default {
   },
   data() {
     return {
+      QuestionType,
+      QuestionTypeMap,
+      QuestionDegree,
+      QuestionDegreeMap,
       tableKey: 0,
       list: null,
       total: 0,

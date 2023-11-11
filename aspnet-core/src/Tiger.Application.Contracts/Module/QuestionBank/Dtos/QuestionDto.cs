@@ -14,6 +14,8 @@ public class QuestionDto : FullAuditedEntityDto<Guid>
     /// </summary>
     public Guid QuestionCategoryId { get; set; }
 
+    public string QuestionCateogryName { get; set; }
+
     /// <summary>
     /// 实训链接
     /// </summary>

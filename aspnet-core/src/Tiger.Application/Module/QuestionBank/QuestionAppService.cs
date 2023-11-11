@@ -31,7 +31,7 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
     protected override IQueryable<Question> CreateFilteredQuery(QuestionGetListInput input)
     {
         // TODO: AbpHelper generated
-        return  base.CreateFilteredQuery(input)
+        return  _repository.WithDetails(x => x.QuestionCategory)
             .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter))
             .WhereIf(input.QuestionCategoryId != null, x => x.QuestionCategoryId == input.QuestionCategoryId)
             .WhereIf(input.PracticalTrainingId != null, x => x.TrainPlatformId == input.PracticalTrainingId)

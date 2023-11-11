@@ -11,9 +11,11 @@ namespace Tiger.Module.QuestionBank
         public QuestionBankApplicationMappingProfile()
         {
             CreateMap<QuestionCategory, QuestionCategoryDto>();
-            CreateMap<CreateUpdateQuestionCategoryDto, QuestionCategory>();
+            CreateMap<CreateUpdateQuestionCategoryDto, QuestionCategory>()
+                ;
 
-            CreateMap<Question,QuestionDto>();
+            CreateMap<Question,QuestionDto>()
+                .ForMember(dst => dst.QuestionCateogryName, opt => opt.MapFrom(src => src.QuestionCategory.Name));
             CreateMap<CreateUpdateQuestionDto, Question>();
         }
     }

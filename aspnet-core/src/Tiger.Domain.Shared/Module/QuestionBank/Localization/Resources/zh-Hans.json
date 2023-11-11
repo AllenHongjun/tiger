@@ -36,6 +36,7 @@
     "DisplayName:IsPublic": "公开",
 
     "DisplayName:QuestionCategoryId": "题库Id",
+    "DisplayName:QuestionCateogryName": "题库分类",
     "DisplayName:TrainPlatformId": "实训平台Id",
     "DisplayName:Type": "题型",
     "DisplayName:Content": "内容",

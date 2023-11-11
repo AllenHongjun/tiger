@@ -1,10 +1,3 @@
-export const JobPriority = {
-  Low: 5,
-  BelowNormal: 10,
-  Normal: 0xF,
-  AboveNormal: 20,
-  High: 25
-}
 
 export const JobType = {
   Once: 0,
@@ -16,6 +9,14 @@ export const JobTypeMap = {
   [JobType.Once]: '一次性的',
   [JobType.Period]: '周期性的',
   [JobType.Persistent]: '持续性的'
+}
+
+export const JobPriority = {
+  Low: 5,
+  BelowNormal: 10,
+  Normal: 0xF,
+  AboveNormal: 20,
+  High: 25
 }
 
 export const JobPriorityMap = {

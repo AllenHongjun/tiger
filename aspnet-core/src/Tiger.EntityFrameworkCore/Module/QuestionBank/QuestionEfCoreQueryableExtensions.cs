@@ -16,7 +16,7 @@ public static class QuestionEfCoreQueryableExtensions
         }
 
         return queryable
-            // .Include(x => x.xxx) // TODO: AbpHelper generated
+             .Include(x => x.QuestionCategory) // TODO: AbpHelper generated
             ;
     }
 }
