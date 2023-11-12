@@ -476,10 +476,82 @@
             班级
             </summary>
         </member>
+        <member name="M:Tiger.Module.Classes.ClassController.CreateAsync(Tiger.Module.Schools.Dtos.CreateUpdateClassInfoDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Classes.ClassController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Classes.ClassController.GetAsync(System.Guid)">
+            <summary>
+            详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Classes.ClassController.GetListAsync(Tiger.Module.Schools.Dtos.ClassInfoGetListInput)">
+            <summary>
+            分页列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Classes.ClassController.UpdateAsync(System.Guid,Tiger.Module.Schools.Dtos.CreateUpdateClassInfoDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Schools.SchoolController">
             <summary>
             学校
             </summary>
+        </member>
+        <member name="M:Tiger.Module.Schools.SchoolController.CreateAsync(Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto)">
+            <summary>
+            创建
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Schools.SchoolController.DeleteAsync(System.Guid)">
+            <summary>
+            删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Schools.SchoolController.GetAsync(System.Guid)">
+            <summary>
+            详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Schools.SchoolController.GetListAsync(Tiger.Module.Schools.Dtos.SchoolGetListInput)">
+            <summary>
+            分页列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Schools.SchoolController.UpdateAsync(System.Guid,Tiger.Module.Schools.Dtos.CreateUpdateSchoolDto)">
+            <summary>
+            更新
+            </summary>
+            <param name="id"></param>
+            <param name="input"></param>
+            <returns></returns>
         </member>
         <member name="T:Tiger.Module.System.CacheController">
             <summary>

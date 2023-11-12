@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Layout from '@/layout'
 
 /* Router Modules */
+import examRouter from './modules/exam'
 import QuestionBankRouter from './modules/question-bank'
 import SystemManageRouter from './modules/system'
 import SassRouter from './modules/sass'
@@ -160,6 +161,7 @@ export const asyncRoutes = [
   // identityRouter,
   // dictionaryRouter,
   // auditlogRouter,
+  examRouter,
   QuestionBankRouter,
   SassRouter,
   SystemManageRouter,
