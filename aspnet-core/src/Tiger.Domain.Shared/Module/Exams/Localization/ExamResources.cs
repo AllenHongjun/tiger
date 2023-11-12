@@ -8,5 +8,6 @@ namespace Tiger.Module.Exams.Localization
     [LocalizationResourceName("AppExam")]
     public class ExamResources
     {
+
     }
 }

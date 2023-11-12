@@ -1,5 +1,6 @@
 ﻿using Localization.Resources.AbpUi;
 using Tiger.Localization;
+using Tiger.Module.Exams.Localization;
 using Tiger.Module.OssManagement.Localization;
 using Tiger.Module.QuestionBank.Localization;
 using Tiger.Module.Schools.Localization;
@@ -125,6 +126,10 @@ namespace Tiger
                 options.Resources
                        .Add<TaskManagementResource>("zh-Hans")
                        .AddVirtualJson("/Module/TaskManagement/Localization/Resources");
+
+                options.Resources
+                       .Add<ExamResources>("zh-Hans")
+                       .AddVirtualJson("/Module/Exams/Localization/Resources");
 
                 options.Resources
                        .Add<SchoolResources>("zh-Hans")

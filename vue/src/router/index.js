@@ -7,6 +7,7 @@ import Layout from '@/layout'
 /* Router Modules */
 import examRouter from './modules/exam'
 import QuestionBankRouter from './modules/question-bank'
+import schoolManageRouter from './modules/school-manage'
 import SystemManageRouter from './modules/system'
 import SassRouter from './modules/sass'
 
@@ -163,6 +164,7 @@ export const asyncRoutes = [
   // auditlogRouter,
   examRouter,
   QuestionBankRouter,
+  schoolManageRouter,
   SassRouter,
   SystemManageRouter,
   // 404 page must be placed at the end !!!
