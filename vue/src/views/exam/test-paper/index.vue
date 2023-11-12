@@ -1,31 +1,31 @@
 <template>
   <div class="app-container">
-    <layout-table ref="layoutTable" @handleCreate="handleCreate" @handleUpdate="handleUpdate" />
-    <layout-model ref="layoutModel" @handleFilter="handleFilter" />
+    <test-paper-table ref="testpaperTable" @handleCreate="handleCreate" @handleUpdate="handleUpdate" />
+    <test-paper-model ref="testpaperModel" @handleFilter="handleFilter" />
   </div>
 </template>
 
 <script>
 
-import LayoutTable from './components/LayoutTable.vue'
-import LayoutModel from './components/LayoutModel.vue'
+import TestPaperTable from './components/TestPaperTable.vue'
+import TestPaperModel from './components/TestPaperModel.vue'
 
 export default {
-  name: 'Layouts',
+  name: 'TestPapers',
   components: {
-    LayoutTable,
-    LayoutModel
+    TestPaperTable,
+    TestPaperModel
   },
 
   methods: {
     handleFilter(firstPage = true) {
-      this.$refs['layoutTable'].handleFilter(firstPage)
+      this.$refs['testpaperTable'].handleFilter(firstPage)
     },
     handleCreate() {
-      this.$refs['layoutModel'].handleCreate()
+      this.$refs['testpaperModel'].handleCreate()
     },
     handleUpdate(row) {
-      this.$refs['layoutModel'].handleUpdate(row)
+      this.$refs['testpaperModel'].handleUpdate(row)
     }
   }
 }
