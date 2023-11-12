@@ -776,7 +776,7 @@
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamDto.StartDate">
             <summary>
-            考试时间
+            开始时间
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamDto.EndDate">
@@ -1302,6 +1302,36 @@
         <member name="T:Tiger.Module.Exams.ITestPaperStrategyAppService">
             <summary>
             组卷策略配置表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Permissions.ExamPermissions.TestPaper">
+            <summary>
+            试卷
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Permissions.ExamPermissions.TestPaperStrategy">
+            <summary>
+            组卷策略配置表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Permissions.ExamPermissions.TestPaperQuestion">
+            <summary>
+            试卷内容(题目)表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Permissions.ExamPermissions.Exam">
+            <summary>
+            考试
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Permissions.ExamPermissions.AnswerSheet">
+            <summary>
+            答卷表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Permissions.ExamPermissions.AnswerSheetDetail">
+            <summary>
+            答卷明细表
             </summary>
         </member>
         <member name="P:Tiger.Module.Notifications.Dto.NotificationDto.Name">
@@ -3435,36 +3465,6 @@
         <member name="T:Tiger.Permissions.TigerPermissions.Course">
             <summary>
             课程
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.TestPaper">
-            <summary>
-            试卷
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.TestPaperStrategy">
-            <summary>
-            组卷策略配置表
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.TestPaperQuestion">
-            <summary>
-            试卷内容(题目)表
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.Exam">
-            <summary>
-            考试
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.AnswerSheet">
-            <summary>
-            答卷表
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.AnswerSheetDetail">
-            <summary>
-            答卷明细表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

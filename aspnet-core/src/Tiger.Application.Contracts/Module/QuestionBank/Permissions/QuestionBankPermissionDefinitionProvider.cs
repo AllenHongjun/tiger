@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tiger.Module.QuestionBank.Localization;
 using Tiger.Module.TaskManagement.Localization;
 using Tiger.Module.TaskManagement.Permissions;
 using Volo.Abp.Authorization.Permissions;
@@ -8,7 +9,7 @@ using Volo.Abp.Localization;
 
 namespace Tiger.Module.QuestionBank.Permissions
 {
-    public class QuestionBankPermissionDefinitionProvider : PermissionDefinitionProvider
+    public class QuestionBankPermissionDefinitionProvider:PermissionDefinitionProvider
     {
         public override void Define(IPermissionDefinitionContext context)
         {
@@ -45,7 +46,7 @@ namespace Tiger.Module.QuestionBank.Permissions
 
         private ILocalizableString L(string name)
         {
-            return LocalizableString.Create<TaskManagementResource>(name);
+            return LocalizableString.Create<QuestionBankResources>(name);
         }
     }
 }

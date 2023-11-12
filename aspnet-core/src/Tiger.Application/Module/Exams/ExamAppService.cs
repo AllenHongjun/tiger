@@ -16,11 +16,7 @@ namespace Tiger.Module.Exams;
 public class ExamAppService : CrudAppService<Exam, ExamDto, Guid, ExamGetListInput, CreateUpdateExamDto, CreateUpdateExamDto>,
     IExamAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.Exam.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.Exam.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.Exam.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.Exam.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.Exam.Delete;
+    
 
     private readonly IExamRepository _repository;
 

@@ -45,7 +45,7 @@ public class ExamDto : FullAuditedEntityDto<Guid>
     public ExamType ExamType { get; set; }
 
     /// <summary>
-    /// 考试时间
+    /// 开始时间
     /// </summary>
     public DateTime StartDate { get; set; }
 

@@ -16,7 +16,7 @@ namespace Tiger.Module.Exams
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.ExamGroupName)]
     [RemoteService(Name = ExamRemoteServiceConsts.RemoteServiceName)]
     [Area(ExamRemoteServiceConsts.ModuleName)]
-    [Route($"api/{ExamRemoteServiceConsts.ModuleName}/exam")]
+    [Route($"api/{ExamRemoteServiceConsts.ModuleName}/exams")]
     public class ExamController : AbpController, IExamAppService
     {
         public ExamController(IExamAppService examAppService)
@@ -55,7 +55,7 @@ namespace Tiger.Module.Exams
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("id")]
+        [Route("{id}")]
         public async Task<ExamDto> GetAsync(Guid id)
         {
             return await ExamAppService.GetAsync(id);

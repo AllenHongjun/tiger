@@ -16,12 +16,6 @@ namespace Tiger.Module.Exams;
 public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, TestPaperStrategyDto, Guid, TestPaperStrategyGetListInput, CreateUpdateTestPaperStrategyDto, CreateUpdateTestPaperStrategyDto>,
     ITestPaperStrategyAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.TestPaperStrategy.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.TestPaperStrategy.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.TestPaperStrategy.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.TestPaperStrategy.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.TestPaperStrategy.Delete;
-
     private readonly ITestPaperStrategyRepository _repository;
 
     public TestPaperStrategyAppService(ITestPaperStrategyRepository repository) : base(repository)

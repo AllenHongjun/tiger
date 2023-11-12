@@ -16,11 +16,7 @@ namespace Tiger.Module.Exams;
 public class AnswerSheetDetailAppService : CrudAppService<AnswerSheetDetail, AnswerSheetDetailDto, Guid, AnswerSheetDetailGetListInput, CreateUpdateAnswerSheetDetailDto, CreateUpdateAnswerSheetDetailDto>,
     IAnswerSheetDetailAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.AnswerSheetDetail.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.AnswerSheetDetail.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.AnswerSheetDetail.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.AnswerSheetDetail.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.AnswerSheetDetail.Delete;
+    
 
     private readonly IAnswerSheetDetailRepository _repository;
 

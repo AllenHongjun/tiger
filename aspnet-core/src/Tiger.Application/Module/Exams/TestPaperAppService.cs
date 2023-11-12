@@ -14,11 +14,7 @@ namespace Tiger.Module.Exams;
 public class TestPaperAppService : CrudAppService<TestPaper, TestPaperDto, Guid, TestPaperGetListInput, CreateUpdateTestPaperDto, CreateUpdateTestPaperDto>,
     ITestPaperAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.TestPaper.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.TestPaper.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.TestPaper.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.TestPaper.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.TestPaper.Delete;
+   
 
     private readonly ITestPaperRepository _repository;
 

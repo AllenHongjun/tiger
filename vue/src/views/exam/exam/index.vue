@@ -1,31 +1,31 @@
 <template>
   <div class="app-container">
-    <layout-table ref="layoutTable" @handleCreate="handleCreate" @handleUpdate="handleUpdate" />
-    <layout-model ref="layoutModel" @handleFilter="handleFilter" />
+    <exam-table ref="examTable" @handleCreate="handleCreate" @handleUpdate="handleUpdate" />
+    <exam-model ref="examModel" @handleFilter="handleFilter" />
   </div>
 </template>
 
 <script>
 
-import LayoutTable from './components/LayoutTable.vue'
-import LayoutModel from './components/LayoutModel.vue'
+import ExamTable from './components/ExamTable.vue'
+import ExamModel from './components/ExamModel.vue'
 
 export default {
-  name: 'Layouts',
+  name: 'Exams',
   components: {
-    LayoutTable,
-    LayoutModel
+    ExamTable,
+    ExamModel
   },
 
   methods: {
     handleFilter(firstPage = true) {
-      this.$refs['layoutTable'].handleFilter(firstPage)
+      this.$refs['examTable'].handleFilter(firstPage)
     },
     handleCreate() {
-      this.$refs['layoutModel'].handleCreate()
+      this.$refs['examModel'].handleCreate()
     },
     handleUpdate(row) {
-      this.$refs['layoutModel'].handleUpdate(row)
+      this.$refs['examModel'].handleUpdate(row)
     }
   }
 }
