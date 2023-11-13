@@ -9,7 +9,7 @@
           <el-input v-model="temp.name" />
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Cover\']')" prop="cover">
-          <el-input v-model="temp.cover" />
+          <single-image-upload v-model="temp.cover" />
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Code\']')" prop="code">
           <el-input v-model="temp.code" />
@@ -46,8 +46,12 @@ import {
 } from '@/api/question-bank/question-category'
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { listToTree } from '@/utils/helpers/tree-helper'
+import SingleImageUpload from '@/components/Upload/SingleImage.vue'
 export default {
   name: 'QuestionCateogyModel',
+  components: {
+    SingleImageUpload
+  },
   data() {
     return {
       options: undefined,

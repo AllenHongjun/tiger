@@ -54,9 +54,6 @@ export default {
   },
   computed: {
     imageUrl() {
-      console.log('this.value', this.value)
-      console.log('Url.photoPrefix.length', Url.photoPrefix.length)
-      console.log('imageUrl.length', (this.Url.photoPrefix + this.value).length)
       return this.Url.photoPrefix + this.value
     }
   },
@@ -68,9 +65,6 @@ export default {
       this.$emit('input', val)
     },
     handleImageSuccess(file) {
-      console.log(process.env.NODE_ENV)
-      console.log(process.env)
-      console.log(process.env.VUE_APP_BASE_IMG_URL + file.blobName)
       this.emitInput(file.blobName)
     },
     beforeUpload() {
