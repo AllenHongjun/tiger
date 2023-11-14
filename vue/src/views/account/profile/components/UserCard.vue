@@ -42,9 +42,7 @@
 
 <script>
 import PanThumb from '@/components/PanThumb'
-import {
-  createObject
-} from '@/api/system-manage/oss/object'
+import { createObject } from '@/api/system-manage/oss/object'
 
 import {
   getFilePathByName

@@ -1,5 +1,5 @@
 <template>
-  <div class="singleImageUpload2 upload-container" style="width: 220px;">
+  <div class="singleImageUpload2 upload-container">
     <el-upload
       :data="dataObj"
       :multiple="false"
@@ -7,8 +7,7 @@
       :on-success="handleImageSuccess"
       class="image-uploader"
       drag
-      action="#"
-      :http-request="httpRequest"
+      :action="Url.baseUrl + 'api/app/basic/qiniuBlobSave'"
     >
       <i class="el-icon-upload" />
       <div class="el-upload__text">
@@ -16,7 +15,7 @@
       </div>
     </el-upload>
     <div v-show="imageUrl.length > Url.photoPrefix.length" class="image-preview">
-      <div class="image-preview-wrapper">
+      <div v-show="imageUrl.length > Url.photoPrefix.length" class="image-preview-wrapper">
         <img :src="imageUrl">
         <div class="image-preview-action">
           <i class="el-icon-delete" @click="rmImage" />
@@ -29,7 +28,6 @@
 <script>
 import { getToken } from '@/api/qiniu'
 import { Url } from '@/utils/abp'
-import { createObject } from '@/api/system-manage/oss/object'
 
 export default {
   name: 'SingleImageUpload2',
@@ -48,7 +46,7 @@ export default {
   },
   computed: {
     imageUrl() {
-      return process.env.VUE_APP_IMG_URL + this.value
+      return this.Url.photoPrefix + this.value
     }
   },
   methods: {
@@ -64,28 +62,17 @@ export default {
       // this.emitInput(this.tempUrl)
     },
     beforeUpload() {
-      return
-    },
-    httpRequest(data) { // 上传成功
-      this.httpRequestImg = true
-
-      const formData = new FormData()
-      formData.append('Path', 'upload')
-      formData.append('FileName', data.file.name)
-      formData.append('File', data.file)
-
-      createObject(formData).then(resData => {
-        // bug: 文件名如果有空格无法显示
-        this.value = resData.path + resData.name
-        // 给父组件传值
-        this.$emit('input', resData.path + resData.name)
-
-        this.tempUrl = process.env.VUE_APP_IMG_URL + resData.path + resData.name
-        this.$notify({
-          title: '成功',
-          message: '操作成功',
-          type: 'success',
-          duration: 2000
+      const _self = this
+      return new Promise((resolve, reject) => {
+        getToken().then(response => {
+          const key = response.data.qiniu_key
+          const token = response.data.qiniu_token
+          _self._data.dataObj.token = token
+          _self._data.dataObj.key = key
+          this.tempUrl = response.data.qiniu_url
+          resolve(true)
+        }).catch(() => {
+          reject(false)
         })
       })
     }

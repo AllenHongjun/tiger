@@ -1,83 +1,85 @@
+<!-- demo 上传单个图片-->
 <template>
-  <div class="upload-container">
+  <div class="file-upload-container">
     <el-upload
       class="avatar-uploader"
-      action=""
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
+      action="#"
+      list-type="picture-card"
+      :on-preview="handlePictureCardPreview"
+      :on-remove="handleRemove"
+      :http-request="httpRequest"
+      :class="{'demo-httpRequestImg':httpRequestImg}"
     >
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon" />
+      <img v-if="imageUrl" :src="imageUrl" class="avatar" style="width: 100px;height:100px;">
+      <i v-else class="el-icon-plus" />
     </el-upload>
+    <el-dialog :visible.sync="dialogVisibleImg" append-to-body class="ImgClass">
+      <img width="100%" :src="dialogImageUrl" alt="">
+    </el-dialog>
   </div>
-
 </template>
 
 <script>
+import { createObject } from '@/api/system-manage/oss/object'
 export default {
-  name: 'SingleImageUpload',
+  props: {
+    value: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
-      imageUrl: ''
+      dialogImageUrl: '', // 预览url
+      dialogVisibleImg: false,
+      httpRequestImg: false // 展示单个图片
+    }
+  },
+  computed: {
+    imageUrl() {
+      return process.env.VUE_APP_IMG_URL + this.value
     }
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg'
-      const isLt2M = file.size / 1024 / 1024 < 2
-      debugger
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!')
-      }
+    httpRequest(data) { // 上传成功
+      this.httpRequestImg = true
 
-      if (this.fileList.length < 1) return
+      // this.imageUrl = URL.createObjectURL(data.file.raw)// 赋值图片的url，用于图片回显功能
+
       const formData = new FormData()
-      // 下面数据是我自己设置的数据,可自行添加数据到formData(使用键值对方式存储)
-      formData.append('Bucket', 'tiger-blob')
-      formData.append('Path', 'tiger-blob')
-      formData.append('FileName', this.fileList[0].name)
-      // formData.append('ExpirationTime', undefined)
-      formData.append('File', this.fileList[0].raw)// 拿到存在fileList的文件存放到formData中
+      formData.append('Path', 'upload')
+      formData.append('FileName', data.file.name)
+      formData.append('File', data.file)
 
-      // createObject(formData).then(() => {
-
-      // })
-
-      return isJPG && isLt2M
+      createObject(formData).then(resData => {
+        // bug: 文件名如果有空格无法显示
+        this.value = resData.path + resData.name
+        // 给父组件传值
+        this.$emit('input', resData.path + resData.name)
+        this.$notify({
+          title: '成功',
+          message: '操作成功',
+          type: 'success',
+          duration: 2000
+        })
+      })
+    },
+    handlePictureCardPreview(file) { // 预览
+      this.dialogImageUrl = file.url
+      this.dialogVisibleImg = true
+    },
+    handleRemove(file, fileList) { // 删除
+      this.httpRequestImg = false
+      console.log(file, fileList)
     }
   }
 }
 </script>
 
-<style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
+<style lang="scss" scoped>
+  .demo-httpRequestImg{
+    ::v-deep .el-upload--picture-card{
+        display: none;
+    }
   }
 </style>

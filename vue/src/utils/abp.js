@@ -4,10 +4,10 @@ import router, { resetRouter } from '@/router'
 var photoPrefix = ''
 var baseUrl = ''
 if (process.env.NODE_ENV === 'production') {
-  photoPrefix = 'http://tiger.hongjy.cn/'
+  photoPrefix = process.env.VUE_APP_IMG_URL
   baseUrl = 'http://dev-api.tiger.cn/'
 } else {
-  photoPrefix = 'https://blogimg.hongjy.cn/'
+  photoPrefix = process.env.VUE_APP_IMG_URL
   baseUrl = 'https://localhost:44306/'
 }
 
