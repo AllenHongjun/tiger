@@ -20,9 +20,6 @@ export function listToTree(list, config = {}) {
   for (const node of list) {
     const parent = nodeMap.get(node[pid])
     ;(parent ? parent[children] : result).push(node)
-    // if (parent) {
-    //   parent.hasChildren = true
-    // }
   }
   return result
 }

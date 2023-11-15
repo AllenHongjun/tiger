@@ -72,6 +72,28 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
 
     public override async Task<QuestionCategoryDto> UpdateAsync(Guid id, CreateUpdateQuestionCategoryDto input)
     {
+        var questionCategory = _repository.Where(x => x.Name == input.Name).FirstOrDefault();
+        if (questionCategory != null && questionCategory.Id != id)
+        {
+            throw new UserFriendlyException(L["DuplicateQuestionCategory", input.Name]);
+        }
+
         return await base.UpdateAsync(id, input); 
+    }
+
+    /// <summary>
+    /// 删除数据
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public override async Task DeleteAsync(Guid id)
+    {
+        /*
+         TODO:
+        1. 如果父类关联删除子类 
+        1. 删除分类关联的题目
+         
+         */
+        await base.DeleteAsync(id);
     }
 }

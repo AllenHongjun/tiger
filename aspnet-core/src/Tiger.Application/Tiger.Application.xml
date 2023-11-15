@@ -357,6 +357,13 @@
             题目分类
             </summary>
         </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryAppService.DeleteAsync(System.Guid)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Schools.ClassInfoAppService">
             <summary>
             班级

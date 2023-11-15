@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="table-container">
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
         <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
@@ -31,7 +31,13 @@
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Cover\']')" align="center" width="220">
         <template slot-scope="{ row }">
-          <span><el-image style="width: 100px; height: 40px" :src="row.cover" fit="contain" /></span>
+          <span>
+            <el-image style="width: 100px; height: 40px" :src="Url.photoPrefix + row.cover" fit="contain" :preview-src-list="[Url.photoPrefix + row.cover]">
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline" />
+              </div>
+            </el-image>
+          </span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Code\']')" align="left" width="220">
@@ -71,7 +77,7 @@ import {
   deleteQuestionCategory,
   getAllQuestionCategory
 } from '@/api/question-bank/question-category'
-import baseListQuery, { checkPermission } from '@/utils/abp'
+import baseListQuery, { Url, checkPermission } from '@/utils/abp'
 import { listToTree } from '@/utils/helpers/tree-helper'
 
 export default {
@@ -80,6 +86,7 @@ export default {
   },
   data() {
     return {
+      Url,
       options: undefined,
       tableKey: 0,
       list: [], // 注意：树型格式数据默认不能为null
