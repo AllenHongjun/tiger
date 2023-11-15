@@ -1,20 +1,116 @@
 <template>
   <div class="table-container">
-    <div class="filter-container">
-      <el-row style="margin-bottom: 20px">
-        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
-          {{ $t('AbpUi.Search') }}
-        </el-button>
-        <el-button v-if="checkPermission('Exam.TestPaper.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-          {{ $t("AppExam['Permission:Create']") }}
-        </el-button>
+    <div class="filter-container" style="margin-bottom:10px;">
+      <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
+        <el-row :gutter="20">
+          <el-col :span="4">
+            <el-form-item prop="filter" :label="$t('AbpUi[\'Search\']')">
+              <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PlaceholderInput\']')" clearable />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="5">
+            <el-form-item prop="questionCategoryId" :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')">
+              <el-cascader
+                v-model="listQuery.questionCategoryId"
+                :options="questionCategoryOptions"
+                :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
+                placeholder="-"
+                style="width:230px;"
+                clearable
+                filterable
+              />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="3">
+            <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
+              <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
+                <el-option
+                  v-for="item in degreeOptions"
+                  :key="item.key"
+                  :label="item.lable"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="8">
+            <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
+              <el-date-picker
+                v-model="queryCreateDateTime"
+                value-format="yyyy-MM-dd HH:mm:ss"
+                :default-time="['00:00:00', '23:59:59']"
+                type="datetimerange"
+                align="right"
+                unlink-panels
+                :picker-options="pickerOptions"
+                range-separator="---"
+                :start-placeholder="$t('AbpUi[\'StartTime\']')"
+                :end-placeholder="$t('AbpUi[\'EndTime\']')"
+                @change="datePickerChange"
+              />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="4">
+            <el-button-group>
+              <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
+                {{ $t('AbpUi.Search') }}
+              </el-button>
+              <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
+                {{ $t('AbpAuditLogging.Reset') }}
+              </el-button>
+              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+                {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
+                <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
+              </el-link>
+            </el-button-group>
+          </el-col>
+        </el-row>
+
+        <el-collapse-transition>
+          <div v-show="advanced">
+            <el-row :gutter="20">
+              <el-col :span="4">
+                <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="jobType">
+                  <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
+                    <el-option
+                      v-for="item in typeOptions"
+                      :key="item.key"
+                      :label="item.lable"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </div>
+        </el-collapse-transition>
+      </el-form>
+
+      <!-- 操作按钮 -->
+      <el-row>
+        <el-col>
+          <el-button-group style="float:left">
+            <el-button v-if="checkPermission('QuestionBank.Question.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+              {{ $t("AppQuestionBank['Permission:Create']") }}
+            </el-button>
+          </el-button-group>
+
+        </el-col>
       </el-row>
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Degree\']')" prop="Degree" align="left" width="100">
+        <template slot-scope="{ row }">
+          <!-- <el-tag v-if="QuestionDegreeMap[row.degree]" type="primary">{{ QuestionDegreeMap[row.degree] }}</el-tag> -->
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('AppExam[\'DisplayName:Name\']')" prop="name" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
@@ -23,6 +119,11 @@
       <el-table-column :label="$t('AppExam[\'DisplayName:Number\']')" align="left" width="120">
         <template slot-scope="{ row }">
           <span>{{ row.number }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" align="left" width="180">
+        <template slot-scope="{ row }">
+          <span>{{ row.creationTime | moment }}</span>
         </template>
       </el-table-column>
 
@@ -46,6 +147,15 @@ import {
 } from '@/api/exam/test-paper'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
+import {
+  getQuestions,
+  deleteQuestion
+} from '@/api/question-bank/question'
+import { getAllQuestionCategory } from '@/api/question-bank/question-category'
+import { listToTree } from '@/utils/helpers/tree-helper'
+import { pickerRangeWithHotKey } from '@/utils/picker'
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type, TestPaperType } from '../datas/typing'
+
 export default {
   name: 'TestPaperTable',
   components: {
@@ -53,11 +163,28 @@ export default {
   },
   data() {
     return {
+      QuestionType,
+      QuestionTypeMap,
+      QuestionDegree,
+      QuestionDegreeMap,
+      questionCategoryOptions: [],
+      degreeOptions: Degree,
+      typeOptions: Type,
+      pickerOptions: pickerRangeWithHotKey,
+      advanced: false,
+      queryCreateDateTime: undefined,
       tableKey: 0,
       list: null,
       total: 0,
       listLoading: true,
-      listQuery: baseListQuery
+      listQuery: Object.assign({
+        degree: undefined,
+        questionCategoryId: undefined,
+        createStartTime: undefined,
+        createEndTime: undefined,
+        type: 1,
+        enable: undefined
+      }, baseListQuery)
     }
   },
   created() {
@@ -65,6 +192,39 @@ export default {
   },
   methods: {
     checkPermission, // 检查权限
+    fetchOptions() {
+      getAllQuestionCategory().then(response => {
+        this.questionCategoryOptions = listToTree(response.items)
+      })
+    },
+    datePickerChange(value) {
+      if (!value) {
+        // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题
+        this.listQuery.createStartTime = undefined
+        this.listQuery.createEndTime = undefined
+      }
+    },
+    // 搜索展开切换
+    toggleAdvanced() {
+      this.advanced = !this.advanced
+    },
+    // 刷新页面
+    handleRefresh() {
+      this.handleFilter()
+    },
+    // 重置查询参数
+    resetQueryForm() {
+      this.queryCreateDateTime = undefined
+      this.listQuery = Object.assign({
+        degree: undefined,
+        questionCategoryId: undefined,
+        createStartTime: undefined,
+        createEndTime: undefined,
+        type: undefined,
+        enable: undefined
+      }, baseListQuery)
+    },
+    // 获取列表数据
 
     // 获取列表数据
     getList() {
