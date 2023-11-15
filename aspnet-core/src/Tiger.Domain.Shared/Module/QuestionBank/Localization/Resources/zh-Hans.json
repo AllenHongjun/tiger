@@ -41,6 +41,7 @@
     "DisplayName:TrainPlatformId": "实训平台Id",
     "DisplayName:Type": "题型",
     "DisplayName:Content": "内容",
+    "DisplayName:Answer": "答案",
     "DisplayName:OptionA": "A选项",
     "DisplayName:OptionB": "B选项",
     "DisplayName:OptionC": "C选项",

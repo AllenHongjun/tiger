@@ -22,39 +22,6 @@ export const QuestionTypeMap = {
   [QuestionType.PracticalTraining]: '实训题'
 }
 
-export const QuestionDegree = {
-  Simple: 1,
-  Ordinary: 2,
-  Difficult: 3
-}
-
-export const QuestionDegreeMap = {
-  [QuestionDegree.Simple]: '简单',
-  [QuestionDegree.Ordinary]: '普通',
-  [QuestionDegree.Difficult]: '困难'
-}
-
-export const Degree = [
-  {
-    key: 'simple',
-    type: 'primary',
-    lable: '简单',
-    value: 1
-  },
-  {
-    key: 'ordinary',
-    type: 'success',
-    lable: '普通',
-    value: 2
-  },
-  {
-    key: 'difficult',
-    type: 'danger',
-    lable: '困难',
-    value: 3
-  }
-]
-
 export const Type = [
   {
     key: 'TrueOrFalse',
@@ -111,5 +78,39 @@ export const Type = [
     value: 9
   }
 ]
+
+export const QuestionDegree = {
+  Simple: 1,
+  Ordinary: 2,
+  Difficult: 3
+}
+
+export const QuestionDegreeMap = {
+  [QuestionDegree.Simple]: '简单',
+  [QuestionDegree.Ordinary]: '普通',
+  [QuestionDegree.Difficult]: '困难'
+}
+
+export const Degree = [
+  {
+    key: 'simple',
+    type: 'primary',
+    lable: '简单',
+    value: 1
+  },
+  {
+    key: 'ordinary',
+    type: 'success',
+    lable: '普通',
+    value: 2
+  },
+  {
+    key: 'difficult',
+    type: 'danger',
+    lable: '困难',
+    value: 3
+  }
+]
+
 export default QuestionType
 

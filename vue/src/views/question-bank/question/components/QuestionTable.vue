@@ -2,7 +2,7 @@
   <div class="table-container">
 
     <div class="filter-container" style="margin-bottom:10px;">
-      <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="listQuery">
+      <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
           <el-col :span="4">
             <el-form-item prop="filter" :label="$t('AbpUi[\'Search\']')">
@@ -10,19 +10,21 @@
             </el-form-item>
           </el-col>
 
-          <el-col :span="4">
+          <el-col :span="5">
             <el-form-item prop="questionCategoryId" :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')">
               <el-cascader
                 v-model="listQuery.questionCategoryId"
                 :options="questionCategoryOptions"
                 :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
+                placeholder="-"
+                style="width:230px;"
                 clearable
                 filterable
               />
             </el-form-item>
           </el-col>
 
-          <el-col :span="4">
+          <el-col :span="3">
             <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
               <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
                 <el-option
