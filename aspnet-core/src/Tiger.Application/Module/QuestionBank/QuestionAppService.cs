@@ -9,6 +9,24 @@ using Tiger.Module.System.Platform.Layouts.Dto;
 using Volo.Abp.Application.Dtos;
 using System.Collections.Generic;
 using Volo.Abp;
+using Microsoft.AspNetCore.Authorization;
+using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
+using Tiger.Module.TaskManagement.Dtos;
+using Tiger.Module.TaskManagement.Permissions;
+using Tiger.Module.TaskManagement;
+using Tiger.Infrastructure.BackgroundTasks.Abstractions;
+using Volo.Abp.Uow;
+using Tiger.Module.QuestionBank.Permissions;
+using ClosedXML.Excel;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Tiger.Infrastructure.ExportImport.Help;
+using Tiger.Infrastructure.ExportImport;
+using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
+using Tiger.Volo.Abp.Identity;
+using Volo.Abp.Identity;
+using Microsoft.AspNetCore.Http;
+using DocumentFormat.OpenXml.Math;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -94,4 +112,130 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
         return await base.UpdateAsync(id, input);
     }
 
+
+    #region 导入/导出
+    /// <summary>
+    /// 从xlsx导入
+    /// </summary>
+    /// <param name="importexcelfile"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    public virtual async Task ImportFromXlsxAsync(IFormFile importexcelfile)
+    {
+
+        if (importexcelfile != null && importexcelfile.Length > 0)
+        {
+            using var workbook = new XLWorkbook(importexcelfile.OpenReadStream());
+            // get the first worksheet in the workbook
+            var worksheet = workbook.Worksheets.FirstOrDefault();
+            if (worksheet == null)
+                throw new Exception("No worksheet found");
+
+            //the columns
+            var properties = ImportManager.GetPropertiesByExcelCells<IdentityRoleDto>(worksheet);
+
+            var manager = new PropertyManager<IdentityRoleDto>(properties);
+            var iRow = 2;
+
+            while (true)
+            {
+                var allColumnsAreEmpty = manager.GetProperties
+                    .Select(property => worksheet.Row(iRow).Cell(property.PropertyOrderPosition))
+                    .All(cell => cell?.Value == null || string.IsNullOrEmpty(cell.Value.ToString()));
+
+                if (allColumnsAreEmpty)
+                    break;
+
+                manager.ReadFromXlsx(worksheet, iRow);
+
+                var question = await _repository.GetAsync(manager.GetProperty("Id").GuidValue);
+
+                var isNew = question == null;
+
+                // TODO: 增加验证 如果错误抛出异常
+
+                question ??= new Question(GuidGenerator.Create(), CurrentTenant.Id, manager.GetProperty("Content").StringValue);
+
+                foreach (var property in manager.GetProperties)
+                {
+                    if (property.PropertyName == L["DisplayName:Content"]) question.Content = property.StringValue;
+                    if (property.PropertyName == L["DisplayName:QuestionCateogryName"]) question.QuestionCategoryId = property.GuidValue;
+                    if (property.PropertyName == L["DisplayName:Type"]) question.Type = (QuestionType)property.IntValue;
+                    if (property.PropertyName == L["DisplayName:OptionContent"]) question.OptionContent = property.StringValue;
+                    if (property.PropertyName == L["DisplayName:Answer"]) question.Answer = property.StringValue;
+                    if (property.PropertyName == L["DisplayName:Degree"]) question.Degree = (QuestionDegree)property.IntValue;
+                    if (property.PropertyName == L["DisplayName:Analysis"]) question.Analysis = property.StringValue;
+                    if (property.PropertyName == L["DisplayName:Source"]) question.Source = property.StringValue;
+                    if (property.PropertyName == L["DisplayName:Enable"]) question.Enable = property.BooleanValue;
+                }
+
+                if (isNew)
+                    await _repository.InsertAsync(question);
+                else
+                    await _repository.UpdateAsync(question);
+
+                iRow++;
+            }
+
+        }
+        else
+        {
+            throw new Exception("文件不能空");
+        }
+    }
+
+    /// <summary>
+    /// Export to XLSX
+    /// </summary>
+    /// <param name="GetIdentityRolesInput">input</param>
+    /// <returns>查询到的所有角色</returns>
+    public virtual async Task<IActionResult> ExportToXlsxAsync(QuestionGetListInput input)
+    {
+        int maxResultCount = input.MaxResultCount == 1 ? 1 : int.MaxValue;
+        IPagedResult<QuestionDto> entityDtos = await GetListAsync(input);
+
+        //property manager 
+        var manager = new PropertyManager<QuestionDto>(new[]
+        {
+                new PropertyByName<QuestionDto>("Id", p => p.Id),
+                new PropertyByName<QuestionDto>(L["QuestionCateogryName"], p => p.QuestionCateogryName),
+                new PropertyByName<QuestionDto>(L["DisplayName:Type"], p => p.Type), // TODO:获取枚举值的注释描述 封装的方法
+                new PropertyByName<QuestionDto>(L["DisplayName:Content"], p => p.Content),
+                new PropertyByName<QuestionDto>(L["DisplayName:OptionContent"], p => p.OptionContent),
+                new PropertyByName<QuestionDto>(L["DisplayName:OptionSize"], p => p.OptionSize),
+                new PropertyByName<QuestionDto>(L["DisplayName:Answer"], p => p.Answer),
+                new PropertyByName<QuestionDto>(L["DisplayName:Degree"], p => p.Degree), // TODO:获取枚举值的注释描述 封装的方法
+                new PropertyByName<QuestionDto>(L["DisplayName:Analysis"], p => p.Analysis),
+                new PropertyByName<QuestionDto>(L["DisplayName:Source"], p => p.Source),
+                new PropertyByName<QuestionDto>(L["DisplayName:Enable"], p => p.Enable),
+            });
+
+        var bytes = await manager.ExportToXlsxAsync(entityDtos.Items.ToList());
+
+        return new FileContentResult(bytes, MimeTypes.TextXlsx);
+    } 
+    #endregion
+
+
+    #region 批量操作
+    [Authorize(QuestionBankPermissions.Question.Delete)]
+    public async virtual Task BulkDeleteAsync(QuestionBatchInput input)
+    {
+        if (!input.QuestionIds.Any())
+        {
+            return;
+        }
+
+        var quaryble = _repository.Where(x => input.QuestionIds.Contains(x.Id));
+
+        var questions = await AsyncExecuter.ToListAsync(quaryble);
+
+        foreach (var item in questions)
+        {
+            await _repository.DeleteAsync(item);
+        }
+
+        await CurrentUnitOfWork.SaveChangesAsync();
+    } 
+    #endregion
 }

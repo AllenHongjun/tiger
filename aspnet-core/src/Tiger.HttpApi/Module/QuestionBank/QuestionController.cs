@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Tiger.Module.QuestionBank.Dtos;
@@ -81,6 +82,44 @@ namespace Tiger.Module.QuestionBank
         public Task<QuestionDto> UpdateAsync(Guid id, CreateUpdateQuestionDto input)
         {
             return QuestionAppService.UpdateAsync(id, input);
+        }
+
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPost]
+        [Route("batch-delete")]
+        public async Task BulkDeleteAsync(QuestionBatchInput input)
+        {
+            await QuestionAppService.BulkDeleteAsync(input);
+        }
+
+        /// <summary>
+        /// 导出
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("export-to-xlsx")]
+        public async Task<IActionResult> ExportToXlsxAsync(QuestionGetListInput input)
+        {
+            return await QuestionAppService.ExportToXlsxAsync(input);
+        }
+
+        /// <summary>
+        /// 导入
+        /// </summary>
+        /// <param name="importexcelfile"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("import-from-xlsx")]
+        public async Task ImportFromXlsxAsync(IFormFile importexcelfile)
+        {
+            await QuestionAppService.ImportFromXlsxAsync(importexcelfile);
         }
     }
 }

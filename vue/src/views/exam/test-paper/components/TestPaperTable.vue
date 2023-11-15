@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="table-container">
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
         <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />

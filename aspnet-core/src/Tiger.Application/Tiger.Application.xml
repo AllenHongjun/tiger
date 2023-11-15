@@ -347,6 +347,21 @@
             题目
             </summary>
         </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionAppService.ImportFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            从xlsx导入
+            </summary>
+            <param name="importexcelfile"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionAppService.ExportToXlsxAsync(Tiger.Module.QuestionBank.Dtos.QuestionGetListInput)">
+            <summary>
+            Export to XLSX
+            </summary>
+            <param name="GetIdentityRolesInput">input</param>
+            <returns>查询到的所有角色</returns>
+        </member>
         <member name="T:Tiger.Module.QuestionBank.QuestionAttachmentAppService">
             <summary>
             题目附件表

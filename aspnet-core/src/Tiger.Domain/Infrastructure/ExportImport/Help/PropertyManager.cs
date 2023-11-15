@@ -51,7 +51,7 @@ namespace Tiger.Infrastructure.ExportImport.Help
         /// A task that represents the asynchronous operation
         /// The task result contains the 
         /// </returns>
-        public virtual async Task<byte[]> ExportToXlsxAsync(IEnumerable<T> itemsToExport)
+        public virtual async Task<byte[]> ExportToXlsxAsync(IList<T> itemsToExport)
         {
             await using var stream = new MemoryStream();
             // ok, we can run the real code of the sample now

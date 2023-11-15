@@ -147,6 +147,17 @@ namespace Tiger.Module.QuestionBank
         public Question(
             Guid id,
             Guid? tenantId,
+            string content
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            Content = content;
+        }
+
+
+        public Question(
+            Guid id,
+            Guid? tenantId,
             Guid questionCategoryId,
             Guid? trainPlatformId,
             QuestionType type,

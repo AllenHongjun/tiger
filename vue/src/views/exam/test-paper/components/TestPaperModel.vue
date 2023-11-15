@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="model-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
         <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">

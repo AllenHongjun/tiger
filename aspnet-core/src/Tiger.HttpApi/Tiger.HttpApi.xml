@@ -507,6 +507,28 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionController.BulkDeleteAsync(Tiger.Module.QuestionBank.Dtos.QuestionBatchInput)">
+            <summary>
+            批量删除
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionController.ExportToXlsxAsync(Tiger.Module.QuestionBank.Dtos.QuestionGetListInput)">
+            <summary>
+            导出
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionController.ImportFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            导入
+            </summary>
+            <param name="importexcelfile"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Classes.ClassController">
             <summary>
             班级
