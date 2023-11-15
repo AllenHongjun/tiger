@@ -32,7 +32,9 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
     {
         // TODO: AbpHelper generated
         return  _repository.WithDetails(x => x.QuestionCategory)
-            .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter))
+            .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter) || x.Content.Contains(input.Filter))
+            .WhereIf(input.CreateEndTime != null, x => x.CreationTime >= input.CreateStartTime)
+            .WhereIf(input.CreateEndTime != null, x => x.CreationTime <= input.CreateEndTime)
             .WhereIf(input.QuestionCategoryId != null, x => x.QuestionCategoryId == input.QuestionCategoryId)
             .WhereIf(input.PracticalTrainingId != null, x => x.TrainPlatformId == input.PracticalTrainingId)
             .WhereIf(input.Type != null, x => x.Type == input.Type)

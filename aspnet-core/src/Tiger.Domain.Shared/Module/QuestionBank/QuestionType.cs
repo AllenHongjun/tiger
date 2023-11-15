@@ -32,7 +32,7 @@ namespace Tiger.Module.QuestionBank
         /// <summary>
         /// 计算题
         /// </summary>
-        CalculationQuestions = 5,
+        Calculation = 5,
 
         /// <summary>
         /// 问答题

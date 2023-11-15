@@ -17,6 +17,10 @@ public class QuestionGetListInput : PagedAndSortedResultRequestDto
     /// </summary>
     public Guid? QuestionCategoryId { get; set; }
 
+    public DateTime? CreateStartTime { get; set; }
+
+    public DateTime? CreateEndTime { get; set; }
+
     /// <summary>
     /// 实训链接
     /// </summary>

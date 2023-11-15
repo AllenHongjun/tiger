@@ -329,9 +329,7 @@ import UserClaim from './components/UserClaim.vue'
 import GrantPermission from '../components/GrantPermission.vue'
 import OrgTree from '../components/OrgTree.vue'
 
-import {
-  pickerRangeWithHotKey
-} from '@/utils/picker'
+import { pickerRangeWithHotKey } from '@/utils/picker'
 
 import {
   validPhone

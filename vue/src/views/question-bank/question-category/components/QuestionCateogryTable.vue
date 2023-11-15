@@ -77,8 +77,8 @@ import {
   deleteQuestionCategory,
   getAllQuestionCategory
 } from '@/api/question-bank/question-category'
-import baseListQuery, { Url, checkPermission } from '@/utils/abp'
 import { listToTree } from '@/utils/helpers/tree-helper'
+import baseListQuery, { Url, checkPermission } from '@/utils/abp'
 
 export default {
   name: 'QuestionCateogryTable',
