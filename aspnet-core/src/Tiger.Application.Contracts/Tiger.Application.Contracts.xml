@@ -1119,6 +1119,16 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.CreateStartTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.CreateEndTime">
+            <summary>
+            创建结束时间
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperQuestionDto">
             <summary>
             试卷内容(题目)表
@@ -1852,6 +1862,16 @@
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.QuestionCategoryId">
             <summary>
             题库
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.CreateStartTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.CreateEndTime">
+            <summary>
+            创建结束时间
             </summary>
         </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.PracticalTrainingId">

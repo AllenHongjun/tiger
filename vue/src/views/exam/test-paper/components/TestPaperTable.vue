@@ -9,25 +9,11 @@
             </el-form-item>
           </el-col>
 
-          <el-col :span="5">
-            <el-form-item prop="questionCategoryId" :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')">
-              <el-cascader
-                v-model="listQuery.questionCategoryId"
-                :options="questionCategoryOptions"
-                :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
-                placeholder="-"
-                style="width:230px;"
-                clearable
-                filterable
-              />
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="3">
-            <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
-              <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
+          <el-col :span="4">
+            <el-form-item prop="type" :label="$t('AppExam[\'DisplayName:Type\']')">
+              <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
                 <el-option
-                  v-for="item in degreeOptions"
+                  v-for="item in TestPaperTypeOptions"
                   :key="item.key"
                   :label="item.lable"
                   :value="item.value"
@@ -60,12 +46,12 @@
                 {{ $t('AbpUi.Search') }}
               </el-button>
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
-                {{ $t('AbpAuditLogging.Reset') }}
+                {{ $t('AbpUi.Reset') }}
               </el-button>
-              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
                 {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
                 <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link>
+              </el-link> -->
             </el-button-group>
           </el-col>
         </el-row>
@@ -73,18 +59,7 @@
         <el-collapse-transition>
           <div v-show="advanced">
             <el-row :gutter="20">
-              <el-col :span="4">
-                <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="jobType">
-                  <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
-                    <el-option
-                      v-for="item in typeOptions"
-                      :key="item.key"
-                      :label="item.lable"
-                      :value="item.value"
-                    />
-                  </el-select>
-                </el-form-item>
-              </el-col>
+              <el-col :span="4" />
             </el-row>
           </div>
         </el-collapse-transition>
@@ -94,8 +69,8 @@
       <el-row>
         <el-col>
           <el-button-group style="float:left">
-            <el-button v-if="checkPermission('QuestionBank.Question.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-              {{ $t("AppQuestionBank['Permission:Create']") }}
+            <el-button v-if="checkPermission('Exam.TestPaper.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
+              {{ $t("AppExam['Permission:Create']") }}
             </el-button>
           </el-button-group>
 
@@ -106,9 +81,9 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Degree\']')" prop="Degree" align="left" width="100">
+      <el-table-column :label="$t('AppExam[\'DisplayName:Type\']')" prop="Degree" align="left" width="300">
         <template slot-scope="{ row }">
-          <!-- <el-tag v-if="QuestionDegreeMap[row.degree]" type="primary">{{ QuestionDegreeMap[row.degree] }}</el-tag> -->
+          <el-tag v-if="TestPaperTypeMap[row.type]" type="primary">{{ TestPaperTypeMap[row.type] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppExam[\'DisplayName:Name\']')" prop="name" sortable align="left">
@@ -119,6 +94,11 @@
       <el-table-column :label="$t('AppExam[\'DisplayName:Number\']')" align="left" width="120">
         <template slot-scope="{ row }">
           <span>{{ row.number }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AppExam[\'DisplayName:Enable\']')" prop="Enable" align="left" width="80">
+        <template slot-scope="{ row }">
+          <el-tag :type="( row.enable ? 'success' : 'danger')" :class="[ row.enable ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
       <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" align="left" width="180">
@@ -154,7 +134,7 @@ import {
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'
 import { pickerRangeWithHotKey } from '@/utils/picker'
-import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type, TestPaperType } from '../datas/typing'
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type, TestPaperType, TestPaperTypeMap, TestPaperTagType, TestPaperTypeOptions } from '../datas/typing'
 
 export default {
   name: 'TestPaperTable',
@@ -167,9 +147,10 @@ export default {
       QuestionTypeMap,
       QuestionDegree,
       QuestionDegreeMap,
+      TestPaperType, TestPaperTypeMap, TestPaperTagType, TestPaperTypeOptions,
       questionCategoryOptions: [],
       degreeOptions: Degree,
-      typeOptions: Type,
+      typeOptions: TestPaperType,
       pickerOptions: pickerRangeWithHotKey,
       advanced: false,
       queryCreateDateTime: undefined,
@@ -182,7 +163,7 @@ export default {
         questionCategoryId: undefined,
         createStartTime: undefined,
         createEndTime: undefined,
-        type: 1,
+        type: undefined,
         enable: undefined
       }, baseListQuery)
     }
@@ -229,6 +210,10 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
+      if (this.queryCreateDateTime) {
+        this.listQuery.createStartTime = this.queryCreateDateTime[0]
+        this.listQuery.createEndTime = this.queryCreateDateTime[1]
+      }
       getTestPapers(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount

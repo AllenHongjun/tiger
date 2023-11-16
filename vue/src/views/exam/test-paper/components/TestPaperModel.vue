@@ -1,14 +1,38 @@
 <template>
   <div class="model-container">
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
-          <el-input v-model="temp.name" />
-        </el-form-item>
-        <el-form-item :label="$t('AppExam[\'DisplayName:Number\']')" prop="number">
-          <el-input v-model="temp.number" />
-        </el-form-item>
-      </el-form>
+    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
+      <el-steps :active="active" finish-status="success">
+        <el-step title="步骤 1">1</el-step>
+        <el-step title="步骤 2">2</el-step>
+        <el-step title="步骤 3">3</el-step>
+      </el-steps>
+
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>添加试卷大题</span>
+              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+            </div>
+            <span>共25题95分</span>
+            <el-divider />
+            <div v-for="o in 4" :key="o" class="text item">
+              {{ '列表内容 ' + o }}
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="18">
+          <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
+            <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
+              <el-input v-model="temp.name" />
+            </el-form-item>
+            <el-form-item :label="$t('AppExam[\'DisplayName:Number\']')" prop="number">
+              <el-input v-model="temp.number" />
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">
           {{ $t("AbpUi['Cancel']") }}
@@ -32,6 +56,7 @@ export default {
   name: 'TestPaperModel',
   data() {
     return {
+      active: 0,
       temp: {
         id: undefined,
         name: '',
@@ -42,7 +67,7 @@ export default {
         dataId: undefined,
         freamwork: ''
       },
-      dialogFormVisible: false,
+      dialogFormVisible: true,
       dialogStatus: '',
 
       // 表单验证规则
@@ -164,9 +189,30 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .line{
   text-align: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both
+}
+
+.box-card {
+  width: 100%;
 }
 </style>
 
