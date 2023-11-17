@@ -30,7 +30,7 @@
           <span>{{ row.examDuration }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppExam[\'DisplayName:IsEnable\']')" prop="isEnable" align="left" width="120">
+      <el-table-column :label="$t('AppExam[\'DisplayName:Enable\']')" prop="isEnable" align="left" width="120">
         <template slot-scope="{ row }">
           <el-tag :type="( row.isEnable ? 'success' : 'danger')" :class="[ row.isEnable ? 'el-icon-check':'el-icon-close' ]" />
         </template>
@@ -55,6 +55,18 @@
               <el-dropdown-item :command="beforeHandleCommand(row, 'handleUpdateExamSetting')">
                 复制
               </el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'handleViewExamScore')">
+                查看成绩
+              </el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'handleExamJudge')">
+                人工评卷
+              </el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'handleViewExamScoreAnalysis')">
+                成绩统计
+              </el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'handleViewQuestionAnalysis')">
+                答题统计
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -64,6 +76,7 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <exam-setting ref="examSetting" />
+    <exam-score ref="examScore" />
   </div>
 </template>
 
@@ -76,12 +89,14 @@ import {
   deleteExam
 } from '@/api/exam/exam'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import ExamScore from './ExamScore.vue'
 
 export default {
   name: 'ExamTable',
   components: {
     Pagination,
-    ExamSetting
+    ExamSetting,
+    ExamScore
   },
   data() {
     return {
@@ -119,19 +134,31 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
+    beforeHandleCommand(scope, command) {
+      return {
+        scope: scope,
+        command: command
+      }
+    },
     handleCommand(param) {
       switch (param.command) {
         case 'handleUpdateExamSetting':
           this.handleUpdateExamSetting(param.scope)
           break
+        case 'handleViewExamScore':
+          this.handleViewExamScore(param.scope)
+          break
+        case 'handleExamJudge':
+          this.handleExamJudge(param.scope)
+          break
+        case 'handleViewExamScoreAnalysis':
+          this.handleViewExamScoreAnalysis(param.scope)
+          break
+        case 'handleViewQuestionAnalysis':
+          this.handleViewQuestionAnalysis(param.scope)
+          break
         default:
           break
-      }
-    },
-    beforeHandleCommand(scope, command) {
-      return {
-        scope: scope,
-        command: command
       }
     },
     handleCreate() {
@@ -169,6 +196,19 @@ export default {
     // 更新考试设置
     handleUpdateExamSetting(row) {
       this.$refs['examSetting'].handleUpdate(row)
+    },
+    // 查看考试成绩
+    handleViewExamScore(row) {
+      this.$refs['examScore'].handleUpdate(row)
+    },
+    handleExamJudge(row) {
+      this.$refs['examJudge'].handleUpdate(row)
+    },
+    handleViewExamScoreAnalysis(row) {
+      this.$refs['examScoreAnalysis'].handleUpdate(row)
+    },
+    handleViewQuestionAnalysis(row) {
+      this.$refs['questionAnalysis'].handleUpdate(row)
     }
   }
 }
