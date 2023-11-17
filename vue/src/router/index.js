@@ -8,8 +8,9 @@ import Layout from '@/layout'
 import examRouter from './modules/exam'
 import QuestionBankRouter from './modules/question-bank'
 import schoolManageRouter from './modules/school-manage'
-import SystemManageRouter from './modules/system'
+import ReportRouter from './modules/report'
 import SassRouter from './modules/sass'
+import SystemManageRouter from './modules/system'
 
 Vue.use(Router)
 /**
@@ -165,6 +166,7 @@ export const asyncRoutes = [
   examRouter,
   QuestionBankRouter,
   schoolManageRouter,
+  ReportRouter,
   SassRouter,
   SystemManageRouter,
   // 404 page must be placed at the end !!!
