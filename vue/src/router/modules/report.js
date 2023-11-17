@@ -23,27 +23,27 @@ const ReportRouter = {
         // policy: 'AbpSaasPermissions.Tenants',
         icon: 'el-icon-wallet'
       }
+    },
+    {
+      path: '/report/user-analysis',
+      component: () => import('@/views/report/user-analysis/index'),
+      name: 'user-analysis',
+      meta: {
+        title: '考生分析',
+        // policy: 'AbpSaasPermissions.Tenants',
+        icon: 'el-icon-wallet'
+      }
+    },
+    {
+      path: '/report/exam-question-analysis',
+      component: () => import('@/views/report/exam-question-analysis/index'),
+      name: 'examgrade',
+      meta: {
+        title: '答题统计',
+        // policy: 'AbpSaasPermissions.Tenants',
+        icon: 'el-icon-wallet'
+      }
     }
-    // {
-    //   path: '/report/useranalysis',
-    //   component: () => import('@/views/report/user-analysis/index'),
-    //   name: 'useranalysis',
-    //   meta: {
-    //     title: '考生分析',
-    //     // policy: 'AbpSaasPermissions.Tenants',
-    //     icon: 'el-icon-wallet'
-    //   }
-    // },
-    // {
-    //   path: '/report/exam-question-analysis',
-    //   component: () => import('@/views/report/exam-question-analysis/index'),
-    //   name: 'examgrade',
-    //   meta: {
-    //     title: '答题统计',
-    //     // policy: 'AbpSaasPermissions.Tenants',
-    //     icon: 'el-icon-wallet'
-    //   }
-    // },
     // {
     //   path: '/report/absent-analysis',
     //   component: () => import('@/views/report/absent-analysis/index'),

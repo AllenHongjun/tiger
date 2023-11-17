@@ -8,7 +8,8 @@
               <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PlaceholderInput\']')" clearable />
             </el-form-item>
           </el-col>
-
+          <!-- 部门筛选条件 -->
+          <!-- 账号状态筛选条件 -->
           <el-col :span="8">
             <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
               <el-date-picker
@@ -71,56 +72,71 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" align="left" width="220">
+      <el-table-column label="考试名称" prop="name" align="left" width="180">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <span>test2</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间/结束时间" align="left" width="240">
+      <el-table-column label="开始时间/结束时间" align="left" width="280">
         <template slot-scope="{ row }">
           <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
         </template>
       </el-table-column>
-      <el-table-column label="考试方式" prop="description" align="left">
+      <el-table-column label="试卷类型" prop="description" align="left" width="140">
         <template slot-scope="{ row }">
-          <span>免登录考试</span>
+          <span>考试-随机试卷</span>
         </template>
       </el-table-column>
-      <el-table-column label="参加人次" prop="path" align="left">
+      <el-table-column label="试题数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>7</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="答题次数" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>2</span>
         </template>
       </el-table-column>
-      <el-table-column label="及格人次" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>1</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="及格率" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>2%</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="平均分" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>5.3</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="最高分" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>10.00</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="最低分" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>0</span>
-        </template>
+      <el-table-column label="正确率" prop="path" align="center">
+        <el-table-column label="客观题" prop="path" align="left">
+          <template slot-scope="{ row }">
+            <span>14.30%</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="主观题" prop="path" align="left">
+          <template slot-scope="{ row }">
+            <span>0.00%</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="全部" prop="path" align="left">
+          <template slot-scope="{ row }">
+            <span>14.30%</span>
+          </template>
+        </el-table-column>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
+      <el-table-column label="错误率" prop="path" align="center">
+        <el-table-column label="客观题" prop="path" align="left">
+          <template slot-scope="{ row }">
+            <span>14.30%</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="主观题" prop="path" align="left">
+          <template slot-scope="{ row }">
+            <span>0.00%</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="全部" prop="path" align="left">
+          <template slot-scope="{ row }">
+            <span>14.30%</span>
+          </template>
+        </el-table-column>
+      </el-table-column>
+
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="120">
         <template slot-scope="{ row, $index }">
-          <el-button type="text" title="考生成绩">考生成绩</el-button>
-          <el-button type="text" title="成绩统计">成绩统计</el-button>
+          <!-- 统计每一道题目的数据 -->
+          <el-button type="text">答题统计</el-button>
         </template>
       </el-table-column>
     </el-table>
