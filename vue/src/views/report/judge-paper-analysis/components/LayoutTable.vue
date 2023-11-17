@@ -93,12 +93,17 @@
       </el-table-column>
       <el-table-column label="交卷数" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>1</span>
+          <span>70</span>
         </template>
       </el-table-column>
-      <el-table-column label="未" prop="path" align="left">
+      <el-table-column label="未评卷数" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>2%</span>
+          <span>35</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="已评卷数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>5</span>
         </template>
       </el-table-column>
 

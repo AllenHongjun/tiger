@@ -9,6 +9,33 @@
             </el-form-item>
           </el-col>
 
+          <el-col :span="5">
+            <el-form-item prop="questionCategoryId" :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')">
+              <el-cascader
+                v-model="listQuery.questionCategoryId"
+                :options="questionCategoryOptions"
+                :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
+                placeholder="-"
+                style="width:230px;"
+                clearable
+                filterable
+              />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="3">
+            <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
+              <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
+                <el-option
+                  v-for="item in degreeOptions"
+                  :key="item.key"
+                  :label="item.lable"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
           <el-col :span="8">
             <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
               <el-date-picker
@@ -35,10 +62,10 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
                 {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
                 <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link> -->
+              </el-link>
             </el-button-group>
           </el-col>
         </el-row>
@@ -46,7 +73,18 @@
         <el-collapse-transition>
           <div v-show="advanced">
             <el-row :gutter="20">
-              <el-col :span="4" />
+              <el-col :span="4">
+                <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="jobType">
+                  <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
+                    <el-option
+                      v-for="item in typeOptions"
+                      :key="item.key"
+                      :label="item.lable"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-form-item>
+              </el-col>
             </el-row>
           </div>
         </el-collapse-transition>
@@ -71,56 +109,54 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" align="left" width="220">
+      <el-table-column label="试题内容" prop="questionContent" align="left" width="220">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <span>{{ row.questionContent }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间/结束时间" align="left" width="240">
+      <el-table-column label="题型" prop="description" align="left">
         <template slot-scope="{ row }">
-          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
+          <span>单选题</span>
         </template>
       </el-table-column>
-      <el-table-column label="考试方式" prop="description" align="left">
+      <el-table-column label="试题分类" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>免登录考试</span>
+          <span>理论考试/中级</span>
         </template>
       </el-table-column>
-      <el-table-column label="参加人次" prop="path" align="left">
+      <el-table-column label="试题难度" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>2</span>
+          <span>困难</span>
         </template>
       </el-table-column>
-      <el-table-column label="及格人次" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>1</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="及格率" prop="path" align="left">
+      <el-table-column label="标准答案" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>2%</span>
         </template>
       </el-table-column>
-      <el-table-column label="平均分" prop="path" align="left">
+      <el-table-column label="答错次数" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>5.3</span>
+          <span>1512</span>
         </template>
       </el-table-column>
-      <el-table-column label="最高分" prop="path" align="left">
+      <el-table-column label="答错概率" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>10.00</span>
         </template>
       </el-table-column>
-      <el-table-column label="最低分" prop="path" align="left">
+      <el-table-column label="答对次数" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>0</span>
+          <span>0423</span>
         </template>
       </el-table-column>
-
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
-        <template slot-scope="{ row, $index }">
-          <el-button type="text" title="考生成绩">考生成绩</el-button>
-          <el-button type="text" title="成绩统计">成绩统计</el-button>
+      <el-table-column label="答对概率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>23%</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="得分概率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>53%</span>
         </template>
       </el-table-column>
     </el-table>
@@ -132,6 +168,9 @@
 <script>
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { pickerRangeWithHotKey } from '@/utils/picker'
+import { getAllQuestionCategory } from '@/api/question-bank/question-category'
+import { listToTree } from '@/utils/helpers/tree-helper'
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '@/views/question-bank/question/datas/typing'
 import {
   getLayouts,
   deleteLayout
@@ -145,6 +184,13 @@ export default {
   },
   data() {
     return {
+      QuestionType,
+      QuestionTypeMap,
+      QuestionDegree,
+      QuestionDegreeMap,
+      questionCategoryOptions: [],
+      degreeOptions: Degree,
+      typeOptions: Type,
       queryCreateDateTime: undefined,
       advanced: false,
       pickerOptions: pickerRangeWithHotKey,
@@ -159,10 +205,16 @@ export default {
     }
   },
   created() {
+    this.fetchOptions()
     this.getList()
   },
   methods: {
     checkPermission, // 检查权限
+    fetchOptions() {
+      getAllQuestionCategory().then(response => {
+        this.questionCategoryOptions = listToTree(response.items)
+      })
+    },
     datePickerChange(value) {
       if (!value) {
         // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题

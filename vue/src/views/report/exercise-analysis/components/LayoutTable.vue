@@ -81,46 +81,51 @@
           <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
         </template>
       </el-table-column>
-      <el-table-column label="考试方式" prop="description" align="left">
+      <el-table-column label="参与方式" prop="description" align="left">
         <template slot-scope="{ row }">
           <span>免登录考试</span>
         </template>
       </el-table-column>
-      <el-table-column label="参加人次" prop="path" align="left">
+      <el-table-column label="练习类型" prop="description" align="left">
         <template slot-scope="{ row }">
-          <span>2</span>
+          <span>综合测试</span>
         </template>
       </el-table-column>
-      <el-table-column label="及格人次" prop="path" align="left">
+      <el-table-column label="参加人数" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>1</span>
+          <span>232323</span>
         </template>
       </el-table-column>
-      <el-table-column label="及格率" prop="path" align="left">
+      <el-table-column label="练习次数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>1232</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="平均练习时长" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>2%</span>
         </template>
       </el-table-column>
-      <el-table-column label="平均分" prop="path" align="left">
+      <el-table-column label="得分率" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>5.3</span>
+          <span>5.3%</span>
         </template>
       </el-table-column>
-      <el-table-column label="最高分" prop="path" align="left">
+      <el-table-column label="正确率" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>10.00</span>
+          <span>10.00%</span>
         </template>
       </el-table-column>
-      <el-table-column label="最低分" prop="path" align="left">
+      <el-table-column label="错误率" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>0</span>
+          <span>23.23%</span>
         </template>
       </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
-          <el-button type="text" title="考生成绩">考生成绩</el-button>
-          <el-button type="text" title="成绩统计">成绩统计</el-button>
+          <el-button type="text" title="">练习成绩</el-button>
+          <el-button type="text" title="">成绩统计</el-button>
         </template>
       </el-table-column>
     </el-table>
