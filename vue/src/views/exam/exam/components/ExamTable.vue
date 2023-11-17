@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="table-container">
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
         <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
@@ -35,25 +35,41 @@
           <el-tag :type="( row.isEnable ? 'success' : 'danger')" :class="[ row.isEnable ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="isEnable" align="left" width="120">
+      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="isEnable" align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.creationTime | moment }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="180">
         <template slot-scope="{ row, $index }">
           <el-button v-if="checkPermission('Exam.Exam.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
           <el-button v-if="checkPermission('Exam.Exam.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
+
+          <el-dropdown style="margin-left:8px;" @command="handleCommand">
+            <el-button class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" type="primary" plain />
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="beforeHandleCommand(row, 'handleUpdateExamSetting')">
+                考试设置
+              </el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'handleUpdateExamSetting')">
+                复制
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+
+    <exam-setting ref="examSetting" />
   </div>
 </template>
 
 <script>
+import ExamSetting from './ExamSetting.vue'
+
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getExams,
@@ -64,7 +80,8 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 export default {
   name: 'ExamTable',
   components: {
-    Pagination
+    Pagination,
+    ExamSetting
   },
   data() {
     return {
@@ -102,6 +119,21 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
+    handleCommand(param) {
+      switch (param.command) {
+        case 'handleUpdateExamSetting':
+          this.handleUpdateExamSetting(param.scope)
+          break
+        default:
+          break
+      }
+    },
+    beforeHandleCommand(scope, command) {
+      return {
+        scope: scope,
+        command: command
+      }
+    },
     handleCreate() {
       this.$emit('handleCreate')
     },
@@ -133,6 +165,10 @@ export default {
           })
         })
       })
+    },
+    // 更新考试设置
+    handleUpdateExamSetting(row) {
+      this.$refs['examSetting'].handleUpdate(row)
     }
   }
 }

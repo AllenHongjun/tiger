@@ -80,12 +80,10 @@ import {
 } from '@/api/system-manage/platform/layout'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
   name: 'LayoutTable',
   components: {
-    Pagination
   },
   data() {
     return {

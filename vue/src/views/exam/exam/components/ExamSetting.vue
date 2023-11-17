@@ -1,15 +1,15 @@
 <template>
   <div class="model-container">
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Exam:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="95%" height="95%">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Exam:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="8vh">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
-          <el-input v-model="temp.name" />
-        </el-form-item>
-        <el-form-item :label="$t('AppExam[\'DisplayName:Number\']')" prop="number">
-          <el-input v-model="temp.number" />
-        </el-form-item>
-        <el-form-item :label="$t('AppExam[\'DisplayName:CoverUrl\']')" prop="coverUrl">
-          <el-input v-model="temp.coverUrl" />
+        <el-form-item prop="name">
+          <span slot="label">
+            <el-tooltip content="考生通过考试的分数" placement="top">
+              <i class="el-icon-question" />
+            </el-tooltip>
+            及格分数
+          </span>
+          <el-input v-model="temp.passingScore" />
         </el-form-item>
 
       </el-form>
@@ -33,7 +33,7 @@ import {
 } from '@/api/exam/exam'
 
 export default {
-  name: 'ExamModel',
+  name: 'ExamSetting',
   data() {
     return {
       temp: {
@@ -144,34 +144,6 @@ export default {
         deductionInterval: 0,
         interval: 0
       }
-    },
-
-    // 点击创建按钮
-    handleCreate() {
-      this.resetTemp()
-      this.dialogStatus = 'create'
-      this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-
-    // 创建数据
-    createData() {
-      this.$refs['dataForm'].validate(valid => {
-        if (valid) {
-          createExam(this.temp).then(() => {
-            this.$emit('handleFilter', false)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: this.$i18n.t("TigerUi['Success']"),
-              message: this.$i18n.t("TigerUi['SuccessMessage']"),
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
-      })
     },
 
     // 更新按钮点击
