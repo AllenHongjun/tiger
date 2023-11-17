@@ -88,12 +88,8 @@
           <span>张三</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间/交卷时间" align="left" width="240">
-        <template slot-scope="{ row }">
-          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="用时" prop="description" align="left">
+
+      <el-table-column label="平均用时" prop="description" align="left">
         <template slot-scope="{ row }">
           <span>2小时42分12秒</span>
         </template>
@@ -137,13 +133,6 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
-        <template slot-scope="{ row, $index }">
-          <el-button type="text" title="查看答卷" class="el-icon-view" />
-          <!-- <el-button type="primary" title="补交" plain>补交</el-button>
-                <el-button type="text" title="删除" class="el-icon-delete" /> -->
-        </template>
-      </el-table-column>
     </el-table>
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
@@ -162,7 +151,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import ExamScorePanel from './ExamScorePanel.vue'
 
 export default {
-  name: 'ExamScore',
+  name: 'ExamScoreAnalysis',
   components: {
     Pagination,
     ExamScorePanel

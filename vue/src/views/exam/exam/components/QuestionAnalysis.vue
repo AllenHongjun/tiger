@@ -1,7 +1,6 @@
 <template>
   <div class="table-container">
 
-    <exam-score-panel />
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
@@ -162,7 +161,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import ExamScorePanel from './ExamScorePanel.vue'
 
 export default {
-  name: 'ExamScore',
+  name: 'QuestionAnalysis',
   components: {
     Pagination,
     ExamScorePanel

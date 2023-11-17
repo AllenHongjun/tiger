@@ -76,7 +76,7 @@
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <exam-setting ref="examSetting" />
-    <exam-score ref="examScore" />
+    <exam-analysis ref="examAnalysise" />
   </div>
 </template>
 
@@ -89,14 +89,14 @@ import {
   deleteExam
 } from '@/api/exam/exam'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import ExamScore from './ExamScore.vue'
+import ExamAnalysis from './ExamAnalysis.vue'
 
 export default {
   name: 'ExamTable',
   components: {
     Pagination,
     ExamSetting,
-    ExamScore
+    ExamAnalysis
   },
   data() {
     return {
@@ -199,16 +199,16 @@ export default {
     },
     // 查看考试成绩
     handleViewExamScore(row) {
-      this.$refs['examScore'].handleUpdate(row)
+      this.$refs['examAnalysise'].handleViewExamAnalysis(row, 'first')
     },
     handleExamJudge(row) {
-      this.$refs['examJudge'].handleUpdate(row)
+      this.$refs['examAnalysise'].handleViewExamAnalysis(row, 'second')
     },
     handleViewExamScoreAnalysis(row) {
-      this.$refs['examScoreAnalysis'].handleUpdate(row)
+      this.$refs['examAnalysise'].handleViewExamAnalysis(row, 'third')
     },
     handleViewQuestionAnalysis(row) {
-      this.$refs['questionAnalysis'].handleUpdate(row)
+      this.$refs['examAnalysise'].handleViewExamAnalysis(row, 'fourth')
     }
   }
 }
