@@ -1,11 +1,13 @@
 <template>
   <div class="model-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
-      <el-steps :active="active" finish-status="success">
-        <el-step title="步骤 1">1</el-step>
-        <el-step title="步骤 2">2</el-step>
-        <el-step title="步骤 3">3</el-step>
-      </el-steps>
+      <el-row>
+        <el-steps :active="active" finish-status="success">
+          <el-step title="步骤 1">1</el-step>
+          <el-step title="步骤 2">2</el-step>
+          <el-step title="步骤 3">3</el-step>
+        </el-steps>
+      </el-row>
 
       <el-row :gutter="20">
         <el-col :span="6">
@@ -22,14 +24,7 @@
           </el-card>
         </el-col>
         <el-col :span="18">
-          <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-            <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
-              <el-input v-model="temp.name" />
-            </el-form-item>
-            <el-form-item :label="$t('AppExam[\'DisplayName:Number\']')" prop="number">
-              <el-input v-model="temp.number" />
-            </el-form-item>
-          </el-form>
+          <random-paper-section />
         </el-col>
       </el-row>
 
@@ -51,9 +46,13 @@ import {
   createTestPaper,
   updateTestPaper
 } from '@/api/exam/test-paper'
+import RandomPaperSection from './RandomPaperSection.vue'
 
 export default {
   name: 'TestPaperModel',
+  components: {
+    RandomPaperSection
+  },
   data() {
     return {
       active: 0,
