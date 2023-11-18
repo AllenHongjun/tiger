@@ -15,6 +15,12 @@
         <el-tab-pane label="答题统计" name="fourth">
           <question-analysis />
         </el-tab-pane>
+        <el-tab-pane label="组织统计" name="fifth">
+          <exam-org-analysis />
+        </el-tab-pane>
+        <el-tab-pane label="缺考统计" name="sixth">
+          <exam-absent-user />
+        </el-tab-pane>
       </el-tabs>
 
       <div slot="footer" class="dialog-footer">
@@ -31,13 +37,17 @@ import ExamScore from './ExamScore.vue'
 import ExamJudge from './ExamJudge.vue'
 import ExamScoreAnalysis from './ExamScoreAnalysis.vue'
 import QuestionAnalysis from './QuestionAnalysis.vue'
+import ExamOrgAnalysis from './ExamOrgAnalysis.vue'
+import ExamAbsentUser from './ExamAbsentUser.vue'
 export default {
   name: 'ExamAnalysis',
   components: {
     ExamScore,
     ExamJudge,
     ExamScoreAnalysis,
-    QuestionAnalysis
+    QuestionAnalysis,
+    ExamOrgAnalysis,
+    ExamAbsentUser
   },
   data() {
     return {
@@ -45,7 +55,7 @@ export default {
 
       },
       activeName: 'first',
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: ''
     }
   },

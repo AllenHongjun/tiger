@@ -1,6 +1,6 @@
 <template>
   <div class="model-container">
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Exam:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
         <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
           <el-input v-model="temp.name" />

@@ -4,25 +4,7 @@
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
-          <el-col :span="4">
-            <el-form-item prop="filter" label="考试状态">
-              <el-select v-model="value" placeholder="-">
-                <el-option key="" value="考试中" lable="考试中" />
-                <el-option key="" value="已交卷" lable="已交卷" />
-                <el-option key="" value="已评卷" lable="已评卷" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="4">
-            <el-form-item prop="filter" label="是否及格">
-              <el-select v-model="value" placeholder="-">
-                <el-option key="" value="及格" lable="及格" />
-                <el-option key="" value="不及格" lable="不及格" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-
+          <!-- 组织过滤条件 -->
           <el-col :span="8">
             <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
               <el-date-picker
@@ -85,68 +67,62 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="50" />
-      <el-table-column label="姓名" prop="name" align="left" width="80">
+      <el-table-column label="部门" prop="name" align="left" width="80">
         <template slot-scope="{ row }">
-          <span>张三</span>
+          <span>清华大学</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间/交卷时间" align="left" width="240">
-        <template slot-scope="{ row }">
-          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="用时" prop="description" align="left">
-        <template slot-scope="{ row }">
-          <span>2小时42分12秒</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="客观题得分" prop="path" align="left">
+      <el-table-column label="应参加人数" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>30</span>
         </template>
       </el-table-column>
-      <el-table-column label="主观题得分" prop="path" align="left">
+      <el-table-column label="实际参加人数" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>69</span>
         </template>
       </el-table-column>
-      <el-table-column label="成绩" prop="path" align="left">
+      <el-table-column label="参考率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>99%</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="及格人数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>30</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="及格率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>69%</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="正确率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>99%</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="得分率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>99%</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="最高分" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>99</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否及格" prop="path" align="left">
+      <el-table-column label="最低分" prop="path" align="left">
         <template slot-scope="{ row }">
-          <!-- <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" /> -->
-          <el-tag type="success" class="el-icon-check" />
+          <span>2</span>
         </template>
       </el-table-column>
-      <el-table-column label="状态" prop="path" align="left">
+      <el-table-column label="平均分" prop="path" align="left">
         <template slot-scope="{ row }">
-          <el-tag>未交卷</el-tag>
-          <!-- <span>未评卷</span>
-          <span>已评卷</span> -->
-        </template>
-      </el-table-column>
-      <el-table-column label="排名" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>23</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="评语" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>做的不错，再接再厉！</span>
+          <span>83</span>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
-        <template slot-scope="{ row, $index }">
-          <el-button type="text" title="查看答卷">去评卷</el-button>
-          <el-button type="text" title="补交" plain>补交</el-button>
-          <!--
-                <el-button type="text" title="删除" class="el-icon-delete" /> -->
-        </template>
-      </el-table-column>
     </el-table>
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
@@ -164,7 +140,7 @@ import {
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'ExamJudge',
+  name: 'ExamOrgAnalysis',
   components: {
     Pagination
   },
