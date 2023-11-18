@@ -5,38 +5,41 @@
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-form-item prop="filter" label="考试状态">
-              <el-select v-model="value" placeholder="-">
-                <el-option key="" value="考试中" lable="考试中" />
-                <el-option key="" value="已交卷" lable="已交卷" />
-                <el-option key="" value="已评卷" lable="已评卷" />
+            <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
+              <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
+                <el-option
+                  v-for="item in degreeOptions"
+                  :key="item.key"
+                  :label="item.lable"
+                  :value="item.value"
+                />
               </el-select>
             </el-form-item>
           </el-col>
 
           <el-col :span="4">
-            <el-form-item prop="filter" label="是否及格">
-              <el-select v-model="value" placeholder="-">
-                <el-option key="" value="及格" lable="及格" />
-                <el-option key="" value="不及格" lable="不及格" />
+            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="jobType">
+              <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
+                <el-option
+                  v-for="item in typeOptions"
+                  :key="item.key"
+                  :label="item.lable"
+                  :value="item.value"
+                />
               </el-select>
             </el-form-item>
           </el-col>
 
-          <el-col :span="8">
-            <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
-              <el-date-picker
-                v-model="queryCreateDateTime"
-                value-format="yyyy-MM-dd HH:mm:ss"
-                :default-time="['00:00:00', '23:59:59']"
-                type="datetimerange"
-                align="right"
-                unlink-panels
-                :picker-options="pickerOptions"
-                range-separator="-"
-                :start-placeholder="$t('AbpUi[\'StartTime\']')"
-                :end-placeholder="$t('AbpUi[\'EndTime\']')"
-                @change="datePickerChange"
+          <el-col :span="5">
+            <el-form-item prop="questionCategoryId" :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')">
+              <el-cascader
+                v-model="listQuery.questionCategoryId"
+                :options="questionCategoryOptions"
+                :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
+                placeholder="-"
+                style="width:230px;"
+                clearable
+                filterable
               />
             </el-form-item>
           </el-col>
@@ -49,10 +52,6 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                      {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
-                      <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-                    </el-link> -->
             </el-button-group>
           </el-col>
         </el-row>
@@ -82,65 +81,61 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="50" />
-      <el-table-column label="姓名" prop="name" align="left" width="80">
+      <el-table-column label="试题内容" prop="name" align="left" width="380" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
-          <span>张三</span>
+          <span>三国时期是指那三国？</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间/交卷时间" align="left" width="240">
+
+      <el-table-column label="题型" prop="description" align="left">
         <template slot-scope="{ row }">
-          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
+          <span>单选题</span>
         </template>
       </el-table-column>
-      <el-table-column label="用时" prop="description" align="left">
+      <el-table-column label="试题分类" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>2小时42分12秒</span>
+          <span>实操题/中级</span>
         </template>
       </el-table-column>
-      <el-table-column label="总分/及格分" prop="path" align="left">
+      <el-table-column label="难度" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>100.00</span>--<b style="color: red;">23.00</b>
+          <span>容易的</span>
         </template>
       </el-table-column>
-      <el-table-column label="成绩" prop="path" align="left">
+      <el-table-column label="答案" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>69</span>
+          <span>魏蜀吴</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="答题次数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>12</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="答错次数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>6</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="错误率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>6%</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="答对次数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>16</span>
         </template>
       </el-table-column>
       <el-table-column label="正确率" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>72%</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="得分率" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>85%</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="是否及格" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <!-- <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" /> -->
-          <el-tag type="success" class="el-icon-check" />
-        </template>
-      </el-table-column>
-      <el-table-column label="状态" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <el-tag>未交卷</el-tag>
-          <!-- <span>未评卷</span>
-          <span>已评卷</span> -->
-        </template>
-      </el-table-column>
-      <el-table-column label="排名" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>23</span>
+          <span>76%</span>
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
-        <template slot-scope="{ row, $index }">
-          <el-button type="text" title="查看答卷" class="el-icon-view" />
-          <!-- <el-button type="primary" title="补交" plain>补交</el-button>
-                <el-button type="text" title="删除" class="el-icon-delete" /> -->
+      <el-table-column label="得分率" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>23%</span>
         </template>
       </el-table-column>
     </el-table>
@@ -152,6 +147,8 @@
 
 <script>
 import baseListQuery, { checkPermission } from '@/utils/abp'
+import { getAllQuestionCategory } from '@/api/question-bank/question-category'
+import { listToTree } from '@/utils/helpers/tree-helper'
 import { pickerRangeWithHotKey } from '@/utils/picker'
 import {
   getLayouts,
@@ -159,6 +156,7 @@ import {
 } from '@/api/system-manage/platform/layout'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ExamScorePanel from './ExamScorePanel.vue'
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '@/views/question-bank/question/datas/typing'
 
 export default {
   name: 'QuestionAnalysis',
@@ -168,6 +166,8 @@ export default {
   },
   data() {
     return {
+      degreeOptions: Degree,
+      typeOptions: Type,
       queryCreateDateTime: undefined,
       advanced: false,
       pickerOptions: pickerRangeWithHotKey,
@@ -176,8 +176,12 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
+        degree: undefined,
+        questionCategoryId: undefined,
         createStartTime: undefined,
-        createEndTime: undefined
+        createEndTime: undefined,
+        type: 1,
+        enable: undefined
       }, baseListQuery)
 
     }
@@ -187,6 +191,11 @@ export default {
   },
   methods: {
     checkPermission, // 检查权限
+    fetchOptions() {
+      getAllQuestionCategory().then(response => {
+        this.questionCategoryOptions = listToTree(response.items)
+      })
+    },
     datePickerChange(value) {
       if (!value) {
         // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题

@@ -73,6 +73,9 @@
             <el-button icon="el-icon-download" @click="handleDownload">
               导出
             </el-button>
+            <el-button type="primary" icon="el-icon-download" @click="handleDownload">
+              发布成绩
+            </el-button>
           </el-button-group>
 
         </el-col>
@@ -97,24 +100,19 @@
           <span>2小时42分12秒</span>
         </template>
       </el-table-column>
-      <el-table-column label="总分/及格分" prop="path" align="left">
+      <el-table-column label="客观题得分" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>100.00</span>--<b style="color: red;">23.00</b>
+          <span>30</span>
         </template>
       </el-table-column>
-      <el-table-column label="成绩" prop="path" align="left">
+      <el-table-column label="主观题得分" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>69</span>
         </template>
       </el-table-column>
-      <el-table-column label="正确率" prop="path" align="left">
+      <el-table-column label="成绩" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>72%</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="得分率" prop="path" align="left">
-        <template slot-scope="{ row }">
-          <span>85%</span>
+          <span>99</span>
         </template>
       </el-table-column>
       <el-table-column label="是否及格" prop="path" align="left">
@@ -135,11 +133,17 @@
           <span>23</span>
         </template>
       </el-table-column>
+      <el-table-column label="评语" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>做的不错，再接再厉！</span>
+        </template>
+      </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
-          <el-button type="text" title="查看答卷" class="el-icon-view" />
-          <!-- <el-button type="primary" title="补交" plain>补交</el-button>
+          <el-button type="text" title="查看答卷">去评卷</el-button>
+          <el-button type="text" title="补交" plain>补交</el-button>
+          <!--
                 <el-button type="text" title="删除" class="el-icon-delete" /> -->
         </template>
       </el-table-column>
