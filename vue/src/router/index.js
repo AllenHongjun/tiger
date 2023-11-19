@@ -80,6 +80,11 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/web/exam/list',
+    component: () => import('@/views//web/exam/index'),
+    hidden: true
+  },
+  {
     path: '/login',
     component: () => import('@/views/account/login/index'),
     hidden: true

@@ -9,7 +9,7 @@ import constantRoutes from './router'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login', '/register', '/reset-password', '/send-reset-password-link', '/email-confirm'] // no redirect whitelist
+const whiteList = ['/login', '/register', '/reset-password', '/send-reset-password-link', '/email-confirm', '/web/exam/list'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar
