@@ -13,18 +13,137 @@
         <el-col :span="6">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>添加试卷大题</span>
-              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+              <el-menu
+                :default-active="activeIndex2"
+                class="el-menu-demo"
+                mode="horizontal"
+                background-color="#545c64"
+                text-color="#fff"
+                active-text-color="#ffd04b"
+                @select="handleSelect"
+              >
+                <el-submenu index="2">
+                  <template slot="title">添加试卷大题</template>
+                  <el-menu-item index="2-1">添加固定试卷大题</el-menu-item>
+                  <el-menu-item index="2-2">添加随机试卷大题</el-menu-item>
+                </el-submenu>
+              </el-menu>
             </div>
-            <span>共25题95分</span>
+            <span>共 <b>25</b>   题 <b>95</b> 分</span>
             <el-divider />
-            <div v-for="o in 4" :key="o" class="text item">
-              {{ '列表内容 ' + o }}
+            <div class="mini-paper-section">
+              <el-row class="mini-paper-section-header">
+                <el-col :span="12">
+                  <span>第1大题 </span><span>(共14题90.0分)</span>
+                </el-col>
+                <el-col :span="8" :offset="4">
+                  <el-button-group style="">
+                    <el-button type="primary" icon="el-icon-bottom" title="下移" />
+                    <el-button type="primary" icon="el-icon-edit" title="批量修改分数" />
+                    <el-button type="primary" icon="el-icon-delete" title="删除大题" />
+                  </el-button-group>
+                </el-col>
+              </el-row>
+              <el-row class="mini-paper-section-body">
+                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
+                <el-button type="primary" plain>2</el-button>
+                <el-button type="primary" plain>3</el-button>
+                <el-button type="primary" plain>4</el-button>
+                <el-button type="primary" plain>5</el-button>
+                <el-button type="primary" plain>6</el-button>
+                <el-button type="primary" plain>7</el-button>
+                <el-button type="primary" plain>8</el-button>
+                <el-button type="primary" plain>9</el-button>
+                <el-button type="primary" plain>10</el-button>
+                <el-button type="primary" plain>11</el-button>
+                <el-button type="primary" plain>12</el-button>
+                <el-button type="primary" plain>13</el-button>
+                <el-button type="primary" plain>14</el-button>
+                <el-button type="primary" plain>15</el-button>
+                <el-button type="primary" plain>16</el-button>
+                <el-button type="primary" plain>17</el-button>
+                <el-button type="primary" plain>18</el-button>
+                <el-button type="primary" plain>19</el-button>
+                <el-button type="primary" plain>20</el-button>
+              </el-row>
+            </div>
+            <div class="mini-paper-section">
+              <el-row class="mini-paper-section-header">
+                <el-col :span="12">
+                  <span>第2大题 </span><span>(共 56 题 88.0 分)</span>
+                </el-col>
+                <el-col :span="8" :offset="4">
+                  <el-button-group style="">
+                    <el-button type="primary" icon="el-icon-bottom" title="下移" />
+                    <el-button type="primary" icon="el-icon-edit" title="批量修改分数" />
+                    <el-button type="primary" icon="el-icon-delete" title="删除大题" />
+                  </el-button-group>
+                </el-col>
+              </el-row>
+              <el-row class="mini-paper-section-body">
+                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
+                <el-button type="primary" plain>2</el-button>
+                <el-button type="primary" plain>3</el-button>
+                <el-button type="primary" plain>4</el-button>
+                <el-button type="primary" plain>5</el-button>
+                <el-button type="primary" plain>6</el-button>
+                <el-button type="primary" plain>7</el-button>
+                <el-button type="primary" plain>8</el-button>
+                <el-button type="primary" plain>9</el-button>
+                <el-button type="primary" plain>10</el-button>
+                <el-button type="primary" plain>11</el-button>
+                <el-button type="primary" plain>12</el-button>
+                <el-button type="primary" plain>13</el-button>
+                <el-button type="primary" plain>14</el-button>
+                <el-button type="primary" plain>15</el-button>
+                <el-button type="primary" plain>16</el-button>
+                <el-button type="primary" plain>17</el-button>
+                <el-button type="primary" plain>18</el-button>
+                <el-button type="primary" plain>19</el-button>
+                <el-button type="primary" plain>20</el-button>
+              </el-row>
+            </div>
+            <div class="mini-paper-section">
+              <el-row class="mini-paper-section-header">
+                <el-col :span="12">
+                  <span>第3大题 </span><span>(共 33 题 78.0 分)</span>
+                </el-col>
+                <el-col :span="8" :offset="4">
+                  <el-button-group style="">
+                    <el-button type="primary" icon="el-icon-bottom" title="下移" />
+                    <el-button type="primary" icon="el-icon-edit" title="批量修改分数" />
+                    <el-button type="primary" icon="el-icon-delete" title="删除大题" />
+                  </el-button-group>
+                </el-col>
+              </el-row>
+              <el-row class="mini-paper-section-body">
+                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
+                <el-button type="primary" plain>2</el-button>
+                <el-button type="primary" plain>3</el-button>
+                <el-button type="primary" plain>4</el-button>
+                <el-button type="primary" plain>5</el-button>
+                <el-button type="primary" plain>6</el-button>
+                <el-button type="primary" plain>7</el-button>
+                <el-button type="primary" plain>8</el-button>
+                <el-button type="primary" plain>9</el-button>
+                <el-button type="primary" plain>10</el-button>
+                <el-button type="primary" plain>11</el-button>
+                <el-button type="primary" plain>12</el-button>
+                <el-button type="primary" plain>13</el-button>
+                <el-button type="primary" plain>14</el-button>
+                <el-button type="primary" plain>15</el-button>
+                <el-button type="primary" plain>16</el-button>
+                <el-button type="primary" plain>17</el-button>
+                <el-button type="primary" plain>18</el-button>
+                <el-button type="primary" plain>19</el-button>
+                <el-button type="primary" plain>20</el-button>
+              </el-row>
             </div>
           </el-card>
         </el-col>
         <el-col :span="18">
           <random-paper-section />
+          <fixed-paper-section />
         </el-col>
       </el-row>
 
@@ -47,14 +166,17 @@ import {
   updateTestPaper
 } from '@/api/exam/test-paper'
 import RandomPaperSection from './RandomPaperSection.vue'
+import FixedPaperSection from './FixedPaperSection.vue'
 
 export default {
   name: 'TestPaperModel',
   components: {
-    RandomPaperSection
+    RandomPaperSection,
+    FixedPaperSection
   },
   data() {
     return {
+      activeIndex2: 1,
       active: 0,
       temp: {
         id: undefined,
@@ -189,6 +311,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mini-paper-section{
+  margin-top: 15px;
+}
+
+.mini-paper-section-body .el-button:first{
+  margin-left: 10px !important;
+}
+.mini-paper-section-body .el-button{
+  min-width: 55px;
+  margin-top: 5px;;
+}
 .line{
   text-align: center;
 }

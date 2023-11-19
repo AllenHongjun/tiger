@@ -1,9 +1,9 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span>第1大题</span><span>(共0题0分))</span>
+      <span>第1大题 </span><span>(共14题90.0分)</span>
       <div style="float: right;">
-        <el-button plain>添加大题描述</el-button>
+        <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
         <el-button plain>选项乱序</el-button>
       </div>
     </div>
@@ -33,13 +33,17 @@
           />
         </el-table-column>
         <el-table-column label="抽题数量设置" width="110" align="center">
-          <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="110">3
+          <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="110">
+            <el-input placeholder="0" class="question-count" />/<span>0</span>
           </el-table-column>
-          <el-table-column prop="easyCount" label="容易" width="110">3
+          <el-table-column prop="easyCount" label="容易" width="110">
+            <el-input placeholder="0" class="question-count" />/<span>0</span>
           </el-table-column>
-          <el-table-column prop="ordinaryCount" label="中等" width="110">3
+          <el-table-column prop="ordinaryCount" label="中等" width="110">
+            <el-input placeholder="0" class="question-count" />/<span>0</span>
           </el-table-column>
-          <el-table-column prop="difficultCount" label="困难" width="110">3
+          <el-table-column prop="difficultCount" label="困难" width="110">
+            <el-input placeholder="0" class="question-count" />/<span>0</span>
           </el-table-column>
         </el-table-column>
         <el-table-column prop="questionCount" label="抽题数" width="110">
@@ -52,15 +56,13 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="clearfix">
-      <el-button type="primary">添加随机规则</el-button>
-    </div>
+    <el-button type="primary" style="margin-top: 15px;">添加随机规则</el-button>
   </el-card>
 
 </template>
 
 <script>
-import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '@/views/question-bank/question/datas/typing'
+import { Type } from '@/views/question-bank/question/datas/typing'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'
 
@@ -108,3 +110,14 @@ export default {
 }
 </script>
 
+<style scoped>
+.line{
+  text-align: center;
+}
+.box-card{
+  margin-bottom: 8px;
+}
+.question-count{
+  width: 65%;
+}
+</style>
