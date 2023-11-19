@@ -2,6 +2,15 @@
 	"folders": [
 		{
 			"path": "vue"
+		},
+		{
+			"path": "vue2"
+		},
+		{
+			"path": "element-starter-master"
+		},
+		{
+			"path": "client-i18n"
 		}
 	],
 	"settings": {
