@@ -188,13 +188,14 @@
 
 <script>
 import ExamSetting from './ExamSetting.vue'
+import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { pickerRangeWithHotKey } from '@/utils/picker'
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getExams,
   deleteExam
 } from '@/api/exam/exam'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+
 import ExamAnalysis from './ExamAnalysis.vue'
 
 export default {

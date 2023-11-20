@@ -85,6 +85,16 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/web/exam/table',
+    component: () => import('@/views//web/exam/table'),
+    hidden: true
+  },
+  {
+    path: '/web/grade/index',
+    component: () => import('@/views//web/grade/index'),
+    hidden: true
+  },
+  {
     path: '/login',
     component: () => import('@/views/account/login/index'),
     hidden: true
