@@ -1,45 +1,42 @@
 <template>
   <div class="app-container">
-    <el-header class="navbar">
+    <el-header class="navbar" style="height:80px;">
       <el-menu
         :default-active="activeIndex2"
-        class="el-menu-demo"
+        class="left-menu"
         mode="horizontal"
-        background-color="#545c64"
+        background-color="#409EFF"
         text-color="#fff"
-        active-text-color="#ffd04b"
+        active-text-color="#ffd"
         @select="handleSelect"
       >
-        <el-menu-item index="1">练习任务</el-menu-item>
-        <el-menu-item index="2">考试任务</el-menu-item>
-        <el-menu-item index="3">实训平台</el-menu-item>
-        <el-menu-item index="4"><a href="#" target="_blank">学习资料</a></el-menu-item>
+        <el-menu-item index="1">练习</el-menu-item>
+        <el-menu-item index="2">考试</el-menu-item>
+        <el-menu-item index="3">课程</el-menu-item>
+        <el-menu-item index="4">成绩</el-menu-item>
+        <el-menu-item index="5">积分</el-menu-item>
+        <el-menu-item index="6">实训平台</el-menu-item>
+        <el-menu-item index="7"><a href="#" target="_blank">学习资料</a></el-menu-item>
+        <div class="right-menu">
+          <el-dropdown class="avatar-container" trigger="click">
+            <div class="avatar-wrapper">
+              <img src="https://th.bing.com/th/id/OIP.oYETPWlwurA42fNBfjENPwHaEo?w=381&h=197&c=7&r=0&o=5&pid=1.7" class="user-avatar">
+              <i class="el-icon-caret-bottom" />
+            </div>
+            <el-dropdown-menu slot="dropdown" class="user-dropdown">
+              <router-link to="/profile/index">
+                <el-dropdown-item>
+                  我的账号
+                </el-dropdown-item>
+              </router-link>
+              <el-dropdown-item divided>
+                <span style="display:block;">注 销</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </el-menu>
 
-      <div class="right-menu">
-        <el-dropdown class="avatar-container" trigger="click">
-          <div class="avatar-wrapper">
-            <img src="https://th.bing.com/th/id/OIP.oYETPWlwurA42fNBfjENPwHaEo?w=381&h=197&c=7&r=0&o=5&pid=1.7" class="user-avatar">
-            <i class="el-icon-caret-bottom" />
-          </div>
-          <el-dropdown-menu slot="dropdown" class="user-dropdown">
-            <router-link to="/">
-              <el-dropdown-item>
-                首页
-              </el-dropdown-item>
-            </router-link>
-            <router-link to="/profile/index">
-              <el-dropdown-item>
-                我的账号
-              </el-dropdown-item>
-            </router-link>
-
-            <el-dropdown-item divided>
-              <span style="display:block;">注 销</span>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
     </el-header>
     <el-main>
       <div class="filter-container" style="margin-bottom:10px;">
@@ -86,7 +83,7 @@
       </div>
     </el-main>
 
-    <div class="card-caontainer">
+    <div class="card-container">
       <el-card v-for="o in 4" :key="o" class="box-card">
         <el-row>
           <el-col :span="22">
@@ -99,7 +96,7 @@
             </div>
           </el-col>
           <el-col :span="2">
-            <el-button type="primary">参加考试</el-button>
+            <el-button type="primary" class="take-exam">参加考试</el-button>
           </el-col>
         </el-row>
         <div class="text item" />
@@ -224,12 +221,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-header, .el-footer {
+  background-color: #FFFFFF;
+  color: #333;
+  text-align: center;
+  padding: 0px;
+}
+
+.el-aside {
+  background-color: #FFFFFF;
+  color: #333;
+  text-align: center;
+  padding: 0px;
+}
+
+.el-main {
+  background-color: #FFFFFF;
+  color: #333;
+  text-align: center;
+}
+
+body > .el-container {
+  margin-bottom: 40px;
+}
+
 .navbar{
-  height: 50px;
+  height: 80px;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
+  .left-menu{
+    width: 100%;
+  }
   .right-menu {
     float: right;
     height: 100%;
@@ -283,42 +307,22 @@ export default {
   }
 }
 
-.el-header, .el-footer {
-  background-color: #B3C0D1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-}
-
-.el-aside {
-  background-color: #D3DCE6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
-}
-
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: center;
-}
-
-body > .el-container {
-  margin-bottom: 40px;
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
-
 .el-image {
   width: 256px;
+  line-height: 256px;
   margin-right: 15px;
+}
+
+.box-card {
+  height: 120px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  .take-exam{
+    width: 150px;
+    height: 55px;
+    font-size: 16px;
+    vertical-align: middle;
+  }
 }
 </style>
 
