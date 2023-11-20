@@ -84,6 +84,8 @@
           <el-link href="#/send-reset-password-link" type="primary">{{ $t("AbpAccount['ForgotPassword']") }}</el-link>
           <el-link href="#/web/exam/list" type="primary">考试图文列表</el-link>
           <el-link href="#/web/exam/table" type="primary">考试列表</el-link>
+          <el-link href="#/web/exam/begin" type="primary">开始考试</el-link>
+          <el-link href="#/web/paper/index" type="primary">试卷</el-link>
           <!-- <el-link href="#/reset-password" type="primary">{{ $t("AbpAccount['ResetPassword']") }}</el-link> -->
         </el-col>
       </el-row>

@@ -1,92 +1,124 @@
 <template>
   <div class="app-container">
-    <!-- 考试中 阅卷中 查看答卷  不同的状态查看试卷使用 -->
     <el-container>
-      <!-- <el-aside width="200px">Aside</el-aside> -->
+      <el-header>Header</el-header>
       <el-container>
-        <el-header>
-          <el-menu
-            :default-active="activeIndex2"
-            class="el-menu-demo"
-            mode="horizontal"
-            background-color="#545c64"
-            text-color="#fff"
-            active-text-color="#ffd04b"
-            @select="handleSelect"
-          >
-            <el-menu-item index="1">练习任务</el-menu-item>
-            <!-- <el-submenu index="2">
-              <template slot="title">我的工作台</template>
-              <el-menu-item index="2-1">选项1</el-menu-item>
-              <el-menu-item index="2-2">选项2</el-menu-item>
-              <el-menu-item index="2-3">选项3</el-menu-item>
-              <el-submenu index="2-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="2-4-1">选项1</el-menu-item>
-                <el-menu-item index="2-4-2">选项2</el-menu-item>
-                <el-menu-item index="2-4-3">选项3</el-menu-item>
-              </el-submenu>
-            </el-submenu> -->
-            <el-menu-item index="1">考试任务</el-menu-item>
-            <el-menu-item index="3" disabled>实训平台</el-menu-item>
-            <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">学习资料</a></el-menu-item>
-          </el-menu>
-        </el-header>
-
-        <el-main>
+        <el-aside style="width:350px;">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <h3>答题卡</h3>
+            </div>
+            <div class="mini-paper-section">
+              <el-row class="mini-paper-section-header">
+                <el-col :span="24">
+                  <span>第1大题 </span><span>(共14题90.0分)</span>
+                </el-col>
+              </el-row>
+              <el-row class="mini-paper-section-body">
+                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
+                <el-button type="primary" plain>2</el-button>
+                <el-button type="primary" plain>3</el-button>
+                <el-button type="primary" plain>4</el-button>
+                <el-button type="primary" plain>5</el-button>
+                <el-button type="primary" plain>6</el-button>
+                <el-button type="primary" plain>7</el-button>
+                <el-button type="primary" plain>8</el-button>
+                <el-button type="primary" plain>9</el-button>
+                <el-button type="primary" plain>10</el-button>
+                <el-button type="primary" plain>11</el-button>
+                <el-button type="primary" plain>12</el-button>
+                <el-button type="primary" plain>13</el-button>
+                <el-button type="primary" plain>14</el-button>
+                <el-button type="primary" plain>15</el-button>
+                <el-button type="primary" plain>16</el-button>
+                <el-button type="primary" plain>17</el-button>
+                <el-button type="primary" plain>18</el-button>
+                <el-button type="primary" plain>19</el-button>
+                <el-button type="primary" plain>20</el-button>
+              </el-row>
+            </div>
+            <div class="mini-paper-section">
+              <el-row class="mini-paper-section-header">
+                <el-col :span="24">
+                  <span>第2大题 </span><span>(共 56 题 88.0 分)</span>
+                </el-col>
+              </el-row>
+              <el-row class="mini-paper-section-body">
+                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
+                <el-button type="primary" plain>2</el-button>
+                <el-button type="primary" plain>3</el-button>
+                <el-button type="primary" plain>4</el-button>
+                <el-button type="primary" plain>5</el-button>
+                <el-button type="primary" plain>6</el-button>
+                <el-button type="primary" plain>7</el-button>
+                <el-button type="primary" plain>8</el-button>
+                <el-button type="primary" plain>9</el-button>
+                <el-button type="primary" plain>10</el-button>
+                <el-button type="primary" plain>11</el-button>
+                <el-button type="primary" plain>12</el-button>
+                <el-button type="primary" plain>13</el-button>
+                <el-button type="primary" plain>14</el-button>
+                <el-button type="primary" plain>15</el-button>
+                <el-button type="primary" plain>16</el-button>
+                <el-button type="primary" plain>17</el-button>
+                <el-button type="primary" plain>18</el-button>
+                <el-button type="primary" plain>19</el-button>
+                <el-button type="primary" plain>20</el-button>
+              </el-row>
+            </div>
+          </el-card>
+          <el-divider />
           <el-row>
-            <el-col :span="20">
-              <el-tabs v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane label="全部练习" name="first">
-                  <div class="">
-                    <div class="block">
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                      <el-image :src="src" />
-                    </div>
-                    <el-pagination
-                      :current-page="currentPage4"
-                      :page-sizes="[100, 200, 300, 400]"
-                      :page-size="100"
-                      layout="total, sizes, prev, pager, next, jumper"
-                      :total="400"
-                      @size-change="handleSizeChange"
-                      @current-change="handleCurrentChange"
-                    />
-                  </div>
-                </el-tab-pane>
-                <el-tab-pane label="理论练习" name="second">理论练习</el-tab-pane>
-                <el-tab-pane label="实操练习" name="third">实操练习
-                </el-tab-pane>
-                <el-tab-pane label="模拟考试练习" name="fourth">模拟考试练习</el-tab-pane>
-              </el-tabs>
-            </el-col>
-            <el-col :span="4">
-              <el-button type="primary" round>查看已练习试卷</el-button>
-            </el-col>
-
+            <el-button plain>&nbsp;&nbsp;</el-button> 未作答
+            <el-button type="primary" plain>&nbsp;&nbsp;</el-button> 已作答
+            <el-button type="success" plain>&nbsp;&nbsp;</el-button> 标记
           </el-row>
+
+        </el-aside>
+        <el-main>
+          <el-card class="box-card">
+            <div class="section">
+              <el-row class="section-header">
+                <el-col :span="24">
+                  <span>第1大题 </span><span>(共14题90.0分)</span>
+                </el-col>
+              </el-row>
+              <el-divider />
+              <el-row class="section-body">
+                <div class="question-content">
+                  1.出口方式为不通过一达通出口的信用保障订单，走阿里物流会有（ ）的交易手续费
+                  <el-tag type="info" lable="">单选题 5.0分</el-tag>
+                </div>
+                <div class="question-option">
+                  <el-radio-group v-model="radio">
+                    <el-radio :label="3">
+                      A
+                      <span>选项内容</span>
+                    </el-radio>
+                    <el-radio :label="6">
+                      B
+                      <span>选项内容</span>
+                    </el-radio>
+                    <el-radio :label="9"> C   <span>选项内容</span></el-radio>
+                    <el-radio :label="22"> D   <span>选项内容</span></el-radio>
+                  </el-radio-group>
+                </div>
+              </el-row>
+            </div>
+          </el-card>
+
         </el-main>
-        <el-footer>
-          <p>E-Mail：service@srzx.com 浙ICP备18007420号-2   浙公网安备 33070202100263号</p>
-        </el-footer>
+        <el-aside width="200px">
+          <el-card class="box-card">
+            <h4>剩余时间</h4>
+            <p style="color: red;">46分53秒</p>
+            <el-divider />
+            <h4>答题进度</h4>
+            <p>0/22</p>
+          </el-card>
+
+          <el-button type="primary">交  卷</el-button>
+        </el-aside>
       </el-container>
     </el-container>
   </div>
@@ -97,32 +129,13 @@ export default {
   name: 'CN',
   data() {
     return {
+      radio: 3,
       blank: {
 
-      },
-      activeIndex2: '1',
-      activeName: 'first',
-      src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
-
+      }
     }
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClick(tab, event) {
-      console.log(tab, event)
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
-    },
     onSubmit() {
       this.$message('submit!')
     },
@@ -141,21 +154,19 @@ export default {
 .el-header, .el-footer {
   background-color: #B3C0D1;
   color: #333;
-  text-align: center;
-  line-height: 60px;
+  text-align: left;
 }
 
 .el-aside {
   background-color: #D3DCE6;
   color: #333;
-  text-align: center;
-  line-height: 200px;
+  text-align: left;
 }
 
 .el-main {
   background-color: #E9EEF3;
   color: #333;
-  text-align: center;
+  text-align: left;
 }
 
 body > .el-container {
@@ -164,16 +175,50 @@ body > .el-container {
 
 .el-container:nth-child(5) .el-aside,
 .el-container:nth-child(6) .el-aside {
-  line-height: 260px;
 }
 
 .el-container:nth-child(7) .el-aside {
-  line-height: 320px;
 }
 
-.el-image {
-  width: 256px;
-  margin-right: 15px;
+.mini-paper-section{
+  margin-top: 15px;
+}
+
+.mini-paper-section-body .el-button:first{
+  margin-left: 10px !important;
+}
+.mini-paper-section-body .el-button{
+  min-width: 55px;
+  margin-top: 5px;;
+}
+.line{
+  text-align: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both
+}
+
+.box-card {
+  width: 100%;
+}
+
+::v-deep .el-radio{
+  display: block;
+ margin:10px 0;
 }
 </style>
 
