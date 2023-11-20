@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <el-container>
-      <el-header>Header</el-header>
+      <!-- <el-header>Header</el-header> -->
       <el-container>
-        <el-aside style="width:350px;">
+        <el-aside style="width: 450px;">
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <h3>答题卡</h3>
@@ -11,68 +11,40 @@
             <div class="mini-paper-section">
               <el-row class="mini-paper-section-header">
                 <el-col :span="24">
-                  <span>第1大题 </span><span>(共14题90.0分)</span>
+                  <span>第1大题 </span><span class="question-stat-box">(共 <b>14</b> 题 <b>90.0</b>  分)</span>
                 </el-col>
               </el-row>
               <el-row class="mini-paper-section-body">
-                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
-                <el-button type="primary" plain>2</el-button>
+                <el-button type="info" plain>1</el-button>
+                <el-button type="info" plain>2</el-button>
                 <el-button type="primary" plain>3</el-button>
                 <el-button type="primary" plain>4</el-button>
-                <el-button type="primary" plain>5</el-button>
-                <el-button type="primary" plain>6</el-button>
-                <el-button type="primary" plain>7</el-button>
-                <el-button type="primary" plain>8</el-button>
-                <el-button type="primary" plain>9</el-button>
-                <el-button type="primary" plain>10</el-button>
-                <el-button type="primary" plain>11</el-button>
-                <el-button type="primary" plain>12</el-button>
-                <el-button type="primary" plain>13</el-button>
-                <el-button type="primary" plain>14</el-button>
-                <el-button type="primary" plain>15</el-button>
-                <el-button type="primary" plain>16</el-button>
-                <el-button type="primary" plain>17</el-button>
-                <el-button type="primary" plain>18</el-button>
-                <el-button type="primary" plain>19</el-button>
-                <el-button type="primary" plain>20</el-button>
+                <el-button type="success" plain>5</el-button>
+                <el-button type="info" plain>6</el-button>
+                <el-button type="info" plain>7</el-button>
+                <el-button type="info" plain>8</el-button>
+                <el-button type="info" plain>9</el-button>
+                <el-button type="info" plain>10</el-button>
+                <el-button type="info" plain>11</el-button>
+                <el-button type="info" plain>12</el-button>
+                <el-button type="info" plain>13</el-button>
+                <el-button type="info" plain>14</el-button>
+                <el-button type="info" plain>15</el-button>
+                <el-button type="info" plain>16</el-button>
+                <el-button type="info" plain>17</el-button>
+                <el-button type="info" plain>18</el-button>
+                <el-button type="info" plain>19</el-button>
+                <el-button type="info" plain>20</el-button>
               </el-row>
             </div>
-            <div class="mini-paper-section">
-              <el-row class="mini-paper-section-header">
-                <el-col :span="24">
-                  <span>第2大题 </span><span>(共 56 题 88.0 分)</span>
-                </el-col>
-              </el-row>
-              <el-row class="mini-paper-section-body">
-                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
-                <el-button type="primary" plain>2</el-button>
-                <el-button type="primary" plain>3</el-button>
-                <el-button type="primary" plain>4</el-button>
-                <el-button type="primary" plain>5</el-button>
-                <el-button type="primary" plain>6</el-button>
-                <el-button type="primary" plain>7</el-button>
-                <el-button type="primary" plain>8</el-button>
-                <el-button type="primary" plain>9</el-button>
-                <el-button type="primary" plain>10</el-button>
-                <el-button type="primary" plain>11</el-button>
-                <el-button type="primary" plain>12</el-button>
-                <el-button type="primary" plain>13</el-button>
-                <el-button type="primary" plain>14</el-button>
-                <el-button type="primary" plain>15</el-button>
-                <el-button type="primary" plain>16</el-button>
-                <el-button type="primary" plain>17</el-button>
-                <el-button type="primary" plain>18</el-button>
-                <el-button type="primary" plain>19</el-button>
-                <el-button type="primary" plain>20</el-button>
-              </el-row>
-            </div>
+
+            <el-divider />
+            <el-row>
+              <el-button plain>&nbsp;&nbsp;</el-button> 未作答
+              <el-button type="primary" plain>&nbsp;&nbsp;</el-button> 已作答
+              <el-button type="success" plain>&nbsp;&nbsp;</el-button> 标记
+            </el-row>
           </el-card>
-          <el-divider />
-          <el-row>
-            <el-button plain>&nbsp;&nbsp;</el-button> 未作答
-            <el-button type="primary" plain>&nbsp;&nbsp;</el-button> 已作答
-            <el-button type="success" plain>&nbsp;&nbsp;</el-button> 标记
-          </el-row>
 
         </el-aside>
         <el-main>
@@ -108,8 +80,8 @@
           </el-card>
 
         </el-main>
-        <el-aside width="200px">
-          <el-card class="box-card">
+        <el-aside style="width: 200px;">
+          <el-card class="right-box-card">
             <h4>剩余时间</h4>
             <p style="color: red;">46分53秒</p>
             <el-divider />
@@ -117,7 +89,7 @@
             <p>0/22</p>
           </el-card>
 
-          <el-button type="primary">交  卷</el-button>
+          <el-button type="primary" class="btn-submit-paper">交  卷</el-button>
         </el-aside>
       </el-container>
     </el-container>
@@ -149,58 +121,80 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
 .el-header, .el-footer {
-  background-color: #B3C0D1;
   color: #333;
   text-align: left;
+  padding: 0;
+  margin: 0;
 }
 
-.el-aside {
-  background-color: #D3DCE6;
-  color: #333;
-  text-align: left;
+.app-container {
+  background: #eef1f6;
 }
 
-.el-main {
-  background-color: #E9EEF3;
-  color: #333;
-  text-align: left;
-}
-
-body > .el-container {
+body  .el-container {
+  background: #eef1f6;
   margin-bottom: 40px;
-}
+  .el-aside {
+    color: #333;
+    text-align: left;
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-}
+    .box-card{
+      min-height:900px;
+      h3 {
+        text-align: center;
+      }
 
-.el-container:nth-child(7) .el-aside {
-}
+    }
+    .mini-paper-section{
+      margin-top: 15px;
+      .mini-paper-section-header {
+        text-align: left;
+        span{
+          margin-left: 10px;
+        }
+        .question-stat-box{
+          font-size: 12px;
+          color: #333;
+        }
+      }
 
-.mini-paper-section{
-  margin-top: 15px;
-}
+    }
 
-.mini-paper-section-body .el-button:first{
-  margin-left: 10px !important;
-}
-.mini-paper-section-body .el-button{
-  min-width: 55px;
-  margin-top: 5px;;
-}
-.line{
-  text-align: center;
-}
+    .el-button:nth-child(1){
+      margin-left: 10px;
+    }
+    .mini-paper-section-body .el-button{
+      min-width: 55px;
+      margin-top: 15px;;
+    }
+  }
 
-.text {
-  font-size: 14px;
-}
+  .el-main {
+    color: #333;
+    text-align: left;
+    padding: 8px 20px;
 
-.item {
-  margin-bottom: 18px;
+    .el-radio{
+      display: block;
+      margin:10px 0;
+    }
+  }
+
+  .right-box-card{
+    text-align: center;
+    h4{
+      font-weight: normal;
+      margin: 0;
+    }
+
+  }
+  .btn-submit-paper{
+    width: 100%;
+    font-size: 18px;
+    margin-top: 18px;
+  }
 }
 
 .clearfix:before,
@@ -212,13 +206,5 @@ body > .el-container {
   clear: both
 }
 
-.box-card {
-  width: 100%;
-}
-
-::v-deep .el-radio{
-  display: block;
- margin:10px 0;
-}
 </style>
 

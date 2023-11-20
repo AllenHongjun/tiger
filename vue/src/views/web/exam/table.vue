@@ -96,7 +96,7 @@
             </div>
           </el-col>
           <el-col :span="2">
-            <el-button type="primary" class="take-exam">参加考试</el-button>
+            <el-button type="primary" class="take-exam" @click="jumpTakeExam">参加考试</el-button>
           </el-col>
         </el-row>
         <div class="text item" />
@@ -126,7 +126,7 @@ export default {
       blank: {
 
       },
-      activeIndex2: 1,
+      activeIndex2: '1',
       queryCreateDateTime: undefined,
       currentPage4: 4,
       pickerOptions: pickerRangeWithHotKey,
@@ -201,6 +201,10 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
+    jumpTakeExam() {
+      this.$router.push('/web/exam/begin')
+    },
+
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
