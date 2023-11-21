@@ -1,13 +1,9 @@
-﻿using System;
-using System.IO;
-using log4net;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Events;
-using Tiger.Extensions;
+using System;
+using System.IO;
 
 namespace Tiger
 {
