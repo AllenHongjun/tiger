@@ -128,21 +128,6 @@ export const constantRoutes = [
   //   ]
   // },
   {
-    path: '/train-platform',
-    component: Layout,
-    redirect: '/train-platform/index',
-    // name: 'TrainPlatform',
-    // meta: { title: '实训', icon: 'documentation', affix: true },
-    children: [
-      {
-        path: '/train-platform/index',
-        component: () => import('@/views/train-platform/index'),
-        name: 'TrainPlatformIndex',
-        meta: { title: '实训', icon: 'documentation', affix: true }
-      }
-    ]
-  },
-  {
     path: '/grade',
     component: Layout,
     redirect: '/grade/index',
@@ -169,6 +154,21 @@ export const constantRoutes = [
         component: () => import('@/views/integral/index'),
         name: 'IntegralIndex',
         meta: { title: '积分', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/train-platform',
+    component: Layout,
+    redirect: '/train-platform/index',
+    // name: 'TrainPlatform',
+    // meta: { title: '实训', icon: 'documentation', affix: true },
+    children: [
+      {
+        path: '/train-platform/index',
+        component: () => import('@/views/train-platform/index'),
+        name: 'TrainPlatformIndex',
+        meta: { title: '实训', icon: 'documentation', affix: true }
       }
     ]
   },

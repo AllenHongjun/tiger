@@ -39,16 +39,51 @@
             </div>
 
             <el-divider />
-            <el-row>
-              <el-button plain>&nbsp;&nbsp;</el-button> 未作答
-              <el-button type="primary" plain>&nbsp;&nbsp;</el-button> 已作答
-              <el-button type="success" plain>&nbsp;&nbsp;</el-button> 标记
-            </el-row>
+            <div class="answer-tips">
+              <el-button plain /> <span>未作答</span>
+              <el-button type="primary" plain>&nbsp;&nbsp;</el-button> <span>已作答</span>
+              <el-button type="success">&nbsp;&nbsp;</el-button> 正确
+              <el-button type="success" plain>&nbsp;&nbsp;</el-button> 部分正确
+              <el-button type="danger">&nbsp;&nbsp;</el-button> 错误
+            </div>
           </el-card>
 
         </el-aside>
         <el-main>
           <el-card class="box-card">
+            <el-row style="margin-bottom: 20px;">
+              <el-table
+                :key="tableKey"
+                :data="tableData"
+                border
+                fit
+                highlight-current-row
+                style="width: 100%;"
+              >
+                <el-table-column label="试卷大题统计" align="center">
+                  <el-table-column label="大题名称" align="center">
+                    <template slot-scope="{row}">
+                      <span>第一大题</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="总分" width="110px" align="center">
+                    <template slot-scope="{row}">
+                      <span>90</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="得分" width="110px" align="center">
+                    <template slot-scope="{row}">
+                      <el-tag type="danger">60</el-tag>
+                    </template>
+                  </el-table-column>
+                  <el-table-column label="得分率" width="110px" align="center">
+                    <template slot-scope="{row}">
+                      <el-tag type="danger">60%</el-tag>
+                    </template>
+                  </el-table-column>
+                </el-table-column>
+              </el-table>
+            </el-row>
             <div class="section">
               <el-row class="section-header">
                 <el-col :span="24">
@@ -57,24 +92,34 @@
               </el-row>
               <el-divider />
               <el-row class="section-body">
-                <div class="question-content">
-                  1.出口方式为不通过一达通出口的信用保障订单，走阿里物流会有（ ）的交易手续费
-                  <el-tag type="info" lable="">单选题 5.0分</el-tag>
+                <div class="question">
+                  <div class="question-content">
+                    1.出口方式为不通过一达通出口的信用保障订单，走阿里物流会有（ ）的交易手续费
+                    <el-tag type="info" lable="">单选题 5.0分</el-tag>
+                  </div>
+                  <div class="question-option">
+                    <el-radio-group v-model="radio">
+                      <el-radio :label="3">
+                        A
+                        <span>选项内容</span>
+                      </el-radio>
+                      <el-radio :label="6">
+                        B
+                        <span>选项内容</span>
+                      </el-radio>
+                      <el-radio :label="9"> C   <span>选项内容</span></el-radio>
+                      <el-radio :label="22"> D   <span>选项内容</span></el-radio>
+                    </el-radio-group>
+                  </div>
                 </div>
-                <div class="question-option">
-                  <el-radio-group v-model="radio">
-                    <el-radio :label="3">
-                      A
-                      <span>选项内容</span>
-                    </el-radio>
-                    <el-radio :label="6">
-                      B
-                      <span>选项内容</span>
-                    </el-radio>
-                    <el-radio :label="9"> C   <span>选项内容</span></el-radio>
-                    <el-radio :label="22"> D   <span>选项内容</span></el-radio>
-                  </el-radio-group>
+                <div class="answer" style="background-color: rgb(253, 226, 226);padding:20px;font-size:14px;">
+                  <p>得分：<span style="color: red;">0</span> 分</p>
+                  <p>标准答案：<span style="color: green;">B</span> </p>
+                  <p>我的答案：<b style="color: red;">Aㄨ</b>  </p>
+                  <el-divider content-position="center">试题解析</el-divider>
+                  <p>使用一达通，提交产品预审环节，由客户提出。</p>
                 </div>
+
               </el-row>
             </div>
           </el-card>
@@ -101,10 +146,39 @@ export default {
   name: 'CN',
   data() {
     return {
+      tableData: [
+        {
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }
+      ],
       radio: 3,
-      blank: {
-
-      }
+      tableKey: 0,
+      list: null,
+      total: 0,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 10,
+        importance: undefined,
+        title: undefined,
+        type: undefined,
+        sort: '+id'
+      },
+      sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }]
     }
   },
   methods: {
@@ -171,6 +245,12 @@ body  .el-container {
     .mini-paper-section-body .el-button{
       min-width: 55px;
       margin-top: 15px;;
+    }
+    .answer-tips{
+      vertical-align: middle;
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
     }
   }
 
