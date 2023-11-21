@@ -9,7 +9,7 @@
 
           <!-- <el-image src="https://ali.srzx.com/img/sxpt.png" :fit="scale-down" /> -->
           <div style="padding: 14px;">
-            <b>Alibaba国际站实训平台</b>
+            <b>阿里巴巴国际站实训平台</b>
             <div class="bottom clearfix">
               <el-button type="primary" circle class="el-icon-right" />
             </div>
