@@ -1,19 +1,10 @@
 {
-	"folders": [
-		{
-			"path": "vue"
-		},
-		{
-			"path": "vue2"
-		},
-		{
-			"path": "element-starter-master"
-		},
-		{
-			"path": "client-i18n"
-		}
-	],
-	"settings": {
-		"vue.codeActions.enabled": false
-	}
+  "folders": [
+    {
+      "path": "vue-admin"
+    }
+  ],
+  "settings": {
+    "vue.codeActions.enabled": false
+  }
 }

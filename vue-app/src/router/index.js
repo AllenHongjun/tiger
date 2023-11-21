@@ -84,8 +84,121 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/exam',
+    component: Layout,
+    name: 'Exam',
+    meta: { title: '考试', icon: 'documentation', affix: true },
+    children: [
+      {
+        path: '/exam/index',
+        component: () => import('@/views/exam/index'),
+        name: 'ExamIndex',
+        meta: { title: '考试', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/exercise',
+    component: Layout,
+    redirect: '/exercise/index',
+    name: 'Exercise',
+    meta: { title: '练习', icon: 'documentation', affix: true },
+    children: [
+      {
+        path: '/exercise/index',
+        component: () => import('@/views/exercise/index'),
+        name: 'ExerciseIndex',
+        meta: { title: '练习', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/lesson',
+    component: Layout,
+    redirect: '/lesson/index',
+    name: 'Lesson',
+    meta: { title: '课程', icon: 'documentation', affix: true },
+    children: [
+      {
+        path: '/lesson/index',
+        component: () => import('@/views/lesson/index'),
+        name: 'LessonIndex',
+        meta: { title: '课程', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/train-platform',
+    component: Layout,
+    redirect: '/train-platform/index',
+    name: 'TrainPlatform',
+    meta: { title: '实训平台', icon: 'documentation', affix: true },
+    children: [
+      {
+        path: '/train-platform/index',
+        component: () => import('@/views/train-platform/index'),
+        name: 'TrainPlatformIndex',
+        meta: { title: '实训平台', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/grade',
+    component: Layout,
+    redirect: '/grade/index',
+    name: 'Grade',
+    meta: { title: '成绩', icon: 'documentation', affix: true },
+    children: [
+      {
+        path: '/grade/index',
+        component: () => import('@/views/grade/index'),
+        name: 'GradeIndex',
+        meta: { title: '成绩', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/integral',
+    component: Layout,
+    redirect: '/integral/index',
+    name: 'Integral',
+    meta: { title: '积分', icon: 'documentation', affix: true },
+    children: [
+      {
+        path: '/integral/index',
+        component: () => import('@/views/integral/index'),
+        name: 'IntegralIndex',
+        meta: { title: '积分', icon: 'documentation', affix: true }
+      }
+    ]
+  },
+  {
+    path: '/exam/take',
+    component: () => import('@/views/exam/begin/index'),
+    name: 'TakeExam',
+    meta: { title: '参加考试', icon: 'documentation', affix: true },
+    hidden: true
+  },
+  {
+    path: '/exam/exam-peper',
+    component: () => import('@/views/exam/paper/index'),
+    name: 'ExamPaper',
+    meta: { title: '考试试卷', icon: 'documentation', affix: true },
+    hidden: true
+  },
+  {
+    path: '/exam/result',
+    component: () => import('@/views/grade/result'),
+    name: 'ExamResult',
+    meta: { title: '考试结果', icon: 'documentation', affix: true },
+    hidden: true
+  },
+
+  {
     path: '/documentation',
     component: Layout,
+    name: 'Documentation1',
+    meta: { title: 'documentation1', icon: 'documentation', affix: true },
     children: [
       {
         path: 'index',
@@ -108,6 +221,7 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
     path: '/profile',
     component: Layout,

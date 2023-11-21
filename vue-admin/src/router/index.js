@@ -79,36 +79,7 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/web/exam/list',
-    component: () => import('@/views//web/exam/index'),
-    hidden: true
-  },
-  {
-    path: '/web/exam/table',
-    component: () => import('@/views/web/exam/table'),
-    hidden: true
-  },
-  {
-    path: '/web/exam/begin',
-    component: () => import('@/views/web/exam/begin/index'),
-    hidden: true
-  },
-  {
-    path: '/web/paper/index',
-    component: () => import('@/views/web/exam/paper/index'),
-    hidden: true
-  },
-  {
-    path: '/web/grade/index',
-    component: () => import('@/views//web/grade/index'),
-    hidden: true
-  },
-  {
-    path: '/web/grade/result',
-    component: () => import('@/views//web/grade/result'),
-    hidden: true
-  },
+  
   {
     path: '/login',
     component: () => import('@/views/account/login/index'),
