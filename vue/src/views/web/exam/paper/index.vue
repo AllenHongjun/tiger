@@ -89,7 +89,7 @@
             <p>0/22</p>
           </el-card>
 
-          <el-button type="primary" class="btn-submit-paper">交  卷</el-button>
+          <el-button type="primary" class="btn-submit-paper" @click="submitPaper()">交  卷</el-button>
         </el-aside>
       </el-container>
     </el-container>
@@ -108,6 +108,9 @@ export default {
     }
   },
   methods: {
+    submitPaper() {
+      this.$router.push('/web/grade/result')
+    },
     onSubmit() {
       this.$message('submit!')
     },

@@ -13,7 +13,7 @@
         <el-menu-item index="1">练习</el-menu-item>
         <el-menu-item index="2">考试</el-menu-item>
         <el-menu-item index="3">课程</el-menu-item>
-        <el-menu-item index="4">成绩</el-menu-item>
+        <el-menu-item index="4"><a href="#/web/grade/index">成绩</a></el-menu-item>
         <el-menu-item index="5">积分</el-menu-item>
         <el-menu-item index="6">实训平台</el-menu-item>
         <el-menu-item index="7"><a href="#" target="_blank">学习资料</a></el-menu-item>
