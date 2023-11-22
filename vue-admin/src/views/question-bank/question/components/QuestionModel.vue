@@ -27,13 +27,9 @@
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="content">
           <el-input v-model="temp.content" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" />
-          <div v-if="temp.type === QuestionType.Completion">
-            请在填空位置<el-button type="primary">插入填空符</el-button>
+          <div v-if="temp.type === QuestionType.Completion" style="margin-top: 10px;">
+            <span>请在填空位置</span>   <el-button type="primary" @click="insertBlankFill()">插入填空符</el-button>
           </div>
-        </el-form-item>
-
-        <el-form-item v-if="temp.type === QuestionType.QA" :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="answer">
-          <el-input v-model="temp.answer" type="textarea" :autosize="{ minRows: 3, maxRows: 5}" />
         </el-form-item>
 
         <el-form-item v-if="temp.type === QuestionType.TrueOrFalse" label="选项" prop="name">
@@ -42,58 +38,94 @@
         </el-form-item>
 
         <div v-if="temp.type === QuestionType.SingleChoice" class="single-option-container">
-          <el-form-item label="A">
-            <el-radio v-model="temp.answer" lable="A">A</el-radio>
-            <el-input v-model="temp.name" style="width: 80%;" />
+          <el-row style="" class="option-header">
+            <el-col :span="4">勾选设置答案</el-col>
+            <el-col :span="20">选项内容</el-col>
+          </el-row>
+          <el-form-item label="选项">
+            <el-radio v-model="temp.answer" label="A" />
+            <el-input v-model="temp.name" />
           </el-form-item>
-          <el-form-item label="B">
-            <el-radio v-model="temp.answer" lable="B">B</el-radio>
-            <el-input v-model="temp.name" style="width: 80%;" />
+          <el-form-item label="选项">
+            <el-radio v-model="temp.answer" label="B" />
+            <el-input v-model="temp.name" />
           </el-form-item>
-          <el-form-item label="C">
-            <el-radio v-model="temp.answer" lable="C">C</el-radio>
-            <el-input v-model="temp.name" style="width: 80%;" />
+          <el-form-item label="选项">
+            <el-radio v-model="temp.answer" label="C" />
+            <el-input v-model="temp.name" />
           </el-form-item>
           <el-form-item>
-            <el-button class="el-icon-plus">添加选项</el-button>
-            <el-button class="el-icon-minus" type="danger">删除选项</el-button>
+            <el-button class="el-icon-plus" @click="addQuestionOption()">添加选项</el-button>
+            <el-button class="el-icon-minus" type="danger" @click="minusQuestionOption()">删除选项</el-button>
           </el-form-item>
         </div>
-
-        <el-row v-if="temp.type === QuestionType.MultipleChoice" class="multi-contariner">
+        <div v-if="temp.type === QuestionType.MultipleChoice" class="multi-contariner">
+          <el-row style="" class="option-header">
+            <el-col :span="4">勾选设置答案</el-col>
+            <el-col :span="20">选项内容</el-col>
+          </el-row>
           <el-form-item label="选项">
             <el-checkbox label="复选框 A">A</el-checkbox>
-            <el-input v-model="temp.name" style="width: 80%;margin-left:20px;" />
+            <el-input v-model="temp.name" />
           </el-form-item>
           <el-form-item label="选项">
             <el-checkbox label="复选框 A">B</el-checkbox>
-            <el-input v-model="temp.name" style="width: 80%;margin-left:20px;" />
+            <el-input v-model="temp.name" style="" />
           </el-form-item>
           <el-form-item label="选项">
             <el-checkbox label="复选框 A">C</el-checkbox>
-            <el-input v-model="temp.name" style="width: 80%;margin-left:20px;" />
+            <el-input v-model="temp.name" />
           </el-form-item>
           <el-form-item label="选项">
             <el-checkbox label="复选框 A">D</el-checkbox>
-            <el-input v-model="temp.name" style="width: 80%;margin-left:20px;" />
+            <el-input v-model="temp.name" />
           </el-form-item>
+          <el-form-item>
+            <el-button class="el-icon-plus" @click="addQuestionOption()">添加选项</el-button>
+            <el-button class="el-icon-minus" type="danger" @click="minusQuestionOption()">删除选项</el-button>
+          </el-form-item>
+        </div>
+
+        <el-form-item v-if="temp.type === QuestionType.Completion || temp.type === QuestionType.QA || temp.type === QuestionType.ShortAnswer" :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="score" class="answer">
+          <div v-if="temp.type === QuestionType.Completion">
+            <el-input v-model="temp.answer" placeholder="请输入内容">
+              <template slot="prepend">填空1答案</template>
+              <el-button v-if="false" slot="append" icon="el-icon-close" />
+            </el-input>
+            <el-input v-model="temp.answer" placeholder="请输入内容">
+              <template slot="prepend">填空2答案</template>
+              <el-button slot="append" icon="el-icon-close" />
+            </el-input>
+            <el-row>
+              <el-button type="primary" style="margin-right:10px;">增加填空题答案</el-button>
+              <el-checkbox v-model="checked">判分时不区分答案先后顺序</el-checkbox>
+              <el-checkbox v-model="checked">只要匹配答案的部分关键字就可得分</el-checkbox>
+            </el-row>
+          </div>
+          <div v-if="temp.type === QuestionType.QA || temp.type === QuestionType.ShortAnswer">
+            <el-input v-model="temp.answer" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
+          </div>
+        </el-form-item>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="score">
+              <el-input v-model="temp.score" type="number" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Degree\']')" prop="degree">
+              <el-select v-model="temp.degree" placeholder="-" filterable clearable>
+                <el-option
+                  v-for="item in questionDegreeOptions"
+                  :key="item.key"
+                  :label="item.lable"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
         </el-row>
-
-        <el-form-item v-if="false">
-          <el-button>删减选项</el-button>
-          <el-button type="primary">增加选项</el-button>
-        </el-form-item>
-
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Degree\']')" prop="degree">
-          <el-select v-model="temp.degree" placeholder="-" filterable clearable>
-            <el-option
-              v-for="item in questionDegreeOptions"
-              :key="item.key"
-              :label="item.lable"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Analysis\']')" prop="analysis">
           <el-input v-model="temp.analysis" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
@@ -143,7 +175,7 @@ export default {
         id: undefined,
         questionCategoryId: undefined,
         practicalTrainingId: undefined,
-        type: 1,
+        type: 2,
         name: undefined,
         content: undefined,
         optionA: undefined,
@@ -152,6 +184,7 @@ export default {
         optionD: undefined,
         optionE: undefined,
         answer: 'B',
+        score: undefined,
         degree: 1,
         analysis: undefined,
         source: undefined,
@@ -201,6 +234,21 @@ export default {
         this.questionCategoryOptions = listToTree(response.items)
       })
     },
+
+    // 添加题目选项
+    addQuestionOption() {
+      // 操作数据 https://blog.csdn.net/weixin_42282414/article/details/115765510
+      this.$alert('添加成功')
+    },
+
+    minusQuestionOption() {
+      this.$alert('删除选项！')
+    },
+
+    insertBlankFill() {
+
+    },
+
     // 重置表单
     resetTemp() {
       this.temp = {
@@ -280,9 +328,34 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .line{
   text-align: center;
+}
+.option-header{
+  background-color: #eff2f5;
+  text-align:center;
+  font-size: 12px;
+  height: 34px;
+  line-height: 34px;
+  margin-bottom: 5px;
+}
+.single-option-container{
+  .el-input{
+    width: 90%;
+  }
+}
+
+.multi-contariner{
+  ::v-deep .el-input {
+    width: 80%;
+    margin-left:20px;
+  }
+}
+.answer{
+  .el-input{
+    margin-bottom: 5px;
+  }
 }
 </style>
 

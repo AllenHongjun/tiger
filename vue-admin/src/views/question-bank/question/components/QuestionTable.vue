@@ -24,6 +24,19 @@
             </el-form-item>
           </el-col>
 
+          <el-col :span="4">
+            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="jobType">
+              <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
+                <el-option
+                  v-for="item in typeOptions"
+                  :key="item.key"
+                  :label="item.lable"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
           <el-col :span="3">
             <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
               <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
@@ -34,24 +47,6 @@
                   :value="item.value"
                 />
               </el-select>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="8">
-            <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
-              <el-date-picker
-                v-model="queryCreateDateTime"
-                value-format="yyyy-MM-dd HH:mm:ss"
-                :default-time="['00:00:00', '23:59:59']"
-                type="datetimerange"
-                align="right"
-                unlink-panels
-                :picker-options="pickerOptions"
-                range-separator="---"
-                :start-placeholder="$t('AbpUi[\'StartTime\']')"
-                :end-placeholder="$t('AbpUi[\'EndTime\']')"
-                @change="datePickerChange"
-              />
             </el-form-item>
           </el-col>
 
@@ -74,18 +69,24 @@
         <el-collapse-transition>
           <div v-show="advanced">
             <el-row :gutter="20">
-              <el-col :span="4">
-                <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="jobType">
-                  <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
-                    <el-option
-                      v-for="item in typeOptions"
-                      :key="item.key"
-                      :label="item.lable"
-                      :value="item.value"
-                    />
-                  </el-select>
+              <el-col :span="8">
+                <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
+                  <el-date-picker
+                    v-model="queryCreateDateTime"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    :default-time="['00:00:00', '23:59:59']"
+                    type="datetimerange"
+                    align="right"
+                    unlink-panels
+                    :picker-options="pickerOptions"
+                    range-separator="---"
+                    :start-placeholder="$t('AbpUi[\'StartTime\']')"
+                    :end-placeholder="$t('AbpUi[\'EndTime\']')"
+                    @change="datePickerChange"
+                  />
                 </el-form-item>
               </el-col>
+
             </el-row>
           </div>
         </el-collapse-transition>
@@ -151,6 +152,11 @@
 </template>
 
 <script>
+/*
+1. 题目内容 题目解析 增加富文本编辑器
+2. 增加实操平台 选择开发
+3. 实操平台 关联课程 只有授权给学校的课程 组织下面的用户才能看到对应的实操平台
+*/
 import {
   getQuestions,
   deleteQuestion
