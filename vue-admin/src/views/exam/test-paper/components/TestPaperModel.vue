@@ -63,9 +63,9 @@
                 </el-col>
                 <el-col :span="8" :offset="3">
                   <el-button-group style="">
-                    <el-button type="info" icon="el-icon-bottom" title="下移" plain />
-                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" plain />
-                    <el-button type="info" icon="el-icon-delete" title="删除大题" plain />
+                    <el-button type="info" icon="el-icon-bottom" title="下移" />
+                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
+                    <el-button type="info" icon="el-icon-delete" title="删除大题" />
                   </el-button-group>
                 </el-col>
               </el-row>
@@ -99,9 +99,9 @@
                 </el-col>
                 <el-col :span="8" :offset="3">
                   <el-button-group style="">
-                    <el-button type="info" icon="el-icon-bottom" title="下移" plain />
-                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" plain />
-                    <el-button type="info" icon="el-icon-delete" title="删除大题" plain />
+                    <el-button type="info" icon="el-icon-bottom" title="下移" />
+                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
+                    <el-button type="info" icon="el-icon-delete" title="删除大题" />
                   </el-button-group>
                 </el-col>
               </el-row>
