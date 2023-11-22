@@ -2,32 +2,57 @@
   <div class="model-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
       <el-row>
-        <el-steps :active="active" finish-status="success">
-          <el-step title="步骤 1">1</el-step>
-          <el-step title="步骤 2">2</el-step>
-          <el-step title="步骤 3">3</el-step>
+        <el-steps :active="active" simple>
+          <el-step title="基本信息" icon="el-icon-edit" @click.native="active = 0">1</el-step>
+          <el-step title="设计试卷" icon="el-icon-upload" @click.native="active = 1">2</el-step>
         </el-steps>
       </el-row>
 
-      <el-row :gutter="20">
+      <el-card v-if="active == 0">
+        <el-form label-position="right" label-width="280px" :model="temp">
+          <el-form-item label="名称">
+            <el-input v-model="temp.name" />
+          </el-form-item>
+          <el-form-item label="活动区域">
+            <el-input v-model="temp.displayName" />
+          </el-form-item>
+          <el-form-item label="活动形式">
+            <el-input v-model="temp.description" />
+          </el-form-item>
+        </el-form>
+      </el-card>
+
+      <el-row v-if="active == 1" :gutter="20">
         <el-col :span="6">
           <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <el-menu
+            <div slot="header" class="clearfix" style="background-color: #1890ff;">
+              <el-dropdown split-button type="primary" style="width: 100%;" @click="handleClick">
+                添加试卷大题
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item><i class="el-icon-phone" />添加固定试卷大题</el-dropdown-item>
+                  <el-dropdown-item><i class="el-icon-menu" />添加随机试卷大题</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+              <!-- <el-menu
                 :default-active="activeIndex2"
                 class="el-menu-demo"
                 mode="horizontal"
-                background-color="#545c64"
+                background-color="#1890ff"
                 text-color="#fff"
-                active-text-color="#ffd04b"
+                active-text-color="#fff"
+                style="float: right;height:100%;"
                 @select="handleSelect"
               >
                 <el-submenu index="2">
                   <template slot="title">添加试卷大题</template>
-                  <el-menu-item index="2-1">添加固定试卷大题</el-menu-item>
-                  <el-menu-item index="2-2">添加随机试卷大题</el-menu-item>
+                  <el-menu-item index="2-1">
+                    <i class="el-icon-phone" />添加固定试卷大题
+                  </el-menu-item>
+                  <el-menu-item index="2-2">
+                    <i class="el-icon-menu" />添加随机试卷大题
+                  </el-menu-item>
                 </el-submenu>
-              </el-menu>
+              </el-menu> -->
             </div>
             <span>共 <b>25</b>   题 <b>95</b> 分</span>
             <el-divider />
@@ -36,35 +61,35 @@
                 <el-col :span="12">
                   <span>第1大题 </span><span>(共14题90.0分)</span>
                 </el-col>
-                <el-col :span="8" :offset="4">
+                <el-col :span="8" :offset="3">
                   <el-button-group style="">
-                    <el-button type="primary" icon="el-icon-bottom" title="下移" />
-                    <el-button type="primary" icon="el-icon-edit" title="批量修改分数" />
-                    <el-button type="primary" icon="el-icon-delete" title="删除大题" />
+                    <el-button type="info" icon="el-icon-bottom" title="下移" plain />
+                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" plain />
+                    <el-button type="info" icon="el-icon-delete" title="删除大题" plain />
                   </el-button-group>
                 </el-col>
               </el-row>
               <el-row class="mini-paper-section-body">
-                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
-                <el-button type="primary" plain>2</el-button>
-                <el-button type="primary" plain>3</el-button>
-                <el-button type="primary" plain>4</el-button>
-                <el-button type="primary" plain>5</el-button>
-                <el-button type="primary" plain>6</el-button>
-                <el-button type="primary" plain>7</el-button>
-                <el-button type="primary" plain>8</el-button>
-                <el-button type="primary" plain>9</el-button>
-                <el-button type="primary" plain>10</el-button>
-                <el-button type="primary" plain>11</el-button>
-                <el-button type="primary" plain>12</el-button>
-                <el-button type="primary" plain>13</el-button>
-                <el-button type="primary" plain>14</el-button>
-                <el-button type="primary" plain>15</el-button>
-                <el-button type="primary" plain>16</el-button>
-                <el-button type="primary" plain>17</el-button>
-                <el-button type="primary" plain>18</el-button>
-                <el-button type="primary" plain>19</el-button>
-                <el-button type="primary" plain>20</el-button>
+                <el-button type="info" plain style="margin-left: 10px;">1</el-button>
+                <el-button type="info" plain>2</el-button>
+                <el-button type="info" plain>3</el-button>
+                <el-button type="info" plain>4</el-button>
+                <el-button type="info" plain>5</el-button>
+                <el-button type="info" plain>6</el-button>
+                <el-button type="info" plain>7</el-button>
+                <el-button type="info" plain>8</el-button>
+                <el-button type="info" plain>9</el-button>
+                <el-button type="info" plain>10</el-button>
+                <el-button type="info" plain>11</el-button>
+                <el-button type="info" plain>12</el-button>
+                <el-button type="info" plain>13</el-button>
+                <el-button type="info" plain>14</el-button>
+                <el-button type="info" plain>15</el-button>
+                <el-button type="info" plain>16</el-button>
+                <el-button type="info" plain>17</el-button>
+                <el-button type="info" plain>18</el-button>
+                <el-button type="info" plain>19</el-button>
+                <el-button type="info" plain>20</el-button>
               </el-row>
             </div>
             <div class="mini-paper-section">
@@ -72,71 +97,35 @@
                 <el-col :span="12">
                   <span>第2大题 </span><span>(共 56 题 88.0 分)</span>
                 </el-col>
-                <el-col :span="8" :offset="4">
+                <el-col :span="8" :offset="3">
                   <el-button-group style="">
-                    <el-button type="primary" icon="el-icon-bottom" title="下移" />
-                    <el-button type="primary" icon="el-icon-edit" title="批量修改分数" />
-                    <el-button type="primary" icon="el-icon-delete" title="删除大题" />
+                    <el-button type="info" icon="el-icon-bottom" title="下移" plain />
+                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" plain />
+                    <el-button type="info" icon="el-icon-delete" title="删除大题" plain />
                   </el-button-group>
                 </el-col>
               </el-row>
               <el-row class="mini-paper-section-body">
-                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
-                <el-button type="primary" plain>2</el-button>
-                <el-button type="primary" plain>3</el-button>
-                <el-button type="primary" plain>4</el-button>
-                <el-button type="primary" plain>5</el-button>
-                <el-button type="primary" plain>6</el-button>
-                <el-button type="primary" plain>7</el-button>
-                <el-button type="primary" plain>8</el-button>
-                <el-button type="primary" plain>9</el-button>
-                <el-button type="primary" plain>10</el-button>
-                <el-button type="primary" plain>11</el-button>
-                <el-button type="primary" plain>12</el-button>
-                <el-button type="primary" plain>13</el-button>
-                <el-button type="primary" plain>14</el-button>
-                <el-button type="primary" plain>15</el-button>
-                <el-button type="primary" plain>16</el-button>
-                <el-button type="primary" plain>17</el-button>
-                <el-button type="primary" plain>18</el-button>
-                <el-button type="primary" plain>19</el-button>
-                <el-button type="primary" plain>20</el-button>
-              </el-row>
-            </div>
-            <div class="mini-paper-section">
-              <el-row class="mini-paper-section-header">
-                <el-col :span="12">
-                  <span>第3大题 </span><span>(共 33 题 78.0 分)</span>
-                </el-col>
-                <el-col :span="8" :offset="4">
-                  <el-button-group style="">
-                    <el-button type="primary" icon="el-icon-bottom" title="下移" />
-                    <el-button type="primary" icon="el-icon-edit" title="批量修改分数" />
-                    <el-button type="primary" icon="el-icon-delete" title="删除大题" />
-                  </el-button-group>
-                </el-col>
-              </el-row>
-              <el-row class="mini-paper-section-body">
-                <el-button type="primary" plain style="margin-left: 10px;">1</el-button>
-                <el-button type="primary" plain>2</el-button>
-                <el-button type="primary" plain>3</el-button>
-                <el-button type="primary" plain>4</el-button>
-                <el-button type="primary" plain>5</el-button>
-                <el-button type="primary" plain>6</el-button>
-                <el-button type="primary" plain>7</el-button>
-                <el-button type="primary" plain>8</el-button>
-                <el-button type="primary" plain>9</el-button>
-                <el-button type="primary" plain>10</el-button>
-                <el-button type="primary" plain>11</el-button>
-                <el-button type="primary" plain>12</el-button>
-                <el-button type="primary" plain>13</el-button>
-                <el-button type="primary" plain>14</el-button>
-                <el-button type="primary" plain>15</el-button>
-                <el-button type="primary" plain>16</el-button>
-                <el-button type="primary" plain>17</el-button>
-                <el-button type="primary" plain>18</el-button>
-                <el-button type="primary" plain>19</el-button>
-                <el-button type="primary" plain>20</el-button>
+                <el-button type="info" plain style="margin-left: 10px;">1</el-button>
+                <el-button type="info" plain>2</el-button>
+                <el-button type="info" plain>3</el-button>
+                <el-button type="info" plain>4</el-button>
+                <el-button type="info" plain>5</el-button>
+                <el-button type="info" plain>6</el-button>
+                <el-button type="info" plain>7</el-button>
+                <el-button type="info" plain>8</el-button>
+                <el-button type="info" plain>9</el-button>
+                <el-button type="info" plain>10</el-button>
+                <el-button type="info" plain>11</el-button>
+                <el-button type="info" plain>12</el-button>
+                <el-button type="info" plain>13</el-button>
+                <el-button type="info" plain>14</el-button>
+                <el-button type="info" plain>15</el-button>
+                <el-button type="info" plain>16</el-button>
+                <el-button type="info" plain>17</el-button>
+                <el-button type="info" plain>18</el-button>
+                <el-button type="info" plain>19</el-button>
+                <el-button type="info" plain>20</el-button>
               </el-row>
             </div>
           </el-card>
@@ -176,8 +165,9 @@ export default {
   },
   data() {
     return {
+
       activeIndex2: 1,
-      active: 0,
+      active: 1,
       temp: {
         id: undefined,
         name: '',
@@ -232,6 +222,9 @@ export default {
     }
   },
   methods: {
+    next() {
+      if (this.active++ > 2) this.active = 0
+    },
     // 重置表单
     resetTemp() {
       this.temp = {
@@ -311,6 +304,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-dialog__body{
+  height: 82vh;
+  overflow: auto;
+}
+
 .mini-paper-section{
   margin-top: 15px;
 }
