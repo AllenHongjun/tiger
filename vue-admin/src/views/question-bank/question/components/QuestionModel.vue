@@ -37,24 +37,28 @@
         </el-form-item>
 
         <el-form-item v-if="temp.type === QuestionType.TrueOrFalse" label="选项" prop="name">
-          <el-radio v-model="radio" label="A">正确</el-radio>
-          <el-radio v-model="radio" label="B">错误</el-radio>
+          <el-radio v-model="radio" label="A">A. 正确</el-radio>
+          <el-radio v-model="radio" label="B">B. 错误</el-radio>
         </el-form-item>
 
-        <el-row v-if="temp.type === QuestionType.SingleChoice" class="single-container">
-          <el-form-item label="选项">
-            <el-radio v-model="radio" :label="2">A</el-radio>
+        <div v-if="temp.type === QuestionType.SingleChoice" class="single-option-container">
+          <el-form-item label="A">
+            <el-radio v-model="temp.answer" lable="A">A</el-radio>
             <el-input v-model="temp.name" style="width: 80%;" />
           </el-form-item>
-          <el-form-item label="选项">
-            <el-radio v-model="radio" :label="3">B</el-radio>
+          <el-form-item label="B">
+            <el-radio v-model="temp.answer" lable="B">B</el-radio>
             <el-input v-model="temp.name" style="width: 80%;" />
           </el-form-item>
-          <el-form-item label="选项">
-            <el-radio v-model="radio" :label="4">C</el-radio>
+          <el-form-item label="C">
+            <el-radio v-model="temp.answer" lable="C">C</el-radio>
             <el-input v-model="temp.name" style="width: 80%;" />
           </el-form-item>
-        </el-row>
+          <el-form-item>
+            <el-button class="el-icon-plus">添加选项</el-button>
+            <el-button class="el-icon-minus" type="danger">删除选项</el-button>
+          </el-form-item>
+        </div>
 
         <el-row v-if="temp.type === QuestionType.MultipleChoice" class="multi-contariner">
           <el-form-item label="选项">
@@ -134,7 +138,7 @@ export default {
       questionCategoryOptions: [],
       questionTypeOptions: Type,
       questionDegreeOptions: Degree,
-      radio: 3,
+      radio: 'A',
       temp: {
         id: undefined,
         questionCategoryId: undefined,
@@ -147,7 +151,7 @@ export default {
         optionC: undefined,
         optionD: undefined,
         optionE: undefined,
-        answer: undefined,
+        answer: 'B',
         degree: 1,
         analysis: undefined,
         source: undefined,
@@ -161,7 +165,7 @@ export default {
         isShowImageButton: true,
         isShowLinkButton: true
       },
-      dialogFormVisible: false,
+      dialogFormVisible: true,
       dialogStatus: '',
 
       // 表单验证规则
