@@ -1,7 +1,7 @@
 <template>
-  <el-card class="box-card">
+  <el-card class="random-paper-section-box">
     <div slot="header" class="clearfix">
-      <span>第1大题 </span><span>(共14题90.0分)</span>
+      <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
       <div style="float: right;">
         <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
         <el-button plain>选项乱序</el-button>
@@ -34,16 +34,16 @@
         </el-table-column>
         <el-table-column label="抽题数量设置" width="110" align="center">
           <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="110">
-            <el-input placeholder="0" class="question-count" />/<span>0</span>
+            <el-input placeholder="0" class="question-count" /> / <span>0</span>
           </el-table-column>
           <el-table-column prop="easyCount" label="容易" width="110">
-            <el-input placeholder="0" class="question-count" />/<span>0</span>
+            <el-input placeholder="0" class="question-count" /> / <span>0</span>
           </el-table-column>
           <el-table-column prop="ordinaryCount" label="中等" width="110">
-            <el-input placeholder="0" class="question-count" />/<span>0</span>
+            <el-input placeholder="0" class="question-count" /> / <span>0</span>
           </el-table-column>
           <el-table-column prop="difficultCount" label="困难" width="110">
-            <el-input placeholder="0" class="question-count" />/<span>0</span>
+            <el-input placeholder="0" class="question-count" /> / <span>0</span>
           </el-table-column>
         </el-table-column>
         <el-table-column prop="questionCount" label="抽题数" width="110">
@@ -110,12 +110,14 @@ export default {
 }
 </script>
 
-<style scoped>
-.line{
-  text-align: center;
+<style lang="scss" scoped>
+.random-paper-section-box{
+  margin-bottom: 15px;
 }
-.box-card{
-  margin-bottom: 8px;
+.section-title{
+  font-size: 14px;
+  font-weight: normal;
+  display: inline-block;
 }
 .question-count{
   width: 65%;

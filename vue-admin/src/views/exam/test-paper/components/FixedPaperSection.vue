@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span>第1大题 </span><span>(共14题90.0分)</span>
+      <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
       <div style="float: right;">
         <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
         <el-button plain>选项乱序</el-button>
@@ -30,11 +30,13 @@
       </el-table>
     </div>
     <el-row>
-      <el-dropdown split-button type="primary" style="margin-top: 15px;" @command="handleCommand">
-        从题库中选择
+      <el-dropdown type="primary">
+        <el-button type="primary" style="margin-top: 15px;" @command="handleCommand">
+          从题库中选择<i class="el-icon-arrow-down el-icon--right" />
+        </el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>手工选题</el-dropdown-item>
-          <el-dropdown-item :command="beforeHandleCommand('handleRandomSelentQuestions')">随机选题</el-dropdown-item>
+          <el-dropdown-item><i class="el-icon-circle-plus" />手工选题</el-dropdown-item>
+          <el-dropdown-item :command="beforeHandleCommand('handleRandomSelentQuestions')"><i class="el-icon-refresh" />随机选题</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-row>
@@ -172,12 +174,14 @@ export default {
 }
 </script>
 
-<style scoped>
-.line{
-  text-align: center;
-}
-.box-card{
-  margin-bottom: 8px;
+<style lang="scss" scoped>
+.section-title{
+  font-size: 14px;
+  font-weight: normal;
+  display: inline-block;
+  span{
+    font-size: 12px;
+  }
 }
 .question-count{
   width: 65%;

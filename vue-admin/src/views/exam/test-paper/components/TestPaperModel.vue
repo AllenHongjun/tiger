@@ -25,44 +25,25 @@
       <el-row v-if="active == 1" :gutter="20">
         <el-col :span="6">
           <el-card class="box-card">
-            <div slot="header" class="clearfix" style="background-color: #1890ff;">
-              <el-dropdown split-button type="primary" style="width: 100%;" @click="handleClick">
-                添加试卷大题
+            <div slot="header" class="clearfix">
+              <el-dropdown type="primary">
+                <el-button type="primary">
+                  添加试卷大题<i class="el-icon-arrow-down el-icon--right" />
+                </el-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><i class="el-icon-phone" />添加固定试卷大题</el-dropdown-item>
-                  <el-dropdown-item><i class="el-icon-menu" />添加随机试卷大题</el-dropdown-item>
+                  <el-dropdown-item><i class="el-icon-circle-plus" />添加固定试卷大题</el-dropdown-item>
+                  <el-dropdown-item><i class="el-icon-refresh" />添加随机试卷大题</el-dropdown-item>
                 </el-dropdown-menu>
+                <span style="margin-left:10px;">(共 <b>25</b>   题 <b>95</b> 分)</span>
               </el-dropdown>
-              <!-- <el-menu
-                :default-active="activeIndex2"
-                class="el-menu-demo"
-                mode="horizontal"
-                background-color="#1890ff"
-                text-color="#fff"
-                active-text-color="#fff"
-                style="float: right;height:100%;"
-                @select="handleSelect"
-              >
-                <el-submenu index="2">
-                  <template slot="title">添加试卷大题</template>
-                  <el-menu-item index="2-1">
-                    <i class="el-icon-phone" />添加固定试卷大题
-                  </el-menu-item>
-                  <el-menu-item index="2-2">
-                    <i class="el-icon-menu" />添加随机试卷大题
-                  </el-menu-item>
-                </el-submenu>
-              </el-menu> -->
             </div>
-            <span>共 <b>25</b>   题 <b>95</b> 分</span>
-            <el-divider />
             <div class="mini-paper-section">
               <el-row class="mini-paper-section-header">
                 <el-col :span="12">
-                  <span>第1大题 </span><span>(共14题90.0分)</span>
+                  <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
                 </el-col>
-                <el-col :span="8" :offset="3">
-                  <el-button-group style="">
+                <el-col :span="12" :offset="0">
+                  <el-button-group style="float:right;margin-top:10px;">
                     <el-button type="info" icon="el-icon-bottom" title="下移" />
                     <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
                     <el-button type="info" icon="el-icon-delete" title="删除大题" />
@@ -95,10 +76,10 @@
             <div class="mini-paper-section">
               <el-row class="mini-paper-section-header">
                 <el-col :span="12">
-                  <span>第2大题 </span><span>(共 56 题 88.0 分)</span>
+                  <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
                 </el-col>
-                <el-col :span="8" :offset="3">
-                  <el-button-group style="">
+                <el-col :span="12" :offset="0">
+                  <el-button-group style="float:right;">
                     <el-button type="info" icon="el-icon-bottom" title="下移" />
                     <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
                     <el-button type="info" icon="el-icon-delete" title="删除大题" />
@@ -304,9 +285,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-dialog {
+  margin: 0 auto 0px;
+}
 ::v-deep .el-dialog__body{
-  height: 82vh;
+  height: calc(90vh - 50px);
   overflow: auto;
+}
+
+.section-title{
+  font-size: 14px;
+  font-weight: normal;
+  display: inline-block;
+  span{
+    font-size: 12px;
+  }
 }
 
 .mini-paper-section{
@@ -320,14 +313,6 @@ export default {
   min-width: 55px;
   margin-top: 5px;;
 }
-.line{
-  text-align: center;
-}
-
-.text {
-  font-size: 14px;
-}
-
 .item {
   margin-bottom: 18px;
 }
