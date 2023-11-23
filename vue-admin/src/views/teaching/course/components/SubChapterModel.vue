@@ -24,11 +24,35 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item label="章节内容" prop="content">
-          <!-- <el-input v-model="temp.duration" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" /> -->
-          <!-- <tinymce id="tinymce" v-model="temp.content" :height="500" /> -->
+        <el-form-item label="视频上传" prop="content">
+          <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            multiple
+          >
+            <i class="el-icon-upload" />
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div slot="tip" class="el-upload__tip">请选择视频文件支持mp4、mp3、oga视频格式</div>
+          </el-upload>
         </el-form-item>
-        <!-- <tinymce id="tinymce" v-model="temp.content" :height="500" /> -->
+
+        <el-form-item label="附件上传" prop="content">
+          <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            multiple
+          >
+            <i class="el-icon-upload" />
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div slot="tip" class="el-upload__tip">请选择附件上传支持zip,pdf,word,excel格式</div>
+          </el-upload>
+        </el-form-item>
+
+        <el-form-item label="章节内容" prop="content">
+          <tinymce v-model="temp.content" :height="500" />
+        </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -44,6 +68,7 @@
 </template>
 
 <script>
+import Tinymce from '@/components/Tinymce'
 import {
   getLayout,
   createLayout,
@@ -53,6 +78,7 @@ import {
 export default {
   name: 'SubChapterModel',
   components: {
+    Tinymce
   },
   data() {
     return {
@@ -78,7 +104,7 @@ export default {
         content: `<h1 style="text-align: center;">Welcome to the TinyMCE demo!</h1><p style="text-align: center; font-size: 15px;"><img title="TinyMCE Logo" src="//www.tinymce.com/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" /><ul>
         <li>Our <a href="//www.tinymce.com/docs/">documentation</a> is a great resource for learning how to configure TinyMCE.</li><li>Have a specific question? Visit the <a href="https://community.tinymce.com/forum/">Community Forum</a>.</li><li>We also offer enterprise grade support as part of <a href="https://tinymce.com/pricing">TinyMCE premium subscriptions</a>.</li>
       </ul>`, // 章节内容
-        type: 1, // 1 图文 2 视频 3 文档附件
+        type: '1', // 1 图文 2 视频 3 文档附件
         path: '',
         freamwork: ''
       },
