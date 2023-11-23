@@ -75,6 +75,8 @@
     <None Remove="Module\System\TextTemplate\Template\Hello\Hello.tpl" />
     <None Remove="Module\TaskManagement\Localization\Resources\en.json" />
     <None Remove="Module\TaskManagement\Localization\Resources\zh-Hans.json" />
+    <None Remove="Module\Teachings\Localization\Resources\en.json" />
+    <None Remove="Module\Teachings\Localization\Resources\zh-Hans.json" />
     <None Remove="Volo\Abp\AuditLogging\Localization\Extensions\en.json" />
     <None Remove="Volo\Abp\AuditLogging\Localization\Extensions\zh-Hans.json" />
     <None Remove="Volo\Abp\IdentityServer\Localization\Resources\en.json" />
@@ -108,6 +110,8 @@
     <EmbeddedResource Include="Module\System\TextTemplate\Localization\Resources\en.json" />
     <EmbeddedResource Include="Module\System\TextTemplate\Template\Hello\Hello.tpl" />
     <EmbeddedResource Include="Module\TaskManagement\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Module\Teachings\Localization\Resources\en.json" />
+    <EmbeddedResource Include="Module\Teachings\Localization\Resources\zh-Hans.json" />
     <EmbeddedResource Include="Volo\Abp\AuditLogging\Localization\Extensions\en.json" />
     <EmbeddedResource Include="Volo\Abp\AuditLogging\Localization\Extensions\zh-Hans.json" />
     <EmbeddedResource Include="Volo\Abp\IdentityServer\Localization\Resources\en.json" />

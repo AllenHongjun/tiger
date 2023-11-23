@@ -11,7 +11,7 @@ const questionBankRouter = {
   meta: {
     title: 'AppQuestionBank["Menu:QuestionBank"]',
     policy: '',
-    icon: 'el-icon-s-operation'
+    icon: 'el-icon-box'
   },
   children: [
     {

@@ -6,8 +6,8 @@ import Layout from '@/layout'
 
 /* Router Modules */
 import examRouter from './modules/exam'
+import TeachingRouter from './modules/teaching'
 import QuestionBankRouter from './modules/question-bank'
-import schoolManageRouter from './modules/school-manage'
 import ReportRouter from './modules/report'
 import SassRouter from './modules/sass'
 import SystemManageRouter from './modules/system'
@@ -79,7 +79,6 @@ export const constantRoutes = [
       }
     ]
   },
-  
   {
     path: '/login',
     component: () => import('@/views/account/login/index'),
@@ -165,8 +164,9 @@ export const asyncRoutes = [
   // dictionaryRouter,
   // auditlogRouter,
   examRouter,
+  TeachingRouter,
   QuestionBankRouter,
-  schoolManageRouter,
+  // schoolManageRouter,
   ReportRouter,
   SassRouter,
   SystemManageRouter,

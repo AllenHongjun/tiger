@@ -11,7 +11,7 @@ const examRouter = {
   meta: {
     title: 'AppExam["Menu:ExamManage"]',
     policy: '',
-    icon: 'el-icon-s-operation'
+    icon: 'el-icon-document'
   },
   children: [
     {
@@ -30,16 +30,6 @@ const examRouter = {
       name: 'TestPaper',
       meta: {
         title: 'AppExam["Menu:TestPaper"]',
-        // policy: 'AbpSaasPermissions.Tenants',
-        icon: 'el-icon-wallet'
-      }
-    },
-    {
-      path: '/exam/answer-sheet/list',
-      component: () => import('@/views/exam/answer-sheet/index'),
-      name: 'AnswerSheet',
-      meta: {
-        title: 'AppExam["Menu:AnswerSheet"]',
         // policy: 'AbpSaasPermissions.Tenants',
         icon: 'el-icon-wallet'
       }

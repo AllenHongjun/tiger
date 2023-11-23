@@ -9,6 +9,7 @@ using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Localization;
 using Tiger.Module.System.TextTemplate.Localization;
 using Tiger.Module.TaskManagement.Localization;
+using Tiger.Module.Teachings.Localization;
 using Tiger.Volo.Abp.Sass.Localization;
 using Tiger.Volo.Abp.SettingUi.Localization;
 using Volo.Abp.AuditLogging;
@@ -130,6 +131,10 @@ namespace Tiger
                 options.Resources
                        .Add<ExamResources>("zh-Hans")
                        .AddVirtualJson("/Module/Exams/Localization/Resources");
+
+                options.Resources
+                       .Add<TeachingResources>("zh-Hans")
+                       .AddVirtualJson("/Module/Teachings/Localization/Resources");
 
                 options.Resources
                        .Add<SchoolResources>("zh-Hans")

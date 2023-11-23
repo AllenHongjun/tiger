@@ -11,7 +11,7 @@ const ReportRouter = {
   meta: {
     title: '报表',
     policy: '',
-    icon: 'el-icon-s-operation'
+    icon: 'el-icon-data-analysis'
   },
   children: [
     {

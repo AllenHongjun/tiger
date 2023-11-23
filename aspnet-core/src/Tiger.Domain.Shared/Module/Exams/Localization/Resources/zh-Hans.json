@@ -1,7 +1,7 @@
 {
   "culture": "zh-Hans",
   "texts": {
-    "Menu:ExamManage": "考试管理",
+    "Menu:ExamManage": "考试",
     "Menu:Exam": "考试",
     "Menu:TestPaper": "试卷",
     "Menu:AnswerSheet": "答卷",
