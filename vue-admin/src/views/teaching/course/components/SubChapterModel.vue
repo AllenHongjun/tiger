@@ -1,14 +1,34 @@
 <template>
   <div class="model-container">
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppPlatform[\'Layout:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="98%">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AppPlatform[\'Layout:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="5vh" width="80%" append-to-body>
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <!-- <el-form-item :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name">
+
+        <el-form-item label="章节类型" prop="type">
+          <el-select v-model="temp.type" placeholder="请选择">
+            <el-option
+              v-for="item in typeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="章节名称" prop="name">
           <el-input v-model="temp.name" />
-        </el-form-item> -->
+        </el-form-item>
 
-        <el-button type="primary" class="el-icon-plus">创建课程章节</el-button>
+        <el-form-item label="章节学时" prop="duration">
+          <el-input v-model="temp.duration">
+            <el-button slot="append">分钟</el-button>
+          </el-input>
+        </el-form-item>
 
-        <chapter ref="Chapter" />
+        <el-form-item label="章节内容" prop="content">
+          <!-- <el-input v-model="temp.duration" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" /> -->
+          <!-- <tinymce id="tinymce" v-model="temp.content" :height="500" /> -->
+        </el-form-item>
+        <!-- <tinymce id="tinymce" v-model="temp.content" :height="500" /> -->
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -29,26 +49,40 @@ import {
   createLayout,
   updateLayout
 } from '@/api/system-manage/platform/layout'
-import Chapter from './Chapter.vue'
 
 export default {
-  name: 'LayoutModel',
+  name: 'SubChapterModel',
   components: {
-    Chapter
   },
   data() {
     return {
+      typeOptions: [
+        {
+          value: '1',
+          label: '图文'
+        }, {
+          value: '2',
+          label: '视频'
+        }, {
+          value: '3',
+          label: '文档'
+        }
+      ],
+      value: '',
       temp: {
         id: undefined,
         name: '',
         displayName: '',
         description: '',
+        duration: undefined, // 学时
+        content: `<h1 style="text-align: center;">Welcome to the TinyMCE demo!</h1><p style="text-align: center; font-size: 15px;"><img title="TinyMCE Logo" src="//www.tinymce.com/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" /><ul>
+        <li>Our <a href="//www.tinymce.com/docs/">documentation</a> is a great resource for learning how to configure TinyMCE.</li><li>Have a specific question? Visit the <a href="https://community.tinymce.com/forum/">Community Forum</a>.</li><li>We also offer enterprise grade support as part of <a href="https://tinymce.com/pricing">TinyMCE premium subscriptions</a>.</li>
+      </ul>`, // 章节内容
+        type: 1, // 1 图文 2 视频 3 文档附件
         path: '',
-        redirect: '',
-        dataId: undefined,
         freamwork: ''
       },
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: '',
 
       // 表单验证规则
@@ -157,7 +191,7 @@ export default {
   margin: 0 auto 0px;
 }
 ::v-deep .el-dialog__body{
-  height: calc(90vh - 50px);
+  height: calc(80vh - 50px);
   overflow: auto;
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div class="app-container documentation-container">
     <el-row>
+      <tinymce />
+    </el-row>
+    <el-row>
       <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/dotnet/?WT.mc_id=dotnet-35129-website">.NET 文档</a>
       <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/aspnet/core/?view=aspnetcore-3.1">asp.net-core</a>
       <a class="document-btn" target="_blank" href="https://learn.microsoft.com/zh-cn/ef/">ef-core</a>
@@ -43,11 +46,13 @@
 
 <script>
 import DropdownMenu from '@/components/Share/DropdownMenu'
+import tinymce from '../tinymce.vue'
 
 export default {
   name: 'Documentation',
   components: {
-    DropdownMenu
+    DropdownMenu,
+    tinymce
   },
   data() {
     return {

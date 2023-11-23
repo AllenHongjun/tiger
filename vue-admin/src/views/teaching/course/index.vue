@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <!-- <tinymce /> -->
     <layout-table ref="layoutTable" @handleCreate="handleCreate" @handleUpdate="handleUpdate" />
     <layout-model ref="layoutModel" @handleFilter="handleFilter" />
   </div>
@@ -9,6 +10,7 @@
 
 import LayoutTable from './components/LayoutTable.vue'
 import LayoutModel from './components/LayoutModel.vue'
+// import tinymce from './components/tinymce.vue'
 
 export default {
   name: 'Layouts',
