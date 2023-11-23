@@ -1,11 +1,25 @@
 <template>
   <div class="table-container">
+
+    <learn-analysis-panel />
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
           <el-col :span="4">
             <el-form-item prop="filter" :label="$t('AbpUi[\'Search\']')">
               <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PlaceholderInput\']')" clearable />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="4">
+            <el-form-item prop="filter" label="课程状态">
+              <el-select v-model="value" placeholder="-">
+                <el-option key="" value="学习中" lable="学习中" />
+                <el-option key="" value="待考试" lable="待考试" />
+                <el-option key="" value="未通过考试" lable="未通过考试" />
+                <el-option key="" value="已完成" lable="已完成" />
+                <el-option key="" value="未完成" lable="未完成" />
+              </el-select>
             </el-form-item>
           </el-col>
 
@@ -19,7 +33,7 @@
                 align="right"
                 unlink-panels
                 :picker-options="pickerOptions"
-                range-separator="---"
+                range-separator="-"
                 :start-placeholder="$t('AbpUi[\'StartTime\']')"
                 :end-placeholder="$t('AbpUi[\'EndTime\']')"
                 @change="datePickerChange"
@@ -33,12 +47,12 @@
                 {{ $t('AbpUi.Search') }}
               </el-button>
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
-                {{ $t('AbpUi.Reset') }}
+                {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
               <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
-                <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link> -->
+                      {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
+                      <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
+                    </el-link> -->
             </el-button-group>
           </el-col>
         </el-row>
@@ -56,8 +70,8 @@
       <el-row>
         <el-col>
           <el-button-group style="float:left">
-            <el-button v-if="checkPermission('Exam.TestPaper.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-              {{ $t("AppExam['Permission:Create']") }}
+            <el-button icon="el-icon-download" @click="handleDownload">
+              导出
             </el-button>
           </el-button-group>
 
@@ -67,108 +81,91 @@
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
-      <el-table-column type="index" width="80" />
-      <el-table-column label="封面" align="center" width="240">
+      <el-table-column type="index" width="50" />
+      <el-table-column label="姓名" prop="name" align="left" width="80">
         <template slot-scope="{ row }">
-          <span>
-            <el-image style="width: 240px; height: 80px" src="https://img-ph-mirror.nosdn.127.net/tYhzuDVilzlDOo2bEyH_Qg==/6608226511143817333.jpg" fit="contain" :preview-src-list="['https://img-ph-mirror.nosdn.127.net/tYhzuDVilzlDOo2bEyH_Qg==/6608226511143817333.jpg']">
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline" />
-              </div>
-            </el-image>
-          </span>
+          <span>张三</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="开始时间/结束时间" align="left" width="240">
+        <template slot-scope="{ row }">
+          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="学习时长" prop="description" align="left">
+        <template slot-scope="{ row }">
+          <span>2小时42分12秒</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="所得学分" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>5.0分</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="学习次数" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>69</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="学习进度" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>72%</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="状态" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <span>学习中</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="学习设备" prop="path" align="left">
+        <template slot-scope="{ row }">
+          <!-- <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" /> -->
+          <el-tag type="success" class="el-icon-check">电脑</el-tag>
         </template>
       </el-table-column>
 
-      <el-table-column label="课程名称" prop="name" sortable align="left">
-        <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="状态" prop="name" sortable align="left" width="80">
-        <template slot-scope="{ row }">
-          <el-tag type="primary">未开始</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="时长" prop="duration" sortable align="left" width="120">
-        <template slot-scope="{ row }">
-          <span>12小时</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="开始时间/结束时间" sortable prop="startDate" align="left" width="320">
-        <template slot-scope="{ row }">
-          <span>{{ row.startDate | moment }} - {{ row.endDate | moment }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间" prop="name" sortable align="left" width="180">
-        <template slot-scope="{ row }">
-          <span>{{ row.creationTime | moment }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
-          <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
-
-          <el-dropdown style="margin-left:8px;" @command="handleCommand">
-            <el-button class="el-icon-more" :title="$t('AbpIdentity[\'Actions\']')" type="primary" plain />
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item :command="beforeHandleCommand(row, 'handleCourseSetting')">
-                课程设置
-              </el-dropdown-item>
-              <el-dropdown-item :command="beforeHandleCommand(row, 'handleViewLearnAnalysis')">
-                学习统计
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <el-button type="text" title="学习明细" class="el-icon-view">学习明细</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <course-setting ref="courseSetting" />
-
-    <course-analysis ref="courseAnalysis" />
   </div>
 </template>
 
 <script>
 import baseListQuery, { checkPermission } from '@/utils/abp'
+import { pickerRangeWithHotKey } from '@/utils/picker'
 import {
   getLayouts,
   deleteLayout
 } from '@/api/system-manage/platform/layout'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import { pickerRangeWithHotKey } from '@/utils/picker'
-import CourseSetting from './CourseSetting.vue'
-import CourseAnalysis from './CourseAnalysis.vue'
+import LearnAnalysisPanel from './LearnAnalysisPanel.vue'
 
 export default {
-  name: 'LayoutTable',
+  name: 'ExamScore',
   components: {
     Pagination,
-    CourseSetting,
-    CourseAnalysis
+    LearnAnalysisPanel
   },
   data() {
     return {
+      queryCreateDateTime: undefined,
+      advanced: false,
+      pickerOptions: pickerRangeWithHotKey,
       tableKey: 0,
       list: null,
       total: 0,
       listLoading: true,
-      pickerOptions: pickerRangeWithHotKey,
-      advanced: false,
-      queryCreateDateTime: undefined,
       listQuery: Object.assign({
-        degree: undefined,
-        questionCategoryId: undefined,
         createStartTime: undefined,
-        createEndTime: undefined,
-        type: undefined,
-        enable: undefined
+        createEndTime: undefined
       }, baseListQuery)
+
     }
   },
   created() {
@@ -224,30 +221,10 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
-    beforeHandleCommand(scope, command) {
-      return {
-        scope: scope,
-        command: command
-      }
-    },
-    handleCommand(param) {
-      switch (param.command) {
-        case 'handleCourseSetting':
-          this.handleCourseSetting(param.scope)
-          break
-        case 'handleViewLearnAnalysis':
-          this.handleViewLearnAnalysis(param.scope)
-          break
-        default:
-          break
-      }
-    },
     handleCreate() {
       this.$emit('handleCreate')
     },
-    handleUpdate(row) {
-      this.$emit('handleUpdate', row)
-    },
+
     // 删除
     handleDelete(row, index) {
       this.$confirm(
@@ -274,36 +251,22 @@ export default {
         })
       })
     },
-    // 更新课程设置
-    handleCourseSetting(row) {
-      this.$refs['courseSetting'].handleUpdate(row)
-    },
-    // 查看考试成绩
-    handleViewLearnAnalysis(row) {
-      this.$refs['courseAnalysis'].handleViewCourseAnalysis(row, 'first')
-    },
-    handleExamJudge(row) {
-      this.$refs['examAnalysise'].handleViewCourseAnalysis(row, 'second')
-    },
-    handleViewExamScoreAnalysis(row) {
-      this.$refs['examAnalysise'].handleViewCourseAnalysis(row, 'third')
-    },
-    handleViewQuestionAnalysis(row) {
-      this.$refs['examAnalysise'].handleViewCourseAnalysis(row, 'fourth')
-    },
-    handleViewExamOrgAnalysis(row) {
-      this.$refs['examAnalysise'].handleViewCourseAnalysis(row, 'fifth')
-    },
-    handleViewExamAbsentUser(row) {
-      this.$refs['examAnalysise'].handleViewCourseAnalysis(row, 'sixth')
+    // 下载数据
+    handleDownload() {
+      this.$alert('开发中...')
+      return
     }
   }
 }
 </script>
 
 <style scoped>
-.line{
-  text-align: center;
+::v-deep .el-dialog {
+  margin: 0 auto 0px;
+}
+::v-deep .el-dialog__body{
+  height: calc(80vh - 50px);
+  overflow: auto;
 }
 </style>
 

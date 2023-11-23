@@ -127,7 +127,7 @@ export default {
         examSetting: [],
         questionSetting: []
       },
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: '',
 
       // 表单验证规则

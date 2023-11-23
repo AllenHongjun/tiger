@@ -48,7 +48,7 @@ export default {
         dataId: undefined,
         freamwork: ''
       },
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: '',
 
       // 表单验证规则
@@ -70,9 +70,7 @@ export default {
             trigger: 'blur'
           }
         ]
-
       }
-
     }
   },
   methods: {
