@@ -7,6 +7,10 @@
           <learn-analysis />
         </el-tab-pane>
 
+        <el-tab-pane label="课程评论" name="second">
+          <comment-table />
+        </el-tab-pane>
+
       </el-tabs>
 
       <div slot="footer" class="dialog-footer">
@@ -20,10 +24,12 @@
 
 <script>
 import LearnAnalysis from './LearnAnalysis.vue'
+import CommentTable from './CommentTable.vue'
 export default {
   name: 'ExamAnalysis',
   components: {
-    LearnAnalysis
+    LearnAnalysis,
+    CommentTable
   },
   data() {
     return {

@@ -120,6 +120,9 @@
               <el-dropdown-item :command="beforeHandleCommand(row, 'handleViewLearnAnalysis')">
                 学习统计
               </el-dropdown-item>
+              <el-dropdown-item :command="beforeHandleCommand(row, 'handleViewCourseComment')">
+                课程评论
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -235,8 +238,8 @@ export default {
         case 'handleCourseSetting':
           this.handleCourseSetting(param.scope)
           break
-        case 'handleViewLearnAnalysis':
-          this.handleViewLearnAnalysis(param.scope)
+        case 'handleViewCourseComment':
+          this.handleViewCourseComment(param.scope)
           break
         default:
           break
@@ -278,12 +281,12 @@ export default {
     handleCourseSetting(row) {
       this.$refs['courseSetting'].handleUpdate(row)
     },
-    // 查看考试成绩
+    // 查看学生学习进度
     handleViewLearnAnalysis(row) {
       this.$refs['courseAnalysis'].handleViewCourseAnalysis(row, 'first')
     },
-    handleExamJudge(row) {
-      this.$refs['examAnalysise'].handleViewCourseAnalysis(row, 'second')
+    handleViewCourseComment(row) {
+      this.$refs['courseAnalysis'].handleViewCourseAnalysis(row, 'second')
     },
     handleViewExamScoreAnalysis(row) {
       this.$refs['examAnalysise'].handleViewCourseAnalysis(row, 'third')

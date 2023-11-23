@@ -1,25 +1,12 @@
 <template>
   <div class="table-container">
 
-    <learn-analysis-panel />
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
           <el-col :span="4">
             <el-form-item prop="filter" :label="$t('AbpUi[\'Search\']')">
               <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PlaceholderInput\']')" clearable />
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="4">
-            <el-form-item prop="filter" label="课程状态">
-              <el-select v-model="value" placeholder="-">
-                <el-option key="" value="学习中" lable="学习中" />
-                <el-option key="" value="待考试" lable="待考试" />
-                <el-option key="" value="未通过考试" lable="未通过考试" />
-                <el-option key="" value="已完成" lable="已完成" />
-                <el-option key="" value="未完成" lable="未完成" />
-              </el-select>
             </el-form-item>
           </el-col>
 
@@ -49,10 +36,7 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                      {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
-                      <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-                    </el-link> -->
+
             </el-button-group>
           </el-col>
         </el-row>
@@ -144,13 +128,11 @@ import {
   deleteLayout
 } from '@/api/system-manage/platform/layout'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
-import LearnAnalysisPanel from './LearnAnalysisPanel.vue'
 
 export default {
-  name: 'LearnAnalysis',
+  name: 'CommentTable',
   components: {
-    Pagination,
-    LearnAnalysisPanel
+    Pagination
   },
   data() {
     return {
