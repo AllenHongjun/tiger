@@ -709,6 +709,11 @@
             大题描述(可用于保存阅读理解题、论述题、组合题等各种复杂题型的题干内容)
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperSectionDto.Type">
+            <summary>
+            类型:固定题目大题:1,随机题目大题:2,抽题大题:3
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperSectionDto.QuestionCount">
             <summary>
             题目数量
@@ -1249,6 +1254,11 @@
             大题描述(可用于保存阅读理解题、论述题、组合题等各种复杂题型的题干内容)
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionDto.Type">
+            <summary>
+            类型:固定题目大题:1,随机题目大题:2,抽题大题:3
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionDto.QuestionCount">
             <summary>
             题目数量
@@ -1272,6 +1282,11 @@
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.Description">
             <summary>
             大题描述(可用于保存阅读理解题、论述题、组合题等各种复杂题型的题干内容)
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.Type">
+            <summary>
+            类型:固定题目大题:1,随机题目大题:2,抽题大题:3
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.QuestionCount">

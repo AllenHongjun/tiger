@@ -24,6 +24,11 @@ namespace Tiger.Module.Exams
         public string Description { get; set; }
 
         /// <summary>
+        /// 类型:固定题目大题:1,随机题目大题:2,抽题大题:3
+        /// </summary>
+        public TestPaperSectionType Type { get; set; }
+
+        /// <summary>
         /// 题目数量
         /// </summary>
         public int QuestionCount { get; set; }
@@ -57,6 +62,7 @@ namespace Tiger.Module.Exams
             Guid testPaperId,
             string name,
             string description,
+            TestPaperSectionType type,
             int questionCount,
             decimal totalScore,
             int sort
@@ -65,6 +71,7 @@ namespace Tiger.Module.Exams
             TestPaperId = testPaperId;
             Name = name;
             Description = description;
+            Type = type;
             QuestionCount = questionCount;
             TotalScore = totalScore;
             Sort = sort;

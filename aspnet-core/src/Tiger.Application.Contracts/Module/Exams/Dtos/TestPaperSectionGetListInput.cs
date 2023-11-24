@@ -20,6 +20,11 @@ public class TestPaperSectionGetListInput : PagedAndSortedResultRequestDto
     public string? Description { get; set; }
 
     /// <summary>
+    /// 类型:固定题目大题:1,随机题目大题:2,抽题大题:3
+    /// </summary>
+    public TestPaperSectionType? Type { get; set; }
+
+    /// <summary>
     /// 题目数量
     /// </summary>
     public int? QuestionCount { get; set; }

@@ -24,96 +24,17 @@
 
       <el-row v-if="active == 1" :gutter="20">
         <el-col :span="6">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <el-dropdown type="primary">
-                <el-button type="primary">
-                  添加试卷大题<i class="el-icon-arrow-down el-icon--right" />
-                </el-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><i class="el-icon-circle-plus" />添加固定试卷大题</el-dropdown-item>
-                  <el-dropdown-item><i class="el-icon-refresh" />添加随机试卷大题</el-dropdown-item>
-                </el-dropdown-menu>
-                <span style="margin-left:10px;">(共 <b>25</b>   题 <b>95</b> 分)</span>
-              </el-dropdown>
-            </div>
-            <!-- <div class="mini-paper-section">
-              <el-row class="mini-paper-section-header">
-                <el-col :span="12">
-                  <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
-                </el-col>
-                <el-col :span="12" :offset="0">
-                  <el-button-group style="float:right;margin-top:10px;">
-                    <el-button type="info" icon="el-icon-bottom" title="下移" />
-                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
-                    <el-button type="info" icon="el-icon-delete" title="删除大题" />
-                  </el-button-group>
-                </el-col>
-              </el-row>
-              <el-row class="mini-paper-section-body">
-                <el-button type="info" plain style="margin-left: 10px;">1</el-button>
-                <el-button type="info" plain>2</el-button>
-                <el-button type="info" plain>3</el-button>
-                <el-button type="info" plain>4</el-button>
-                <el-button type="info" plain>5</el-button>
-                <el-button type="info" plain>6</el-button>
-                <el-button type="info" plain>7</el-button>
-                <el-button type="info" plain>8</el-button>
-                <el-button type="info" plain>9</el-button>
-                <el-button type="info" plain>10</el-button>
-                <el-button type="info" plain>11</el-button>
-                <el-button type="info" plain>12</el-button>
-                <el-button type="info" plain>13</el-button>
-                <el-button type="info" plain>14</el-button>
-                <el-button type="info" plain>15</el-button>
-                <el-button type="info" plain>16</el-button>
-                <el-button type="info" plain>17</el-button>
-                <el-button type="info" plain>18</el-button>
-                <el-button type="info" plain>19</el-button>
-                <el-button type="info" plain>20</el-button>
-              </el-row>
-            </div>
-            <div class="mini-paper-section">
-              <el-row class="mini-paper-section-header">
-                <el-col :span="12">
-                  <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
-                </el-col>
-                <el-col :span="12" :offset="0">
-                  <el-button-group style="float:right;">
-                    <el-button type="info" icon="el-icon-bottom" title="下移" />
-                    <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
-                    <el-button type="info" icon="el-icon-delete" title="删除大题" />
-                  </el-button-group>
-                </el-col>
-              </el-row>
-              <el-row class="mini-paper-section-body">
-                <el-button type="info" plain style="margin-left: 10px;">1</el-button>
-                <el-button type="info" plain>2</el-button>
-                <el-button type="info" plain>3</el-button>
-                <el-button type="info" plain>4</el-button>
-                <el-button type="info" plain>5</el-button>
-                <el-button type="info" plain>6</el-button>
-                <el-button type="info" plain>7</el-button>
-                <el-button type="info" plain>8</el-button>
-                <el-button type="info" plain>9</el-button>
-                <el-button type="info" plain>10</el-button>
-                <el-button type="info" plain>11</el-button>
-                <el-button type="info" plain>12</el-button>
-                <el-button type="info" plain>13</el-button>
-                <el-button type="info" plain>14</el-button>
-                <el-button type="info" plain>15</el-button>
-                <el-button type="info" plain>16</el-button>
-                <el-button type="info" plain>17</el-button>
-                <el-button type="info" plain>18</el-button>
-                <el-button type="info" plain>19</el-button>
-                <el-button type="info" plain>20</el-button>
-              </el-row>
-            </div> -->
-          </el-card>
+          <mini-paper-section ref="miniPaperSection" :test-paper="temp" />
         </el-col>
-        <el-col :span="18">
-          <!-- <random-paper-section />
-          <fixed-paper-section /> -->
+        <el-col v-if="temp.testPaperSections.length > 0" :span="18">
+          <random-paper-section />
+
+          <!-- <fixed-paper-section /> -->
+        </el-col>
+        <el-col v-else :span="18">
+          <el-card>
+            <h1>请添加试卷大题</h1>
+          </el-card>
         </el-col>
       </el-row>
 
@@ -138,12 +59,14 @@ import {
   createTestPaperSection,
   updateTestPaperSection
 } from '@/api/exam/test-paper'
+import MiniPaperSection from './MiniPaperSection.vue'
 import RandomPaperSection from './RandomPaperSection.vue'
 import FixedPaperSection from './FixedPaperSection.vue'
 
 export default {
   name: 'TestPaperModel',
   components: {
+    MiniPaperSection,
     RandomPaperSection,
     FixedPaperSection
   },
@@ -156,13 +79,18 @@ export default {
       dialogStatus: '',
       temp: {
         id: undefined,
-        name: '',
-        displayName: '',
-        description: '',
-        path: '',
-        redirect: '',
-        dataId: undefined,
-        freamwork: ''
+        testPaperMainId: undefined,
+        number: undefined,
+        name: undefined,
+        type: 1,
+        isComposing: true,
+        enable: true,
+        isIncludeAllSchoolTeachers: true,
+        isLimitJudgeTime: true,
+        judgeStartTime: undefined,
+        judgeEndTime: undefined,
+        testPaperSections: [
+        ]
       },
       // 表单验证规则
       rules: {
@@ -201,15 +129,8 @@ export default {
           }
         ]
 
-      },
-      testPaperSectionModel: {
-        testPaperId: undefined,
-        name: undefined,
-        description: undefined,
-        questionCount: 0,
-        totalScore: 0,
-        sort: 0
       }
+
     }
   },
   methods: {
@@ -289,21 +210,8 @@ export default {
           })
         }
       })
-    },
-
-    // 添加大题
-    createTestPaperSectionData() {
-      createTestPaperSection(this.temp).then(() => {
-        // this.$emit('handleFilter', false)
-        // this.dialogFormVisible = false
-        this.$notify({
-          title: this.$i18n.t("TigerUi['Success']"),
-          message: this.$i18n.t("TigerUi['SuccessMessage']"),
-          type: 'success',
-          duration: 2000
-        })
-      })
     }
+
   }
 }
 </script>
@@ -317,26 +225,6 @@ export default {
   overflow: auto;
 }
 
-.section-title{
-  font-size: 14px;
-  font-weight: normal;
-  display: inline-block;
-  span{
-    font-size: 12px;
-  }
-}
-
-.mini-paper-section{
-  margin-top: 15px;
-}
-
-.mini-paper-section-body .el-button:first{
-  margin-left: 10px !important;
-}
-.mini-paper-section-body .el-button{
-  min-width: 55px;
-  margin-top: 5px;;
-}
 .item {
   margin-bottom: 18px;
 }

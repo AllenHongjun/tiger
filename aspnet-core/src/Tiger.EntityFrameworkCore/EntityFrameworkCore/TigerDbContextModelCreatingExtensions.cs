@@ -409,6 +409,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.TestPaperId).HasComment("试卷Id");
                 b.Property(p => p.Name).HasMaxLength(TestPaperSectionConsts.MaxNameLength).IsRequired().HasComment("名称");
                 b.Property(p => p.Description).HasMaxLength(TestPaperSectionConsts.MaxDesctiptionLength).IsRequired(false).HasComment("大题描述");
+                b.Property(p => p.Type).IsRequired().HasComment("类型:固定题目大题:1,随机题目大题:2,抽题大题:3");
                 b.Property(p => p.QuestionCount).HasComment("题目数量");
                 b.Property(p => p.TotalScore).HasComment("题目数量");
                 b.Property(p => p.Sort).HasComment("序号");

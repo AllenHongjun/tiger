@@ -22,6 +22,9 @@ namespace Tiger.Module.Exams
             CreateMap<TestPaper, TestPaperDto>();
             CreateMap<CreateUpdateTestPaperDto, TestPaper>();
 
+            CreateMap<TestPaperSection, TestPaperSectionDto>();
+            CreateMap<CreateUpdateTestPaperSectionDto, TestPaperSection>();
+
             CreateMap<TestPaperQuestion, TestPaperQuestionDto>();
             CreateMap<CreateUpdateTestPaperQuestionDto, TestPaperQuestion>();
 

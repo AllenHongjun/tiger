@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.Exams.Dtos;
@@ -58,4 +59,6 @@ public class TestPaperDto : FullAuditedEntityDto<Guid>
     /// 评卷结束时间
     /// </summary>
     public DateTime? JudgeEndTime { get; set; }
+
+    public List<TestPaperSectionDto> TestPaperSections { get; set; }
 }

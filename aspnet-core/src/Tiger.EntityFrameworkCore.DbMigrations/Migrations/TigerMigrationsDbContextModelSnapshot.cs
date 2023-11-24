@@ -541,6 +541,9 @@ namespace Tiger.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("试卷ID");
 
+                    b.Property<Guid?>("TestPaperSectionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("TestPaperType")
                         .HasColumnType("int")
                         .HasComment("选题方式 1.自主选题 2.随机生成");
@@ -549,7 +552,89 @@ namespace Tiger.Migrations
 
                     b.HasIndex("TestPaperId");
 
+                    b.HasIndex("TestPaperSectionId");
+
                     b.ToTable("AppTestPaperQuestions");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperSection", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(2048)")
+                        .HasComment("大题描述")
+                        .HasMaxLength(2048);
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("名称")
+                        .HasMaxLength(256);
+
+                    b.Property<int>("QuestionCount")
+                        .HasColumnType("int")
+                        .HasComment("题目数量");
+
+                    b.Property<int>("Sort")
+                        .HasColumnType("int")
+                        .HasComment("序号");
+
+                    b.Property<Guid>("TestPaperId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试卷Id");
+
+                    b.Property<decimal>("TotalScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("题目数量");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestPaperId");
+
+                    b.ToTable("AppTestPaperSections");
                 });
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperStrategy", b =>
@@ -1143,6 +1228,7 @@ namespace Tiger.Migrations
                         .HasMaxLength(40);
 
                     b.Property<string>("Cover")
+                        .IsRequired()
                         .HasColumnType("nvarchar(128)")
                         .HasComment("封面")
                         .HasMaxLength(128);
@@ -2420,7 +2506,7 @@ namespace Tiger.Migrations
                     b.ToTable("AppBackgroundJobLogs");
                 });
 
-            modelBuilder.Entity("Tiger.Module.Teachings.Course", b =>
+            modelBuilder.Entity("Tiger.Module.Train.Course", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -4430,7 +4516,7 @@ namespace Tiger.Migrations
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaper", b =>
                 {
-                    b.HasOne("Tiger.Module.Teachings.Course", null)
+                    b.HasOne("Tiger.Module.Train.Course", null)
                         .WithMany("TestPaper")
                         .HasForeignKey("CourseId");
                 });
@@ -4439,6 +4525,19 @@ namespace Tiger.Migrations
                 {
                     b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
                         .WithMany("TestPaperQuestions")
+                        .HasForeignKey("TestPaperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tiger.Module.Exams.TestPaperSection", null)
+                        .WithMany("Questions")
+                        .HasForeignKey("TestPaperSectionId");
+                });
+
+            modelBuilder.Entity("Tiger.Module.Exams.TestPaperSection", b =>
+                {
+                    b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
+                        .WithMany()
                         .HasForeignKey("TestPaperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

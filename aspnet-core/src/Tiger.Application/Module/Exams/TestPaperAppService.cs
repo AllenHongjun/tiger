@@ -6,6 +6,8 @@ using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Volo.Abp;
+using Tiger.Volo.Abp.AuditLogging.Dto;
+using Volo.Abp.AuditLogging;
 
 namespace Tiger.Module.Exams;
 
@@ -45,4 +47,11 @@ public class TestPaperAppService : CrudAppService<TestPaper, TestPaperDto, Guid,
             .WhereIf(input.JudgeEndTime != null, x => x.JudgeEndTime == input.JudgeEndTime)
             ;
     }
+
+    public override async Task<TestPaperDto> GetAsync(Guid id)
+    {
+        var testPaper =  await _repository.GetAsync(id, includeDetails : true);
+        return ObjectMapper.Map<TestPaper, TestPaperDto>(testPaper);
+    }
+
 }
