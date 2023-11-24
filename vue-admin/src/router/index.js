@@ -160,13 +160,9 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   /** when your routing map is too long, you can split it into small modules **/
-  // identityRouter,
-  // dictionaryRouter,
-  // auditlogRouter,
-  examRouter,
   TeachingRouter,
+  examRouter,
   QuestionBankRouter,
-  // schoolManageRouter,
   ReportRouter,
   SassRouter,
   SystemManageRouter,

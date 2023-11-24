@@ -54,6 +54,9 @@
       <el-row>
         <el-col>
           <el-button-group style="float:left">
+            <el-button icon="el-icon-delete" type="danger">
+              批量删除
+            </el-button>
             <el-button icon="el-icon-download" @click="handleDownload">
               导出
             </el-button>
@@ -66,51 +69,53 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="50" />
-      <el-table-column label="姓名" prop="name" align="left" width="80">
+      <el-table-column label="评论内容" prop="content" align="left" width="380">
         <template slot-scope="{ row }">
-          <span>张三</span>
+          <span>这里是评论的内容</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间/结束时间" align="left" width="240">
+      <el-table-column label="评论人" prop="path" align="left" sortable>
         <template slot-scope="{ row }">
-          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
+          <span>小李</span>
         </template>
       </el-table-column>
-      <el-table-column label="学习时长" prop="description" align="left">
+      <el-table-column label="点赞次数" prop="path" align="left" sortable>
         <template slot-scope="{ row }">
-          <span>2小时42分12秒</span>
+          <span>23</span>
         </template>
       </el-table-column>
-      <el-table-column label="所得学分" prop="path" align="left">
+      <el-table-column label="回复次数" prop="path" align="left" sortable>
         <template slot-scope="{ row }">
-          <span>5.0分</span>
+          <span>12</span>
         </template>
       </el-table-column>
-      <el-table-column label="学习次数" prop="path" align="left">
+      <el-table-column label="举报次数" prop="path" align="left" sortable>
         <template slot-scope="{ row }">
-          <span>69</span>
+          <span class="red">2</span>
         </template>
       </el-table-column>
-      <el-table-column label="学习进度" prop="path" align="left">
+      <el-table-column label="评论人IP" prop="path" align="left" sortable>
         <template slot-scope="{ row }">
-          <span>72%</span>
+          <span>101.70.221.191</span>
         </template>
       </el-table-column>
-      <el-table-column label="状态" prop="path" align="left">
+
+      <el-table-column label="评论时间" align="left" width="240">
         <template slot-scope="{ row }">
-          <span>学习中</span>
+          <span>2023-11-13 21:51</span>
         </template>
       </el-table-column>
-      <el-table-column label="学习设备" prop="path" align="left">
+
+      <el-table-column label="查看回复" prop="path" align="left">
         <template slot-scope="{ row }">
-          <!-- <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" /> -->
-          <el-tag type="success" class="el-icon-check">电脑</el-tag>
+          <el-button type="text" title="查看回复" class="el-icon-arrow-down" />
+          <!-- 点击展开显示这条评论的子评论 -->
         </template>
       </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
-          <el-button type="text" title="学习明细" class="el-icon-view">学习明细</el-button>
+          <el-button type="text" title="删除" class="el-icon-delete">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

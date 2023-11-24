@@ -126,12 +126,14 @@
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
-          <el-button type="text" title="学习明细" class="el-icon-view">学习明细</el-button>
+          <el-button type="text" title="学习明细" class="el-icon-view" @click="handleViewChapterLearnAnalysis">学习明细</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+
+    <chapter-learn-analysis ref="chapterLearnAnalysis" />
 
   </div>
 </template>
@@ -145,12 +147,14 @@ import {
 } from '@/api/system-manage/platform/layout'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import LearnAnalysisPanel from './LearnAnalysisPanel.vue'
+import ChapterLearnAnalysis from './ChapterLearnAnalysis.vue'
 
 export default {
   name: 'LearnAnalysis',
   components: {
     Pagination,
-    LearnAnalysisPanel
+    LearnAnalysisPanel,
+    ChapterLearnAnalysis
   },
   data() {
     return {
@@ -255,12 +259,15 @@ export default {
     handleDownload() {
       this.$alert('开发中...')
       return
+    },
+    handleViewChapterLearnAnalysis() {
+      this.$refs['chapterLearnAnalysis'].handleViewChapterLearnAnalysis()
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 ::v-deep .el-dialog {
   margin: 0 auto 0px;
 }

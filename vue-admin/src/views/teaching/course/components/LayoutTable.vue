@@ -9,6 +9,16 @@
             </el-form-item>
           </el-col>
 
+          <el-col :span="4">
+            <el-form-item prop="filter" label="课程状态">
+              <el-select v-model="value" placeholder="-">
+                <el-option key="" value="进行中" lable="进行中" />
+                <el-option key="" value="未开始" lable="未开始" />
+                <el-option key="" value="已结束" lable="已结束" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+
           <el-col :span="8">
             <el-form-item :label="$t('AbpUi[\'DisplayName:CreationTime\']')">
               <el-date-picker
@@ -237,6 +247,9 @@ export default {
       switch (param.command) {
         case 'handleCourseSetting':
           this.handleCourseSetting(param.scope)
+          break
+        case 'handleViewLearnAnalysis':
+          this.handleViewLearnAnalysis(param.scope)
           break
         case 'handleViewCourseComment':
           this.handleViewCourseComment(param.scope)
