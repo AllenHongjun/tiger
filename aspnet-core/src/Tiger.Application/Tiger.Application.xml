@@ -203,6 +203,11 @@
             试卷内容(题目)表
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.TestPaperSectionAppService">
+            <summary>
+            试卷大题
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperStrategyAppService">
             <summary>
             组卷策略配置表

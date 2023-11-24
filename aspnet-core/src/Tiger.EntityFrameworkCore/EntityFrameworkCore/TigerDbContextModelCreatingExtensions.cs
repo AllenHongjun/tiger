@@ -403,6 +403,20 @@ namespace Tiger.EntityFrameworkCore
 
             });
 
+            builder.Entity<TestPaperSection>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TestPaperSections", TigerConsts.DbSchema);
+                b.Property(p => p.TestPaperId).HasComment("试卷Id");
+                b.Property(p => p.Name).HasMaxLength(TestPaperSectionConsts.MaxNameLength).IsRequired().HasComment("名称");
+                b.Property(p => p.Description).HasMaxLength(TestPaperSectionConsts.MaxDesctiptionLength).IsRequired(false).HasComment("大题描述");
+                b.Property(p => p.QuestionCount).HasComment("题目数量");
+                b.Property(p => p.TotalScore).HasComment("题目数量");
+                b.Property(p => p.Sort).HasComment("序号");
+                b.ConfigureByConvention();
+
+                /* Configure more properties here */
+            });
+
             builder.Entity<TestPaperQuestion>(b =>
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "TestPaperQuestions", TigerConsts.DbSchema);
@@ -605,6 +619,9 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            
         }
 
 

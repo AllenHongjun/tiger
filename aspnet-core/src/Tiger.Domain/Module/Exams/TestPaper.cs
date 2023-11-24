@@ -77,7 +77,7 @@ namespace Tiger.Module.Exams
         //public virtual ICollection<TestPaperSection> TestPaperSections { get; set; }
 
         /// <summary>
-        /// 试卷小题
+        /// 试卷题目
         /// </summary>
         public virtual ICollection<TestPaperQuestion> TestPaperQuestions { get; set; }
 

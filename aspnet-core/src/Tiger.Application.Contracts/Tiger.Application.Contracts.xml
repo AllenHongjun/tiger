@@ -699,6 +699,31 @@
             漏选按错误处理
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperSectionDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperSectionDto.Description">
+            <summary>
+            大题描述(可用于保存阅读理解题、论述题、组合题等各种复杂题型的题干内容)
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperSectionDto.QuestionCount">
+            <summary>
+            题目数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperSectionDto.TotalScore">
+            <summary>
+            大题题目总分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperSectionDto.Sort">
+            <summary>
+            序号
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.TestPaperId">
             <summary>
             试卷
@@ -1209,6 +1234,61 @@
             漏选按错误处理
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.TestPaperSectionDto">
+            <summary>
+            试卷大题
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionDto.Description">
+            <summary>
+            大题描述(可用于保存阅读理解题、论述题、组合题等各种复杂题型的题干内容)
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionDto.QuestionCount">
+            <summary>
+            题目数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionDto.TotalScore">
+            <summary>
+            大题题目总分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionDto.Sort">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.Description">
+            <summary>
+            大题描述(可用于保存阅读理解题、论述题、组合题等各种复杂题型的题干内容)
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.QuestionCount">
+            <summary>
+            题目数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.TotalScore">
+            <summary>
+            大题题目总分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput.Sort">
+            <summary>
+            序号
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperStrategyDto">
             <summary>
             组卷策略配置表
@@ -1307,6 +1387,11 @@
         <member name="T:Tiger.Module.Exams.ITestPaperQuestionAppService">
             <summary>
             试卷内容(题目)表
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.ITestPaperSectionAppService">
+            <summary>
+            试卷大题
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.ITestPaperStrategyAppService">
@@ -3485,6 +3570,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.Course">
             <summary>
             课程
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.TestPaperSection">
+            <summary>
+            试卷大题
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

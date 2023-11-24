@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Volo.Abp;
 
 namespace Tiger.Module.Exams;
 
@@ -11,6 +13,7 @@ namespace Tiger.Module.Exams;
 /// <summary>
 /// 试卷
 /// </summary>
+[RemoteService(IsEnabled = false)]
 public class TestPaperAppService : CrudAppService<TestPaper, TestPaperDto, Guid, TestPaperGetListInput, CreateUpdateTestPaperDto, CreateUpdateTestPaperDto>,
     ITestPaperAppService
 {

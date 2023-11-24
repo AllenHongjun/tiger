@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities;
@@ -47,5 +47,28 @@ namespace Tiger.Module.Exams
         /// 题目
         /// </summary>
         public virtual ICollection<TestPaperQuestion> Questions { get; set; }
+
+        protected TestPaperSection()
+        {
+        }
+
+        public TestPaperSection(
+            Guid id,
+            Guid testPaperId,
+            string name,
+            string description,
+            int questionCount,
+            decimal totalScore,
+            int sort
+        ) : base(id)
+        {
+            TestPaperId = testPaperId;
+            Name = name;
+            Description = description;
+            QuestionCount = questionCount;
+            TotalScore = totalScore;
+            Sort = sort;
+        
+        }
     }
 }
