@@ -91,9 +91,10 @@ export default {
       this.$message('click on item ' + command)
       switch (command) {
         case 'createFixedTestPaperSection':
-          this.createData('createFixedTestPaperSection')
+          this.createData(1)
           break
         case 'createRandomTestPaperSection':
+          this.createData(2)
           break
         default:
           break
@@ -101,9 +102,9 @@ export default {
     },
     // 添加大题
     createData(type) {
-      debugger
-      this.testPaperSectionModel.testPaperId = '6E25C8D0-07A4-EB6C-DE2B-3A0ED6499A28'
+      this.testPaperSectionModel.testPaperId = this.testPaper.id
       this.testPaperSectionModel.name = '第一大题'
+      this.testPaperSectionModel.type = type
       this.testPaperSectionModel.questionCount = 10
       this.testPaperSectionModel.totalScore = 0
       this.testPaperSectionModel.sort = 1
@@ -114,7 +115,7 @@ export default {
 
       createTestPaperSection(this.testPaperSectionModel).then(() => {
         this.$nextTick(() => {
-          getTestPaper(this.testPaperId).then(response => {
+          getTestPaper(this.testPaper.id).then(response => {
             this.testPaper.testPaperSections = response.testPaperSections
           })
         })

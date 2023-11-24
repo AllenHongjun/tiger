@@ -27,9 +27,10 @@
           <mini-paper-section ref="miniPaperSection" :test-paper="temp" />
         </el-col>
         <el-col v-if="temp.testPaperSections.length > 0" :span="18">
-          <random-paper-section />
-
-          <!-- <fixed-paper-section /> -->
+          <div v-for="(testPaperSection, index) in temp.testPaperSections" :key="index">
+            <fixed-paper-section v-if="testPaperSection.type == 1" />
+            <random-paper-section v-else-if="testPaperSection.type == 2" />
+          </div>
         </el-col>
         <el-col v-else :span="18">
           <el-card>
@@ -158,9 +159,9 @@ export default {
       this.resetTemp()
       this.dialogStatus = 'create'
       this.dialogFormVisible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
+      // this.$nextTick(() => {
+      //   this.$refs['dataForm'].clearValidate()
+      // })
     },
 
     // 创建数据
@@ -189,9 +190,9 @@ export default {
         this.temp = response
       })
 
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
+      // this.$nextTick(() => {
+      //   this.$refs['dataForm'].clearValidate()
+      // })
     },
 
     // 更新数据

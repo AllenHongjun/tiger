@@ -1,7 +1,7 @@
 <template>
   <el-card class="random-paper-section-box">
     <div slot="header" class="clearfix">
-      <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
+      <h3 class="section-title">第1大题 <span>(共 <b>0</b>  题 <b>0</b>  分)</span></h3>
       <div style="float: right;">
         <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
         <el-button plain>选项乱序</el-button>
@@ -83,22 +83,13 @@ export default {
           date: '2016-05-04',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
         }
+
       ]
     }
   },
   created() {
-    this.fetchOptions()
+    // this.fetchOptions()
   },
   methods: {
     fetchOptions() {

@@ -630,6 +630,10 @@ namespace Tiger.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasComment("题目数量");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasComment("类型:固定题目大题:1,随机题目大题:2,抽题大题:3");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TestPaperId");
@@ -4537,7 +4541,7 @@ namespace Tiger.Migrations
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperSection", b =>
                 {
                     b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
-                        .WithMany()
+                        .WithMany("TestPaperSections")
                         .HasForeignKey("TestPaperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
