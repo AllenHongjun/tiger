@@ -33,8 +33,19 @@ namespace Tiger.Module.Exams
         /// </summary>
         public decimal TotalScore { get; set; }
 
+        /// <summary>
+        /// 序号
+        /// </summary>
+        public int Sort { get; set; }
+
+        /// <summary>
+        /// 试卷
+        /// </summary>
         public virtual TestPaper TestPaper { get; set; }
 
+        /// <summary>
+        /// 题目
+        /// </summary>
         public virtual ICollection<TestPaperQuestion> Questions { get; set; }
     }
 }
