@@ -13,13 +13,13 @@ public class CreateUpdateTestPaperSectionDto
     /// 名称
     /// </summary>
     [Required]
-    [DynamicStringLength(typeof(TestPaperConsts), nameof(TestPaperSectionConsts.MaxNameLength))]
+    [DynamicStringLength(typeof(TestPaperSectionConsts), nameof(TestPaperSectionConsts.MaxNameLength))]
     public string Name { get; set; }
 
     /// <summary>
     /// 大题描述(可用于保存阅读理解题、论述题、组合题等各种复杂题型的题干内容)
     /// </summary>
-    [DynamicStringLength(typeof(TestPaperConsts), nameof(TestPaperSectionConsts.MaxDesctiptionLength))]
+    [DynamicStringLength(typeof(TestPaperSectionConsts), nameof(TestPaperSectionConsts.MaxDesctiptionLength))]
     public string Description { get; set; }
 
     /// <summary>

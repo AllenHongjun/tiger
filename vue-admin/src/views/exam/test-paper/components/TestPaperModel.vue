@@ -37,7 +37,7 @@
                 <span style="margin-left:10px;">(共 <b>25</b>   题 <b>95</b> 分)</span>
               </el-dropdown>
             </div>
-            <div class="mini-paper-section">
+            <!-- <div class="mini-paper-section">
               <el-row class="mini-paper-section-header">
                 <el-col :span="12">
                   <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
@@ -108,12 +108,12 @@
                 <el-button type="info" plain>19</el-button>
                 <el-button type="info" plain>20</el-button>
               </el-row>
-            </div>
+            </div> -->
           </el-card>
         </el-col>
         <el-col :span="18">
-          <random-paper-section />
-          <fixed-paper-section />
+          <!-- <random-paper-section />
+          <fixed-paper-section /> -->
         </el-col>
       </el-row>
 
@@ -133,7 +133,10 @@
 import {
   getTestPaper,
   createTestPaper,
-  updateTestPaper
+  updateTestPaper,
+  getTestPaperSection,
+  createTestPaperSection,
+  updateTestPaperSection
 } from '@/api/exam/test-paper'
 import RandomPaperSection from './RandomPaperSection.vue'
 import FixedPaperSection from './FixedPaperSection.vue'
@@ -149,6 +152,8 @@ export default {
 
       activeIndex2: 1,
       active: 1,
+      dialogFormVisible: true,
+      dialogStatus: '',
       temp: {
         id: undefined,
         name: '',
@@ -159,9 +164,6 @@ export default {
         dataId: undefined,
         freamwork: ''
       },
-      dialogFormVisible: false,
-      dialogStatus: '',
-
       // 表单验证规则
       rules: {
         name: [
@@ -199,6 +201,14 @@ export default {
           }
         ]
 
+      },
+      testPaperSectionModel: {
+        testPaperId: undefined,
+        name: undefined,
+        description: undefined,
+        questionCount: 0,
+        totalScore: 0,
+        sort: 0
       }
     }
   },
@@ -278,6 +288,20 @@ export default {
             })
           })
         }
+      })
+    },
+
+    // 添加大题
+    createTestPaperSectionData() {
+      createTestPaperSection(this.temp).then(() => {
+        // this.$emit('handleFilter', false)
+        // this.dialogFormVisible = false
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
+        })
       })
     }
   }
