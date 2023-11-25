@@ -28,6 +28,7 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
         // TODO: AbpHelper generated
         return base.CreateFilteredQuery(input)
             .WhereIf(input.TestPaperId != null, x => x.TestPaperId == input.TestPaperId)
+            .WhereIf(input.TestPaperSectionId != null, x => x.TestPaperSectionId == input.TestPaperSectionId)
             .WhereIf(input.QuestionCategoryId != null, x => x.QuestionCategoryId == input.QuestionCategoryId)
             .WhereIf(input.QuestionType != null, x => x.QuestionType == input.QuestionType)
             .WhereIf(input.UnlimitedDifficultyCount != null, x => x.UnlimitedDifficultyCount == input.UnlimitedDifficultyCount)

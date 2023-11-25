@@ -63,11 +63,6 @@ export default {
         return {}
       }
     }
-    // testPaperId: {
-    //   type: String,
-    //   require: false,
-    //   default: undefined
-    // }
   },
   data() {
     return {
@@ -140,6 +135,7 @@ export default {
 
       createTestPaperSection(this.testPaperSectionModel).then(() => {
         this.getAllList(this.listQuery.testPaperId)
+        this.$emit('getTestPaperSections', this.listQuery.testPaperId)
       })
     },
     // 删除
@@ -159,6 +155,8 @@ export default {
         // 回调函数
         deleteTestPaperSection(row.id).then(() => {
           this.getAllList(this.listQuery.testPaperId)
+          debugger
+          this.$emit('getTestPaperSections', this.listQuery.testPaperId)
         })
       })
     },
@@ -166,6 +164,7 @@ export default {
     moveData(row, type) {
       moveTestPaperSection(row.id, { type: type }).then(() => {
         this.getAllList(this.listQuery.testPaperId)
+        this.$emit('getTestPaperSections', this.listQuery.testPaperId)
       })
     }
   }

@@ -12,6 +12,11 @@ public class CreateUpdateTestPaperStrategyDto
     public Guid TestPaperId { get; set; }
 
     /// <summary>
+    /// 试卷大题Id
+    /// </summary>
+    public Guid TestPaperSectionId { get; set; }
+
+    /// <summary>
     /// 题目分类Id
     /// </summary>
     public Guid? QuestionCategoryId { get; set; }

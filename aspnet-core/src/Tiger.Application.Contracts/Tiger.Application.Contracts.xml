@@ -734,6 +734,11 @@
             试卷
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.TestPaperSectionId">
+            <summary>
+            试卷大题Id
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.QuestionCategoryId">
             <summary>
             题目分类Id
@@ -1329,6 +1334,11 @@
             试卷
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TestPaperSectionId">
+            <summary>
+            试卷大题Id
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.QuestionCategoryId">
             <summary>
             题目分类Id
@@ -1372,6 +1382,11 @@
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.TestPaperId">
             <summary>
             试卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.TestPaperSectionId">
+            <summary>
+            试卷大题Id
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.QuestionCategoryId">

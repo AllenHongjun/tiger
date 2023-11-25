@@ -46,7 +46,6 @@
       :visible.sync="dialogRandomSelentQuestionVisible"
       width="30%"
       append-to-body
-      :before-close="handleClose"
     >
       <el-form label-width="80px" :model="randomSelentQuestionForm">
         <el-form-item label="试题分类">

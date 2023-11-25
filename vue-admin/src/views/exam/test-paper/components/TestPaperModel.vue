@@ -24,12 +24,12 @@
 
       <el-row v-if="active == 1" :gutter="20">
         <el-col :span="6">
-          <mini-paper-section ref="miniPaperSection" :test-paper="temp" @getTestPaper="handleDetail" />
+          <mini-paper-section ref="miniPaperSection" :test-paper="temp" @getTestPaperSections="handleGetAllTestPaperSections" />
         </el-col>
-        <el-col v-if="temp.testPaperSections.length > 0" :span="18">
-          <div v-for="(testPaperSection, index) in temp.testPaperSections" :key="index">
+        <el-col v-if="testPaperSections.length > 0" :span="18">
+          <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
             <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" />
-            <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" />
+            <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" />
           </div>
         </el-col>
         <el-col v-else :span="18">
@@ -52,11 +52,16 @@
 </template>
 
 <script>
+import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getTestPaper,
   createTestPaper,
   updateTestPaper
 } from '@/api/exam/test-paper'
+import {
+  getAllTestPaperSections
+} from '@/api/exam/test-paper-section'
+
 import MiniPaperSection from './MiniPaperSection.vue'
 import RandomPaperSection from './RandomPaperSection.vue'
 import FixedPaperSection from './FixedPaperSection.vue'
@@ -70,7 +75,7 @@ export default {
   },
   data() {
     return {
-
+      testPaperId: undefined,
       activeIndex2: 1,
       active: 1,
       dialogFormVisible: true,
@@ -127,11 +132,12 @@ export default {
           }
         ]
 
-      }
-
+      },
+      testPaperSections: []
     }
   },
   methods: {
+    checkPermission,
     next() {
       if (this.active++ > 2) this.active = 0
     },
@@ -188,6 +194,8 @@ export default {
 
     // 更新按钮点击
     handleUpdate(row) {
+      this.testPaperId = row.id
+
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       getTestPaper(row.id).then(response => {
@@ -197,6 +205,7 @@ export default {
         //
         // })
       })
+      this.handleGetAllTestPaperSections(row.id)
     },
 
     // 更新数据
@@ -214,6 +223,15 @@ export default {
             })
           })
         }
+      })
+    },
+    // 获取试卷大题列表数据
+    handleGetAllTestPaperSections(testPaperId) {
+      var listQuery = Object.assign({
+        testPaperId: testPaperId // 父组件传入参数方法优化
+      }, baseListQuery)
+      getAllTestPaperSections(listQuery).then(response => {
+        this.testPaperSections = response.items
       })
     }
 
