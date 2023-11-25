@@ -78,14 +78,20 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
     {
         var testPaperSection = await _repository.GetAsync(id);
 
-        // 将相邻的下一题顺序减1  (把数据库查询的语句需要做一个封装)
-        var nextTestPaperSection =  _repository.FirstOrDefault(x => x.TestPaperId == testPaperSection.TestPaperId && x.Sort == (testPaperSection.Sort + 1));
+        // 找到相邻下一个元素的序号
+        var testPaperSections = _repository.Where(x => x.TestPaperId == testPaperSection.TestPaperId)
+            .OrderBy(x => x.Sort).ToList();
+        var testPaperSectionIndex = testPaperSections.FindIndex(0,x => x.Id == testPaperSection.Id);
+        var nextTestPaperSection =  testPaperSections.ElementAtOrDefault(testPaperSectionIndex + 1);
+        
+        // 交换两个元素的序号
         if (nextTestPaperSection != null)
         {
-            nextTestPaperSection.Sort -= 1;
+            var temp = nextTestPaperSection.Sort;
+            nextTestPaperSection.Sort = testPaperSection.Sort;
+            testPaperSection.Sort = temp;
             await _repository.UpdateAsync(nextTestPaperSection);
         }
-        testPaperSection.Sort += 1;
         await _repository.UpdateAsync(testPaperSection);
         await CurrentUnitOfWork.SaveChangesAsync();
     }

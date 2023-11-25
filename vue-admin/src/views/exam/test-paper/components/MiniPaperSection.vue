@@ -16,7 +16,7 @@
       <div v-for="(testPaperSection, index) in list" :key="index" class="mini-paper-section">
         <el-row class="mini-paper-section-header">
           <el-col :span="12">
-            <h3 class="section-title">第 {{ testPaperSection.sort }}大题 <span>(共 <b>0</b>  题 <b>0</b>  分)</span></h3>
+            <h3 class="section-title"> {{ testPaperSection.name }} <span>(共 <b>0</b>  题 <b>0</b>  分)</span></h3>
           </el-col>
           <el-col :span="12" :offset="0">
             <el-button-group style="float:right;margin-top:10px;">
@@ -133,7 +133,7 @@ export default {
     },
     // 添加大题
     createData(type) {
-      var testPaperSectionCount = this.testPaper.testPaperSections.length
+      var testPaperSectionCount = this.list.length
       this.testPaperSectionModel.testPaperId = this.testPaper.id
       this.testPaperSectionModel.name = '第 ' + (testPaperSectionCount + 1) + ' 大题'
       this.testPaperSectionModel.type = type
