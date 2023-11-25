@@ -50,4 +50,10 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
          await _repository.DeleteAsync(id);
          await CurrentUnitOfWork.SaveChangesAsync();
     }
+
+    // 下移大题
+
+    // 修改名称
+
+    // 批量设置题目分数
 }

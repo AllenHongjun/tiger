@@ -16,7 +16,8 @@ public static class TestPaperSectionEfCoreQueryableExtensions
         }
 
         return queryable
-            // .Include(x => x.xxx) // TODO: AbpHelper generated
+            .Include(x => x.Questions) // TODO: AbpHelper generated
+            .Include(x => x.Strategies)
             ;
     }
 }

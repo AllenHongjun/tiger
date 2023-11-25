@@ -89,7 +89,6 @@ export default {
   },
   methods: {
     handleCommand(command) {
-      this.$message('click on item ' + command)
       switch (command) {
         case 'createFixedTestPaperSection':
           this.createData(1)
@@ -103,23 +102,16 @@ export default {
     },
     // 添加大题
     createData(type) {
+      var testPaperSectionCount = this.testPaper.testPaperSections.length
       this.testPaperSectionModel.testPaperId = this.testPaper.id
-      this.testPaperSectionModel.name = '第一大题'
+      this.testPaperSectionModel.name = '第 ' + (testPaperSectionCount + 1) + ' 大题'
       this.testPaperSectionModel.type = type
       this.testPaperSectionModel.questionCount = 10
       this.testPaperSectionModel.totalScore = 0
-      this.testPaperSectionModel.sort = 1
-
-      // getTestPaper(this.testPaperId).then(response => {
-      //   this.testPaperSections = response.testPaperSection
-      // })
+      this.testPaperSectionModel.sort = testPaperSectionCount + 1
 
       createTestPaperSection(this.testPaperSectionModel).then(() => {
-        this.$nextTick(() => {
-          getTestPaper(this.testPaper.id).then(response => {
-            this.testPaper.testPaperSections = response.testPaperSections
-          })
-        })
+        this.$emit('getTestPaper', this.testPaper.id)
       })
     },
     // 删除
