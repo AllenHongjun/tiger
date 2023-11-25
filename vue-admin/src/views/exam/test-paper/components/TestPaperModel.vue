@@ -24,12 +24,12 @@
 
       <el-row v-if="active == 1" :gutter="20">
         <el-col :span="6">
-          <mini-paper-section ref="miniPaperSection" :test-paper="temp" />
+          <mini-paper-section ref="miniPaperSection" :test-paper="temp" @getTestPaper="handleDetail" />
         </el-col>
         <el-col v-if="temp.testPaperSections.length > 0" :span="18">
           <div v-for="(testPaperSection, index) in temp.testPaperSections" :key="index">
-            <fixed-paper-section v-if="testPaperSection.type == 1" />
-            <random-paper-section v-else-if="testPaperSection.type == 2" />
+            <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" />
+            <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" />
           </div>
         </el-col>
         <el-col v-else :span="18">
@@ -55,10 +55,7 @@
 import {
   getTestPaper,
   createTestPaper,
-  updateTestPaper,
-  getTestPaperSection,
-  createTestPaperSection,
-  updateTestPaperSection
+  updateTestPaper
 } from '@/api/exam/test-paper'
 import MiniPaperSection from './MiniPaperSection.vue'
 import RandomPaperSection from './RandomPaperSection.vue'
@@ -179,6 +176,13 @@ export default {
             })
           })
         }
+      })
+    },
+
+    // 获取试卷详情
+    handleDetail(id) {
+      getTestPaper(id).then(response => {
+        this.temp = response
       })
     },
 

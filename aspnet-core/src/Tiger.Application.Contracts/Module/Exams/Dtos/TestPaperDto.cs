@@ -60,5 +60,13 @@ public class TestPaperDto : FullAuditedEntityDto<Guid>
     /// </summary>
     public DateTime? JudgeEndTime { get; set; }
 
+    /// <summary>
+    /// 试卷大题
+    /// </summary>
     public List<TestPaperSectionDto> TestPaperSections { get; set; }
+
+    /// <summary>
+    /// 随机大题抽题规则
+    /// </summary>
+    public List<TestPaperStrategyDto> TestPaperStrategies { get; set; }
 }

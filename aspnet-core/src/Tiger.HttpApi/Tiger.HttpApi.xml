@@ -211,7 +211,7 @@
         </member>
         <member name="T:Tiger.Module.Exams.TestPaperStrategyController">
             <summary>
-            组卷策略
+            抽题策略
             </summary>
         </member>
         <member name="M:Tiger.Module.Exams.TestPaperStrategyController.CreateAsync(Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto)">

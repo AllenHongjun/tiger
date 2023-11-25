@@ -208,6 +208,13 @@
             试卷大题
             </summary>
         </member>
+        <member name="M:Tiger.Module.Exams.TestPaperSectionAppService.DeleteAsync(System.Guid)">
+            <summary>
+            删除大题
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperStrategyAppService">
             <summary>
             组卷策略配置表

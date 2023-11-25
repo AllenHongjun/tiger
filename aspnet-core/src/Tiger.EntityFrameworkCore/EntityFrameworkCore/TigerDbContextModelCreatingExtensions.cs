@@ -446,7 +446,10 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.EasyCount).HasComment("简单的数量");
                 b.Property(p => p.OrdinaryCount).HasComment("普通的数量");
                 b.Property(p => p.DifficultCount).HasComment("困难的数量");
+                b.Property(p => p.ScorePerQuestion).IsRequired(true).HasDefaultValue(decimal.Zero).HasComment("每题分数");
 
+                // bug: 多重级联的问题 外键级联删除 级联更新配置移除
+                b.HasOne(p => p.TestPaperSection).WithMany(p => p.Strategies).HasForeignKey(p => p.TestPaperSectionId).IsRequired().OnDelete(DeleteBehavior.NoAction);
                 b.ConfigureByConvention();
                 /* Configure more properties here */
             });

@@ -707,6 +707,12 @@ namespace Tiger.Migrations
                         .HasColumnType("int")
                         .HasComment("题型");
 
+                    b.Property<decimal>("ScorePerQuestion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("每题分数")
+                        .HasDefaultValue(0m);
+
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
@@ -715,13 +721,20 @@ namespace Tiger.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("试卷Id");
 
+                    b.Property<Guid>("TestPaperSectionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("UnlimitedDifficultyCount")
                         .HasColumnType("int")
                         .HasComment("不限难度数量");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("QuestionCategoryId");
+
                     b.HasIndex("TestPaperId");
+
+                    b.HasIndex("TestPaperSectionId");
 
                     b.ToTable("AppTestPaperStrategies");
                 });
@@ -4549,10 +4562,20 @@ namespace Tiger.Migrations
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperStrategy", b =>
                 {
+                    b.HasOne("Tiger.Module.QuestionBank.QuestionCategory", "QuestionCategory")
+                        .WithMany()
+                        .HasForeignKey("QuestionCategoryId");
+
                     b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
                         .WithMany("TestPaperStrategies")
                         .HasForeignKey("TestPaperId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Tiger.Module.Exams.TestPaperSection", "TestPaperSection")
+                        .WithMany("Strategies")
+                        .HasForeignKey("TestPaperSectionId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 

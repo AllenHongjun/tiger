@@ -16,13 +16,13 @@
       <div v-for="(testPaperSection, index) in testPaper.testPaperSections" :key="index" class="mini-paper-section">
         <el-row class="mini-paper-section-header">
           <el-col :span="12">
-            <h3 class="section-title">第1大题 <span>(共 <b>0</b>  题 <b>0</b>  分)</span></h3>
+            <h3 class="section-title">第 {{ testPaperSection.sort }}大题 <span>(共 <b>0</b>  题 <b>0</b>  分)</span></h3>
           </el-col>
           <el-col :span="12" :offset="0">
             <el-button-group style="float:right;margin-top:10px;">
               <el-button type="info" icon="el-icon-bottom" title="下移" />
               <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
-              <el-button type="info" icon="el-icon-delete" title="删除大题" />
+              <el-button type="info" icon="el-icon-delete" title="删除大题" @click="handleDelete(testPaperSection, index)" />
             </el-button-group>
           </el-col>
         </el-row>
@@ -46,7 +46,8 @@ import {
 import {
   getTestPaperSection,
   createTestPaperSection,
-  updateTestPaperSection
+  updateTestPaperSection,
+  deleteTestPaperSection
 } from '@/api/exam/test-paper-section'
 import { switchCase } from '@babel/types'
 
@@ -117,6 +118,33 @@ export default {
         this.$nextTick(() => {
           getTestPaper(this.testPaper.id).then(response => {
             this.testPaper.testPaperSections = response.testPaperSections
+          })
+        })
+      })
+    },
+    // 删除
+    handleDelete(row, index) {
+      this.$confirm(
+        // 消息
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
+          row.name
+        ]),
+        // title
+        this.$i18n.t("AbpUi['AreYouSure']"), {
+          confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
+          cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
+          type: 'warning' // 弹框类型
+        }
+      ).then(async() => {
+        // 回调函数
+        deleteTestPaperSection(row.id).then(() => {
+          // 调用父组件的获取试卷详情方法,重新渲染试卷大题
+          this.$emit('getTestPaper', this.testPaper.id)
+          this.$notify({
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+            type: 'success',
+            duration: 2000
           })
         })
       })

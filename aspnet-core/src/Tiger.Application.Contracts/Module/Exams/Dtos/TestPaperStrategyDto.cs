@@ -44,4 +44,14 @@ public class TestPaperStrategyDto : FullAuditedEntityDto<Guid>
     /// 困难的数量
     /// </summary>
     public int DifficultCount { get; set; }
+
+    /// <summary>
+    /// 每题分数
+    /// </summary>
+    public decimal ScorePerQuestion { get; set; }
+
+    /// <summary>
+    /// 试卷大题
+    /// </summary>
+    public TestPaperSectionDto TestPaperSection { get; set; }
 }

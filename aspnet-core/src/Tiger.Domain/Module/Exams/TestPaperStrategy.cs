@@ -20,6 +20,11 @@ namespace Tiger.Module.Exams
         public Guid TestPaperId { get; set; }
 
         /// <summary>
+        /// 试卷大题Id
+        /// </summary>
+        public Guid TestPaperSectionId { get; set; }
+
+        /// <summary>
         /// 题目分类Id
         /// </summary>
         public Guid? QuestionCategoryId { get; set; }    
@@ -49,14 +54,25 @@ namespace Tiger.Module.Exams
         /// </summary>
         public int DifficultCount { get; set; }
 
-        ///// <summary>
-        ///// 每题分数
-        ///// </summary>
-        //public decimal ScorePerQuestion { get; set; }
+        /// <summary>
+        /// 每题分数
+        /// </summary>
+        public decimal ScorePerQuestion { get; set; }
 
-        //public virtual QuestionCategory QuestionCategory { get; set; }
+        /// <summary>
+        /// 题目分类
+        /// </summary>
+        public virtual QuestionCategory QuestionCategory { get; set; }
 
+        /// <summary>
+        /// 试卷
+        /// </summary>
         public virtual TestPaper TestPaper { get; set; }
+
+        /// <summary>
+        /// 试卷大题
+        /// </summary>
+        public virtual TestPaperSection TestPaperSection { get;set; }
 
         protected TestPaperStrategy()
         {
@@ -71,7 +87,8 @@ namespace Tiger.Module.Exams
             int unlimitedDifficultyCount,
             int easyCount,
             int ordinaryCount,
-            int difficultCount
+            int difficultCount,
+            decimal scorePerQuestion
         ) : base(id)
         {
             TenantId = tenantId;
@@ -82,6 +99,7 @@ namespace Tiger.Module.Exams
             EasyCount = easyCount;
             OrdinaryCount = ordinaryCount;
             DifficultCount = difficultCount;
+            ScorePerQuestion = scorePerQuestion;
         }
     }
 }

@@ -53,6 +53,11 @@ namespace Tiger.Module.Exams
         /// </summary>
         public virtual ICollection<TestPaperQuestion> Questions { get; set; }
 
+        /// <summary>
+        /// 随机大题抽题策略
+        /// </summary>
+        public virtual ICollection<TestPaperStrategy> Strategies { get; set; }
+
         protected TestPaperSection()
         {
         }

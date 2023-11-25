@@ -36,4 +36,18 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
             .WhereIf(input.Sort != null, x => x.Sort == input.Sort)
             ;
     }
+
+    /// <summary>
+    /// 删除大题
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public override async Task DeleteAsync(Guid id)
+    {   
+         var testPaperSection =  await _repository.GetAsync(id, true);
+         testPaperSection.Questions.Clear();
+         testPaperSection.Strategies.Clear();
+         await _repository.DeleteAsync(id);
+         await CurrentUnitOfWork.SaveChangesAsync();
+    }
 }

@@ -11,7 +11,7 @@ using Volo.Abp;
 namespace Tiger.Module.Exams
 {
     /// <summary>
-    /// 组卷策略
+    /// 抽题策略
     /// </summary>
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.ExamGroupName)]
     [RemoteService(Name = ExamRemoteServiceConsts.RemoteServiceName)]

@@ -40,4 +40,9 @@ public class CreateUpdateTestPaperStrategyDto
     /// 困难的数量
     /// </summary>
     public int DifficultCount { get; set; }
+
+    /// <summary>
+    /// 每题分数
+    /// </summary>
+    public decimal ScorePerQuestion { get; set; } = decimal.Zero;
 }

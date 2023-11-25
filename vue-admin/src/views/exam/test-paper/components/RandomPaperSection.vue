@@ -62,6 +62,13 @@
 </template>
 
 <script>
+import {
+  getTestPaperStrategies,
+  getTestPaperStrategy,
+  createTestPaperStrategy,
+  updateTestPaperStrategy,
+  deleteTestPaperStrategy
+} from '@/api/exam/test-paper'
 import { Type } from '@/views/question-bank/question/datas/typing'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'

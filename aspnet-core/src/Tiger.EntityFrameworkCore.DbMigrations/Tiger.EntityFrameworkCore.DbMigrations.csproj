@@ -19,6 +19,10 @@
     <Compile Remove="Migrations\20231106155314_TestPaperStrategyCreate.Designer.cs" />
     <Compile Remove="Migrations\20231107141950_ExamCreat.cs" />
     <Compile Remove="Migrations\20231107141950_ExamCreat.Designer.cs" />
+    <Compile Remove="Migrations\20231125023119_TestPaperSectionRelateStragety.cs" />
+    <Compile Remove="Migrations\20231125023119_TestPaperSectionRelateStragety.Designer.cs" />
+    <Compile Remove="Migrations\20231125023654_TestPaperSectionRelateStragety.cs" />
+    <Compile Remove="Migrations\20231125023654_TestPaperSectionRelateStragety.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
