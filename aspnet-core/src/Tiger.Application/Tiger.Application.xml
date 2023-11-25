@@ -208,9 +208,22 @@
             试卷大题
             </summary>
         </member>
+        <member name="M:Tiger.Module.Exams.TestPaperSectionAppService.GetAll(Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput)">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.Exams.TestPaperSectionAppService.DeleteAsync(System.Guid)">
             <summary>
             删除大题
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Exams.TestPaperSectionAppService.MoveDownAsync(System.Guid)">
+            <summary>
+            下移大题
             </summary>
             <param name="id"></param>
             <returns></returns>

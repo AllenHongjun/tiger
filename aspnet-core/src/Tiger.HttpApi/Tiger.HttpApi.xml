@@ -209,6 +209,20 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.Exams.TestPaperSectionController.GetAll(Tiger.Module.Exams.Dtos.TestPaperSectionGetListInput)">
+            <summary>
+            查询所有
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Exams.TestPaperSectionController.MoveDownAsync(System.Guid)">
+            <summary>
+            下移大题
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperStrategyController">
             <summary>
             抽题策略

@@ -194,9 +194,9 @@ export default {
         this.temp = response
       })
 
-      // this.$nextTick(() => {
-      //   this.$refs['dataForm'].clearValidate()
-      // })
+      this.$nextTick(() => {
+        this.$refs['miniPaperSection'].getAllList()
+      })
     },
 
     // 更新数据

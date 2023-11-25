@@ -45,9 +45,9 @@ namespace Tiger.Module.Exams
         /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            return TestPaperSectionAppService.DeleteAsync(id);
+             await TestPaperSectionAppService.DeleteAsync(id);
         }
 
         /// <summary>
@@ -85,5 +85,31 @@ namespace Tiger.Module.Exams
         {
             return TestPaperSectionAppService.UpdateAsync(id, input);
         }
+
+        /// <summary>
+        /// 查询所有
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public ListResultDto<TestPaperSectionDto> GetAll(TestPaperSectionGetListInput input)
+        {
+            return  TestPaperSectionAppService.GetAll(input);
+        }
+
+        /// <summary>
+        /// 下移大题
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPut]
+        [Route("move-down/{id}")]
+        public  async Task MoveDownAsync(Guid id)
+        {
+              await TestPaperSectionAppService.MoveDownAsync(id);
+        }
+
+        
     }
 }

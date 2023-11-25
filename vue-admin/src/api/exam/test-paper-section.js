@@ -16,10 +16,11 @@ export function getTestPaperSection(id) {
   })
 }
 
-export function getAllTestPaperSection() {
+export function getAllTestPaperSections(params) {
   return request({
     url: `/api/exam/test-paper-sections/all`,
-    method: 'get'
+    method: 'get',
+    params: transformAbpListQuery(params)
   })
 }
 
@@ -43,6 +44,18 @@ export function deleteTestPaperSection(id) {
   return request({
     url: `/api/exam/test-paper-sections/${id}`,
     method: 'delete'
+  })
+}
+
+/**
+ * 下移大题
+ * @param {guid} id 大题id
+ * @returns
+ */
+export function moveDownTestPaperSection(id) {
+  return request({
+    url: `/api/exam/test-paper-sections/move-down/${id}`,
+    method: 'put'
   })
 }
 
