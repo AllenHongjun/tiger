@@ -19,5 +19,5 @@ public interface ITestPaperSectionAppService :
         CreateUpdateTestPaperSectionDto>
 {
     ListResultDto<TestPaperSectionDto> GetAll(TestPaperSectionGetListInput input);
-    Task MoveDownAsync(Guid id);
+    Task MoveAsync(Guid id, string type = "down");
 }

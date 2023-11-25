@@ -221,11 +221,12 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Module.Exams.TestPaperSectionAppService.MoveDownAsync(System.Guid)">
+        <member name="M:Tiger.Module.Exams.TestPaperSectionAppService.MoveAsync(System.Guid,System.String)">
             <summary>
             下移大题
             </summary>
             <param name="id"></param>
+            <param name="type">down：下移; up：上移</param>
             <returns></returns>
         </member>
         <member name="T:Tiger.Module.Exams.TestPaperStrategyAppService">

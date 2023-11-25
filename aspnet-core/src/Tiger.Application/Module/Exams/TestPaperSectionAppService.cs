@@ -73,16 +73,28 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
     /// 下移大题
     /// </summary>
     /// <param name="id"></param>
+    /// <param name="type">down：下移; up：上移</param>
     /// <returns></returns>
-    public async Task MoveDownAsync(Guid id)
+    public async Task MoveAsync(Guid id, string type = "down")
     {
         var testPaperSection = await _repository.GetAsync(id);
 
-        // 找到相邻下一个元素的序号
+        // 找到待移动的相邻下一个元素的下标
         var testPaperSections = _repository.Where(x => x.TestPaperId == testPaperSection.TestPaperId)
             .OrderBy(x => x.Sort).ToList();
         var testPaperSectionIndex = testPaperSections.FindIndex(0,x => x.Id == testPaperSection.Id);
-        var nextTestPaperSection =  testPaperSections.ElementAtOrDefault(testPaperSectionIndex + 1);
+        TestPaperSection nextTestPaperSection = null;
+        switch (type)
+        {
+            case "up":
+                nextTestPaperSection =  testPaperSections.ElementAtOrDefault(testPaperSectionIndex - 1);
+                break;
+            case "down":
+                nextTestPaperSection =  testPaperSections.ElementAtOrDefault(testPaperSectionIndex + 1);
+                break;
+            default:
+                break;
+        }
         
         // 交换两个元素的序号
         if (nextTestPaperSection != null)

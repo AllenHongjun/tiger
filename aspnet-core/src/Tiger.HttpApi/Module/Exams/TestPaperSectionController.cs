@@ -105,11 +105,10 @@ namespace Tiger.Module.Exams
         /// <exception cref="NotImplementedException"></exception>
         [HttpPut]
         [Route("move-down/{id}")]
-        public  async Task MoveDownAsync(Guid id)
+        public  async Task MoveAsync(Guid id,string type= "down")
         {
-              await TestPaperSectionAppService.MoveDownAsync(id);
+              await TestPaperSectionAppService.MoveAsync(id,type);
         }
-
         
     }
 }

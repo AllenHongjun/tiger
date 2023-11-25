@@ -21,8 +21,8 @@
           <el-col :span="12" :offset="0">
             <el-button-group style="float:right;margin-top:10px;">
               <div v-if="list.length !== 1" style="display: inline-block;float:left;">
-                <el-button v-if="index === list.length - 1" type="info" icon="el-icon-top" title="上移" @click="moveUpData(testPaperSection, index)" />
-                <el-button v-else type="info" icon="el-icon-bottom" title="下移" @click="moveDownData(testPaperSection, index)" />
+                <el-button v-if="index === list.length - 1" type="info" icon="el-icon-top" title="上移" @click="moveData(testPaperSection, 'up')" />
+                <el-button v-else type="info" icon="el-icon-bottom" title="下移" @click="moveData(testPaperSection, 'down')" />
               </div>
               <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
               <el-button type="info" icon="el-icon-delete" title="删除大题" @click="handleDelete(testPaperSection, index)" />
@@ -48,7 +48,7 @@ import {
   createTestPaperSection,
   updateTestPaperSection,
   deleteTestPaperSection,
-  moveDownTestPaperSection
+  moveTestPaperSection
 } from '@/api/exam/test-paper-section'
 import { switchCase } from '@babel/types'
 
@@ -162,9 +162,9 @@ export default {
         })
       })
     },
-    // 下移
-    moveDownData(row) {
-      moveDownTestPaperSection(row.id).then(() => {
+    // 移动大题
+    moveData(row, type) {
+      moveTestPaperSection(row.id, { type: type }).then(() => {
         this.getAllList(this.listQuery.testPaperId)
       })
     }

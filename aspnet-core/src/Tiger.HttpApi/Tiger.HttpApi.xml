@@ -215,7 +215,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Module.Exams.TestPaperSectionController.MoveDownAsync(System.Guid)">
+        <member name="M:Tiger.Module.Exams.TestPaperSectionController.MoveAsync(System.Guid,System.String)">
             <summary>
             下移大题
             </summary>

@@ -52,10 +52,11 @@ export function deleteTestPaperSection(id) {
  * @param {guid} id 大题id
  * @returns
  */
-export function moveDownTestPaperSection(id) {
+export function moveTestPaperSection(id, params) {
   return request({
     url: `/api/exam/test-paper-sections/move-down/${id}`,
-    method: 'put'
+    method: 'put',
+    params: params
   })
 }
 
