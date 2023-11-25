@@ -192,10 +192,10 @@ export default {
       this.dialogFormVisible = true
       getTestPaper(row.id).then(response => {
         this.temp = response
-      })
-
-      this.$nextTick(() => {
-        this.$refs['miniPaperSection'].getAllList()
+        this.$refs['miniPaperSection'].getAllList(row.id)
+        // this.$nextTick(() => {
+        //
+        // })
       })
     },
 

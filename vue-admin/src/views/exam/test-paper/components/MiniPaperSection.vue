@@ -20,9 +20,13 @@
           </el-col>
           <el-col :span="12" :offset="0">
             <el-button-group style="float:right;margin-top:10px;">
-              <el-button type="info" icon="el-icon-bottom" title="下移" @click="moveDownData(testPaperSection, index)" />
+              <div v-if="list.length !== 1" style="display: inline-block;float:left;">
+                <el-button v-if="index === list.length - 1" type="info" icon="el-icon-top" title="上移" @click="moveUpData(testPaperSection, index)" />
+                <el-button v-else type="info" icon="el-icon-bottom" title="下移" @click="moveDownData(testPaperSection, index)" />
+              </div>
               <el-button type="info" icon="el-icon-edit" title="批量修改分数" />
               <el-button type="info" icon="el-icon-delete" title="删除大题" @click="handleDelete(testPaperSection, index)" />
+
             </el-button-group>
           </el-col>
         </el-row>
@@ -59,6 +63,11 @@ export default {
         return {}
       }
     }
+    // testPaperId: {
+    //   type: String,
+    //   require: false,
+    //   default: undefined
+    // }
   },
   data() {
     return {
@@ -67,9 +76,8 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
-        testPaperId: undefined
+        testPaperId: undefined // 父组件传入参数方法优化
       }, baseListQuery),
-      testPaperId: '6E25C8D0-07A4-EB6C-DE2B-3A0ED6499A28',
       testPaperSectionModel: {
         testPaperId: undefined,
         name: undefined,
@@ -77,29 +85,18 @@ export default {
         questionCount: 0,
         totalScore: 0,
         sort: 0
-      },
-      testPaperSections: [
-        {
-          testPaperId: undefined,
-          name: undefined,
-          description: undefined,
-          questionCount: 20,
-          totalScore: 0,
-          sort: 0
-        }
-
-      ]
+      }
     }
   },
   created() {
-    this.getAllList()
+    // this.getAllList()
   },
   methods: {
     checkPermission,
     // 获取列表数据
-    getAllList() {
+    getAllList(testPaperId) {
       this.listLoading = true
-      this.listQuery.testPaperId = this.testPaperId.id
+      this.listQuery.testPaperId = testPaperId
       getAllTestPaperSections(this.listQuery).then(response => {
         this.list = response.items
         this.listLoading = false
@@ -134,7 +131,7 @@ export default {
     // 添加大题
     createData(type) {
       var testPaperSectionCount = this.list.length
-      this.testPaperSectionModel.testPaperId = this.testPaper.id
+      this.testPaperSectionModel.testPaperId = this.listQuery.testPaperId
       this.testPaperSectionModel.name = '第 ' + (testPaperSectionCount + 1) + ' 大题'
       this.testPaperSectionModel.type = type
       this.testPaperSectionModel.questionCount = 10
@@ -142,7 +139,7 @@ export default {
       this.testPaperSectionModel.sort = testPaperSectionCount + 1
 
       createTestPaperSection(this.testPaperSectionModel).then(() => {
-        this.getAllList()
+        this.getAllList(this.listQuery.testPaperId)
       })
     },
     // 删除
@@ -161,14 +158,14 @@ export default {
       ).then(async() => {
         // 回调函数
         deleteTestPaperSection(row.id).then(() => {
-          this.getAllList()
+          this.getAllList(this.listQuery.testPaperId)
         })
       })
     },
     // 下移
     moveDownData(row) {
       moveDownTestPaperSection(row.id).then(() => {
-        this.getAllList()
+        this.getAllList(this.listQuery.testPaperId)
       })
     }
   }
