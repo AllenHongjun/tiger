@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
@@ -34,7 +35,6 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
             .WhereIf(input.UnlimitedDifficultyCount != null, x => x.UnlimitedDifficultyCount == input.UnlimitedDifficultyCount)
             .WhereIf(input.EasyCount != null, x => x.EasyCount == input.EasyCount)
             .WhereIf(input.OrdinaryCount != null, x => x.OrdinaryCount == input.OrdinaryCount)
-            .WhereIf(input.DifficultCount != null, x => x.DifficultCount == input.DifficultCount)
-            ;
+            .WhereIf(input.DifficultCount != null, x => x.DifficultCount == input.DifficultCount);
     }
 }

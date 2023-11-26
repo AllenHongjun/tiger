@@ -78,7 +78,7 @@ export default {
       testPaperId: undefined,
       activeIndex2: 1,
       active: 1,
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: '',
       temp: {
         id: undefined,
@@ -252,17 +252,5 @@ export default {
   margin-bottom: 18px;
 }
 
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-.clearfix:after {
-  clear: both
-}
-
-.box-card {
-  width: 100%;
-}
 </style>
 

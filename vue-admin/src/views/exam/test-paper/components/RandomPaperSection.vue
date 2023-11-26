@@ -23,7 +23,7 @@
         <el-table-column type="index" label="序号" width="80" />
         <el-table-column prop="questionType" label="试题类型" width="180">
           <template slot-scope="{ row }">
-            <el-select v-model="row.questionType" placeholder="-" filterable clearable>
+            <el-select v-model="row.questionType" placeholder="-" filterable clearable @change="updateData(row)">
               <el-option
                 v-for="item in typeOptions"
                 :key="item.key"
@@ -43,6 +43,7 @@
               style="width:230px;"
               clearable
               filterable
+              @change="updateData(row)"
             />
           </template>
 
@@ -50,22 +51,22 @@
         <el-table-column label="抽题数量设置" width="110" align="center">
           <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="110">
             <template slot-scope="{ row }">
-              <el-input placeholder="0" class="question-count" /> / <span>{{ row.unlimitedDifficultyCount }}</span>
+              <el-input v-model="row.unlimitedDifficultyCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.unlimitedDifficultyCount }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="easyCount" label="容易" width="110">
             <template slot-scope="{ row }">
-              <el-input placeholder="0" class="question-count" /> / <span>{{ row.easyCount }}</span>
+              <el-input v-model="row.easyCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.easyCount }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="ordinaryCount" label="普通" width="110">
             <template slot-scope="{ row }">
-              <el-input placeholder="0" class="question-count" /> / <span>{{ row.ordinaryCount }}</span>
+              <el-input v-model="row.ordinaryCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.ordinaryCount }}</span>
             </template>
           </el-table-column>
           <el-table-column prop="difficultCount" label="困难" width="110">
             <template slot-scope="{ row }">
-              <el-input placeholder="0" class="question-count" /> / <span>{{ row.difficultCount }}</span>
+              <el-input v-model="row.difficultCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.difficultCount }}</span>
             </template>
           </el-table-column>
         </el-table-column>
@@ -76,12 +77,12 @@
         </el-table-column>
         <el-table-column prop="scorePerQuestion" label="每题分数" width="110">
           <template slot-scope="{ row }">
-            <span>{{ row.scorePerQuestion }}</span>
+            <el-input v-model="row.scorePerQuestion" placeholder="0" class="question-count" @blur="updateData(row)" />
           </template>
         </el-table-column>
         <el-table-column label="操作" width="80" align="center">
           <template slot-scope="{ row }">
-            <el-button type="text" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" />
+            <el-button type="text" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row)" />
           </template>
         </el-table-column>
       </el-table>
@@ -95,7 +96,6 @@
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getTestPaperStrategies,
-  getTestPaperStrategy,
   createTestPaperStrategy,
   updateTestPaperStrategy,
   deleteTestPaperStrategy
@@ -146,12 +146,12 @@ export default {
     }
   },
   created() {
-    // this.fetchOptions()
+    this.fetchQuestionCategoryOptions()
     this.getList()
   },
   methods: {
     checkPermission,
-    fetchOptions() {
+    fetchQuestionCategoryOptions() {
       getAllQuestionCategory().then(response => {
         this.questionCategoryOptions = listToTree(response.items)
       })
@@ -160,6 +160,8 @@ export default {
     getList() {
       this.listLoading = true
       this.listQuery.testPaperSectionId = this.testPaperSectionId
+      // 增加默认时间排序
+      if (!this.listQuery.sort) this.listQuery.sort = 'creationTime asc'
       getTestPaperStrategies(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
@@ -183,7 +185,7 @@ export default {
       this.temp = {
         testPaperId: this.testPaperId,
         testPaperSectionId: this.testPaperSectionId,
-        questionCategoryId: '2F5C705C-7758-3B28-2849-3A0EC17417A5',
+        questionCategoryId: '0A754243-E155-112F-7640-3A0EC1EF97E0',
         questionType: 1,
         unlimitedDifficultyCount: 0,
         easyCount: 0,
@@ -203,42 +205,18 @@ export default {
 
     // 创建数据
     createData() {
-      // 获取当前题库一级分类的第一分类id提交，如果第一个题库分类没有，就提示先添加题库
-      // this.temp.questionCategoryId = ''
+      // TODO:获取当前题库一级分类的第一分类id提交，如果第一个题库分类没有，就提示先添加题库
+      // this.temp.questionCategoryId = '0A754243-E155-112F-7640-3A0EC1EF97E0'
       this.resetTemp()
       createTestPaperStrategy(this.temp).then(() => {
         this.handleFilter()
       })
     },
 
-    // 更新按钮点击
-    handleUpdate(row) {
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
-      getTestPaperStrategy(row.id).then(response => {
-        this.temp = response
-      })
-
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
-    },
-
     // 更新数据
-    updateData() {
-      this.$refs['dataForm'].validate(valid => {
-        if (valid) {
-          updateTestPaperStrategy(this.temp.id, this.temp).then(() => {
-            this.$emit('handleFilter', false)
-            this.dialogFormVisible = false
-            this.$notify({
-              title: this.$i18n.t("TigerUi['Success']"),
-              message: this.$i18n.t("TigerUi['SuccessMessage']"),
-              type: 'success',
-              duration: 2000
-            })
-          })
-        }
+    updateData(row) {
+      updateTestPaperStrategy(row.id, row).then(() => {
+        this.handleFilter(false)
       })
     },
 
@@ -246,9 +224,7 @@ export default {
     handleDelete(row, index) {
       this.$confirm(
         // 消息
-        this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
-          row.name
-        ]),
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessage']"),
         // title
         this.$i18n.t("AbpUi['AreYouSure']"), {
           confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
@@ -259,12 +235,6 @@ export default {
         // 回调函数
         deleteTestPaperStrategy(row.id).then(() => {
           this.handleFilter(false)
-          this.$notify({
-            title: this.$i18n.t("TigerUi['Success']"),
-            message: this.$i18n.t("TigerUi['SuccessMessage']"),
-            type: 'success',
-            duration: 2000
-          })
         })
       })
     }

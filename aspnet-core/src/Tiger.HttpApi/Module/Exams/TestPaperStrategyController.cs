@@ -69,6 +69,10 @@ namespace Tiger.Module.Exams
         [HttpGet]
         public async Task<PagedResultDto<TestPaperStrategyDto>> GetListAsync(TestPaperStrategyGetListInput input)
         {
+            if (string.IsNullOrWhiteSpace(input.Sorting))
+            {
+                input.Sorting = "creationTime asc";
+            }
             return await TestPaperStrategyAppService.GetListAsync(input);
         }
 

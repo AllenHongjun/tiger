@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20231125023119_TestPaperSectionRelateStragety.Designer.cs" />
     <Compile Remove="Migrations\20231125023654_TestPaperSectionRelateStragety.cs" />
     <Compile Remove="Migrations\20231125023654_TestPaperSectionRelateStragety.Designer.cs" />
+    <Compile Remove="Migrations\20231126015943_TestPaperStrategyAddSectionId.cs" />
+    <Compile Remove="Migrations\20231126015943_TestPaperStrategyAddSectionId.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
