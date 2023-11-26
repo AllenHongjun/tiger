@@ -72,7 +72,7 @@
         </el-table-column>
         <el-table-column prop="questionCount" label="抽题数" width="110">
           <template slot-scope="{ row }">
-            <b>{{ row.displayName }}</b>
+            <b>{{ row.totalSelectQuestionsCount }}</b>
           </template>
         </el-table-column>
         <el-table-column prop="scorePerQuestion" label="每题分数" width="110">
@@ -217,6 +217,7 @@ export default {
     updateData(row) {
       updateTestPaperStrategy(row.id, row).then(() => {
         this.handleFilter(false)
+        this.$emit('get-mini-paper-list')
       })
     },
 

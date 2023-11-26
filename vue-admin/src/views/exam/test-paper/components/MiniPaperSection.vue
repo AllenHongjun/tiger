@@ -129,7 +129,7 @@ export default {
       this.testPaperSectionModel.testPaperId = this.listQuery.testPaperId
       this.testPaperSectionModel.name = '第 ' + (testPaperSectionCount + 1) + ' 大题'
       this.testPaperSectionModel.type = type
-      this.testPaperSectionModel.questionCount = 10
+      this.testPaperSectionModel.questionCount = 0
       this.testPaperSectionModel.totalScore = 0
       this.testPaperSectionModel.sort = testPaperSectionCount + 1
 
@@ -155,7 +155,6 @@ export default {
         // 回调函数
         deleteTestPaperSection(row.id).then(() => {
           this.getAllList(this.listQuery.testPaperId)
-          debugger
           this.$emit('getTestPaperSections', this.listQuery.testPaperId)
         })
       })

@@ -29,7 +29,7 @@
         <el-col v-if="testPaperSections.length > 0" :span="18">
           <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
             <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" />
-            <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" />
+            <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @get-mini-paper-list="handelGetMiniPaperList" />
           </div>
         </el-col>
         <el-col v-else :span="18">
@@ -201,9 +201,6 @@ export default {
       getTestPaper(row.id).then(response => {
         this.temp = response
         this.$refs['miniPaperSection'].getAllList(row.id)
-        // this.$nextTick(() => {
-        //
-        // })
       })
       this.handleGetAllTestPaperSections(row.id)
     },
@@ -233,6 +230,9 @@ export default {
       getAllTestPaperSections(listQuery).then(response => {
         this.testPaperSections = response.items
       })
+    },
+    handelGetMiniPaperList() {
+      this.$refs['miniPaperSection'].getAllList(this.testPaperId)
     }
 
   }

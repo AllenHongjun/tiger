@@ -1369,6 +1369,31 @@
             困难的数量
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalSelectQuestionsCount">
+            <summary>
+            总抽题数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalEasyCount">
+            <summary>
+            当前题库分类简单题的总数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalOrdinaryCount">
+            <summary>
+            当前题库分类普通题的总数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalDifficultCount">
+            <summary>
+            当前题库分类困难题的总数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalCount">
+            <summary>
+            当前题库分类题目的总数量
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.ScorePerQuestion">
             <summary>
             每题分数

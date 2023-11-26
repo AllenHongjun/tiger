@@ -20,10 +20,14 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
     ITestPaperStrategyAppService
 {
     private readonly ITestPaperStrategyRepository _repository;
+    private readonly ITestPaperSectionRepository _sectionRepository;
 
-    public TestPaperStrategyAppService(ITestPaperStrategyRepository repository) : base(repository)
+    public TestPaperStrategyAppService(
+        ITestPaperStrategyRepository repository, 
+        ITestPaperSectionRepository sectionRepository) : base(repository)
     {
         _repository = repository;
+        _sectionRepository=sectionRepository;
     }
 
     protected override  IQueryable<TestPaperStrategy> CreateFilteredQuery(TestPaperStrategyGetListInput input)
@@ -43,6 +47,24 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
 
     public override async Task<PagedResultDto<TestPaperStrategyDto>> GetListAsync(TestPaperStrategyGetListInput input)
     {
-        return await base.GetListAsync(input);
+        var testPaperStrategies = await base.GetListAsync(input);
+        foreach (var item in testPaperStrategies.Items)
+        {
+            item.TotalSelectQuestionsCount = item.UnlimitedDifficultyCount + item.EasyCount + item.OrdinaryCount + item.DifficultCount;
+        }
+        return testPaperStrategies;
+    }
+
+    public override async Task<TestPaperStrategyDto> UpdateAsync(Guid id, CreateUpdateTestPaperStrategyDto input)
+    {
+        TestPaperStrategyDto testPaperStrategy = await base.UpdateAsync(id, input);
+
+        // 更新试卷大题题目数量
+        var testPaperSection = await _sectionRepository.GetAsync(testPaperStrategy.TestPaperSectionId);
+        var testPaperStrategies =  _repository.Where(x => x.TestPaperSectionId == testPaperStrategy.TestPaperSectionId).ToList();
+        testPaperSection.QuestionCount = testPaperStrategies.Sum(x => x.UnlimitedDifficultyCount + x.EasyCount + x.OrdinaryCount + x.DifficultCount);
+        await _sectionRepository.UpdateAsync(testPaperSection);
+        await CurrentUnitOfWork.SaveChangesAsync();
+        return testPaperStrategy;
     }
 }
