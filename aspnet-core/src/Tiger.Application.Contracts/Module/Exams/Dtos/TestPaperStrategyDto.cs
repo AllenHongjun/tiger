@@ -51,6 +51,31 @@ public class TestPaperStrategyDto : FullAuditedEntityDto<Guid>
     public int DifficultCount { get; set; }
 
     /// <summary>
+    /// 总抽题数量
+    /// </summary>
+    public int TotalSelectQuestionsCount { get; set; }
+
+    /// <summary>
+    /// 当前题库分类简单题的总数量
+    /// </summary>
+    public int TotalEasyCount { get; set; }
+
+    /// <summary>
+    /// 当前题库分类普通题的总数量
+    /// </summary>
+    public int TotalOrdinaryCount { get; set; }
+
+    /// <summary>
+    /// 当前题库分类困难题的总数量
+    /// </summary>
+    public int TotalDifficultCount { get; set; }
+
+    /// <summary>
+    /// 当前题库分类题目的总数量
+    /// </summary>
+    public int TotalCount { get; set; }
+
+    /// <summary>
     /// 每题分数
     /// </summary>
     public decimal ScorePerQuestion { get; set; }

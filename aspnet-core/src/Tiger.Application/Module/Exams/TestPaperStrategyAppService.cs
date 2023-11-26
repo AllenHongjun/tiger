@@ -6,6 +6,8 @@ using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp;
+using Tiger.Module.QuestionBank.Dtos;
+using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.Exams;
 
@@ -36,5 +38,11 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
             .WhereIf(input.EasyCount != null, x => x.EasyCount == input.EasyCount)
             .WhereIf(input.OrdinaryCount != null, x => x.OrdinaryCount == input.OrdinaryCount)
             .WhereIf(input.DifficultCount != null, x => x.DifficultCount == input.DifficultCount);
+    }
+
+
+    public override async Task<PagedResultDto<TestPaperStrategyDto>> GetListAsync(TestPaperStrategyGetListInput input)
+    {
+        return await base.GetListAsync(input);
     }
 }
