@@ -59,10 +59,12 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
     {
         TestPaperStrategyDto testPaperStrategy = await base.UpdateAsync(id, input);
 
-        // 更新试卷大题题目数量
+        // 计算试卷大题题目数量和题目总分
         var testPaperSection = await _sectionRepository.GetAsync(testPaperStrategy.TestPaperSectionId);
         var testPaperStrategies =  _repository.Where(x => x.TestPaperSectionId == testPaperStrategy.TestPaperSectionId).ToList();
         testPaperSection.QuestionCount = testPaperStrategies.Sum(x => x.UnlimitedDifficultyCount + x.EasyCount + x.OrdinaryCount + x.DifficultCount);
+        testPaperSection.TotalScore = testPaperStrategies
+            .Sum(x => (x.UnlimitedDifficultyCount + x.EasyCount + x.OrdinaryCount + x.DifficultCount) * x.ScorePerQuestion);
         await _sectionRepository.UpdateAsync(testPaperSection);
         await CurrentUnitOfWork.SaveChangesAsync();
         return testPaperStrategy;

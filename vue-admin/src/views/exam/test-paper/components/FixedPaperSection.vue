@@ -1,12 +1,5 @@
 <template>
-  <el-card class="box-card">
-    <div slot="header" class="clearfix">
-      <h3 class="section-title">第1大题 <span>(共 <b>14</b>  题 <b>90.0</b>  分)</span></h3>
-      <div style="float: right;">
-        <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
-        <el-button plain>选项乱序</el-button>
-      </div>
-    </div>
+  <div class="fixed-paper-section-container">
     <div>
       <!--拖拽table使用 https://panjiachen.github.io/vue-element-admin/#/table/drag-table -->
       <el-table :data="tableData" style="width: 100%">
@@ -92,7 +85,7 @@
         <el-button type="primary" @click="dialogRandomSelentQuestionVisible = false">确 定</el-button>
       </span>
     </el-dialog>
-  </el-card>
+  </div>
 
 </template>
 
@@ -174,14 +167,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-title{
-  font-size: 14px;
-  font-weight: normal;
-  display: inline-block;
-  span{
-    font-size: 12px;
-  }
-}
+
 .question-count{
   width: 65%;
 }

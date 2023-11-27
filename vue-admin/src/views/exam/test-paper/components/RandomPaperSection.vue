@@ -1,94 +1,85 @@
 <template>
-  <el-card class="random-paper-section-box">
-    <div slot="header" class="clearfix">
-      <h3 class="section-title">第1大题 <span>(共 <b>0</b>  题 <b>0</b>  分)</span></h3>
-      <div style="float: right;">
-        <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
-        <el-button plain>选项乱序</el-button>
-      </div>
-    </div>
-    <div>
-      <el-table
-        :key="tableKey"
-        v-loading="listLoading"
-        :data="list"
-        border
-        fit
-        highlight-current-row
-        :stripe="true"
-        style="width: 100%;"
-        @sort-change="sortChange"
-      >
-        <!-- <el-table-column type="selection" width="55" center /> -->
-        <el-table-column type="index" label="序号" width="80" />
-        <el-table-column prop="questionType" label="试题类型" width="180">
-          <template slot-scope="{ row }">
-            <el-select v-model="row.questionType" placeholder="-" filterable clearable @change="updateData(row)">
-              <el-option
-                v-for="item in typeOptions"
-                :key="item.key"
-                :label="item.lable"
-                :value="item.value"
-              />
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column prop="questionCategory" label="试题分类">
-          <template slot-scope="{ row }">
-            <el-cascader
-              v-model="row.questionCategoryId"
-              :options="questionCategoryOptions"
-              :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
-              placeholder="-"
-              style="width:230px;"
-              clearable
-              filterable
-              @change="updateData(row)"
+  <div class="random-paper-section-box">
+    <el-table
+      :key="tableKey"
+      v-loading="listLoading"
+      :data="list"
+      border
+      fit
+      highlight-current-row
+      :stripe="true"
+      style="width: 100%;"
+      @sort-change="sortChange"
+    >
+      <!-- <el-table-column type="selection" width="55" center /> -->
+      <el-table-column type="index" label="序号" width="80" />
+      <el-table-column prop="questionType" label="试题类型" width="130">
+        <template slot-scope="{ row }">
+          <el-select v-model="row.questionType" placeholder="-" filterable clearable @change="updateData(row)">
+            <el-option
+              v-for="item in typeOptions"
+              :key="item.key"
+              :label="item.lable"
+              :value="item.value"
             />
-          </template>
+          </el-select>
+        </template>
+      </el-table-column>
+      <el-table-column prop="questionCategory" label="试题分类">
+        <template slot-scope="{ row }">
+          <el-cascader
+            v-model="row.questionCategoryId"
+            :options="questionCategoryOptions"
+            :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
+            placeholder="-"
+            style="width:230px;"
+            clearable
+            filterable
+            @change="updateData(row)"
+          />
+        </template>
 
-        </el-table-column>
-        <el-table-column label="抽题数量设置" width="110" align="center">
-          <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="110">
-            <template slot-scope="{ row }">
-              <el-input v-model="row.unlimitedDifficultyCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.unlimitedDifficultyCount }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="easyCount" label="容易" width="110">
-            <template slot-scope="{ row }">
-              <el-input v-model="row.easyCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.easyCount }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="ordinaryCount" label="普通" width="110">
-            <template slot-scope="{ row }">
-              <el-input v-model="row.ordinaryCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.ordinaryCount }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="difficultCount" label="困难" width="110">
-            <template slot-scope="{ row }">
-              <el-input v-model="row.difficultCount" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.difficultCount }}</span>
-            </template>
-          </el-table-column>
-        </el-table-column>
-        <el-table-column prop="questionCount" label="抽题数" width="110">
+      </el-table-column>
+      <el-table-column label="抽题数量设置" width="130" align="center">
+        <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="130">
           <template slot-scope="{ row }">
-            <b>{{ row.totalSelectQuestionsCount }}</b>
+            <el-input v-model="row.unlimitedDifficultyCount" type="number" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.unlimitedDifficultyCount }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="scorePerQuestion" label="每题分数" width="110">
+        <el-table-column prop="easyCount" label="容易" width="130">
           <template slot-scope="{ row }">
-            <el-input v-model="row.scorePerQuestion" placeholder="0" class="question-count" @blur="updateData(row)" />
+            <el-input v-model="row.easyCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.easyCount }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="80" align="center">
+        <el-table-column prop="ordinaryCount" label="普通" width="130">
           <template slot-scope="{ row }">
-            <el-button type="text" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row)" />
+            <el-input v-model="row.ordinaryCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.ordinaryCount }}</span>
           </template>
         </el-table-column>
-      </el-table>
-    </div>
+        <el-table-column prop="difficultCount" label="困难" width="130">
+          <template slot-scope="{ row }">
+            <el-input v-model="row.difficultCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.difficultCount }}</span>
+          </template>
+        </el-table-column>
+      </el-table-column>
+      <el-table-column prop="questionCount" label="抽题数" type="number" width="130">
+        <template slot-scope="{ row }">
+          <b>{{ row.totalSelectQuestionsCount }}</b>
+        </template>
+      </el-table-column>
+      <el-table-column prop="scorePerQuestion" label="每题分数" width="130">
+        <template slot-scope="{ row }">
+          <el-input v-model="row.scorePerQuestion" placeholder="0" type="number" class="question-count" @blur="updateData(row)" />
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="80" align="center">
+        <template slot-scope="{ row }">
+          <el-button type="text" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row)" />
+        </template>
+      </el-table-column>
+    </el-table>
     <el-button type="primary" style="margin-top: 15px;" @click="createData()">添加随机规则</el-button>
-  </el-card>
+  </div>
 
 </template>
 
@@ -217,7 +208,7 @@ export default {
     updateData(row) {
       updateTestPaperStrategy(row.id, row).then(() => {
         this.handleFilter(false)
-        this.$emit('get-mini-paper-list')
+        this.$emit('update-test-paper-strategy')
       })
     },
 
@@ -236,6 +227,7 @@ export default {
         // 回调函数
         deleteTestPaperStrategy(row.id).then(() => {
           this.handleFilter(false)
+          this.$emit('update-test-paper-strategy')
         })
       })
     }

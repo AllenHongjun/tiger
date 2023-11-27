@@ -16,7 +16,7 @@
       <div v-for="(testPaperSection, index) in list" :key="index" class="mini-paper-section">
         <el-row class="mini-paper-section-header">
           <el-col :span="12">
-            <h3 class="section-title"> {{ testPaperSection.name }} <span>(共 <b>0</b>  题 <b>0</b>  分)</span></h3>
+            <h3 class="section-title"> {{ testPaperSection.name }} <span>(共 <b>{{ testPaperSection.questionCount }}</b>  题 <b>{{ testPaperSection.totalScore }}</b>  分)</span></h3>
           </el-col>
           <el-col :span="12" :offset="0">
             <el-button-group style="float:right;margin-top:10px;">

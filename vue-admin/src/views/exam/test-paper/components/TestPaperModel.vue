@@ -28,8 +28,19 @@
         </el-col>
         <el-col v-if="testPaperSections.length > 0" :span="18">
           <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
-            <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" />
-            <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @get-mini-paper-list="handelGetMiniPaperList" />
+            <el-card>
+              <div slot="header" class="clearfix">
+                <h3 class="section-title"> {{ testPaperSection.name }} <span>(共 <b>{{ testPaperSection.questionCount }}</b>  题 <b>{{ testPaperSection.totalScore }}</b>  分)</span></h3>
+                <div style="float: right;">
+                  <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
+                  <el-button plain>选项乱序</el-button>
+                </div>
+                <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" />
+                <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @update-test-paper-strategy="handelUpdateTestPaperStrategy" />
+              </div>
+
+            </el-card>
+
           </div>
         </el-col>
         <el-col v-else :span="18">
@@ -231,8 +242,11 @@ export default {
         this.testPaperSections = response.items
       })
     },
-    handelGetMiniPaperList() {
+
+    // 处理更新试卷抽题规则事件
+    handelUpdateTestPaperStrategy() {
       this.$refs['miniPaperSection'].getAllList(this.testPaperId)
+      this.handleGetAllTestPaperSections(this.testPaperId)
     }
 
   }
@@ -248,8 +262,13 @@ export default {
   overflow: auto;
 }
 
-.item {
-  margin-bottom: 18px;
+.section-title{
+  font-size: 14px;
+  font-weight: normal;
+  display: inline-block;
+  span{
+    font-size: 12px;
+  }
 }
 
 </style>
