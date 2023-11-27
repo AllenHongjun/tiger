@@ -178,12 +178,7 @@ export default {
         type: 2,
         name: undefined,
         content: undefined,
-        optionA: undefined,
-        optionB: undefined,
-        optionC: undefined,
-        optionD: undefined,
-        optionE: undefined,
-        answer: 'B',
+        answer: undefined,
         score: undefined,
         degree: 1,
         analysis: undefined,
@@ -198,7 +193,7 @@ export default {
         isShowImageButton: true,
         isShowLinkButton: true
       },
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: '',
 
       // 表单验证规则

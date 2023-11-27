@@ -43,31 +43,22 @@ namespace Tiger.Module.QuestionBank
         /// <summary>
         /// 选项内容（用|分隔）
         /// </summary>
-        [Obsolete("使用单个选项填充")]
-        [NotMapped]
         public string OptionContent { get; set; }
 
         /// <summary>
         /// 选项数量
         /// </summary>
-        [Obsolete]
-        [NotMapped]
         public int? OptionSize { get; set; }
-
-        /// <summary>
-        /// A选项
-        /// </summary>
-        public string OptionA { get; set; }
-        public string OptionB { get; set; }
-        public string OptionC { get; set; }
-        public string OptionD { get; set; }
-        public string OptionE { get; set; }
 
         /// <summary>
         /// 答案
         /// </summary>
-        [Obsolete("使用QuestionAnswer表替代")]
         public string Answer { get; set; }
+
+        /// <summary>
+        /// 分数
+        /// </summary>
+        public decimal Score { get; set; }
 
         /// <summary>
         /// 难易度：1.简单 2.普通 3.困难
@@ -193,11 +184,6 @@ namespace Tiger.Module.QuestionBank
             Content = content;
             OptionContent = optionContent;
             OptionSize = optionSize;
-            OptionA = optionA;
-            OptionB = optionB;
-            OptionC = optionC;
-            OptionD = optionD;
-            OptionE = optionE;
             Answer = answer;
             Degree = degree;
             Analysis = analysis;

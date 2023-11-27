@@ -197,7 +197,7 @@ export default {
         questionCategoryId: undefined,
         createStartTime: undefined,
         createEndTime: undefined,
-        type: 1,
+        type: undefined,
         enable: undefined
       }, baseListQuery)
 

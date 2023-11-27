@@ -45,22 +45,14 @@ public class QuestionDto : FullAuditedEntityDto<Guid>
     /// 选项数量
     /// </summary>
     public int? OptionSize { get; set; }
-
+    
     /// <summary>
-    /// A 选项
+    /// 每题分数
     /// </summary>
-    public string OptionA { get; set; }
-
-    public string OptionB { get; set; }
-
-    public string OptionC { get; set; }
-
-    public string OptionD { get; set; }
-
-    public string OptionE { get; set; }
+    public decimal Score { get; set; }
 
     /// <summary>
-    /// 答案
+    /// 答案 判断题答案：正确/错误；多个填空之间的答案使用竖线 |分隔，如果一个填空有多个答案请用 & 开隔;
     /// </summary>
     public string Answer { get; set; }
 

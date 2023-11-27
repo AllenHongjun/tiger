@@ -955,7 +955,9 @@ namespace Tiger.Migrations
                         .HasMaxLength(512);
 
                     b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("答案 判断题答案：正确/错误；多个填空之间的答案使用竖线 |分隔，如果一个填空有多个答案请用 & 开隔;")
+                        .HasMaxLength(256);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -965,8 +967,9 @@ namespace Tiger.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("题目内容");
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("题目内容")
+                        .HasMaxLength(1024);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnName("CreationTime")
@@ -1047,33 +1050,22 @@ namespace Tiger.Migrations
                         .HasComment("题目名称")
                         .HasMaxLength(1024);
 
-                    b.Property<string>("OptionA")
+                    b.Property<string>("OptionContent")
+                        .IsRequired()
                         .HasColumnType("nvarchar(512)")
-                        .HasComment("A 选项")
+                        .HasComment("选项内容")
                         .HasMaxLength(512);
 
-                    b.Property<string>("OptionB")
-                        .HasColumnType("nvarchar(512)")
-                        .HasComment("B 选项")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("OptionC")
-                        .HasColumnType("nvarchar(512)")
-                        .HasComment("C 选项")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("OptionD")
-                        .HasColumnType("nvarchar(512)")
-                        .HasComment("D 选项")
-                        .HasMaxLength(512);
-
-                    b.Property<string>("OptionE")
-                        .HasColumnType("nvarchar(512)")
-                        .HasComment("E 选项")
-                        .HasMaxLength(512);
+                    b.Property<int?>("OptionSize")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("QuestionCategoryId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("分数")
+                        .HasMaxLength(512);
 
                     b.Property<string>("Source")
                         .HasColumnType("nvarchar(256)")

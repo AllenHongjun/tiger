@@ -1949,16 +1949,12 @@
             选项数量
             </summary>
         </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.OptionA">
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Score">
             <summary>
-            A 选项
+            每题分数
             </summary>
         </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Answer">
-            <summary>
-            答案
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Answer" -->
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Degree">
             <summary>
             难易度：1.简单 2.普通 3.困难
