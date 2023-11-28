@@ -1707,14 +1707,14 @@
             选项数量
             </summary>
         </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.OptionA">
-            <summary>
-            A 选项
-            </summary>
-        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Answer">
             <summary>
             答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Score">
+            <summary>
+            分数
             </summary>
         </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Degree">

@@ -115,7 +115,8 @@
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left">
         <template slot-scope="{ row }">
-          <span>{{ row.content }}</span>
+          <!-- <span>{{ row.content }}</span> -->
+          <span style="max-height:300px" v-html="row.content" />
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">

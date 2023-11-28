@@ -21,20 +21,21 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
+        <!-- <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
           <el-input v-model="temp.name" />
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="content">
-          <el-input v-model="temp.content" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" />
+          <!-- <el-input v-model="temp.content" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" /> -->
+          <tinymce v-model="temp.content" :height="300" />
           <div v-if="temp.type === QuestionType.Completion" style="margin-top: 10px;">
             <span>请在填空位置</span>   <el-button type="primary" @click="insertBlankFill()">插入填空符</el-button>
           </div>
         </el-form-item>
 
         <el-form-item v-if="temp.type === QuestionType.TrueOrFalse" label="选项" prop="name">
-          <el-radio v-model="radio" label="A">A. 正确</el-radio>
-          <el-radio v-model="radio" label="B">B. 错误</el-radio>
+          <el-radio v-model="temp.answer" label="true">A 正确</el-radio>
+          <el-radio v-model="temp.answer" label="false">B 错误</el-radio>
         </el-form-item>
 
         <div v-if="temp.type === QuestionType.SingleChoice" class="single-option-container">
@@ -44,46 +45,53 @@
           </el-row>
           <el-form-item label="选项">
             <el-radio v-model="temp.answer" label="A" />
-            <el-input v-model="temp.name" />
+            <el-input v-model="temp.optionContent" />
           </el-form-item>
           <el-form-item label="选项">
             <el-radio v-model="temp.answer" label="B" />
-            <el-input v-model="temp.name" />
+            <el-input v-model="temp.optionContent" />
           </el-form-item>
           <el-form-item label="选项">
             <el-radio v-model="temp.answer" label="C" />
-            <el-input v-model="temp.name" />
+            <el-input v-model="temp.optionContent" />
           </el-form-item>
-          <el-form-item>
+          <el-form-item label="选项">
+            <el-radio v-model="temp.answer" label="D" />
+            <el-input v-model="temp.optionContent" />
+          </el-form-item>
+          <!-- <el-form-item>
             <el-button class="el-icon-plus" @click="addQuestionOption()">添加选项</el-button>
             <el-button class="el-icon-minus" type="danger" @click="minusQuestionOption()">删除选项</el-button>
-          </el-form-item>
+          </el-form-item> -->
         </div>
         <div v-if="temp.type === QuestionType.MultipleChoice" class="multi-contariner">
           <el-row style="" class="option-header">
             <el-col :span="4">勾选设置答案</el-col>
             <el-col :span="20">选项内容</el-col>
           </el-row>
-          <el-form-item label="选项">
-            <el-checkbox label="复选框 A">A</el-checkbox>
-            <el-input v-model="temp.name" />
-          </el-form-item>
-          <el-form-item label="选项">
-            <el-checkbox label="复选框 A">B</el-checkbox>
-            <el-input v-model="temp.name" style="" />
-          </el-form-item>
-          <el-form-item label="选项">
-            <el-checkbox label="复选框 A">C</el-checkbox>
-            <el-input v-model="temp.name" />
-          </el-form-item>
-          <el-form-item label="选项">
-            <el-checkbox label="复选框 A">D</el-checkbox>
-            <el-input v-model="temp.name" />
-          </el-form-item>
-          <el-form-item>
+          <el-checkbox-group v-model="temp.answer">
+            <el-form-item label="选项">
+              <el-checkbox label="A">A</el-checkbox>
+              <el-input v-model="temp.optionContent" />
+            </el-form-item>
+            <el-form-item label="选项">
+              <el-checkbox label="B">B</el-checkbox>
+              <el-input v-model="temp.optionContent" style="" />
+            </el-form-item>
+            <el-form-item label="选项">
+              <el-checkbox label="C">C</el-checkbox>
+              <el-input v-model="temp.optionContent" />
+            </el-form-item>
+            <el-form-item label="选项">
+              <el-checkbox label="D">D</el-checkbox>
+              <el-input v-model="temp.optionContent" />
+            </el-form-item>
+          </el-checkbox-group>
+
+          <!-- <el-form-item>
             <el-button class="el-icon-plus" @click="addQuestionOption()">添加选项</el-button>
             <el-button class="el-icon-minus" type="danger" @click="minusQuestionOption()">删除选项</el-button>
-          </el-form-item>
+          </el-form-item> -->
         </div>
 
         <el-form-item v-if="temp.type === QuestionType.Completion || temp.type === QuestionType.QA || temp.type === QuestionType.ShortAnswer" :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="score" class="answer">
@@ -128,7 +136,8 @@
         </el-row>
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Analysis\']')" prop="analysis">
-          <el-input v-model="temp.analysis" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
+          <!-- <el-input v-model="temp.analysis" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" /> -->
+          <tinymce v-model="temp.analysis" :height="150" />
         </el-form-item>
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Source\']')" prop="source">
@@ -160,8 +169,12 @@ import {
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Type, Degree } from '../datas/typing'
 import { listToTree } from '@/utils/helpers/tree-helper'
+import Tinymce from '@/components/Tinymce'
 export default {
   name: 'QuestionModel',
+  components: {
+    Tinymce
+  },
   data() {
     return {
       QuestionType,
@@ -178,6 +191,8 @@ export default {
         type: 2,
         name: undefined,
         content: undefined,
+        optionContent: undefined,
+        optionSize: undefined,
         answer: undefined,
         score: undefined,
         degree: 1,
@@ -324,8 +339,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.line{
-  text-align: center;
+
+::v-deep .el-dialog__body{
+  height: calc(80vh - 50px);
+  overflow: auto;
 }
 .option-header{
   background-color: #eff2f5;

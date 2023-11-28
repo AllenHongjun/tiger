@@ -37,38 +37,22 @@ public class CreateUpdateQuestionDto
     /// <summary>
     /// 选项内容（用|分隔）
     /// </summary>
-    [Obsolete]
     public string OptionContent { get; set; }
 
     /// <summary>
     /// 选项数量
     /// </summary>
-    [Obsolete]
     public int? OptionSize { get; set; }
-
-    /// <summary>
-    /// A 选项
-    /// </summary>
-    [DynamicStringLength(typeof(QuestionConsts), nameof(QuestionConsts.MaxOptionLength))]
-    public string OptionA { get; set; }
-
-    [DynamicStringLength(typeof(QuestionConsts), nameof(QuestionConsts.MaxOptionLength))]
-    public string OptionB { get; set; }
-
-    [DynamicStringLength(typeof(QuestionConsts), nameof(QuestionConsts.MaxOptionLength))]
-    public string OptionC { get; set; }
-
-    [DynamicStringLength(typeof(QuestionConsts), nameof(QuestionConsts.MaxOptionLength))]
-    public string OptionD { get; set; }
-
-    [DynamicStringLength(typeof(QuestionConsts), nameof(QuestionConsts.MaxOptionLength))]
-    public string OptionE { get; set; }
 
     /// <summary>
     /// 答案
     /// </summary>
-    [Obsolete]
     public string Answer { get; set; }
+
+    /// <summary>
+    /// 分数
+    /// </summary>
+    public decimal Score { get; set; }
 
     /// <summary>
     /// 难易度：1.简单 2.普通 3.困难
