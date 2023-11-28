@@ -1,6 +1,6 @@
 <template>
   <div class="model-container">
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
+    <el-dialog class="test-paper-dialog" :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
       <el-row>
         <el-steps :active="active" simple>
           <el-step title="基本信息" icon="el-icon-edit" @click.native="active = 0">1</el-step>
@@ -28,17 +28,16 @@
         </el-col>
         <el-col v-if="testPaperSections.length > 0" :span="18">
           <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
-            <el-card>
+            <el-card class="section-box">
               <div slot="header" class="clearfix">
                 <h3 class="section-title"> {{ testPaperSection.name }} <span>(共 <b>{{ testPaperSection.questionCount }}</b>  题 <b>{{ testPaperSection.totalScore }}</b>  分)</span></h3>
                 <div style="float: right;">
-                  <el-button plain type="primary" class="el-icon-plus">添加大题描述</el-button>
+                  <el-button plain type="primary" class="el-icon-plus" @click="handleUpdateSectionDescription()">添加大题描述</el-button>
                   <el-button plain>选项乱序</el-button>
                 </div>
                 <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" />
                 <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @update-test-paper-strategy="handelUpdateTestPaperStrategy" />
               </div>
-
             </el-card>
 
           </div>
@@ -59,10 +58,23 @@
         </el-button>
       </div>
     </el-dialog>
+
+    <el-dialog title="大题描述" :visible.sync="dialogTestPaperSectionDescriptionFormVisible" append-to-body>
+      <el-form :model="testPaperSectionDescriptionForm">
+        <el-form-item label="大题描述" label-width="200" props="description">
+          <tinymce v-model="testPaperSectionDescriptionForm.description" :height="300" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogTestPaperSectionDescriptionFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogTestPaperSectionDescriptionFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import Tinymce from '@/components/Tinymce'
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getTestPaper,
@@ -80,6 +92,7 @@ import FixedPaperSection from './FixedPaperSection.vue'
 export default {
   name: 'TestPaperModel',
   components: {
+    Tinymce,
     MiniPaperSection,
     RandomPaperSection,
     FixedPaperSection
@@ -144,7 +157,12 @@ export default {
         ]
 
       },
-      testPaperSections: []
+      testPaperSections: [],
+      testPaperSectionDescriptionForm: {
+        id: undefined,
+        description: undefined
+      },
+      dialogTestPaperSectionDescriptionFormVisible: false
     }
   },
   methods: {
@@ -233,6 +251,10 @@ export default {
         }
       })
     },
+    handleUpdateSectionDescription() {
+      this.dialogTestPaperSectionDescriptionFormVisible = true
+    },
+
     // 获取试卷大题列表数据
     handleGetAllTestPaperSections(testPaperId) {
       var listQuery = Object.assign({
@@ -254,12 +276,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .el-dialog {
-  margin: 0 auto 0px;
-}
-::v-deep .el-dialog__body{
-  height: calc(90vh - 50px);
-  overflow: auto;
+.test-paper-dialog{
+  ::v-deep .el-dialog {
+    margin: 0 auto 0px;
+  }
+  ::v-deep .el-dialog__body{
+    height: calc(90vh - 50px);
+    overflow: auto;
+  }
 }
 
 .section-title{
@@ -269,6 +293,10 @@ export default {
   span{
     font-size: 12px;
   }
+}
+
+.section-box{
+  margin-top: 15px;
 }
 
 </style>

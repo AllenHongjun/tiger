@@ -23,13 +23,17 @@
       </el-table>
     </div>
     <el-row>
-      <el-dropdown type="primary">
-        <el-button type="primary" style="margin-top: 15px;" @command="handleCommand">
+      <el-dropdown type="primary" @command="handleCommand">
+        <el-button type="primary" style="margin-top: 15px;">
           从题库中选择<i class="el-icon-arrow-down el-icon--right" />
         </el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item><i class="el-icon-circle-plus" />手工选题</el-dropdown-item>
-          <el-dropdown-item :command="beforeHandleCommand('handleRandomSelentQuestions')"><i class="el-icon-refresh" />随机选题</el-dropdown-item>
+          <el-dropdown-item command="handleManualSelentQuestions">
+            <i class="el-icon-circle-plus" />手工选题
+          </el-dropdown-item>
+          <el-dropdown-item command="handleRandomSelentQuestions">
+            <i class="el-icon-refresh" /> 随机选题
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </el-row>
@@ -85,6 +89,8 @@
         <el-button type="primary" @click="dialogRandomSelentQuestionVisible = false">确 定</el-button>
       </span>
     </el-dialog>
+
+    <question-select ref="QuestionSelect" />
   </div>
 
 </template>
@@ -93,9 +99,13 @@
 import { Type } from '@/views/question-bank/question/datas/typing'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'
+import QuestionSelect from './QuestionSelect.vue'
 
 export default {
   name: 'RandomPaperSection', // 随机试卷大题
+  components: {
+    QuestionSelect
+  },
   data() {
     return {
       typeOptions: Type,
@@ -107,22 +117,8 @@ export default {
           date: '2016-05-02',
           name: '王小虎',
           address: '上海市普陀区金沙江路 1518 弄'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
         }
+
       ],
       randomSelentQuestionForm: {
         questionCategoryId: undefined,
@@ -145,19 +141,20 @@ export default {
       })
     },
 
-    beforeHandleCommand(command) {
-      return {
-        command: command
-      }
-    },
-    handleCommand(param) {
-      switch (param.command) {
+    handleCommand(command) {
+      switch (command) {
         case 'handleRandomSelentQuestions':
           this.handleRandomSelentQuestions()
+          break
+        case 'handleManualSelentQuestions':
+          this.handleManualSelentQuestions()
           break
         default:
           break
       }
+    },
+    handleManualSelentQuestions() {
+      this.$refs['QuestionSelect'].getList()
     },
     handleRandomSelentQuestions() {
       this.dialogRandomSelentQuestionVisible = true
