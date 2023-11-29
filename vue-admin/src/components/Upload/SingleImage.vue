@@ -1,27 +1,38 @@
-<!-- demo 上传单个图片-->
 <template>
-  <div class="file-upload-container">
+  <div class="singleImageUpload2 upload-container" style="width: 220px;">
     <el-upload
-      class="avatar-uploader"
+      :data="dataObj"
+      :multiple="false"
+      :show-file-list="false"
+      :on-success="handleImageSuccess"
+      class="image-uploader"
+      drag
       action="#"
-      list-type="picture-card"
-      :on-preview="handlePictureCardPreview"
-      :on-remove="handleRemove"
       :http-request="httpRequest"
-      :class="{'demo-httpRequestImg':httpRequestImg}"
     >
-      <img v-if="imageUrl" :src="imageUrl" class="avatar" style="width: 100px;height:100px;">
-      <i v-else class="el-icon-plus" />
+      <i class="el-icon-upload" />
+      <div class="el-upload__text">
+        Drag或<em>点击上传</em>
+      </div>
     </el-upload>
-    <el-dialog :visible.sync="dialogVisibleImg" append-to-body class="ImgClass">
-      <img width="100%" :src="dialogImageUrl" alt="">
-    </el-dialog>
+    <div v-show="imageUrl.length > Url.photoPrefix.length" class="image-preview">
+      <div class="image-preview-wrapper">
+        <img :src="imageUrl">
+        <div class="image-preview-action">
+          <i class="el-icon-delete" @click="rmImage" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { getToken } from '@/api/qiniu'
+import { Url } from '@/utils/abp'
 import { createObject } from '@/api/system-manage/oss/object'
+
 export default {
+  name: 'SingleImageUpload',
   props: {
     value: {
       type: String,
@@ -30,9 +41,9 @@ export default {
   },
   data() {
     return {
-      dialogImageUrl: '', // 预览url
-      dialogVisibleImg: false,
-      httpRequestImg: false // 展示单个图片
+      tempUrl: '',
+      dataObj: { token: '', key: '' },
+      Url
     }
   },
   computed: {
@@ -41,10 +52,22 @@ export default {
     }
   },
   methods: {
+    rmImage() {
+      this.emitInput('')
+    },
+    emitInput(val) {
+      this.$emit('input', val)
+    },
+    handleImageSuccess(file) {
+      console.log(this.tempUrl)
+      this.emitInput(file.blobName)
+      // this.emitInput(this.tempUrl)
+    },
+    beforeUpload() {
+      return
+    },
     httpRequest(data) { // 上传成功
       this.httpRequestImg = true
-
-      // this.imageUrl = URL.createObjectURL(data.file.raw)// 赋值图片的url，用于图片回显功能
 
       const formData = new FormData()
       formData.append('Path', 'upload')
@@ -56,6 +79,8 @@ export default {
         this.value = resData.path + resData.name
         // 给父组件传值
         this.$emit('input', resData.path + resData.name)
+
+        this.tempUrl = process.env.VUE_APP_IMG_URL + resData.path + resData.name
         this.$notify({
           title: '成功',
           message: '操作成功',
@@ -63,23 +88,60 @@ export default {
           duration: 2000
         })
       })
-    },
-    handlePictureCardPreview(file) { // 预览
-      this.dialogImageUrl = file.url
-      this.dialogVisibleImg = true
-    },
-    handleRemove(file, fileList) { // 删除
-      this.httpRequestImg = false
-      console.log(file, fileList)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .demo-httpRequestImg{
-    ::v-deep .el-upload--picture-card{
-        display: none;
+.upload-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .image-uploader {
+    height: 100%;
+  }
+  .image-preview {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border: 1px dashed #d9d9d9;
+    .image-preview-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .image-preview-action {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      cursor: default;
+      text-align: center;
+      color: #fff;
+      opacity: 0;
+      font-size: 20px;
+      background-color: rgba(0, 0, 0, .5);
+      transition: opacity .3s;
+      cursor: pointer;
+      text-align: center;
+      line-height: 200px;
+      .el-icon-delete {
+        font-size: 36px;
+      }
+    }
+    &:hover {
+      .image-preview-action {
+        opacity: 1;
+      }
     }
   }
+}
 </style>

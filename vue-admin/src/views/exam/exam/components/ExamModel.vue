@@ -19,7 +19,7 @@
           <el-input v-model="temp.number" />
         </el-form-item>
         <el-form-item :label="$t('AppExam[\'DisplayName:CoverUrl\']')" prop="coverUrl">
-          <el-input v-model="temp.coverUrl" />
+          <single-image-upload v-model="temp.coverUrl" @input="input" />
         </el-form-item>
 
       </el-form>
@@ -45,9 +45,13 @@ import {
 import {
   getAllTestPaper
 } from '@/api/exam/test-paper'
+import SingleImageUpload from '@/components/Upload/SingleImage.vue'
 
 export default {
   name: 'ExamModel',
+  components: {
+    SingleImageUpload
+  },
   data() {
     return {
       testPaperOptions: [],
@@ -167,6 +171,10 @@ export default {
         deductionInterval: 0,
         interval: 0
       }
+    },
+
+    input(url) {
+      this.temp.coverUrl = url
     },
 
     // 点击创建按钮
