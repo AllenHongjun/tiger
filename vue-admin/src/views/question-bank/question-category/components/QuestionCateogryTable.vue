@@ -10,6 +10,9 @@
         <el-button v-if="checkPermission('QuestionBank.QuestionCategory.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
           {{ $t("AppQuestionBank['Permission:Create']") }}
         </el-button>
+        <el-button type="primary" plain class="filter-item" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
+        <el-button v-if="checkPermission('AbpIdentity.Roles.ExportXlsx')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">{{ $t('AbpUi.Export') }}</el-button>
+        <el-button v-if="checkPermission('AbpIdentity.Roles.ImportXlsx')" class="filter-item" type="primary" icon="el-icon-upload" @click="handleImport">{{ $t('AbpUi.Import') }}</el-button>
       </el-row>
     </div>
 
@@ -68,6 +71,8 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <upload-single-excel ref="ImportExcelDialog" file-name="question-category" :import-from-xlsx="ImportQuestionCategoryFromXlsx" :import-xlsx-template="ExportQuestionCategoryXlsxTemplate" @call-filter="handleFilter" />
   </div>
 </template>
 
@@ -75,14 +80,20 @@
 import {
   getQuestionCategories,
   deleteQuestionCategory,
-  getAllQuestionCategory
+  getAllQuestionCategory,
+  ExportQuestionCategoryXlsxTemplate,
+  ImportQuestionCategoryFromXlsx,
+  ExportQuestionCategoryToXlsx
 } from '@/api/question-bank/question-category'
+import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 import { listToTree } from '@/utils/helpers/tree-helper'
 import baseListQuery, { Url, checkPermission } from '@/utils/abp'
+import { downloadByData } from '@/utils/download'
 
 export default {
   name: 'QuestionCateogryTable',
   components: {
+    UploadSingleExcel
   },
   data() {
     return {
@@ -97,7 +108,8 @@ export default {
         name: '',
         enable: undefined,
         isPublic: undefined
-      }, baseListQuery)
+      }, baseListQuery),
+      downloadLoading: false
 
     }
   },
@@ -108,6 +120,8 @@ export default {
   methods: {
     checkPermission, // 检查权限
     listToTree,
+    ExportQuestionCategoryXlsxTemplate,
+    ImportQuestionCategoryFromXlsx,
     fetchOptions() {
       getAllQuestionCategory(baseListQuery).then(response => {
         this.options = listToTree(response.items)
@@ -132,6 +146,30 @@ export default {
       } = data
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
+    },
+    handleRefresh() {
+      this.handleFilter()
+    },
+    // 导出 所有
+    handleDownload() {
+      this.$confirm('是否导出全部查询结果?', this.$i18n.t("AbpUi['AreYouSure']"), {
+        confirmButtonText: this.$i18n.t("AbpUi['Yes']"),
+        cancelButtonText: this.$i18n.t("AbpUi['Cancel']"),
+        type: 'warning'
+      }).then(response => {
+        this.downloadLoading = true
+        ExportQuestionCategoryToXlsx(this.listQuery).then(response => {
+          downloadByData(response, 'question-category.xlsx')
+          this.downloadLoading = false
+        }).catch(err => {
+          console.log(err)
+          this.downloadLoading = false
+          this.$message.warning(err)
+        })
+      })
+    },
+    handleImport(row) {
+      this.$refs['ImportExcelDialog'].handleUploadExcel()
     },
     handleCreate() {
       this.$emit('handleCreate')

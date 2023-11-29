@@ -46,3 +46,37 @@ export function deleteQuestionCategory(id) {
   })
 }
 
+export function ExportQuestionCategoryXlsxTemplate() {
+  return request({
+    url: `/api/question-bank/question-categories/export-xlxs-template`,
+    method: 'get',
+    header: {
+      headers: { 'Content-Type': 'application/x-download' }
+    },
+    responseType: 'blob'
+  })
+}
+
+export function ImportQuestionCategoryFromXlsx(payload) {
+  return request({
+    url: `/api/question-bank/question-categories/import-from-xlsx`,
+    method: 'post',
+    data: payload,
+    headers: {
+      'Content-Type': 'multipart/form-data;charset=utf-8'
+    }
+  })
+}
+
+export function ExportQuestionCategoryToXlsx(params) {
+  return request({
+    url: `/api/question-bank/question-categories/export-to-xlsx`,
+    method: 'get',
+    params: transformAbpListQuery(params),
+    header: {
+      headers: { 'Content-Type': 'application/x-download' }
+    },
+    responseType: 'blob'
+  })
+}
+

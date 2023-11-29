@@ -9,6 +9,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp;
 using Tiger.Module.QuestionBank.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Tiger.Module.QuestionBank
 {
@@ -21,6 +22,7 @@ namespace Tiger.Module.QuestionBank
     [Route($"api/{QuestionBankRemoteServiceConsts.ModuleName}/question-categories")]
     public class QuestionCategoryController : AbpController, IQuestionCategoryAppService
     {
+        #region 字段和构造函数
         public QuestionCategoryController(IQuestionCategoryAppService questionCategoryAppService)
         {
             QuestionCategoryAppService=questionCategoryAppService;
@@ -28,6 +30,9 @@ namespace Tiger.Module.QuestionBank
 
         protected IQuestionCategoryAppService QuestionCategoryAppService { get; }
 
+        #endregion
+
+        #region CRUD
         /// <summary>
         /// 创建
         /// </summary>
@@ -89,7 +94,7 @@ namespace Tiger.Module.QuestionBank
         /// <summary>
         /// 根据父级id查询分类
         /// </summary>
-        /// <param name="parentId"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("by-parentId")]
@@ -109,6 +114,33 @@ namespace Tiger.Module.QuestionBank
         public Task<QuestionCategoryDto> UpdateAsync(Guid id, CreateUpdateQuestionCategoryDto input)
         {
             return QuestionCategoryAppService.UpdateAsync(id, input);
+        } 
+        #endregion
+
+        #region xlsx导入导出
+        /// <summary>
+        /// 从 xlsx 导入
+        /// </summary>
+        /// <param name="importexcelfile"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("import-from-xlsx")]
+        public async Task ImportFromXlsxAsync(IFormFile importexcelfile)
+        {
+            await QuestionCategoryAppService.ImportFromXlsxAsync(importexcelfile);
         }
+
+        /// <summary>
+        /// 导出到 xlsx
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("export-to-xlsx")]
+        public async Task<IActionResult> ExportToXlsxAsync(QuestionCategoryGetListInput input)
+        {
+            return await QuestionCategoryAppService.ExportToXlsxAsync(input);
+        } 
+        #endregion
     }
 }

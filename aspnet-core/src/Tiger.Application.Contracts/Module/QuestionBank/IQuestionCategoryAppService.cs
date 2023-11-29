@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -17,6 +20,8 @@ public interface IQuestionCategoryAppService :
         CreateUpdateQuestionCategoryDto,
         CreateUpdateQuestionCategoryDto>
 {
+    Task<IActionResult> ExportToXlsxAsync(QuestionCategoryGetListInput input);
     ListResultDto<QuestionCategoryDto> GetAllList(QuestionCategoryGetListInput input);
     ListResultDto<QuestionCategoryDto> GetListByParentId(QuestionCategoryGetListInput input);
+    Task ImportFromXlsxAsync(IFormFile importexcelfile);
 }

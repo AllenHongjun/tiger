@@ -405,6 +405,21 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryAppService.ImportFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            从xlsx导入
+            </summary>
+            <param name="importexcelfile"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryAppService.ExportToXlsxAsync(Tiger.Module.QuestionBank.Dtos.QuestionCategoryGetListInput)">
+            <summary>
+            Export to XLSX
+            </summary>
+            <param name="QuestionCategoryGetListInput">input</param>
+            <returns>查询到的所有角色</returns>
+        </member>
         <member name="T:Tiger.Module.Schools.ClassInfoAppService">
             <summary>
             班级
