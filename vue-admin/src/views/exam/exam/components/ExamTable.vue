@@ -30,6 +30,18 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
+            <el-form-item prop="testPaperId" label="试卷">
+              <el-select v-model="listQuery.testPaperId" placeholder="请选择" filterable clearable>
+                <el-option
+                  v-for="item in testPaperOptions"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
             <el-form-item prop="filter" label="试卷类型">
               <el-select v-model="value" placeholder="-">
                 <el-option key="" value="固定试卷" lable="固定试卷" />
@@ -195,6 +207,9 @@ import {
   getExams,
   deleteExam
 } from '@/api/exam/exam'
+import {
+  getAllTestPaper
+} from '@/api/exam/test-paper'
 
 import ExamAnalysis from './ExamAnalysis.vue'
 
@@ -207,6 +222,7 @@ export default {
   },
   data() {
     return {
+      testPaperOptions: [],
       queryCreateDateTime: undefined,
       advanced: false,
       pickerOptions: pickerRangeWithHotKey,
@@ -215,16 +231,23 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
+        testPaperId: undefined,
         createStartTime: undefined,
         createEndTime: undefined
       }, baseListQuery)
     }
   },
   created() {
+    this.fetchTestPaperOptions()
     this.getList()
   },
   methods: {
     checkPermission, // 检查权限
+    fetchTestPaperOptions() {
+      getAllTestPaper().then(response => {
+        this.testPaperOptions = response.items
+      })
+    },
     datePickerChange(value) {
       if (!value) {
         // 日期选择器改变事件 ~ 解决日期选择器清空 值不清空的问题

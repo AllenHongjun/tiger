@@ -15,21 +15,21 @@ const examRouter = {
   },
   children: [
     {
-      path: '/exam/exams/list',
-      component: () => import('@/views/exam/exam/index'),
-      name: 'ExamManagement',
-      meta: {
-        title: 'AppExam["Menu:Exam"]',
-        // policy: 'AbpSaasPermissions.Tenants',
-        icon: 'el-icon-wallet'
-      }
-    },
-    {
       path: '/exam/test-paper/list',
       component: () => import('@/views/exam/test-paper/index'),
       name: 'TestPaper',
       meta: {
         title: 'AppExam["Menu:TestPaper"]',
+        // policy: 'AbpSaasPermissions.Tenants',
+        icon: 'el-icon-wallet'
+      }
+    },
+    {
+      path: '/exam/exams/list',
+      component: () => import('@/views/exam/exam/index'),
+      name: 'ExamManagement',
+      meta: {
+        title: 'AppExam["Menu:Exam"]',
         // policy: 'AbpSaasPermissions.Tenants',
         icon: 'el-icon-wallet'
       }

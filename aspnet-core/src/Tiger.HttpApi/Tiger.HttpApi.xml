@@ -297,6 +297,12 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.TestPapers.TestPaperController.GetAllAsync">
+            <summary>
+            所有试卷
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.TestPapers.TestPaperController.UpdateAsync(System.Guid,Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto)">
             <summary>
             更新

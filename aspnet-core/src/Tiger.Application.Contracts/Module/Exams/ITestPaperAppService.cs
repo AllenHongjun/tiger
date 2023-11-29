@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using Tiger.Module.Exams.Dtos;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.Exams;
@@ -9,12 +11,12 @@ namespace Tiger.Module.Exams;
 /// 试卷
 /// </summary>
 public interface ITestPaperAppService :
-    ICrudAppService< 
-                TestPaperDto, 
-        Guid, 
+    ICrudAppService<
+                TestPaperDto,
+        Guid,
         TestPaperGetListInput,
         CreateUpdateTestPaperDto,
         CreateUpdateTestPaperDto>
 {
-
+    Task<ListResultDto<TestPaperDto>> GetAllAsync();
 }

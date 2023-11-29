@@ -2,6 +2,16 @@
   <div class="model-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
+        <el-form-item :label="$t('AppExam[\'DisplayName:TestPaperName\']')" prop="testPaperId">
+          <el-select v-model="temp.testPaperId" placeholder="请选择" filterable clearable>
+            <el-option
+              v-for="item in testPaperOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
+        </el-form-item>
         <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
           <el-input v-model="temp.name" />
         </el-form-item>
@@ -32,14 +42,19 @@ import {
   updateExam
 } from '@/api/exam/exam'
 
+import {
+  getAllTestPaper
+} from '@/api/exam/test-paper'
+
 export default {
   name: 'ExamModel',
   data() {
     return {
+      testPaperOptions: [],
       temp: {
         id: undefined,
         courseId: undefined,
-        testPaperId: '8B62B2F7-21BC-D83E-768F-3A0EAD76BDF4',
+        testPaperId: undefined,
         questionCategoryId: undefined,
         name: undefined,
         coverUrl: undefined,
@@ -110,13 +125,21 @@ export default {
       }
     }
   },
+  created() {
+    this.fetchTestPaperOptions()
+  },
   methods: {
+    fetchTestPaperOptions() {
+      getAllTestPaper().then(response => {
+        this.testPaperOptions = response.items
+      })
+    },
     // 重置表单
     resetTemp() {
       this.temp = {
         id: undefined,
         courseId: undefined,
-        testPaperId: '8B62B2F7-21BC-D83E-768F-3A0EAD76BDF4',
+        testPaperId: undefined,
         questionCategoryId: undefined,
         name: undefined,
         coverUrl: undefined,

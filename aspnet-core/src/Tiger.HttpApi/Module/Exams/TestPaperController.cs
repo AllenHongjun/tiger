@@ -72,6 +72,17 @@ namespace Tiger.Module.TestPapers
         }
 
         /// <summary>
+        /// 所有试卷
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public async Task<ListResultDto<TestPaperDto>> GetAllAsync()
+        {
+            return await TestPaperAppService.GetAllAsync();
+        }
+
+        /// <summary>
         /// 更新
         /// </summary>
         /// <param name="id"></param>
