@@ -2,6 +2,9 @@
   <div class="app-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppQuestionBank[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="4vh" width="70%">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
+        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
+          <el-input v-model="temp.source" type="text" />
+        </el-form-item>
         <el-row>
           <el-col :span="12">
             <el-form-item prop="type" :label="$t('AppQuestionBank[\'DisplayName:Type\']')">
@@ -189,7 +192,7 @@ export default {
         questionCategoryId: undefined,
         practicalTrainingId: undefined,
         type: 2,
-        name: undefined,
+        name: '123',
         content: undefined,
         optionContent: undefined,
         optionSize: undefined,
@@ -215,7 +218,7 @@ export default {
       rules: {
         name: [
           {
-            required: true,
+            required: false,
             message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
               this.$i18n.t("AppQuestionBank['DisplayName:Name']")
             ]),
@@ -263,13 +266,27 @@ export default {
     resetTemp() {
       this.temp = {
         id: undefined,
-        name: '',
-        displayName: '',
-        description: '',
-        path: '',
-        redirect: '',
-        dataId: undefined,
-        freamwork: ''
+        questionCategoryId: undefined,
+        practicalTrainingId: undefined,
+        type: 2,
+        name: '123',
+        content: undefined,
+        optionContent: undefined,
+        optionSize: undefined,
+        answer: undefined,
+        score: undefined,
+        degree: 1,
+        analysis: undefined,
+        source: undefined,
+        helpMessage: undefined,
+        helpVideo: undefined,
+        fileUrl: undefined,
+        fileName: undefined,
+        isShow: true,
+        enable: true,
+        isShowTextButton: true,
+        isShowImageButton: true,
+        isShowLinkButton: true
       }
     },
 

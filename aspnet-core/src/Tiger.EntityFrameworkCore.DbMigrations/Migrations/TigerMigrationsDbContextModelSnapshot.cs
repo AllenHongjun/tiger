@@ -1051,7 +1051,6 @@ namespace Tiger.Migrations
                         .HasMaxLength(1024);
 
                     b.Property<string>("OptionContent")
-                        .IsRequired()
                         .HasColumnType("nvarchar(512)")
                         .HasComment("选项内容")
                         .HasMaxLength(512);
