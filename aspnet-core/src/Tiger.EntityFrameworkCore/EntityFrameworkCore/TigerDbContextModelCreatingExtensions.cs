@@ -488,7 +488,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.Name).HasMaxLength(QuestionConsts.MaxNameLength).IsRequired(false).HasComment("题目名称");
                 b.Property(p => p.Content).HasMaxLength(QuestionConsts.MaxContentLength).IsRequired().HasComment("题目内容");
                 b.Property(p => p.Answer).HasMaxLength(QuestionConsts.MaxAnswerLength).HasComment("答案 判断题答案：正确/错误；多个填空之间的答案使用竖线 |分隔，如果一个填空有多个答案请用 & 开隔;");
-                b.Property(p => p.OptionContent).HasMaxLength(QuestionConsts.MaxOptionLength).IsRequired().HasComment("选项内容");
+                b.Property(p => p.OptionContent).HasMaxLength(QuestionConsts.MaxOptionLength).IsRequired(false).HasComment("选项内容");
                 b.Property(p => p.Score).HasMaxLength(QuestionConsts.MaxOptionLength).HasComment("分数");
                
                 b.Property(p => p.Degree).HasComment("难易度：1.简单 2.普通 3.困难");
