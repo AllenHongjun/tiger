@@ -8,6 +8,21 @@ namespace Tiger.Module.Exams.Dtos;
 public class ExamGetListInput : PagedAndSortedResultRequestDto
 {
     /// <summary>
+    /// 查询关键字
+    /// </summary>
+    public string Filter { get; set; }
+
+    /// <summary>
+    /// 创建开始时间
+    /// </summary>
+    public DateTime? CreateStartTime { get; set; }
+
+    /// <summary>
+    /// 创建结束时间
+    /// </summary>
+    public DateTime? CreateEndTime { get; set; }
+
+    /// <summary>
     /// 课程Id
     /// </summary>
     public Guid? CourseId { get; set; }

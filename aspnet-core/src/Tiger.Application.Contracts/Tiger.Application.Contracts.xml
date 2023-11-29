@@ -919,6 +919,21 @@
             比赛间隔（单位: 分钟）
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.CreateStartTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.CreateEndTime">
+            <summary>
+            创建结束时间
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.CourseId">
             <summary>
             课程Id
@@ -1119,6 +1134,21 @@
             随机大题抽题规则
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.Filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.CreateStartTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.CreateEndTime">
+            <summary>
+            创建结束时间
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.TestPaperMainId">
             <summary>
             主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
@@ -1167,16 +1197,6 @@
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.JudgeEndTime">
             <summary>
             评卷结束时间
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.CreateStartTime">
-            <summary>
-            创建开始时间
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.Exams.Dtos.TestPaperGetListInput.CreateEndTime">
-            <summary>
-            创建结束时间
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperQuestionDto">

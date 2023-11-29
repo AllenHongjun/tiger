@@ -35,7 +35,7 @@ public class TestPaperAppService : CrudAppService<TestPaper, TestPaperDto, Guid,
         // TODO: AbpHelper generated
         return base.CreateFilteredQuery(input)
             .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter) || x.Number.Contains(input.Filter))
-            .WhereIf(input.CreateEndTime != null, x => x.CreationTime >= input.CreateStartTime)
+            .WhereIf(input.CreateStartTime != null, x => x.CreationTime >= input.CreateStartTime)
             .WhereIf(input.CreateEndTime != null, x => x.CreationTime <= input.CreateEndTime)
             .WhereIf(input.TestPaperMainId != null, x => x.TestPaperMainId == input.TestPaperMainId)
             .WhereIf(!input.Number.IsNullOrWhiteSpace(), x => x.Number.Contains(input.Number))

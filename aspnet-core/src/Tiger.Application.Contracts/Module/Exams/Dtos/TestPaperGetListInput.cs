@@ -7,7 +7,20 @@ namespace Tiger.Module.Exams.Dtos;
 [Serializable]
 public class TestPaperGetListInput : PagedAndSortedResultRequestDto
 {
+    /// <summary>
+    /// 查询关键字
+    /// </summary>
     public string Filter { get; set; }
+
+    /// <summary>
+    /// 创建开始时间
+    /// </summary>
+    public DateTime? CreateStartTime { get; set; }
+
+    /// <summary>
+    /// 创建结束时间
+    /// </summary>
+    public DateTime? CreateEndTime { get; set; }
 
     /// <summary>
     /// 主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
@@ -59,13 +72,5 @@ public class TestPaperGetListInput : PagedAndSortedResultRequestDto
     /// </summary>
     public DateTime? JudgeEndTime { get; set; }
 
-    /// <summary>
-    /// 创建开始时间
-    /// </summary>
-    public DateTime? CreateStartTime { get; set; }
-
-    /// <summary>
-    /// 创建结束时间
-    /// </summary>
-    public DateTime? CreateEndTime { get; set; }
+    
 }

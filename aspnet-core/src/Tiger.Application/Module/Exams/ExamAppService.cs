@@ -29,6 +29,9 @@ public class ExamAppService : CrudAppService<Exam, ExamDto, Guid, ExamGetListInp
     {
         // TODO: AbpHelper generated
         return base.CreateFilteredQuery(input)
+            .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), x => x.Name.Contains(input.Filter))
+            .WhereIf(input.CreateStartTime != null, x => x.CreationTime >= input.CreateStartTime)
+            .WhereIf(input.CreateEndTime != null, x => x.CreationTime <= input.CreateEndTime)
             .WhereIf(input.CourseId != null, x => x.CourseId == input.CourseId)
             .WhereIf(input.TestPaperId != null, x => x.TestPaperId == input.TestPaperId)
             .WhereIf(input.QuestionCategoryId != null, x => x.QuestionCategoryId == input.QuestionCategoryId)

@@ -231,7 +231,12 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
+        courseId: undefined,
         testPaperId: undefined,
+        examType: undefined,
+        startDate: undefined,
+        endDate: undefined,
+        isEnable: undefined,
         createStartTime: undefined,
         createEndTime: undefined
       }, baseListQuery)
