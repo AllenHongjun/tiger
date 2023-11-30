@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Tiger.Module.Exams.Dtos;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.Exams;
@@ -18,4 +19,5 @@ public interface ITestPaperQuestionAppService :
         CreateUpdateTestPaperQuestionDto>
 {
     Task ComfirmSelect(TestPaperQuestionComfirmSelectDto input);
+    Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync(Guid testPaperSectionId);
 }

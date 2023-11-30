@@ -1254,6 +1254,11 @@
             每题分数
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.question">
+            <summary>
+            题目
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.TestPaperId">
             <summary>
             试卷ID

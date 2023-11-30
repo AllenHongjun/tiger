@@ -203,6 +203,13 @@
             试卷内容(题目)表
             </summary>
         </member>
+        <member name="M:Tiger.Module.Exams.TestPaperQuestionAppService.GetAllAsync(System.Guid)">
+            <summary>
+            查询指定大题id的所有题目
+            </summary>
+            <param name="testPaperSectionId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Tiger.Module.Exams.TestPaperQuestionAppService.ComfirmSelect(Tiger.Module.Exams.Dtos.TestPaperQuestionComfirmSelectDto)">
             <summary>
             确认选中试卷题目（手动添加题目到试卷当中）

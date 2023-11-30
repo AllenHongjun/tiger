@@ -45,9 +45,14 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             ;
     }
 
-    public async Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync()
+    /// <summary>
+    /// 查询指定大题id的所有题目
+    /// </summary>
+    /// <param name="testPaperSectionId"></param>
+    /// <returns></returns>
+    public async Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync(Guid testPaperSectionId)
     {
-        var testPaperQuestions = await _repository.GetListAsync(includeDetails : true);
+        var testPaperQuestions = await _repository.GetAllListAsync(testPaperSectionId);
 
         return new ListResultDto<TestPaperQuestionDto>(
             ObjectMapper.Map<List<TestPaperQuestion>, List<TestPaperQuestionDto>>(testPaperQuestions));

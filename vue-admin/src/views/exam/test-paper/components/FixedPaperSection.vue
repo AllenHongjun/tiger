@@ -109,6 +109,7 @@
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getTestPaperQuestions,
+  getAllTestPaperQuestion,
   deleteTestPaperQuestion
 } from '@/api/exam/test-paper-question'
 import { Type } from '@/views/question-bank/question/datas/typing'
@@ -172,7 +173,7 @@ export default {
   },
   created() {
     this.fetchOptions()
-    this.getList()
+    this.getListByTestPaperSectionId()
   },
   methods: {
     checkPermission,
@@ -203,7 +204,13 @@ export default {
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
     },
-
+    getListByTestPaperSectionId() {
+      this.listLoading = true
+      getAllTestPaperQuestion(this.testPaperSectionId).then(response => {
+        this.list = response.items
+        this.listLoading = false
+      })
+    },
     handleCommand(command) {
       switch (command) {
         case 'handleRandomSelentQuestions':

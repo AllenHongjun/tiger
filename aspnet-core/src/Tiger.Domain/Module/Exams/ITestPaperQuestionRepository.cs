@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Module.Exams;
@@ -8,4 +11,5 @@ namespace Tiger.Module.Exams;
 /// </summary>
 public interface ITestPaperQuestionRepository : IRepository<TestPaperQuestion, Guid>
 {
+    Task<List<TestPaperQuestion>> GetAllListAsync(Guid? testPaperSectionId, string sorting = null, CancellationToken cancellationToken = default);
 }

@@ -47,5 +47,8 @@ public class TestPaperQuestionDto : AuditedEntityDto<Guid>
     /// </summary>
     public decimal Score { get; set; }
 
-    public List<QuestionDto> questions { get; set; }
+    /// <summary>
+    /// 题目
+    /// </summary>
+    public QuestionDto question { get; set; }
 }

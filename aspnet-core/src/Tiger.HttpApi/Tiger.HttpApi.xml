@@ -176,6 +176,14 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="M:Tiger.Module.Exams.TestPaperQuestionController.GetAllAsync(System.Guid)">
+            <summary>
+            根据大题id查询试题
+            </summary>
+            <param name="testPaperSectionId"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperSectionController">
             <summary>
             试卷大题

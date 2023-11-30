@@ -18,10 +18,11 @@ public class TestPaperQuestionRepository : EfCoreRepository<TigerDbContext, Test
     }
 
 
-    public async Task<List<TestPaperQuestion>> GetAllListAsync(
+    public async Task<List<TestPaperQuestion>> GetAllListAsync(Guid? testPaperSectionId,
             string sorting = null, CancellationToken cancellationToken = default)
     {
         return await DbContext.Set<TestPaperQuestion>().Include(x => x.Question)
+                .WhereIf(testPaperSectionId.HasValue, x => x.TestPaperSectionId == testPaperSectionId)
                 .OrderBy(sorting.IsNullOrEmpty() ? nameof(TestPaperQuestion.CreationTime) : sorting)
                 .ToListAsync(GetCancellationToken(cancellationToken));
 

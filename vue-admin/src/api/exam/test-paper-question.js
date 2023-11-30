@@ -16,9 +16,9 @@ export function getTestPaperQuestion(id) {
   })
 }
 
-export function getAllTestPaperQuestion() {
+export function getAllTestPaperQuestion(testPaperSectionId) {
   return request({
-    url: `/api/exam/test-paper-questions/all`,
+    url: `/api/exam/test-paper-questions/all/${testPaperSectionId}`,
     method: 'get'
   })
 }

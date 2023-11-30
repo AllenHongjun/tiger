@@ -19,15 +19,18 @@ namespace Tiger.Module.Exams
     [Route($"api/{ExamRemoteServiceConsts.ModuleName}/test-paper-questions")]
     public class TestPaperQuestionController : AbpController, ITestPaperQuestionAppService
     {
+        #region 构造函数和字段
         public TestPaperQuestionController(ITestPaperQuestionAppService testPaperQuestionAppService)
         {
             TestPaperQuestionAppService=testPaperQuestionAppService;
         }
 
         protected ITestPaperQuestionAppService TestPaperQuestionAppService { get; }
+        #endregion
 
-        
 
+
+        #region CRUD
         /// <summary>
         /// 创建
         /// </summary>
@@ -85,7 +88,8 @@ namespace Tiger.Module.Exams
         public async Task<TestPaperQuestionDto> UpdateAsync(Guid id, CreateUpdateTestPaperQuestionDto input)
         {
             return await TestPaperQuestionAppService.UpdateAsync(id, input);
-        }
+        } 
+        #endregion
 
         /// <summary>
         /// 手动确认选题
@@ -98,6 +102,19 @@ namespace Tiger.Module.Exams
         public async Task ComfirmSelect(TestPaperQuestionComfirmSelectDto input)
         {
              await TestPaperQuestionAppService.ComfirmSelect(input);
+        }
+
+        /// <summary>
+        /// 根据大题id查询试题
+        /// </summary>
+        /// <param name="testPaperSectionId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpGet]
+        [Route("all/{testPaperSectionId}")]
+        public async Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync(Guid testPaperSectionId)
+        {
+            return await TestPaperQuestionAppService.GetAllAsync(testPaperSectionId);
         }
     }
 }
