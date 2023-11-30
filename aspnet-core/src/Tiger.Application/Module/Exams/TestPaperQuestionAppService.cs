@@ -23,13 +23,16 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
 {
     private readonly ITestPaperQuestionRepository _repository;
     private readonly IQuestionRepository _questionRepository;
+    private readonly TestPaperSectionManager _testPaperSectionManager;
 
     public TestPaperQuestionAppService(
-        ITestPaperQuestionRepository repository, 
-        IQuestionRepository questionRepository) : base(repository)
+        ITestPaperQuestionRepository repository,
+        IQuestionRepository questionRepository,
+        TestPaperSectionManager testPaperSectionManager) : base(repository)
     {
         _repository = repository;
         _questionRepository=questionRepository;
+        _testPaperSectionManager=testPaperSectionManager;
     }
 
     protected override IQueryable<TestPaperQuestion> CreateFilteredQuery(TestPaperQuestionGetListInput input)
@@ -43,6 +46,13 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             .WhereIf(input.QuestionDegree != null, x => x.QuestionDegree == input.QuestionDegree)
             .WhereIf(input.Score != null, x => x.Score == input.Score)
             ;
+    }
+
+    public override async Task<TestPaperQuestionDto> UpdateAsync(Guid id, CreateUpdateTestPaperQuestionDto input)
+    {
+        var testPaperQuestion = await base.UpdateAsync(id, input);
+        
+        return testPaperQuestion;
     }
 
     /// <summary>
@@ -85,5 +95,16 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             await _repository.InsertAsync(testPaperQuestion);
         }
         await CurrentUnitOfWork.SaveChangesAsync();
+
+        await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(input.TestPaperSectionId);
     }
+
+    public override async Task DeleteAsync(Guid id)
+    {
+        await base.DeleteAsync(id);
+
+        var testPaperQuestion =  await _repository.GetAsync(id);
+        await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(testPaperQuestion.TestPaperSectionId);
+    }
+
 }

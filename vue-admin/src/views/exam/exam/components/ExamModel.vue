@@ -163,7 +163,7 @@ export default {
         deductionInterval: 0,
         interval: 0
       },
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: '',
 
       // 表单验证规则

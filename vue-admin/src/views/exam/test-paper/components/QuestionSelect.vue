@@ -222,7 +222,7 @@ export default {
   },
   created() {
     this.fetchOptions()
-    this.getList()
+    // this.getList()
   },
   methods: {
     checkPermission, // 检查权限
@@ -260,7 +260,7 @@ export default {
     },
     // 获取列表数据
     getList() {
-      this.dialogTableVisible = false
+      this.dialogTableVisible = true
       this.listLoading = true
       if (this.queryCreateDateTime) {
         this.listQuery.createStartTime = this.queryCreateDateTime[0]
@@ -318,7 +318,8 @@ export default {
     },
     // 确认选题
     confirm() {
-      var input = {
+      var input = {}
+      input = {
         testPaperId: this.testPaperId,
         testPaperSectionId: this.testPaperSectionId,
         questions: [
@@ -327,6 +328,7 @@ export default {
           }
         ]
       }
+      // bug：多次选择，每次添加的题目会变多
       var selections = this.$refs.dataTable.selection
       for (const selectedItem of selections) {
         input.questions.push({ questionId: selectedItem.id })

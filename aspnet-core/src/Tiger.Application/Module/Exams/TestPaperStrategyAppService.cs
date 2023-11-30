@@ -21,13 +21,16 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
 {
     private readonly ITestPaperStrategyRepository _repository;
     private readonly ITestPaperSectionRepository _sectionRepository;
+    private readonly TestPaperSectionManager _testPaperSectionManager;
 
     public TestPaperStrategyAppService(
-        ITestPaperStrategyRepository repository, 
-        ITestPaperSectionRepository sectionRepository) : base(repository)
+        ITestPaperStrategyRepository repository,
+        ITestPaperSectionRepository sectionRepository,
+        TestPaperSectionManager testPaperSectionManager) : base(repository)
     {
         _repository = repository;
         _sectionRepository=sectionRepository;
+        _testPaperSectionManager=testPaperSectionManager;
     }
 
     protected override  IQueryable<TestPaperStrategy> CreateFilteredQuery(TestPaperStrategyGetListInput input)
@@ -58,15 +61,7 @@ public class TestPaperStrategyAppService : CrudAppService<TestPaperStrategy, Tes
     public override async Task<TestPaperStrategyDto> UpdateAsync(Guid id, CreateUpdateTestPaperStrategyDto input)
     {
         TestPaperStrategyDto testPaperStrategy = await base.UpdateAsync(id, input);
-
-        // 计算试卷大题题目数量和题目总分
-        var testPaperSection = await _sectionRepository.GetAsync(testPaperStrategy.TestPaperSectionId);
-        var testPaperStrategies =  _repository.Where(x => x.TestPaperSectionId == testPaperStrategy.TestPaperSectionId).ToList();
-        testPaperSection.QuestionCount = testPaperStrategies.Sum(x => x.UnlimitedDifficultyCount + x.EasyCount + x.OrdinaryCount + x.DifficultCount);
-        testPaperSection.TotalScore = testPaperStrategies
-            .Sum(x => (x.UnlimitedDifficultyCount + x.EasyCount + x.OrdinaryCount + x.DifficultCount) * x.ScorePerQuestion);
-        await _sectionRepository.UpdateAsync(testPaperSection);
-        await CurrentUnitOfWork.SaveChangesAsync();
+        await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(testPaperStrategy.Id);
         return testPaperStrategy;
     }
 }

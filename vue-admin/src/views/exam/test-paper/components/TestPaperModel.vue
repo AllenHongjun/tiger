@@ -34,7 +34,7 @@
                   <el-button plain type="primary" class="el-icon-plus" @click="handleUpdateSectionDescription()">添加大题描述</el-button>
                   <el-button plain>选项乱序</el-button>
                 </div>
-                <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" />
+                <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @fixed-paper-section-change="handelUpdateTestPaperStrategy" />
                 <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @update-test-paper-strategy="handelUpdateTestPaperStrategy" />
               </div>
             </el-card>
@@ -247,7 +247,7 @@ export default {
       })
     },
 
-    // 处理更新试卷抽题规则事件
+    // 处理更新试卷抽题规则事件(TODO:方法重命名)
     handelUpdateTestPaperStrategy() {
       this.$refs['miniPaperSection'].getAllList(this.testPaperId)
       this.handleGetAllTestPaperSections(this.testPaperId)

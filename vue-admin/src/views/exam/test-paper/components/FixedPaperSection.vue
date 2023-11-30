@@ -15,20 +15,30 @@
       >
         <!-- <el-table-column type="selection" width="55" center /> -->
         <el-table-column type="index" label="序号" width="80" />
-        <el-table-column prop="questionType" label="试题类型" width="180">
-          <span>单选题</span>
+        <el-table-column label="试题类型" prop="name" align="left" width="180">
+          <template slot-scope="{ row }">
+            <el-tag v-if="QuestionTypeMap[row.question.type]" type="primary">{{ QuestionTypeMap[row.question.type] }}</el-tag>
+          </template>
         </el-table-column>
         <el-table-column prop="questionCategory" label="试题内容" show-overflow-tooltip>
-          <span>试题内容</span>
+          <template slot-scope="{ row }">
+            <span v-html="row.question.content" />
+          </template>
         </el-table-column>
         <el-table-column prop="questionCount" label="标准答案" width="110">
-          <b>ABC</b>
+          <template slot-scope="{ row }">
+            <span>{{ row.question.answer }}</span>
+          </template>
         </el-table-column>
         <el-table-column prop="scorePerQuestion" label="每题分数" width="110">
-          <el-input value="15" />
+          <template slot-scope="{ row }">
+            <el-input :value="row.question.score" />
+          </template>
         </el-table-column>
         <el-table-column label="操作" width="80" align="center">
-          <el-button type="text" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" />
+          <template slot-scope="{ row, $index }">
+            <el-button type="text" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -100,7 +110,7 @@
       </span>
     </el-dialog>
 
-    <question-select ref="QuestionSelect" :test-paper-id="testPaperId" :test-paper-section-id="testPaperSectionId" />
+    <question-select ref="QuestionSelect" :test-paper-id="testPaperId" :test-paper-section-id="testPaperSectionId" @confirm="getListByTestPaperSectionId" />
   </div>
 
 </template>
@@ -112,7 +122,8 @@ import {
   getAllTestPaperQuestion,
   deleteTestPaperQuestion
 } from '@/api/exam/test-paper-question'
-import { Type } from '@/views/question-bank/question/datas/typing'
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '@/views/question-bank/question/datas/typing'
+
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'
 import QuestionSelect from './QuestionSelect.vue'
@@ -136,6 +147,7 @@ export default {
   },
   data() {
     return {
+      QuestionTypeMap,
       typeOptions: Type,
       questionCategoryOptions: [],
       questionCategoryId: undefined,
@@ -183,18 +195,9 @@ export default {
       })
     },
     // 获取列表数据
-    getList() {
-      this.listLoading = true
-      this.listQuery.limit = 1000
-      getTestPaperQuestions(this.listQuery).then(response => {
-        this.list = response.items
-        this.total = response.totalCount
-        this.listLoading = false
-      })
-    },
     handleFilter(firstPage = true) {
       if (firstPage) this.listQuery.page = 1
-      this.getList()
+      this.getListByTestPaperSectionId()
     },
     sortChange(data) {
       const {
@@ -209,6 +212,27 @@ export default {
       getAllTestPaperQuestion(this.testPaperSectionId).then(response => {
         this.list = response.items
         this.listLoading = false
+        this.$emit('fixed-paper-section-change')
+      })
+    },
+    // 删除
+    handleDelete(row, index) {
+      this.$confirm(
+        // 消息
+        this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
+          row.name
+        ]),
+        // title
+        this.$i18n.t("AbpUi['AreYouSure']"), {
+          confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
+          cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
+          type: 'warning' // 弹框类型
+        }
+      ).then(async() => {
+        // 回调函数
+        deleteTestPaperQuestion(row.id).then(() => {
+          this.handleFilter(false)
+        })
       })
     },
     handleCommand(command) {
