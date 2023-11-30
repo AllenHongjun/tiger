@@ -105,7 +105,7 @@
         </el-row>
       </div>
 
-      <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+      <el-table ref="dataTable" :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
         <el-table-column type="selection" width="55" center />
         <el-table-column type="index" width="60" />
         <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">
@@ -150,7 +150,7 @@
       <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogTableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogTableVisible = false">确认选择</el-button>
+        <el-button type="primary" @click="confirm()">确认选择</el-button>
       </div>
     </el-dialog>
 
@@ -162,6 +162,9 @@ import {
   getQuestions,
   deleteQuestion
 } from '@/api/question-bank/question'
+import {
+  comfirmSelectTestPaperQuestion
+} from '@/api/exam/test-paper-question'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'
 
@@ -176,6 +179,18 @@ export default {
   name: 'QuestionSelect',
   components: {
     Pagination
+  },
+  props: {
+    testPaperId: {
+      type: String,
+      require: true,
+      default: undefined
+    },
+    testPaperSectionId: {
+      type: String,
+      require: true,
+      default: undefined
+    }
   },
   data() {
     return {
@@ -245,7 +260,7 @@ export default {
     },
     // 获取列表数据
     getList() {
-      this.dialogTableVisible = true
+      this.dialogTableVisible = false
       this.listLoading = true
       if (this.queryCreateDateTime) {
         this.listQuery.createStartTime = this.queryCreateDateTime[0]
@@ -300,8 +315,28 @@ export default {
           })
         })
       })
-    }
+    },
+    // 确认选题
+    confirm() {
+      var input = {
+        testPaperId: this.testPaperId,
+        testPaperSectionId: this.testPaperSectionId,
+        questions: [
+          {
+            questionId: undefined
+          }
+        ]
+      }
+      var selections = this.$refs.dataTable.selection
+      for (const selectedItem of selections) {
+        input.questions.push({ questionId: selectedItem.id })
 
+        comfirmSelectTestPaperQuestion(input).then(() => {
+          this.dialogTableVisible = false
+          this.$emit('confirm')
+        })
+      }
+    }
   }
 }
 </script>

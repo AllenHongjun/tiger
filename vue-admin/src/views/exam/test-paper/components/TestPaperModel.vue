@@ -34,7 +34,7 @@
                   <el-button plain type="primary" class="el-icon-plus" @click="handleUpdateSectionDescription()">添加大题描述</el-button>
                   <el-button plain>选项乱序</el-button>
                 </div>
-                <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" />
+                <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" />
                 <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @update-test-paper-strategy="handelUpdateTestPaperStrategy" />
               </div>
             </el-card>

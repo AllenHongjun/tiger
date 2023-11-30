@@ -1209,6 +1209,11 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.TestPaperQuestionComfirmSelectDto">
+            <summary>
+            试卷题目手动确认选择
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperQuestionDto">
             <summary>
             试卷内容(题目)表
@@ -1247,11 +1252,6 @@
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.Score">
             <summary>
             每题分数
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionDto.MissOptionInvalid">
-            <summary>
-            漏选按错误处理
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.TestPaperId">

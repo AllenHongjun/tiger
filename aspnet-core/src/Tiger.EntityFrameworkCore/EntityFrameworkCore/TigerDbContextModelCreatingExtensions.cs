@@ -429,7 +429,6 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.QuestionDegree).HasComment("难易度：1.简单 2.普通 3.困难");
                 b.Property(p => p.Sorting).HasComment("顺序");
                 b.Property(p => p.Score).HasComment("每题分数");
-                b.Property(p => p.MissOptionInvalid).HasComment("漏选按错误处理");
 
                 b.HasOne( p => p.TestPaperSection).WithMany(p => p.Questions).HasForeignKey(p => p.TestPaperSectionId).IsRequired().OnDelete(DeleteBehavior.NoAction);
                 b.ConfigureByConvention();

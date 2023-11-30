@@ -101,13 +101,11 @@ export default {
     testPaperId: {
       type: String,
       require: true,
-      // 对象或数组默认值必须从一个工厂函数获取
       default: undefined
     },
     testPaperSectionId: {
       type: String,
       require: true,
-      // 对象或数组默认值必须从一个工厂函数获取
       default: undefined
     }
   },

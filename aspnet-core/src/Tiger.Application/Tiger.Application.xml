@@ -203,6 +203,13 @@
             试卷内容(题目)表
             </summary>
         </member>
+        <member name="M:Tiger.Module.Exams.TestPaperQuestionAppService.ComfirmSelect(Tiger.Module.Exams.Dtos.TestPaperQuestionComfirmSelectDto)">
+            <summary>
+            确认选中试卷题目（手动添加题目到试卷当中）
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperSectionAppService">
             <summary>
             试卷大题

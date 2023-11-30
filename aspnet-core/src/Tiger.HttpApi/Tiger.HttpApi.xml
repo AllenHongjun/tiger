@@ -168,6 +168,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.Exams.TestPaperQuestionController.ComfirmSelect(Tiger.Module.Exams.Dtos.TestPaperQuestionComfirmSelectDto)">
+            <summary>
+            手动确认选题
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperSectionController">
             <summary>
             试卷大题

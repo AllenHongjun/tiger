@@ -54,13 +54,6 @@ namespace Tiger.Module.Exams
         public decimal Score { get; set; }
 
         /// <summary>
-        /// 漏选按错误处理
-        /// </summary>
-        public bool MissOptionInvalid { get; set; }
-
-
-
-        /// <summary>
         /// 题目分类
         /// </summary>
         //public virtual QuestionCategory QuestionCategory { get; set; }
@@ -78,7 +71,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 题目
         /// </summary>
-        //public virtual Question Question { get; set; }
+        public virtual Question Question { get; set; }
 
         protected TestPaperQuestion()
         {
@@ -88,24 +81,24 @@ namespace Tiger.Module.Exams
             Guid id,
             Guid? tenantId,
             Guid testPaperId,
+            Guid testPaperSectionId,
             Guid questionCategoryId,
             Guid questionId,
             TestPaperType testPaperType,
             QuestionDegree questionDegree,
             int sorting,
-            decimal score,
-            bool missOptionInvalid
+            decimal score
         ) : base(id)
         {
             TenantId = tenantId;
             TestPaperId = testPaperId;
+            TestPaperSectionId = testPaperSectionId;
             QuestionCategoryId = questionCategoryId;
             QuestionId = questionId;
             TestPaperType = testPaperType;
             QuestionDegree = questionDegree;
             Sorting = sorting;
             Score = score;
-            MissOptionInvalid = missOptionInvalid;
         }
     }
 }

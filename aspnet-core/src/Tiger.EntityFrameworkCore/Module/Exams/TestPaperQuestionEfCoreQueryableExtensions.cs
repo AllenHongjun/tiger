@@ -17,6 +17,7 @@ public static class TestPaperQuestionEfCoreQueryableExtensions
 
         return queryable
             //.Include(x => x.testp) // TODO: AbpHelper generated
+            .Include(x => x.Question)
             ;
     }
 }

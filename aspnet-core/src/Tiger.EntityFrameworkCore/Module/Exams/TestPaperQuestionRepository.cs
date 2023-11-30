@@ -1,5 +1,9 @@
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading;
 using System.Threading.Tasks;
 using Tiger.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
@@ -11,6 +15,16 @@ public class TestPaperQuestionRepository : EfCoreRepository<TigerDbContext, Test
 {
     public TestPaperQuestionRepository(IDbContextProvider<TigerDbContext> dbContextProvider) : base(dbContextProvider)
     {
+    }
+
+
+    public async Task<List<TestPaperQuestion>> GetAllListAsync(
+            string sorting = null, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<TestPaperQuestion>().Include(x => x.Question)
+                .OrderBy(sorting.IsNullOrEmpty() ? nameof(TestPaperQuestion.CreationTime) : sorting)
+                .ToListAsync(GetCancellationToken(cancellationToken));
+
     }
 
     public override IQueryable<TestPaperQuestion> WithDetails()

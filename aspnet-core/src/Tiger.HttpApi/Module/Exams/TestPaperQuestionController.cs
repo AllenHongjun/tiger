@@ -26,6 +26,8 @@ namespace Tiger.Module.Exams
 
         protected ITestPaperQuestionAppService TestPaperQuestionAppService { get; }
 
+        
+
         /// <summary>
         /// 创建
         /// </summary>
@@ -83,6 +85,19 @@ namespace Tiger.Module.Exams
         public async Task<TestPaperQuestionDto> UpdateAsync(Guid id, CreateUpdateTestPaperQuestionDto input)
         {
             return await TestPaperQuestionAppService.UpdateAsync(id, input);
+        }
+
+        /// <summary>
+        /// 手动确认选题
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPost]
+        [Route("comfirm-select")]
+        public async Task ComfirmSelect(TestPaperQuestionComfirmSelectDto input)
+        {
+             await TestPaperQuestionAppService.ComfirmSelect(input);
         }
     }
 }

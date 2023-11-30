@@ -513,10 +513,6 @@ namespace Tiger.Migrations
                         .HasColumnName("LastModifierId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("MissOptionInvalid")
-                        .HasColumnType("bit")
-                        .HasComment("漏选按错误处理");
-
                     b.Property<Guid>("QuestionCategoryId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("题目分类");

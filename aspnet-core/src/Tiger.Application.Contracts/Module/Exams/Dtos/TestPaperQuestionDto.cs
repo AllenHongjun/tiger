@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Tiger.Module.QuestionBank;
+using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.Exams.Dtos;
@@ -45,8 +47,5 @@ public class TestPaperQuestionDto : AuditedEntityDto<Guid>
     /// </summary>
     public decimal Score { get; set; }
 
-    /// <summary>
-    /// 漏选按错误处理
-    /// </summary>
-    public bool MissOptionInvalid { get; set; }
+    public List<QuestionDto> questions { get; set; }
 }

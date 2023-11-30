@@ -2,7 +2,17 @@
   <div class="fixed-paper-section-container">
     <div>
       <!--拖拽table使用 https://panjiachen.github.io/vue-element-admin/#/table/drag-table -->
-      <el-table :data="tableData" style="width: 100%">
+      <el-table
+        :key="tableKey"
+        v-loading="listLoading"
+        :data="list"
+        style="width: 100%"
+        border
+        fit
+        highlight-current-row
+        :stripe="true"
+        @sort-change="sortChange"
+      >
         <!-- <el-table-column type="selection" width="55" center /> -->
         <el-table-column type="index" label="序号" width="80" />
         <el-table-column prop="questionType" label="试题类型" width="180">
@@ -90,12 +100,17 @@
       </span>
     </el-dialog>
 
-    <question-select ref="QuestionSelect" />
+    <question-select ref="QuestionSelect" :test-paper-id="testPaperId" :test-paper-section-id="testPaperSectionId" />
   </div>
 
 </template>
 
 <script>
+import baseListQuery, { checkPermission } from '@/utils/abp'
+import {
+  getTestPaperQuestions,
+  deleteTestPaperQuestion
+} from '@/api/exam/test-paper-question'
 import { Type } from '@/views/question-bank/question/datas/typing'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 import { listToTree } from '@/utils/helpers/tree-helper'
@@ -105,6 +120,18 @@ export default {
   name: 'RandomPaperSection', // 随机试卷大题
   components: {
     QuestionSelect
+  },
+  props: {
+    testPaperId: {
+      type: String,
+      require: true,
+      default: undefined
+    },
+    testPaperSectionId: {
+      type: String,
+      require: true,
+      default: undefined
+    }
   },
   data() {
     return {
@@ -128,17 +155,53 @@ export default {
         ordinaryCount: undefined,
         difficultCount: undefined,
         scorePerQuestion: undefined
-      }
+      },
+      tableKey: 0,
+      list: null,
+      total: 0,
+      listLoading: true,
+      listQuery: Object.assign({
+        degree: undefined,
+        questionCategoryId: undefined,
+        createStartTime: undefined,
+        createEndTime: undefined,
+        type: undefined,
+        enable: undefined
+      }, baseListQuery)
     }
   },
   created() {
     this.fetchOptions()
+    this.getList()
   },
   methods: {
+    checkPermission,
     fetchOptions() {
       getAllQuestionCategory().then(response => {
         this.questionCategoryOptions = listToTree(response.items)
       })
+    },
+    // 获取列表数据
+    getList() {
+      this.listLoading = true
+      this.listQuery.limit = 1000
+      getTestPaperQuestions(this.listQuery).then(response => {
+        this.list = response.items
+        this.total = response.totalCount
+        this.listLoading = false
+      })
+    },
+    handleFilter(firstPage = true) {
+      if (firstPage) this.listQuery.page = 1
+      this.getList()
+    },
+    sortChange(data) {
+      const {
+        prop,
+        order
+      } = data
+      this.listQuery.sort = order ? `${prop} ${order}` : undefined
+      this.handleFilter()
     },
 
     handleCommand(command) {

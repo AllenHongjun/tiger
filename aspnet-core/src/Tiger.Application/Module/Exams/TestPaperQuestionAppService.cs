@@ -6,6 +6,10 @@ using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Volo.Abp;
+using System.Collections.Generic;
+using Tiger.Module.QuestionBank;
+using Tiger.Module.QuestionBank.Dtos;
+using Volo.Abp.Application.Dtos;
 
 namespace Tiger.Module.Exams;
 
@@ -17,13 +21,15 @@ namespace Tiger.Module.Exams;
 public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, TestPaperQuestionDto, Guid, TestPaperQuestionGetListInput, CreateUpdateTestPaperQuestionDto, CreateUpdateTestPaperQuestionDto>,
     ITestPaperQuestionAppService
 {
-    
-
     private readonly ITestPaperQuestionRepository _repository;
+    private readonly IQuestionRepository _questionRepository;
 
-    public TestPaperQuestionAppService(ITestPaperQuestionRepository repository) : base(repository)
+    public TestPaperQuestionAppService(
+        ITestPaperQuestionRepository repository, 
+        IQuestionRepository questionRepository) : base(repository)
     {
         _repository = repository;
+        _questionRepository=questionRepository;
     }
 
     protected override IQueryable<TestPaperQuestion> CreateFilteredQuery(TestPaperQuestionGetListInput input)
@@ -36,13 +42,43 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             .WhereIf(input.TestPaperType != null, x => x.TestPaperType == input.TestPaperType)
             .WhereIf(input.QuestionDegree != null, x => x.QuestionDegree == input.QuestionDegree)
             .WhereIf(input.Score != null, x => x.Score == input.Score)
-            .WhereIf(input.MissOptionInvalid != null, x => x.MissOptionInvalid == input.MissOptionInvalid)
             ;
     }
 
-    /*
-     1. 过滤已经选中的题目数据
-     2. 添加选中的试题到试卷题目表中
-     
-     */
+    public async Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync()
+    {
+        var testPaperQuestions = await _repository.GetListAsync(includeDetails : true);
+
+        return new ListResultDto<TestPaperQuestionDto>(
+            ObjectMapper.Map<List<TestPaperQuestion>, List<TestPaperQuestionDto>>(testPaperQuestions));
+    }
+
+    
+    /// <summary>
+    /// 确认选中试卷题目（手动添加题目到试卷当中）
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task ComfirmSelect(TestPaperQuestionComfirmSelectDto input)
+    {
+        var questionIds =  input.Questions.Select(x => x.QuestionId).ToList();
+        var questions =  _questionRepository.Where(x => questionIds.Contains(x.Id)).ToList();
+        foreach (var question in questions)
+        {
+            TestPaperQuestion testPaperQuestion = new TestPaperQuestion(
+                GuidGenerator.Create(),
+                CurrentTenant.Id,
+                input.TestPaperId,
+                input.TestPaperSectionId,
+                question.QuestionCategoryId,
+                question.Id,
+                TestPaperType.FixedQuestions,
+                question.Degree,
+                0,
+                question.Score
+                );
+            await _repository.InsertAsync(testPaperQuestion);
+        }
+        await CurrentUnitOfWork.SaveChangesAsync();
+    }
 }
