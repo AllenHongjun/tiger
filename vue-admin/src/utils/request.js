@@ -60,7 +60,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    console.log('response', response) // for debug
+    // console.log('response', response) // for debug
     const res = response.data
     return res
   },

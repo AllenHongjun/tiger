@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
 namespace Tiger.Module.QuestionBank;
@@ -8,4 +10,5 @@ namespace Tiger.Module.QuestionBank;
 /// </summary>
 public interface IQuestionRepository : IRepository<Question, Guid>
 {
+    Task<List<DifferentDegreeQuestionCountInfo>> GetDifferentDegreeQuestionCount(List<Guid> questionCategoryIds, QuestionType? questionType);
 }

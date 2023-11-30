@@ -17,6 +17,7 @@ namespace Tiger.Module.QuestionBank
             CreateMap<Question,QuestionDto>()
                 .ForMember(dst => dst.QuestionCateogryName, opt => opt.MapFrom(src => src.QuestionCategory.Name));
             CreateMap<CreateUpdateQuestionDto, Question>();
+            CreateMap<DifferentDegreeQuestionCountInfo, DifferentDegreeQuestionCountDto>();
         }
     }
 }

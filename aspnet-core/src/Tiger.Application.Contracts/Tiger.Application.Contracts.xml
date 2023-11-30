@@ -1812,6 +1812,16 @@
             是否显示上传附件按钮
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.GetDifferentDegreeQuestionCountInput.QuestionCategoryId">
+            <summary>
+            题目分类Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.GetDifferentDegreeQuestionCountInput.Type">
+            <summary>
+            类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
+            </summary>
+        </member>
         <member name="T:Tiger.Module.QuestionBank.Dtos.QuestionAnswerDto">
             <summary>
             题目答案

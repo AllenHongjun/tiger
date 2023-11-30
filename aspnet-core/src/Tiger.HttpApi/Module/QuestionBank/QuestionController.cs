@@ -18,13 +18,16 @@ namespace Tiger.Module.QuestionBank
     [Route($"api/{QuestionBankRemoteServiceConsts.ModuleName}/questions")]
     public class QuestionController : AbpController, IQuestionAppService
     {
+        #region 构造函数和字段
         public QuestionController(IQuestionAppService questionAppService)
         {
             QuestionAppService=questionAppService;
         }
 
         protected IQuestionAppService QuestionAppService { get; }
+        #endregion
 
+        #region CRUD
         /// <summary>
         /// 创建
         /// </summary>
@@ -84,7 +87,6 @@ namespace Tiger.Module.QuestionBank
             return QuestionAppService.UpdateAsync(id, input);
         }
 
-
         /// <summary>
         /// 批量删除
         /// </summary>
@@ -98,6 +100,20 @@ namespace Tiger.Module.QuestionBank
             await QuestionAppService.BulkDeleteAsync(input);
         }
 
+        /// <summary>
+        /// 根据分类id和题目类型获取不同难度题目数量
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("different-degree-question-count")]
+        public async Task<DifferentDegreeQuestionCountDto> GetDifferentDegreeQuestionCount(GetDifferentDegreeQuestionCountInput input)
+        {
+            return await QuestionAppService.GetDifferentDegreeQuestionCount(input);
+        }
+        #endregion
+
+        #region 导入导出
         /// <summary>
         /// 导出
         /// </summary>
@@ -120,6 +136,9 @@ namespace Tiger.Module.QuestionBank
         public async Task ImportFromXlsxAsync(IFormFile importexcelfile)
         {
             await QuestionAppService.ImportFromXlsxAsync(importexcelfile);
-        }
+        } 
+        #endregion
+
+        
     }
 }

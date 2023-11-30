@@ -21,5 +21,6 @@ public interface IQuestionAppService :
 {
     Task BulkDeleteAsync(QuestionBatchInput input);
     Task<IActionResult> ExportToXlsxAsync(QuestionGetListInput input);
+    Task<DifferentDegreeQuestionCountDto> GetDifferentDegreeQuestionCount(GetDifferentDegreeQuestionCountInput input);
     Task ImportFromXlsxAsync(IFormFile importexcelfile);
 }

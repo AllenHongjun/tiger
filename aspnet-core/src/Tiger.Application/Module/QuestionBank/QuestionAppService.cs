@@ -39,17 +39,20 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
     IQuestionAppService
 {
 
+    #region 字段和构造函数
     private readonly IQuestionRepository _repository;
 
     public QuestionAppService(IQuestionRepository repository) : base(repository)
     {
         _repository = repository;
     }
+    #endregion
 
+    #region CRUD
     protected override IQueryable<Question> CreateFilteredQuery(QuestionGetListInput input)
     {
         // TODO: AbpHelper generated
-        return  _repository.WithDetails(x => x.QuestionCategory)
+        return _repository.WithDetails(x => x.QuestionCategory)
             .WhereIf(!input.Filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Filter) || x.Content.Contains(input.Filter))
             .WhereIf(input.CreateEndTime != null, x => x.CreationTime >= input.CreateStartTime)
             .WhereIf(input.CreateEndTime != null, x => x.CreationTime <= input.CreateEndTime)
@@ -99,14 +102,22 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
     public override async Task DeleteAsync(Guid id)
     {
-         await base.DeleteAsync(id);
+        await base.DeleteAsync(id);
     }
 
     public override async Task<QuestionDto> UpdateAsync(Guid id, CreateUpdateQuestionDto input)
     {
         return await base.UpdateAsync(id, input);
-    }
+    } 
 
+    public async Task<DifferentDegreeQuestionCountDto> GetDifferentDegreeQuestionCount(GetDifferentDegreeQuestionCountInput input)
+    {
+        List<Guid> questionCategoryIds = new List<Guid> { input.QuestionCategoryId };
+        var differentDegreeQuestionCount = (await _repository.GetDifferentDegreeQuestionCount(questionCategoryIds, input.Type)).FirstOrDefault();
+        return ObjectMapper
+            .Map<DifferentDegreeQuestionCountInfo, DifferentDegreeQuestionCountDto>(differentDegreeQuestionCount);
+    }
+    #endregion
 
     #region 导入/导出
     /// <summary>
@@ -210,7 +221,6 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
         return new FileContentResult(bytes, MimeTypes.TextXlsx);
     } 
     #endregion
-
 
     #region 批量操作
     [Authorize(QuestionBankPermissions.Question.Delete)]

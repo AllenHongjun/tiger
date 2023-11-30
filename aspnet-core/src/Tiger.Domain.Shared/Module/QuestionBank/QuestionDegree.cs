@@ -6,6 +6,8 @@ namespace Tiger.Module.QuestionBank
 {
     public enum QuestionDegree
     {
+        UnlimitedDifficultyCount = 0,
+
         Simple = 1,
 
         Ordinary = 2,
