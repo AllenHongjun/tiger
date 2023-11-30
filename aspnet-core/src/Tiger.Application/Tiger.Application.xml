@@ -212,7 +212,14 @@
         </member>
         <member name="M:Tiger.Module.Exams.TestPaperQuestionAppService.ComfirmSelect(Tiger.Module.Exams.Dtos.TestPaperQuestionComfirmSelectDto)">
             <summary>
-            确认选中试卷题目（手动添加题目到试卷当中）
+            确认选中试卷题目（手动选题）
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Exams.TestPaperQuestionAppService.RandomSelentQuestions(Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto)">
+            <summary>
+            随机选题
             </summary>
             <param name="input"></param>
             <returns></returns>

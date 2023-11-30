@@ -759,7 +759,7 @@
             不限难度数量
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.EasyCount">
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperStrategyDto.SimpleCount">
             <summary>
             简单的数量
             </summary>
@@ -1292,6 +1292,51 @@
         <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionGetListInput.MissOptionInvalid">
             <summary>
             漏选按错误处理
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.TestPaperId">
+            <summary>
+            试卷
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.TestPaperSectionId">
+            <summary>
+            试卷大题Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.QuestionCategoryId">
+            <summary>
+            题目分类Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.QuestionType">
+            <summary>
+            题型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.UnlimitedDifficultyCount">
+            <summary>
+            不限难度数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.SimpleCount">
+            <summary>
+            简单的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.OrdinaryCount">
+            <summary>
+            普通的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.DifficultCount">
+            <summary>
+            困难的数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperQuestionRandomSelectDto.ScorePerQuestion">
+            <summary>
+            每题分数
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperSectionDto">

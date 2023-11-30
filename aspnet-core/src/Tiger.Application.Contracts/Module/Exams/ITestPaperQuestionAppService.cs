@@ -20,4 +20,5 @@ public interface ITestPaperQuestionAppService :
 {
     Task ComfirmSelect(TestPaperQuestionComfirmSelectDto input);
     Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync(Guid testPaperSectionId);
+    Task RandomSelentQuestions(TestPaperQuestionRandomSelectDto input);
 }

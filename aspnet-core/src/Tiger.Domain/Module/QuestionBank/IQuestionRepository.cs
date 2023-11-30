@@ -11,4 +11,5 @@ namespace Tiger.Module.QuestionBank;
 public interface IQuestionRepository : IRepository<Question, Guid>
 {
     Task<List<DifferentDegreeQuestionCountInfo>> GetDifferentDegreeQuestionCount(List<Guid> questionCategoryIds, QuestionType? questionType);
+    Task<List<Question>> GetRandomList(Guid? questionCateogryId, QuestionType? questionType, QuestionDegree? questionDegree, int selectQuestionCount);
 }

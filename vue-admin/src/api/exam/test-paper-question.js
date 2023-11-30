@@ -46,9 +46,19 @@ export function deleteTestPaperQuestion(id) {
   })
 }
 
+// 手工选题
 export function comfirmSelectTestPaperQuestion(payload) {
   return request({
     url: '/api/exam/test-paper-questions/comfirm-select',
+    method: 'post',
+    data: payload
+  })
+}
+
+// 随机选题
+export function randomSelentQuestions(payload) {
+  return request({
+    url: '/api/exam/test-paper-questions/random-selent-questions',
     method: 'post',
     data: payload
   })

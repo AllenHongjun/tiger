@@ -64,7 +64,7 @@
       width="30%"
       append-to-body
     >
-      <el-form label-width="80px" :model="randomSelentQuestionForm">
+      <el-form ref="randomSelentQuestionForm" label-width="80px" :model="randomSelentQuestionForm">
         <el-form-item label="试题分类">
           <el-cascader
             v-model="randomSelentQuestionForm.questionCategoryId"
@@ -107,7 +107,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogRandomSelentQuestionVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogRandomSelentQuestionVisible = false">确 定</el-button>
+        <el-button type="primary" @click="submitRandomSelentQuestions()">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -121,7 +121,8 @@ import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getTestPaperQuestions,
   getAllTestPaperQuestion,
-  deleteTestPaperQuestion
+  deleteTestPaperQuestion,
+  randomSelentQuestions
 } from '@/api/exam/test-paper-question'
 import { getDifferentDegreeQuestionCount } from '@/api/question-bank/question'
 import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '@/views/question-bank/question/datas/typing'
@@ -163,6 +164,8 @@ export default {
 
       ],
       randomSelentQuestionForm: {
+        testPaperId: undefined,
+        testPaperSectionId: undefined,
         questionCategoryId: undefined,
         questionTypeId: undefined,
         unlimitedDifficultyCount: undefined,
@@ -265,6 +268,19 @@ export default {
       }
       getDifferentDegreeQuestionCount(input).then(response => {
         this.differentDegreeQuestionCountData = response
+      })
+    },
+    submitRandomSelentQuestions() {
+      this.$refs['randomSelentQuestionForm'].validate(valid => {
+        if (valid) {
+          this.randomSelentQuestionForm.testPaperId = this.testPaperId
+          this.randomSelentQuestionForm.testPaperSectionId = this.testPaperSectionId
+          randomSelentQuestions(this.randomSelentQuestionForm).then(() => {
+            this.handleFilter()
+            // this.$emit('handleFilter', false)
+            this.dialogRandomSelentQuestionVisible = false
+          })
+        }
       })
     }
   }

@@ -1,15 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
-using Volo.Abp.Application.Services;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Volo.Abp;
-using System.Collections.Generic;
 using Tiger.Module.QuestionBank;
-using Tiger.Module.QuestionBank.Dtos;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.Exams;
 
@@ -81,9 +78,9 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
     #endregion
 
 
-    #region 选题
+    #region 从题库中选题
     /// <summary>
-    /// 确认选中试卷题目（手动添加题目到试卷当中）
+    /// 确认选中试卷题目（手动选题）
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
@@ -112,6 +109,40 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
         await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(input.TestPaperSectionId);
     }
 
+    /// <summary>
+    /// 随机选题
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task RandomSelentQuestions(TestPaperQuestionRandomSelectDto input)
+    {
+        // 查询不同难度指定数量的随机题目
+        var unlimitedDifficultyQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.UnlimitedDifficultyCount, input.UnlimitedDifficultyCount);
+        var simpleQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.Simple, input.SimpleCount);
+        var ordinaryQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.Ordinary, input.OrdinaryCount);
+        var difficultQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.Difficult, input.DifficultCount);
+        var randomQuestions = unlimitedDifficultyQuestions.Concat(simpleQuestions)
+                                .Concat(ordinaryQuestions)
+                                .Concat(difficultQuestions);
+        // 将题目添加到试卷当中
+        foreach (var question in randomQuestions)
+        {
+            TestPaperQuestion testPaperQuestion = new TestPaperQuestion(
+                GuidGenerator.Create(),
+                CurrentTenant.Id,
+                input.TestPaperId,
+                input.TestPaperSectionId,
+                question.QuestionCategoryId,
+                question.Id,
+                TestPaperType.FixedQuestions,
+                question.Degree,
+                0, //TODO: 顺序不写死 获取当前大题的题目顺序最大值，然后累加1
+                question.Score
+                );
+            await _repository.InsertAsync(testPaperQuestion);
+        }
+        await CurrentUnitOfWork.SaveChangesAsync();
+    }
 
     #endregion
 

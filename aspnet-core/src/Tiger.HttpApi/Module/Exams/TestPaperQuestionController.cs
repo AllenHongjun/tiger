@@ -88,7 +88,20 @@ namespace Tiger.Module.Exams
         public async Task<TestPaperQuestionDto> UpdateAsync(Guid id, CreateUpdateTestPaperQuestionDto input)
         {
             return await TestPaperQuestionAppService.UpdateAsync(id, input);
-        } 
+        }
+
+        /// <summary>
+        /// 根据大题id查询试题
+        /// </summary>
+        /// <param name="testPaperSectionId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpGet]
+        [Route("all/{testPaperSectionId}")]
+        public async Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync(Guid testPaperSectionId)
+        {
+            return await TestPaperQuestionAppService.GetAllAsync(testPaperSectionId);
+        }
         #endregion
 
         /// <summary>
@@ -105,16 +118,15 @@ namespace Tiger.Module.Exams
         }
 
         /// <summary>
-        /// 根据大题id查询试题
+        /// 随机选题
         /// </summary>
-        /// <param name="testPaperSectionId"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        [HttpGet]
-        [Route("all/{testPaperSectionId}")]
-        public async Task<ListResultDto<TestPaperQuestionDto>> GetAllAsync(Guid testPaperSectionId)
+        [HttpPost]
+        [Route("random-selent-questions")]
+        public async Task RandomSelentQuestions(TestPaperQuestionRandomSelectDto input)
         {
-            return await TestPaperQuestionAppService.GetAllAsync(testPaperSectionId);
+             await TestPaperQuestionAppService.RandomSelentQuestions(input);
         }
     }
 }

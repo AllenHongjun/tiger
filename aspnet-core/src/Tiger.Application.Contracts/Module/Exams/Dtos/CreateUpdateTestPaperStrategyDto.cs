@@ -34,7 +34,7 @@ public class CreateUpdateTestPaperStrategyDto
     /// <summary>
     /// 简单的数量
     /// </summary>
-    public int EasyCount { get; set; }
+    public int SimpleCount { get; set; }
 
     /// <summary>
     /// 普通的数量
