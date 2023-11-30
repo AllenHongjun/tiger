@@ -74,6 +74,7 @@
             style="width:230px;"
             clearable
             filterable
+            @change="fetchDifferentDegreeQuestionCount()"
           />
         </el-form-item>
         <el-form-item label="试题类型">
@@ -88,16 +89,16 @@
         </el-form-item>
         <el-form-item label="抽题数量" class="number-of-questions">
           <el-input v-model="randomSelentQuestionForm.unlimitedDifficultyCount" placeholder="不限">
-            <template slot="append">20</template>
+            <template slot="append">{{ differentDegreeQuestionCountData.unlimitedDifficultyCount }}</template>
           </el-input>
-          <el-input v-model="randomSelentQuestionForm.easyCount" placeholder="简单">
-            <template slot="append">20</template>
+          <el-input v-model="randomSelentQuestionForm.simpleCount" placeholder="简单">
+            <template slot="append">{{ differentDegreeQuestionCountData.simpleCount }}</template>
           </el-input>
           <el-input v-model="randomSelentQuestionForm.ordinaryCount" placeholder="普通">
-            <template slot="append">20</template>
+            <template slot="append">{{ differentDegreeQuestionCountData.ordinaryCount }}</template>
           </el-input>
           <el-input v-model="randomSelentQuestionForm.difficultCount" placeholder="困难">
-            <template slot="append">20</template>
+            <template slot="append">{{ differentDegreeQuestionCountData.difficultCount }}</template>
           </el-input>
         </el-form-item>
         <el-form-item label="每题分数">
@@ -122,6 +123,7 @@ import {
   getAllTestPaperQuestion,
   deleteTestPaperQuestion
 } from '@/api/exam/test-paper-question'
+import { getDifferentDegreeQuestionCount } from '@/api/question-bank/question'
 import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '@/views/question-bank/question/datas/typing'
 
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
@@ -164,7 +166,7 @@ export default {
         questionCategoryId: undefined,
         questionTypeId: undefined,
         unlimitedDifficultyCount: undefined,
-        easyCount: undefined,
+        simpleCount: undefined,
         ordinaryCount: undefined,
         difficultCount: undefined,
         scorePerQuestion: undefined
@@ -180,7 +182,10 @@ export default {
         createEndTime: undefined,
         type: undefined,
         enable: undefined
-      }, baseListQuery)
+      }, baseListQuery),
+      differentDegreeQuestionCountData: {
+
+      }
     }
   },
   created() {
@@ -252,6 +257,15 @@ export default {
     },
     handleRandomSelentQuestions() {
       this.dialogRandomSelentQuestionVisible = true
+    },
+    fetchDifferentDegreeQuestionCount() {
+      var input = {
+        QuestionCategoryId: this.randomSelentQuestionForm.questionCategoryId,
+        Type: this.randomSelentQuestionForm.questionTypeId
+      }
+      getDifferentDegreeQuestionCount(input).then(response => {
+        this.differentDegreeQuestionCountData = response
+      })
     }
   }
 }

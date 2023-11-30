@@ -46,3 +46,11 @@ export function deleteQuestion(id) {
   })
 }
 
+export function getDifferentDegreeQuestionCount(params) {
+  return request({
+    url: '/api/question-bank/questions/different-degree-question-count',
+    method: 'get',
+    params: params
+  })
+}
+

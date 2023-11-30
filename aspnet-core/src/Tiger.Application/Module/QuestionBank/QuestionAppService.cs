@@ -112,10 +112,15 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
     public async Task<DifferentDegreeQuestionCountDto> GetDifferentDegreeQuestionCount(GetDifferentDegreeQuestionCountInput input)
     {
+        DifferentDegreeQuestionCountDto result = new DifferentDegreeQuestionCountDto();
         List<Guid> questionCategoryIds = new List<Guid> { input.QuestionCategoryId };
         var differentDegreeQuestionCount = (await _repository.GetDifferentDegreeQuestionCount(questionCategoryIds, input.Type)).FirstOrDefault();
-        return ObjectMapper
+        if (differentDegreeQuestionCount != null)
+        {
+            result = ObjectMapper
             .Map<DifferentDegreeQuestionCountInfo, DifferentDegreeQuestionCountDto>(differentDegreeQuestionCount);
+        }
+        return result;
     }
     #endregion
 

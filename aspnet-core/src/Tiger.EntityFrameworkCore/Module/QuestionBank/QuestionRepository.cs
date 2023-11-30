@@ -23,18 +23,20 @@ public class QuestionRepository : EfCoreRepository<TigerDbContext, Question, Gui
     /// <returns></returns>
     public async Task<List<DifferentDegreeQuestionCountInfo>> GetDifferentDegreeQuestionCount(List<Guid> questionCategoryIds, QuestionType? questionType)
     {
-        var list = await DbContext.Set<Question>()
-                    .Where(x => questionCategoryIds.Contains( x.QuestionCategoryId ) )
+        // bug: 自EF core 3开始，LINQ查询命令无法转换成SQL语句 https://blog.csdn.net/connora/article/details/108313146
+        var query = DbContext.Set<Question>()
+                    .Where(x => questionCategoryIds.Contains(x.QuestionCategoryId))
                     .WhereIf((questionType.HasValue), x => x.Type == questionType)
-                    .GroupBy(x => new { x.QuestionCategoryId, x.Degree })
-                    .Select(x => new DifferentDegreeQuestionCountInfo
+                    .AsEnumerable();
+       // TODO: 优化在数据库中分组查询 将方法封装到领域服务中             
+       var list =   query.GroupBy(x => new { x.QuestionCategoryId }).Select(x => new DifferentDegreeQuestionCountInfo
                     {
                         QuestionCategoryId = x.Key.QuestionCategoryId,
                         UnlimitedDifficultyCount = x.Count(g => g.Degree == QuestionDegree.UnlimitedDifficultyCount),
                         SimpleCount = x.Count(g => g.Degree == QuestionDegree.Simple),
                         OrdinaryCount = x.Count(g => g.Degree == QuestionDegree.Ordinary),
                         DifficultCount = x.Count(g => g.Degree == QuestionDegree.Difficult)
-                    }).ToListAsync(); 
+                    }).ToList();
         return list;
     }
 

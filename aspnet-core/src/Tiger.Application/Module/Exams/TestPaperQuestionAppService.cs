@@ -21,6 +21,7 @@ namespace Tiger.Module.Exams;
 public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, TestPaperQuestionDto, Guid, TestPaperQuestionGetListInput, CreateUpdateTestPaperQuestionDto, CreateUpdateTestPaperQuestionDto>,
     ITestPaperQuestionAppService
 {
+    #region 字段和构造函数
     private readonly ITestPaperQuestionRepository _repository;
     private readonly IQuestionRepository _questionRepository;
     private readonly TestPaperSectionManager _testPaperSectionManager;
@@ -33,8 +34,10 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
         _repository = repository;
         _questionRepository=questionRepository;
         _testPaperSectionManager=testPaperSectionManager;
-    }
+    } 
+    #endregion
 
+    #region CRUD
     protected override IQueryable<TestPaperQuestion> CreateFilteredQuery(TestPaperQuestionGetListInput input)
     {
         // TODO: AbpHelper generated
@@ -51,7 +54,7 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
     public override async Task<TestPaperQuestionDto> UpdateAsync(Guid id, CreateUpdateTestPaperQuestionDto input)
     {
         var testPaperQuestion = await base.UpdateAsync(id, input);
-        
+
         return testPaperQuestion;
     }
 
@@ -68,7 +71,17 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             ObjectMapper.Map<List<TestPaperQuestion>, List<TestPaperQuestionDto>>(testPaperQuestions));
     }
 
-    
+    public override async Task DeleteAsync(Guid id)
+    {
+        await base.DeleteAsync(id);
+
+        var testPaperQuestion = await _repository.GetAsync(id);
+        await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(testPaperQuestion.TestPaperSectionId);
+    }
+    #endregion
+
+
+    #region 选题
     /// <summary>
     /// 确认选中试卷题目（手动添加题目到试卷当中）
     /// </summary>
@@ -76,8 +89,8 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
     /// <returns></returns>
     public async Task ComfirmSelect(TestPaperQuestionComfirmSelectDto input)
     {
-        var questionIds =  input.Questions.Select(x => x.QuestionId).ToList();
-        var questions =  _questionRepository.Where(x => questionIds.Contains(x.Id)).ToList();
+        var questionIds = input.Questions.Select(x => x.QuestionId).ToList();
+        var questions = _questionRepository.Where(x => questionIds.Contains(x.Id)).ToList();
         foreach (var question in questions)
         {
             TestPaperQuestion testPaperQuestion = new TestPaperQuestion(
@@ -99,12 +112,7 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
         await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(input.TestPaperSectionId);
     }
 
-    public override async Task DeleteAsync(Guid id)
-    {
-        await base.DeleteAsync(id);
 
-        var testPaperQuestion =  await _repository.GetAsync(id);
-        await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(testPaperQuestion.TestPaperSectionId);
-    }
+    #endregion
 
 }
