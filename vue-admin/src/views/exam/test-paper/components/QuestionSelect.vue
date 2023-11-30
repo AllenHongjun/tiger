@@ -1,6 +1,6 @@
 <template>
   <div class="table-container">
-    <el-dialog title="手工选题" :visible.sync="dialogTableVisible" append-to-body top="10vh" width="70%">
+    <el-dialog title="手工选题" :visible.sync="dialogTableVisible" append-to-body top="5vh" width="95%">
       <div class="filter-container" style="margin-bottom:10px;">
         <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
           <el-row :gutter="20">
@@ -108,6 +108,11 @@
       <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
         <el-table-column type="selection" width="55" center />
         <el-table-column type="index" width="60" />
+        <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">
+          <template slot-scope="{ row }">
+            <el-tag v-if="QuestionTypeMap[row.type]" type="primary">{{ QuestionTypeMap[row.type] }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCateogryName" align="left" width="280">
           <template slot-scope="{ row }">
             <span>{{ row.questionCateogryName }}</span>
@@ -115,23 +120,23 @@
         </el-table-column>
         <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left">
           <template slot-scope="{ row }">
-            <!-- <span>{{ row.content }}</span> -->
             <span style="max-height:300px" v-html="row.content" />
           </template>
         </el-table-column>
-        <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">
-          <template slot-scope="{ row }">
-            <el-tag v-if="QuestionTypeMap[row.type]" type="primary">{{ QuestionTypeMap[row.type] }}</el-tag>
-          </template>
-        </el-table-column>
+
         <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Degree\']')" prop="Degree" align="left" width="100">
           <template slot-scope="{ row }">
             <el-tag v-if="QuestionDegreeMap[row.degree]" type="primary">{{ QuestionDegreeMap[row.degree] }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="Enable" align="left" width="80">
+        <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="answer" align="left" width="120">
           <template slot-scope="{ row }">
-            <el-tag :type="( row.enable ? 'success' : 'danger')" :class="[ row.enable ? 'el-icon-check':'el-icon-close' ]" />
+            <span>{{ row.answer }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="score" align="left" width="120">
+          <template slot-scope="{ row }">
+            <span>{{ row.score }}</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" align="left" width="180">
@@ -140,26 +145,19 @@
           </template>
         </el-table-column>
 
-        <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280">
-          <template slot-scope="{ row, $index }">
-            <el-button v-if="checkPermission('QuestionBank.Question.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
-            <el-button v-if="checkPermission('QuestionBank.Question.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
-          </template>
-        </el-table-column>
       </el-table>
 
       <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogTableVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogTableVisible = false">确认选择</el-button>
+      </div>
     </el-dialog>
 
   </div>
 </template>
 
 <script>
-/*
-1. 题目内容 题目解析 增加富文本编辑器
-2. 增加实操平台 选择开发
-3. 实操平台 关联课程 只有授权给学校的课程 组织下面的用户才能看到对应的实操平台
-*/
 import {
   getQuestions,
   deleteQuestion
@@ -172,7 +170,7 @@ import Pagination from '@/components/Pagination' // secondary package based on e
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { pickerRangeWithHotKey } from '@/utils/picker'
 
-import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '../datas/typing'
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '@/views/question-bank/question/datas/typing'
 
 export default {
   name: 'QuestionSelect',

@@ -9,16 +9,15 @@
       </el-row>
 
       <el-card v-if="active == 0">
-        <el-form label-position="right" label-width="280px" :model="temp">
-          <el-form-item label="名称">
+        <el-form ref="dataForm" label-position="right" label-width="280px" :model="temp" :rules="rules">
+          <el-form-item label="名称" prop="name">
             <el-input v-model="temp.name" />
           </el-form-item>
-          <el-form-item label="活动区域">
-            <el-input v-model="temp.displayName" />
+
+          <el-form-item label="编号" prop="number">
+            <el-input v-model="temp.number" />
           </el-form-item>
-          <el-form-item label="活动形式">
-            <el-input v-model="temp.description" />
-          </el-form-item>
+
         </el-form>
       </el-card>
 
@@ -134,23 +133,6 @@ export default {
             message: this.$i18n.t(
               "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
               [this.$i18n.t("AppExam['DisplayName:Name']"), '64']
-            ),
-            trigger: 'blur'
-          }
-        ],
-        displayName: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppExam['DisplayName:DisplayName']")
-            ]),
-            trigger: 'blur'
-          },
-          {
-            max: 256,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppExam['DisplayName:Name']"), '256']
             ),
             trigger: 'blur'
           }
