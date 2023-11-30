@@ -422,6 +422,7 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "TestPaperQuestions", TigerConsts.DbSchema);
                 b.Property(p => p.TestPaperId).HasComment("试卷ID");
+                b.Property(p => p.TestPaperSectionId).HasComment("试卷大题Id");
                 b.Property(p => p.QuestionCategoryId).HasComment("题目分类");
                 b.Property(p => p.QuestionId).HasComment("试题ID");
                 b.Property(p => p.TestPaperType).HasComment("选题方式 1.自主选题 2.随机生成");
@@ -430,6 +431,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.Score).HasComment("每题分数");
                 b.Property(p => p.MissOptionInvalid).HasComment("漏选按错误处理");
 
+                b.HasOne( p => p.TestPaperSection).WithMany(p => p.Questions).HasForeignKey(p => p.TestPaperSectionId).IsRequired().OnDelete(DeleteBehavior.NoAction);
                 b.ConfigureByConvention();
 
 

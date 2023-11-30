@@ -25,6 +25,8 @@
     <Compile Remove="Migrations\20231125023654_TestPaperSectionRelateStragety.Designer.cs" />
     <Compile Remove="Migrations\20231126015943_TestPaperStrategyAddSectionId.cs" />
     <Compile Remove="Migrations\20231126015943_TestPaperStrategyAddSectionId.Designer.cs" />
+    <Compile Remove="Migrations\20231130024622_TaperQuestionAddColumnSectionId.cs" />
+    <Compile Remove="Migrations\20231130024622_TaperQuestionAddColumnSectionId.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

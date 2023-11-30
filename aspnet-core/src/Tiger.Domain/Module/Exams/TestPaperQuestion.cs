@@ -8,7 +8,7 @@ using Volo.Abp.MultiTenancy;
 namespace Tiger.Module.Exams
 {
     /// <summary>
-    /// 试卷内容(题目)表
+    /// 试卷小题
     /// </summary>
     public class TestPaperQuestion:AuditedEntity<Guid>,IMultiTenant
     {
@@ -17,6 +17,11 @@ namespace Tiger.Module.Exams
         /// 试卷ID
         /// </summary>
         public Guid TestPaperId { get; set; }
+
+        /// <summary>
+        /// 试卷大题ID
+        /// </summary>
+        public Guid TestPaperSectionId { get; set; }
 
         /// <summary>
         /// 题目分类
@@ -64,6 +69,11 @@ namespace Tiger.Module.Exams
         /// 试卷
         /// </summary>
         public virtual TestPaper TestPaper { get; set; }
+
+        /// <summary>
+        /// 试卷大题
+        /// </summary>
+        public virtual TestPaperSection TestPaperSection { get; set; }
 
         /// <summary>
         /// 题目

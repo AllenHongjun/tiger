@@ -39,4 +39,10 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             .WhereIf(input.MissOptionInvalid != null, x => x.MissOptionInvalid == input.MissOptionInvalid)
             ;
     }
+
+    /*
+     1. 过滤已经选中的题目数据
+     2. 添加选中的试题到试卷题目表中
+     
+     */
 }

@@ -545,8 +545,9 @@ namespace Tiger.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("试卷ID");
 
-                    b.Property<Guid?>("TestPaperSectionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid>("TestPaperSectionId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("试卷大题Id");
 
                     b.Property<int>("TestPaperType")
                         .HasColumnType("int")
@@ -4541,9 +4542,11 @@ namespace Tiger.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tiger.Module.Exams.TestPaperSection", null)
+                    b.HasOne("Tiger.Module.Exams.TestPaperSection", "TestPaperSection")
                         .WithMany("Questions")
-                        .HasForeignKey("TestPaperSectionId");
+                        .HasForeignKey("TestPaperSectionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperSection", b =>
