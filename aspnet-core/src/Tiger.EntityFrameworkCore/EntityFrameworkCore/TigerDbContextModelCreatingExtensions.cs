@@ -547,6 +547,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.StartDate).HasComment("开始时间");
                 b.Property(p => p.EndDate).HasComment("结束时间");
                 b.Property(p => p.ExamDuration).HasComment("考试时长 单位：分钟");
+                b.Property(p => p.PassingScore).HasComment("及格分数");
                 b.Property(p => p.IsDifferent).HasComment("是否每个人都不同");
                 b.Property(p => p.IsDifferentOrder).HasComment("顺序不同");
                 b.Property(p => p.IsShowScore).HasComment("提交后是否显示成绩");

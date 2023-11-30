@@ -2,72 +2,6 @@
   <div class="model-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Exam:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="8vh">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item prop="passingScore">
-          <span slot="label">
-            <el-tooltip content="考生通过考试的分数" placement="top">
-              <i class="el-icon-question" />
-            </el-tooltip>
-            及格分数
-          </span>
-          <el-input v-model="temp.passingScore">
-            <template slot="append">总分<span>35.0</span>分</template>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item prop="examDuration">
-          <span slot="label">
-            <el-tooltip content="允许考试进入考试或者练习的时间范围。比如设置12月1日到12月5日，考生只能在这个时间范围进入考试" placement="top">
-              <i class="el-icon-question" />
-            </el-tooltip>
-            考试时间
-          </span>
-          <el-date-picker
-            v-model="examTimeRange"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-          />
-        </el-form-item>
-
-        <el-form-item prop="examDuration">
-          <span slot="label">
-            <el-tooltip content="允许考试的答题时间,超过时间自动提交答卷" placement="top">
-              <i class="el-icon-question" />
-            </el-tooltip>
-            答题时间
-          </span>
-          <el-input v-model="temp.examDuration" type="number">
-            <template slot="append">分钟</template>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item prop="maxExamCount">
-          <span slot="label">
-            <el-tooltip content="允许每个考生参加的次数" placement="top">
-              <i class="el-icon-question" />
-            </el-tooltip>
-            可考次数
-          </span>
-          <el-input v-model="temp.maxExamCount" type="number">
-            <template slot="append">次/考生</template>
-          </el-input>
-        </el-form-item>
-
-        <el-form-item prop="maxExamCount">
-          <span slot="label">
-            成绩设置
-          </span>
-          <el-radio v-model="temp.isShowScore" label="true">交卷后显示成绩</el-radio>
-          <el-radio v-model="temp.isShowScore" label="false">交卷后不显示成绩</el-radio>
-        </el-form-item>
-
-        <el-form-item prop="maxExamCount">
-          <span slot="label">
-            启用
-          </span>
-          <el-switch v-model="temp.isEnable" />
-        </el-form-item>
 
         <el-form-item prop="maxExamCount">
           <span slot="label">
@@ -133,25 +67,19 @@ export default {
       examTimeRange: [],
       temp: {
         id: undefined,
-        courseId: undefined,
-        testPaperId: '8B62B2F7-21BC-D83E-768F-3A0EAD76BDF4',
-        questionCategoryId: undefined,
-        name: undefined,
-        coverUrl: undefined,
-        number: undefined,
-        examType: 1,
+        passingScore: 60,
         startDate: undefined,
         endDate: undefined,
-        examDuration: 0,
-        isDifferent: true,
-        isDifferentOrder: true,
+        examDuration: 90,
+        maxExamCount: 1,
+
         isShowScore: true,
         isShowError: true,
-        isEnable: true,
+        isDifferent: true,
+        isDifferentOrder: true,
         isExamAnyTime: true,
         isShowWindowOnblur: true,
-        maxExamCount: 0,
-        sorting: 0,
+
         onlyExamDayVisible: true,
         isStartSync: true,
         isShowHelp: true,
@@ -160,9 +88,7 @@ export default {
         halftimeEnd: undefined,
         deductionAmounnt: 0,
         deductionInterval: 0,
-        interval: 0,
-        examSetting: [],
-        questionSetting: []
+        interval: 0
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -213,11 +139,6 @@ export default {
       this.temp = {
         id: undefined,
         courseId: undefined,
-        testPaperId: '8B62B2F7-21BC-D83E-768F-3A0EAD76BDF4',
-        questionCategoryId: undefined,
-        name: undefined,
-        coverUrl: undefined,
-        number: undefined,
         examType: 1,
         startDate: undefined,
         endDate: undefined,

@@ -18,7 +18,7 @@ namespace Tiger.Module.Exams
         public Guid? CourseId { get; set; }
 
         /// <summary>
-        /// 考试的试卷（母卷）
+        /// 考试的试卷
         /// </summary>
         public Guid TestPaperId { get; set; }
 
@@ -58,9 +58,16 @@ namespace Tiger.Module.Exams
         public DateTime EndDate { get; set; }
 
         /// <summary>
+        /// 及格分数
+        /// </summary>
+        public decimal? PassingScore { get; set; }
+
+        /// <summary>
         /// 考试时长 单位：分钟
         /// </summary>
         public int ExamDuration { get; set; }
+
+
 
         /// <summary>
         /// 是否每个人都不同

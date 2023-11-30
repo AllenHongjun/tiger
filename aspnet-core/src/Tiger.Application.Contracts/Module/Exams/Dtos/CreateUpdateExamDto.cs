@@ -59,6 +59,11 @@ public class CreateUpdateExamDto
     public DateTime EndDate { get; set; }
 
     /// <summary>
+    /// 及格分数
+    /// </summary>
+    public decimal? PassingScore { get; set; }
+
+    /// <summary>
     /// 考试时长 单位：分钟
     /// </summary>
     public int ExamDuration { get; set; }

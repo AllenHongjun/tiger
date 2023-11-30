@@ -514,6 +514,11 @@
             结束时间
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.PassingScore">
+            <summary>
+            及格分数
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamDto.ExamDuration">
             <summary>
             考试时长 单位：分钟
@@ -822,6 +827,11 @@
         <member name="P:Tiger.Module.Exams.Dtos.ExamDto.EndDate">
             <summary>
             结束时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamDto.PassingScore">
+            <summary>
+            及格分数
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamDto.ExamDuration">

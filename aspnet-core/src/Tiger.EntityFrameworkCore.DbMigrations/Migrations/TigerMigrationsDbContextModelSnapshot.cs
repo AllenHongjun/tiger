@@ -371,6 +371,10 @@ namespace Tiger.Migrations
                         .HasColumnType("bit")
                         .HasComment("仅考试当天可见");
 
+                    b.Property<decimal?>("PassingScore")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("及格分数");
+
                     b.Property<Guid>("QuestionCategoryId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("题目分类");
