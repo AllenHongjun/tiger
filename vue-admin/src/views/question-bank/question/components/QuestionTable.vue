@@ -208,7 +208,7 @@ export default {
       list: null,
       total: 0,
       listLoading: false,
-      downloading: false,
+      downloadLoading: false,
       listQuery: Object.assign({
         degree: undefined,
         questionCategoryId: undefined,

@@ -29,8 +29,9 @@
         </el-form-item> -->
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="content">
-          <!-- <el-input v-model="temp.content" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" /> -->
-          <tinymce v-model="temp.content" :height="300" />
+          <el-checkbox v-model="useEditor">使用富文本编辑器</el-checkbox>
+          <tinymce v-if="useEditor" v-model="temp.content" :height="300" />
+          <el-input v-else v-model="temp.content" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" />
           <div v-if="temp.type === QuestionType.Completion" style="margin-top: 10px;">
             <span>请在填空位置</span>   <el-button type="primary" @click="insertBlankFill()">插入填空符</el-button>
           </div>
@@ -46,26 +47,14 @@
             <el-col :span="4">勾选设置答案</el-col>
             <el-col :span="20">选项内容</el-col>
           </el-row>
-          <el-form-item label="选项">
-            <el-radio v-model="temp.answer" label="A" />
-            <el-input v-model="temp.optionContent" />
+          <el-form-item v-for="(item,index) in temp.optionContentArr" :key="item.key" label="选项">
+            <el-radio v-model="temp.answer" :label="alphas[index]" />
+            <el-input v-model="item.value" />
           </el-form-item>
-          <el-form-item label="选项">
-            <el-radio v-model="temp.answer" label="B" />
-            <el-input v-model="temp.optionContent" />
+          <el-form-item>
+            <el-button class="el-icon-plus" type="primary" plain @click="addQuestionOption()"> 添加选项</el-button>
+            <el-button v-if="temp.optionContentArr.length > 4" class="el-icon-minus" type="danger" @click="minusQuestionOption()"> 删除选项</el-button>
           </el-form-item>
-          <el-form-item label="选项">
-            <el-radio v-model="temp.answer" label="C" />
-            <el-input v-model="temp.optionContent" />
-          </el-form-item>
-          <el-form-item label="选项">
-            <el-radio v-model="temp.answer" label="D" />
-            <el-input v-model="temp.optionContent" />
-          </el-form-item>
-          <!-- <el-form-item>
-            <el-button class="el-icon-plus" @click="addQuestionOption()">添加选项</el-button>
-            <el-button class="el-icon-minus" type="danger" @click="minusQuestionOption()">删除选项</el-button>
-          </el-form-item> -->
         </div>
         <div v-if="temp.type === QuestionType.MultipleChoice" class="multi-contariner">
           <el-row style="" class="option-header">
@@ -73,28 +62,15 @@
             <el-col :span="20">选项内容</el-col>
           </el-row>
           <el-checkbox-group v-model="temp.answer">
-            <el-form-item label="选项">
-              <el-checkbox label="A">A</el-checkbox>
-              <el-input v-model="temp.optionContent" />
-            </el-form-item>
-            <el-form-item label="选项">
-              <el-checkbox label="B">B</el-checkbox>
-              <el-input v-model="temp.optionContent" style="" />
-            </el-form-item>
-            <el-form-item label="选项">
-              <el-checkbox label="C">C</el-checkbox>
-              <el-input v-model="temp.optionContent" />
-            </el-form-item>
-            <el-form-item label="选项">
-              <el-checkbox label="D">D</el-checkbox>
-              <el-input v-model="temp.optionContent" />
+            <el-form-item v-for="(item, index) in temp.optionContentArr" :key="item.key" label="选项">
+              <el-checkbox :label="alphas[index]" />
+              <el-input v-model="item.value" />
             </el-form-item>
           </el-checkbox-group>
-
-          <!-- <el-form-item>
-            <el-button class="el-icon-plus" @click="addQuestionOption()">添加选项</el-button>
-            <el-button class="el-icon-minus" type="danger" @click="minusQuestionOption()">删除选项</el-button>
-          </el-form-item> -->
+          <el-form-item>
+            <el-button class="el-icon-plus" type="primary" plain @click="addQuestionOption()"> 添加选项</el-button>
+            <el-button v-if="temp.optionContentArr.length > 4" class="el-icon-minus" type="danger" @click="minusQuestionOption()"> 删除选项</el-button>
+          </el-form-item>
         </div>
 
         <el-form-item v-if="temp.type === QuestionType.Completion || temp.type === QuestionType.QA || temp.type === QuestionType.ShortAnswer" :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="score" class="answer">
@@ -139,8 +115,8 @@
         </el-row>
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Analysis\']')" prop="analysis">
-          <!-- <el-input v-model="temp.analysis" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" /> -->
-          <tinymce v-model="temp.analysis" :height="150" />
+          <el-input v-model="temp.analysis" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
+          <!-- <tinymce v-model="temp.analysis" :height="150" /> -->
         </el-form-item>
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Source\']')" prop="source">
@@ -186,6 +162,7 @@ export default {
       questionCategoryOptions: [],
       questionTypeOptions: Type,
       questionDegreeOptions: Degree,
+      alphas: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
       radio: 'A',
       temp: {
         id: undefined,
@@ -195,6 +172,7 @@ export default {
         name: '123',
         content: undefined,
         optionContent: undefined,
+        optionContentArr: ['', '', '', ''],
         optionSize: undefined,
         answer: undefined,
         score: undefined,
@@ -213,7 +191,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
-
+      useEditor: false,
       // 表单验证规则
       rules: {
         name: [
@@ -250,12 +228,15 @@ export default {
 
     // 添加题目选项
     addQuestionOption() {
-      // 操作数据 https://blog.csdn.net/weixin_42282414/article/details/115765510
-      this.$alert('添加成功')
+      this.temp.optionContentArr.push({ value: '' })
     },
 
     minusQuestionOption() {
-      this.$alert('删除选项！')
+      if (this.temp.optionContentArr.length <= 4) {
+        this.$message.error('至少保留4个选项！')
+        return
+      }
+      this.temp.optionContentArr.pop({ value: '' })
     },
 
     insertBlankFill() {
@@ -272,6 +253,7 @@ export default {
         name: '123',
         content: undefined,
         optionContent: undefined,
+        optionContentArr: [{ value: '' }, { value: '' }, { value: '' }, { value: '' }],
         optionSize: undefined,
         answer: undefined,
         score: undefined,
@@ -305,6 +287,11 @@ export default {
     createData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
+          var arr = []
+          this.temp.optionContentArr.forEach(e => {
+            arr.push(e.value)
+          })
+          this.temp.optionContent = arr.join('\r\n')
           createQuestion(this.temp).then(() => {
             this.$emit('handleFilter', false)
             this.dialogFormVisible = false
@@ -325,6 +312,17 @@ export default {
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       getQuestion(row.id).then(response => {
+        // TODO:重构代码，简化，变量重命名 题目选项拆分处理
+        var tempOptionConentArr = response.optionContent.split(/[(\r\n)\r\n]+/) // 根据换行或者回车进行识别
+        var resultArr = []
+        if (tempOptionConentArr.length < 4) {
+          resultArr = [{ value: '' }, { value: '' }, { value: '' }, { value: '' }]
+        } else {
+          tempOptionConentArr.forEach(element => {
+            resultArr.push({ value: element })
+          })
+        }
+        response.optionContentArr = resultArr
         this.temp = response
       })
 
@@ -337,6 +335,11 @@ export default {
     updateData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
+          var arr = []
+          this.temp.optionContentArr.forEach(e => {
+            arr.push(e.value)
+          })
+          this.temp.optionContent = arr.join('\r\n')
           updateQuestion(this.temp.id, this.temp).then(() => {
             this.$emit('handleFilter', false)
             this.dialogFormVisible = false
