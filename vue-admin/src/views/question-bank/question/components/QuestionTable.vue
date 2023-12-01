@@ -99,6 +99,13 @@
             <el-button v-if="checkPermission('QuestionBank.Question.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
               {{ $t("AppQuestionBank['Permission:Create']") }}
             </el-button>
+            <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
+              {{ $t("AbpIdentity['Refresh']") }}
+            </el-button>
+            <el-button v-if="checkPermission('AbpIdentity.Users.ExportXlsx')" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExportXlsx">
+              {{ $t('AbpUi.Export') }}
+            </el-button>
+            <el-button v-if="checkPermission('AbpIdentity.Users.ImportXlsx')" type="primary" icon="el-icon-upload" @click="handleImport"> {{ $t('AbpUi.Import') }}</el-button>
           </el-button-group>
 
         </el-col>
@@ -149,6 +156,8 @@
     </el-table>
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+
+    <upload-single-excel ref="ImportExcelDialog" file-name="question" :import-from-xlsx="importQuestionFromXlsx" :import-xlsx-template="exportQuestionXlsxTemplate" @call-filter="handleFilter" />
   </div>
 </template>
 
@@ -160,22 +169,28 @@
 */
 import {
   getQuestions,
-  deleteQuestion
+  deleteQuestion,
+  exportQuestionToXlsx,
+  importQuestionFromXlsx,
+  exportQuestionXlsxTemplate
 } from '@/api/question-bank/question'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
-import { listToTree } from '@/utils/helpers/tree-helper'
 
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
+import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { pickerRangeWithHotKey } from '@/utils/picker'
+import { listToTree } from '@/utils/helpers/tree-helper'
+import { downloadByData } from '@/utils/download'
 
 import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '../datas/typing'
 
 export default {
   name: 'Questions',
   components: {
-    Pagination
+    Pagination,
+    UploadSingleExcel
   },
   data() {
     return {
@@ -192,7 +207,8 @@ export default {
       tableKey: 0,
       list: null,
       total: 0,
-      listLoading: true,
+      listLoading: false,
+      downloading: false,
       listQuery: Object.assign({
         degree: undefined,
         questionCategoryId: undefined,
@@ -210,6 +226,8 @@ export default {
   },
   methods: {
     checkPermission, // 检查权限
+    importQuestionFromXlsx,
+    exportQuestionXlsxTemplate,
     fetchOptions() {
       getAllQuestionCategory().then(response => {
         this.questionCategoryOptions = listToTree(response.items)
@@ -225,10 +243,6 @@ export default {
     // 搜索展开切换
     toggleAdvanced() {
       this.advanced = !this.advanced
-    },
-    // 刷新页面
-    handleRefresh() {
-      this.handleFilter()
     },
     // 重置查询参数
     resetQueryForm() {
@@ -266,6 +280,31 @@ export default {
       } = data
       this.listQuery.sort = order ? `${prop} ${order}` : undefined
       this.handleFilter()
+    },
+    handleRefresh() {
+      this.listQuery.filter = undefined
+      this.fetchData()
+    },
+    // 导出xlsx
+    handleExportXlsx() {
+      this.$confirm('是否确认导出全部查询结果?', this.$i18n.t("AbpUi['AreYouSure']"), {
+        confirmButtonText: this.$i18n.t("AbpUi['Yes']"),
+        cancelButtonText: this.$i18n.t("AbpUi['Cancel']"),
+        type: 'warning'
+      }).then(response => {
+        this.downloadLoading = true
+        exportQuestionToXlsx(this.listQuery).then(response => {
+          downloadByData(response, 'question.xlsx')
+          this.downloadLoading = false
+        }).catch(err => {
+          console.log(err)
+          this.downloadLoading = false
+          this.$message.warning(err)
+        })
+      })
+    },
+    handleImport(row) {
+      this.$refs['ImportExcelDialog'].handleUploadExcel()
     },
     handleCreate() {
       this.$emit('handleCreate')

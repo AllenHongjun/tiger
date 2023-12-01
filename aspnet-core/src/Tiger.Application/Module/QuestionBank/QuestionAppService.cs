@@ -27,6 +27,7 @@ using Tiger.Volo.Abp.Identity;
 using Volo.Abp.Identity;
 using Microsoft.AspNetCore.Http;
 using DocumentFormat.OpenXml.Math;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -61,9 +62,6 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
             .WhereIf(input.Type != null, x => x.Type == input.Type)
             .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
             .WhereIf(!input.Content.IsNullOrWhiteSpace(), x => x.Content.Contains(input.Content))
-            //.WhereIf(!input.OptionContent.IsNullOrWhiteSpace(), x => x.OptionContent.Contains(input.OptionContent))
-            //.WhereIf(input.OptionSize != null, x => x.OptionSize == input.OptionSize)
-            //.WhereIf(!input.Answer.IsNullOrWhiteSpace(), x => x.Answer.Contains(input.Answer))
             .WhereIf(input.Degree != null, x => x.Degree == input.Degree)
             .WhereIf(!input.Analysis.IsNullOrWhiteSpace(), x => x.Analysis.Contains(input.Analysis))
             .WhereIf(!input.Source.IsNullOrWhiteSpace(), x => x.Source.Contains(input.Source))
@@ -143,9 +141,9 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
                 throw new Exception("No worksheet found");
 
             //the columns
-            var properties = ImportManager.GetPropertiesByExcelCells<IdentityRoleDto>(worksheet);
+            var properties = ImportManager.GetPropertiesByExcelCells<QuestionDto>(worksheet);
 
-            var manager = new PropertyManager<IdentityRoleDto>(properties);
+            var manager = new PropertyManager<QuestionDto>(properties);
             var iRow = 2;
 
             while (true)
@@ -162,8 +160,6 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
                 var question = await _repository.GetAsync(manager.GetProperty("Id").GuidValue);
 
                 var isNew = question == null;
-
-                // TODO: 增加验证 如果错误抛出异常
 
                 question ??= new Question(GuidGenerator.Create(), CurrentTenant.Id, manager.GetProperty("Content").StringValue);
 
@@ -187,7 +183,6 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
                 iRow++;
             }
-
         }
         else
         {
@@ -202,8 +197,7 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
     /// <returns>查询到的所有角色</returns>
     public virtual async Task<IActionResult> ExportToXlsxAsync(QuestionGetListInput input)
     {
-        int maxResultCount = input.MaxResultCount == 1 ? 1 : int.MaxValue;
-        IPagedResult<QuestionDto> entityDtos = await GetListAsync(input);
+        var list = CreateFilteredQuery(input).ToList();
 
         //property manager 
         var manager = new PropertyManager<QuestionDto>(new[]
@@ -221,7 +215,7 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
                 new PropertyByName<QuestionDto>(L["DisplayName:Enable"], p => p.Enable),
             });
 
-        var bytes = await manager.ExportToXlsxAsync(entityDtos.Items.ToList());
+        var bytes = await manager.ExportToXlsxAsync(ObjectMapper.Map<List<Question>, List<QuestionDto>>(list));
 
         return new FileContentResult(bytes, MimeTypes.TextXlsx);
     } 

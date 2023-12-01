@@ -197,18 +197,18 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
         var list = CreateFilteredQuery(input).ToList();
 
         //property manager 
-        var manager = new PropertyManager<QuestionCategory>(new[]
+        var manager = new PropertyManager<QuestionCategoryDto>(new[]
         {
-                new PropertyByName<QuestionCategory>("Id", p => p.Id),
-                new PropertyByName<QuestionCategory>(L["ParentId"], p => p.ParentId),
-                new PropertyByName<QuestionCategory>(L["DisplayName:Name"], p => p.Name),
-                new PropertyByName<QuestionCategory>(L["DisplayName:Cover"], p => p.Cover),
-                new PropertyByName<QuestionCategory>(L["DisplayName:Enable"], p => p.Enable),
-                new PropertyByName<QuestionCategory>(L["DisplayName:Sorting"], p => p.Sorting),
-                new PropertyByName<QuestionCategory>(L["DisplayName:IsPublic"], p => p.IsPublic),
+                new PropertyByName<QuestionCategoryDto>("Id", p => p.Id),
+                new PropertyByName<QuestionCategoryDto>(L["ParentId"], p => p.ParentId),
+                new PropertyByName<QuestionCategoryDto>(L["DisplayName:Name"], p => p.Name),
+                new PropertyByName<QuestionCategoryDto>(L["DisplayName:Cover"], p => p.Cover),
+                new PropertyByName<QuestionCategoryDto>(L["DisplayName:Enable"], p => p.Enable),
+                new PropertyByName<QuestionCategoryDto>(L["DisplayName:Sorting"], p => p.Sorting),
+                new PropertyByName<QuestionCategoryDto>(L["DisplayName:IsPublic"], p => p.IsPublic),
             });
 
-        var bytes = await manager.ExportToXlsxAsync(list);
+        var bytes = await manager.ExportToXlsxAsync(ObjectMapper.Map<List<QuestionCategory>,List<QuestionCategoryDto>>(list));
 
         return new FileContentResult(bytes, MimeTypes.TextXlsx);
     } 

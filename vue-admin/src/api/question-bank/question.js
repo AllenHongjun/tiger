@@ -46,6 +46,40 @@ export function deleteQuestion(id) {
   })
 }
 
+export function exportQuestionXlsxTemplate() {
+  return request({
+    url: `/api/question-bank/questions/export-xlxs-template`,
+    method: 'get',
+    header: {
+      headers: { 'Content-Type': 'application/x-download' }
+    },
+    responseType: 'blob'
+  })
+}
+
+export function importQuestionFromXlsx(payload) {
+  return request({
+    url: `/api/question-bank/questions/import-from-xlsx`,
+    method: 'post',
+    data: payload,
+    headers: {
+      'Content-Type': 'multipart/form-data;charset=utf-8'
+    }
+  })
+}
+
+export function exportQuestionToXlsx(params) {
+  return request({
+    url: `/api/question-bank/questions/export-to-xlsx`,
+    method: 'get',
+    params: transformAbpListQuery(params),
+    header: {
+      headers: { 'Content-Type': 'application/x-download' }
+    },
+    responseType: 'blob'
+  })
+}
+
 export function getDifferentDegreeQuestionCount(params) {
   return request({
     url: '/api/question-bank/questions/different-degree-question-count',
