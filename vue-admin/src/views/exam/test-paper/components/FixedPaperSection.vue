@@ -49,10 +49,10 @@
         </el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="handleManualSelentQuestions">
-            <i class="el-icon-circle-plus" />手工选题
+            <i class="el-icon-circle-plus" />  手工选题
           </el-dropdown-item>
           <el-dropdown-item command="handleRandomSelentQuestions">
-            <i class="el-icon-refresh" /> 随机选题
+            <i class="el-icon-refresh" />  随机选题
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -64,7 +64,7 @@
       width="30%"
       append-to-body
     >
-      <el-form ref="randomSelentQuestionForm" label-width="80px" :model="randomSelentQuestionForm">
+      <el-form ref="randomSelentQuestionForm" label-width="80px" :model="randomSelentQuestionForm" :rules="rules">
         <el-form-item label="试题分类">
           <el-cascader
             v-model="randomSelentQuestionForm.questionCategoryId"
@@ -163,17 +163,6 @@ export default {
         }
 
       ],
-      randomSelentQuestionForm: {
-        testPaperId: undefined,
-        testPaperSectionId: undefined,
-        questionCategoryId: undefined,
-        questionTypeId: undefined,
-        unlimitedDifficultyCount: undefined,
-        simpleCount: undefined,
-        ordinaryCount: undefined,
-        difficultCount: undefined,
-        scorePerQuestion: undefined
-      },
       tableKey: 0,
       list: null,
       total: 0,
@@ -186,8 +175,31 @@ export default {
         type: undefined,
         enable: undefined
       }, baseListQuery),
+      randomSelentQuestionForm: {
+        testPaperId: undefined,
+        testPaperSectionId: undefined,
+        questionCategoryId: undefined,
+        questionTypeId: undefined,
+        unlimitedDifficultyCount: undefined,
+        simpleCount: undefined,
+        ordinaryCount: undefined,
+        difficultCount: undefined,
+        scorePerQuestion: undefined
+      },
+      // 表单验证规则
+      rules: {
+        name: [
+          {
+            max: 64,
+            message: this.$i18n.t(
+              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
+              [this.$i18n.t("AppExam['DisplayName:Name']"), '64']
+            ),
+            trigger: 'blur'
+          }
+        ]
+      },
       differentDegreeQuestionCountData: {
-
       }
     }
   },
@@ -277,7 +289,8 @@ export default {
           this.randomSelentQuestionForm.testPaperSectionId = this.testPaperSectionId
           randomSelentQuestions(this.randomSelentQuestionForm).then(() => {
             this.handleFilter()
-            // this.$emit('handleFilter', false)
+            debugger
+            this.$emit('fixed-paper-section-change')
             this.dialogRandomSelentQuestionVisible = false
           })
         }

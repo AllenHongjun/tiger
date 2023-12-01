@@ -29,9 +29,12 @@
           <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
             <el-card class="section-box">
               <div slot="header" class="clearfix">
-                <h3 class="section-title"> {{ testPaperSection.name }} <span>(共 <b>{{ testPaperSection.questionCount }}</b>  题 <b>{{ testPaperSection.totalScore }}</b>  分)</span></h3>
+                <h3 class="section-title" style="float: left;">
+                  {{ testPaperSection.name }}
+                  <span>(共 <b>{{ testPaperSection.questionCount }}</b>  题 <b>{{ testPaperSection.totalScore }}</b>  分)</span>
+                </h3>
                 <div style="float: right;">
-                  <el-button plain type="primary" class="el-icon-plus" @click="handleUpdateSectionDescription()">添加大题描述</el-button>
+                  <el-button plain type="primary" class="el-icon-plus" @click="handleUpdateSectionDescription(testPaperSection.id)">添加大题描述</el-button>
                   <el-button plain>选项乱序</el-button>
                 </div>
                 <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @fixed-paper-section-change="handelUpdateTestPaperStrategy" />
@@ -81,7 +84,8 @@ import {
   updateTestPaper
 } from '@/api/exam/test-paper'
 import {
-  getAllTestPaperSections
+  getAllTestPaperSections,
+  updateTestPaperSectionDescription
 } from '@/api/exam/test-paper-section'
 
 import MiniPaperSection from './MiniPaperSection.vue'
@@ -233,8 +237,14 @@ export default {
         }
       })
     },
-    handleUpdateSectionDescription() {
+    handleUpdateSectionDescription(id) {
       this.dialogTestPaperSectionDescriptionFormVisible = true
+    },
+    UpdateSectionDescriptionData() {
+      updateTestPaperSectionDescription(this.testPaperSectionDescriptionForm.id, this.testPaperSectionDescriptionForm).then(() => {
+        this.$emit('handleFilter', false)
+        this.dialogTestPaperSectionDescriptionFormVisible = false
+      })
     },
 
     // 获取试卷大题列表数据

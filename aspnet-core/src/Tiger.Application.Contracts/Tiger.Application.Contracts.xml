@@ -1524,6 +1524,7 @@
             困难的数量
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "P:Tiger.Module.Exams.Dtos.UpdateTestPaperSectionDescriptionDto.Description" -->
         <member name="T:Tiger.Module.Exams.IAnswerSheetAppService">
             <summary>
             答卷表

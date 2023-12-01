@@ -1,15 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
-using Volo.Abp.Application.Services;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.ObjectMapping;
-using System.Collections.Generic;
-using Volo.Abp.SettingManagement;
+using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.Exams;
 
@@ -22,14 +19,17 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
     ITestPaperSectionAppService
 {
 
+    #region 字段和构造函数
     private readonly ITestPaperSectionRepository _repository;
 
     public TestPaperSectionAppService(ITestPaperSectionRepository repository) : base(repository)
     {
         _repository = repository;
     }
+    #endregion
 
-    protected override  IQueryable<TestPaperSection> CreateFilteredQuery(TestPaperSectionGetListInput input)
+    #region CRUD
+    protected override IQueryable<TestPaperSection> CreateFilteredQuery(TestPaperSectionGetListInput input)
     {
         // TODO: AbpHelper generated
         return base.CreateFilteredQuery(input)
@@ -47,10 +47,25 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
     /// <returns></returns>
     public ListResultDto<TestPaperSectionDto> GetAll(TestPaperSectionGetListInput input)
     {
-        var testPaperSections =  CreateFilteredQuery(input)
+        var testPaperSections = CreateFilteredQuery(input)
             .OrderBy(input.Sorting ?? "sort asc").ToList();
         return new ListResultDto<TestPaperSectionDto>(
             ObjectMapper.Map<List<TestPaperSection>, List<TestPaperSectionDto>>(testPaperSections));
+    }
+
+    /// <summary>
+    /// 更新大题描述
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<TestPaperSectionDto> UpdateDescriptionAsync(Guid id, UpdateTestPaperSectionDescriptionDto input)
+    {
+        var testPaperSection = await GetEntityByIdAsync(id);
+        testPaperSection.Description = input.Description;
+        await _repository.UpdateAsync(testPaperSection);
+        await CurrentUnitOfWork.SaveChangesAsync();
+        return  ObjectMapper.Map<TestPaperSection, TestPaperSectionDto>(testPaperSection);
     }
 
     /// <summary>
@@ -59,13 +74,13 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
     /// <param name="id"></param>
     /// <returns></returns>
     public override async Task DeleteAsync(Guid id)
-    {   
+    {
         //base.DeleteAsync(id);
-         var testPaperSection =  await _repository.GetAsync(id, true);
-         testPaperSection.Questions.Clear();
-         testPaperSection.Strategies.Clear();
-         await _repository.DeleteAsync(id);
-         await CurrentUnitOfWork.SaveChangesAsync();
+        var testPaperSection = await _repository.GetAsync(id, true);
+        testPaperSection.Questions.Clear();
+        testPaperSection.Strategies.Clear();
+        await _repository.DeleteAsync(id);
+        await CurrentUnitOfWork.SaveChangesAsync();
     }
 
 
@@ -82,7 +97,7 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
         // 找到待移动的相邻下一个元素的下标
         var testPaperSections = _repository.Where(x => x.TestPaperId == testPaperSection.TestPaperId)
             .OrderBy(x => x.Sort).ToList();
-        var testPaperSectionIndex = testPaperSections.FindIndex(0,x => x.Id == testPaperSection.Id);
+        var testPaperSectionIndex = testPaperSections.FindIndex(0, x => x.Id == testPaperSection.Id);
         TestPaperSection nextTestPaperSection = null;
         switch (type)
         {
@@ -95,7 +110,7 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
             default:
                 break;
         }
-        
+
         // 交换两个元素的序号
         if (nextTestPaperSection != null)
         {
@@ -110,5 +125,6 @@ public class TestPaperSectionAppService : CrudAppService<TestPaperSection, TestP
 
     // 修改名称
 
-    // 批量设置题目分数
+    // 批量设置题目分数 
+    #endregion
 }

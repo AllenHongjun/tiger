@@ -20,4 +20,5 @@ public interface ITestPaperSectionAppService :
 {
     ListResultDto<TestPaperSectionDto> GetAll(TestPaperSectionGetListInput input);
     Task MoveAsync(Guid id, string type = "down");
+    Task<TestPaperSectionDto> UpdateDescriptionAsync(Guid id, UpdateTestPaperSectionDescriptionDto input);
 }

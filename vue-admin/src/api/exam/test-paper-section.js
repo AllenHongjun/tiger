@@ -60,3 +60,17 @@ export function moveTestPaperSection(id, params) {
   })
 }
 
+/**
+ * 更新大题描述
+ * @param {*} id
+ * @param {*} payload
+ * @returns
+ */
+export function updateTestPaperSectionDescription(id, payload) {
+  return request({
+    url: `/api/exam/test-paper-sections/${id}/description`,
+    method: 'put',
+    data: payload
+  })
+}
+

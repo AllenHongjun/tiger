@@ -142,6 +142,8 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
             await _repository.InsertAsync(testPaperQuestion);
         }
         await CurrentUnitOfWork.SaveChangesAsync();
+
+        await _testPaperSectionManager.CalcuTotalScoreAndQusetionCount(input.TestPaperSectionId);
     }
 
     #endregion

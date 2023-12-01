@@ -20,13 +20,16 @@ namespace Tiger.Module.Exams
     [Route($"api/{ExamRemoteServiceConsts.ModuleName}/test-paper-sections")]
     public class TestPaperSectionController : AbpController, ITestPaperSectionAppService
     {
+        #region 构造函数和字段
         public TestPaperSectionController(ITestPaperSectionAppService testPaperSectionAppService)
         {
             TestPaperSectionAppService=testPaperSectionAppService;
         }
 
         protected ITestPaperSectionAppService TestPaperSectionAppService { get; }
+        #endregion
 
+        #region CRUD
         /// <summary>
         /// 创建
         /// </summary>
@@ -47,7 +50,7 @@ namespace Tiger.Module.Exams
         [Route("{id}")]
         public async Task DeleteAsync(Guid id)
         {
-             await TestPaperSectionAppService.DeleteAsync(id);
+            await TestPaperSectionAppService.DeleteAsync(id);
         }
 
         /// <summary>
@@ -94,7 +97,7 @@ namespace Tiger.Module.Exams
         [Route("all")]
         public ListResultDto<TestPaperSectionDto> GetAll(TestPaperSectionGetListInput input)
         {
-            return  TestPaperSectionAppService.GetAll(input);
+            return TestPaperSectionAppService.GetAll(input);
         }
 
         /// <summary>
@@ -105,10 +108,24 @@ namespace Tiger.Module.Exams
         /// <exception cref="NotImplementedException"></exception>
         [HttpPut]
         [Route("move-down/{id}")]
-        public  async Task MoveAsync(Guid id,string type= "down")
+        public async Task MoveAsync(Guid id, string type = "down")
         {
-              await TestPaperSectionAppService.MoveAsync(id,type);
+            await TestPaperSectionAppService.MoveAsync(id, type);
         }
-        
+
+        /// <summary>
+        /// 更新大题描述
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/description")]
+
+        public async Task<TestPaperSectionDto> UpdateDescriptionAsync(Guid id, UpdateTestPaperSectionDescriptionDto input)
+        {
+            return await TestPaperSectionAppService.UpdateDescriptionAsync(id, input);
+        } 
+        #endregion
     }
 }
