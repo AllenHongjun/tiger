@@ -42,6 +42,7 @@
           <el-radio v-model="temp.answer" label="false">B 错误</el-radio>
         </el-form-item>
 
+        <!-- 单选题 -->
         <div v-if="temp.type === QuestionType.SingleChoice" class="single-option-container">
           <el-row style="" class="option-header">
             <el-col :span="4">勾选设置答案</el-col>
@@ -56,12 +57,15 @@
             <el-button v-if="temp.optionContentArr.length > 4" class="el-icon-minus" type="danger" @click="minusQuestionOption()"> 删除选项</el-button>
           </el-form-item>
         </div>
+
+        <!-- 多选题 -->
         <div v-if="temp.type === QuestionType.MultipleChoice" class="multi-contariner">
           <el-row style="" class="option-header">
             <el-col :span="4">勾选设置答案</el-col>
             <el-col :span="20">选项内容</el-col>
           </el-row>
-          <el-checkbox-group v-model="temp.answer">
+          <input v-model="temp.answer" type="hidden" name="multipleChoiceAnswer">
+          <el-checkbox-group v-model="temp.answerArr">
             <el-form-item v-for="(item, index) in temp.optionContentArr" :key="item.key" label="选项">
               <el-checkbox :label="alphas[index]" />
               <el-input v-model="item.value" />
@@ -175,6 +179,7 @@ export default {
         optionContentArr: ['', '', '', ''],
         optionSize: undefined,
         answer: undefined,
+        answerArr: [],
         score: undefined,
         degree: 1,
         analysis: undefined,
@@ -256,6 +261,7 @@ export default {
         optionContentArr: [{ value: '' }, { value: '' }, { value: '' }, { value: '' }],
         optionSize: undefined,
         answer: undefined,
+        answerArr: [],
         score: undefined,
         degree: 1,
         analysis: undefined,
@@ -292,6 +298,12 @@ export default {
             arr.push(e.value)
           })
           this.temp.optionContent = arr.join('\r\n')
+          debugger
+          console.log('this.temp.QuestionType', this.temp.QuestionType)
+          if (this.temp.QuestionType === QuestionType.MultipleChoice) {
+            var answer1 = this.temp.answerArr.join('')
+            this.temp.answer = answer1
+          }
           createQuestion(this.temp).then(() => {
             this.$emit('handleFilter', false)
             this.dialogFormVisible = false
@@ -323,6 +335,10 @@ export default {
           })
         }
         response.optionContentArr = resultArr
+
+        if (this.temp.type === QuestionType.MultipleChoice) {
+          this.temp.answerArr = response.answer.split('')
+        }
         this.temp = response
       })
 
@@ -340,6 +356,10 @@ export default {
             arr.push(e.value)
           })
           this.temp.optionContent = arr.join('\r\n')
+          if (this.temp.type === QuestionType.MultipleChoice) {
+            var answer1 = this.temp.answerArr.join('')
+            this.temp.answer = answer1
+          }
           updateQuestion(this.temp.id, this.temp).then(() => {
             this.$emit('handleFilter', false)
             this.dialogFormVisible = false
