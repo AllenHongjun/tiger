@@ -2,9 +2,9 @@
   <div class="app-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppQuestionBank[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="4vh" width="70%">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
+        <!-- <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
           <el-input v-model="temp.source" type="text" />
-        </el-form-item>
+        </el-form-item> -->
         <el-row>
           <el-col :span="12">
             <el-form-item prop="type" :label="$t('AppQuestionBank[\'DisplayName:Type\']')">

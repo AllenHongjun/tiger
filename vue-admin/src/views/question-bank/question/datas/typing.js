@@ -15,10 +15,10 @@ export const QuestionTypeMap = {
   [QuestionType.SingleChoice]: '单选题',
   [QuestionType.MultipleChoice]: '多选题',
   [QuestionType.Completion]: '填空题',
-  [QuestionType.CalculationQuestions]: '计算题',
+  // [QuestionType.CalculationQuestions]: '计算题',
   [QuestionType.QA]: '问答题',
-  [QuestionType.Btype]: 'B型题',
-  [QuestionType.ShortAnswer]: '简答题',
+  // [QuestionType.Btype]: 'B型题',
+  // [QuestionType.ShortAnswer]: '简答题',
   [QuestionType.PracticalTraining]: '实训题'
 }
 
@@ -47,30 +47,30 @@ export const Type = [
     lable: '填空题',
     value: 4
   },
-  {
-    key: 'Calculation',
-    type: 'primary',
-    lable: '计算题',
-    value: 5
-  },
+  // {
+  //   key: 'Calculation',
+  //   type: 'primary',
+  //   lable: '计算题',
+  //   value: 5
+  // },
   {
     key: 'QA',
     type: 'primary',
     lable: '问答题',
     value: 6
   },
-  {
-    key: 'Btype',
-    type: 'primary',
-    lable: 'B型题',
-    value: 7
-  },
-  {
-    key: 'ShortAnswer',
-    type: 'primary',
-    lable: '简答题',
-    value: 8
-  },
+  // {
+  //   key: 'Btype',
+  //   type: 'primary',
+  //   lable: 'B型题',
+  //   value: 7
+  // },
+  // {
+  //   key: 'ShortAnswer',
+  //   type: 'primary',
+  //   lable: '简答题',
+  //   value: 8
+  // },
   {
     key: 'PracticalTraining',
     type: 'primary',

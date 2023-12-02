@@ -33,6 +33,7 @@ namespace Tiger.Module.QuestionBank
         /// <summary>
         /// 题目名称
         /// </summary>
+        [Obsolete("没有使用")]
         public string Name { get; set; }
 
         /// <summary>

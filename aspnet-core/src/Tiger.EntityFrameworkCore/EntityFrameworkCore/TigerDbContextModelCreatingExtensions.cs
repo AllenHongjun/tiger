@@ -486,7 +486,7 @@ namespace Tiger.EntityFrameworkCore
             {
                 b.ToTable(TigerConsts.DbTablePrefix + "Questions", TigerConsts.DbSchema);
                 b.Property(p => p.Type).HasComment("类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务");
-                b.Property(p => p.Name).HasMaxLength(QuestionConsts.MaxNameLength).IsRequired(false).HasComment("题目名称");
+                //b.Property(p => p.Name).HasMaxLength(QuestionConsts.MaxNameLength).IsRequired(false).HasComment("题目名称");
                 b.Property(p => p.Content).HasMaxLength(QuestionConsts.MaxContentLength).IsRequired().HasComment("题目内容");
                 b.Property(p => p.Answer).HasMaxLength(QuestionConsts.MaxAnswerLength).HasComment("答案 判断题答案：正确/错误；多个填空之间的答案使用竖线 |分隔，如果一个填空有多个答案请用 & 开隔;");
                 b.Property(p => p.OptionContent).HasMaxLength(QuestionConsts.MaxOptionLength).IsRequired(false).HasComment("选项内容");
