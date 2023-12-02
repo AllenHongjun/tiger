@@ -2,13 +2,15 @@
   <div class="app-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppQuestionBank[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="4vh" width="70%">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <!-- <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
-          <el-input v-model="temp.source" type="text" />
-        </el-form-item> -->
         <el-row>
           <el-col :span="12">
+            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCategoryId">
+              <el-cascader v-model="temp.questionCategoryId" :options="questionCategoryOptions" :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}" clearable class="filter-item" filterable style="width:100%;" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item prop="type" :label="$t('AppQuestionBank[\'DisplayName:Type\']')">
-              <el-select v-model="temp.type" placeholder="-" filterable clearable>
+              <el-select v-model="temp.type" placeholder="-" filterable>
                 <el-option
                   v-for="item in questionTypeOptions"
                   :key="item.key"
@@ -18,15 +20,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCategoryId">
-              <el-cascader v-model="temp.questionCategoryId" :options="questionCategoryOptions" :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}" clearable class="filter-item" filterable style="width:100%;" />
-            </el-form-item>
-          </el-col>
         </el-row>
-        <!-- <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
-          <el-input v-model="temp.name" />
-        </el-form-item> -->
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="content">
           <el-checkbox v-model="useEditor">使用富文本编辑器</el-checkbox>
@@ -38,8 +32,8 @@
         </el-form-item>
 
         <el-form-item v-if="temp.type === QuestionType.TrueOrFalse" label="选项" prop="name">
-          <el-radio v-model="temp.answer" label="true">A 正确</el-radio>
-          <el-radio v-model="temp.answer" label="false">B 错误</el-radio>
+          <el-radio v-model="temp.answer" label="true"> A.  正确</el-radio>
+          <el-radio v-model="temp.answer" label="false">B.  错误</el-radio>
         </el-form-item>
 
         <!-- 单选题 -->
@@ -78,7 +72,7 @@
         </div>
 
         <!-- 填空题 -->
-        <el-form-item v-if="temp.type === QuestionType.Completion || temp.type === QuestionType.QA || temp.type === QuestionType.ShortAnswer" :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="score" class="answer">
+        <el-form-item v-if="temp.type === QuestionType.Completion || temp.type === QuestionType.QA || temp.type === QuestionType.ShortAnswer" :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="answer" class="answer">
           <div v-if="temp.type === QuestionType.Completion">
             <!-- 限制填空题答案输入框中不允许| 这个是答案拆分的分隔符 -->
             <el-input v-for="(item, index) in completionAnswerArr" :key="item.key" v-model="item.value" placeholder="请输入内容">
@@ -199,24 +193,60 @@ export default {
       useEditor: false,
       // 表单验证规则
       rules: {
-        name: [
+        questionCategoryId: [
           {
-            required: false,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppQuestionBank['DisplayName:Name']")
-            ]),
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [this.$i18n.t("AppQuestionBank['DisplayName:QuestionCateogryName']")]),
+            trigger: 'blur'
+          }
+        ],
+        type: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [this.$i18n.t("AppQuestionBank['DisplayName:Type']")]),
+            trigger: 'blur'
+          }
+        ],
+        content: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [this.$i18n.t("AppQuestionBank['DisplayName:Content']")]),
             trigger: 'blur'
           },
           {
-            max: 64,
-            message: this.$i18n.t(
-              "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppQuestionBank['DisplayName:Name']"), '64']
-            ),
+            max: 2048,
+            message: this.$i18n.t("AbpValidation['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AppQuestionBank['DisplayName:Content']"), '2048']),
+            trigger: 'blur'
+          }
+        ],
+        score: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [this.$i18n.t("AppQuestionBank['DisplayName:Score']")]),
+            trigger: 'blur'
+          }
+        ],
+        degree: [
+          {
+            required: true,
+            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [this.$i18n.t("AppQuestionBank['DisplayName:Degree']")]),
+            trigger: 'blur'
+          }
+        ],
+        analysis: [
+          {
+            max: 512,
+            message: this.$i18n.t("AbpValidation['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AppQuestionBank['DisplayName:Analysis']"), '512']),
+            trigger: 'blur'
+          }
+        ],
+        source: [
+          {
+            max: 256,
+            message: this.$i18n.t("AbpValidation['The field {0} must be a string with a maximum length of {1}.']", [this.$i18n.t("AppQuestionBank['DisplayName:Source']"), '256']),
             trigger: 'blur'
           }
         ]
-
       }
     }
   },
@@ -286,7 +316,6 @@ export default {
         questionCategoryId: undefined,
         practicalTrainingId: undefined,
         type: 1,
-        name: '123',
         content: undefined,
         optionContent: undefined,
         optionSize: undefined,
@@ -321,23 +350,27 @@ export default {
         this.$refs['dataForm'].clearValidate()
       })
     },
+    // 模型数据转换
+    transferModel() {
+      var arr = []
+      this.optionContentArr.forEach(e => {
+        arr.push(e.value)
+      })
+      this.temp.optionContent = arr.join('\r\n')
 
+      if (this.temp.type === QuestionType.MultipleChoice) {
+        this.temp.answer = this.answerArr.join('')
+      }
+
+      if (this.temp.type === QuestionType.Completion) {
+        this.temp.answer = this.answerArr.join('|')
+      }
+    },
     // 创建数据
     createData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          var arr = []
-          this.optionContentArr.forEach(e => {
-            arr.push(e.value)
-          })
-          this.optionContent = arr.join('\r\n')
-          if (this.temp.type === QuestionType.MultipleChoice) {
-            var answer1 = this.temp.answerArr.join('')
-            this.temp.answer = answer1
-          }
-          if (this.temp.type === QuestionType.Completion) {
-            this.temp.answer = this.answerArr.join('|')
-          }
+          this.transferModel()
           createQuestion(this.temp).then(() => {
             this.$emit('handleFilter', false)
             this.dialogFormVisible = false
@@ -390,26 +423,15 @@ export default {
         }
       })
 
-      // this.$nextTick(() => {
-      //   this.$refs['dataForm'].clearValidate()
-      // })
+      this.$nextTick(() => {
+        this.$refs['dataForm'].clearValidate()
+      })
     },
-
     // 更新数据
     updateData() {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
-          var arr = []
-          this.optionContentArr.forEach(e => {
-            arr.push(e.value)
-          })
-          this.temp.optionContent = arr.join('\r\n')
-          if (this.temp.type === QuestionType.MultipleChoice) {
-            this.temp.answer = this.answerArr.join('')
-          }
-          if (this.temp.type === QuestionType.Completion) {
-            this.temp.answer = this.answerArr.join('|')
-          }
+          this.transferModel()
           updateQuestion(this.temp.id, this.temp).then(() => {
             this.$emit('handleFilter', false)
             this.dialogFormVisible = false

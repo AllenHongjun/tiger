@@ -47,30 +47,12 @@ export const Type = [
     lable: '填空题',
     value: 4
   },
-  // {
-  //   key: 'Calculation',
-  //   type: 'primary',
-  //   lable: '计算题',
-  //   value: 5
-  // },
   {
     key: 'QA',
     type: 'primary',
     lable: '问答题',
     value: 6
   },
-  // {
-  //   key: 'Btype',
-  //   type: 'primary',
-  //   lable: 'B型题',
-  //   value: 7
-  // },
-  // {
-  //   key: 'ShortAnswer',
-  //   type: 'primary',
-  //   lable: '简答题',
-  //   value: 8
-  // },
   {
     key: 'PracticalTraining',
     type: 'primary',

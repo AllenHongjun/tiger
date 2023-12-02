@@ -42,11 +42,7 @@
     "DisplayName:Type": "题型",
     "DisplayName:Content": "内容",
     "DisplayName:Answer": "答案",
-    "DisplayName:OptionA": "A选项",
-    "DisplayName:OptionB": "B选项",
-    "DisplayName:OptionC": "C选项",
-    "DisplayName:OptionD": "D选项",
-    "DisplayName:OptionE": "E选项",
+ 
     "DisplayName:Score": "分数",
     "DisplayName:Degree": "难易度",
     "DisplayName:Analysis": "试题解析",

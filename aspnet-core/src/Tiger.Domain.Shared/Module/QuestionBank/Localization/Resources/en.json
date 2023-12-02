@@ -1,6 +1,65 @@
 ﻿{
   "culture": "en",
   "texts": {
-    
+    "Menu:QuestionBank": "题库",
+    "Menu:QuestionCategory": "题目分类",
+    "Menu:Question": "题目管理",
+
+    "Platform:01404": "文件: {FileName}, 版本号: {FileVersion} 不存在!",
+    "Platform:02001": "同级目录下存在相同的菜单: {Name}!",
+    "Platform:02002": "在有其他子菜单的情况下,不允许删除菜单节点!",
+    "Platform:02003": "菜单层级已达到规定最大值: {Depth}!",
+    "Platform:02101": "菜单元数据缺少必要的元素: {Name},此选项在数据字典:{DataName} 中定义!",
+    "Platform:03001": "元数据格式不匹配!",
+    "Platform:04400": "用户重复收藏菜单!",
+    "Platform:04404": "用户收藏菜单未找到!",
+
+    "Permission:QuestionCategory": "题目分类",
+    "Permission:Qestiion": "题目",
+    "Permission:Create": "新增",
+    "Permission:Update": "更新",
+    "Permission:Delete": "删除",
+    "Permission:Upload": "上传",
+    "Permission:Download": "下载",
+
+    "UploadFileSizeBeyondLimit": "上传文件大小不能超过 {0} MB!",
+    "NotAllowedFileExtensionName": "不被允许的文件扩展名: {0}!",
+    "DisplayName:VersionFileLimitLength": "文件限制大小",
+    "Description:VersionFileLimitLength": "上传文件的限制大小,单位(MB)",
+    "DisplayName:AllowVersionFileExtensions": "文件扩展名",
+    "Description:AllowVersionFileExtensions": "允许的上传文件扩展名列表,多个扩展名以,分隔,无需输入.符号",
+
+    "DisplayName:Name": "名称",
+    "DisplayName:Cover": "封面",
+    "DisplayName:Code": "编码",
+    "DisplayName:Enable": "启用",
+    "DisplayName:Sorting": "序号",
+    "DisplayName:IsPublic": "公开",
+
+    "DisplayName:QuestionCategoryId": "题库Id",
+    "DisplayName:QuestionCateogryName": "QuestionCateogry",
+    "DisplayName:TrainPlatformId": "实训平台Id",
+    "DisplayName:Type": "题型",
+    "DisplayName:Content": "内容",
+    "DisplayName:Answer": "答案",
+
+    "DisplayName:Score": "分数",
+    "DisplayName:Degree": "难易度",
+    "DisplayName:Analysis": "试题解析",
+    "DisplayName:Source": "出处",
+    "DisplayName:HelpMessage": "帮助文本",
+    "DisplayName:HelpVideo": "帮助视频",
+    "DisplayName:FileUrl": "附件URL",
+    "DisplayName:FileName": "附件名称",
+    "DisplayName:IsShow": "是否显示在试题练习中",
+    "DisplayName:IsShowTextButton": "是否显示上传文本按钮",
+    "DisplayName:IsShowImageButton": "是否显示上传图片按钮",
+    "DisplayName:IsShowLinkButton": "是否显示上传附件按钮",
+
+    "DuplicateData": "已经存在名为 {0} 的数据字典!",
+    "DuplicateDataItem": "已经存在名为 {0} 的数据字典项!",
+    "DataItemNotFound": "不存在名为 {0} 的数据字典项!",
+    "UnableRemoveHasChildNode": "当前数据字典存在子节点,无法删除!",
+    "DuplicateLayout": "已经存在名为 {0} 的布局!"
+    }
   }
-}

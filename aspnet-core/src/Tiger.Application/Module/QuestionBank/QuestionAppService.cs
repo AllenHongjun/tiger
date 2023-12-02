@@ -1,33 +1,20 @@
+using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using Tiger.Permissions;
-using Tiger.Module.QuestionBank.Dtos;
-using Volo.Abp.Application.Services;
-using Tiger.Module.System.Platform.Layouts.Dto;
-using Volo.Abp.Application.Dtos;
-using System.Collections.Generic;
-using Volo.Abp;
-using Microsoft.AspNetCore.Authorization;
-using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
-using Tiger.Module.TaskManagement.Dtos;
-using Tiger.Module.TaskManagement.Permissions;
-using Tiger.Module.TaskManagement;
-using Tiger.Infrastructure.BackgroundTasks.Abstractions;
-using Volo.Abp.Uow;
-using Tiger.Module.QuestionBank.Permissions;
-using ClosedXML.Excel;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Tiger.Infrastructure.ExportImport.Help;
 using Tiger.Infrastructure.ExportImport;
-using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
-using Tiger.Volo.Abp.Identity;
-using Volo.Abp.Identity;
-using Microsoft.AspNetCore.Http;
-using DocumentFormat.OpenXml.Math;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using Tiger.Infrastructure.ExportImport.Help;
+using Tiger.Module.QuestionBank.Dtos;
+using Tiger.Module.QuestionBank.Localization;
+using Tiger.Module.QuestionBank.Permissions;
+using Volo.Abp;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -45,6 +32,7 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
     public QuestionAppService(IQuestionRepository repository) : base(repository)
     {
+        LocalizationResource = typeof(QuestionBankResources);
         _repository = repository;
     }
     #endregion
@@ -203,7 +191,7 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
         var manager = new PropertyManager<QuestionDto>(new[]
         {
                 new PropertyByName<QuestionDto>("Id", p => p.Id),
-                new PropertyByName<QuestionDto>(L["QuestionCateogryName"], p => p.QuestionCateogryName),
+                new PropertyByName<QuestionDto>(L["DisplayName:QuestionCateogryName"], p => p.QuestionCateogryName),
                 new PropertyByName<QuestionDto>(L["DisplayName:Type"], p => p.Type), // TODO:获取枚举值的注释描述 封装的方法
                 new PropertyByName<QuestionDto>(L["DisplayName:Content"], p => p.Content),
                 new PropertyByName<QuestionDto>(L["DisplayName:OptionContent"], p => p.OptionContent),

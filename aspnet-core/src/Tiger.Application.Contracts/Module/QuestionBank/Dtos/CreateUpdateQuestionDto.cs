@@ -52,7 +52,7 @@ public class CreateUpdateQuestionDto
     /// <summary>
     /// 分数
     /// </summary>
-    public decimal Score { get; set; }
+    public decimal? Score { get; set; }
 
     /// <summary>
     /// 难易度：1.简单 2.普通 3.困难

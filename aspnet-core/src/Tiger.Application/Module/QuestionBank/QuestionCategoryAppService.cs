@@ -1,21 +1,18 @@
+using ClosedXML.Excel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using Tiger.Infrastructure.ExportImport;
 using Tiger.Infrastructure.ExportImport.Help;
 using Tiger.Module.QuestionBank.Dtos;
-using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
-using Tiger.Volo.Abp.Identity;
+using Tiger.Module.QuestionBank.Localization;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using ClosedXML.Excel;
-using Microsoft.AspNetCore.Identity;
-using Tiger.Infrastructure.ExportImport;
-using Volo.Abp.Identity;
-using Microsoft.AspNetCore.Http;
 
 namespace Tiger.Module.QuestionBank;
 
@@ -33,6 +30,8 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
 
     public QuestionCategoryAppService(IQuestionCategoryRepository repository) : base(repository)
     {
+        // 本地化资源初始化
+        LocalizationResource = typeof(QuestionBankResources);
         _repository = repository;
     }
     #endregion
