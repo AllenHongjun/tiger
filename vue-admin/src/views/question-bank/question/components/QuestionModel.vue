@@ -48,13 +48,13 @@
             <el-col :span="4">勾选设置答案</el-col>
             <el-col :span="20">选项内容</el-col>
           </el-row>
-          <el-form-item v-for="(item,index) in temp.optionContentArr" :key="item.key" label="选项">
+          <el-form-item v-for="(item,index) in optionContentArr" :key="item.key" label="选项">
             <el-radio v-model="temp.answer" :label="alphas[index]" />
             <el-input v-model="item.value" />
           </el-form-item>
           <el-form-item>
             <el-button class="el-icon-plus" type="primary" plain @click="addQuestionOption()"> 添加选项</el-button>
-            <el-button v-if="temp.optionContentArr.length > 4" class="el-icon-minus" type="danger" @click="minusQuestionOption()"> 删除选项</el-button>
+            <el-button v-if="optionContentArr.length > 4" class="el-icon-minus" type="danger" @click="minusQuestionOption()"> 删除选项</el-button>
           </el-form-item>
         </div>
 
@@ -66,17 +66,18 @@
           </el-row>
           <input v-model="temp.answer" type="hidden" name="multipleChoiceAnswer">
           <el-checkbox-group v-model="temp.answerArr">
-            <el-form-item v-for="(item, index) in temp.optionContentArr" :key="item.key" label="选项">
+            <el-form-item v-for="(item, index) in optionContentArr" :key="item.key" label="选项">
               <el-checkbox :label="alphas[index]" />
               <el-input v-model="item.value" />
             </el-form-item>
           </el-checkbox-group>
           <el-form-item>
             <el-button class="el-icon-plus" type="primary" plain @click="addQuestionOption()"> 添加选项</el-button>
-            <el-button v-if="temp.optionContentArr.length > 4" class="el-icon-minus" type="danger" @click="minusQuestionOption()"> 删除选项</el-button>
+            <el-button v-if="optionContentArr.length > 4" class="el-icon-minus" type="danger" @click="minusQuestionOption()"> 删除选项</el-button>
           </el-form-item>
         </div>
 
+        <!-- 填空题 -->
         <el-form-item v-if="temp.type === QuestionType.Completion || temp.type === QuestionType.QA || temp.type === QuestionType.ShortAnswer" :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="score" class="answer">
           <div v-if="temp.type === QuestionType.Completion">
             <el-input v-model="temp.answer" placeholder="请输入内容">
@@ -167,6 +168,7 @@ export default {
       questionTypeOptions: Type,
       questionDegreeOptions: Degree,
       alphas: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+      optionContentArr: ['', '', '', ''],
       radio: 'A',
       temp: {
         id: undefined,
@@ -176,7 +178,6 @@ export default {
         name: '123',
         content: undefined,
         optionContent: undefined,
-        optionContentArr: ['', '', '', ''],
         optionSize: undefined,
         answer: undefined,
         answerArr: [],
@@ -233,15 +234,16 @@ export default {
 
     // 添加题目选项
     addQuestionOption() {
-      this.temp.optionContentArr.push({ value: '' })
+      // debugger
+      this.optionContentArr.push({ value: '' })
     },
 
     minusQuestionOption() {
-      if (this.temp.optionContentArr.length <= 4) {
+      if (this.optionContentArr.length <= 4) {
         this.$message.error('至少保留4个选项！')
         return
       }
-      this.temp.optionContentArr.pop({ value: '' })
+      this.optionContentArr.pop({ value: '' })
     },
 
     insertBlankFill() {
@@ -258,7 +260,6 @@ export default {
         name: '123',
         content: undefined,
         optionContent: undefined,
-        optionContentArr: [{ value: '' }, { value: '' }, { value: '' }, { value: '' }],
         optionSize: undefined,
         answer: undefined,
         answerArr: [],
@@ -294,13 +295,12 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           var arr = []
-          this.temp.optionContentArr.forEach(e => {
+          this.optionContentArr.forEach(e => {
             arr.push(e.value)
           })
-          this.temp.optionContent = arr.join('\r\n')
-          debugger
+          this.optionContent = arr.join('\r\n')
           console.log('this.temp.QuestionType', this.temp.QuestionType)
-          if (this.temp.QuestionType === QuestionType.MultipleChoice) {
+          if (this.temp.type === QuestionType.MultipleChoice) {
             var answer1 = this.temp.answerArr.join('')
             this.temp.answer = answer1
           }
@@ -323,7 +323,9 @@ export default {
       this.fetchQuestionCategoryOptions()
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
+
       getQuestion(row.id).then(response => {
+        this.temp = response
         // TODO:重构代码，简化，变量重命名 题目选项拆分处理
         var tempOptionConentArr = response.optionContent.split(/[(\r\n)\r\n]+/) // 根据换行或者回车进行识别
         var resultArr = []
@@ -334,17 +336,26 @@ export default {
             resultArr.push({ value: element })
           })
         }
-        response.optionContentArr = resultArr
+        this.optionContentArr = resultArr
 
-        if (this.temp.type === QuestionType.MultipleChoice) {
-          this.temp.answerArr = response.answer.split('')
-        }
-        this.temp = response
+        // if (this.temp.type === QuestionType.MultipleChoice) {
+        //   if (response.answer == null) {
+        //     response.answer = 'A'
+        //   }
+        //   // bug:Vue 动态生成 el-checkbox 点击无法赋值问题  https://www.cnblogs.com/ainyi/p/10409942.html
+        //   var checkList = response.answer.split('')
+        //   checkList.forEach(item => {
+        //     // debugger
+        //     const key = item.code
+        //     this.$set(this.temp.answerArr, item, item)
+        //   })
+        //   // this.temp.answerArr = response.answer.split('')
+        // }
       })
 
-      this.$nextTick(() => {
-        this.$refs['dataForm'].clearValidate()
-      })
+      // this.$nextTick(() => {
+      //   this.$refs['dataForm'].clearValidate()
+      // })
     },
 
     // 更新数据
@@ -352,7 +363,7 @@ export default {
       this.$refs['dataForm'].validate(valid => {
         if (valid) {
           var arr = []
-          this.temp.optionContentArr.forEach(e => {
+          this.optionContentArr.forEach(e => {
             arr.push(e.value)
           })
           this.temp.optionContent = arr.join('\r\n')
