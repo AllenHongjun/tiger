@@ -1,6 +1,6 @@
 <template>
   <div class="table-container">
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppExam[\'Exam:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="95%" height="95%">
+    <el-dialog class="large-dialog" :title=" dialogStatus == 'create'? $t('AppExam[\'Exam:AddNew\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
 
       <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane label="考试成绩" name="first">

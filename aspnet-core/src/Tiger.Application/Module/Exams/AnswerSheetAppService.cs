@@ -5,6 +5,11 @@ using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp;
+using Volo.Abp.Application.Dtos;
+using System.Collections.Generic;
+using Volo.Abp.Users;
+using Volo.Abp.Identity;
+using Tiger.Volo.Abp.Identity;
 
 namespace Tiger.Module.Exams;
 
@@ -18,10 +23,17 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
 {
 
     private readonly IAnswerSheetRepository _repository;
+    private readonly ITigerIdentityUserRepository _userRepository;
+    private readonly IExamRepository _examRepository;
 
-    public AnswerSheetAppService(IAnswerSheetRepository repository) : base(repository)
+    public AnswerSheetAppService(
+        IAnswerSheetRepository repository,
+        ITigerIdentityUserRepository userRepository,
+        IExamRepository examRepository) : base(repository)
     {
         _repository = repository;
+        _userRepository=userRepository;
+        _examRepository=examRepository;
     }
 
     protected override IQueryable<AnswerSheet> CreateFilteredQuery(AnswerSheetGetListInput input)
@@ -48,5 +60,26 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
             .WhereIf(input.ObjectiveScore != null, x => x.ObjectiveScore == input.ObjectiveScore)
             .WhereIf(input.ObjectiveScoreTime != null, x => x.ObjectiveScoreTime == input.ObjectiveScoreTime)
             ;
+    }
+
+    public override async Task<PagedResultDto<AnswerSheetDto>> GetListAsync(AnswerSheetGetListInput input)
+    {
+        var answerSheets =  await base.GetListAsync(input);
+
+        // 二次查询数据
+        List<Guid> creatorIds = answerSheets.Items.Where(x => x.CreatorId != null).Select(x => (Guid)x.CreatorId).ToList();
+        var creators =  await _userRepository.GetListByIdListAsync(creatorIds);
+
+        List<Guid> examIds = answerSheets.Items.Select(x => x.ExamId).ToList();
+        List<Exam> exams = _examRepository.Where(x => examIds.Contains(x.Id)).ToList();
+        foreach (var answerSheet in answerSheets.Items)
+        {
+            var creator = creators.FirstOrDefault(x => x.Id == answerSheet.CreatorId);
+            var exam = exams.FirstOrDefault(x => x.Id == answerSheet.ExamId);
+
+            answerSheet.CreatorUserName = creator?.UserName;
+            answerSheet.PassingScore = exam?.PassingScore; // 如果对象为NULL，则不进行后面的获取成员的运算，直接返回NULL
+        }
+        return answerSheets;
     }
 }

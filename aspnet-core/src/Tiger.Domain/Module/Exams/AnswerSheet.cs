@@ -107,7 +107,10 @@ namespace Tiger.Module.Exams
         /// </summary>
         public DateTime? ObjectiveScoreTime { get; set; }
 
-
+        /// <summary>
+        /// 答卷状态1:未交卷;2:已交卷;3:已阅卷
+        /// </summary>
+        public AnswerSheetStatus Status { get; set; }
 
         public virtual Exam Exam { get; set; }
 

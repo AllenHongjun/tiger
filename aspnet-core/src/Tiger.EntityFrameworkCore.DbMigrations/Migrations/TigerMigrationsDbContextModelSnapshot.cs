@@ -109,6 +109,10 @@ namespace Tiger.Migrations
                     b.Property<DateTime?>("ScoreTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasComment("答卷状态1:未交卷;2:已交卷;3:已阅卷");
+
                     b.Property<Guid>("StudentId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("学员Id");

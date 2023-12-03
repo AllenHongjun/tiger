@@ -17,7 +17,7 @@ namespace Tiger.Module.AnswerSheets
     [ApiExplorerSettings(GroupName = ApiExplorerConsts.ExamGroupName)]
     [RemoteService(Name = ExamRemoteServiceConsts.RemoteServiceName)]
     [Area(ExamRemoteServiceConsts.ModuleName)]
-    [Route($"api/{ExamRemoteServiceConsts.ModuleName}/AnswerSheet")]
+    [Route($"api/{ExamRemoteServiceConsts.ModuleName}/answer-sheets")]
     public class AnswerSheetController : AbpController, IAnswerSheetAppService
     {
         public AnswerSheetController(IAnswerSheetAppService answerSheetAppService)

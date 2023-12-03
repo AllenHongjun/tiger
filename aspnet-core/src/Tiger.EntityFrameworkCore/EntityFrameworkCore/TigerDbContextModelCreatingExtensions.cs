@@ -599,6 +599,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.OperateManualScoreTime).HasComment("实操题自动评分时间");
                 b.Property(p => p.ObjectiveScore).HasComment("客观题评分");
                 b.Property(p => p.ObjectiveScoreTime).HasComment("客观题评分时间");
+                b.Property(p => p.Status).HasComment("答卷状态1:未交卷;2:已交卷;3:已阅卷");
                 b.ConfigureByConvention(); 
 
                 b.HasOne( ans => ans.Exam).WithMany(e => e.AnswerSheets).HasForeignKey( ans => ans.ExamId).IsRequired();

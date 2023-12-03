@@ -103,4 +103,14 @@ public class AnswerSheetDto : FullAuditedEntityDto<Guid>
     /// 客观题评分时间
     /// </summary>
     public DateTime? ObjectiveScoreTime { get; set; }
+
+    /// <summary>
+    /// 创建人用户名
+    /// </summary>
+    public string CreatorUserName { get; set; }
+
+    /// <summary>
+    /// 及格分
+    /// </summary>
+    public decimal? PassingScore { get; set; }
 }

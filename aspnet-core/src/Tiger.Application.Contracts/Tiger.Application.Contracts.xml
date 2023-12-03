@@ -224,6 +224,16 @@
             客观题评分时间
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.CreatorUserName">
+            <summary>
+            创建人用户名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetDto.PassingScore">
+            <summary>
+            及格分
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.AnswerSheetGetListInput.TestPaperMainId">
             <summary>
             主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID

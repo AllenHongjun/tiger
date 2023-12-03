@@ -8,9 +8,9 @@
           <el-col :span="4">
             <el-form-item prop="filter" label="考试状态">
               <el-select v-model="value" placeholder="-">
-                <el-option key="" value="考试中" lable="考试中" />
-                <el-option key="" value="已交卷" lable="已交卷" />
-                <el-option key="" value="已评卷" lable="已评卷" />
+                <el-option key="1" value="考试中" lable="考试中" />
+                <el-option key="2" value="已交卷" lable="已交卷" />
+                <el-option key="3" value="已评卷" lable="已评卷" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -18,8 +18,8 @@
           <el-col :span="4">
             <el-form-item prop="filter" label="是否及格">
               <el-select v-model="value" placeholder="-">
-                <el-option key="" value="及格" lable="及格" />
-                <el-option key="" value="不及格" lable="不及格" />
+                <el-option key="1" value="及格" lable="及格" />
+                <el-option key="2" value="不及格" lable="不及格" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -50,27 +50,18 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                      {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
-                      <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-                    </el-link> -->
             </el-button-group>
           </el-col>
         </el-row>
-
-        <el-collapse-transition>
-          <div v-show="advanced">
-            <el-row :gutter="20">
-              <el-col :span="4" />
-            </el-row>
-          </div>
-        </el-collapse-transition>
       </el-form>
 
       <!-- 操作按钮 -->
       <el-row>
         <el-col>
           <el-button-group style="float:left">
+            <el-button icon="el-icon-refresh" @click="handleRefresh">
+              刷新
+            </el-button>
             <el-button icon="el-icon-download" @click="handleDownload">
               导出
             </el-button>
@@ -85,34 +76,34 @@
       <el-table-column type="index" width="50" />
       <el-table-column label="姓名" prop="name" align="left" width="80">
         <template slot-scope="{ row }">
-          <span>张三</span>
+          <span>{{ row.creatorUserName }}</span>
         </template>
       </el-table-column>
       <el-table-column label="开始时间/交卷时间" align="left" width="240">
         <template slot-scope="{ row }">
-          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
+          <span>{{ row.creationTime | moment }} - {{ row.submitTime | moment }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="用时" prop="description" align="left">
+      <el-table-column label="用时(分)" prop="description" align="left">
         <template slot-scope="{ row }">
-          <span>2小时42分12秒</span>
+          <span>{{ row.examDuration }}  分钟</span>
         </template>
       </el-table-column>
       <el-table-column label="总分/及格分" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>100.00</span>--<b style="color: red;">23.00</b>
+          <span>100.00</span>--<b style="color: red;">{{ row.passingScore }}</b>
         </template>
       </el-table-column>
       <el-table-column label="成绩" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>69</span>
+          <span>{{ row.totalScore }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="正确率" prop="path" align="left">
+      <!-- <el-table-column label="正确率" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>72%</span>
+          <span>{{ row.totalScore / 100.00 }}%</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="得分率" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>85%</span>
@@ -120,8 +111,7 @@
       </el-table-column>
       <el-table-column label="是否及格" prop="path" align="left">
         <template slot-scope="{ row }">
-          <!-- <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" /> -->
-          <el-tag type="success" class="el-icon-check" />
+          <el-tag v-if="row.status === 3" :type="( row.totalScore > row.passingScore ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
       <el-table-column label="状态" prop="path" align="left">
@@ -131,11 +121,11 @@
           <span>已评卷</span> -->
         </template>
       </el-table-column>
-      <el-table-column label="排名" prop="path" align="left">
+      <!-- <el-table-column label="排名" prop="path" align="left">
         <template slot-scope="{ row }">
           <span>23</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
@@ -155,9 +145,9 @@
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { pickerRangeWithHotKey } from '@/utils/picker'
 import {
-  getLayouts,
-  deleteLayout
-} from '@/api/system-manage/platform/layout'
+  getAnswerSheets,
+  deleteAnswerSheet
+} from '@/api/exam/answer-sheet'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import ExamScorePanel from './ExamScorePanel.vue'
 
@@ -175,7 +165,7 @@ export default {
       tableKey: 0,
       list: null,
       total: 0,
-      listLoading: true,
+      listLoading: false,
       listQuery: Object.assign({
         createStartTime: undefined,
         createEndTime: undefined
@@ -218,7 +208,7 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      getLayouts(this.listQuery).then(response => {
+      getAnswerSheets(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
@@ -255,7 +245,7 @@ export default {
         }
       ).then(async() => {
         // 回调函数
-        deleteLayout(row.id).then(() => {
+        deleteAnswerSheet(row.id).then(() => {
           this.handleFilter(false)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),

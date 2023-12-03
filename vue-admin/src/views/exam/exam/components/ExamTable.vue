@@ -11,21 +11,21 @@
           <el-col :span="4">
             <el-form-item prop="filter" label="考试类型">
               <el-select v-model="value" placeholder="-">
-                <el-option key="" value="模拟考试" lable="模拟考试" />
-                <el-option key="" value="普通考试" lable="普通考试" />
-                <el-option key="" value="竞赛考试" lable="竞赛考试" />
-                <el-option key="" value="强化训练" lable="强化训练" />
-                <el-option key="" value="任务考试" lable="任务考试" />
-                <el-option key="" value="章节测试" lable="章节测试" />
+                <el-option value="模拟考试" lable="模拟考试" />
+                <el-option value="普通考试" lable="普通考试" />
+                <el-option value="竞赛考试" lable="竞赛考试" />
+                <el-option value="强化训练" lable="强化训练" />
+                <el-option value="任务考试" lable="任务考试" />
+                <el-option value="章节测试" lable="章节测试" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item prop="filter" label="状态">
               <el-select v-model="value" placeholder="-">
-                <el-option key="" value="未开始" lable="固定试卷" />
-                <el-option key="" value="进行中" lable="随机试卷" />
-                <el-option key="" value="已结束" lable="抽题试卷" />
+                <el-option value="未开始" lable="固定试卷" />
+                <el-option value="进行中" lable="随机试卷" />
+                <el-option value="已结束" lable="抽题试卷" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -44,10 +44,10 @@
           <el-col :span="4">
             <el-form-item prop="filter" label="试卷类型">
               <el-select v-model="value" placeholder="-">
-                <el-option key="" value="固定试卷" lable="固定试卷" />
-                <el-option key="" value="随机试卷" lable="随机试卷" />
-                <el-option key="" value="抽题试卷" lable="抽题试卷" />
-                <el-option key="" value="混合试卷" lable="混合试卷" />
+                <el-option value="固定试卷" lable="固定试卷" />
+                <el-option value="随机试卷" lable="随机试卷" />
+                <el-option value="抽题试卷" lable="抽题试卷" />
+                <el-option value="混合试卷" lable="混合试卷" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -100,9 +100,9 @@
             <el-button v-if="checkPermission('Exam.Exam.Create')" style="margin-right: 5px;" type="primary" icon="el-icon-plus" @click="handleCreate">
               {{ $t("AppExam['Permission:Create']") }}
             </el-button>
-            <el-button icon="el-icon-download" @click="handleDownload">
+            <!-- <el-button icon="el-icon-download" @click="handleDownload">
               导出
-            </el-button>
+            </el-button> -->
           </el-button-group>
 
         </el-col>
@@ -222,6 +222,7 @@ export default {
   },
   data() {
     return {
+      value: '',
       testPaperOptions: [],
       queryCreateDateTime: undefined,
       advanced: false,
