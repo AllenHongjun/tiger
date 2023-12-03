@@ -90,7 +90,6 @@ export default {
     checkPermission,
     // 获取列表数据
     getAllList(testPaperId) {
-      debugger
       this.listLoading = true
       this.listQuery.testPaperId = testPaperId
       getAllTestPaperSections(this.listQuery).then(response => {

@@ -289,7 +289,6 @@ export default {
           this.randomSelentQuestionForm.testPaperSectionId = this.testPaperSectionId
           randomSelentQuestions(this.randomSelentQuestionForm).then(() => {
             this.handleFilter()
-            debugger
             this.$emit('fixed-paper-section-change')
             this.dialogRandomSelentQuestionVisible = false
           })

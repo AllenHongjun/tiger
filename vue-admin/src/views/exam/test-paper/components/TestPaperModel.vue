@@ -1,6 +1,6 @@
 <template>
   <div class="model-container">
-    <el-dialog class="test-paper-dialog" :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
+    <el-dialog class="large-dialog" :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
       <el-row>
         <el-steps :active="active" simple>
           <el-step title="基本信息" icon="el-icon-edit" @click.native="active = 0">1</el-step>
@@ -22,10 +22,10 @@
       </el-card>
 
       <el-row v-if="active == 1" :gutter="20">
-        <el-col :span="6">
+        <el-col :span="6" class="paper-section-container">
           <mini-paper-section ref="miniPaperSection" :test-paper="temp" @getTestPaperSections="handleGetAllTestPaperSections" />
         </el-col>
-        <el-col v-if="testPaperSections.length > 0" :span="18">
+        <el-col v-if="testPaperSections.length > 0" :span="18" class="paper-section-container">
           <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
             <el-card class="section-box">
               <div slot="header" class="clearfix">
@@ -268,16 +268,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.test-paper-dialog{
-  ::v-deep .el-dialog {
-    margin: 0 auto 0px;
-  }
-  ::v-deep .el-dialog__body{
-    height: calc(90vh - 50px);
-    overflow: auto;
-  }
+.paper-section-container{
+  max-height: 680px;
+  overflow-y: auto;
 }
-
 .section-title{
   font-size: 14px;
   font-weight: normal;
@@ -288,6 +282,8 @@ export default {
 }
 
 .section-box{
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
+
+</style>
 

@@ -82,3 +82,14 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.large-dialog {
+  .el-dialog {
+    margin: 0 auto 5px;
+  }
+  .el-dialog__body {
+    max-height: calc(100vh - 130px);
+    overflow: auto;
+  }
+}
+
