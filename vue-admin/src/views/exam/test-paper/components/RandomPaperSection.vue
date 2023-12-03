@@ -32,7 +32,7 @@
             :options="questionCategoryOptions"
             :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
             placeholder="-"
-            style="width:230px;"
+            style="width:200px;"
             clearable
             filterable
             @change="updateData(row)"

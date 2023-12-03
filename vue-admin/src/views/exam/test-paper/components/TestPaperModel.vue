@@ -29,14 +29,18 @@
           <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
             <el-card class="section-box">
               <div slot="header" class="clearfix">
-                <h3 class="section-title" style="float: left;">
-                  {{ testPaperSection.name }}
-                  <span>(共 <b>{{ testPaperSection.questionCount }}</b>  题 <b>{{ testPaperSection.totalScore }}</b>  分)</span>
-                </h3>
-                <div style="float: right;">
-                  <el-button plain type="primary" class="el-icon-plus" @click="handleUpdateSectionDescription(testPaperSection.id)">添加大题描述</el-button>
-                  <el-button plain>选项乱序</el-button>
-                </div>
+                <el-row>
+                  <h3 class="section-title" style="float: left;">
+                    {{ testPaperSection.name }}
+                    <span>(共 <b>{{ testPaperSection.questionCount }}</b>  题 <b>{{ testPaperSection.totalScore }}</b>  分)</span>
+                  </h3>
+                  <div style="float: right;">
+                    <el-button plain type="primary" @click="handleUpdateSectionDescription(testPaperSection.id)">设置大题描述</el-button>
+                    <el-button plain>选项乱序</el-button>
+                  </div>
+                </el-row>
+
+                <p style="max-height:90px;overflow-y:auto;" v-html="testPaperSection.description" />
                 <fixed-paper-section v-if="testPaperSection.type == 1" ref="fixedPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @fixed-paper-section-change="handelUpdateTestPaperStrategy" />
                 <random-paper-section v-else-if="testPaperSection.type == 2" ref="randomPaperSection" :test-paper-section-id="testPaperSection.id" :test-paper-id="testPaperId" @update-test-paper-strategy="handelUpdateTestPaperStrategy" />
               </div>
@@ -62,6 +66,7 @@
     </el-dialog>
 
     <el-dialog title="大题描述" :visible.sync="dialogTestPaperSectionDescriptionFormVisible" append-to-body>
+      <h3>大题描述(可用于保存阅读理解题、论述题、填空题题等各种复杂题型的题干内容)</h3>
       <el-form :model="testPaperSectionDescriptionForm">
         <el-form-item label="大题描述" label-width="200" props="description">
           <tinymce v-model="testPaperSectionDescriptionForm.description" :height="300" />
@@ -69,7 +74,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogTestPaperSectionDescriptionFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogTestPaperSectionDescriptionFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="UpdateSectionDescriptionData">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -85,6 +90,7 @@ import {
 } from '@/api/exam/test-paper'
 import {
   getAllTestPaperSections,
+  getTestPaperSection,
   updateTestPaperSectionDescription
 } from '@/api/exam/test-paper-section'
 
@@ -240,12 +246,17 @@ export default {
         }
       })
     },
+    // 大题描述弹框
     handleUpdateSectionDescription(id) {
-      this.dialogTestPaperSectionDescriptionFormVisible = true
+      getTestPaperSection(id).then(response => {
+        this.testPaperSectionDescriptionForm = response
+        this.dialogTestPaperSectionDescriptionFormVisible = true
+      })
     },
+    // 大题描述设置
     UpdateSectionDescriptionData() {
       updateTestPaperSectionDescription(this.testPaperSectionDescriptionForm.id, this.testPaperSectionDescriptionForm).then(() => {
-        this.$emit('handleFilter', false)
+        this.handleGetAllTestPaperSections(this.testPaperId)
         this.dialogTestPaperSectionDescriptionFormVisible = false
       })
     },
