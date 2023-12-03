@@ -1089,6 +1089,46 @@
             比赛间隔（单位: 分钟）
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.ExamScorePanelDto">
+            <summary>
+            考试成绩面板数据
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamScorePanelDto.NumberOfParticipants">
+            <summary>
+            参加人数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamScorePanelDto.NumberOfPasses">
+            <summary>
+            及格次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamScorePanelDto.NumberOfFailedPasses">
+            <summary>
+            不及格次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamScorePanelDto.ScoringRate">
+            <summary>
+            得分率
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamScorePanelDto.HighestScore">
+            <summary>
+            最高分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamScorePanelDto.AverageScore">
+            <summary>
+            平均分
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamScorePanelDto.LowestScore">
+            <summary>
+            最低分
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperDto">
             <summary>
             试卷

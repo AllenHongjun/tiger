@@ -46,3 +46,10 @@ export function deleteAnswerSheet(id) {
   })
 }
 
+export function getExamScorePanelData(id) {
+  return request({
+    url: `/api/exam/answer-sheets/${id}/exam-score-panel-data`,
+    method: 'get'
+  })
+}
+

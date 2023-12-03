@@ -45,6 +45,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.AnswerSheets.AnswerSheetController.GetExamScorePanelData(System.Guid)">
+            <summary>
+            获取考生成绩面板数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.AnswerSheetDetails.AnswerSheetDetailController">
             <summary>
             答卷详情

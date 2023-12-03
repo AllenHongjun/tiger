@@ -85,5 +85,18 @@ namespace Tiger.Module.AnswerSheets
         {
             return await AnswerSheetAppService.UpdateAsync(id, input);
         }
+
+
+        /// <summary>
+        /// 获取考生成绩面板数据
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{examId}/exam-score-panel-data")]
+        public ExamScorePanelDto GetExamScorePanelData(Guid examId)
+        {
+            return AnswerSheetAppService.GetExamScorePanelData(examId);
+        }
     }
 }

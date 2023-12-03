@@ -9,12 +9,12 @@ namespace Tiger.Module.Exams;
 /// 答卷表
 /// </summary>
 public interface IAnswerSheetAppService :
-    ICrudAppService< 
-                AnswerSheetDto, 
-        Guid, 
+    ICrudAppService<
+                AnswerSheetDto,
+        Guid,
         AnswerSheetGetListInput,
         CreateUpdateAnswerSheetDto,
         CreateUpdateAnswerSheetDto>
 {
-
+    ExamScorePanelDto GetExamScorePanelData(Guid examId);
 }

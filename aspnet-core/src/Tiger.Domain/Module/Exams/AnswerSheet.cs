@@ -33,10 +33,7 @@ namespace Tiger.Module.Exams
         /// </summary>
         public Guid StudentId { get; set; }
 
-        /// <summary>
-        /// 总分数
-        /// </summary>
-        public decimal TotalScore { get; set; }
+       
         
         /// <summary>
         /// 是否交卷 True为交卷
@@ -108,9 +105,19 @@ namespace Tiger.Module.Exams
         public DateTime? ObjectiveScoreTime { get; set; }
 
         /// <summary>
+        /// 总成绩
+        /// </summary>
+        public decimal? TotalScore { get; set; }
+
+        /// <summary>
         /// 答卷状态1:未交卷;2:已交卷;3:已阅卷
         /// </summary>
         public AnswerSheetStatus Status { get; set; }
+
+        /// <summary>
+        /// 是否及格
+        /// </summary>
+        public bool? IsPass { get;set; }
 
         public virtual Exam Exam { get; set; }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="table-container">
 
-    <exam-score-panel />
+    <!-- <exam-score-panel :exam-id="examId" /> -->
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
@@ -129,6 +129,13 @@ export default {
   components: {
     Pagination,
     ExamScorePanel
+  },
+  props: {
+    examId: {
+      type: String,
+      require: true,
+      default: undefined
+    }
   },
   data() {
     return {

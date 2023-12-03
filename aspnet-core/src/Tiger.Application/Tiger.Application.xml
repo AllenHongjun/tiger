@@ -183,6 +183,13 @@
             答卷表
             </summary>
         </member>
+        <member name="M:Tiger.Module.Exams.AnswerSheetAppService.GetExamScorePanelData(System.Guid)">
+            <summary>
+            获取考生成绩面板数据
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Exams.AnswerSheetDetailAppService">
             <summary>
             答卷明细表

@@ -4,7 +4,7 @@
 
       <el-tabs v-model="activeName" type="border-card">
         <el-tab-pane label="考试成绩" name="first">
-          <exam-score />
+          <exam-score :exam-id="examId" />
         </el-tab-pane>
         <el-tab-pane label="人工评卷" name="second">
           <exam-judge />
@@ -49,6 +49,7 @@ export default {
     ExamOrgAnalysis,
     ExamAbsentUser
   },
+
   data() {
     return {
       blank: {
@@ -56,12 +57,14 @@ export default {
       },
       activeName: 'first',
       dialogFormVisible: false,
-      dialogStatus: ''
+      dialogStatus: '',
+      examId: undefined
     }
   },
   methods: {
     // 更新按钮点击
     handleViewExamAnalysis(row, activeName) {
+      this.examId = row.id
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.activeName = activeName

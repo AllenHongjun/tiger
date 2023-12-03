@@ -70,6 +70,10 @@ namespace Tiger.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<bool?>("IsPass")
+                        .HasColumnType("bit")
+                        .HasComment("是否及格1:是; 0:否");
+
                     b.Property<bool>("IsSubmit")
                         .HasColumnType("bit")
                         .HasComment("是否交卷 True为交卷");
@@ -133,7 +137,7 @@ namespace Tiger.Migrations
                         .HasColumnType("int")
                         .HasComment("主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID");
 
-                    b.Property<decimal>("TotalScore")
+                    b.Property<decimal?>("TotalScore")
                         .HasColumnType("decimal(18,2)")
                         .HasComment("总分数");
 

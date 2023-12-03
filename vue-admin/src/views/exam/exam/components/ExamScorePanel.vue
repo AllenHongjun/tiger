@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
+  <el-row :gutter="20" class="panel-group">
     <el-col :span="3" class="card-panel-col">
       <div class="card-panel">
         <div class="card-panel-icon-wrapper icon-people">
@@ -9,7 +9,7 @@
           <div class="card-panel-text">
             参加人数
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panelData.numberOfParticipants" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -22,7 +22,7 @@
           <div class="card-panel-text">
             及格次数
           </div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panelData.numberOfPasses" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -35,20 +35,7 @@
           <div class="card-panel-text">
             不及格次数
           </div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
-        </div>
-      </div>
-    </el-col>
-    <el-col :span="3" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper icon-shopping">
-          <svg-icon icon-class="shopping" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            正确率
-          </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panelData.numberOfFailedPasses" :duration="3200" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -61,7 +48,7 @@
           <div class="card-panel-text">
             得分率
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panelData.scoringRate" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -74,7 +61,7 @@
           <div class="card-panel-text">
             最高分
           </div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panelData.highestScore" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -87,7 +74,7 @@
           <div class="card-panel-text">
             平均分
           </div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panelData.averageScore" :duration="3200" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -100,7 +87,7 @@
           <div class="card-panel-text">
             最低分
           </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panelData.lowestScore" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -108,6 +95,7 @@
 </template>
 
 <script>
+import { getExamScorePanelData } from '@/api/exam/answer-sheet'
 import CountTo from 'vue-count-to'
 
 export default {
@@ -115,7 +103,35 @@ export default {
   components: {
     CountTo
   },
+  props: {
+    examId: {
+      type: String,
+      require: true,
+      default: undefined
+    }
+  },
+  data: function() {
+    return {
+      panelData: {
+        numberOfParticipants: 0,
+        numberOfPasses: 0,
+        numberOfFailedPasses: 0,
+        scoringRate: 0,
+        highestScore: 0,
+        averageScore: 0,
+        lowestScore: 0
+      }
+    }
+  },
+  created() {
+    this.fetchData()
+  },
   methods: {
+    fetchData() {
+      getExamScorePanelData(this.examId).then(response => {
+        this.panelData = response
+      })
+    },
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)
     }

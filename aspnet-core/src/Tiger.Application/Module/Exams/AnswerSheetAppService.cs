@@ -22,6 +22,7 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
     IAnswerSheetAppService
 {
 
+    #region 构造函数和字段
     private readonly IAnswerSheetRepository _repository;
     private readonly ITigerIdentityUserRepository _userRepository;
     private readonly IExamRepository _examRepository;
@@ -35,11 +36,13 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
         _userRepository=userRepository;
         _examRepository=examRepository;
     }
+    #endregion
 
+    #region CRUD
     protected override IQueryable<AnswerSheet> CreateFilteredQuery(AnswerSheetGetListInput input)
     {
         // TODO: AbpHelper generated
-        return  base.CreateFilteredQuery(input)
+        return base.CreateFilteredQuery(input)
             .WhereIf(input.TestPaperMainId != null, x => x.TestPaperMainId == input.TestPaperMainId)
             .WhereIf(input.TestPaperId != null, x => x.TestPaperId == input.TestPaperId)
             .WhereIf(input.ExamId != null, x => x.ExamId == input.ExamId)
@@ -64,11 +67,11 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
 
     public override async Task<PagedResultDto<AnswerSheetDto>> GetListAsync(AnswerSheetGetListInput input)
     {
-        var answerSheets =  await base.GetListAsync(input);
+        var answerSheets = await base.GetListAsync(input);
 
         // 二次查询数据
         List<Guid> creatorIds = answerSheets.Items.Where(x => x.CreatorId != null).Select(x => (Guid)x.CreatorId).ToList();
-        var creators =  await _userRepository.GetListByIdListAsync(creatorIds);
+        var creators = await _userRepository.GetListByIdListAsync(creatorIds);
 
         List<Guid> examIds = answerSheets.Items.Select(x => x.ExamId).ToList();
         List<Exam> exams = _examRepository.Where(x => examIds.Contains(x.Id)).ToList();
@@ -81,5 +84,28 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
             answerSheet.PassingScore = exam?.PassingScore; // 如果对象为NULL，则不进行后面的获取成员的运算，直接返回NULL
         }
         return answerSheets;
+    } 
+
+    /// <summary>
+    /// 获取考生成绩面板数据
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public ExamScorePanelDto GetExamScorePanelData(Guid examId)
+    {
+        var answerSheets =  _repository.Where(x => x.ExamId == examId).ToList();
+        var examScorePanelData = new ExamScorePanelDto()
+        {
+            NumberOfParticipants = answerSheets.Count(x => x.CreatorId != null),
+            NumberOfPasses = answerSheets.Count(x => x.IsPass.HasValue && x.IsPass.Value == true),
+            NumberOfFailedPasses =answerSheets.Count(x => x.IsPass.HasValue && x.IsPass.Value == false),
+            ScoringRate = answerSheets.Sum(x => x.TotalScore) / 1000,
+            HighestScore = answerSheets.Max(x => x.TotalScore),
+            AverageScore = answerSheets.Average(x => x.TotalScore),
+            LowestScore = answerSheets.Min(x => x.TotalScore)
+        };
+        return examScorePanelData;
     }
+
+    #endregion
 }
