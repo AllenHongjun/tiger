@@ -41,9 +41,9 @@ namespace Tiger.Module.Exams
             if (testPaperSection.Type == TestPaperSectionType.RandomQuestion)
             {
                 var testPaperStrategies = _repository.Where(x => x.TestPaperSectionId == testPaperSectionId).ToList();
-                testPaperSection.QuestionCount = testPaperStrategies.Sum(x => x.UnlimitedDifficultyCount + x.EasyCount + x.OrdinaryCount + x.DifficultCount);
+                testPaperSection.QuestionCount = testPaperStrategies.Sum(x => x.UnlimitedDifficultyCount + x.SimpleCount + x.OrdinaryCount + x.DifficultCount);
                 testPaperSection.TotalScore = testPaperStrategies
-                    .Sum(x => (x.UnlimitedDifficultyCount + x.EasyCount + x.OrdinaryCount + x.DifficultCount) * x.ScorePerQuestion);
+                    .Sum(x => (x.UnlimitedDifficultyCount + x.SimpleCount + x.OrdinaryCount + x.DifficultCount) * x.ScorePerQuestion);
             }
             else if (testPaperSection.Type == TestPaperSectionType.FixedQuestions)
             {

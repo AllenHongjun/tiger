@@ -43,22 +43,22 @@
       <el-table-column label="抽题数量设置" width="130" align="center">
         <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="130">
           <template slot-scope="{ row }">
-            <el-input v-model="row.unlimitedDifficultyCount" type="number" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.unlimitedDifficultyCount }}</span>
+            <el-input v-model="row.unlimitedDifficultyCount" type="number" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalUnlimitedDifficultyCount }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="easyCount" label="容易" width="130">
+        <el-table-column prop="simpleCount" label="容易" width="130">
           <template slot-scope="{ row }">
-            <el-input v-model="row.easyCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.easyCount }}</span>
+            <el-input v-model="row.simpleCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalSimpleCount }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="ordinaryCount" label="普通" width="130">
           <template slot-scope="{ row }">
-            <el-input v-model="row.ordinaryCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.ordinaryCount }}</span>
+            <el-input v-model="row.ordinaryCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalOrdinaryCount }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="difficultCount" label="困难" width="130">
           <template slot-scope="{ row }">
-            <el-input v-model="row.difficultCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.difficultCount }}</span>
+            <el-input v-model="row.difficultCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalDifficultCount }}</span>
           </template>
         </el-table-column>
       </el-table-column>
@@ -127,7 +127,7 @@ export default {
         questionCategoryId: undefined,
         questionType: 1,
         unlimitedDifficultyCount: 0,
-        easyCount: 0,
+        simpleCount: 0,
         ordinaryCount: 0,
         difficultCount: 0,
         scorePerQuestion: 0
@@ -174,10 +174,10 @@ export default {
       this.temp = {
         testPaperId: this.testPaperId,
         testPaperSectionId: this.testPaperSectionId,
-        questionCategoryId: '0A754243-E155-112F-7640-3A0EC1EF97E0',
+        questionCategoryId: undefined, // 默认试题分类
         questionType: 1,
         unlimitedDifficultyCount: 0,
-        easyCount: 0,
+        simpleCount: 0,
         ordinaryCount: 0,
         difficultCount: 0,
         scorePerQuestion: 0

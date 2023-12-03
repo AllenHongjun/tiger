@@ -444,7 +444,7 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.QuestionCategoryId).HasComment("题目分类Id");
                 b.Property(p => p.QuestionType).HasComment("题型");
                 b.Property(p => p.UnlimitedDifficultyCount).HasComment("不限难度数量");
-                b.Property(p => p.EasyCount).HasComment("简单的数量");
+                b.Property(p => p.SimpleCount).HasComment("简单的数量");
                 b.Property(p => p.OrdinaryCount).HasComment("普通的数量");
                 b.Property(p => p.DifficultCount).HasComment("困难的数量");
                 b.Property(p => p.ScorePerQuestion).IsRequired(true).HasDefaultValue(decimal.Zero).HasComment("每题分数");

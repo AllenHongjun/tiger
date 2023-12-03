@@ -10,7 +10,7 @@
             <el-dropdown-item command="createFixedTestPaperSection"><i class="el-icon-circle-plus" />添加固定试卷大题</el-dropdown-item>
             <el-dropdown-item command="createRandomTestPaperSection"><i class="el-icon-refresh" />添加随机试卷大题</el-dropdown-item>
           </el-dropdown-menu>
-          <span style="margin-left:10px;">(共 <b>0</b>   题 <b>0</b> 分)</span>
+          <span style="margin-left:10px;">(共 <b>{{ testPaperInfo.totalQuestionCount }}</b>   题 <b>{{ testPaperInfo.totalScore }}</b> 分)</span>
         </el-dropdown>
       </div>
       <div v-for="(testPaperSection, index) in list" :key="index" class="mini-paper-section">
@@ -66,8 +66,12 @@ export default {
   },
   data() {
     return {
+      testPaperInfo: {
+        totalScore: 0,
+        totalQuestionCount: 0
+      },
       tableKey: 0,
-      list: null,
+      list: [],
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
@@ -92,9 +96,19 @@ export default {
     getAllList(testPaperId) {
       this.listLoading = true
       this.listQuery.testPaperId = testPaperId
+      this.testPaperInfo = {
+        totalScore: 0,
+        totalQuestionCount: 0
+      }
       getAllTestPaperSections(this.listQuery).then(response => {
         this.list = response.items
         this.listLoading = false
+
+        // 计算试卷总分和题目总数
+        response.items.forEach(element => {
+          this.testPaperInfo.totalQuestionCount += element.questionCount
+          this.testPaperInfo.totalScore += element.totalScore
+        })
       })
     },
     // 获取列表数据
@@ -112,6 +126,7 @@ export default {
     },
 
     handleCommand(command) {
+      debugger
       switch (command) {
         case 'createFixedTestPaperSection':
           this.createData(1)
@@ -126,7 +141,7 @@ export default {
     // 添加大题
     createData(type) {
       var testPaperSectionCount = this.list.length
-      this.testPaperSectionModel.testPaperId = this.listQuery.testPaperId
+      this.testPaperSectionModel.testPaperId = this.testPaper.id
       this.testPaperSectionModel.name = '第 ' + (testPaperSectionCount + 1) + ' 大题'
       this.testPaperSectionModel.type = type
       this.testPaperSectionModel.questionCount = 0

@@ -26,7 +26,7 @@ public class QuestionRepository : EfCoreRepository<TigerDbContext, Question, Gui
     {
         // bug: 自EF core 3开始，LINQ查询命令无法转换成SQL语句 https://blog.csdn.net/connora/article/details/108313146
         var query = await DbContext.Set<Question>()
-                    .Where(x => questionCategoryIds.Contains(x.QuestionCategoryId))
+                    .WhereIf(questionCategoryIds != null ,x => questionCategoryIds.Contains(x.QuestionCategoryId))
                     .WhereIf((questionType.HasValue), x => x.Type == questionType)
                     .ToListAsync();
        // TODO: 优化在数据库中分组查询 将方法封装到领域服务中             

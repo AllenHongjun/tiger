@@ -42,7 +42,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 简单的数量
         /// </summary>
-        public int EasyCount { get; set; }
+        public int SimpleCount { get; set; }
         
         /// <summary>
         /// 普通的数量
@@ -96,7 +96,7 @@ namespace Tiger.Module.Exams
             QuestionCategoryId = questionCategoryId;
             QuestionType = questionType;
             UnlimitedDifficultyCount = unlimitedDifficultyCount;
-            EasyCount = easyCount;
+            SimpleCount = easyCount;
             OrdinaryCount = ordinaryCount;
             DifficultCount = difficultCount;
             ScorePerQuestion = scorePerQuestion;

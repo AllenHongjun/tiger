@@ -551,6 +551,8 @@ namespace Tiger.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("QuestionId");
+
                     b.HasIndex("TestPaperId");
 
                     b.HasIndex("TestPaperSectionId");
@@ -674,10 +676,6 @@ namespace Tiger.Migrations
                         .HasColumnType("int")
                         .HasComment("困难的数量");
 
-                    b.Property<int>("EasyCount")
-                        .HasColumnType("int")
-                        .HasComment("简单的数量");
-
                     b.Property<string>("ExtraProperties")
                         .HasColumnName("ExtraProperties")
                         .HasColumnType("nvarchar(max)");
@@ -713,6 +711,10 @@ namespace Tiger.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasComment("每题分数")
                         .HasDefaultValue(0m);
+
+                    b.Property<int>("SimpleCount")
+                        .HasColumnType("int")
+                        .HasComment("简单的数量");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnName("TenantId")
@@ -1047,9 +1049,7 @@ namespace Tiger.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(1024)")
-                        .HasComment("题目名称")
-                        .HasMaxLength(1024);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OptionContent")
                         .HasColumnType("nvarchar(512)")
@@ -4532,6 +4532,12 @@ namespace Tiger.Migrations
 
             modelBuilder.Entity("Tiger.Module.Exams.TestPaperQuestion", b =>
                 {
+                    b.HasOne("Tiger.Module.QuestionBank.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Tiger.Module.Exams.TestPaper", "TestPaper")
                         .WithMany("TestPaperQuestions")
                         .HasForeignKey("TestPaperId")

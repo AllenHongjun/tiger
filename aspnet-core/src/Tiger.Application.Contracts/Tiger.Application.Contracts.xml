@@ -1434,7 +1434,7 @@
             不限难度数量
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.EasyCount">
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.SimpleCount">
             <summary>
             简单的数量
             </summary>
@@ -1454,7 +1454,12 @@
             总抽题数量
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalEasyCount">
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalUnlimitedDifficultyCount">
+            <summary>
+            当前题库分类不限难度题目的总数量
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyDto.TotalSimpleCount">
             <summary>
             当前题库分类简单题的总数量
             </summary>
@@ -1509,7 +1514,7 @@
             不限难度数量
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.EasyCount">
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperStrategyGetListInput.SimpleCount">
             <summary>
             简单的数量
             </summary>

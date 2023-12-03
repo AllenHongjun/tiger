@@ -23,7 +23,7 @@ public class TestPaperStrategyDto : FullAuditedEntityDto<Guid>
     /// <summary>
     /// 题目分类Id
     /// </summary>
-    public Guid? QuestionCategoryId { get; set; }
+    public Guid QuestionCategoryId { get; set; }
 
     /// <summary>
     /// 题型
@@ -38,7 +38,7 @@ public class TestPaperStrategyDto : FullAuditedEntityDto<Guid>
     /// <summary>
     /// 简单的数量
     /// </summary>
-    public int EasyCount { get; set; }
+    public int SimpleCount { get; set; }
 
     /// <summary>
     /// 普通的数量
@@ -56,9 +56,14 @@ public class TestPaperStrategyDto : FullAuditedEntityDto<Guid>
     public int TotalSelectQuestionsCount { get; set; }
 
     /// <summary>
+    /// 当前题库分类不限难度题目的总数量
+    /// </summary>
+    public int TotalUnlimitedDifficultyCount { get; set; }
+
+    /// <summary>
     /// 当前题库分类简单题的总数量
     /// </summary>
-    public int TotalEasyCount { get; set; }
+    public int TotalSimpleCount { get; set; }
 
     /// <summary>
     /// 当前题库分类普通题的总数量

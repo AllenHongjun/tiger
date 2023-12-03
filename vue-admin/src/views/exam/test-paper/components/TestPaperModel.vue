@@ -120,6 +120,9 @@ export default {
         judgeStartTime: undefined,
         judgeEndTime: undefined,
         testPaperSections: [
+        ],
+        testPaperQuestions: [
+
         ]
       },
       // 表单验证规则
