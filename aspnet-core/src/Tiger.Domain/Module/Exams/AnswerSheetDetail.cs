@@ -69,7 +69,15 @@ namespace Tiger.Module.Exams
         /// </summary>
         public string SyncMessage { get; set; }
 
+        /// <summary>
+        /// 是否正确
+        /// </summary>
+        public bool? IsCorrect { get; set; }
 
+        /// <summary>
+        /// 题目总得分
+        /// </summary>
+        public decimal? TotalScore { get; set; }
 
         /// <summary>
         /// 答卷
