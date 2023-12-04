@@ -7,6 +7,8 @@ namespace Tiger.Module.Exams.Dtos;
 [Serializable]
 public class AnswerSheetGetListInput : PagedAndSortedResultRequestDto
 {
+    public string Filter { get; set; }
+
     /// <summary>
     /// 主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
     /// </summary>

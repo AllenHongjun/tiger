@@ -52,6 +52,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.AnswerSheets.AnswerSheetController.GetExamScoreAnalysisAsync(Tiger.Module.Exams.Dtos.AnswerSheetGetListInput)">
+            <summary>
+            获取成绩统计列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.AnswerSheetDetails.AnswerSheetDetailController">
             <summary>
             答卷详情

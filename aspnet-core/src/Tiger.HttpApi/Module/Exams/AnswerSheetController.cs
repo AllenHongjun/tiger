@@ -98,5 +98,17 @@ namespace Tiger.Module.AnswerSheets
         {
             return AnswerSheetAppService.GetExamScorePanelData(examId);
         }
+
+        /// <summary>
+        /// 获取成绩统计列表
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/exam-score-analysis")]
+        public async Task<List<ExamScoreAnalysisDto>> GetExamScoreAnalysisAsync(AnswerSheetGetListInput input)
+        {
+            return await AnswerSheetAppService.GetExamScoreAnalysisAsync(input);
+        }
     }
 }

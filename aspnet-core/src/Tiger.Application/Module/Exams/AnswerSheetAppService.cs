@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using Volo.Abp.Users;
 using Volo.Abp.Identity;
 using Tiger.Volo.Abp.Identity;
+using System.Threading;
+using Volo.Abp.ObjectMapping;
 
 namespace Tiger.Module.Exams;
 
@@ -107,5 +109,10 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
         return examScorePanelData;
     }
 
+    public async Task<List<ExamScoreAnalysisDto>> GetExamScoreAnalysisAsync(AnswerSheetGetListInput input)
+    {
+        var list = await _repository.GetExamScoreAnalysisAsync(input.ExamId,input.Sorting,input.MaxResultCount,input.SkipCount,input.Filter);
+        return ObjectMapper.Map<List<ExamScoreAnalysisInfo>, List<ExamScoreAnalysisDto>>(list);
+    }
     #endregion
 }

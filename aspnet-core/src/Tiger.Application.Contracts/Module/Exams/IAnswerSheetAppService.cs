@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -16,5 +18,6 @@ public interface IAnswerSheetAppService :
         CreateUpdateAnswerSheetDto,
         CreateUpdateAnswerSheetDto>
 {
+    Task<List<ExamScoreAnalysisDto>> GetExamScoreAnalysisAsync(AnswerSheetGetListInput input);
     ExamScorePanelDto GetExamScorePanelData(Guid examId);
 }
