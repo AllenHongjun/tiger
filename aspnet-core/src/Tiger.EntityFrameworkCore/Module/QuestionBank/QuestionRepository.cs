@@ -33,7 +33,7 @@ public class QuestionRepository : EfCoreRepository<TigerDbContext, Question, Gui
        var list =   query.GroupBy(x => new { x.QuestionCategoryId }).Select(x => new DifferentDegreeQuestionCountInfo
                     {
                         QuestionCategoryId = x.Key.QuestionCategoryId,
-                        UnlimitedDifficultyCount = x.Count(g => g.Degree == QuestionDegree.UnlimitedDifficultyCount),
+                        UnlimitedDifficultyCount = x.Count(g => g.Degree == QuestionDegree.UnlimitedDifficulty),
                         SimpleCount = x.Count(g => g.Degree == QuestionDegree.Simple),
                         OrdinaryCount = x.Count(g => g.Degree == QuestionDegree.Ordinary),
                         DifficultCount = x.Count(g => g.Degree == QuestionDegree.Difficult)

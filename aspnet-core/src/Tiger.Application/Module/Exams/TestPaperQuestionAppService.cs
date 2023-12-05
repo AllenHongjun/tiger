@@ -117,7 +117,7 @@ public class TestPaperQuestionAppService : CrudAppService<TestPaperQuestion, Tes
     public async Task RandomSelentQuestions(TestPaperQuestionRandomSelectDto input)
     {
         // 查询不同难度指定数量的随机题目
-        var unlimitedDifficultyQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.UnlimitedDifficultyCount, input.UnlimitedDifficultyCount);
+        var unlimitedDifficultyQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.UnlimitedDifficulty, input.UnlimitedDifficultyCount);
         var simpleQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.Simple, input.SimpleCount);
         var ordinaryQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.Ordinary, input.OrdinaryCount);
         var difficultQuestions = await _questionRepository.GetRandomList(input.QuestionCategoryId, input.QuestionType, QuestionDegree.Difficult, input.DifficultCount);

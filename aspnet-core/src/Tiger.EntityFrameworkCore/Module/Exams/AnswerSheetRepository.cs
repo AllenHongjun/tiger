@@ -98,9 +98,9 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
                 .WhereIf(questionDegree.HasValue, x => x.question.Degree == questionDegree);
 
         var items = from q in query
-                   group q by new { q.ansd.QuestionId, q.question.Content, q.question.Degree,q.question.QuestionCategoryId,q.question.Answer } into g
-                   select new QuestionAnalysisInfo
-                   {
+                    group q by new { q.ansd.QuestionId, q.question.Content, q.question.Degree,q.question.QuestionCategoryId,q.question.Answer } into g
+                    select new QuestionAnalysisInfo
+                    {
                        QuestionId = g.Key.QuestionId, 
                        QuestionContent = g.Key.Content,
                        QuestionCategoryId = g.Key.QuestionCategoryId,
@@ -112,11 +112,41 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
                        NumberOfRightAnswers = answerSheetDetails.Count(x => x.IsCorrect == true),
                        CorrectRate = answerSheetDetails.Count(x => x.IsCorrect.Value == false) / answerSheetDetails.Count(x => x.QuestionId == g.Key.QuestionId),
                        ScoringRate = answerSheetDetails.Sum(x => x.TotalScore) / g.Sum(x => x.question.Score)
-                   };
+                    };
 
         return await items.OrderBy(sorting.IsNullOrEmpty() ? nameof(QuestionAnalysisInfo.Degree) : sorting)
                                 .PageBy(skipCount, maxResultCount)
                                 .ToListAsync(GetCancellationToken(cancellationToken));
+    }
+
+    /// <summary>
+    /// 题目类型分析
+    /// </summary>
+    /// <param name="questionCategoryId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <remarks>
+    /// 根据题目id查询每种题目类型不同难度的题目数量
+    /// </remarks>
+    public async Task<List<QuestionTypeAnalysisInfo>> GetQuestionTypeAnalysisAsync(Guid? questionCategoryId, CancellationToken cancellationToken = default)
+    {
+        var query = (from  question in DbContext.Set<Question>()
+                    select question)
+                    .WhereIf(questionCategoryId.HasValue, x => x.QuestionCategoryId == questionCategoryId);
+
+        var items = from q in query
+                    group q by new { q.Type } into g
+                    select new QuestionTypeAnalysisInfo
+                    {
+                        Type = g.Key.Type,
+                        QuestionCount = g.Count(),
+                        UnlimitedDifficultyCount = g.Count(x => x.Degree == QuestionDegree.UnlimitedDifficulty),
+                        SimpleCount = g.Count(x => x.Degree == QuestionDegree.Simple),
+                        OrdinaryCount = g.Count(x => x.Degree == QuestionDegree.Ordinary),
+                        DifficultCount = g.Count(x => x.Degree == QuestionDegree.Difficult)
+                    };
+
+        return await items.ToListAsync(GetCancellationToken(cancellationToken));
     }
 
     public override IQueryable<AnswerSheet> WithDetails()
