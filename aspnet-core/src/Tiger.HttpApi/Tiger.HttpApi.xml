@@ -49,12 +49,19 @@
             <summary>
             获取考生成绩面板数据
             </summary>
-            <param name="input"></param>
+            <param name="examId"></param>
             <returns></returns>
         </member>
         <member name="M:Tiger.Module.AnswerSheets.AnswerSheetController.GetExamScoreAnalysisAsync(Tiger.Module.Exams.Dtos.AnswerSheetGetListInput)">
             <summary>
             获取成绩统计列表
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.AnswerSheets.AnswerSheetController.GetQuestionAnalysisAsync(Tiger.Module.QuestionBank.Dtos.QuestionGetListInput)">
+            <summary>
+            答题统计
             </summary>
             <param name="input"></param>
             <returns></returns>

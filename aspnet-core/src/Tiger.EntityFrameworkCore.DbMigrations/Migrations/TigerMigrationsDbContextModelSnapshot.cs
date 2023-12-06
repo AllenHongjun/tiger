@@ -183,6 +183,10 @@ namespace Tiger.Migrations
                         .HasColumnName("DeletionTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool?>("IsCorrect")
+                        .HasColumnType("bit")
+                        .HasComment("是否正确");
+
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("IsDeleted")
@@ -215,6 +219,10 @@ namespace Tiger.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("试题Id");
+
+                    b.Property<decimal?>("Score")
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("题目得分");
 
                     b.Property<string>("SyncMessage")
                         .HasColumnType("nvarchar(max)")

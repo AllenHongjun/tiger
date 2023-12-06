@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.QuestionBank;
 
-namespace Tiger.Module.Exams
+namespace Tiger.Module.Exams.Dtos
 {
-    /// <summary>
-    /// 大题统计
-    /// </summary>
-    public class QuestionAnalysisInfo
+    public class QuestionAnalysisDto
     {
-
         /// <summary>
         /// 题目id
         /// </summary>
@@ -28,27 +24,27 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 试题分类ID
         /// </summary>
-        public Guid QuestionCategoryId { get; set;}
+        public Guid QuestionCategoryId { get; set; }
 
         /// <summary>
         /// 试题分类名称
         /// </summary>
-        public Guid QuestionCategoryName { get; set;}
+        public Guid QuestionCategoryName { get; set; }
 
         /// <summary>
         /// 试题难度
         /// </summary>
-        public QuestionDegree Degree { get; set;}
+        public QuestionDegree Degree { get; set; }
 
         /// <summary>
         /// 试题答案
         /// </summary>
-        public string Answer { get; set;}
+        public string Answer { get; set; }
 
         /// <summary>
         /// 答题次数
         /// </summary>
-        public int NumberOfAnswers { get; set;}
+        public int NumberOfAnswers { get; set; }
 
         /// <summary>
         /// 打错次数
@@ -69,11 +65,6 @@ namespace Tiger.Module.Exams
         /// 正确率
         /// </summary>
         public int CorrectRate { get; set; }
-
-        /// <summary>
-        /// 题目合计分数
-        /// </summary>
-        public decimal QuestionTotalScores { get; set; }
 
         /// <summary>
         /// 得分率

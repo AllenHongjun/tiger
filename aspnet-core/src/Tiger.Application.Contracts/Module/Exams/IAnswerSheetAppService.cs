@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tiger.Module.Exams.Dtos;
+using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.Exams;
@@ -20,4 +21,5 @@ public interface IAnswerSheetAppService :
 {
     Task<List<ExamScoreAnalysisDto>> GetExamScoreAnalysisAsync(AnswerSheetGetListInput input);
     ExamScorePanelDto GetExamScorePanelData(Guid examId);
+    Task<List<QuestionAnalysisDto>> GetQuestionAnalysisAsync(QuestionGetListInput input);
 }

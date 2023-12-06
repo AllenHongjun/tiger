@@ -1129,6 +1129,71 @@
             最低分
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.QuestionId">
+            <summary>
+            题目id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.QuestionContent">
+            <summary>
+            试题内容
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.QuestionType">
+            <summary>
+            题目类型
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.QuestionCategoryId">
+            <summary>
+            试题分类ID
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.QuestionCategoryName">
+            <summary>
+            试题分类名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.Degree">
+            <summary>
+            试题难度
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.Answer">
+            <summary>
+            试题答案
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.NumberOfAnswers">
+            <summary>
+            答题次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.NumberOfWrongAnswers">
+            <summary>
+            打错次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.ErrorRate">
+            <summary>
+            错误率
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.NumberOfRightAnswers">
+            <summary>
+            答对次数
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.CorrectRate">
+            <summary>
+            正确率
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.QuestionAnalysisDto.ScoringRate">
+            <summary>
+            得分率
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperDto">
             <summary>
             试卷
@@ -2166,6 +2231,11 @@
             其他过滤条件
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.ExamId">
+            <summary>
+            考试Id
+            </summary>
+        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.QuestionCategoryId">
             <summary>
             题库
@@ -2191,36 +2261,6 @@
             类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务
             </summary>
         </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Name">
-            <summary>
-            题目名称
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Content">
-            <summary>
-            题目内容
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.OptionContent">
-            <summary>
-            选项内容（用|分隔）
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.OptionSize">
-            <summary>
-            选项数量
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.OptionA">
-            <summary>
-            A 选项
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Answer">
-            <summary>
-            答案
-            </summary>
-        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Degree">
             <summary>
             难易度：1.简单 2.普通 3.困难
@@ -2231,31 +2271,6 @@
             试题解析
             </summary>
         </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Source">
-            <summary>
-            出处
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.HelpMessage">
-            <summary>
-            帮助文本
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.HelpVideo">
-            <summary>
-            帮助视频
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.FileUrl">
-            <summary>
-            附件URL
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.FileName">
-            <summary>
-            附件名称
-            </summary>
-        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShow">
             <summary>
             是否显示在试题练习中
@@ -2264,21 +2279,6 @@
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.Enable">
             <summary>
             是否启用
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShowTextButton">
-            <summary>
-            是否显示上传文本按钮
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShowImageButton">
-            <summary>
-            是否显示上传图片按钮
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionGetListInput.IsShowLinkButton">
-            <summary>
-            是否显示上传附件按钮
             </summary>
         </member>
         <member name="T:Tiger.Module.QuestionBank.IQuestionAnswerAppService">

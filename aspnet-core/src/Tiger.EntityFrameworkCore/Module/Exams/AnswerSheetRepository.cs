@@ -83,7 +83,7 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
         // 查询本场考试的答卷明细
         var answerSheetDetails = (from ansd in DbContext.Set<AnswerSheetDetail>()
                     join ans in DbContext.Set<AnswerSheet>() on ansd.AnswerSheetId equals ans.Id
-                    where ans.ExamId == examId
+                    //where ans.ExamId == examId
                     select ansd).ToList();
 
         var query = from ans  in DbContext.Set<AnswerSheet>() 
@@ -106,17 +106,23 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
                        QuestionCategoryId = g.Key.QuestionCategoryId,
                        Degree = g.Key.Degree,
                        Answer = g.Key.Answer,
-                       NumberOfAnswers = answerSheetDetails.Count(x => x.QuestionId == g.Key.QuestionId),
-                       NumberOfWrongAnswers = answerSheetDetails.Count(x => x.IsCorrect == false),
-                       ErrorRate = answerSheetDetails.Count(x => x.IsCorrect.Value == false) / answerSheetDetails.Count(x => x.QuestionId == g.Key.QuestionId),
-                       NumberOfRightAnswers = answerSheetDetails.Count(x => x.IsCorrect == true),
-                       CorrectRate = answerSheetDetails.Count(x => x.IsCorrect.Value == false) / answerSheetDetails.Count(x => x.QuestionId == g.Key.QuestionId),
-                       ScoringRate = answerSheetDetails.Sum(x => x.TotalScore) / g.Sum(x => x.question.Score)
+                       QuestionTotalScores =  g.Sum(x => x.question.Score)
                    };
 
-        return await items.OrderBy(sorting.IsNullOrEmpty() ? nameof(QuestionAnalysisInfo.Degree) : sorting)
-                                .PageBy(skipCount, maxResultCount)
-                                .ToListAsync(GetCancellationToken(cancellationToken));
+         var questionAnalyses =  await items.OrderBy(sorting.IsNullOrEmpty() ? nameof(QuestionAnalysisInfo.Degree) : sorting)
+                                    .PageBy(skipCount, maxResultCount)
+                                    .ToListAsync(GetCancellationToken(cancellationToken));
+
+        foreach (var item in questionAnalyses)
+        {
+            item.NumberOfAnswers = answerSheetDetails.Count(x => x.QuestionId == item.QuestionId);
+            item.NumberOfWrongAnswers = answerSheetDetails.Count(x => x.IsCorrect == false);
+            item.ErrorRate = answerSheetDetails.Count(x => x.IsCorrect.Value == false) / answerSheetDetails.Count(x => x.QuestionId == item.QuestionId);
+            item.NumberOfRightAnswers = answerSheetDetails.Count(x => x.IsCorrect == true);
+            item.CorrectRate = answerSheetDetails.Count(x => x.IsCorrect.Value == true) / answerSheetDetails.Count(x => x.QuestionId == item.QuestionId);
+            item.ScoringRate = answerSheetDetails.Sum(x => x.Score) / questionAnalyses.Sum(x => x.QuestionTotalScores);
+        }
+        return questionAnalyses;
     }
 
     public override IQueryable<AnswerSheet> WithDetails()

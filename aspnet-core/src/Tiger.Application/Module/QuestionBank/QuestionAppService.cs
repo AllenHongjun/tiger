@@ -48,20 +48,10 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
             .WhereIf(input.QuestionCategoryId != null, x => x.QuestionCategoryId == input.QuestionCategoryId)
             .WhereIf(input.PracticalTrainingId != null, x => x.TrainPlatformId == input.PracticalTrainingId)
             .WhereIf(input.Type != null, x => x.Type == input.Type)
-            .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
-            .WhereIf(!input.Content.IsNullOrWhiteSpace(), x => x.Content.Contains(input.Content))
             .WhereIf(input.Degree != null, x => x.Degree == input.Degree)
             .WhereIf(!input.Analysis.IsNullOrWhiteSpace(), x => x.Analysis.Contains(input.Analysis))
-            .WhereIf(!input.Source.IsNullOrWhiteSpace(), x => x.Source.Contains(input.Source))
-            .WhereIf(!input.HelpMessage.IsNullOrWhiteSpace(), x => x.HelpMessage.Contains(input.HelpMessage))
-            .WhereIf(!input.HelpVideo.IsNullOrWhiteSpace(), x => x.HelpVideo.Contains(input.HelpVideo))
-            .WhereIf(!input.FileUrl.IsNullOrWhiteSpace(), x => x.FileUrl.Contains(input.FileUrl))
-            .WhereIf(!input.FileName.IsNullOrWhiteSpace(), x => x.FileName.Contains(input.FileName))
             .WhereIf(input.IsShow != null, x => x.IsShow == input.IsShow)
             .WhereIf(input.Enable != null, x => x.Enable == input.Enable)
-            .WhereIf(input.IsShowTextButton != null, x => x.IsShowTextButton == input.IsShowTextButton)
-            .WhereIf(input.IsShowImageButton != null, x => x.IsShowImageButton == input.IsShowImageButton)
-            .WhereIf(input.IsShowLinkButton != null, x => x.IsShowLinkButton == input.IsShowLinkButton)
             ;
     }
 
