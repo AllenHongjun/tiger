@@ -120,6 +120,10 @@ namespace Tiger.EntityFrameworkCore
         /// </summary>
         public DbSet<Exam> Exams { get; set; }
         /// <summary>
+        /// 考试人员表
+        /// </summary>
+        public DbSet<Examiner> Examiners { get; set; }
+        /// <summary>
         /// 答卷表
         /// </summary>
         public DbSet<AnswerSheet> AnswerSheets { get; set; }

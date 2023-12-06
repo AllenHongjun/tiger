@@ -3,28 +3,46 @@ using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.Schools;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.Exams
 {
     /// <summary>
-    /// 考生
+    /// 考试人员表
     /// </summary>
-    public class Examinee : Entity<long>, IMultiTenant
+    public class Examiner : CreationAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
         public Guid? TenantId { get; set; }
 
-        public Guid StudentId { get; set; }
+        /// <summary>
+        /// 考试Id
+        /// </summary>
+        public Guid ExamId { get; set; }
 
-        public Guid ClassId { get; set; }
+        /// <summary>
+        /// 考生Id
+        /// </summary>
+        public Guid UserId { get; set; }
 
-        public Guid SchoolId { get; set; }
+        /// <summary>
+        /// 考生用户名
+        /// </summary>
+        public string UserName { get; set; }
 
-        //public virtual IdentityUser Student { get; set; }
+        /// <summary>
+        /// 考生所属组织Id
+        /// </summary>
+        public Guid OrganizationUnitId { get; set; }
 
-        //public virtual ClassInfo ClassInfo { get; set; }
-
-        //public virtual School School { get; set; }
+        /// <summary>
+        /// 考生所属组织名称
+        /// </summary>
+        public string OrganizationUnitName { get; set; }
+        
     }
 }
