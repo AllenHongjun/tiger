@@ -1,9 +1,9 @@
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Parser;
 using System.Threading;
 using System.Threading.Tasks;
 using Tiger.EntityFrameworkCore;
@@ -81,7 +81,7 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
         // 查询本场考试的答卷明细
         var answerSheetDetails = (from ansd in DbContext.Set<AnswerSheetDetail>()
                     join ans in DbContext.Set<AnswerSheet>() on ansd.AnswerSheetId equals ans.Id
-                    where ans.ExamId == examId
+                    //where ans.ExamId == examId
                     select ansd).ToList();
 
         var query = from ans  in DbContext.Set<AnswerSheet>() 
@@ -104,17 +104,68 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
                        QuestionCategoryId = g.Key.QuestionCategoryId,
                        Degree = g.Key.Degree,
                        Answer = g.Key.Answer,
-                       NumberOfAnswers = answerSheetDetails.Count(x => x.QuestionId == g.Key.QuestionId),
-                       NumberOfWrongAnswers = answerSheetDetails.Count(x => x.IsCorrect == false),
-                       ErrorRate = answerSheetDetails.Count(x => x.IsCorrect.Value == false) / answerSheetDetails.Count(x => x.QuestionId == g.Key.QuestionId),
-                       NumberOfRightAnswers = answerSheetDetails.Count(x => x.IsCorrect == true),
-                       CorrectRate = answerSheetDetails.Count(x => x.IsCorrect.Value == false) / answerSheetDetails.Count(x => x.QuestionId == g.Key.QuestionId),
-                       ScoringRate = answerSheetDetails.Sum(x => x.TotalScore) / g.Sum(x => x.question.Score)
+                       QuestionTotalScores =  g.Sum(x => x.question.Score)
+                   };
+
+         var questionAnalyses =  await items.OrderBy(sorting.IsNullOrEmpty() ? nameof(QuestionAnalysisInfo.Degree) : sorting)
+                                    .PageBy(skipCount, maxResultCount)
+                                    .ToListAsync(GetCancellationToken(cancellationToken));
+
+        foreach (var item in questionAnalyses)
+        {
+            item.NumberOfAnswers = answerSheetDetails.Count(x => x.QuestionId == item.QuestionId);
+            item.NumberOfWrongAnswers = answerSheetDetails.Count(x => x.IsCorrect == false);
+            item.ErrorRate = answerSheetDetails.Count(x => x.IsCorrect.Value == false) / answerSheetDetails.Count(x => x.QuestionId == item.QuestionId);
+            item.NumberOfRightAnswers = answerSheetDetails.Count(x => x.IsCorrect == true);
+            item.CorrectRate = answerSheetDetails.Count(x => x.IsCorrect.Value == true) / answerSheetDetails.Count(x => x.QuestionId == item.QuestionId);
+            item.ScoringRate = answerSheetDetails.Sum(x => x.Score) / questionAnalyses.Sum(x => x.QuestionTotalScores);
+        }
+        return questionAnalyses;
+    }
+
+
+    /// <summary>
+    /// 组织统计
+    /// </summary>
+    /// <param name="examId"></param>
+    /// <param name="sorting"></param>
+    /// <param name="maxResultCount"></param>
+    /// <param name="skipCount"></param>
+    /// <param name="filter"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<List<OrganizationUnitAnalysisInfo>> GetOrganizationUnitAnalysisAsync(Guid? examId, string sorting = null, int maxResultCount = 50, int skipCount = 0,
+            string filter = null, CancellationToken cancellationToken = default)
+    {
+        // 获取这场考试试卷的总分 查询这场考试关联试卷的的总分
+
+        var query = from ans in DbContext.Set<AnswerSheet>()
+                    select ans ;
+
+        query = query.WhereIf(!string.IsNullOrWhiteSpace(filter), x => true)
+                .WhereIf(examId.HasValue, x => x.ExamId == examId);
+
+        var items = from q in query
+                    group q by new { q.OrganizationUnitId } into g
+                    select new OrganizationUnitAnalysisInfo
+                    {
+                        NumberPassed = g.Count(x => x.IsPass == true),
+                        PassingRate = g.Count(x => x.IsPass == true) / g.Count(),
+                        ScoringRate = g.Sum(x => x.TotalScore) / g.Sum(x => x.TotalScore), 
+                        HighestScore = g.Max(x => x.TotalScore),
+                        AverageScore = g.Average(x => x.TotalScore),
+                        LowestScore = g.Min(x => x.TotalScore),
                     };
 
-        return await items.OrderBy(sorting.IsNullOrEmpty() ? nameof(QuestionAnalysisInfo.Degree) : sorting)
-                                .PageBy(skipCount, maxResultCount)
-                                .ToListAsync(GetCancellationToken(cancellationToken));
+        var organizationUnitAnalysises = await items.OrderBy(sorting.IsNullOrEmpty() ? nameof(OrganizationUnitAnalysisInfo.OrganizationUnitName) : sorting)
+                                   .PageBy(skipCount, maxResultCount)
+                                   .ToListAsync(GetCancellationToken(cancellationToken));
+
+        // 统计参考人员数据  查询考试人员列表
+
+        // 关联查询 OrganizationUnitName
+
+        return organizationUnitAnalysises;
     }
 
 

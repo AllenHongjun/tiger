@@ -13,6 +13,12 @@ namespace Tiger.Module.Exams
     public class AnswerSheet:FullAuditedEntity<Guid>,IMultiTenant
     {
         public Guid? TenantId { get; set; }
+
+        /// <summary>
+        /// 组织Id
+        /// </summary>
+        public Guid? OrganizationUnitId { get; set; }
+
         /// <summary>
         /// 主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
         /// </summary>
@@ -32,8 +38,6 @@ namespace Tiger.Module.Exams
         /// 学员Id
         /// </summary>
         public Guid StudentId { get; set; }
-
-       
         
         /// <summary>
         /// 是否交卷 True为交卷
@@ -110,7 +114,7 @@ namespace Tiger.Module.Exams
         public decimal? TotalScore { get; set; }
 
         /// <summary>
-        /// 答卷状态1:未交卷;2:已交卷;3:已阅卷
+        /// 答卷状态:未交卷;2:已交卷;3:已阅卷
         /// </summary>
         public AnswerSheetStatus Status { get; set; }
 

@@ -190,6 +190,20 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.Exams.AnswerSheetAppService.GetExamScoreAnalysisAsync(Tiger.Module.Exams.Dtos.AnswerSheetGetListInput)">
+            <summary>
+            成绩统计
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.Exams.AnswerSheetAppService.GetQuestionAnalysisAsync(Tiger.Module.QuestionBank.Dtos.QuestionGetListInput)">
+            <summary>
+            答题统计
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tiger.Module.Exams.AnswerSheetDetailAppService">
             <summary>
             答卷明细表

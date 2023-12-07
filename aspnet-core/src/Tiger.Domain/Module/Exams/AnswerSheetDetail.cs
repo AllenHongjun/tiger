@@ -77,7 +77,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 题目总得分
         /// </summary>
-        public decimal? TotalScore { get; set; }
+        public decimal? Score { get; set; }
 
         /// <summary>
         /// 答卷

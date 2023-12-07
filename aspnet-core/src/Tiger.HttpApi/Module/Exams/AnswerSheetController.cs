@@ -8,6 +8,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp;
 using Tiger.Module.Exams.Dtos;
 using Tiger.Module.Exams;
+using Tiger.Module.QuestionBank.Dtos;
 
 namespace Tiger.Module.AnswerSheets
 {
@@ -20,13 +21,16 @@ namespace Tiger.Module.AnswerSheets
     [Route($"api/{ExamRemoteServiceConsts.ModuleName}/answer-sheets")]
     public class AnswerSheetController : AbpController, IAnswerSheetAppService
     {
+        #region 构造函数和字段
         public AnswerSheetController(IAnswerSheetAppService answerSheetAppService)
         {
             AnswerSheetAppService=answerSheetAppService;
         }
 
         protected IAnswerSheetAppService AnswerSheetAppService { get; }
+        #endregion
 
+        #region CRUD
         /// <summary>
         /// 创建
         /// </summary>
@@ -85,12 +89,13 @@ namespace Tiger.Module.AnswerSheets
         {
             return await AnswerSheetAppService.UpdateAsync(id, input);
         }
+        #endregion
 
 
         /// <summary>
         /// 获取考生成绩面板数据
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="examId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("{examId}/exam-score-panel-data")]
@@ -109,6 +114,18 @@ namespace Tiger.Module.AnswerSheets
         public async Task<List<ExamScoreAnalysisDto>> GetExamScoreAnalysisAsync(AnswerSheetGetListInput input)
         {
             return await AnswerSheetAppService.GetExamScoreAnalysisAsync(input);
+        }
+
+        /// <summary>
+        /// 答题统计
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/question-analysis")]
+        public async Task<List<QuestionAnalysisDto>> GetQuestionAnalysisAsync(QuestionGetListInput input)
+        {
+            return await AnswerSheetAppService.GetQuestionAnalysisAsync(input);
         }
     }
 }

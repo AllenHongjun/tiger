@@ -12,6 +12,7 @@ using Volo.Abp.Identity;
 using Tiger.Volo.Abp.Identity;
 using System.Threading;
 using Volo.Abp.ObjectMapping;
+using Tiger.Module.QuestionBank.Dtos;
 
 namespace Tiger.Module.Exams;
 
@@ -109,10 +110,27 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
         return examScorePanelData;
     }
 
+    /// <summary>
+    /// 成绩统计
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
     public async Task<List<ExamScoreAnalysisDto>> GetExamScoreAnalysisAsync(AnswerSheetGetListInput input)
     {
         var list = await _repository.GetExamScoreAnalysisAsync(input.ExamId,input.Sorting,input.MaxResultCount,input.SkipCount,input.Filter);
         return ObjectMapper.Map<List<ExamScoreAnalysisInfo>, List<ExamScoreAnalysisDto>>(list);
+    }
+
+    /// <summary>
+    /// 答题统计
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<List<QuestionAnalysisDto>> GetQuestionAnalysisAsync(QuestionGetListInput input)
+    {
+        var list = await _repository.GetQuestionAnalysisAsync(input.ExamId,input.QuestionCategoryId,
+            input.Type, input.Degree,  input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
+        return ObjectMapper.Map<List<QuestionAnalysisInfo>, List<QuestionAnalysisDto>>(list);
     }
     #endregion
 }

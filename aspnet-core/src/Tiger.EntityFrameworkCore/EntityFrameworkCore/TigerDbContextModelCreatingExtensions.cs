@@ -622,6 +622,8 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.OperateId).HasComment("实操Id");
                 b.Property(p => p.SyncTime).HasComment("上次自动评分同步时间");
                 b.Property(p => p.SyncMessage).HasComment("上次自动评分同步结果");
+                b.Property(p => p.IsCorrect).HasComment("是否正确");
+                b.Property(p => p.Score).HasComment("题目得分");
                 b.ConfigureByConvention(); 
 
                 /* Configure more properties here */
