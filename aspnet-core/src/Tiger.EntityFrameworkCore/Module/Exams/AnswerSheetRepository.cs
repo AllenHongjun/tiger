@@ -59,8 +59,6 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
          return await items.OrderBy(sorting.IsNullOrEmpty() ? nameof(ExamScoreAnalysisInfo.CreatorId) : sorting)
                                 .PageBy(skipCount, maxResultCount)
                                 .ToListAsync(GetCancellationToken(cancellationToken));
-        
-
     }
 
     /// <summary>
@@ -118,6 +116,10 @@ public class AnswerSheetRepository : EfCoreRepository<TigerDbContext, AnswerShee
                                 .PageBy(skipCount, maxResultCount)
                                 .ToListAsync(GetCancellationToken(cancellationToken));
     }
+
+
+
+
 
     /// <summary>
     /// 题目类型分析
