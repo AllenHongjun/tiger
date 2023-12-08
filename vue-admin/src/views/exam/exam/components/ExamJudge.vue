@@ -1,6 +1,5 @@
 <template>
   <div class="table-container">
-
     <div class="filter-container" style="margin-bottom:10px;">
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
@@ -49,21 +48,9 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                      {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
-                      <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-                    </el-link> -->
             </el-button-group>
           </el-col>
         </el-row>
-
-        <el-collapse-transition>
-          <div v-show="advanced">
-            <el-row :gutter="20">
-              <el-col :span="4" />
-            </el-row>
-          </div>
-        </el-collapse-transition>
       </el-form>
 
       <!-- 操作按钮 -->
@@ -85,9 +72,19 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="50" />
+      <el-table-column label="用户名" prop="name" align="left" width="120">
+        <template slot-scope="{ row }">
+          <span>ZhangSan</span>
+        </template>
+      </el-table-column>
       <el-table-column label="姓名" prop="name" align="left" width="80">
         <template slot-scope="{ row }">
           <span>张三</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="所属部门" prop="name" align="left" width="180">
+        <template slot-scope="{ row }">
+          <span>浙江大学/电气2班</span>
         </template>
       </el-table-column>
       <el-table-column label="开始时间/交卷时间" align="left" width="240">

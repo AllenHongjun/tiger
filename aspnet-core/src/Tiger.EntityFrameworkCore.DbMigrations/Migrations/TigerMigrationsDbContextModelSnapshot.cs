@@ -110,6 +110,9 @@ namespace Tiger.Migrations
                         .HasColumnType("datetime2")
                         .HasComment("实操题自动评分时间");
 
+                    b.Property<Guid?>("OrganizationUnitId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("ScoreTime")
                         .HasColumnType("datetime2");
 
