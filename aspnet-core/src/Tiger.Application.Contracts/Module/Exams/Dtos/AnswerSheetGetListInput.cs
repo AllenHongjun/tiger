@@ -7,100 +7,38 @@ namespace Tiger.Module.Exams.Dtos;
 [Serializable]
 public class AnswerSheetGetListInput : PagedAndSortedResultRequestDto
 {
+    /// <summary>
+    /// 查询关键字
+    /// </summary>
     public string Filter { get; set; }
 
     /// <summary>
-    /// 主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
+    /// 创建开始时间
     /// </summary>
-    public int? TestPaperMainId { get; set; }
+    public DateTime? CreateStartTime { get; set; }
 
     /// <summary>
-    /// 试卷ID
+    /// 创建结束时间
     /// </summary>
-    public Guid? TestPaperId { get; set; }
+    public DateTime? CreateEndTime { get; set; }
 
     /// <summary>
-    /// 考试ID
+    /// 考试Id
     /// </summary>
     public Guid? ExamId { get; set; }
 
     /// <summary>
-    /// 学员Id
+    /// 组织Id
     /// </summary>
-    public Guid? StudentId { get; set; }
+    public Guid? OrganizationUnitId { get; set; }
 
     /// <summary>
-    /// 总分数
+    /// 是否及格
     /// </summary>
-    public decimal? TotalScore { get; set; }
+    public bool? IsPass { get; set; }
 
     /// <summary>
-    /// 是否交卷 True为交卷
+    /// 答卷状态
     /// </summary>
-    public bool? IsSubmit { get; set; }
-
-    /// <summary>
-    /// 交卷时间
-    /// </summary>
-    public DateTime? SubmitDateTime { get; set; }
-
-    /// <summary>
-    /// 客户端IP
-    /// </summary>
-    public string? IP { get; set; }
-
-    /// <summary>
-    /// 设备类型： 1.电脑 2.手机 3.平板
-    /// </summary>
-    public int? DeviceType { get; set; }
-
-    /// <summary>
-    /// 考试总时长
-    /// </summary>
-    public int? ExamDuration { get; set; }
-
-    /// <summary>
-    /// 答题总时长（分钟）
-    /// </summary>
-    public int? AnswerTotalDuration { get; set; }
-
-    /// <summary>
-    /// 考试切屏次数
-    /// </summary>
-    public int? WindowOnblur { get; set; }
-
-    /// <summary>
-    /// 阅卷时间
-    /// </summary>
-    public DateTime? ScoreTime { get; set; }
-
-    /// <summary>
-    /// 实操题自动评分
-    /// </summary>
-    public decimal? OperateAutoScore { get; set; }
-
-    /// <summary>
-    /// 实操自动评分时间
-    /// </summary>
-    public DateTime? OperateAutoScoreTime { get; set; }
-
-    /// <summary>
-    /// 实操题人工打分
-    /// </summary>
-    public decimal? OperateManualScore { get; set; }
-
-    /// <summary>
-    /// 实操题自动评分时间
-    /// </summary>
-    public DateTime? OperateManualScoreTime { get; set; }
-
-    /// <summary>
-    /// 客观题评分
-    /// </summary>
-    public decimal? ObjectiveScore { get; set; }
-
-    /// <summary>
-    /// 客观题评分时间
-    /// </summary>
-    public DateTime? ObjectiveScoreTime { get; set; }
+    public AnswerSheetStatus? AnswerSheetStatus { get; set;}
 }

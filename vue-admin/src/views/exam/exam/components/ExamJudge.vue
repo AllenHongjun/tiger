@@ -4,20 +4,20 @@
       <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
         <el-row :gutter="20">
           <el-col :span="4">
-            <el-form-item prop="filter" label="考试状态">
-              <el-select v-model="value" placeholder="-">
-                <el-option key="" value="考试中" lable="考试中" />
-                <el-option key="" value="已交卷" lable="已交卷" />
-                <el-option key="" value="已评卷" lable="已评卷" />
+            <el-form-item prop="filter" label="答卷状态">
+              <el-select v-model="listQuery.answerSheetStatus" placeholder="-" filterable clearable>
+                <el-option key="1" :value="1" label="未交卷" />
+                <el-option key="2" :value="2" label="已交卷" />
+                <el-option key="3" :value="3" label="已阅卷" />
               </el-select>
             </el-form-item>
           </el-col>
 
           <el-col :span="4">
             <el-form-item prop="filter" label="是否及格">
-              <el-select v-model="value" placeholder="-">
-                <el-option key="" value="及格" lable="及格" />
-                <el-option key="" value="不及格" lable="不及格" />
+              <el-select v-model="listQuery.isPass" placeholder="-" filterable clearable>
+                <el-option key="1" :value="true" label="及格" />
+                <el-option key="2" :value="false" label="不及格" />
               </el-select>
             </el-form-item>
           </el-col>
@@ -57,12 +57,15 @@
       <el-row>
         <el-col>
           <el-button-group style="float:left">
-            <el-button icon="el-icon-download" @click="handleDownload">
+            <el-button icon="el-icon-refresh" @click="handleRefresh">
+              刷新
+            </el-button>
+            <!-- <el-button icon="el-icon-download" @click="handleDownload">
               导出
             </el-button>
             <el-button type="primary" icon="el-icon-download" @click="handleDownload">
               发布成绩
-            </el-button>
+            </el-button> -->
           </el-button-group>
 
         </el-col>
@@ -82,47 +85,44 @@
           <span>张三</span>
         </template>
       </el-table-column>
-      <el-table-column label="所属部门" prop="name" align="left" width="180">
+      <el-table-column label="所属组织" prop="name" align="left" width="180">
         <template slot-scope="{ row }">
           <span>浙江大学/电气2班</span>
         </template>
       </el-table-column>
       <el-table-column label="开始时间/交卷时间" align="left" width="240">
         <template slot-scope="{ row }">
-          <span>2023-11-13 21:51 ~ 2023-11-20 21:51</span>
+          <span>{{ row.creationTime | moment }}   {{ row.submitDateTime |moment }}</span>
         </template>
       </el-table-column>
       <el-table-column label="用时" prop="description" align="left">
         <template slot-scope="{ row }">
-          <span>2小时42分12秒</span>
+          <span>{{ row.answerTotalDuration }} 分钟</span>
         </template>
       </el-table-column>
       <el-table-column label="客观题得分" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>30</span>
+          <span>{{ row.objectiveScore }}</span>
         </template>
       </el-table-column>
       <el-table-column label="主观题得分" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>69</span>
+          <span>{{ row.operateManualScore }}</span>
         </template>
       </el-table-column>
       <el-table-column label="成绩" prop="path" align="left">
         <template slot-scope="{ row }">
-          <span>99</span>
+          <span>{{ row.totalScore }}</span>
         </template>
       </el-table-column>
       <el-table-column label="是否及格" prop="path" align="left">
         <template slot-scope="{ row }">
-          <!-- <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" /> -->
-          <el-tag type="success" class="el-icon-check" />
+          <el-tag :type="( row.isPass ? 'success' : 'danger')" :class="[ row.isPass ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
       <el-table-column label="状态" prop="path" align="left">
         <template slot-scope="{ row }">
-          <el-tag>未交卷</el-tag>
-          <!-- <span>未评卷</span>
-          <span>已评卷</span> -->
+          <el-tag :type="AnswerSheetStatusType[row.status]">{{ AnswerSheetStatusMap[row.status] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="排名" prop="path" align="left">
@@ -130,11 +130,11 @@
           <span>23</span>
         </template>
       </el-table-column>
-      <el-table-column label="评语" prop="path" align="left">
+      <!-- <el-table-column label="评语" prop="path" align="left" width="180" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
           <span>做的不错，再接再厉！</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
@@ -155,10 +155,11 @@
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { pickerRangeWithHotKey } from '@/utils/picker'
 import {
-  getLayouts,
-  deleteLayout
-} from '@/api/system-manage/platform/layout'
+  getAnswerSheets,
+  deleteAnswerSheet
+} from '@/api/exam/answer-sheet'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { AnswerSheetStatusMap, AnswerSheetStatusType } from '../datas/typing'
 
 export default {
   name: 'ExamJudge',
@@ -167,6 +168,9 @@ export default {
   },
   data() {
     return {
+      AnswerSheetStatusMap,
+      AnswerSheetStatusType,
+      value: undefined,
       queryCreateDateTime: undefined,
       advanced: false,
       pickerOptions: pickerRangeWithHotKey,
@@ -175,6 +179,10 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
+        examId: undefined,
+        organizationUnitId: undefined,
+        isPass: undefined,
+        answerSheetStatus: undefined,
         createStartTime: undefined,
         createEndTime: undefined
       }, baseListQuery)
@@ -205,18 +213,22 @@ export default {
     resetQueryForm() {
       this.queryCreateDateTime = undefined
       this.listQuery = Object.assign({
-        degree: undefined,
-        questionCategoryId: undefined,
+        examId: undefined,
+        organizationUnitId: undefined,
+        isPass: undefined,
+        answerSheetStatus: undefined,
         createStartTime: undefined,
-        createEndTime: undefined,
-        type: undefined,
-        enable: undefined
+        createEndTime: undefined
       }, baseListQuery)
     },
     // 获取列表数据
     getList() {
       this.listLoading = true
-      getLayouts(this.listQuery).then(response => {
+      if (this.queryCreateDateTime) {
+        this.listQuery.createStartTime = this.queryCreateDateTime[0]
+        this.listQuery.createEndTime = this.queryCreateDateTime[1]
+      }
+      getAnswerSheets(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
@@ -253,7 +265,7 @@ export default {
         }
       ).then(async() => {
         // 回调函数
-        deleteLayout(row.id).then(() => {
+        deleteAnswerSheet(row.id).then(() => {
           this.handleFilter(false)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),

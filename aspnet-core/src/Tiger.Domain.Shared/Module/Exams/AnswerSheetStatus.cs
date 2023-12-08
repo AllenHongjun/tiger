@@ -10,7 +10,7 @@ namespace Tiger.Module.Exams
     public enum AnswerSheetStatus
     {
         /// <summary>
-        /// 未阅卷(考试中)
+        /// 未交卷(考试中)
         /// </summary>
         UnSubmit = 1,
 

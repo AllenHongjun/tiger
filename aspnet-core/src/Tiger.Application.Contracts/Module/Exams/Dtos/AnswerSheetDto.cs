@@ -32,7 +32,7 @@ public class AnswerSheetDto : FullAuditedEntityDto<Guid>
     /// <summary>
     /// 总分数
     /// </summary>
-    public decimal TotalScore { get; set; }
+    public decimal? TotalScore { get; set; }
 
     /// <summary>
     /// 是否交卷 True为交卷
@@ -110,7 +110,17 @@ public class AnswerSheetDto : FullAuditedEntityDto<Guid>
     public string CreatorUserName { get; set; }
 
     /// <summary>
+    /// 是否及格
+    /// </summary>
+    public bool IsPass { get; set; }
+
+    /// <summary>
     /// 及格分
     /// </summary>
     public decimal? PassingScore { get; set; }
+
+    /// <summary>
+    /// 答卷状态
+    /// </summary>
+    public AnswerSheetStatus? Status { get; set; }
 }
