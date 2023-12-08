@@ -138,16 +138,15 @@
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="210">
         <template slot-scope="{ row, $index }">
-          <el-button type="text" title="查看答卷">去评卷</el-button>
+          <el-button type="text" title="查看答卷" @click="handleJudgePaper(row)">去评卷</el-button>
           <el-button type="text" title="补交" plain>补交</el-button>
-          <!--
-                <el-button type="text" title="删除" class="el-icon-delete" /> -->
         </template>
       </el-table-column>
     </el-table>
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
+    <judge-paper ref="judgePaper" />
   </div>
 </template>
 
@@ -160,17 +159,19 @@ import {
 } from '@/api/exam/answer-sheet'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 import { AnswerSheetStatusMap, AnswerSheetStatusType } from '../datas/typing'
+import JudgePaper from './JudgePaper.vue'
 
 export default {
   name: 'ExamJudge',
   components: {
-    Pagination
+    Pagination,
+    JudgePaper
   },
   data() {
     return {
       AnswerSheetStatusMap,
       AnswerSheetStatusType,
-      value: undefined,
+      value: '',
       queryCreateDateTime: undefined,
       advanced: false,
       pickerOptions: pickerRangeWithHotKey,
@@ -249,7 +250,10 @@ export default {
     handleCreate() {
       this.$emit('handleCreate')
     },
-
+    // 打开阅卷页面
+    handleJudgePaper(row) {
+      this.$refs['judgePaper'].getAnswerSheet(row)
+    },
     // 删除
     handleDelete(row, index) {
       this.$confirm(
