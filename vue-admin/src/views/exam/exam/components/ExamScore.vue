@@ -169,6 +169,7 @@ export default {
       queryCreateDateTime: undefined,
       advanced: false,
       pickerOptions: pickerRangeWithHotKey,
+      value: '',
       tableKey: 0,
       list: null,
       total: 0,
