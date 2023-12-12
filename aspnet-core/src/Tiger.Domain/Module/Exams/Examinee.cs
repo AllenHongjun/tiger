@@ -10,9 +10,9 @@ using Volo.Abp.MultiTenancy;
 namespace Tiger.Module.Exams
 {
     /// <summary>
-    /// 考试人员表
+    /// 考试人员表(应试人；参加考试者)
     /// </summary>
-    public class Examiner : CreationAuditedAggregateRoot<Guid>, IMultiTenant
+    public class Examinee : CreationAuditedAggregateRoot<Guid>, IMultiTenant
     {
         /// <summary>
         /// 租户Id

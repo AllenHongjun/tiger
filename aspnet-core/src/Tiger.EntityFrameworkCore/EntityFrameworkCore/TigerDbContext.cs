@@ -122,7 +122,7 @@ namespace Tiger.EntityFrameworkCore
         /// <summary>
         /// 考试人员表
         /// </summary>
-        public DbSet<Examiner> Examiners { get; set; }
+        public DbSet<Examinee> Examiners { get; set; }
         /// <summary>
         /// 答卷表
         /// </summary>
