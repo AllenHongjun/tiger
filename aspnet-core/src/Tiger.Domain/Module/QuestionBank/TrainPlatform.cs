@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities;
@@ -55,5 +55,33 @@ namespace Tiger.Module.QuestionBank
         public bool Enable { get; set; }
 
         //public virtual ICollection<Question> Questions { get; set; }
+
+    protected TrainPlatform()
+    {
+    }
+
+    public TrainPlatform(
+        Guid id,
+        Guid? tenantId,
+        string name,
+        string description,
+        string icon,
+        string url,
+        string checkCode,
+        TokenType tokenType,
+        int sorting,
+        bool enable
+    ) : base(id)
+    {
+        TenantId = tenantId;
+        Name = name;
+        Description = description;
+        Icon = icon;
+        Url = url;
+        CheckCode = checkCode;
+        TokenType = tokenType;
+        Sorting = sorting;
+        Enable = enable;
+    }
     }
 }

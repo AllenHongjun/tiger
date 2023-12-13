@@ -629,8 +629,20 @@ namespace Tiger.EntityFrameworkCore
                 /* Configure more properties here */
             });
 
-
-            
+            builder.Entity<TrainPlatform>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TrainPlatforms", TigerConsts.DbSchema);
+                b.Property(p => p.Name).HasMaxLength(TrainPlatformConsts.MaxNameLength).IsRequired(true).HasComment("名称");
+                b.Property(p => p.Description).HasMaxLength(TrainPlatformConsts.MaxDescriptionLength).IsRequired(false).HasComment("描述");
+                b.Property(p => p.Icon).HasMaxLength(TrainPlatformConsts.MaxIconLength).IsRequired(true).HasComment("logo图标");
+                b.Property(p => p.Url).HasMaxLength(TrainPlatformConsts.MaxUrlLength).IsRequired(true).HasComment("实训跳转链接");
+                b.Property(p => p.CheckCode).HasMaxLength(TrainPlatformConsts.MaxCheckCodeLength).IsRequired(true).HasComment("token校验码");
+                b.Property(p => p.TokenType).HasComment("Token传值方式：0、使用旧版Cookie；1、使用旧版Url Token；2、使用新版Url Token；");
+                b.Property(p => p.Sorting).HasComment("序号");
+                b.Property(p => p.Enable).HasComment("是否启用");
+                b.ConfigureByConvention(); 
+                /* Configure more properties here */
+            });
         }
 
 

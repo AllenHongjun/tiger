@@ -1928,6 +1928,46 @@
             是否显示上传附件按钮
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.Icon">
+            <summary>
+            logo图标
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.Url">
+            <summary>
+            实训跳转链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.CheckCode">
+            <summary>
+            token校验码
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.TokenType">
+            <summary>
+            Token传值方式：0、使用旧版Cookie；1、使用旧版Url Token；2、使用新版Url Token；
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.Sorting">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.GetDifferentDegreeQuestionCountInput.QuestionCategoryId">
             <summary>
             题目分类Id
@@ -2231,6 +2271,86 @@
             是否启用
             </summary>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto">
+            <summary>
+            实训平台
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.Icon">
+            <summary>
+            logo图标
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.Url">
+            <summary>
+            实训跳转链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.CheckCode">
+            <summary>
+            token校验码
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.TokenType">
+            <summary>
+            Token传值方式：0、使用旧版Cookie；1、使用旧版Url Token；2、使用新版Url Token；
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.Sorting">
+            <summary>
+            序号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformDto.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Icon">
+            <summary>
+            logo图标
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Url">
+            <summary>
+            实训跳转链接
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.CheckCode">
+            <summary>
+            token校验码
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.TokenType">
+            <summary>
+            Token传值方式：0、使用旧版Cookie；1、使用旧版Url Token；2、使用新版Url Token；
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Enable">
+            <summary>
+            是否启用
+            </summary>
+        </member>
         <member name="T:Tiger.Module.QuestionBank.IQuestionAnswerAppService">
             <summary>
             题目答案
@@ -2249,6 +2369,11 @@
         <member name="T:Tiger.Module.QuestionBank.IQuestionCategoryAppService">
             <summary>
             题目分类
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.ITrainPlatformAppService">
+            <summary>
+            实训平台
             </summary>
         </member>
         <member name="T:Tiger.Module.QuestionBank.Permissions.QuestionBankPermissions.QuestionCategory">
@@ -3747,6 +3872,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.TestPaperSection">
             <summary>
             试卷大题
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.TrainPlatform">
+            <summary>
+            实训平台
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

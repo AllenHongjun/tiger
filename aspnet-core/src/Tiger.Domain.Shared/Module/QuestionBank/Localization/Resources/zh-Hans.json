@@ -42,7 +42,7 @@
     "DisplayName:Type": "题型",
     "DisplayName:Content": "内容",
     "DisplayName:Answer": "答案",
- 
+
     "DisplayName:Score": "分数",
     "DisplayName:Degree": "难易度",
     "DisplayName:Analysis": "试题解析",
@@ -55,6 +55,11 @@
     "DisplayName:IsShowTextButton": "是否显示上传文本按钮",
     "DisplayName:IsShowImageButton": "是否显示上传图片按钮",
     "DisplayName:IsShowLinkButton": "是否显示上传附件按钮",
+
+    "DisplayName:Icon": "logo图标",
+    "DisplayName:Url": "实训跳转链接",
+    "DisplayName:CheckCode": "token校验码",
+    "DisplayName:TokenType": "Token传值方式",
 
     "DuplicateData": "已经存在名为 {0} 的数据字典!",
     "DuplicateDataItem": "已经存在名为 {0} 的数据字典项!",

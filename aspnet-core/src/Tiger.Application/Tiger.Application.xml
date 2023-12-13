@@ -470,6 +470,11 @@
             <param name="QuestionCategoryGetListInput">input</param>
             <returns>查询到的所有角色</returns>
         </member>
+        <member name="T:Tiger.Module.QuestionBank.TrainPlatformAppService">
+            <summary>
+            实训平台
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Schools.ClassInfoAppService">
             <summary>
             班级

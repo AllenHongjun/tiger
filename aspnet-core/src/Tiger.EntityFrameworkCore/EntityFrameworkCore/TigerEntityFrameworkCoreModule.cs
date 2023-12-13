@@ -74,6 +74,7 @@ namespace Tiger.EntityFrameworkCore
             options.AddRepository<AnswerSheet, AnswerSheetRepository>();
             options.AddRepository<AnswerSheetDetail, AnswerSheetDetailRepository>();
             options.AddRepository<TestPaperSection, TestPaperSectionRepository>();
+            options.AddRepository<TrainPlatform, TrainPlatformRepository>();
             });
 
             Configure<AbpDbContextOptions>(options =>

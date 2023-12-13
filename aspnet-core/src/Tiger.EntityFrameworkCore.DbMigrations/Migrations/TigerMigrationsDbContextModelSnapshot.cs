@@ -1326,6 +1326,102 @@ namespace Tiger.Migrations
                     b.ToTable("AppQuestionCategories");
                 });
 
+            modelBuilder.Entity("Tiger.Module.QuestionBank.TrainPlatform", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CheckCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)")
+                        .HasComment("token校验码")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("描述")
+                        .HasMaxLength(512);
+
+                    b.Property<bool>("Enable")
+                        .HasColumnType("bit")
+                        .HasComment("是否启用");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("logo图标")
+                        .HasMaxLength(1024);
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("名称")
+                        .HasMaxLength(512);
+
+                    b.Property<int>("Sorting")
+                        .HasColumnType("int")
+                        .HasComment("序号");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("TokenType")
+                        .HasColumnType("int")
+                        .HasComment("Token传值方式：0、使用旧版Cookie；1、使用旧版Url Token；2、使用新版Url Token；");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1024)")
+                        .HasComment("实训跳转链接")
+                        .HasMaxLength(1024);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppTrainPlatforms");
+                });
+
             modelBuilder.Entity("Tiger.Module.Schools.ClassInfo", b =>
                 {
                     b.Property<Guid>("Id")
