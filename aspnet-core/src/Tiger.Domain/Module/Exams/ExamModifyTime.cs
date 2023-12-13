@@ -29,19 +29,14 @@ namespace Tiger.Module.Exams
         public int ExtendTime { get; set; }
 
         /// <summary>
-        /// 学校Id
+        /// 组织Id
         /// </summary>
-        public Guid SchoolId { get; set; }
+        public Guid OrganizationUnitId { get; set; }
 
         /// <summary>
-        /// 班级Id
+        /// 考生Id
         /// </summary>
-        public Guid ClassId { get; set; }
-
-        /// <summary>
-        /// 学员Id
-        /// </summary>
-        public Guid StudentId { get; set; }
+        public Guid ExamineeId { get; set; }
 
         public virtual Exam Exam { get; set; }
         

@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Tiger.Module.Schools;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
-using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 
 namespace Tiger.Module.Exams
 {
     /// <summary>
-    /// 考试人员表(应试人；参加考试者)
+    /// 试卷评委表
     /// </summary>
-    public class Examinee : CreationAuditedAggregateRoot<Guid>, IMultiTenant
+    /// <remarks>
+    /// 评卷人只有关联了试卷才能改卷（默认只有超管能改卷）
+    /// </remarks>
+    public class TestPaperJudge: CreationAuditedAggregateRoot<Guid>, IMultiTenant
     {
         /// <summary>
         /// 租户Id
         /// </summary>
         public Guid? TenantId { get; set; }
 
-        /// <summary>
-        /// 考试Id
+        /// 试卷Id
         /// </summary>
-        public Guid ExamId { get; set; }
+        public int TestPaperId { get; set; }
 
         /// <summary>
-        /// 考生Id
+        /// 评卷人Id
         /// </summary>
-        public Guid UserId { get; set; }
+        public Guid JudgeId { get; set; }
 
         /// <summary>
         /// 用户名
@@ -37,7 +37,7 @@ namespace Tiger.Module.Exams
         /// <summary>
         /// 姓名
         /// </summary>
-        public string FullName { get;set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// 邮箱
@@ -50,14 +50,9 @@ namespace Tiger.Module.Exams
         public string PhoneNumber { get; set; }
 
         /// <summary>
-        /// 考生所属组织Id
+        /// 组织Id
         /// </summary>
         public Guid OrganizationUnitId { get; set; }
-
-        /// <summary>
-        /// 考生所属组织名称
-        /// </summary>
-        public string OrganizationUnitName { get; set; }
         
     }
 }

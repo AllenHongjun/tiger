@@ -15,7 +15,7 @@ namespace Tiger.Module.QuestionBank
         public Guid? TenantId { get; set; }
 
         /// <summary>
-        /// 链接标题
+        /// 名称
         /// </summary>
         public string Name { get; set; }
 
@@ -38,6 +38,11 @@ namespace Tiger.Module.QuestionBank
         /// token校验码
         /// </summary>
         public string CheckCode { get; set; }
+
+        /// <summary>
+        /// Token传值方式：0、使用旧版Cookie；1、使用旧版Url Token；2、使用新版Url Token；
+        /// </summary>
+        public TokenType TokenType { get; set; }
 
         /// <summary>
         /// 序号
