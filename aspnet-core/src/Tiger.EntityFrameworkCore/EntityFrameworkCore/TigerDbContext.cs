@@ -143,6 +143,10 @@ namespace Tiger.EntityFrameworkCore
     /// 考试时间调整表
     /// </summary>
     public DbSet<ExamModifyTime> ExamModifyTimes { get; set; }
+    /// <summary>
+    /// 考试人员表(应试人；参加考试者)
+    /// </summary>
+    public DbSet<Examinee> Examinees { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

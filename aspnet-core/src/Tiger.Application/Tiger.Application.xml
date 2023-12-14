@@ -214,6 +214,11 @@
             考试
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.ExamineeAppService">
+            <summary>
+            考试人员表(应试人；参加考试者)
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.ExamModifyTimeAppService">
             <summary>
             考试时间调整表

@@ -574,6 +574,46 @@
             比赛间隔（单位: 分钟）
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.ExamId">
+            <summary>
+            考试Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.UserId">
+            <summary>
+            考生Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.FullName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.OrganizationUnitId">
+            <summary>
+            考生所属组织Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamineeDto.OrganizationUnitName">
+            <summary>
+            考生所属组织名称
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamModifyTimeDto.ExamId">
             <summary>
             考试Id
@@ -1062,6 +1102,91 @@
         <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Interval">
             <summary>
             比赛间隔（单位: 分钟）
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Dtos.ExamineeDto">
+            <summary>
+            考试人员表(应试人；参加考试者)
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.ExamId">
+            <summary>
+            考试Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.UserId">
+            <summary>
+            考生Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.FullName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.OrganizationUnitId">
+            <summary>
+            考生所属组织Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.OrganizationUnitName">
+            <summary>
+            考生所属组织名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.ExamId">
+            <summary>
+            考试Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.UserId">
+            <summary>
+            考生Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.FullName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.OrganizationUnitId">
+            <summary>
+            考生所属组织Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.OrganizationUnitName">
+            <summary>
+            考生所属组织名称
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.Dtos.ExamModifyTimeDto">
@@ -1698,6 +1823,11 @@
         <member name="T:Tiger.Module.Exams.IExamAppService">
             <summary>
             考试
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.IExamineeAppService">
+            <summary>
+            考试人员表(应试人；参加考试者)
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.IExamModifyTimeAppService">
@@ -3977,6 +4107,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.ExamModifyTime">
             <summary>
             考试时间调整表
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.Examinee">
+            <summary>
+            考试人员表(应试人；参加考试者)
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

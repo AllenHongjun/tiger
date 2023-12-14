@@ -20,6 +20,7 @@ using Tiger.Volo.Abp.Sass;
 using Tiger.Volo.Abp.Sass.Editions;
 using Volo.Abp.Identity;
 using Tiger.Module.Train;
+using Tiger.Volo.Abp.Identity;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -653,6 +654,23 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.ExtendTime).HasComment("考试延长时间：单位分钟");
                 b.Property(p => p.OrganizationUnitId).HasComment("组织Id");
                 b.Property(p => p.ExamineeId).HasComment("考生Id");
+                b.ConfigureByConvention(); 
+
+                /* Configure more properties here */
+            });
+
+
+            builder.Entity<Examinee>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "Examinees", TigerConsts.DbSchema);
+                b.Property(p => p.ExamId).HasComment("考试Id");
+                b.Property(p => p.UserId).HasComment("考生Id");
+                b.Property(p => p.UserName).HasMaxLength(IdentityUserConsts.MaxUserNameLength).IsRequired(true).HasComment("用户名");
+                b.Property(p => p.FullName).HasMaxLength(IdentityUserConsts.MaxSurnameLength).IsRequired(false).HasComment("姓名");
+                b.Property(p => p.Email).HasMaxLength(IdentityUserConsts.MaxNormalizedEmailLength).IsRequired(false).HasComment("邮箱");
+                b.Property(p => p.PhoneNumber).HasMaxLength(IdentityUserConsts.MaxPhoneNumberLength).IsRequired(false).HasComment("手机号");
+                b.Property(p => p.OrganizationUnitId).HasComment("考生所属组织Id");
+                b.Property(p => p.OrganizationUnitName).HasComment("考生所属组织名称");
                 b.ConfigureByConvention(); 
 
                 /* Configure more properties here */

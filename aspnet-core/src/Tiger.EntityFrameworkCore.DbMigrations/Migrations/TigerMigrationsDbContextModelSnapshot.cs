@@ -482,6 +482,76 @@ namespace Tiger.Migrations
                     b.ToTable("AppExamModifyTimes");
                 });
 
+            modelBuilder.Entity("Tiger.Module.Exams.Examinee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("邮箱")
+                        .HasMaxLength(256);
+
+                    b.Property<Guid>("ExamId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("考试Id");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(64)")
+                        .HasComment("姓名")
+                        .HasMaxLength(64);
+
+                    b.Property<Guid>("OrganizationUnitId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("考生所属组织Id");
+
+                    b.Property<string>("OrganizationUnitName")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("考生所属组织名称");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(16)")
+                        .HasComment("手机号")
+                        .HasMaxLength(16);
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("考生Id");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(256)")
+                        .HasComment("用户名")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppExaminees");
+                });
+
             modelBuilder.Entity("Tiger.Module.Exams.TestPaper", b =>
                 {
                     b.Property<Guid>("Id")

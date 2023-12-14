@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.Schools;
@@ -59,5 +59,33 @@ namespace Tiger.Module.Exams
         /// </summary>
         public string OrganizationUnitName { get; set; }
         
+
+    protected Examinee()
+    {
+    }
+
+    public Examinee(
+        Guid id,
+        Guid? tenantId,
+        Guid examId,
+        Guid userId,
+        string userName,
+        string fullName,
+        string email,
+        string phoneNumber,
+        Guid organizationUnitId,
+        string organizationUnitName
+    ) : base(id)
+    {
+        TenantId = tenantId;
+        ExamId = examId;
+        UserId = userId;
+        UserName = userName;
+        FullName = fullName;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        OrganizationUnitId = organizationUnitId;
+        OrganizationUnitName = organizationUnitName;
+    }
     }
 }

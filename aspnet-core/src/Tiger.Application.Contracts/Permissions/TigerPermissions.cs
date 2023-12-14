@@ -58,5 +58,15 @@ namespace Tiger.Permissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 考试人员表(应试人；参加考试者)
+    /// </summary>
+    public class Examinee
+    {
+        public const string Default = GroupName + ".Examinee";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
     }
 }
