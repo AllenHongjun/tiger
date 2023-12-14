@@ -9,10 +9,19 @@ namespace Tiger.Module.QuestionBank
     /// </summary>
     public enum TokenType
     {
+        /// <summary>
+        /// 使用旧版Cookie
+        /// </summary>
         Cookie = 0,
 
+        /// <summary>
+        /// 使用旧版Url
+        /// </summary>
         Url = 1,
 
+        /// <summary>
+        /// 使用新版Url
+        /// </summary>
         NewUrl = 2,
     }
 }

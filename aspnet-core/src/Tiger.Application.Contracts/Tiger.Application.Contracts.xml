@@ -2656,6 +2656,21 @@
             是否启用
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.filter">
+            <summary>
+            查询关键字
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.CreateStartTime">
+            <summary>
+            创建开始时间
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.CreateEndTime">
+            <summary>
+            创建结束时间
+            </summary>
+        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Name">
             <summary>
             名称
@@ -2734,6 +2749,11 @@
         <member name="T:Tiger.Module.QuestionBank.Permissions.QuestionBankPermissions.QuestionAnswer">
             <summary>
             题目答案
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.QuestionBank.Permissions.QuestionBankPermissions.TrainPlatform">
+            <summary>
+            实训平台
             </summary>
         </member>
         <member name="T:Tiger.Module.Schools.Dtos.ClassInfoDto">
@@ -4212,11 +4232,6 @@
         <member name="T:Tiger.Permissions.TigerPermissions.TestPaperSection">
             <summary>
             试卷大题
-            </summary>
-        </member>
-        <member name="T:Tiger.Permissions.TigerPermissions.TrainPlatform">
-            <summary>
-            实训平台
             </summary>
         </member>
         <member name="T:Tiger.Permissions.TigerPermissions.ExamModifyTime">

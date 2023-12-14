@@ -42,6 +42,11 @@ namespace Tiger.Module.QuestionBank.Permissions
                 question.AddChild(
                     QuestionBankPermissions.Question.Delete,
                     L("Permissions:Delete"));
+
+            var trainPlatform = group.AddPermission(QuestionBankPermissions.TrainPlatform.Default,L("Permissions:TrainPlatform"));
+            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Create,L("Permissions:Create"));
+            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Update,L("Permissions:Update"));
+            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Delete,L("Permissions:Delete"));
         }
 
         private ILocalizableString L(string name)

@@ -33,6 +33,16 @@ const questionBankRouter = {
         // policy: 'AbpSaasPermissions.Tenants',
         icon: 'el-icon-wallet'
       }
+    },
+    {
+      path: '/question-bank/train-platform/list',
+      component: () => import('@/views/question-bank/train-platform/index'),
+      name: 'TrainPlatform',
+      meta: {
+        title: 'AppQuestionBank["Menu:TrainPlatform"]',
+        // policy: 'AbpSaasPermissions.Tenants',
+        icon: 'el-icon-wallet'
+      }
     }
 
   ]

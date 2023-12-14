@@ -51,5 +51,16 @@ namespace Tiger.Module.QuestionBank.Permissions
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
         }
+
+        /// <summary>
+        /// 实训平台
+        /// </summary>
+        public class TrainPlatform
+        {
+            public const string Default = GroupName + ".TrainPlatform";
+            public const string Update = Default + ".Update";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+        }
     }
 }

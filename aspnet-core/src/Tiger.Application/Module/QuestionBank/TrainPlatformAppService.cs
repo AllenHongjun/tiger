@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Tiger.Permissions;
 using Tiger.Module.QuestionBank.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -26,6 +24,9 @@ public class TrainPlatformAppService : CrudAppService<TrainPlatform, TrainPlatfo
     {
         // TODO: AbpHelper generated
         return base.CreateFilteredQuery(input)
+            .WhereIf(!input.filter.IsNullOrWhiteSpace(), x => x.Name.Contains(input.filter) || x.Url.Contains(input.filter) || x.Url.Contains(input.filter) || x.CheckCode.Contains(input.filter))
+            .WhereIf(input.CreateStartTime != null, x => x.CreationTime >= input.CreateStartTime)
+            .WhereIf(input.CreateEndTime != null, x => x.CreationTime <= input.CreateEndTime)
             .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
             .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
             .WhereIf(!input.Icon.IsNullOrWhiteSpace(), x => x.Icon.Contains(input.Icon))

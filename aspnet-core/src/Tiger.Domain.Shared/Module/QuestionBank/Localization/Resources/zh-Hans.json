@@ -4,6 +4,7 @@
     "Menu:QuestionBank": "题库",
     "Menu:QuestionCategory": "题目分类",
     "Menu:Question": "题目管理",
+    "Menu:TrainPlatform": "实训平台",
 
     "Platform:01404": "文件: {FileName}, 版本号: {FileVersion} 不存在!",
     "Platform:02001": "同级目录下存在相同的菜单: {Name}!",
@@ -16,6 +17,7 @@
 
     "Permission:QuestionCategory": "题目分类",
     "Permission:Qestiion": "题目",
+    "Permission:TrainPlatform": "实训平台",
     "Permission:Create": "新增",
     "Permission:Update": "更新",
     "Permission:Delete": "删除",
@@ -56,10 +58,11 @@
     "DisplayName:IsShowImageButton": "是否显示上传图片按钮",
     "DisplayName:IsShowLinkButton": "是否显示上传附件按钮",
 
+    "DisplayName:Description": "描述",
     "DisplayName:Icon": "logo图标",
     "DisplayName:Url": "实训跳转链接",
     "DisplayName:CheckCode": "token校验码",
-    "DisplayName:TokenType": "Token传值方式",
+    "DisplayName:TokenType": "token传值方式",
 
     "DuplicateData": "已经存在名为 {0} 的数据字典!",
     "DuplicateDataItem": "已经存在名为 {0} 的数据字典项!",

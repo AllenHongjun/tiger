@@ -38,16 +38,7 @@ namespace Tiger.Permissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
-    /// <summary>
-    /// 实训平台
-    /// </summary>
-    public class TrainPlatform
-    {
-        public const string Default = GroupName + ".TrainPlatform";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
+    
     /// <summary>
     /// 考试时间调整表
     /// </summary>

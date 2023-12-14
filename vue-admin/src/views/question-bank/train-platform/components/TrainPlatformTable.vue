@@ -35,10 +35,10 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
                 {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
                 <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link>
+              </el-link> -->
             </el-button-group>
           </el-col>
         </el-row>
@@ -52,50 +52,71 @@
 
       <!-- 操作按钮 -->
       <el-row>
-        <el-button-group>
-          <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
-            {{ $t("AppPlatform['Permission:Create']") }}
-          </el-button>
-          <!-- <el-button icon="el-icon-download" @click="handleDownload">
-            导出
-          </el-button> -->
-        </el-button-group>
+        <el-col>
+          <el-button-group>
+            <el-button v-if="checkPermission('QuestionBank.TrainPlatform.Create')" class="filter-item" type="primary" icon="el-icon-plus" @click="handleCreate">
+              {{ $t("AppQuestionBank['Permission:Create']") }}
+            </el-button>
+            <!-- <el-button icon="el-icon-download" @click="handleDownload">
+              导出
+            </el-button> -->
+          </el-button-group>
+        </el-col>
       </el-row>
     </div>
 
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Name\']')" prop="name" sortable align="left" width="120">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name" sortable align="left" width="180">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:DisplayName\']')" align="left" width="120">
-        <template slot-scope="{ row }">
-          <span>{{ row.displayName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Description\']')" prop="description" sortable align="left">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Description\']')" prop="description" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.description }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Path\']')" prop="path" sortable align="left">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Icon\']')" prop="icon" sortable align="left" width="220">
         <template slot-scope="{ row }">
-          <span>{{ row.path }}</span>
+          <el-image style="width: 100px; height: 40px" :src="Url.photoPrefix + row.icon" fit="contain" :preview-src-list="[Url.photoPrefix + row.icon]">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline" />
+            </div>
+          </el-image>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppPlatform[\'DisplayName:Redirect\']')" prop="redirect" sortable align="left">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Url\']')" prop="url" sortable align="left" width="280">
         <template slot-scope="{ row }">
-          <span>{{ row.redirect }}</span>
+          <el-link :href="row.url" target="_blank" type="primary">{{ row.url }}</el-link>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:CheckCode\']')" prop="checkCode" sortable align="left" width="120">
+        <template slot-scope="{ row }">
+          <span>{{ row.checkCode }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:TokenType\']')" prop="tokenType" sortable align="left" width="160">
+        <template slot-scope="{ row }">
+          <span>{{ row.tokenType }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" prop="sorting" sortable align="left" width="120">
+        <template slot-scope="{ row }">
+          <span>{{ row.sorting }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable" sortable align="left" width="80">
+        <template slot-scope="{ row }">
+          <el-tag :type="( row.enable ? 'success' : 'danger')" :class="[ row.enable ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('Platform.Layout.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
-          <el-button v-if="checkPermission('Platform.Layout.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
+          <el-button v-if="checkPermission('QuestionBank.TrainPlatform.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
+          <el-button v-if="checkPermission('QuestionBank.TrainPlatform.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
         </template>
       </el-table-column>
     </el-table>
@@ -105,16 +126,16 @@
 </template>
 
 <script>
-import baseListQuery, { checkPermission } from '@/utils/abp'
+import baseListQuery, { Url, checkPermission } from '@/utils/abp'
 import {
-  getLayouts,
-  deleteLayout
-} from '@/api/system-manage/platform/layout'
+  getTrainPlatforms,
+  deleteTrainPlatform
+} from '@/api/question-bank/train-platform'
 import { pickerRangeWithHotKey } from '@/utils/picker'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
 
 export default {
-  name: 'LayoutTable',
+  name: 'TrainPlatformTable',
   components: {
     Pagination
   },
@@ -130,7 +151,8 @@ export default {
       listQuery: Object.assign({
         createStartTime: undefined,
         createEndTime: undefined
-      }, baseListQuery)
+      }, baseListQuery),
+      Url
     }
   },
   created() {
@@ -146,7 +168,7 @@ export default {
         this.listQuery.createStartTime = this.queryCreateDateTime[0]
         this.listQuery.createEndTime = this.queryCreateDateTime[1]
       }
-      getLayouts(this.listQuery).then(response => {
+      getTrainPlatforms(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
@@ -200,7 +222,7 @@ export default {
         }
       ).then(async() => {
         // 回调函数
-        deleteLayout(row.id).then(() => {
+        deleteTrainPlatform(row.id).then(() => {
           this.handleFilter(false)
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),

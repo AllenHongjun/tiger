@@ -59,6 +59,7 @@ namespace Tiger.Module.Exams.Permissions
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
         }
+
         /// <summary>
         /// 答卷明细表
         /// </summary>
