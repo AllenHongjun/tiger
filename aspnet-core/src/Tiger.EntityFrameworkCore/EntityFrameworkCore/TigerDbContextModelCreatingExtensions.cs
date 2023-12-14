@@ -675,6 +675,21 @@ namespace Tiger.EntityFrameworkCore
 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<TestPaperJudge>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "TestPaperJudges", TigerConsts.DbSchema);
+                b.Property(p => p.TestPaperId).HasComment("试卷Id");
+                b.Property(p => p.JudgeId).HasComment("评委Id");
+                b.Property(p => p.OrganizationUnitId).HasComment("组织Id");
+                b.Property(p => p.UserName).HasMaxLength(IdentityUserConsts.MaxUserNameLength).IsRequired(true).HasComment("用户名");
+                b.Property(p => p.FullName).HasMaxLength(IdentityUserConsts.MaxSurnameLength).IsRequired(false).HasComment("姓名");
+                b.Property(p => p.Email).HasMaxLength(IdentityUserConsts.MaxNormalizedEmailLength).IsRequired(false).HasComment("邮箱");
+                b.Property(p => p.PhoneNumber).HasMaxLength(IdentityUserConsts.MaxPhoneNumberLength).IsRequired(false).HasComment("手机号");
+                b.ConfigureByConvention(); 
+                /* Configure more properties here */
+            });
         }
 
 

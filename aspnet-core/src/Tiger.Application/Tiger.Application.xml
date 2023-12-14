@@ -229,6 +229,11 @@
             试卷
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.TestPaperJudgeAppService">
+            <summary>
+            试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperQuestionAppService">
             <summary>
             试卷内容(题目)表

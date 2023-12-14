@@ -68,5 +68,15 @@ namespace Tiger.Permissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
+    /// </summary>
+    public class TestPaperJudge
+    {
+        public const string Default = GroupName + ".TestPaperJudge";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
     }
 }

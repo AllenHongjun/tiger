@@ -147,6 +147,10 @@ namespace Tiger.EntityFrameworkCore
     /// 考试人员表(应试人；参加考试者)
     /// </summary>
     public DbSet<Examinee> Examinees { get; set; }
+    /// <summary>
+    /// 试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
+    /// </summary>
+    public DbSet<TestPaperJudge> TestPaperJudges { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

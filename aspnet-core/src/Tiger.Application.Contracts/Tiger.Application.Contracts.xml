@@ -689,6 +689,41 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperJudgeDto.TestPaperId">
+            <summary>
+            试卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperJudgeDto.JudgeId">
+            <summary>
+            评卷人Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperJudgeDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperJudgeDto.FullName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperJudgeDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperJudgeDto.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperJudgeDto.OrganizationUnitId">
+            <summary>
+            组织Id
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperQuestionDto.TestPaperId">
             <summary>
             试卷ID
@@ -1489,6 +1524,81 @@
             评卷结束时间
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.Dtos.TestPaperJudgeDto">
+            <summary>
+            试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeDto.TestPaperId">
+            <summary>
+            试卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeDto.JudgeId">
+            <summary>
+            评卷人Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeDto.FullName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeDto.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeDto.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeDto.OrganizationUnitId">
+            <summary>
+            组织Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeGetListInput.TestPaperId">
+            <summary>
+            试卷Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeGetListInput.JudgeId">
+            <summary>
+            评卷人Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeGetListInput.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeGetListInput.FullName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeGetListInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeGetListInput.PhoneNumber">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.TestPaperJudgeGetListInput.OrganizationUnitId">
+            <summary>
+            组织Id
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.Dtos.TestPaperQuestionComfirmSelectDto">
             <summary>
             试卷题目手动确认选择
@@ -1838,6 +1948,11 @@
         <member name="T:Tiger.Module.Exams.ITestPaperAppService">
             <summary>
             试卷
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.ITestPaperJudgeAppService">
+            <summary>
+            试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.ITestPaperQuestionAppService">
@@ -4112,6 +4227,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.Examinee">
             <summary>
             考试人员表(应试人；参加考试者)
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.TestPaperJudge">
+            <summary>
+            试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities;
@@ -54,5 +54,31 @@ namespace Tiger.Module.Exams
         /// </summary>
         public Guid OrganizationUnitId { get; set; }
         
+
+        protected TestPaperJudge()
+        {
+        }
+
+        public TestPaperJudge(
+            Guid id,
+            Guid? tenantId,
+            int testPaperId,
+            Guid judgeId,
+            string userName,
+            string fullName,
+            string email,
+            string phoneNumber,
+            Guid organizationUnitId
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            TestPaperId = testPaperId;
+            JudgeId = judgeId;
+            UserName = userName;
+            FullName = fullName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            OrganizationUnitId = organizationUnitId;
+        }
     }
 }
