@@ -214,6 +214,11 @@
             考试
             </summary>
         </member>
+        <member name="T:Tiger.Module.Exams.ExamModifyTimeAppService">
+            <summary>
+            考试时间调整表
+            </summary>
+        </member>
         <member name="T:Tiger.Module.Exams.TestPaperAppService">
             <summary>
             试卷

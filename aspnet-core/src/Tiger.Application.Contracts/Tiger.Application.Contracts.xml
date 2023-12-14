@@ -574,6 +574,31 @@
             比赛间隔（单位: 分钟）
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamModifyTimeDto.ExamId">
+            <summary>
+            考试Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamModifyTimeDto.DelayTime">
+            <summary>
+            考试推迟时间：单位分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamModifyTimeDto.ExtendTime">
+            <summary>
+            考试延长时间：单位分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamModifyTimeDto.OrganizationUnitId">
+            <summary>
+            组织Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateExamModifyTimeDto.ExamineeId">
+            <summary>
+            考生Id
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.CreateUpdateTestPaperDto.TestPaperMainId">
             <summary>
             主试卷、固定题目时0，随机题目或打乱顺序时录入主试卷的ID
@@ -1037,6 +1062,71 @@
         <member name="P:Tiger.Module.Exams.Dtos.ExamGetListInput.Interval">
             <summary>
             比赛间隔（单位: 分钟）
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.Dtos.ExamModifyTimeDto">
+            <summary>
+            考试时间调整表
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeDto.ExamId">
+            <summary>
+            考试Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeDto.DelayTime">
+            <summary>
+            考试推迟时间：单位分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeDto.ExtendTime">
+            <summary>
+            考试延长时间：单位分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeDto.OrganizationUnitId">
+            <summary>
+            组织Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeDto.ExamineeId">
+            <summary>
+            考生Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeDto.ExamName">
+            <summary>
+            考试名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeDto.OrganizationUnitName">
+            <summary>
+            组织名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeGetListInput.ExamId">
+            <summary>
+            考试Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeGetListInput.DelayTime">
+            <summary>
+            考试推迟时间：单位分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeGetListInput.ExtendTime">
+            <summary>
+            考试延长时间：单位分钟
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeGetListInput.OrganizationUnitId">
+            <summary>
+            组织Id
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamModifyTimeGetListInput.ExamineeId">
+            <summary>
+            考生Id
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.Dtos.ExamScorePanelDto">
@@ -1608,6 +1698,11 @@
         <member name="T:Tiger.Module.Exams.IExamAppService">
             <summary>
             考试
+            </summary>
+        </member>
+        <member name="T:Tiger.Module.Exams.IExamModifyTimeAppService">
+            <summary>
+            考试时间调整表
             </summary>
         </member>
         <member name="T:Tiger.Module.Exams.ITestPaperAppService">
@@ -3877,6 +3972,11 @@
         <member name="T:Tiger.Permissions.TigerPermissions.TrainPlatform">
             <summary>
             实训平台
+            </summary>
+        </member>
+        <member name="T:Tiger.Permissions.TigerPermissions.ExamModifyTime">
+            <summary>
+            考试时间调整表
             </summary>
         </member>
         <member name="T:Tiger.TigerApplicationContractsModule">

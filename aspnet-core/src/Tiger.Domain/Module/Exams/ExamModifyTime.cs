@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -11,6 +11,9 @@ namespace Tiger.Module.Exams
     /// </summary>
     public class ExamModifyTime:FullAuditedEntity<Guid>,IMultiTenant
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
         public Guid? TenantId { get; set; }
 
         /// <summary>
@@ -38,7 +41,29 @@ namespace Tiger.Module.Exams
         /// </summary>
         public Guid ExamineeId { get; set; }
 
-        public virtual Exam Exam { get; set; }
+        //public virtual Exam Exam { get; set; }
         
+
+    protected ExamModifyTime()
+    {
+    }
+
+    public ExamModifyTime(
+        Guid id,
+        Guid? tenantId,
+        Guid examId,
+        int delayTime,
+        int extendTime,
+        Guid organizationUnitId,
+        Guid examineeId
+    ) : base(id)
+    {
+        TenantId = tenantId;
+        ExamId = examId;
+        DelayTime = delayTime;
+        ExtendTime = extendTime;
+        OrganizationUnitId = organizationUnitId;
+        ExamineeId = examineeId;
+    }
     }
 }

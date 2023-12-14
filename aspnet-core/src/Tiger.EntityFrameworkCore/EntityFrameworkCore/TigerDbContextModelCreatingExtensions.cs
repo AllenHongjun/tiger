@@ -643,6 +643,20 @@ namespace Tiger.EntityFrameworkCore
                 b.ConfigureByConvention(); 
                 /* Configure more properties here */
             });
+
+
+            builder.Entity<ExamModifyTime>(b =>
+            {
+                b.ToTable(TigerConsts.DbTablePrefix + "ExamModifyTimes", TigerConsts.DbSchema);
+                b.Property(p => p.ExamId).HasComment("考试Id");
+                b.Property(p => p.DelayTime).HasComment("考试推迟时间：单位分钟");
+                b.Property(p => p.ExtendTime).HasComment("考试延长时间：单位分钟");
+                b.Property(p => p.OrganizationUnitId).HasComment("组织Id");
+                b.Property(p => p.ExamineeId).HasComment("考生Id");
+                b.ConfigureByConvention(); 
+
+                /* Configure more properties here */
+            });
         }
 
 

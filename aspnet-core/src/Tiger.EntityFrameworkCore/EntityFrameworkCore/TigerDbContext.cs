@@ -139,6 +139,10 @@ namespace Tiger.EntityFrameworkCore
     /// 实训平台
     /// </summary>
     public DbSet<TrainPlatform> TrainPlatforms { get; set; }
+    /// <summary>
+    /// 考试时间调整表
+    /// </summary>
+    public DbSet<ExamModifyTime> ExamModifyTimes { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)

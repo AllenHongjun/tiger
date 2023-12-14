@@ -417,6 +417,71 @@ namespace Tiger.Migrations
                     b.ToTable("AppExams");
                 });
 
+            modelBuilder.Entity("Tiger.Module.Exams.ExamModifyTime", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DelayTime")
+                        .HasColumnType("int")
+                        .HasComment("考试推迟时间：单位分钟");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ExamId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("考试Id");
+
+                    b.Property<Guid>("ExamineeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("考生Id");
+
+                    b.Property<int>("ExtendTime")
+                        .HasColumnType("int")
+                        .HasComment("考试延长时间：单位分钟");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnName("LastModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrganizationUnitId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("组织Id");
+
+                    b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppExamModifyTimes");
+                });
+
             modelBuilder.Entity("Tiger.Module.Exams.TestPaper", b =>
                 {
                     b.Property<Guid>("Id")
