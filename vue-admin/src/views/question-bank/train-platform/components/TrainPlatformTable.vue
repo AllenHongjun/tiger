@@ -68,16 +68,12 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name" sortable align="left" width="180">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name" sortable align="left">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Description\']')" prop="description" sortable align="left">
-        <template slot-scope="{ row }">
-          <span>{{ row.description }}</span>
-        </template>
-      </el-table-column>
+
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Icon\']')" prop="icon" sortable align="left" width="220">
         <template slot-scope="{ row }">
           <el-image style="width: 100px; height: 40px" :src="Url.photoPrefix + row.icon" fit="contain" :preview-src-list="[Url.photoPrefix + row.icon]">
@@ -113,7 +109,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="280">
+      <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="180">
         <template slot-scope="{ row, $index }">
           <el-button v-if="checkPermission('QuestionBank.TrainPlatform.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
           <el-button v-if="checkPermission('QuestionBank.TrainPlatform.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
@@ -184,6 +180,15 @@ export default {
     // 搜索展开切换
     toggleAdvanced() {
       this.advanced = !this.advanced
+    },
+    // 重置查询参数
+    resetQueryForm() {
+      this.queryCreateDateTime = undefined
+      this.listQuery = Object.assign({
+        createStartTime: undefined,
+        createEndTime: undefined,
+        enable: undefined
+      }, baseListQuery)
     },
     // 刷新页面
     handleRefresh() {

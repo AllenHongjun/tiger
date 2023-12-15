@@ -8,7 +8,7 @@
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Description\']')" prop="description">
           <el-input v-model="temp.description" />
         </el-form-item>
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Icon\']')" prop="icon" style="width: 200px;">
+        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Icon\']')" prop="icon">
           <single-image-upload v-model="temp.icon" @input="input" />
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Url\']')" prop="url">

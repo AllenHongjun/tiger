@@ -18,11 +18,6 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column label="姓名" prop="name" sortable align="left" width="220">
-        <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="姓名" prop="name" sortable align="left" width="280">
         <template slot-scope="{ row }">
           <span>{{ row.name }}</span>
