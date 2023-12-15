@@ -9,6 +9,7 @@ using Tiger.Volo.Abp.Identity.Roles.Dto;
 using Tiger.Volo.Abp.Identity.Users.Dto;
 using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Identity;
+using IdentityUserDto = Volo.Abp.Identity.IdentityUserDto;
 
 namespace Tiger.Volo.Abp.Identity
 {
@@ -19,6 +20,8 @@ namespace Tiger.Volo.Abp.Identity
             
             CreateMap<IdentityRoleClaim, IdentityRoleClaimDto>();
             CreateMap<IdentityUser, IdentityUserDto>()
+                .MapExtraProperties();
+            CreateMap<IdentityUser, Users.Dto.IdentityUserDto>()
                 .MapExtraProperties();
             CreateMap<IdentityRole, IdentityRoleDto>()
                 .MapExtraProperties();

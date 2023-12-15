@@ -1,7 +1,7 @@
 <template>
   <div class="model-container">
     <el-dialog class="large-dialog" :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tabs v-model="activeName">
         <el-tab-pane label="基本信息" name="first">
           <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
             <el-form-item :label="$t('AppExam[\'DisplayName:TestPaperName\']')" prop="testPaperId">
@@ -102,7 +102,8 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="指定考生(15)" name="second">
-          <examinee-table ref="ExamineeTable" />
+          <!-- <examinee-table ref="ExamineeTable" /> -->
+          <examinee-select-table />
         </el-tab-pane>
 
       </el-tabs>
@@ -132,12 +133,14 @@ import {
 } from '@/api/exam/test-paper'
 import SingleImageUpload from '@/components/Upload/SingleImage.vue'
 import ExamineeTable from './ExamineeTable.vue'
+import ExamineeSelectTable from './ExamineeSelectTable.vue'
 
 export default {
   name: 'ExamModel',
   components: {
     SingleImageUpload,
-    ExamineeTable
+    ExamineeTable,
+    ExamineeSelectTable
   },
   data() {
     return {

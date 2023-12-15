@@ -12,6 +12,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Identity;
 using Volo.Abp.PermissionManagement;
+using IdentityUserDto = Volo.Abp.Identity.IdentityUserDto;
 
 namespace Tiger.Volo.Abp.Identity
 {
@@ -45,7 +46,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns></returns>
         [HttpGet]
         [Route("list")]
-        public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
+        public async Task<PagedResultDto<Users.Dto.IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
         {
             return await _userAppService.GetListAsync(input);
         }

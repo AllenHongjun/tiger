@@ -21,6 +21,7 @@ using Volo.Abp.Emailing;
 using Volo.Abp.Identity;
 using Volo.Abp.Sms;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
+using IdentityUserDto = Volo.Abp.Identity.IdentityUserDto;
 
 namespace Tiger.Volo.Abp.Identity
 {
@@ -68,7 +69,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(IdentityPermissions.Users.Default)]
-        public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
+        public async Task<PagedResultDto<Users.Dto.IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
         {
             var count = await _tigerIdentityUserRepository.GetCountAsync(input.RoleId, input.OrganizationUnitId,
                 input.UserName, input.PhoneNumber, input.Name,
@@ -80,9 +81,9 @@ namespace Tiger.Volo.Abp.Identity
                 input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
 
             // TODO: 增加返回 TwoFactorEnabled
-            return new PagedResultDto<IdentityUserDto>(
+            return new PagedResultDto<Users.Dto.IdentityUserDto>(
                 count,
-                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(list)
+                ObjectMapper.Map<List<IdentityUser>, List<Users.Dto.IdentityUserDto>>(list)
             );
         }
 

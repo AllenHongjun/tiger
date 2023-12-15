@@ -8,6 +8,6 @@ namespace Tiger.Volo.Abp.Identity.OrganizationUnits.Dto
     public class GetOrganizationUnitInput : PagedAndSortedResultRequestDto
     {
         public Guid? ParentId { get; set; }
-        public string Filter { get; set; }
+        public string? Filter { get; set; }
     }
 }

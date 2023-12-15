@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Tiger.Volo.Abp.Identity.OrganizationUnits.Dto;
 using Tiger.Volo.Abp.Identity.Users.Dto;
-using Tiger.Volo.Abp.IdentityServer.IdentityResources;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
+using IdentityUserDto = Volo.Abp.Identity.IdentityUserDto;
 
 namespace Tiger.Volo.Abp.Identity.Users
 {
@@ -23,7 +20,7 @@ namespace Tiger.Volo.Abp.Identity.Users
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input);
+        Task<PagedResultDto<Dto.IdentityUserDto>> GetListAsync(IdentityUserGetListInput input);
 
         /// <summary>
         /// 从xlsx导入角色
