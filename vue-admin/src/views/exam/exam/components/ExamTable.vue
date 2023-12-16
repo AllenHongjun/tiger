@@ -155,7 +155,10 @@
 
       <el-table-column :label="$t('AbpUi[\'Actions\']')" align="left" width="180">
         <template slot-scope="{ row, $index }">
-          <el-button v-if="checkPermission('Exam.Exam.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" />
+          <router-link v-if="checkPermission('Exam.Exam.Update')" :to="'/exam/update/'+ row.id">
+            <el-button type="primary" icon="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" />
+          </router-link>
+          <!-- <el-button v-if="checkPermission('Exam.Exam.Update')" type="primary" class="el-icon-edit" :title="$t('AbpUi[\'Edit\']')" @click="handleUpdate(row)" /> -->
           <el-button v-if="checkPermission('Exam.Exam.Delete')" type="danger" class="el-icon-delete" :title="$t('AbpUi[\'Delete\']')" @click="handleDelete(row, $index)" />
 
           <el-dropdown style="margin-left:8px;" @command="handleCommand">

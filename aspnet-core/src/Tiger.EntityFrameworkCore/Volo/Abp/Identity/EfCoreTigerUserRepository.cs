@@ -3,25 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Tiger.Volo.Abp.Sass.Editions;
+using Tiger.EntityFrameworkCore;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
-using Volo.Abp.SettingManagement;
-using Volo.Abp.Users.EntityFrameworkCore;
 
 namespace Tiger.Volo.Abp.Identity
 {
     /// <summary>
     /// 用户仓储实现（扩展abp用户仓储）
     /// </summary>
-    public class EfCoreTigerIdentityUserRepository : EfCoreIdentityUserRepository, ITigerIdentityUserRepository
+    public class EfCoreTigerIdentityUserRepository:EfCoreRepository<TigerDbContext, IdentityUser, Guid>, ITigerIdentityUserRepository
     {
         public EfCoreTigerIdentityUserRepository(
-            IDbContextProvider<IIdentityDbContext> dbContextProvider)
+            IDbContextProvider<TigerDbContext> dbContextProvider)
             : base(dbContextProvider)
         {
         }
@@ -140,7 +139,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <exception cref="NotImplementedException"></exception>
         public async Task<IdentityUser> FindByPhoneNumberAsync(string phoneNumber, bool isConfiremed = true, bool includeDetails = false, CancellationToken cancellationToken = default)
         {
-            return await DbContext.Users.IncludeDetails(includeDetails)
+            return await DbContext.Set<IdentityUser>().IncludeDetails(includeDetails)
                 .Where(user => user.PhoneNumber == phoneNumber && user.PhoneNumberConfirmed == isConfiremed)
                 .FirstOrDefaultAsync(cancellationToken);
         }
@@ -154,7 +153,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns></returns>
         public async Task<List<IdentityUser>> GetListByIdListAsync(List<Guid> userIds, bool includeDetails = false, CancellationToken cancellationToken = default)
         {
-            return await DbContext.Users.IncludeDetails(includeDetails)
+            return await DbContext.Set<IdentityUser>().IncludeDetails(includeDetails)
                 .Where(user => userIds.Contains(user.Id))
                 .ToListAsync(cancellationToken);
         }
@@ -179,8 +178,8 @@ namespace Tiger.Volo.Abp.Identity
             CancellationToken cancellationToken = default)
         {
             var query = from userOU in DbContext.Set<IdentityUserOrganizationUnit>()
-                        join user in DbContext.Users on userOU.UserId equals user.Id
-                        join ou in DbContext.OrganizationUnits.IncludeDetails(includeDetails)
+                        join user in DbContext.Set<IdentityUser>() on userOU.UserId equals user.Id
+                        join ou in DbContext.Set<OrganizationUnit>().IncludeDetails(includeDetails)
                             on userOU.OrganizationUnitId equals ou.Id
                         where userOU.UserId == userId
                         select ou;
@@ -208,8 +207,8 @@ namespace Tiger.Volo.Abp.Identity
         {
 
             var query = from userOU in DbContext.Set<IdentityUserOrganizationUnit>()
-                        join user in DbContext.Users on userOU.UserId equals user.Id
-                        join ou in DbContext.OrganizationUnits
+                        join user in DbContext.Set<IdentityUser>() on userOU.UserId equals user.Id
+                        join ou in DbContext.Set<OrganizationUnit>()
                             on userOU.OrganizationUnitId equals ou.Id
                         where userOU.OrganizationUnitId == organizationId
                         select user;
@@ -236,8 +235,8 @@ namespace Tiger.Volo.Abp.Identity
             CancellationToken cancellation = default)
         {
             var query = from userOU in DbContext.Set<IdentityUserOrganizationUnit>()
-                        join user in DbContext.Users on userOU.UserId equals user.Id
-                        join ou in DbContext.OrganizationUnits
+                        join user in DbContext.Set<IdentityUser>() on userOU.UserId equals user.Id
+                        join ou in DbContext.Set<OrganizationUnit>()
                             on userOU.OrganizationUnitId equals ou.Id
                         where userOU.OrganizationUnitId == organizationUnitId
                         select user;
@@ -257,8 +256,8 @@ namespace Tiger.Volo.Abp.Identity
             string filter = null)
         {
             var query = from userOu in DbContext.Set<IdentityUserOrganizationUnit>()
-                        join user in DbContext.Users on userOu.UserId equals user.Id
-                        join ou in DbContext.OrganizationUnits
+                        join user in DbContext.Set<IdentityUser>() on userOu.UserId equals user.Id
+                        join ou in DbContext.Set<OrganizationUnit>()
                             on userOu.OrganizationUnitId equals ou.Id
                         where ou.Code.StartsWith(code)
                         select user;
@@ -319,7 +318,7 @@ namespace Tiger.Volo.Abp.Identity
         public async Task<bool> IsEmailConfirmedAsync(string normalizedEmail, CancellationToken cancellationToken = default)
         {
             //ToDo: NormalizedEmail 和 Email区别?
-            return await DbContext.Users.IncludeDetails(false)
+            return await DbContext.Set<IdentityUser>().IncludeDetails(false)
                 .AnyAsync( user => user.NormalizedEmail == normalizedEmail && user.EmailConfirmed,
                 GetCancellationToken(cancellationToken));
             throw new NotImplementedException();
@@ -333,7 +332,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns></returns>
         public async Task<bool> IsPhoneNumberConfirmedAsync(string phoneNumber, CancellationToken cancellationToken = default)
         {
-            return await DbContext.Users.IncludeDetails(false)
+            return await DbContext.Set<IdentityUser>().IncludeDetails(false)
                 .AnyAsync(user => user.PhoneNumber == phoneNumber && user.PhoneNumberConfirmed,
                     GetCancellationToken(cancellationToken));
         }
@@ -346,7 +345,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns></returns>
         public async Task<bool> IsPhoneNumberUsedAsync(string phoneNumber, CancellationToken cancellationToken)
         {
-            var query = await DbContext.Users.IncludeDetails(false)
+            var query = await DbContext.Set<IdentityUser>().IncludeDetails(false)
                 .AnyAsync(user => user.PhoneNumber == phoneNumber, GetCancellationToken(cancellationToken));
             return  query;
         }

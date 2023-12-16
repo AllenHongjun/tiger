@@ -1144,11 +1144,6 @@
             考试人员表(应试人；参加考试者)
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.ExamId">
-            <summary>
-            考试Id
-            </summary>
-        </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.UserId">
             <summary>
             考生Id
@@ -1174,14 +1169,14 @@
             手机号
             </summary>
         </member>
-        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.OrganizationUnitId">
-            <summary>
-            考生所属组织Id
-            </summary>
-        </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.OrganizationUnitName">
             <summary>
             考生所属组织名称
+            </summary>
+        </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.inExamineeTable">
+            <summary>
+            是否在考试人员名单中
             </summary>
         </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamineeGetListInput.ExamId">

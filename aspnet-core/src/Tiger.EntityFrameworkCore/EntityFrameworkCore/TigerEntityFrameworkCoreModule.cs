@@ -21,6 +21,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Tiger.Module.Train;
+using Volo.Abp.Identity;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -49,6 +50,8 @@ namespace Tiger.EntityFrameworkCore
         {
             context.Services.AddAbpDbContext<TigerDbContext>(options =>
             {
+                
+
                 /* Remove "includeAllEntities: true" to create
                  * default repositories only for aggregate roots */
                 options.AddDefaultRepositories(includeAllEntities: true);
@@ -58,26 +61,31 @@ namespace Tiger.EntityFrameworkCore
                 options.AddRepository<Language, LanguageRepository>();
                 options.AddRepository<Resource, ResourceRepository>();
                 options.AddRepository<LanguageText, LanguageTextRepository>();
-                options.AddRepository<Tiger.Module.System.Platform.Datas.Data, DataRepository>();
+                options.AddRepository<Data, DataRepository>();
                 options.AddRepository<Region, RegionRepository>();
                 options.AddRepository<School, SchoolRepository>();
                 options.AddRepository<ClassInfo, ClassInfoRepository>();
-            options.AddRepository<Course, CourseRepository>();
-            options.AddRepository<TestPaper, TestPaperRepository>();
-            options.AddRepository<QuestionCategory, QuestionCategoryRepository>();
-            options.AddRepository<Question, QuestionRepository>();
-            options.AddRepository<QuestionAttachment, QuestionAttachmentRepository>();
-            options.AddRepository<QuestionAnswer, QuestionAnswerRepository>();
-            options.AddRepository<TestPaperStrategy, TestPaperStrategyRepository>();
-            options.AddRepository<TestPaperQuestion, TestPaperQuestionRepository>();
-            options.AddRepository<Exam, ExamRepository>();
-            options.AddRepository<AnswerSheet, AnswerSheetRepository>();
-            options.AddRepository<AnswerSheetDetail, AnswerSheetDetailRepository>();
-            options.AddRepository<TestPaperSection, TestPaperSectionRepository>();
-            options.AddRepository<TrainPlatform, TrainPlatformRepository>();
-            options.AddRepository<ExamModifyTime, ExamModifyTimeRepository>();
-            options.AddRepository<Examinee, ExamineeRepository>();
-            options.AddRepository<TestPaperJudge, TestPaperJudgeRepository>();
+                options.AddRepository<Course, CourseRepository>();
+                options.AddRepository<TestPaper, TestPaperRepository>();
+                options.AddRepository<QuestionCategory, QuestionCategoryRepository>();
+                options.AddRepository<Question, QuestionRepository>();
+                options.AddRepository<QuestionAttachment, QuestionAttachmentRepository>();
+                options.AddRepository<QuestionAnswer, QuestionAnswerRepository>();
+                options.AddRepository<TestPaperStrategy, TestPaperStrategyRepository>();
+                options.AddRepository<TestPaperQuestion, TestPaperQuestionRepository>();
+                options.AddRepository<Exam, ExamRepository>();
+                options.AddRepository<AnswerSheet, AnswerSheetRepository>();
+                options.AddRepository<AnswerSheetDetail, AnswerSheetDetailRepository>();
+                options.AddRepository<TestPaperSection, TestPaperSectionRepository>();
+                options.AddRepository<TrainPlatform, TrainPlatformRepository>();
+                options.AddRepository<ExamModifyTime, ExamModifyTimeRepository>();
+                options.AddRepository<Examinee, ExamineeRepository>();
+                options.AddRepository<TestPaperJudge, TestPaperJudgeRepository>();
+
+                // 替换其他模块的 DbContext 不同DbContext的表可以关联查询
+                options.ReplaceDbContext<IPermissionManagementDbContext>();
+                options.ReplaceDbContext<IAuditLoggingDbContext>();
+                options.ReplaceDbContext<IIdentityDbContext>();
             });
 
             Configure<AbpDbContextOptions>(options =>

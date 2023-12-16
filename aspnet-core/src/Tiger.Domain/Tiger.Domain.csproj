@@ -31,6 +31,7 @@
     <Compile Remove="PlatfromSdk\TwitterApiV2\**" />
     <Compile Remove="Tiger.Task\**" />
     <Compile Remove="Volo\Abp\IdentityServer\Devices\**" />
+    <Compile Remove="Volo\Abp\Identity\Users\**" />
     <EmbeddedResource Remove="Business\**" />
     <EmbeddedResource Remove="CoreModule\**" />
     <EmbeddedResource Remove="Infrastructure\BackgroundTasks\Notifications\**" />
@@ -52,6 +53,7 @@
     <EmbeddedResource Remove="PlatfromSdk\TwitterApiV2\**" />
     <EmbeddedResource Remove="Tiger.Task\**" />
     <EmbeddedResource Remove="Volo\Abp\IdentityServer\Devices\**" />
+    <EmbeddedResource Remove="Volo\Abp\Identity\Users\**" />
     <None Remove="Business\**" />
     <None Remove="CoreModule\**" />
     <None Remove="Infrastructure\BackgroundTasks\Notifications\**" />
@@ -73,6 +75,7 @@
     <None Remove="PlatfromSdk\TwitterApiV2\**" />
     <None Remove="Tiger.Task\**" />
     <None Remove="Volo\Abp\IdentityServer\Devices\**" />
+    <None Remove="Volo\Abp\Identity\Users\**" />
   </ItemGroup>
 
   <ItemGroup>

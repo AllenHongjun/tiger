@@ -5,6 +5,8 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
+using Tiger.EntityFrameworkCore;
+using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -15,10 +17,10 @@ namespace Tiger.Volo.Abp.Identity
     /// Efcore 角色仓储实现
     /// </summary>
     public class EfCoreTigerIdentityRoleRepository
-        : EfCoreIdentityRoleRepository, ITigerIdentityRoleRepository
+        : EfCoreRepository<TigerDbContext, IdentityRole, Guid>, ITigerIdentityRoleRepository
     {
         public EfCoreTigerIdentityRoleRepository(
-            IDbContextProvider<IIdentityDbContext> dbContextProvider) : base(dbContextProvider)
+            IDbContextProvider<TigerDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
 
@@ -82,7 +84,7 @@ namespace Tiger.Volo.Abp.Identity
         {
             // 使用表名的缩写命名
             var query = from roleOU in DbContext.Set<OrganizationUnitRole>()
-                        join ou in DbContext.OrganizationUnits.IncludeDetails(includeDetails) 
+                        join ou in DbContext.Set<OrganizationUnit>().IncludeDetails(includeDetails) 
                         on roleOU.OrganizationUnitId equals ou.Id
                         where roleOU.RoleId == roleId
                         select ou;
@@ -100,9 +102,9 @@ namespace Tiger.Volo.Abp.Identity
         public async Task<List<OrganizationUnit>> GetOrganizationUnitListAsync(IEnumerable<string> roleNames, bool includeDetails = false, CancellationToken cancellationToken = default)
         {
             var query = from ruleOu in DbContext.Set<OrganizationUnitRole>()
-                        join role in DbContext.Roles on ruleOu.RoleId equals role.Id
+                        join role in DbContext.Set<IdentityRole>() on ruleOu.RoleId equals role.Id
 
-                        join ou in DbContext.OrganizationUnits.IncludeDetails(includeDetails)
+                        join ou in DbContext.Set<OrganizationUnit>().IncludeDetails(includeDetails)
                             // 通过关联表的组织id和组织表的id关联
                             on ruleOu.OrganizationUnitId equals ou.Id
                         where roleNames.Contains(role.Name)
@@ -155,8 +157,8 @@ namespace Tiger.Volo.Abp.Identity
         {
 
             var query = from roleOU in DbContext.Set<OrganizationUnitRole>()
-                        join role in DbContext.Roles on roleOU.RoleId equals role.Id
-                        join ou in DbContext.OrganizationUnits on roleOU.OrganizationUnitId equals ou.Id
+                        join role in DbContext.Set<IdentityRole>() on roleOU.RoleId equals role.Id
+                        join ou in DbContext.Set<OrganizationUnit>() on roleOU.OrganizationUnitId equals ou.Id
                         where ou.Code.StartsWith(code)
                         select role;
             return await query.ToListAsync(GetCancellationToken(cancellationToken));

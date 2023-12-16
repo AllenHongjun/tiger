@@ -48,7 +48,7 @@ namespace Tiger.Volo.Abp.Sass
 
 
 
-        public async override Task<Tenant> FindAsync(Guid id, bool includeDetails = true,
+        public async  Task<Tenant> Find1Async(Guid id, bool includeDetails = true,
             CancellationToken cancellationToken = default)
         {
             var tenantDbSet = DbContext.Set<Tenant>();

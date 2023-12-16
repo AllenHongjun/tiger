@@ -62,9 +62,13 @@ namespace Tiger.Module.TaskManagement
             JobInfo jobInfo,
             CancellationToken cancellationToken = default)
         {
+
+            return;
             using var unitOfWork = UnitOfWorkManager.Begin();
             using (CurrentTenant.Change(jobInfo.TenantId))
             {
+                
+                //TODO: 有个bug会跳转 tenent里面
                 var backgroundJobInfo = await JobInfoRepository.FindAsync(jobInfo.Id, cancellationToken: cancellationToken);
                 if (backgroundJobInfo != null)
                 {

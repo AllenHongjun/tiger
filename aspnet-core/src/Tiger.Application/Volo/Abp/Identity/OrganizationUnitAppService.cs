@@ -34,6 +34,7 @@ namespace Volo.Abp.Identity
         protected IOrganizationUnitRepository OrganizationUnitRepository { get; }
         protected ITigerIdentityRoleRepository RoleRepository { get; }
         protected ITigerIdentityUserRepository UserRepository { get; }
+        protected IIdentityUserRepository IdentityUserRepository { get; }
         protected IIdentityUserAppService UserAppService { get; }
         protected IIdentityRoleAppService RoleAppService { get; }
 
@@ -47,7 +48,8 @@ namespace Volo.Abp.Identity
             IDistributedCache<PagedResultDto<OrganizationUnitDto>> cachePage,
             ITigerIdentityRoleRepository roleRepository,
             ITigerIdentityUserRepository userRepository,
-            IdentityUserManager userManager)
+            IdentityUserManager userManager,
+            IIdentityUserRepository identityUserRepository)
         {
             OrganizationUnitManager = unitManager;
             OrganizationUnitRepository = unitRepository;
@@ -60,7 +62,8 @@ namespace Volo.Abp.Identity
             _cache = cache;
             _cacheList = cacheList;
             _cachePage = cachePage;
-        } 
+            IdentityUserRepository=identityUserRepository;
+        }
         #endregion
 
         #region Utility
@@ -406,7 +409,7 @@ namespace Volo.Abp.Identity
         [Authorize(TigerIdentityPermissions.OrganizationUnits.ManageRoles)]
         public async virtual Task<ListResultDto<string>> GetRoleNamesAsync(Guid ouid)
         {
-            var roleNames = await UserRepository.GetRoleNamesInOrganizationUnitAsync(ouid);
+            var roleNames = await IdentityUserRepository.GetRoleNamesInOrganizationUnitAsync(ouid);
 
             return new ListResultDto<string>(roleNames);
         }

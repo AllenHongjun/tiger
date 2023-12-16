@@ -1,122 +1,111 @@
 <template>
-  <div class="model-container">
-    <el-dialog class="large-dialog" :title=" dialogStatus == 'create'? $t('AppExam[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="1vh" width="99%">
-      <el-tabs v-model="activeName">
-        <el-tab-pane label="基本信息" name="first">
-          <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-            <el-form-item :label="$t('AppExam[\'DisplayName:TestPaperName\']')" prop="testPaperId">
-              <el-select v-model="temp.testPaperId" placeholder="请选择" filterable clearable>
-                <el-option
-                  v-for="item in testPaperOptions"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
-              <el-input v-model="temp.name" />
-            </el-form-item>
-            <el-form-item :label="$t('AppExam[\'DisplayName:Number\']')" prop="number">
-              <el-input v-model="temp.number" />
-            </el-form-item>
-
-            <el-form-item prop="passingScore">
-              <span slot="label">
-                <el-tooltip content="考生通过考试的分数" placement="top">
-                  <i class="el-icon-question" />
-                </el-tooltip>
-                及格分数
-              </span>
-              <el-input v-model="temp.passingScore">
-                <template slot="append">总分<span>35.0</span>分</template>
-              </el-input>
-            </el-form-item>
-
-            <el-form-item prop="examDuration">
-              <span slot="label">
-                <el-tooltip content="允许考试进入考试或者练习的时间范围。比如设置12月1日到12月5日，考生只能在这个时间范围进入考试" placement="top">
-                  <i class="el-icon-question" />
-                </el-tooltip>
-                考试时间
-              </span>
-              <el-date-picker
-                v-model="examTimeRange"
-                type="datetimerange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
+  <div class="app-container">
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="基本信息" name="first">
+        <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
+          <el-form-item :label="$t('AppExam[\'DisplayName:TestPaperName\']')" prop="testPaperId">
+            <el-select v-model="temp.testPaperId" placeholder="请选择" filterable clearable>
+              <el-option
+                v-for="item in testPaperOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
               />
-            </el-form-item>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item prop="examDuration">
-                  <span slot="label">
-                    <el-tooltip content="允许考试的答题时间,超过时间自动提交答卷" placement="top">
-                      <i class="el-icon-question" />
-                    </el-tooltip>
-                    答题时间
-                  </span>
-                  <el-input v-model="temp.examDuration" type="number">
-                    <template slot="append">分钟</template>
-                  </el-input>
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item prop="maxExamCount">
-                  <span slot="label">
-                    <el-tooltip content="允许每个考生参加的次数" placement="top">
-                      <i class="el-icon-question" />
-                    </el-tooltip>
-                    可考次数
-                  </span>
-                  <el-input v-model="temp.maxExamCount" type="number">
-                    <template slot="append">次/考生</template>
-                  </el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="12">
-                <el-form-item prop="maxExamCount">
-                  <span slot="label">
-                    启用
-                  </span>
-                  <el-switch v-model="temp.isEnable" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="12">
-                <el-form-item prop="maxExamCount">
-                  <span slot="label">
-                    成绩设置
-                  </span>
-                  <el-radio v-model="temp.isShowScore" :label="true">交卷后显示成绩</el-radio>
-                  <el-radio v-model="temp.isShowScore" :label="false">交卷后不显示成绩</el-radio>
-                </el-form-item>
-              </el-col>
-            </el-row>
-            <el-form-item :label="$t('AppExam[\'DisplayName:CoverUrl\']')" prop="coverUrl">
-              <single-image-upload v-model="temp.coverUrl" @input="input" />
-            </el-form-item>
+            </el-select>
+          </el-form-item>
+          <el-form-item :label="$t('AppExam[\'DisplayName:Name\']')" prop="name">
+            <el-input v-model="temp.name" />
+          </el-form-item>
+          <el-form-item :label="$t('AppExam[\'DisplayName:Number\']')" prop="number">
+            <el-input v-model="temp.number" />
+          </el-form-item>
 
-          </el-form>
-        </el-tab-pane>
-        <el-tab-pane label="指定考生(15)" name="second">
-          <!-- <examinee-table ref="ExamineeTable" /> -->
-          <examinee-select-table />
-        </el-tab-pane>
+          <el-form-item prop="passingScore">
+            <span slot="label">
+              <el-tooltip content="考生通过考试的分数" placement="top">
+                <i class="el-icon-question" />
+              </el-tooltip>
+              及格分数
+            </span>
+            <el-input v-model="temp.passingScore">
+              <template slot="append">总分<span>35.0</span>分</template>
+            </el-input>
+          </el-form-item>
 
-      </el-tabs>
+          <el-form-item prop="examDuration">
+            <span slot="label">
+              <el-tooltip content="允许考试进入考试或者练习的时间范围。比如设置12月1日到12月5日，考生只能在这个时间范围进入考试" placement="top">
+                <i class="el-icon-question" />
+              </el-tooltip>
+              考试时间
+            </span>
+            <el-date-picker
+              v-model="examTimeRange"
+              type="datetimerange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            />
+          </el-form-item>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item prop="examDuration">
+                <span slot="label">
+                  <el-tooltip content="允许考试的答题时间,超过时间自动提交答卷" placement="top">
+                    <i class="el-icon-question" />
+                  </el-tooltip>
+                  答题时间
+                </span>
+                <el-input v-model="temp.examDuration" type="number">
+                  <template slot="append">分钟</template>
+                </el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item prop="maxExamCount">
+                <span slot="label">
+                  <el-tooltip content="允许每个考生参加的次数" placement="top">
+                    <i class="el-icon-question" />
+                  </el-tooltip>
+                  可考次数
+                </span>
+                <el-input v-model="temp.maxExamCount" type="number">
+                  <template slot="append">次/考生</template>
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item prop="maxExamCount">
+                <span slot="label">
+                  启用
+                </span>
+                <el-switch v-model="temp.isEnable" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item prop="maxExamCount">
+                <span slot="label">
+                  成绩设置
+                </span>
+                <el-radio v-model="temp.isShowScore" :label="true">交卷后显示成绩</el-radio>
+                <el-radio v-model="temp.isShowScore" :label="false">交卷后不显示成绩</el-radio>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-form-item :label="$t('AppExam[\'DisplayName:CoverUrl\']')" prop="coverUrl">
+            <single-image-upload v-model="temp.coverUrl" @input="input" />
+          </el-form-item>
 
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">
-          {{ $t("AbpUi['Cancel']") }}
-        </el-button>
-        <el-button type="primary" @click="dialogStatus === 'create' ? createData() : updateData()">
-          {{ $t("AbpUi['Save']") }}
-        </el-button>
-      </div>
-    </el-dialog>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="已选考生(15)" name="second">
+        <examinee-table ref="ExamineeTable" />
+        <!-- <examinee-select-table /> -->
+      </el-tab-pane>
+
+    </el-tabs>
 
   </div>
 </template>
@@ -144,6 +133,7 @@ export default {
   },
   data() {
     return {
+      isEdit: true,
       activeName: 'second',
       testPaperOptions: [],
       examTimeRange: [],
@@ -224,6 +214,11 @@ export default {
   },
   created() {
     this.fetchTestPaperOptions()
+
+    if (this.isEdit) {
+      const id = this.$route.params && this.$route.params.id
+      this.handleUpdate({ id: id })
+    }
   },
   methods: {
     fetchTestPaperOptions() {
@@ -306,8 +301,6 @@ export default {
 
     // 更新按钮点击
     handleUpdate(row) {
-      this.dialogStatus = 'update'
-      this.dialogFormVisible = true
       getExam(row.id).then(response => {
         this.temp = response
         this.examTimeRange = [this.temp.startDate, this.temp.endDate]

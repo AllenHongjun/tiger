@@ -28,6 +28,11 @@ public class EfCoreBackgroundJobInfoRepository :
         Clock = clock;
     }
 
+    public async Task<BackgroundJobInfo> FindAsync(Guid id, bool includeDetails = true, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        return null;
+    }
+
     public async virtual Task<bool> CheckNameAsync(
         string group,
         string name,

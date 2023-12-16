@@ -21,9 +21,9 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column :label="$t('AbpIdentity[\'OrganizationUnits\']')" align="left" width="220" prop="organizationUnitName">
+      <el-table-column :label="$t('AbpIdentity[\'OrganizationUnits\']')" align="left" width="280" prop="organizationUnitName">
         <template slot-scope="{ row }">
-          {{ row.extraProperties.OrganizationUnitName }}
+          <el-tag type="info">{{ row.extraProperties.OrganizationUnitName }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="userName" sortable align="left" width="180">

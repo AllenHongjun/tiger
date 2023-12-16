@@ -46,14 +46,14 @@ namespace Tiger.EntityFrameworkCore
                 // AbpUser表添加扩展字段
                 ObjectExtensionManager.Instance
                     .MapEfCoreProperty<IdentityUser, string>(
-                        nameof(AppUser.Avatar),
+                        "Avatar",
                         (entityBuilder, propertyBuilder) =>
                         {
                             propertyBuilder.HasMaxLength(AppUserConsts.MaxAvatarLength);
                         }
                     )
                     .MapEfCoreProperty<IdentityUser, string>(
-                        nameof(AppUser.Introduction),
+                        "Introduction",
                         (entityBuilder, propertyBuilder) =>
                         {
                             propertyBuilder.HasMaxLength(AppUserConsts.MaxIntroductionLength);

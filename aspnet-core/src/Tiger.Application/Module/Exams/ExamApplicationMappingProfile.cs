@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Tiger.Module.Exams.Dtos;
+using Volo.Abp.Identity;
 
 namespace Tiger.Module.Exams
 {
@@ -12,6 +13,10 @@ namespace Tiger.Module.Exams
         {
             CreateMap<Exam, ExamDto>();
             CreateMap<CreateUpdateExamDto, Exam>();
+
+            CreateMap<Examinee, ExamineeDto>();
+            CreateMap<CreateUpdateExamineeDto, Examinee>();
+            CreateMap<IdentityUser, ExamineeDto>();
 
             CreateMap<AnswerSheet, AnswerSheetDto>();
             CreateMap<CreateUpdateAnswerSheetDto, AnswerSheet>();

@@ -55,9 +55,9 @@ namespace Tiger.Volo.Abp.Identity
         [Authorize(IdentityPermissions.Roles.Default)]
         public  async Task<PagedResultDto<IdentityRoleDto>> GetListAsync(GetIdentityRolesInput input)
         {
-            var roleCount = await TigerIdentityRoleRepository.GetCountAsync(input.Filter);
+            var roleCount = await RoleRepository.GetCountAsync(input.Filter);
 
-            var roles = await TigerIdentityRoleRepository.GetListAsync(
+            var roles = await RoleRepository.GetListAsync(
                 input.Sorting ?? "Id desc", input.MaxResultCount, input.SkipCount, input.Filter, includeDetails:true);
 
             var roleList = ObjectMapper.Map<List<IdentityRole>, List<IdentityRoleDto>>(roles);
@@ -185,7 +185,7 @@ namespace Tiger.Volo.Abp.Identity
         public virtual async Task<IActionResult> ExportRolesToXlsxAsync(GetIdentityRolesInput input)
         {
             int maxResultCount = input.MaxResultCount == 1 ? 1 : int.MaxValue;
-            var roles = await TigerIdentityRoleRepository.GetListAsync(
+            var roles = await RoleRepository.GetListAsync(
                 input.Sorting ?? "Id desc", maxResultCount, input.SkipCount, input.Filter, includeDetails: true);
 
             //property manager 

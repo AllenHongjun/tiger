@@ -18,39 +18,34 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column label="姓名" prop="name" sortable align="left" width="280">
+      <el-table-column :label="$t('AbpIdentity[\'OrganizationUnits\']')" align="left" width="280" prop="organizationUnitName">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <el-tag type="info">{{ row.extraProperties.OrganizationUnitName }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="用户名" prop="name" sortable align="left" width="220">
+      <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="userName" sortable align="left" width="180">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <span>{{ row.userName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="所属部门" prop="name" sortable align="left" width="220">
+      <el-table-column label="姓名" prop="name" sortable align="left" width="120">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <el-tag v-if="row.surname || row.name " type="primary">{{ row.surname + row.name }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="手机号码" prop="name" sortable align="left">
+      <el-table-column :label="$t('AbpIdentity[\'PhoneNumber\']')" prop="phoneNumber" sortable align="left">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <span>{{ row.phoneNumber }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="邮箱" prop="name" sortable align="left">
+      <el-table-column :label="$t('AbpIdentity[\'EmailAddress\']')" prop="email" sortable align="left">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <span>{{ row.email }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="状态" prop="name" sortable align="left" width="120">
+      <el-table-column :label="$t('AbpIdentity[\'CreationTime\']')" prop="name" sortable align="left" width="180">
         <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间" prop="name" sortable align="left" width="120">
-        <template slot-scope="{ row }">
-          <span>{{ row.name }}</span>
+          <span>{{ row.creationTime | moment }}</span>
         </template>
       </el-table-column>
 
@@ -92,6 +87,9 @@ import {
   getLayouts,
   deleteLayout
 } from '@/api/system-manage/platform/layout'
+import {
+  getUserList
+} from '@/api/system-manage/identity/user'
 import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
 import ExamineeSelectTable from './ExamineeSelectTable.vue'
 import OrgTree from '@/views/system/identity/components/OrgTree.vue'
@@ -114,14 +112,6 @@ export default {
       dialogExamineeSelectVisible: false,
       dialogFormVisible: false,
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
       },
       formLabelWidth: '120px'
     }
@@ -135,7 +125,7 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      getLayouts(this.listQuery).then(response => {
+      getUserList(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false

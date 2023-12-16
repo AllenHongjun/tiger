@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Identity
@@ -10,7 +11,7 @@ namespace Tiger.Volo.Abp.Identity
     /// <summary>
     /// 角色仓储接口
     /// </summary>
-    public interface ITigerIdentityRoleRepository: IIdentityRoleRepository
+    public interface ITigerIdentityRoleRepository:  IRepository<IdentityRole, Guid>
     {
 
 

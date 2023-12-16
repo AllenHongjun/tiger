@@ -7,6 +7,13 @@ namespace Tiger.Module.Exams.Dtos;
 [Serializable]
 public class ExamineeGetListInput : PagedAndSortedResultRequestDto
 {
+    public string filter { get; set; }
+
+    /// <summary>
+    /// 是否在考试人员名单中
+    /// </summary>
+    public bool inExamineeTable { get; set; }
+
     /// <summary>
     /// 考试Id
     /// </summary>
@@ -46,4 +53,8 @@ public class ExamineeGetListInput : PagedAndSortedResultRequestDto
     /// 考生所属组织名称
     /// </summary>
     public string? OrganizationUnitName { get; set; }
+
+    public DateTime? minCreationTime { get; set; } 
+    
+    public DateTime? maxCreationTime { get; set; }
 }

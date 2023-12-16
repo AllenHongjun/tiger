@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Compile Remove="Business\**" />
+    <Compile Remove="Volo\Abp\Users\**" />
     <EmbeddedResource Remove="Business\**" />
+    <EmbeddedResource Remove="Volo\Abp\Users\**" />
     <None Remove="Business\**" />
+    <None Remove="Volo\Abp\Users\**" />
   </ItemGroup>
   
   <ItemGroup>
@@ -25,10 +28,6 @@
     <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="3.2.1" />
     <PackageReference Include="Volo.Abp.FeatureManagement.EntityFrameworkCore" Version="3.2.1" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Volo\Abp\Users\" />
   </ItemGroup>
 
 </Project>

@@ -1,25 +1,27 @@
 using Microsoft.EntityFrameworkCore;
+using Tiger.Module.Exams;
 using Tiger.Module.Notifications;
+using Tiger.Module.QuestionBank;
+using Tiger.Module.Schools;
+using Tiger.Module.System.Area;
 using Tiger.Module.System.Localization;
 using Tiger.Module.System.Platform.Datas;
 using Tiger.Module.System.Platform.Layouts;
 using Tiger.Module.System.Platform.Menus;
 using Tiger.Module.System.TextTemplate;
 using Tiger.Module.TaskManagement;
+using Tiger.Module.Train;
 using Tiger.Volo.Abp.Identity.Post;
-using Tiger.Volo.Abp.Identity.Users;
 using Tiger.Volo.Abp.Sass.Editions;
 using Tiger.Volo.Abp.Sass.Tenants;
+using Volo.Abp.AuditLogging;
+using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Identity;
-using Volo.Abp.Users.EntityFrameworkCore;
-using Tiger.Module.System.Area;
-using Tiger.Module.Schools;
-using Tiger.Module.Exams;
-using Tiger.Module.QuestionBank;
-using Tiger.Module.Train;
+using Volo.Abp.Identity.EntityFrameworkCore;
+using Volo.Abp.PermissionManagement;
+using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 
 namespace Tiger.EntityFrameworkCore
 {
@@ -30,6 +32,9 @@ namespace Tiger.EntityFrameworkCore
     // 配置连接字符串选择
     [ConnectionStringName("Default")]
     public class TigerDbContext : AbpDbContext<TigerDbContext>
+        , IIdentityDbContext
+        , IPermissionManagementDbContext
+        , IAuditLoggingDbContext
     {
 
         /* This is your actual DbContext used on runtime.
@@ -44,7 +49,27 @@ namespace Tiger.EntityFrameworkCore
          * 模块通常使用 ConnectionStringName attribute 为 DbContext 类关联一个唯一的连接字符串名称. 示例:
          */
 
-        public DbSet<AppUser> Users { get; set; }
+        public DbSet<PermissionGrant> PermissionGrants { get; set; }
+
+        public DbSet<AuditLog> AuditLogs { get; set; }
+
+        // 其他模块可以，身份认证模块一替换就无法启动 
+        // FTL: should inherit/implement Volo.Abp.Identity.EntityFrameworkCore.IIdentityDbContext,
+
+        //替换其他仓储 https://docs.abp.io/zh-Hans/abp/7.4/Entity-Framework-Core  仓储层直接不能继承原来的模块仓储，不然无法替换
+        public DbSet<IdentityUser> Users { get; set; }
+
+        public DbSet<IdentityRole> Roles { get; set; }
+
+        public DbSet<IdentityClaimType> ClaimTypes { get; set; }
+
+        public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
+
+        public DbSet<IdentitySecurityLog> IdentitySecurityLogs { get; set; }
+
+        public DbSet<IdentityUserLogin> IdentityUserLogins { get; set; }
+
+
         // 如何扩展abp原有的租户表 迁移里面文档了解
         public DbSet<Edition> Editions { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
@@ -60,7 +85,7 @@ namespace Tiger.EntityFrameworkCore
         public DbSet<Post> Posts { get; set; }
         public DbSet<TextTemplate> TextTemplates { get; set; }
         public DbSet<Language> Languages { get; set; }
-        public DbSet<Resource> Resources { get; set; }
+        public DbSet<Tiger.Module.System.Localization.Resource> Resources { get; set; }
         public DbSet<LanguageText> LanguageTexts { get; set; }
 
 
@@ -135,22 +160,23 @@ namespace Tiger.EntityFrameworkCore
         /// 试卷大题
         /// </summary>
         public DbSet<TestPaperSection> TestPaperSections { get; set; }
-    /// <summary>
-    /// 实训平台
-    /// </summary>
-    public DbSet<TrainPlatform> TrainPlatforms { get; set; }
-    /// <summary>
-    /// 考试时间调整表
-    /// </summary>
-    public DbSet<ExamModifyTime> ExamModifyTimes { get; set; }
-    /// <summary>
-    /// 考试人员表(应试人；参加考试者)
-    /// </summary>
-    public DbSet<Examinee> Examinees { get; set; }
-    /// <summary>
-    /// 试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
-    /// </summary>
-    public DbSet<TestPaperJudge> TestPaperJudges { get; set; }
+        /// <summary>
+        /// 实训平台
+        /// </summary>
+        public DbSet<TrainPlatform> TrainPlatforms { get; set; }
+        /// <summary>
+        /// 考试时间调整表
+        /// </summary>
+        public DbSet<ExamModifyTime> ExamModifyTimes { get; set; }
+        /// <summary>
+        /// 考试人员表(应试人；参加考试者)
+        /// </summary>
+        public DbSet<Examinee> Examinees { get; set; }
+        /// <summary>
+        /// 试卷评委表
+        /// </summary>
+        /// <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
+        public DbSet<TestPaperJudge> TestPaperJudges { get; set; }
 
         public TigerDbContext(DbContextOptions<TigerDbContext> options)
             : base(options)
@@ -177,20 +203,6 @@ namespace Tiger.EntityFrameworkCore
             base.OnModelCreating(builder);
 
             /* Configure the shared tables (with included modules) here */
-
-            builder.Entity<AppUser>(b =>
-            {
-                b.ToTable(AbpIdentityDbProperties.DbTablePrefix + "Users"); //Sharing the same table "AbpUsers" with the IdentityUser
-
-                b.ConfigureByConvention();
-                b.ConfigureAbpUser();
-
-                /* Configure mappings for your additional properties
-                 * Also see the TigerEfCoreEntityExtensionMappings class
-                 */
-                b.Property(x => x.Avatar).IsRequired(false).HasMaxLength(AppUserConsts.MaxAvatarLength).HasColumnName(nameof(AppUser.Avatar));
-                b.Property(x => x.Introduction).IsRequired(false).HasMaxLength(AppUserConsts.MaxIntroductionLength).HasColumnName(nameof(AppUser.Introduction));
-            });
 
             /* Configure your own tables/entities inside the ConfigureTiger method */
 

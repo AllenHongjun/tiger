@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Identity
@@ -11,7 +12,7 @@ namespace Tiger.Volo.Abp.Identity
     /// <summary>
     /// 用户
     /// </summary>
-    public interface ITigerIdentityUserRepository : IIdentityUserRepository
+    public interface ITigerIdentityUserRepository : IRepository<IdentityUser, Guid>
     {
 
         /// <summary>

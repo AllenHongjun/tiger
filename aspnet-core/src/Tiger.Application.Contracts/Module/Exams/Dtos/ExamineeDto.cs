@@ -9,10 +9,6 @@ namespace Tiger.Module.Exams.Dtos;
 [Serializable]
 public class ExamineeDto : CreationAuditedEntityDto<Guid>
 {
-    /// <summary>
-    /// 考试Id
-    /// </summary>
-    public Guid ExamId { get; set; }
 
     /// <summary>
     /// 考生Id
@@ -38,11 +34,6 @@ public class ExamineeDto : CreationAuditedEntityDto<Guid>
     /// 手机号
     /// </summary>
     public string PhoneNumber { get; set; }
-
-    /// <summary>
-    /// 考生所属组织Id
-    /// </summary>
-    public Guid OrganizationUnitId { get; set; }
 
     /// <summary>
     /// 考生所属组织名称

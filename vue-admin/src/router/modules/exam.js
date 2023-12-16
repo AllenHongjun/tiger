@@ -33,6 +33,18 @@ const examRouter = {
         // policy: 'AbpSaasPermissions.Tenants',
         icon: 'el-icon-wallet'
       }
+    },
+    {
+      path: '/exam/update/:id',
+      component: () => import('@/views/exam/exam/components/ExamModel'),
+      // component: () => import('@/views/exam/exam/index'),
+      name: 'ExamUpdate',
+      hidden: true,
+      meta: {
+        title: 'AppExam["Menu:Exam"]',
+        // policy: 'AbpSaasPermissions.Tenants',
+        icon: 'el-icon-wallet'
+      }
     }
   ]
 }

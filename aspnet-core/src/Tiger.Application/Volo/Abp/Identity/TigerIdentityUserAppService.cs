@@ -128,9 +128,11 @@ namespace Tiger.Volo.Abp.Identity
 
                     manager.ReadFromXlsx(worksheet, iRow);
 
-                    var user = await _identityUserRepository.GetAsync(manager.GetProperty("Id").GuidValue);
+                    IdentityUser user = null;
+                    var id = manager.GetProperty("Id").GuidValue;
+                    if (id != Guid.Empty) user = await _identityUserRepository.GetAsync(id);
 
-                    var isNew = user == null;
+                    var isNew = manager.GetProperty("Id").GuidValue == Guid.Empty;
 
                     user ??= new IdentityUser(
                         GuidGenerator.Create(), 
