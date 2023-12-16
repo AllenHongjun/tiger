@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Threading;
@@ -59,6 +60,18 @@ namespace Tiger
                             typeof(UpdateProfileDto)
                         },
                         "Introduction",
+                        options =>
+                        {
+                            options.DefaultValueFactory = () => "";
+                        }
+                    )
+                    .AddOrUpdateProperty<string>(
+                        new[]
+                        {
+                            typeof(IdentityUserDto),
+                            typeof(ProfileDto),
+                        },
+                        "OrganizationUnitName",
                         options =>
                         {
                             options.DefaultValueFactory = () => "";
