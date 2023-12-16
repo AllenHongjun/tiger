@@ -1,10 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "vue"
-		}
-	],
-	"settings": {
-		"vue.codeActions.enabled": false
-	}
+  "folders": [
+    {
+      "path": "vue-admin"
+    },
+    {
+      "path": "vue-app"
+    }
+  ],
+  "settings": {
+    "vue.codeActions.enabled": false
+  }
 }

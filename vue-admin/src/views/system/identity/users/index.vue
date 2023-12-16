@@ -100,6 +100,11 @@
     <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" border fit highlight-current-row stripe :default-sort="{prop:'creationTime', order: 'descending'}" @sort-change="sortChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column type="index" width="50" align="center" />
+      <el-table-column :label="$t('AbpIdentity[\'OrganizationUnits\']')" align="center" width="220" prop="userName" sortable="custom">
+        <template slot-scope="scope">
+          {{ scope.row.extraProperties.OrganizationUnitName }}
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('AbpIdentity[\'UserName\']')" align="center" width="220" prop="userName" sortable="custom">
         <template slot-scope="scope">
           {{ scope.row.userName }}

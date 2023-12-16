@@ -16,6 +16,7 @@ using Tiger.Volo.Abp.Identity.Users.Dto;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.BlobStoring;
+using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Emailing;
 using Volo.Abp.Identity;
@@ -61,7 +62,7 @@ namespace Tiger.Volo.Abp.Identity
         } 
         #endregion
 
-        #region IdentityUser
+        #region CRUD
         /// <summary>
         /// 分页查询用户列表
         /// </summary>
@@ -79,11 +80,17 @@ namespace Tiger.Volo.Abp.Identity
                 input.IsLockedOut, input.NotActive, input.EmailConfirmed, input.IsExternal,
                 input.MinCreationTime, input.MaxCreationTime, input.MinModifitionTime, input.MaxModifitionTime, input.Sorting, input.MaxResultCount, input.SkipCount, input.Filter);
 
-            // TODO: 增加返回 TwoFactorEnabled
-            return new PagedResultDto<IdentityUserDto>(
-                count,
-                ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(list)
-            );
+            var users = ObjectMapper.Map<List<IdentityUser>, List<IdentityUserDto>>(list);
+
+            // TODO: 一次查询所有用户关联的组织字典数据（减少查询数据库的次数）
+            foreach (var item in users)
+            {
+                List<OrganizationUnit> organizationUnits = await UserRepository.GetOrganizationUnitsAsync(item.Id);
+               // 对象扩展: https://docs.abp.io/zh-Hans/abp/7.0/Object-Extensions
+                item.SetProperty("OrganizationUnitName", string.Join("/", organizationUnits.Select(x => x.DisplayName).ToList()));
+
+            }
+            return new PagedResultDto<IdentityUserDto>(count, users);
         }
 
         /// <summary>
@@ -294,7 +301,7 @@ namespace Tiger.Volo.Abp.Identity
         #endregion
         #endregion
 
-        #region IdentityUserOrganizationUnits
+        #region 用户关联组织操作
         /// <summary>
         /// 将用户关联组织机构
         /// </summary>
