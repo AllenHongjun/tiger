@@ -20,7 +20,7 @@ namespace Tiger.Volo.Abp.Identity.Users
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<PagedResultDto<Dto.IdentityUserDto>> GetListAsync(IdentityUserGetListInput input);
+        Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input);
 
         /// <summary>
         /// 从xlsx导入角色

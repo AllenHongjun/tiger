@@ -46,7 +46,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <returns></returns>
         [HttpGet]
         [Route("list")]
-        public async Task<PagedResultDto<Users.Dto.IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
+        public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
         {
             return await _userAppService.GetListAsync(input);
         }

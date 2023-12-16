@@ -21,9 +21,9 @@
     <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
-      <el-table-column label="所属部门" prop="name" sortable align="left" width="220">
+      <el-table-column :label="$t('AbpIdentity[\'OrganizationUnits\']')" align="left" width="220" prop="organizationUnitName">
         <template slot-scope="{ row }">
-          <span>清华大学/理学院</span>
+          {{ row.extraProperties.OrganizationUnitName }}
         </template>
       </el-table-column>
       <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="userName" sortable align="left" width="180">

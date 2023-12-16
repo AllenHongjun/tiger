@@ -70,7 +70,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="input"></param>
         /// <returns></returns>
         [Authorize(IdentityPermissions.Users.Default)]
-        public async Task<PagedResultDto<Users.Dto.IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
+        public async Task<PagedResultDto<IdentityUserDto>> GetListAsync(IdentityUserGetListInput input)
         {
             var count = await _tigerIdentityUserRepository.GetCountAsync(input.RoleId, input.OrganizationUnitId,
                 input.UserName, input.PhoneNumber, input.Name,
