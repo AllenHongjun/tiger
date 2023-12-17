@@ -63,11 +63,22 @@ public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, Ex
 
     public async virtual Task BulkCreateAsync(ExamineeBatchInputDto input)
     {
-        if (!input.UserIds.Any())
+        if (!input.UserIds.Any() && !input.OrganizationUnitIds.Any())
         {
             return;
         }
-        var users = await _tigerIdentityUserRepository.GetListByIdsAsync(input.UserIds);
+        
+        List<IdentityUser> users;
+
+        if (input.UserIds.Any())
+        {
+            users = await _tigerIdentityUserRepository.GetListByIdsAsync(input.UserIds);
+        }
+        else
+        {
+            users = await _tigerIdentityUserRepository.GetUsersInOrganizationsListAsync(input.OrganizationUnitIds);
+        }
+        
         foreach (var user in users)
         {
             var examinee = new Examinee(GuidGenerator.Create(), CurrentTenant.Id, input.ExamId, user.Id, user.UserName, user.Surname + user.Name,

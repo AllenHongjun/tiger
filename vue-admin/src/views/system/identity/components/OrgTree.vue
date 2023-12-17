@@ -88,6 +88,10 @@ export default {
   name: 'OrgTree',
   mixins: [Tree],
   props: {
+    showCheckbox: {
+      type: Boolean,
+      default: false
+    },
     supportSingleChecked: {
       type: Boolean,
       default: false
@@ -100,7 +104,6 @@ export default {
   data() {
     return {
       orgTreeData: null,
-      checkStrictly: true,
       orgTreeProps: {
         label: 'displayName',
         children: 'children',
@@ -273,6 +276,7 @@ export default {
       if (!value) return true
       return data.displayName.indexOf(value) !== -1
     },
+    /* 节点选中状态发生变化时的回调*/
     checkChange(data, checked, indeterminate) {
       // 单个
       let keys = ''

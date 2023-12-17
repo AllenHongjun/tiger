@@ -61,13 +61,13 @@
 
     <examinee-select-table ref="examineeSelectTable" :exam-id="examId" @created="handleFilter" />
 
-    <el-dialog title="指定组织" :visible.sync="dialogFormVisible" append-to-body top="5vh">
+    <el-dialog title="指定组织" :visible.sync="dialogOrgSelectVisible" append-to-body top="5vh">
       <el-form :model="form">
-        <org-tree />
+        <org-tree ref="orgTree" :show-checkbox="true" :support-single-checked="false" @handleCheckChange="handleCheckChange" />
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click="dialogOrgSelectVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmSelectOrg">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -78,9 +78,10 @@
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
   getExaminees,
-  deleteExaminee,
+  batchCreateExaminee,
   batchDeleteExaminee
 } from '@/api/exam/examinee'
+
 import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
 import ExamineeSelectTable from './ExamineeSelectTable.vue'
 import OrgTree from '@/views/system/identity/components/OrgTree.vue'
@@ -109,7 +110,8 @@ export default {
         inExamineeTable: true
       }, baseListQuery),
 
-      dialogFormVisible: false,
+      dialogOrgSelectVisible: false,
+      orgIds: [],
       form: {
       },
       formLabelWidth: '120px'
@@ -145,8 +147,32 @@ export default {
     handleSelectExaminee() {
       this.$refs['examineeSelectTable'].getList()
     },
-    handleSelectOrg(row) {
-      this.dialogFormVisible = true
+    handleSelectOrg() {
+      this.dialogOrgSelectVisible = true
+    },
+    // 组织树节点点击事件回调
+    handleCheckChange(data, orgIds) {
+      if (orgIds) {
+        this.orgIds = orgIds
+      }
+    },
+    // 添加组织关联的用户到考生表
+    confirmSelectOrg() {
+      var req = {
+        examId: this.examId,
+        organizationUnitIds: this.orgIds
+      }
+      console.log('req', req)
+      batchCreateExaminee(req).then(() => {
+        this.dialogOrgSelectVisible = false
+        this.handleFilter()
+        this.$notify({
+          title: this.$i18n.t("TigerUi['Success']"),
+          message: this.$i18n.t("TigerUi['SuccessMessage']"),
+          type: 'success',
+          duration: 2000
+        })
+      })
     },
     // 删除
     handleDelete(row) {

@@ -75,6 +75,9 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-form-item :label="$t('AppExam[\'DisplayName:CoverUrl\']')" prop="coverUrl">
+            <single-image-upload v-model="temp.coverUrl" @input="input" />
+          </el-form-item>
           <el-row>
             <el-col :span="12">
               <el-form-item prop="maxExamCount">
@@ -94,8 +97,9 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item :label="$t('AppExam[\'DisplayName:CoverUrl\']')" prop="coverUrl">
-            <single-image-upload v-model="temp.coverUrl" @input="input" />
+          <el-form-item>
+            <el-button type="primary" @click="updateData()">提  交</el-button>
+            <el-button>取消</el-button>
           </el-form-item>
 
         </el-form>
@@ -122,19 +126,17 @@ import {
 } from '@/api/exam/test-paper'
 import SingleImageUpload from '@/components/Upload/SingleImage.vue'
 import ExamineeTable from './ExamineeTable.vue'
-import ExamineeSelectTable from './ExamineeSelectTable.vue'
 
 export default {
   name: 'ExamModel',
   components: {
     SingleImageUpload,
-    ExamineeTable,
-    ExamineeSelectTable
+    ExamineeTable
   },
   data() {
     return {
       isEdit: true,
-      activeName: 'second',
+      activeName: 'first',
       testPaperOptions: [],
       examTimeRange: [],
       temp: {

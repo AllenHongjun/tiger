@@ -8,6 +8,8 @@ namespace Tiger.Module.Exams.Dtos
     {
         public Guid ExamId { get; set; }
 
+        public List<Guid> OrganizationUnitIds = new List<Guid>();
+
         public List<Guid> UserIds { get; set; } = new List<Guid>();
     }
 }
