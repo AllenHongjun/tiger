@@ -9,6 +9,11 @@ using System.Collections.Generic;
 using Volo.Abp.ObjectMapping;
 using Volo.Abp.Identity;
 using System.Diagnostics;
+using Volo.Abp.Users;
+using Microsoft.AspNetCore.Authorization;
+using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
+using Tiger.Module.TaskManagement.Dtos;
+using Tiger.Module.TaskManagement.Permissions;
 
 namespace Tiger.Module.Exams;
 
@@ -19,17 +24,17 @@ namespace Tiger.Module.Exams;
 public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, ExamineeGetListInput, CreateUpdateExamineeDto, CreateUpdateExamineeDto>,
     IExamineeAppService
 {
-    protected override string GetPolicyName { get; set; } = TigerPermissions.Examinee.Default;
-    protected override string GetListPolicyName { get; set; } = TigerPermissions.Examinee.Default;
-    protected override string CreatePolicyName { get; set; } = TigerPermissions.Examinee.Create;
-    protected override string UpdatePolicyName { get; set; } = TigerPermissions.Examinee.Update;
-    protected override string DeletePolicyName { get; set; } = TigerPermissions.Examinee.Delete;
+    
 
     private readonly IExamineeRepository _repository;
+    private readonly IIdentityUserRepository _identityUserRepository;
+    private readonly IdentityUserManager _identityUserManager;
 
-    public ExamineeAppService(IExamineeRepository repository) : base(repository)
+
+    public ExamineeAppService(IExamineeRepository repository, IIdentityUserRepository identityUserRepository) : base(repository)
     {
         _repository = repository;
+        _identityUserRepository=identityUserRepository;
     }
 
     protected override IQueryable<Examinee> CreateFilteredQuery(ExamineeGetListInput input)
@@ -47,30 +52,33 @@ public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, Ex
             ;
     }
 
-    /*
-     * 查询一场考试的 考生列表数据
-     1. 根据考试Id查询 考试管理的考生Id
-     2. 查找在这些考生id中存在的用户信息
-     3. 如果用in sql server 4000 字符长度限制 
-
-    1. exisit 关键字
-    2. join关联查询 使用 inner join 
-    3. 将一个list分裂为多个符合长度的list
-    4. 转化为sql 表值参数 使用sql语句查询
-     */
-
-
     public override async Task<PagedResultDto<ExamineeDto>> GetListAsync(ExamineeGetListInput input)
     {
         var count = await _repository.GetCountAsync(input.inExamineeTable, input.ExamId,input.OrganizationUnitId,input.minCreationTime, input.maxCreationTime, input.filter);
 
         var list = await _repository.GetListAsync(input.inExamineeTable, input.ExamId, input.OrganizationUnitId, input.minCreationTime, input.maxCreationTime, input.filter,
-             input.Sorting, input.SkipCount, input.MaxResultCount);
+             input.Sorting, input.MaxResultCount, input.SkipCount);
+        var examinees = ObjectMapper.Map<List<IdentityUser>, List<ExamineeDto>>(list);
 
-        return new PagedResultDto<ExamineeDto>(count,
-            ObjectMapper.Map<List<IdentityUser>, List<ExamineeDto>>(list));
+        foreach (var item in examinees)
+        {
+            List<OrganizationUnit> organizationUnits = await _identityUserRepository.GetOrganizationUnitsAsync(item.UserId);
+            item.OrganizationUnitName = string.Join("/", organizationUnits.Select(x => x.DisplayName).ToList());
+        }
+        return new PagedResultDto<ExamineeDto>(count, examinees );
     }
 
+    public async virtual Task BulkCreateAsync(ExamineeBatchInputDto input)
+    {
+        if (!input.UserIds.Any())
+        {
+            return;
+        }
+        //_identityUserRepository.
+        //var jobs = await GetListAsync(input);
+        
 
+        //await BackgroundJobManager.BulkQueueAsync(jobs);
+    }
 
 }

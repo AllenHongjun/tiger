@@ -58,7 +58,7 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog title="指定考生" :visible.sync="dialogExamineeSelectVisible" append-to-body top="3vh" width="90%">
+    <el-dialog title="指定考生" :visible.sync="dialogExamineeSelectVisible" append-to-body top="3vh" width="90%" class="middle-dialog">
       <el-form :model="form">
         <examinee-select-table />
       </el-form>
@@ -183,5 +183,6 @@ export default {
 .line{
   text-align: center;
 }
+
 </style>
 

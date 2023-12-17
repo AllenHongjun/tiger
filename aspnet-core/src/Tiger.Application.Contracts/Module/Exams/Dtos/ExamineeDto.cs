@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using Volo.Abp.Application.Dtos;
 
@@ -24,6 +25,15 @@ public class ExamineeDto : CreationAuditedEntityDto<Guid>
     /// 姓名
     /// </summary>
     public string FullName { get; set; }
+
+    [CanBeNull]
+    public virtual string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Surname for the user.
+    /// </summary>
+    [CanBeNull]
+    public virtual string Surname { get; set; }
 
     /// <summary>
     /// 邮箱

@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.Drawing;
 using Microsoft.EntityFrameworkCore;
 using Tiger.Module.Exams;
 using Tiger.Module.Notifications;
@@ -67,7 +68,6 @@ namespace Tiger.EntityFrameworkCore
 
         public DbSet<IdentitySecurityLog> IdentitySecurityLogs { get; set; }
 
-        public DbSet<IdentityUserLogin> IdentityUserLogins { get; set; }
 
 
         // 如何扩展abp原有的租户表 迁移里面文档了解
@@ -205,7 +205,9 @@ namespace Tiger.EntityFrameworkCore
             /* Configure the shared tables (with included modules) here */
 
             /* Configure your own tables/entities inside the ConfigureTiger method */
-
+            builder.ConfigureIdentity();
+            builder.ConfigureAuditLogging();
+            builder.ConfigurePermissionManagement();
             builder.ConfigureTiger();
             builder.ConfigureTaskManagement();
             builder.ConfigureNotifications();

@@ -93,3 +93,13 @@
   }
 }
 
+.middle-dialog {
+  .el-dialog {
+    margin: 0 auto 50px;
+  }
+  .el-dialog__body {
+    height: calc(80vh - 130px);
+    overflow: auto;
+  }
+}
+

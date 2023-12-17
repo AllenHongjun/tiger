@@ -51,8 +51,7 @@ namespace Tiger.Volo.Abp.Identity
             IBlobContainer blobContainer,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            IIdentityUserRepository identityUserRepository
-,
+            IIdentityUserRepository identityUserRepository,
             ITigerIdentityUserRepository tigerIdentityUserRepository) : base(userManager, userRepository, roleRepository)
         {
             _blobContainer = blobContainer;

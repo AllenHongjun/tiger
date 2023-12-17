@@ -23,7 +23,7 @@
       <el-table-column type="index" width="80" />
       <el-table-column :label="$t('AbpIdentity[\'OrganizationUnits\']')" align="left" width="280" prop="organizationUnitName">
         <template slot-scope="{ row }">
-          <el-tag type="info">{{ row.extraProperties.OrganizationUnitName }}</el-tag>
+          <el-tag v-if="row.organizationUnitName" type="info">{{ row.organizationUnitName }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="userName" sortable align="left" width="180">
@@ -66,8 +66,8 @@ import {
   getOrganizationsAllTree
 } from '@/api/system-manage/identity/organization-unit'
 import {
-  getUserList
-} from '@/api/system-manage/identity/user'
+  getExaminees
+} from '@/api/exam/examinee'
 
 import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
 
@@ -84,6 +84,7 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
+        inExamineeTable: false,
         organizationUnitId: undefined
       }, baseListQuery),
 
@@ -105,7 +106,7 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      getUserList(this.listQuery).then(response => {
+      getExaminees(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false

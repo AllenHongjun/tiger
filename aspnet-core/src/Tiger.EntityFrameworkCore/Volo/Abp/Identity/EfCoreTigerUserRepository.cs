@@ -17,9 +17,9 @@ namespace Tiger.Volo.Abp.Identity
     /// <summary>
     /// 用户仓储实现（扩展abp用户仓储）
     /// </summary>
-    public class EfCoreTigerIdentityUserRepository:EfCoreRepository<TigerDbContext, IdentityUser, Guid>, ITigerIdentityUserRepository
+    public class EfCoreIdentityUserRepository:EfCoreRepository<TigerDbContext, IdentityUser, Guid>, ITigerIdentityUserRepository
     {
-        public EfCoreTigerIdentityUserRepository(
+        public EfCoreIdentityUserRepository(
             IDbContextProvider<TigerDbContext> dbContextProvider)
             : base(dbContextProvider)
         {

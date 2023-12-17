@@ -16,7 +16,8 @@ namespace Tiger.Module.Exams
 
             CreateMap<Examinee, ExamineeDto>();
             CreateMap<CreateUpdateExamineeDto, Examinee>();
-            CreateMap<IdentityUser, ExamineeDto>();
+            CreateMap<IdentityUser, ExamineeDto>().
+                ForMember(dst => dst.UserId, map => map.MapFrom(src => src.Id));
 
             CreateMap<AnswerSheet, AnswerSheetDto>();
             CreateMap<CreateUpdateAnswerSheetDto, AnswerSheet>();

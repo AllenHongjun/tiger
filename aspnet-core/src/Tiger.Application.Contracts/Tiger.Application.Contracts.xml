@@ -1159,6 +1159,11 @@
             姓名
             </summary>
         </member>
+        <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.Surname">
+            <summary>
+            Gets or sets the Surname for the user.
+            </summary>
+        </member>
         <member name="P:Tiger.Module.Exams.Dtos.ExamineeDto.Email">
             <summary>
             邮箱

@@ -63,7 +63,6 @@ namespace Tiger.Module.TaskManagement
             CancellationToken cancellationToken = default)
         {
 
-            return;
             using var unitOfWork = UnitOfWorkManager.Begin();
             using (CurrentTenant.Change(jobInfo.TenantId))
             {
