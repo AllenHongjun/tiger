@@ -1,18 +1,15 @@
-﻿using Microsoft.Extensions.Primitives;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 
 namespace Tiger.Volo.Abp.Identity
-{   
+{
     /// <summary>
     /// 用户
     /// </summary>
-    public interface ITigerIdentityUserRepository : IRepository<IdentityUser, Guid>
+    public interface ITigerIdentityUserRepository : IIdentityUserRepository
     {
 
         /// <summary>
@@ -116,7 +113,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="includeDetails"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<List<IdentityUser>> GetListByIdListAsync(
+        Task<List<IdentityUser>> GetListByIdsAsync(
             List<Guid> userIds,
             bool includeDetails = false,
             CancellationToken cancellationToken = default

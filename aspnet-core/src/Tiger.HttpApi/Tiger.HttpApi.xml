@@ -398,6 +398,14 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.Examinees.ExamineeController.BulkCreateAsync(Tiger.Module.Exams.Dtos.ExamineeBatchInputDto)">
+            <summary>
+            批量创建考试关联的考生
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="T:Tiger.Module.ExamModifyTimes.ExamModifyTimeController">
             <summary>
             考试时间调整

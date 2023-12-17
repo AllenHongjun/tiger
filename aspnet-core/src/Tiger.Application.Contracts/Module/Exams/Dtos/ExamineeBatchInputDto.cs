@@ -6,6 +6,8 @@ namespace Tiger.Module.Exams.Dtos
 {
     public class ExamineeBatchInputDto
     {
-        public List<string> UserIds { get; set; } = new List<string>();
+        public Guid ExamId { get; set; }
+
+        public List<Guid> UserIds { get; set; } = new List<Guid>();
     }
 }

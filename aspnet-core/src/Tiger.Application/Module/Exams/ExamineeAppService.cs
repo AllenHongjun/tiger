@@ -1,19 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
-using Volo.Abp.Application.Services;
+using Tiger.Volo.Abp.Identity;
 using Volo.Abp.Application.Dtos;
-using System.Collections.Generic;
-using Volo.Abp.ObjectMapping;
+using Volo.Abp.Application.Services;
 using Volo.Abp.Identity;
-using System.Diagnostics;
-using Volo.Abp.Users;
-using Microsoft.AspNetCore.Authorization;
-using Tiger.Infrastructure.BackgroundTasks.Abstractions.Enum;
-using Tiger.Module.TaskManagement.Dtos;
-using Tiger.Module.TaskManagement.Permissions;
 
 namespace Tiger.Module.Exams;
 
@@ -27,14 +20,16 @@ public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, Ex
     
 
     private readonly IExamineeRepository _repository;
-    private readonly IIdentityUserRepository _identityUserRepository;
     private readonly IdentityUserManager _identityUserManager;
+    private readonly ITigerIdentityUserRepository _tigerIdentityUserRepository;
 
 
-    public ExamineeAppService(IExamineeRepository repository, IIdentityUserRepository identityUserRepository) : base(repository)
+    public ExamineeAppService(
+        IExamineeRepository repository,
+        ITigerIdentityUserRepository tigerIdentityUserRepository) : base(repository)
     {
         _repository = repository;
-        _identityUserRepository=identityUserRepository;
+        _tigerIdentityUserRepository=tigerIdentityUserRepository;
     }
 
     protected override IQueryable<Examinee> CreateFilteredQuery(ExamineeGetListInput input)
@@ -47,8 +42,6 @@ public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, Ex
             .WhereIf(!input.FullName.IsNullOrWhiteSpace(), x => x.FullName.Contains(input.FullName))
             .WhereIf(!input.Email.IsNullOrWhiteSpace(), x => x.Email.Contains(input.Email))
             .WhereIf(!input.PhoneNumber.IsNullOrWhiteSpace(), x => x.PhoneNumber.Contains(input.PhoneNumber))
-            .WhereIf(input.OrganizationUnitId != null, x => x.OrganizationUnitId == input.OrganizationUnitId)
-            .WhereIf(!input.OrganizationUnitName.IsNullOrWhiteSpace(), x => x.OrganizationUnitName.Contains(input.OrganizationUnitName))
             ;
     }
 
@@ -62,7 +55,7 @@ public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, Ex
 
         foreach (var item in examinees)
         {
-            List<OrganizationUnit> organizationUnits = await _identityUserRepository.GetOrganizationUnitsAsync(item.UserId);
+            List<OrganizationUnit> organizationUnits = await _tigerIdentityUserRepository.GetOrganizationUnitsAsync(item.UserId);
             item.OrganizationUnitName = string.Join("/", organizationUnits.Select(x => x.DisplayName).ToList());
         }
         return new PagedResultDto<ExamineeDto>(count, examinees );
@@ -74,11 +67,15 @@ public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, Ex
         {
             return;
         }
-        //_identityUserRepository.
-        //var jobs = await GetListAsync(input);
-        
+        var users = await _tigerIdentityUserRepository.GetListByIdsAsync(input.UserIds);
+        foreach (var user in users)
+        {
+            var examinee = new Examinee(GuidGenerator.Create(), CurrentTenant.Id, input.ExamId, user.Id, user.UserName, user.Surname + user.Name,
+                user.Email, user.PhoneNumber);
+            await _repository.InsertAsync(examinee);
+        }
+        await CurrentUnitOfWork.SaveChangesAsync();
 
-        //await BackgroundJobManager.BulkQueueAsync(jobs);
     }
 
 }

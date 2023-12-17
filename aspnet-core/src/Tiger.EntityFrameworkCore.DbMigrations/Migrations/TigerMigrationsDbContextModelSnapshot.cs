@@ -520,14 +520,6 @@ namespace Tiger.Migrations
                         .HasComment("姓名")
                         .HasMaxLength(64);
 
-                    b.Property<Guid>("OrganizationUnitId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("考生所属组织Id");
-
-                    b.Property<string>("OrganizationUnitName")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("考生所属组织名称");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(16)")
                         .HasComment("手机号")

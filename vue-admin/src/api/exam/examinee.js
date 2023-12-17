@@ -46,3 +46,15 @@ export function deleteExaminee(id) {
   })
 }
 
+/**
+ * 批量创建考生
+ * @param {object} payload
+ * @returns
+ */
+export function batchCreateExaminee(payload) {
+  return request({
+    url: '/api/exam/examinees/batch-create',
+    method: 'post',
+    data: payload
+  })
+}

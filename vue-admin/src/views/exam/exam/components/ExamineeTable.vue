@@ -58,15 +58,7 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <el-dialog title="指定考生" :visible.sync="dialogExamineeSelectVisible" append-to-body top="3vh" width="90%" class="middle-dialog">
-      <el-form :model="form">
-        <examinee-select-table />
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogExamineeSelectVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogExamineeSelectVisible = false">确 定</el-button>
-      </div>
-    </el-dialog>
+    <examinee-select-table ref="examineeSelectTable" :exam-id="examId" />
 
     <el-dialog title="指定组织" :visible.sync="dialogFormVisible" append-to-body top="5vh">
       <el-form :model="form">
@@ -101,6 +93,13 @@ export default {
     ExamineeSelectTable,
     OrgTree
   },
+  props: {
+    examId: {
+      type: String,
+      require: true,
+      default: undefined
+    }
+  },
   data() {
     return {
       tableKey: 0,
@@ -109,7 +108,7 @@ export default {
       listLoading: true,
       listQuery: Object.assign({
       }, baseListQuery),
-      dialogExamineeSelectVisible: false,
+
       dialogFormVisible: false,
       form: {
       },
@@ -144,7 +143,7 @@ export default {
       this.handleFilter()
     },
     handleSelectExaminee() {
-      this.dialogExamineeSelectVisible = true
+      this.$refs['examineeSelectTable'].getList()
     },
     handleSelectOrg(row) {
       this.dialogFormVisible = true

@@ -101,7 +101,7 @@
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="已选考生(15)" name="second">
-        <examinee-table ref="ExamineeTable" />
+        <examinee-table ref="ExamineeTable" :exam-id="examId" />
         <!-- <examinee-select-table /> -->
       </el-tab-pane>
 
@@ -209,15 +209,16 @@ export default {
           }
         ]
 
-      }
+      },
+      examId: undefined
     }
   },
   created() {
     this.fetchTestPaperOptions()
 
     if (this.isEdit) {
-      const id = this.$route.params && this.$route.params.id
-      this.handleUpdate({ id: id })
+      this.examId = this.$route.params && this.$route.params.id
+      this.handleUpdate({ id: this.examId })
     }
   },
   methods: {

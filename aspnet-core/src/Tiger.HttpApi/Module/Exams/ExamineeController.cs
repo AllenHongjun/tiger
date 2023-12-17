@@ -25,6 +25,8 @@ namespace Tiger.Module.Examinees
 
         protected IExamineeAppService ExamineeAppService { get; }
 
+        
+
         /// <summary>
         /// 创建
         /// </summary>
@@ -83,6 +85,19 @@ namespace Tiger.Module.Examinees
         public Task<ExamineeDto> UpdateAsync(Guid id, CreateUpdateExamineeDto input)
         {
             return ExamineeAppService.UpdateAsync(id, input);
+        }
+
+        /// <summary>
+        /// 批量创建考试关联的考生
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPost]
+        [Route("batch-create")]
+        public Task BulkCreateAsync(ExamineeBatchInputDto input)
+        {
+            return ExamineeAppService.BulkCreateAsync(input);
         }
     }
 }

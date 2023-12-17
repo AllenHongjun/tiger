@@ -17,9 +17,9 @@ namespace Tiger.Volo.Abp.Identity
     /// <summary>
     /// 用户仓储实现（扩展abp用户仓储）
     /// </summary>
-    public class EfCoreIdentityUserRepository:EfCoreRepository<TigerDbContext, IdentityUser, Guid>, ITigerIdentityUserRepository
+    public class EfCoreTigerIdentityUserRepository: EfCoreIdentityUserRepository, ITigerIdentityUserRepository
     {
-        public EfCoreIdentityUserRepository(
+        public EfCoreTigerIdentityUserRepository(
             IDbContextProvider<TigerDbContext> dbContextProvider)
             : base(dbContextProvider)
         {
@@ -151,7 +151,7 @@ namespace Tiger.Volo.Abp.Identity
         /// <param name="includeDetails"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<List<IdentityUser>> GetListByIdListAsync(List<Guid> userIds, bool includeDetails = false, CancellationToken cancellationToken = default)
+        public async Task<List<IdentityUser>> GetListByIdsAsync(List<Guid> userIds, bool includeDetails = false, CancellationToken cancellationToken = default)
         {
             return await DbContext.Set<IdentityUser>().IncludeDetails(includeDetails)
                 .Where(user => userIds.Contains(user.Id))

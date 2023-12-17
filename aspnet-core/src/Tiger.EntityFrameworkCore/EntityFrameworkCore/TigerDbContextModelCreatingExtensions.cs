@@ -669,8 +669,6 @@ namespace Tiger.EntityFrameworkCore
                 b.Property(p => p.FullName).HasMaxLength(IdentityUserConsts.MaxSurnameLength).IsRequired(false).HasComment("姓名");
                 b.Property(p => p.Email).HasMaxLength(IdentityUserConsts.MaxNormalizedEmailLength).IsRequired(false).HasComment("邮箱");
                 b.Property(p => p.PhoneNumber).HasMaxLength(IdentityUserConsts.MaxPhoneNumberLength).IsRequired(false).HasComment("手机号");
-                b.Property(p => p.OrganizationUnitId).HasComment("考生所属组织Id");
-                b.Property(p => p.OrganizationUnitName).HasComment("考生所属组织名称");
                 b.ConfigureByConvention(); 
 
                 /* Configure more properties here */

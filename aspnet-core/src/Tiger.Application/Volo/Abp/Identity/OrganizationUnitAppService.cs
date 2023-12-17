@@ -544,7 +544,7 @@ namespace Volo.Abp.Identity
         {
             var organizationUnit = await OrganizationUnitRepository.GetAsync(id);
 
-            var users = await UserRepository.GetListByIdListAsync(input.UserIds, includeDetails: true);
+            var users = await UserRepository.GetListByIdsAsync(input.UserIds, includeDetails: true);
 
             foreach (var user in users)
             {

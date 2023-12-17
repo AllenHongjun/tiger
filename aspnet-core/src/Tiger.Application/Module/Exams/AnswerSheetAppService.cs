@@ -61,7 +61,7 @@ public class AnswerSheetAppService : CrudAppService<AnswerSheet, AnswerSheetDto,
 
         // 二次查询数据
         List<Guid> creatorIds = answerSheets.Items.Where(x => x.CreatorId != null).Select(x => (Guid)x.CreatorId).ToList();
-        var creators = await _userRepository.GetListByIdListAsync(creatorIds);
+        var creators = await _userRepository.GetListByIdsAsync(creatorIds);
 
         List<Guid> examIds = answerSheets.Items.Select(x => x.ExamId).ToList();
         List<Exam> exams = _examRepository.Where(x => examIds.Contains(x.Id)).ToList();

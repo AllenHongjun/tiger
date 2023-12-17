@@ -11,6 +11,9 @@
     },
     {
       "path": "../abp-3.2.1"
+    },
+    {
+      "path": "../abp-next-admin-master"
     }
   ],
   "settings": {

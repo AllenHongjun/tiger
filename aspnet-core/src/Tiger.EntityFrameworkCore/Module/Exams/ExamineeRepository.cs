@@ -48,6 +48,7 @@ public class ExamineeRepository : EfCoreRepository<TigerDbContext, Examinee, Gui
             query = from user in queryUser
                          join examinee in queryExaminee on user.Id equals examinee.UserId into userExaminees
                          from ue in userExaminees.DefaultIfEmpty()
+                         where ue.Id == null
                          select user;
         }
         return query;

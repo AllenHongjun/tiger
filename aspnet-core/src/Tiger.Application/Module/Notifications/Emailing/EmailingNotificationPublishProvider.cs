@@ -56,7 +56,7 @@ namespace Tiger.Infrastructure.Notification.Emailing
             CancellationToken cancellationToken = default)
         {
             var userIds = identifiers.Select(x => x.UserId).ToList();
-            var userList = await TigerIdentityUserRepository.GetListByIdListAsync(userIds, cancellationToken: cancellationToken);
+            var userList = await TigerIdentityUserRepository.GetListByIdsAsync(userIds, cancellationToken: cancellationToken);
             var emailAddress = userList.Where(x => x.EmailConfirmed).Select(x => x.Email).Distinct()
                 .JoinAsString(",");
 

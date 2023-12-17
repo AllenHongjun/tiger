@@ -48,44 +48,31 @@ namespace Tiger.Module.Exams
         /// 手机号
         /// </summary>
         public string PhoneNumber { get; set; }
-
-        /// <summary>
-        /// 考生所属组织Id
-        /// </summary>
-        public Guid OrganizationUnitId { get; set; }
-
-        /// <summary>
-        /// 考生所属组织名称
-        /// </summary>
-        public string OrganizationUnitName { get; set; }
+        
         
 
-    protected Examinee()
-    {
-    }
+        protected Examinee()
+        {
+        }
 
-    public Examinee(
-        Guid id,
-        Guid? tenantId,
-        Guid examId,
-        Guid userId,
-        string userName,
-        string fullName,
-        string email,
-        string phoneNumber,
-        Guid organizationUnitId,
-        string organizationUnitName
-    ) : base(id)
-    {
-        TenantId = tenantId;
-        ExamId = examId;
-        UserId = userId;
-        UserName = userName;
-        FullName = fullName;
-        Email = email;
-        PhoneNumber = phoneNumber;
-        OrganizationUnitId = organizationUnitId;
-        OrganizationUnitName = organizationUnitName;
-    }
+        public Examinee(
+            Guid id,
+            Guid? tenantId,
+            Guid examId,
+            Guid userId,
+            string userName,
+            string fullName,
+            string email,
+            string phoneNumber
+        ) : base(id)
+        {
+            TenantId = tenantId;
+            ExamId = examId;
+            UserId = userId;
+            UserName = userName;
+            FullName = fullName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+        }
     }
 }
