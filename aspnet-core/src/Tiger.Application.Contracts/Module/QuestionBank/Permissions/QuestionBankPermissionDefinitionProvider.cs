@@ -15,38 +15,38 @@ namespace Tiger.Module.QuestionBank.Permissions
         {
             var group = context.AddGroup(
                 QuestionBankPermissions.GroupName,
-                L("Permissions:QuestionBank"));
+                L("Permission:QuestionBank"));
 
             var questionCategory = group.AddPermission(
                 QuestionBankPermissions.QuestionCategory.Default,
-                L("Permissions:QuestionCategory"));
+                L("Permission:QuestionCategory"));
                 questionCategory.AddChild(
                         QuestionBankPermissions.QuestionCategory.Create,
-                        L("Permissions:Create"));
+                        L("Permission:Create"));
                 questionCategory.AddChild(
                         QuestionBankPermissions.QuestionCategory.Update,
-                        L("Permissions:Update"));
+                        L("Permission:Update"));
                 questionCategory.AddChild(
                         QuestionBankPermissions.QuestionCategory.Delete,
-                        L("Permissions:Delete"));
+                        L("Permission:Delete"));
 
             var question = group.AddPermission(
                 QuestionBankPermissions.Question.Default,
-                L("Permissions:Question"));
+                L("Permission:Question"));
                 question.AddChild(
                     QuestionBankPermissions.Question.Create,
-                    L("Permissions:Create"));
+                    L("Permission:Create"));
                 question.AddChild(
                     QuestionBankPermissions.Question.Update,
-                    L("Permissions:Update"));
+                    L("Permission:Update"));
                 question.AddChild(
                     QuestionBankPermissions.Question.Delete,
-                    L("Permissions:Delete"));
+                    L("Permission:Delete"));
 
-            var trainPlatform = group.AddPermission(QuestionBankPermissions.TrainPlatform.Default,L("Permissions:TrainPlatform"));
-            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Create,L("Permissions:Create"));
-            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Update,L("Permissions:Update"));
-            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Delete,L("Permissions:Delete"));
+            var trainPlatform = group.AddPermission(QuestionBankPermissions.TrainPlatform.Default,L("Permission:TrainPlatform"));
+            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Create,L("Permission:Create"));
+            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Update,L("Permission:Update"));
+            trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Delete,L("Permission:Delete"));
         }
 
         private ILocalizableString L(string name)

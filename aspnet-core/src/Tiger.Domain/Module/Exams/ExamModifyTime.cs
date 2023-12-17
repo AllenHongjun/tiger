@@ -32,7 +32,7 @@ namespace Tiger.Module.Exams
         public int ExtendTime { get; set; }
 
         /// <summary>
-        /// 组织Id
+        /// 组织Id        
         /// </summary>
         public Guid OrganizationUnitId { get; set; }
 

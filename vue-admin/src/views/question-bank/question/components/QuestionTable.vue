@@ -112,7 +112,7 @@
       </el-row>
     </div>
 
-    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" :row-style="{height: '60px'}" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="60" />
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCateogryName" align="left" width="280">
@@ -120,10 +120,10 @@
           <span>{{ row.questionCateogryName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
           <!-- <span>{{ row.content }}</span> -->
-          <span style="max-height:300px" v-html="row.content" />
+          <span v-text="row.content" />
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">

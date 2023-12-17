@@ -2,7 +2,7 @@
   <div class="model-container">
     <el-dialog :title=" dialogStatus == 'create'? $t('AppQuestionBank[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
+        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:ParentName\']')" prop="name">
           <el-cascader v-model="temp.parentId" style="width: 480px;" :options="options" :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}" clearable class="filter-item" filterable />
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">

@@ -363,7 +363,7 @@ export default {
   name: 'JudgePaper',
   data() {
     return {
-      dialogFormVisible: true,
+      dialogFormVisible: false,
       dialogStatus: '',
       tableData: [
         {

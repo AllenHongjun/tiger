@@ -15,8 +15,9 @@
     "Platform:04400": "用户重复收藏菜单!",
     "Platform:04404": "用户收藏菜单未找到!",
 
+    "Permission:QuestionBank": "题库管理",
     "Permission:QuestionCategory": "题目分类",
-    "Permission:Qestiion": "题目",
+    "Permission:Question": "题目",
     "Permission:TrainPlatform": "实训平台",
     "Permission:Create": "新增",
     "Permission:Update": "更新",
@@ -31,6 +32,7 @@
     "DisplayName:AllowVersionFileExtensions": "文件扩展名",
     "Description:AllowVersionFileExtensions": "允许的上传文件扩展名列表,多个扩展名以,分隔,无需输入.符号",
 
+    "DisplayName:ParentName": "父类",
     "DisplayName:Name": "名称",
     "DisplayName:Cover": "封面",
     "DisplayName:Code": "编码",

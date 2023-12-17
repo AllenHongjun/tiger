@@ -101,8 +101,9 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
     {
         /*
          TODO:
-        1. 如果父类关联删除子类 
-        1. 删除分类关联的题目
+        1. 如果父类关联删除子类 （或者提示先删除子类）将所有的子类关联的父类id设置未null（弃用）
+        2. 递归归删除一级分类下所有子分类 增加 code 层级结构字段 获取 父级code开头的所有子类
+        3. 如果分类下还有题目，提示先删除题目再删除分类
          
          */
         await base.DeleteAsync(id);
