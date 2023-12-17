@@ -78,4 +78,19 @@ public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, Ex
 
     }
 
+    public async virtual Task BulkDeleteAsync(ExamineeBatchInputDto input)
+    {
+        if (!input.UserIds.Any())
+        {
+            return;
+        }
+        var examinees = await _repository.GetListByIdsAsync(input.ExamId, input.UserIds);
+        foreach (var examinee in examinees)
+        {
+            
+            await _repository.DeleteAsync(examinee);
+        }
+        await CurrentUnitOfWork.SaveChangesAsync();
+    }
+
 }

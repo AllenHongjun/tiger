@@ -14,4 +14,5 @@ public interface IExamineeRepository : IRepository<Examinee, Guid>
 {
     Task<long> GetCountAsync(bool inExamineeTable, Guid? examId, Guid? organizationUnitId, DateTime? minCreationTime, DateTime? maxCreationTime, string filter = null, CancellationToken cancellationToken = default);
     Task<List<IdentityUser>> GetListAsync(bool inExamineeTable, Guid? examId, Guid? organizationUnitId, DateTime? minCreationTime, DateTime? maxCreationTime, string filter = null, string sorting = null, int maxResultCount = 50, int skipCount = 0, CancellationToken cancellationToken = default);
+    Task<List<Examinee>> GetListByIdsAsync(Guid? exmId, List<Guid> userIds, bool includeDetails = false, CancellationToken cancellationToken = default);
 }

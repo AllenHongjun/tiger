@@ -125,7 +125,7 @@ export default {
   },
   created() {
     this.getOrgs()
-    this.getList()
+    // this.getList()
   },
   methods: {
     checkPermission, // 检查权限

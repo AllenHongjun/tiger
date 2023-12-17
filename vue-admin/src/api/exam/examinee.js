@@ -58,3 +58,11 @@ export function batchCreateExaminee(payload) {
     data: payload
   })
 }
+
+export function batchDeleteExaminee(payload) {
+  return request({
+    url: '/api/exam/examinees/batch-delete',
+    method: 'post',
+    data: payload
+  })
+}

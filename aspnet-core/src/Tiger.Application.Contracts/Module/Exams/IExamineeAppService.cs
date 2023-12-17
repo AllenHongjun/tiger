@@ -18,4 +18,5 @@ public interface IExamineeAppService :
         CreateUpdateExamineeDto>
 {
     Task BulkCreateAsync(ExamineeBatchInputDto input);
+    Task BulkDeleteAsync(ExamineeBatchInputDto input);
 }

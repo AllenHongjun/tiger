@@ -99,5 +99,17 @@ namespace Tiger.Module.Examinees
         {
             return ExamineeAppService.BulkCreateAsync(input);
         }
+
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("batch-delete")]
+        public Task BulkDeleteAsync(ExamineeBatchInputDto input)
+        {
+            return ExamineeAppService.BulkDeleteAsync(input);
+        }
     }
 }

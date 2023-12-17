@@ -12,15 +12,16 @@
         <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleSelectOrg">
           指定组织
         </el-button>
+        <el-button type="danger" icon="el-icon-delete" class="filter-item" @click="handleBatchDelete()">批量删除</el-button>
       </el-row>
     </div>
 
-    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
+    <el-table ref="multipleTable" :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" style="width: 100%;" @sort-change="sortChange">
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="80" />
       <el-table-column :label="$t('AbpIdentity[\'OrganizationUnits\']')" align="left" width="280" prop="organizationUnitName">
         <template slot-scope="{ row }">
-          <el-tag type="info">{{ row.extraProperties.OrganizationUnitName }}</el-tag>
+          <el-tag v-if="row.organizationUnitName" type="info">{{ row.organizationUnitName }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AbpIdentity[\'UserName\']')" prop="userName" sortable align="left" width="180">
@@ -58,7 +59,7 @@
 
     <pagination v-show="total > 0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
-    <examinee-select-table ref="examineeSelectTable" :exam-id="examId" />
+    <examinee-select-table ref="examineeSelectTable" :exam-id="examId" @created="handleFilter" />
 
     <el-dialog title="指定组织" :visible.sync="dialogFormVisible" append-to-body top="5vh">
       <el-form :model="form">
@@ -76,12 +77,10 @@
 <script>
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import {
-  getLayouts,
-  deleteLayout
-} from '@/api/system-manage/platform/layout'
-import {
-  getUserList
-} from '@/api/system-manage/identity/user'
+  getExaminees,
+  deleteExaminee,
+  batchDeleteExaminee
+} from '@/api/exam/examinee'
 import Pagination from '@/components/Pagination/index.vue' // secondary package based on el-pagination
 import ExamineeSelectTable from './ExamineeSelectTable.vue'
 import OrgTree from '@/views/system/identity/components/OrgTree.vue'
@@ -107,6 +106,7 @@ export default {
       total: 0,
       listLoading: true,
       listQuery: Object.assign({
+        inExamineeTable: true
       }, baseListQuery),
 
       dialogFormVisible: false,
@@ -124,7 +124,7 @@ export default {
     // 获取列表数据
     getList() {
       this.listLoading = true
-      getUserList(this.listQuery).then(response => {
+      getExaminees(this.listQuery).then(response => {
         this.list = response.items
         this.total = response.totalCount
         this.listLoading = false
@@ -149,11 +149,15 @@ export default {
       this.dialogFormVisible = true
     },
     // 删除
-    handleDelete(row, index) {
+    handleDelete(row) {
+      var req = {
+        examId: this.examId,
+        userIds: [row.userId]
+      }
       this.$confirm(
         // 消息
         this.$i18n.t("AbpUi['ItemWillBeDeletedMessageWithFormat']", [
-          row.name
+          row.userName
         ]),
         // title
         this.$i18n.t("AbpUi['AreYouSure']"), {
@@ -163,8 +167,42 @@ export default {
         }
       ).then(async() => {
         // 回调函数
-        deleteLayout(row.id).then(() => {
-          this.handleFilter(false)
+        batchDeleteExaminee(req).then(() => {
+          this.handleFilter()
+          this.$notify({
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+            type: 'success',
+            duration: 2000
+          })
+        })
+      })
+    },
+    handleBatchDelete() {
+      var selections = this.$refs.multipleTable.selection
+      if (selections.length <= 0) {
+        this.$message({
+          message: '请先选中一行数据 !',
+          type: 'warning'
+        })
+        return
+      }
+      const ids = selections.map((x) => x.userId)
+      var req = {
+        examId: this.examId,
+        userIds: ids
+      }
+
+      this.$confirm(
+        this.$i18n.t("AbpUi['ItemsWillBeDeletedMessage']"),
+        this.$i18n.t("AbpUi['AreYouSure']"), {
+          confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
+          cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
+          type: 'warning' // 弹框类型
+        }
+      ).then(async() => {
+        batchDeleteExaminee(req).then(() => {
+          this.handleFilter()
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),

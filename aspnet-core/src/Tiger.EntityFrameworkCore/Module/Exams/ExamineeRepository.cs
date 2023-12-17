@@ -9,6 +9,7 @@ using Tiger.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Identity;
+using Volo.Abp.Identity.EntityFrameworkCore;
 
 namespace Tiger.Module.Exams;
 
@@ -84,6 +85,14 @@ public class ExamineeRepository : EfCoreRepository<TigerDbContext, Examinee, Gui
                     .ToListAsync(GetCancellationToken(cancellationToken));
     }
 
+
+    public async Task<List<Examinee>> GetListByIdsAsync(Guid? exmId, List<Guid> userIds, bool includeDetails = false, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Set<Examinee>().IncludeDetails(includeDetails)
+            .WhereIf(exmId.HasValue, user => user.ExamId == exmId)
+            .WhereIf(userIds != null, user => userIds.Contains(user.UserId))
+            .ToListAsync(cancellationToken);
+    }
 
     public override IQueryable<Examinee> WithDetails()
     {

@@ -31,33 +31,6 @@ module.exports = {
   lintOnSave: false, // process.env.NODE_ENV === 'development',  //lintOnSave: false
   productionSourceMap: false,
 
-  // 老的版本代码
-  // devServer: {
-  //   port: port,
-  //   open: true,
-  //   overlay: {
-  //     warnings: false,
-  //     errors: true
-  //   },
-  //   /**
-  //    * 如果你不想使用mock-server的话只要在vue.config.js中移除webpack-dev-server中proxy和after这个Middleware就可以了。
-  //      现在默认情况下本地的请求会代理到http://localhost:${port}/mock下，如果你想调整为自己的 mock 地址可以修改 proxy
-  //    */
-  //   proxy: {
-  //     // change xxx-api/login => mock/login
-  //     // detail: https://cli.vuejs.org/config/#devserver-proxy
-  //     [process.env.VUE_APP_BASE_API]: {
-  //       // 代理服务器设置 需要将目前的地址代理至target
-  //       target: `http://localhost:${port}/mock`,
-  //       changeOrigin: true,
-  //       pathRewrite: {
-  //         ['^' + process.env.VUE_APP_BASE_API]: '' // 将'/process.env.VUE_APP_BASE_API]' 重写为''
-  //       }
-  //     }
-  //   },
-  //   // 把vue.config.js中的 before: require('./mock/mock-server.js'),注释掉，应该是走代理前走了mockjs
-  //   before: require('./mock/mock-server.js')
-  // },
   devServer: {
     port: port,
     open: true,
