@@ -21,7 +21,7 @@
           <el-switch v-model="temp.isPublic" />
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" prop="sorting">
-          <el-input v-model="temp.sorting" type="number" />
+          <el-input-number v-model="temp.sorting" :min="0" :max="9999999" :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" />
         </el-form-item>
 
       </el-form>
