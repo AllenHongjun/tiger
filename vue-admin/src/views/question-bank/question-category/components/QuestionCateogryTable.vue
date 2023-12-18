@@ -12,7 +12,7 @@
           class="filter-item"
           filterable
           :placeholder="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')"
-          style="width: 280px;"
+          style="width: 360px;"
           @change="cascaderChange"
         />
         <el-select v-model="listQuery.enable" :placeholder="$t('AppQuestionBank[\'DisplayName:Enable\']')" class="filter-item" clearable="">
@@ -65,7 +65,7 @@
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" align="left" width="120">
         <template slot-scope="{ row }">
-          <el-tag :type="( row.enable ? 'success' : 'danger')" :class="[ row.enable ? 'el-icon-check':'el-icon-close' ]" />
+          <el-switch v-model="row.enable" @change="handleToggleEnable(row)" />
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:IsPublic\']')" align="left" width="120">
@@ -73,9 +73,9 @@
           <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" align="left" width="120">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" align="left" width="180">
         <template slot-scope="{ row }">
-          <span>{{ row.sorting }}</span>
+          <el-input-number v-model="row.sorting" :min="0" @change="handleUpdateSort(row)" />
         </template>
       </el-table-column>
 
@@ -98,7 +98,9 @@ import {
   getAllQuestionCategory,
   ExportQuestionCategoryXlsxTemplate,
   ImportQuestionCategoryFromXlsx,
-  ExportQuestionCategoryToXlsx
+  ExportQuestionCategoryToXlsx,
+  toggleEnable,
+  updateSort
 } from '@/api/question-bank/question-category'
 import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 import { listToTree, recurtionToTree } from '@/utils/helpers/tree-helper'
@@ -222,6 +224,19 @@ export default {
             duration: 2000
           })
         })
+      })
+    },
+    handleEnable(row) {
+
+    },
+    handleToggleEnable(row) {
+      toggleEnable(row.id).then(() => {
+        this.$emit('handleFilter', false)
+      })
+    },
+    handleUpdateSort(row) {
+      updateSort(row.id, row.sorting).then(() => {
+        this.$emit('handleFilter', false)
       })
     }
   }

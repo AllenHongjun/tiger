@@ -717,6 +717,22 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.ToggleEnable(System.Guid)">
+            <summary>
+            切换启用
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.UpdateSort(System.Guid,System.Int32)">
+            <summary>
+            更改序号
+            </summary>
+            <param name="id"></param>
+            <param name="sort"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
         <member name="M:Tiger.Module.QuestionBank.QuestionCategoryController.ImportFromXlsxAsync(Microsoft.AspNetCore.Http.IFormFile)">
             <summary>
             从 xlsx 导入

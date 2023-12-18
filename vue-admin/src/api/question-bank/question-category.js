@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import { transformAbpListQuery } from '@/utils/abp'
 import qs from 'querystring'
+import internal from 'stream'
 
 export function getQuestionCategories(params) {
   return request({
@@ -79,6 +80,31 @@ export function ExportQuestionCategoryToXlsx(params) {
       headers: { 'Content-Type': 'application/x-download' }
     },
     responseType: 'blob'
+  })
+}
+
+/**
+ * 切换启用
+ * @param {internal} id
+ * @returns
+ */
+export function toggleEnable(id) {
+  return request({
+    url: `/api/question-bank/question-categories/${id}/toggle-enable`,
+    method: 'put'
+  })
+}
+
+/**
+ * 更新序号
+ * @param {internal} id
+ * @param {internal} sort
+ * @returns
+ */
+export function updateSort(id, sort) {
+  return request({
+    url: `/api/question-bank/question-categories/${id}/update-sort/${sort}`,
+    method: 'put'
   })
 }
 

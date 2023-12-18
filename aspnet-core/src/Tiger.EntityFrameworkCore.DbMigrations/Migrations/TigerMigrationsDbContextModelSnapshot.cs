@@ -1449,7 +1449,6 @@ namespace Tiger.Migrations
                         .HasMaxLength(40);
 
                     b.Property<string>("Cover")
-                        .IsRequired()
                         .HasColumnType("nvarchar(128)")
                         .HasComment("封面")
                         .HasMaxLength(128);

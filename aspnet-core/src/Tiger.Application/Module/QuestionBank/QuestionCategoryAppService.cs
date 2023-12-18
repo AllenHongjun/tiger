@@ -114,6 +114,22 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
 
         await base.DeleteAsync(id);
     }
+
+    public async Task ToggleEnable(Guid id)
+    {
+        var category = await _repository.GetAsync(id);
+        category.Enable = !category.Enable;
+        await _repository.UpdateAsync(category);
+        await CurrentUnitOfWork.SaveChangesAsync();
+    }
+
+    public async Task UpdateSort(Guid id, int sort)
+    {
+        var category = await _repository.GetAsync(id);
+        category.Sorting = sort;
+        await _repository.UpdateAsync(category, true);
+    }
+
     #endregion
 
     #region 导入/导出 XLSX

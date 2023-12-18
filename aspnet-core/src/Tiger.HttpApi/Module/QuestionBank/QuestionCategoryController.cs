@@ -114,7 +114,33 @@ namespace Tiger.Module.QuestionBank
         public Task<QuestionCategoryDto> UpdateAsync(Guid id, CreateUpdateQuestionCategoryDto input)
         {
             return QuestionCategoryAppService.UpdateAsync(id, input);
-        } 
+        }
+
+        /// <summary>
+        /// 切换启用
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{id}/toggle-enable")]
+        public async Task ToggleEnable(Guid id)
+        {
+            await QuestionCategoryAppService.ToggleEnable(id);
+        }
+
+        /// <summary>
+        /// 更改序号
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        [HttpPut]
+        [Route("{id}/update-sort/{sort}")]
+        public async Task UpdateSort(Guid id, int sort)
+        {
+            await QuestionCategoryAppService.UpdateSort(id,sort);
+        }
         #endregion
 
         #region xlsx导入导出
@@ -140,7 +166,9 @@ namespace Tiger.Module.QuestionBank
         public async Task<IActionResult> ExportToXlsxAsync(QuestionCategoryGetListInput input)
         {
             return await QuestionCategoryAppService.ExportToXlsxAsync(input);
-        } 
+        }
+
+        
         #endregion
     }
 }

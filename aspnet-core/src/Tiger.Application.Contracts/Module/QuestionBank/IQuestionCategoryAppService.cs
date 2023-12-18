@@ -24,4 +24,6 @@ public interface IQuestionCategoryAppService :
     ListResultDto<QuestionCategoryDto> GetAllList(QuestionCategoryGetListInput input);
     ListResultDto<QuestionCategoryDto> GetListByParentId(QuestionCategoryGetListInput input);
     Task ImportFromXlsxAsync(IFormFile importexcelfile);
+    Task ToggleEnable(Guid id);
+    Task UpdateSort(Guid id, int sort);
 }
