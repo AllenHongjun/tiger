@@ -17,31 +17,17 @@ namespace Tiger.Module.QuestionBank.Permissions
                 QuestionBankPermissions.GroupName,
                 L("Permission:QuestionBank"));
 
-            var questionCategory = group.AddPermission(
-                QuestionBankPermissions.QuestionCategory.Default,
-                L("Permission:QuestionCategory"));
-                questionCategory.AddChild(
-                        QuestionBankPermissions.QuestionCategory.Create,
-                        L("Permission:Create"));
-                questionCategory.AddChild(
-                        QuestionBankPermissions.QuestionCategory.Update,
-                        L("Permission:Update"));
-                questionCategory.AddChild(
-                        QuestionBankPermissions.QuestionCategory.Delete,
-                        L("Permission:Delete"));
+            var questionCategory = group.AddPermission(QuestionBankPermissions.QuestionCategory.Default,L("Permission:QuestionCategory"));
+            questionCategory.AddChild(QuestionBankPermissions.QuestionCategory.Create,L("Permission:Create"));
+            questionCategory.AddChild(QuestionBankPermissions.QuestionCategory.Update,L("Permission:Update"));
+            questionCategory.AddChild(QuestionBankPermissions.QuestionCategory.Delete,L("Permission:Delete"));
+            questionCategory.AddChild(QuestionBankPermissions.QuestionCategory.Export, L("Permission:Export"));
+            questionCategory.AddChild(QuestionBankPermissions.QuestionCategory.Import, L("Permission:Import"));
 
-            var question = group.AddPermission(
-                QuestionBankPermissions.Question.Default,
-                L("Permission:Question"));
-                question.AddChild(
-                    QuestionBankPermissions.Question.Create,
-                    L("Permission:Create"));
-                question.AddChild(
-                    QuestionBankPermissions.Question.Update,
-                    L("Permission:Update"));
-                question.AddChild(
-                    QuestionBankPermissions.Question.Delete,
-                    L("Permission:Delete"));
+            var question = group.AddPermission(QuestionBankPermissions.Question.Default,L("Permission:Question"));
+            question.AddChild(QuestionBankPermissions.Question.Create,L("Permission:Create"));
+            question.AddChild(QuestionBankPermissions.Question.Update,L("Permission:Update"));
+            question.AddChild(QuestionBankPermissions.Question.Delete,L("Permission:Delete"));
 
             var trainPlatform = group.AddPermission(QuestionBankPermissions.TrainPlatform.Default,L("Permission:TrainPlatform"));
             trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Create,L("Permission:Create"));

@@ -20,7 +20,7 @@ public class CreateUpdateQuestionCategoryDto
     /// <summary>
     /// Hierarchical Code of this QuestionCategory.        Example: "00001.00042.00005".        This is a unique code for an QuestionCategory.        It's changeable if QC hierarchy is changed.
     /// </summary>
-    public string Code { get; set; }
+    public string Code { get; set; } = "00001.00042.00005";
 
     /// <summary>
     /// 是否显示

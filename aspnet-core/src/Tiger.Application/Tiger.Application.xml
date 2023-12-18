@@ -986,11 +986,6 @@
             课程
             </summary>
         </member>
-        <member name="T:Tiger.Module.Test.TestAppservice">
-            <summary>
-            测试服务
-            </summary>
-        </member>
         <member name="T:Tiger.TigerApplicationModule">
             <summary>
             项目包含 .Application.Contracts 项目的 应用服务 接口实现.

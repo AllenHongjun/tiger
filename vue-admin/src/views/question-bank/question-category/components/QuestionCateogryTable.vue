@@ -26,8 +26,8 @@
           {{ $t("AppQuestionBank['Permission:Create']") }}
         </el-button>
         <el-button type="primary" plain class="filter-item" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpUi['Refresh']") }}</el-button>
-        <el-button v-if="checkPermission('AbpIdentity.Roles.ExportXlsx')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">{{ $t('AbpUi.Export') }}</el-button>
-        <el-button v-if="checkPermission('AbpIdentity.Roles.ImportXlsx')" class="filter-item" type="primary" icon="el-icon-upload" @click="handleImport">{{ $t('AbpUi.Import') }}</el-button>
+        <el-button v-if="checkPermission('QuestionBank.QuestionCategory.Export')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">{{ $t('AbpUi.Export') }}</el-button>
+        <el-button v-if="checkPermission('QuestionBank.QuestionCategory.Import')" class="filter-item" type="primary" icon="el-icon-upload" @click="handleImport">{{ $t('AbpUi.Import') }}</el-button>
       </el-row>
     </div>
 

@@ -27,7 +27,7 @@ namespace Tiger.Module.QuestionBank
         public string Cover { get; set; }
 
         /// <summary>
-        /// Hierarchical Code of this QuestionCategory.
+        /// Hierarchical Code of this QuestionCategory.  层次结构
         /// Example: "00001.00042.00005".
         /// This is a unique code for an QuestionCategory.
         /// It's changeable if QC hierarchy is changed.
