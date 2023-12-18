@@ -11,15 +11,21 @@
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Cover\']')" prop="cover" style="width: 200px;">
           <single-image-upload v-model="temp.cover" @input="input" />
         </el-form-item>
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Code\']')" prop="code">
-          <el-input v-model="temp.code" />
-        </el-form-item>
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable">
-          <el-switch v-model="temp.enable" />
-        </el-form-item>
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:IsPublic\']')" prop="isPublic">
-          <el-switch v-model="temp.isPublic" />
-        </el-form-item>
+        <!-- <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Code\']')" prop="code">
+          <el-input v-model="temp.code" disabled />
+        </el-form-item> -->
+        <el-row>
+          <el-col :span="12">
+            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable">
+              <el-switch v-model="temp.enable" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item :label="$t('AppQuestionBank[\'DisplayName:IsPublic\']')" prop="isPublic">
+              <el-switch v-model="temp.isPublic" />
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" prop="sorting">
           <el-input-number v-model="temp.sorting" :min="0" :max="9999999" :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" />
         </el-form-item>

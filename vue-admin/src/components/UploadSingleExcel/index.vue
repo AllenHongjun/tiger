@@ -9,7 +9,7 @@
             <div class="el-upload__tip">请上传大小不超过 10MB 的文件</div>
 
             <div class="el-upload__tip">
-              <el-tooltip content="导入需要大量内存资源。 这就是为什么不建议一次导入超过 500 - 1,000 条记录。 如果您的记录较多，最好将它们拆分为多个 Excel 文件并分别导入。" placement="top">
+              <el-tooltip content="导入的数据通过ID来区分。 如果该ID已经存在，则更新其对应的数据。 您不应为新增的数据指定 ID（保留 空）。导入需要大量内存资源。 这就是为什么不建议一次导入超过 500 - 1,000 条记录。 如果您的记录较多，最好将它们拆分为多个 Excel 文件并分别导入。" placement="top">
                 <i class="el-icon-warning" />
               </el-tooltip>
               只允许上传.xlsx,.xls类型的文件

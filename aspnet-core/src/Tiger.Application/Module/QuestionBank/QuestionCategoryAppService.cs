@@ -167,36 +167,41 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
                     break;
 
                 manager.ReadFromXlsx(worksheet, iRow);
+                Guid id = manager.GetProperty("Id").GuidValue;
+                QuestionCategory model = null;
 
-                var model = await _repository.GetAsync(manager.GetProperty("Id").GuidValue);
+                var isNew = id == Guid.Empty;
+                Guid? parentId = manager.GetProperty("ParentId").GuidValue == Guid.Empty ? null : manager.GetProperty("ParentId").GuidValue;
 
-                var isNew = model == null;
-
-
-                model ??= new QuestionCategory(
+                if (isNew)
+                {
+                    model ??= new QuestionCategory(
                     GuidGenerator.Create(),
                     CurrentTenant.Id,
-                    manager.GetProperty("ParentId").GuidValue,
-                    manager.GetProperty("Name").StringValue,
-                    manager.GetProperty("Cover").StringValue,
-                    manager.GetProperty("Code").StringValue,
-                    manager.GetProperty("Enable").BooleanValue,
-                    manager.GetProperty("Sorting").IntValue,
-                    manager.GetProperty("IsPublic").BooleanValue
+                    parentId,
+                    manager.GetProperty(L["DisplayName:Name"]).StringValue,
+                    cover: "",
+                    code:"",
+                    manager.GetProperty(L["DisplayName:Enable"]).BooleanValue,
+                    manager.GetProperty(L["DisplayName:Sorting"]).IntValue,
+                    manager.GetProperty(L["DisplayName:IsPublic"]).BooleanValue
                     );
-
-                foreach (var property in manager.GetProperties)
+                }
+                else
                 {
-                    if (property.PropertyName == L["DisplayName:ParentId"]) model.ParentId = property.GuidValue;
-                    if (property.PropertyName == L["DisplayName:Name"]) model.Name = property.StringValue;
-                    if (property.PropertyName == L["DisplayName:Cover"]) model.Cover = property.StringValue;
-                    if (property.PropertyName == L["DisplayName:Enable"]) model.Enable = property.BooleanValue;
-                    if (property.PropertyName == L["DisplayName:Sorting"]) model.Sorting = property.IntValue;
-                    if (property.PropertyName == L["DisplayName:IsPublic"]) model.IsPublic = property.BooleanValue;
+                    model = await _repository.GetAsync(id);
+                    foreach (var property in manager.GetProperties)
+                    {
+                        if (property.PropertyName == L["DisplayName:ParentId"]) model.ParentId = parentId;
+                        if (property.PropertyName == L["DisplayName:Name"]) model.Name = property.StringValue;
+                        if (property.PropertyName == L["DisplayName:Enable"]) model.Enable = property.BooleanValue;
+                        if (property.PropertyName == L["DisplayName:IsPublic"]) model.IsPublic = property.BooleanValue;
+                        if (property.PropertyName == L["DisplayName:Sorting"]) model.Sorting = property.IntValue;
+                    }
                 }
 
                 if (isNew)
-                    await _repository.InsertAsync(model);
+                    await _repository.InsertAsync(model,true);
                 else
                     await _repository.UpdateAsync(model);
 
@@ -205,7 +210,7 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
         }
         else
         {
-            throw new Exception("文件不能空");
+            throw new Exception(L["FileIsEmpty"]);
         }
     }
 
@@ -216,21 +221,21 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
     /// <returns>查询到的所有角色</returns>
     public virtual async Task<IActionResult> ExportToXlsxAsync(QuestionCategoryGetListInput input)
     {
-        var list = CreateFilteredQuery(input).ToList();
-
+        input.MaxResultCount = input.MaxResultCount == 1 ? 1 : int.MaxValue;
+        var list = await base.GetListAsync(input);
         //property manager 
         var manager = new PropertyManager<QuestionCategoryDto>(new[]
         {
+                // bugfix: 服务层调用多语言方法，需要对 LocalizationResource 属性赋值，
                 new PropertyByName<QuestionCategoryDto>("Id", p => p.Id),
                 new PropertyByName<QuestionCategoryDto>(L["ParentId"], p => p.ParentId),
                 new PropertyByName<QuestionCategoryDto>(L["DisplayName:Name"], p => p.Name),
-                new PropertyByName<QuestionCategoryDto>(L["DisplayName:Cover"], p => p.Cover),
                 new PropertyByName<QuestionCategoryDto>(L["DisplayName:Enable"], p => p.Enable),
-                new PropertyByName<QuestionCategoryDto>(L["DisplayName:Sorting"], p => p.Sorting),
                 new PropertyByName<QuestionCategoryDto>(L["DisplayName:IsPublic"], p => p.IsPublic),
+                new PropertyByName<QuestionCategoryDto>(L["DisplayName:Sorting"], p => p.Sorting),
             });
 
-        var bytes = await manager.ExportToXlsxAsync(ObjectMapper.Map<List<QuestionCategory>,List<QuestionCategoryDto>>(list));
+        var bytes = await manager.ExportToXlsxAsync(list.Items.ToList());
 
         return new FileContentResult(bytes, MimeTypes.TextXlsx);
     } 

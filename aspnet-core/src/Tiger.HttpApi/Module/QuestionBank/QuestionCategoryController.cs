@@ -10,6 +10,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp;
 using Tiger.Module.QuestionBank.Dtos;
 using Microsoft.AspNetCore.Http;
+using Tiger.Volo.Abp.Identity.ClaimTypes.Dto;
 
 namespace Tiger.Module.QuestionBank
 {
@@ -154,6 +155,21 @@ namespace Tiger.Module.QuestionBank
         public async Task ImportFromXlsxAsync(IFormFile importexcelfile)
         {
             await QuestionCategoryAppService.ImportFromXlsxAsync(importexcelfile);
+        }
+
+        /// <summary>
+        /// xlsx 导入模板
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("export-xlxs-template")]
+        public async Task<IActionResult> ImportRoleTemplateAsync()
+        {
+            QuestionCategoryGetListInput input = new QuestionCategoryGetListInput()
+            {
+                MaxResultCount = 1
+            };
+            return await QuestionCategoryAppService.ExportToXlsxAsync(input);
         }
 
         /// <summary>

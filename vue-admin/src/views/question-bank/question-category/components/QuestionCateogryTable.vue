@@ -73,7 +73,7 @@
           <el-tag :type="( row.isPublic ? 'success' : 'danger')" :class="[ row.isPublic ? 'el-icon-check':'el-icon-close' ]" />
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" align="left" width="180">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" align="left" width="220">
         <template slot-scope="{ row }">
           <el-input-number v-model="row.sorting" :min="0" @change="handleUpdateSort(row)" />
         </template>
