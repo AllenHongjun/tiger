@@ -8,6 +8,10 @@
     "Reset": "Reset",
     "Export": "Export",
     "Import": "Import",
-    "SelectAll": "Select all"
+    "SelectAll": "Select all",
+    "DisplayName:CreationTime": "CreationTime",
+    "PlaceholderInput": "Keyword query",
+    "StartTime": "StartTime",
+    "EndTime": "EndTime"
   }
 }

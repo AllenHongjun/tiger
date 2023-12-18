@@ -2,7 +2,7 @@
   <div class="table-container">
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
-        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
+        <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PlaceholderInput\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
         <el-cascader
           ref="categoryCascader"
           v-model="listQuery.parentId"
@@ -11,13 +11,13 @@
           clearable
           class="filter-item"
           filterable
-          placeholder="请选择题库分类"
+          :placeholder="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')"
           style="width: 280px;"
           @change="cascaderChange"
         />
-        <el-select v-model="listQuery.enable" placeholder="启用状态" class="filter-item" clearable="">
-          <el-option label="是" :value="true" />
-          <el-option label="否" :value="false" />
+        <el-select v-model="listQuery.enable" :placeholder="$t('AppQuestionBank[\'DisplayName:Enable\']')" class="filter-item" clearable="">
+          <el-option :label="$t('AbpUi[\'Yes\']')" :value="true" />
+          <el-option :label="$t('AbpUi[\'No\']')" :value="false" />
         </el-select>
         <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
           {{ $t('AbpUi.Search') }}
@@ -25,7 +25,7 @@
         <el-button v-if="checkPermission('QuestionBank.QuestionCategory.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleCreate">
           {{ $t("AppQuestionBank['Permission:Create']") }}
         </el-button>
-        <el-button type="primary" plain class="filter-item" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpIdentity['Refresh']") }}</el-button>
+        <el-button type="primary" plain class="filter-item" icon="el-icon-refresh" @click="handleRefresh">{{ $t("AbpUi['Refresh']") }}</el-button>
         <el-button v-if="checkPermission('AbpIdentity.Roles.ExportXlsx')" class="filter-item" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleDownload">{{ $t('AbpUi.Export') }}</el-button>
         <el-button v-if="checkPermission('AbpIdentity.Roles.ImportXlsx')" class="filter-item" type="primary" icon="el-icon-upload" @click="handleImport">{{ $t('AbpUi.Import') }}</el-button>
       </el-row>

@@ -6,14 +6,7 @@
     "Menu:Question": "题目管理",
     "Menu:TrainPlatform": "实训平台",
 
-    "Platform:01404": "文件: {FileName}, 版本号: {FileVersion} 不存在!",
-    "Platform:02001": "同级目录下存在相同的菜单: {Name}!",
-    "Platform:02002": "在有其他子菜单的情况下,不允许删除菜单节点!",
-    "Platform:02003": "菜单层级已达到规定最大值: {Depth}!",
-    "Platform:02101": "菜单元数据缺少必要的元素: {Name},此选项在数据字典:{DataName} 中定义!",
-    "Platform:03001": "元数据格式不匹配!",
-    "Platform:04400": "用户重复收藏菜单!",
-    "Platform:04404": "用户收藏菜单未找到!",
+    "QuestionBank:01404": "文件: {FileName}, 版本号: {FileVersion} 不存在!",
 
     "Permission:QuestionBank": "题库管理",
     "Permission:QuestionCategory": "题目分类",
@@ -22,15 +15,8 @@
     "Permission:Create": "新增",
     "Permission:Update": "更新",
     "Permission:Delete": "删除",
-    "Permission:Upload": "上传",
-    "Permission:Download": "下载",
-
-    "UploadFileSizeBeyondLimit": "上传文件大小不能超过 {0} MB!",
-    "NotAllowedFileExtensionName": "不被允许的文件扩展名: {0}!",
-    "DisplayName:VersionFileLimitLength": "文件限制大小",
-    "Description:VersionFileLimitLength": "上传文件的限制大小,单位(MB)",
-    "DisplayName:AllowVersionFileExtensions": "文件扩展名",
-    "Description:AllowVersionFileExtensions": "允许的上传文件扩展名列表,多个扩展名以,分隔,无需输入.符号",
+    "Permission:Export": "导出",
+    "Permission:Import": "导入",
 
     "DisplayName:ParentName": "父类",
     "DisplayName:Name": "名称",
@@ -66,10 +52,9 @@
     "DisplayName:CheckCode": "token校验码",
     "DisplayName:TokenType": "token传值方式",
 
-    "DuplicateData": "已经存在名为 {0} 的数据字典!",
-    "DuplicateDataItem": "已经存在名为 {0} 的数据字典项!",
-    "DataItemNotFound": "不存在名为 {0} 的数据字典项!",
-    "UnableRemoveHasChildNode": "当前数据字典存在子节点,无法删除!",
-    "DuplicateLayout": "已经存在名为 {0} 的布局!"
+    "QuestionCategoryNotFound": "不存在名为 {0} 的题目分类!",
+    "UnableRemoveHasChildren": "当前分类存在子类,无法删除!",
+    "UnableRemoveHasQuestion": "当前分类已关联题目,无法删除!",
+    "DuplicateQuestionCategory": "已经存在名为 {0} 的题目分类!"
   }
 }

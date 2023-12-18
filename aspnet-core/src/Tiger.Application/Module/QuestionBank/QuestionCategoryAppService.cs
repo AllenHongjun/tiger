@@ -27,16 +27,13 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
 
     #region 字段和构造函数
     private readonly IQuestionCategoryRepository _repository;
-    private readonly IQuestionRepository _questionRepository;
 
     public QuestionCategoryAppService(
-        IQuestionCategoryRepository repository, 
-        IQuestionRepository questionRepository) : base(repository)
+        IQuestionCategoryRepository repository) : base(repository)
     {
         // 本地化资源初始化
         LocalizationResource = typeof(QuestionBankResources);
         _repository = repository;
-        _questionRepository=questionRepository;
     }
     #endregion
 
@@ -104,14 +101,15 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
     public override async Task DeleteAsync(Guid id)
     {
         var category = await _repository.GetAsync(id, true);
-        if (category.Questions.Count > 0)
-        {
-            throw new UserFriendlyException(L["HasQuestionInCategory"]);
-        }
         
         if (category.Children.Count > 0) 
         {
-            throw new UserFriendlyException(L["HasChildrenInCategory"]);
+            throw new UserFriendlyException(L["UnableRemoveHasChildren"]);
+        }
+
+        if (category.Questions.Count > 0)
+        {
+            throw new UserFriendlyException(L["UnableRemoveHasQuestion"]);
         }
 
         await base.DeleteAsync(id);
