@@ -3,7 +3,18 @@
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
         <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-cascader v-model="listQuery.parentId" :options="options" :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}" clearable class="filter-item" filterable placeholder="请选择题库分类" style="width: 280px;" />
+        <el-cascader
+          ref="categoryCascader"
+          v-model="listQuery.parentId"
+          :options="options"
+          :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
+          clearable
+          class="filter-item"
+          filterable
+          placeholder="请选择题库分类"
+          style="width: 280px;"
+          @change="cascaderChange"
+        />
         <el-select v-model="listQuery.enable" placeholder="启用状态" class="filter-item" clearable="">
           <el-option label="是" :value="true" />
           <el-option label="否" :value="false" />
@@ -90,7 +101,7 @@ import {
   ExportQuestionCategoryToXlsx
 } from '@/api/question-bank/question-category'
 import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
-import { listToTree } from '@/utils/helpers/tree-helper'
+import { listToTree, recurtionToTree } from '@/utils/helpers/tree-helper'
 import baseListQuery, { Url, checkPermission } from '@/utils/abp'
 import { downloadByData } from '@/utils/download'
 
@@ -128,8 +139,14 @@ export default {
     ImportQuestionCategoryFromXlsx,
     fetchOptions() {
       getAllQuestionCategory(baseListQuery).then(response => {
-        this.options = listToTree(response.items, null)
+        this.options = recurtionToTree(response.items, null)
       })
+    },
+    cascaderChange(val) {
+      if (!this.$refs.categoryCascader.checkedValue) {
+        // 此处不清空，接口会传递后端字符串null导致无法解析
+        this.listQuery.parentId = undefined
+      }
     },
     // 获取列表数据
     getList() {

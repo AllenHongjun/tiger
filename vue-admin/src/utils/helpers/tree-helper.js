@@ -13,11 +13,11 @@ const getConfig = config => Object.assign({}, DEFAULT_CONFIG, config)
  * @param {*} config
  * @returns
  */
-export function listToTree(list, parentId = null) {
+export function recurtionToTree(list, parentId = null) {
   const tree = []
   for (const item of list) {
     if (item.parentId === parentId) {
-      const children = listToTree(list, item.id)
+      const children = recurtionToTree(list, item.id)
       if (children.length) {
         item.children = children
       } else {
@@ -27,6 +27,24 @@ export function listToTree(list, parentId = null) {
     }
   }
   return tree
+}
+
+// tree to list
+export function listToTree(list, config = {}) {
+  const conf = getConfig(config)
+  const nodeMap = new Map()
+  const result = []
+  const { id, children, pid } = conf
+
+  for (const node of list) {
+    node[children] = node[children] || []
+    nodeMap.set(node[id], node)
+  }
+  for (const node of list) {
+    const parent = nodeMap.get(node[pid])
+    ;(parent ? parent[children] : result).push(node)
+  }
+  return result
 }
 
 export function treeToList(tree, config = {}) {

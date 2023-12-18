@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import { transformAbpListQuery } from '@/utils/abp'
+import qs from 'querystring'
 
 export function getQuestionCategories(params) {
   return request({
@@ -20,7 +21,7 @@ export function getAllQuestionCategory(params) {
   return request({
     url: `/api/question-bank/question-categories/all`,
     method: 'get',
-    params: transformAbpListQuery(params)
+    params: params
   })
 }
 
