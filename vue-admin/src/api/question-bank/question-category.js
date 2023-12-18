@@ -19,7 +19,8 @@ export function getQuestionCategory(id) {
 export function getAllQuestionCategory(params) {
   return request({
     url: `/api/question-bank/question-categories/all`,
-    method: 'get'
+    method: 'get',
+    params: transformAbpListQuery(params)
   })
 }
 

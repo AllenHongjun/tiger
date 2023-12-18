@@ -3,7 +3,11 @@
     <div class="filter-container">
       <el-row style="margin-bottom: 20px">
         <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PagerSearch\']')" style="width: 200px;" clearable class="filter-item" @keyup.enter.native="handleFilter" />
-        <el-cascader v-model="listQuery.parentId" :options="options" :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}" clearable class="filter-item" filterable />
+        <el-cascader v-model="listQuery.parentId" :options="options" :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}" clearable class="filter-item" filterable placeholder="请选择题库分类" style="width: 280px;" />
+        <el-select v-model="listQuery.enable" placeholder="启用状态" class="filter-item" clearable="">
+          <el-option label="是" :value="true" />
+          <el-option label="否" :value="false" />
+        </el-select>
         <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
           {{ $t('AbpUi.Search') }}
         </el-button>
@@ -124,7 +128,7 @@ export default {
     ImportQuestionCategoryFromXlsx,
     fetchOptions() {
       getAllQuestionCategory(baseListQuery).then(response => {
-        this.options = listToTree(response.items)
+        this.options = listToTree(response.items, null)
       })
     },
     // 获取列表数据
