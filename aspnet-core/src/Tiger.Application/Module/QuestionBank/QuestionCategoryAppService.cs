@@ -27,12 +27,16 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
 
     #region 字段和构造函数
     private readonly IQuestionCategoryRepository _repository;
+    private readonly IQuestionRepository _questionRepository;
 
-    public QuestionCategoryAppService(IQuestionCategoryRepository repository) : base(repository)
+    public QuestionCategoryAppService(
+        IQuestionCategoryRepository repository, 
+        IQuestionRepository questionRepository) : base(repository)
     {
         // 本地化资源初始化
         LocalizationResource = typeof(QuestionBankResources);
         _repository = repository;
+        _questionRepository=questionRepository;
     }
     #endregion
 
@@ -99,13 +103,17 @@ public class QuestionCategoryAppService : CrudAppService<QuestionCategory, Quest
     /// <returns></returns>
     public override async Task DeleteAsync(Guid id)
     {
-        /*
-         TODO:
-        1. 如果父类关联删除子类 （或者提示先删除子类）将所有的子类关联的父类id设置未null（弃用）
-        2. 递归归删除一级分类下所有子分类 增加 code 层级结构字段 获取 父级code开头的所有子类
-        3. 如果分类下还有题目，提示先删除题目再删除分类
-         
-         */
+        var category = await _repository.GetAsync(id, true);
+        if (category.Questions.Count > 0)
+        {
+            throw new UserFriendlyException(L["HasQuestionInCategory"]);
+        }
+        
+        if (category.Children.Count > 0) 
+        {
+            throw new UserFriendlyException(L["HasChildrenInCategory"]);
+        }
+
         await base.DeleteAsync(id);
     }
     #endregion

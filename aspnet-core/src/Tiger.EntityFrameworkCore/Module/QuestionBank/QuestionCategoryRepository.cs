@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ public class QuestionCategoryRepository : EfCoreRepository<TigerDbContext, Quest
     public QuestionCategoryRepository(IDbContextProvider<TigerDbContext> dbContextProvider) : base(dbContextProvider)
     {
     }
+    
 
     public override  IQueryable<QuestionCategory> WithDetails()
     {

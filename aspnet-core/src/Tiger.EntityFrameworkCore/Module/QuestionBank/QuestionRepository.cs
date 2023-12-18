@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 //using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Tiger.EntityFrameworkCore;
@@ -16,6 +17,7 @@ public class QuestionRepository : EfCoreRepository<TigerDbContext, Question, Gui
     public QuestionRepository(IDbContextProvider<TigerDbContext> dbContextProvider) : base(dbContextProvider)
     {
     }
+
 
     /// <summary>
     /// 根据题目分类查询不同难度题目数量
