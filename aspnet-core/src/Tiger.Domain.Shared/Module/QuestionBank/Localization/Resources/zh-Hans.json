@@ -48,7 +48,7 @@
 
     "DisplayName:Description": "描述",
     "DisplayName:Icon": "logo图标",
-    "DisplayName:Url": "实训跳转链接",
+    "DisplayName:TrainPlatformUrl": "实训跳转链接",
     "DisplayName:CheckCode": "token校验码",
     "DisplayName:TokenType": "token传值方式",
 

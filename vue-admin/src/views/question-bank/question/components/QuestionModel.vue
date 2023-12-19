@@ -89,6 +89,17 @@
             <el-input v-model="temp.answer" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
           </div>
         </el-form-item>
+        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:TrainPlatformUrl\']')" prop="trainPlatformId">
+          <el-select v-model="temp.trainPlatformId" placeholder="-" filterable clearable width="20%">
+            <el-option
+              v-for="item in trainPlatformOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            />
+          </el-select>
+          <el-input v-model="temp.trainPlatformPath" type="text" width="20%" placeholder="请输入跳转地址path" />
+        </el-form-item>
 
         <el-row>
           <el-col :span="12">
@@ -138,9 +149,8 @@ import {
   createQuestion,
   updateQuestion
 } from '@/api/question-bank/question'
-import {
-  getAllQuestionCategory
-} from '@/api/question-bank/question-category'
+import { getAllQuestionCategory } from '@/api/question-bank/question-category'
+import { getAllTrainPlatform } from '@/api/question-bank/train-platform'
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Type, Degree } from '../datas/typing'
 import { listToTree } from '@/utils/helpers/tree-helper'
@@ -156,6 +166,7 @@ export default {
       QuestionTypeMap,
       QuestionDegreeMap,
       questionCategoryOptions: [],
+      trainPlatformOptions: [],
       questionTypeOptions: Type,
       questionDegreeOptions: Degree,
       alphas: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
@@ -174,6 +185,8 @@ export default {
         optionContent: undefined,
         optionSize: undefined,
         answer: undefined,
+        trainPlatformId: undefined,
+        trainPlatformPath: undefined,
         score: undefined,
         degree: 1,
         analysis: undefined,
@@ -259,6 +272,10 @@ export default {
       getAllQuestionCategory(baseListQuery).then(response => {
         this.questionCategoryOptions = listToTree(response.items)
       })
+
+      getAllTrainPlatform().then(response => {
+        this.trainPlatformOptions = response.items
+      })
     },
 
     // 添加题目选项
@@ -319,6 +336,8 @@ export default {
         content: undefined,
         optionContent: undefined,
         optionSize: undefined,
+        trainPlatformId: undefined,
+        trainPlatformPath: undefined,
         answer: undefined,
         score: undefined,
         degree: 1,

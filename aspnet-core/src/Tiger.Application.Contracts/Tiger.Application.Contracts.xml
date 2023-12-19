@@ -2203,6 +2203,11 @@
             答案
             </summary>
         </member>
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.TrainPlatformPath">
+            <summary>
+            资源路径 例如: /path/to/myfile.html
+            </summary>
+        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Score">
             <summary>
             分数
@@ -2496,6 +2501,11 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Answer" -->
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.TrainPlatformPath">
+            <summary>
+            资源路径 例如: /path/to/myfile.html
+            </summary>
+        </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Degree">
             <summary>
             难易度：1.简单 2.普通 3.困难
@@ -2674,26 +2684,6 @@
         <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Name">
             <summary>
             名称
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Icon">
-            <summary>
-            logo图标
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.Url">
-            <summary>
-            实训跳转链接
-            </summary>
-        </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.CheckCode">
-            <summary>
-            token校验码
             </summary>
         </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput.TokenType">

@@ -57,6 +57,11 @@ namespace Tiger.Module.QuestionBank
         public string Answer { get; set; }
 
         /// <summary>
+        /// 资源路径 例如: /path/to/myfile.html
+        /// </summary>
+        public string TrainPlatformPath { get; set; }
+
+        /// <summary>
         /// 分数
         /// </summary>
         public decimal Score { get; set; }

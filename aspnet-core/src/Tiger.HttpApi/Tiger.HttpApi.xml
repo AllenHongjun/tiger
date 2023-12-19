@@ -794,7 +794,7 @@
             <param name="input"></param>
             <returns></returns>
         </member>
-        <member name="M:Tiger.Module.QuestionBank.QuestionController.BulkDeleteAsync(Tiger.Module.QuestionBank.Dtos.QuestionBatchInput)">
+        <member name="M:Tiger.Module.QuestionBank.QuestionController.BatchDeleteAsync(Tiger.Module.QuestionBank.Dtos.QuestionBatchInput)">
             <summary>
             批量删除
             </summary>
@@ -851,9 +851,15 @@
         </member>
         <member name="M:Tiger.Module.TrainPlatformBank.TrainPlatformController.GetListAsync(Tiger.Module.QuestionBank.Dtos.TrainPlatformGetListInput)">
             <summary>
-            分页列表
+            分页
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiger.Module.TrainPlatformBank.TrainPlatformController.GetAll">
+            <summary>
+            所有
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Tiger.Module.TrainPlatformBank.TrainPlatformController.UpdateAsync(System.Guid,Tiger.Module.QuestionBank.Dtos.CreateUpdateTrainPlatformDto)">

@@ -201,7 +201,7 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
     #region 批量操作
     [Authorize(QuestionBankPermissions.Question.Delete)]
-    public async virtual Task BulkDeleteAsync(QuestionBatchInput input)
+    public async virtual Task BatchDeleteAsync(QuestionBatchInput input)
     {
         if (!input.QuestionIds.Any())
         {

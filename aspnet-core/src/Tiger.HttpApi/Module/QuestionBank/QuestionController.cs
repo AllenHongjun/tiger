@@ -95,9 +95,9 @@ namespace Tiger.Module.QuestionBank
         /// <exception cref="NotImplementedException"></exception>
         [HttpPost]
         [Route("batch-delete")]
-        public async Task BulkDeleteAsync(QuestionBatchInput input)
+        public async Task BatchDeleteAsync(QuestionBatchInput input)
         {
-            await QuestionAppService.BulkDeleteAsync(input);
+            await QuestionAppService.BatchDeleteAsync(input);
         }
 
         /// <summary>

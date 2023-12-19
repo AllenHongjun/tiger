@@ -19,7 +19,7 @@ public interface IQuestionAppService :
         CreateUpdateQuestionDto,
         CreateUpdateQuestionDto>
 {
-    Task BulkDeleteAsync(QuestionBatchInput input);
+    Task BatchDeleteAsync(QuestionBatchInput input);
     Task<IActionResult> ExportToXlsxAsync(QuestionGetListInput input);
     Task<DifferentDegreeQuestionCountDto> GetDifferentDegreeQuestionCount(GetDifferentDegreeQuestionCountInput input);
     Task ImportFromXlsxAsync(IFormFile importexcelfile);

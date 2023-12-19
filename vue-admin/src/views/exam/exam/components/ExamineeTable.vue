@@ -12,7 +12,7 @@
         <el-button v-if="checkPermission('Platform.Layout.Create')" class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-plus" @click="handleSelectOrg">
           指定组织
         </el-button>
-        <el-button type="danger" icon="el-icon-delete" class="filter-item" @click="handleBatchDelete()">批量删除</el-button>
+        <el-button v-if="checkPermission('Platform.Layout.Create')" type="danger" icon="el-icon-delete" class="filter-item" @click="handleBatchDelete()">批量删除</el-button>
       </el-row>
     </div>
 

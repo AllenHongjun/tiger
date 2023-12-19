@@ -1291,6 +1291,11 @@ namespace Tiger.Migrations
                     b.Property<Guid?>("TrainPlatformId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("TrainPlatformPath")
+                        .HasColumnType("nvarchar(512)")
+                        .HasComment("资源路径 例如: /path/to/myfile.html")
+                        .HasMaxLength(512);
+
                     b.Property<int>("Type")
                         .HasColumnType("int")
                         .HasComment("类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务");

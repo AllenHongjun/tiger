@@ -57,6 +57,11 @@ public class QuestionDto : FullAuditedEntityDto<Guid>
     public string Answer { get; set; }
 
     /// <summary>
+    /// 资源路径 例如: /path/to/myfile.html
+    /// </summary>
+    public string TrainPlatformPath { get; set; }
+
+    /// <summary>
     /// 难易度：1.简单 2.普通 3.困难
     /// </summary>
     public QuestionDegree Degree { get; set; }

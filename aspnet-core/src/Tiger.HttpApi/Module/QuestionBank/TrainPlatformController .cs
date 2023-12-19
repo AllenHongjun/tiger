@@ -65,7 +65,7 @@ namespace Tiger.Module.TrainPlatformBank
         }
 
         /// <summary>
-        /// 分页列表
+        /// 分页
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -73,6 +73,17 @@ namespace Tiger.Module.TrainPlatformBank
         public Task<PagedResultDto<TrainPlatformDto>> GetListAsync(TrainPlatformGetListInput input)
         {
             return TrainPlatformAppService.GetListAsync(input);
+        }
+
+        /// <summary>
+        /// 所有
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("all")]
+        public ListResultDto<TrainPlatformDto> GetAll()
+        {
+            return TrainPlatformAppService.GetAll();
         }
 
         /// <summary>

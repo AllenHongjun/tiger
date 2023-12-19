@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Tiger.Permissions;
 using Tiger.Module.Exams.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp;
 
 namespace Tiger.Module.Exams;
 
@@ -11,6 +12,7 @@ namespace Tiger.Module.Exams;
 /// <summary>
 /// 试卷评委表        <remarks>    评卷人只有关联了试卷才能改卷（默认只有超管能改卷）    </remarks>
 /// </summary>
+[RemoteService( IsEnabled = false )]
 public class TestPaperJudgeAppService : CrudAppService<TestPaperJudge, TestPaperJudgeDto, Guid, TestPaperJudgeGetListInput, CreateUpdateTestPaperJudgeDto, CreateUpdateTestPaperJudgeDto>,
     ITestPaperJudgeAppService
 {

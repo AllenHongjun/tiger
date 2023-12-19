@@ -80,6 +80,14 @@ export function exportQuestionToXlsx(params) {
   })
 }
 
+export function batchDeleteQuestion(payload) {
+  return request({
+    url: '/api/question-bank/questions/batch-delete',
+    method: 'post',
+    data: payload
+  })
+}
+
 export function getDifferentDegreeQuestionCount(params) {
   return request({
     url: '/api/question-bank/questions/different-degree-question-count',

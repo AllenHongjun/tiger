@@ -105,14 +105,29 @@
             <el-button v-if="checkPermission('AbpIdentity.Users.ExportXlsx')" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExportXlsx">
               {{ $t('AbpUi.Export') }}
             </el-button>
-            <el-button v-if="checkPermission('AbpIdentity.Users.ImportXlsx')" type="primary" icon="el-icon-upload" @click="handleImport"> {{ $t('AbpUi.Import') }}</el-button>
+            <el-button v-if="checkPermission('AbpIdentity.Users.ImportXlsx')" type="primary" icon="el-icon-upload" @click="handleImport">
+              {{ $t('AbpUi.Import') }}
+            </el-button>
+            <el-button v-if="checkPermission('QuestionBank.Question.Delete')" type="danger" icon="el-icon-delete" class="filter-item" @click="handleBatchDelete()">批量删除</el-button>
           </el-button-group>
 
         </el-col>
       </el-row>
     </div>
 
-    <el-table :key="tableKey" v-loading="listLoading" :data="list" border fit highlight-current-row :stripe="true" :row-style="{height: '60px'}" style="width: 100%;" @sort-change="sortChange">
+    <el-table
+      ref="multipleTable"
+      :key="tableKey"
+      v-loading="listLoading"
+      :data="list"
+      border
+      fit
+      highlight-current-row
+      :stripe="true"
+      :row-style="{height: '60px'}"
+      style="width: 100%;"
+      @sort-change="sortChange"
+    >
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="60" />
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCateogryName" align="left" width="280">
@@ -162,17 +177,15 @@
 </template>
 
 <script>
-/*
-1. 题目内容 题目解析 增加富文本编辑器
-2. 增加实操平台 选择开发
-3. 实操平台 关联课程 只有授权给学校的课程 组织下面的用户才能看到对应的实操平台
-*/
+
 import {
   getQuestions,
+  getAllQuestion,
   deleteQuestion,
   exportQuestionToXlsx,
   importQuestionFromXlsx,
-  exportQuestionXlsxTemplate
+  exportQuestionXlsxTemplate,
+  batchDeleteQuestion
 } from '@/api/question-bank/question'
 import { getAllQuestionCategory } from '@/api/question-bank/question-category'
 
@@ -199,6 +212,7 @@ export default {
       QuestionDegree,
       QuestionDegreeMap,
       questionCategoryOptions: [],
+
       degreeOptions: Degree,
       typeOptions: Type,
       pickerOptions: pickerRangeWithHotKey,
@@ -329,6 +343,41 @@ export default {
         // 回调函数
         deleteQuestion(row.id).then(() => {
           this.handleFilter(false)
+          this.$notify({
+            title: this.$i18n.t("TigerUi['Success']"),
+            message: this.$i18n.t("TigerUi['SuccessMessage']"),
+            type: 'success',
+            duration: 2000
+          })
+        })
+      })
+    },
+    // 批量删除
+    handleBatchDelete() {
+      var selections = this.$refs.multipleTable.selection
+      if (selections.length <= 0) {
+        this.$message({
+          message: '请先选中一行数据 !',
+          type: 'warning'
+        })
+        return
+      }
+      debugger
+      const ids = selections.map((x) => x.id)
+      var req = {
+        questionIds: ids
+      }
+
+      this.$confirm(
+        this.$i18n.t("AbpUi['ItemsWillBeDeletedMessage']"),
+        this.$i18n.t("AbpUi['AreYouSure']"), {
+          confirmButtonText: this.$i18n.t("AbpUi['Yes']"), // 确认按钮
+          cancelButtonText: this.$i18n.t("AbpUi['Cancel']"), // 取消按钮
+          type: 'warning' // 弹框类型
+        }
+      ).then(async() => {
+        batchDeleteQuestion(req).then(() => {
+          this.handleFilter()
           this.$notify({
             title: this.$i18n.t("TigerUi['Success']"),
             message: this.$i18n.t("TigerUi['SuccessMessage']"),

@@ -1,6 +1,11 @@
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tiger.Module.QuestionBank.Dtos;
+using Tiger.Module.System.Platform.Layouts.Dto;
+using Volo.Abp;
+using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Tiger.Module.QuestionBank;
@@ -9,6 +14,7 @@ namespace Tiger.Module.QuestionBank;
 /// <summary>
 /// 实训平台
 /// </summary>
+[RemoteService(IsEnabled = false)]
 public class TrainPlatformAppService : CrudAppService<TrainPlatform, TrainPlatformDto, Guid, TrainPlatformGetListInput, CreateUpdateTrainPlatformDto, CreateUpdateTrainPlatformDto>,
     ITrainPlatformAppService
 {
@@ -28,12 +34,15 @@ public class TrainPlatformAppService : CrudAppService<TrainPlatform, TrainPlatfo
             .WhereIf(input.CreateStartTime != null, x => x.CreationTime >= input.CreateStartTime)
             .WhereIf(input.CreateEndTime != null, x => x.CreationTime <= input.CreateEndTime)
             .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
-            .WhereIf(!input.Description.IsNullOrWhiteSpace(), x => x.Description.Contains(input.Description))
-            .WhereIf(!input.Icon.IsNullOrWhiteSpace(), x => x.Icon.Contains(input.Icon))
-            .WhereIf(!input.Url.IsNullOrWhiteSpace(), x => x.Url.Contains(input.Url))
-            .WhereIf(!input.CheckCode.IsNullOrWhiteSpace(), x => x.CheckCode.Contains(input.CheckCode))
             .WhereIf(input.TokenType != null, x => x.TokenType == input.TokenType)
             .WhereIf(input.Enable != null, x => x.Enable == input.Enable)
             ;
+    }
+
+    public ListResultDto<TrainPlatformDto> GetAll() {
+        var trainPlatforms = _repository.Where(x => x.Enable == true).ToList();
+
+        return new ListResultDto<TrainPlatformDto>(
+                ObjectMapper.Map<List<TrainPlatform>, List<TrainPlatformDto>>(trainPlatforms));
     }
 }
