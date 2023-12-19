@@ -17,9 +17,9 @@ public class QuestionDto : FullAuditedEntityDto<Guid>
     public string QuestionCateogryName { get; set; }
 
     /// <summary>
-    /// 实训链接
+    /// 实训平台Id
     /// </summary>
-    public Guid? PracticalTrainingId { get; set; }
+    public Guid? TrainPlatformId { get; set; }
 
     /// <summary>
     /// 类型 1.判断 2.单选 3.多选 4.填空 5.计算题 6.问答题 7.B型题,8.简答题 9.实训任务

@@ -37,7 +37,7 @@
             </el-form-item>
           </el-col>
 
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
               <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
                 <el-option
@@ -58,7 +58,7 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
+              <el-link type="info" :underline="false" style="margin-left: 1px;line-height: 28px;" @click="toggleAdvanced">
                 {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
                 <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
               </el-link>
@@ -102,10 +102,10 @@
             <el-button type="primary" icon="el-icon-refresh" @click="handleRefresh">
               {{ $t("AbpIdentity['Refresh']") }}
             </el-button>
-            <el-button v-if="checkPermission('AbpIdentity.Users.ExportXlsx')" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExportXlsx">
+            <el-button v-if="checkPermission('QuestionBank.Question.Export')" type="primary" icon="el-icon-download" :loading="downloadLoading" @click="handleExportXlsx">
               {{ $t('AbpUi.Export') }}
             </el-button>
-            <el-button v-if="checkPermission('AbpIdentity.Users.ImportXlsx')" type="primary" icon="el-icon-upload" @click="handleImport">
+            <el-button v-if="checkPermission('QuestionBank.Question.Import')" type="primary" icon="el-icon-upload" @click="handleImport">
               {{ $t('AbpUi.Import') }}
             </el-button>
             <el-button v-if="checkPermission('QuestionBank.Question.Delete')" type="danger" icon="el-icon-delete" class="filter-item" @click="handleBatchDelete()">批量删除</el-button>
@@ -137,8 +137,8 @@
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
-          <!-- <span>{{ row.content }}</span> -->
-          <span v-text="row.content" />
+          <span>{{ row.content }}</span>
+          <!-- <span style="max-height: 50px;" v-html="row.content" /> -->
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">
@@ -148,7 +148,7 @@
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Degree\']')" prop="Degree" align="left" width="100">
         <template slot-scope="{ row }">
-          <el-tag v-if="QuestionDegreeMap[row.degree]" type="primary">{{ QuestionDegreeMap[row.degree] }}</el-tag>
+          <el-tag v-if="QuestionDegreeMap[row.degree]" :type="QuestionDegreeTypeMap[row.degree]">{{ QuestionDegreeMap[row.degree] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="Enable" align="left" width="80">
@@ -197,7 +197,7 @@ import { pickerRangeWithHotKey } from '@/utils/picker'
 import { listToTree } from '@/utils/helpers/tree-helper'
 import { downloadByData } from '@/utils/download'
 
-import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, Degree, Type } from '../datas/typing'
+import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, QuestionDegreeTypeMap, Degree, Type } from '../datas/typing'
 
 export default {
   name: 'Questions',
@@ -211,6 +211,7 @@ export default {
       QuestionTypeMap,
       QuestionDegree,
       QuestionDegreeMap,
+      QuestionDegreeTypeMap,
       questionCategoryOptions: [],
 
       degreeOptions: Degree,

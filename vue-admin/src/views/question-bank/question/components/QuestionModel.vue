@@ -24,7 +24,8 @@
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="content">
           <el-checkbox v-model="useEditor">使用富文本编辑器</el-checkbox>
-          <tinymce v-if="useEditor" v-model="temp.content" :height="300" @blur="onInputBlur" />
+          <!-- bugfix:tinymce每次查看详情内容不更新问题  https://blog.csdn.net/qq_39367226/article/details/103186116 -->
+          <tinymce v-if="useEditor && dialogFormVisible" ref="editor" v-model="temp.content" :height="300" @blur="onInputBlur" />
           <el-input v-else v-model="temp.content" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" @blur="onInputBlur" />
           <div v-if="temp.type === QuestionType.Completion" style="margin-top: 10px;">
             <span>请在填空位置</span>   <el-button type="primary" @click="insertBlankFill()">插入填空符</el-button>
@@ -89,8 +90,8 @@
             <el-input v-model="temp.answer" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" />
           </div>
         </el-form-item>
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:TrainPlatformUrl\']')" prop="trainPlatformId">
-          <el-select v-model="temp.trainPlatformId" placeholder="-" filterable clearable width="20%">
+        <el-form-item v-if="temp.type === QuestionType.Completion || temp.type === QuestionType.QA || temp.type === QuestionType.PracticalTraining" :label="$t('AppQuestionBank[\'DisplayName:TrainPlatformUrl\']')">
+          <el-select v-model="temp.trainPlatformId" placeholder="-" filterable clearable>
             <el-option
               v-for="item in trainPlatformOptions"
               :key="item.id"
@@ -98,13 +99,13 @@
               :value="item.id"
             />
           </el-select>
-          <el-input v-model="temp.trainPlatformPath" type="text" width="20%" placeholder="请输入跳转地址path" />
+          <el-input v-model="temp.trainPlatformPath" type="text" style="width: 60%;" placeholder="请输入path：路径，由零或多个‘/’隔开的字符串，一般用来表示主机上的一个目录或者文件地址。" />
         </el-form-item>
 
         <el-row>
           <el-col :span="12">
             <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="score">
-              <el-input v-model="temp.score" type="number" />
+              <el-input-number v-model="temp.score" :step="5" :min="0" :max="100" :precision="2" label="题目分数" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -203,7 +204,7 @@ export default {
       },
       dialogFormVisible: false,
       dialogStatus: '',
-      useEditor: false,
+      useEditor: true,
       // 表单验证规则
       rules: {
         questionCategoryId: [
@@ -232,20 +233,6 @@ export default {
             trigger: 'blur'
           }
         ],
-        score: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [this.$i18n.t("AppQuestionBank['DisplayName:Score']")]),
-            trigger: 'blur'
-          }
-        ],
-        degree: [
-          {
-            required: true,
-            message: this.$i18n.t("AbpValidation['The {0} field is required.']", [this.$i18n.t("AppQuestionBank['DisplayName:Degree']")]),
-            trigger: 'blur'
-          }
-        ],
         analysis: [
           {
             max: 512,
@@ -264,7 +251,6 @@ export default {
     }
   },
   created() {
-    console.log('QuestionTypeMap', QuestionTypeMap)
   },
   methods: {
     checkPermission,
@@ -339,8 +325,8 @@ export default {
         trainPlatformId: undefined,
         trainPlatformPath: undefined,
         answer: undefined,
-        score: undefined,
-        degree: 1,
+        score: 10,
+        degree: 0,
         analysis: undefined,
         source: undefined,
         helpMessage: undefined,
@@ -361,6 +347,7 @@ export default {
 
     // 点击创建按钮
     handleCreate() {
+      debugger
       this.fetchQuestionCategoryOptions()
       this.resetTemp()
       this.dialogStatus = 'create'
@@ -412,6 +399,7 @@ export default {
 
       getQuestion(row.id).then(response => {
         this.temp = response
+        debugger
         // 拆分显示选项
         var tempOptionConentArr = response.optionContent.split(/[(\r\n)\r\n]+/) // 根据换行或者回车进行识别
         var resultArr = []

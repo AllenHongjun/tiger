@@ -30,6 +30,8 @@ namespace Tiger.Module.QuestionBank.Permissions
             public const string Update = Default + ".Update";
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
+            public const string Export = Default + ".Export";
+            public const string Import = Default + ".Import";
         }
 
         /// <summary>

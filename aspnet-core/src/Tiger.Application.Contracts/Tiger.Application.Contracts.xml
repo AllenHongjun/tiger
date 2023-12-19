@@ -2168,9 +2168,9 @@
             题库
             </summary>
         </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.PracticalTrainingId">
+        <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.TrainPlatformId">
             <summary>
-            实训链接
+            实训平台Id
             </summary>
         </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.CreateUpdateQuestionDto.Type">
@@ -2465,9 +2465,9 @@
             题库
             </summary>
         </member>
-        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.PracticalTrainingId">
+        <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.TrainPlatformId">
             <summary>
-            实训链接
+            实训平台Id
             </summary>
         </member>
         <member name="P:Tiger.Module.QuestionBank.Dtos.QuestionDto.Type">

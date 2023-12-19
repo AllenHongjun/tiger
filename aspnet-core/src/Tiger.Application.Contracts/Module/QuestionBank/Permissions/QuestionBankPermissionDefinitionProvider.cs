@@ -28,6 +28,8 @@ namespace Tiger.Module.QuestionBank.Permissions
             question.AddChild(QuestionBankPermissions.Question.Create,L("Permission:Create"));
             question.AddChild(QuestionBankPermissions.Question.Update,L("Permission:Update"));
             question.AddChild(QuestionBankPermissions.Question.Delete,L("Permission:Delete"));
+            question.AddChild(QuestionBankPermissions.Question.Export, L("Permission:Export"));
+            question.AddChild(QuestionBankPermissions.Question.Import, L("Permission:Import"));
 
             var trainPlatform = group.AddPermission(QuestionBankPermissions.TrainPlatform.Default,L("Permission:TrainPlatform"));
             trainPlatform.AddChild(QuestionBankPermissions.TrainPlatform.Create,L("Permission:Create"));

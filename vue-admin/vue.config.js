@@ -48,7 +48,9 @@ module.exports = {
       alias: {
         '@': resolve('src')
       }
-    }
+    },
+    // degugger失效修复:https://blog.csdn.net/qq_45024094/article/details/134964140
+    devtool: 'source map'
   },
   chainWebpack(config) {
     // it can improve the speed of the first screen, it is recommended to turn on preload

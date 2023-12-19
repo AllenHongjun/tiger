@@ -62,18 +62,33 @@ export const Type = [
 ]
 
 export const QuestionDegree = {
+  UnlimitedDifficulty: 0,
   Simple: 1,
   Ordinary: 2,
   Difficult: 3
 }
 
 export const QuestionDegreeMap = {
+  [QuestionDegree.UnlimitedDifficulty]: '不限难度',
   [QuestionDegree.Simple]: '简单',
   [QuestionDegree.Ordinary]: '普通',
   [QuestionDegree.Difficult]: '困难'
 }
 
+export const QuestionDegreeTypeMap = {
+  [QuestionDegree.UnlimitedDifficulty]: 'info',
+  [QuestionDegree.Simple]: 'success',
+  [QuestionDegree.Ordinary]: 'primary',
+  [QuestionDegree.Difficult]: 'danger'
+}
+
 export const Degree = [
+  {
+    key: 'unlimitedDifficulty',
+    type: 'info',
+    lable: '不限难度',
+    value: 0
+  },
   {
     key: 'simple',
     type: 'primary',

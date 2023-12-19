@@ -27,7 +27,7 @@
     "DisplayName:IsPublic": "IsPublic",
 
     "DisplayName:QuestionCategoryId": "QuestionCategoryId",
-    "DisplayName:QuestionCateogryName": "QuestionCateogryName",
+    "DisplayName:QuestionCateogryName": "Cateogry",
     "DisplayName:TrainPlatformId": "TrainPlatformId",
     "DisplayName:Type": "Type",
     "DisplayName:Content": "Content",
@@ -48,7 +48,7 @@
 
     "DisplayName:Description": "Description",
     "DisplayName:Icon": "Icon",
-    "DisplayName:Url": "TrainPlatform Url",
+    "DisplayName:TrainPlatformUrl": "TrainPlatform Url",
     "DisplayName:CheckCode": "CheckCode",
     "DisplayName:TokenType": "TokenType",
 
