@@ -138,7 +138,11 @@
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
           <span>{{ row.content }}</span>
-          <!-- <span style="max-height: 50px;" v-html="row.content" /> -->
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="Answer" align="left" width="180" :show-overflow-tooltip="true">
+        <template slot-scope="{ row }">
+          <span>{{ row.answer }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">

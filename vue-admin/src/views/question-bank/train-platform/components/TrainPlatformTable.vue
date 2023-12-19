@@ -1,11 +1,20 @@
 <template>
   <div class="table-container">
     <div class="filter-container" style="margin-bottom:10px;">
-      <el-form ref="logQueryForm" label-position="left" label-width="80px" :model="listQuery">
+      <el-form ref="logQueryForm" label-position="left" label-width="100px" :model="listQuery">
         <el-row :gutter="20">
           <el-col :span="4">
             <el-form-item prop="filter" :label="$t('AbpUi[\'Search\']')">
               <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PlaceholderInput\']')" clearable />
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="4">
+            <el-form-item prop="filter" :label="$t('AppQuestionBank[\'DisplayName:Enable\']')">
+              <el-select v-model="listQuery.enable" placeholder="-" class="filter-item" clearable="">
+                <el-option :label="$t('AbpUi[\'Yes\']')" :value="true" />
+                <el-option :label="$t('AbpUi[\'No\']')" :value="false" />
+              </el-select>
             </el-form-item>
           </el-col>
 
@@ -35,19 +44,9 @@
               <el-button type="reset" icon="el-icon-remove-outline" @click="resetQueryForm">
                 {{ $t('AbpAuditLogging.Reset') }}
               </el-button>
-              <!-- <el-link type="info" :underline="false" style="margin-left: 8px;line-height: 28px;" @click="toggleAdvanced">
-                {{ advanced ? $t('AbpUi.Close') : $t('TigerUi.Expand') }}
-                <i :class="advanced ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" />
-              </el-link> -->
             </el-button-group>
           </el-col>
         </el-row>
-
-        <el-collapse-transition>
-          <div v-show="advanced">
-            <el-row :gutter="20" />
-          </div>
-        </el-collapse-transition>
       </el-form>
 
       <!-- 操作按钮 -->
@@ -57,9 +56,6 @@
             <el-button v-if="checkPermission('QuestionBank.TrainPlatform.Create')" class="filter-item" type="primary" icon="el-icon-plus" @click="handleCreate">
               {{ $t("AppQuestionBank['Permission:Create']") }}
             </el-button>
-            <!-- <el-button icon="el-icon-download" @click="handleDownload">
-              导出
-            </el-button> -->
           </el-button-group>
         </el-col>
       </el-row>
@@ -83,19 +79,20 @@
           </el-image>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Url\']')" prop="url" sortable align="left" width="280">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:TrainPlatformUrl\']')" prop="url" sortable align="left" width="280">
         <template slot-scope="{ row }">
           <el-link :href="row.url" target="_blank" type="primary">{{ row.url }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:CheckCode\']')" prop="checkCode" sortable align="left" width="120">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:CheckCode\']')" prop="checkCode" sortable align="left" width="140">
         <template slot-scope="{ row }">
           <span>{{ row.checkCode }}</span>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:TokenType\']')" prop="tokenType" sortable align="left" width="160">
         <template slot-scope="{ row }">
-          <span>{{ row.tokenType }}</span>
+          <!-- <span>{{ row.tokenType }}</span> -->
+          <el-tag>{{ TokenTypeMap[row.tokenType] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" prop="sorting" sortable align="left" width="120">
@@ -103,7 +100,7 @@
           <span>{{ row.sorting }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable" sortable align="left" width="80">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable" sortable align="left" width="140">
         <template slot-scope="{ row }">
           <el-tag :type="( row.enable ? 'success' : 'danger')" :class="[ row.enable ? 'el-icon-check':'el-icon-close' ]" />
         </template>
@@ -129,6 +126,7 @@ import {
 } from '@/api/question-bank/train-platform'
 import { pickerRangeWithHotKey } from '@/utils/picker'
 import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import { TokenTypeMap } from '../datas/typing'
 
 export default {
   name: 'TrainPlatformTable',
@@ -137,6 +135,7 @@ export default {
   },
   data() {
     return {
+      TokenTypeMap,
       queryCreateDateTime: undefined,
       advanced: false,
       pickerOptions: pickerRangeWithHotKey,

@@ -1,6 +1,6 @@
 <template>
   <div class="model-container">
-    <el-dialog :title=" dialogStatus == 'create'? $t('AppQuestionBank[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible">
+    <el-dialog :title=" dialogStatus == 'create'? $t('AppQuestionBank[\'Permission:Create\']'): $t('AbpUi[\'Edit\']')" :visible.sync="dialogFormVisible" top="5vh">
       <el-form ref="dataForm" :rules="rules" :model="temp" label-position="right" label-width="150px">
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Name\']')" prop="name">
           <el-input v-model="temp.name" />
@@ -11,7 +11,7 @@
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Icon\']')" prop="icon">
           <single-image-upload v-model="temp.icon" @input="input" />
         </el-form-item>
-        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Url\']')" prop="url">
+        <el-form-item :label="$t('AppQuestionBank[\'DisplayName:TrainPlatformUrl\']')" prop="url">
           <el-input v-model="temp.url" />
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:CheckCode\']')" prop="checkCode">
@@ -30,8 +30,6 @@
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable">
           <el-switch
             v-model="temp.enable"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
           />
         </el-form-item>
 
@@ -127,7 +125,7 @@ export default {
           {
             required: true,
             message: this.$i18n.t("AbpValidation['The {0} field is required.']", [
-              this.$i18n.t("AppQuestionBank['DisplayName:Url']")
+              this.$i18n.t("AppQuestionBank['DisplayName:TrainPlatformUrl']")
             ]),
             trigger: 'blur'
           },
@@ -135,14 +133,14 @@ export default {
             max: 64,
             message: this.$i18n.t(
               "AbpValidation['The field {0} must be a string with a maximum length of {1}.']",
-              [this.$i18n.t("AppQuestionBank['DisplayName:Url']"), '1024']
+              [this.$i18n.t("AppQuestionBank['DisplayName:TrainPlatformUrl']"), '1024']
             ),
             trigger: 'blur'
           },
           {
             message: this.$i18n.t(
               "AbpValidation['The {0} field is not a valid fully-qualified http, https, or ftp URL.']",
-              [this.$i18n.t("AppQuestionBank['DisplayName:Url']")]),
+              [this.$i18n.t("AppQuestionBank['DisplayName:TrainPlatformUrl']")]),
             trigger: 'blur', pattern: /^(http|https):\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,}(\/\S*)?$/
           }
         ],
