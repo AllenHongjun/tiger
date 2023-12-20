@@ -127,22 +127,22 @@
     >
       <el-table-column type="selection" width="55" center />
       <el-table-column type="index" width="60" />
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCateogryName" align="left" width="280">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')" prop="questionCateogryName" align="left">
         <template slot-scope="{ row }">
           <span>{{ row.questionCateogryName }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left" :show-overflow-tooltip="true">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="Content" align="left" width="380" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
           <span>{{ row.content }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="Answer" align="left" width="180" :show-overflow-tooltip="true">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Answer\']')" prop="Answer" align="left" width="100" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
           <span>{{ row.answer }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="Score" align="left" width="120" :show-overflow-tooltip="true">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="Score" align="left" width="100" :show-overflow-tooltip="true">
         <template slot-scope="{ row }">
           <span>{{ row.score }}</span>
         </template>

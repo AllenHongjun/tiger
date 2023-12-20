@@ -155,7 +155,9 @@ export default {
       listLoading: true,
       downloadLoading: false,
       total: 0,
-      listQuery: baseListQuery,
+      listQuery: Object.assign({
+
+      }, baseListQuery),
       dialogStatus: '',
       dialogFormVisible: false,
       claimTypeDialogFormVisible: false,
