@@ -20,9 +20,9 @@
             <el-tag v-if="QuestionTypeMap[row.question.type]" type="primary">{{ QuestionTypeMap[row.question.type] }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="questionCategory" label="试题内容" show-overflow-tooltip>
+        <el-table-column prop="questionCategory" label="试题内容" :show-overflow-tooltip="true">
           <template slot-scope="{ row }">
-            <span v-html="row.question.content" />
+            <span>{{ row.question.content }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="questionCount" label="标准答案" width="110">
@@ -30,9 +30,9 @@
             <span>{{ row.question.answer }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="scorePerQuestion" label="每题分数" width="110">
+        <el-table-column prop="scorePerQuestion" label="每题分数" width="160">
           <template slot-scope="{ row }">
-            <el-input :value="row.question.score" />
+            <el-input-number v-model="row.question.score" :precision="2" :step="5" :min="0" controls-position="right" size="mini" />
           </template>
         </el-table-column>
         <el-table-column label="操作" width="80" align="center">

@@ -142,7 +142,7 @@
           <span>{{ row.answer }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="Score" align="left" width="100" :show-overflow-tooltip="true">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="Score" align="left" width="100">
         <template slot-scope="{ row }">
           <span>{{ row.score }}</span>
         </template>

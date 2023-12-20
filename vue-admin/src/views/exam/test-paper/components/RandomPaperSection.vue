@@ -41,35 +41,42 @@
 
       </el-table-column>
       <el-table-column label="抽题数量设置" width="130" align="center">
-        <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="130">
+        <el-table-column prop="unlimitedDifficultyCount" label="不限难度" width="180">
           <template slot-scope="{ row }">
-            <el-input v-model="row.unlimitedDifficultyCount" type="number" placeholder="0" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalUnlimitedDifficultyCount }}</span>
+            <el-input-number v-model="row.unlimitedDifficultyCount" :step="1" :min="0" :max="row.totalUnlimitedDifficultyCount" controls-position="right" size="mini" @blur="updateData(row)" />
+            /
+            <span>{{ row.totalUnlimitedDifficultyCount }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="simpleCount" label="容易" width="130">
+        <el-table-column prop="simpleCount" label="容易" width="180">
           <template slot-scope="{ row }">
-            <el-input v-model="row.simpleCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalSimpleCount }}</span>
+            <el-input-number v-model="row.simpleCount" :step="1" :min="0" :max="row.totalSimpleCount" controls-position="right" size="mini" @change="updateData(row)" />
+            /
+            <span>{{ row.totalSimpleCount }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="ordinaryCount" label="普通" width="130">
+        <el-table-column prop="ordinaryCount" label="普通" width="180">
           <template slot-scope="{ row }">
-            <el-input v-model="row.ordinaryCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalOrdinaryCount }}</span>
+            <el-input-number v-model="row.ordinaryCount" :step="1" :min="0" :max="row.totalOrdinaryCount" controls-position="right" size="mini" @change="updateData(row)" />
+            / <span>{{ row.totalOrdinaryCount }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="difficultCount" label="困难" width="130">
+        <el-table-column prop="difficultCount" label="困难" width="180">
           <template slot-scope="{ row }">
-            <el-input v-model="row.difficultCount" placeholder="0" type="number" class="question-count" @blur="updateData(row)" /> / <span>{{ row.totalDifficultCount }}</span>
+            <el-input-number v-model="row.difficultCount" :step="1" :min="0" :max="row.totalDifficultCount" controls-position="right" size="mini" @change="updateData(row)" />
+            /
+            <span>{{ row.totalDifficultCount }}</span>
           </template>
         </el-table-column>
       </el-table-column>
-      <el-table-column prop="questionCount" label="抽题数" type="number" width="130">
+      <el-table-column prop="questionCount" label="抽题数" type="number" width="80">
         <template slot-scope="{ row }">
           <b>{{ row.totalSelectQuestionsCount }}</b>
         </template>
       </el-table-column>
-      <el-table-column prop="scorePerQuestion" label="每题分数" width="130">
+      <el-table-column prop="scorePerQuestion" label="每题分数" width="180">
         <template slot-scope="{ row }">
-          <el-input v-model="row.scorePerQuestion" placeholder="0" type="number" class="question-count" @blur="updateData(row)" />
+          <el-input-number v-model="row.scorePerQuestion" :step="5" :min="0" :precision="2" controls-position="right" size="mini" @change="updateData(row)" />
         </template>
       </el-table-column>
       <el-table-column label="操作" width="80" align="center">

@@ -22,10 +22,10 @@
       </el-card>
 
       <el-row v-if="active == 1" :gutter="20">
-        <el-col :span="6" class="paper-section-container">
+        <el-col :span="4" class="paper-section-container">
           <mini-paper-section ref="miniPaperSection" :test-paper="temp" @getTestPaperSections="handleGetAllTestPaperSections" />
         </el-col>
-        <el-col v-if="testPaperSections.length > 0" :span="18" class="paper-section-container">
+        <el-col v-if="testPaperSections.length > 0" :span="20" class="paper-section-container">
           <div v-for="(testPaperSection, index) in testPaperSections" :key="index">
             <el-card class="section-box">
               <div slot="header" class="clearfix">
@@ -48,7 +48,7 @@
 
           </div>
         </el-col>
-        <el-col v-else :span="18">
+        <el-col v-else :span="20">
           <el-card>
             <h1>请添加试卷大题</h1>
           </el-card>
