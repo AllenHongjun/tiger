@@ -12,7 +12,7 @@ namespace Tiger.Module.Exams;
 /// <summary>
 /// 考试
 /// </summary>
-[RemoteService(false)]
+[RemoteService(IsEnabled = false)]
 public class ExamAppService : CrudAppService<Exam, ExamDto, Guid, ExamGetListInput, CreateUpdateExamDto, CreateUpdateExamDto>,
     IExamAppService
 {

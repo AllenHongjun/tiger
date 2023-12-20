@@ -23,9 +23,9 @@
         </el-row>
 
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Content\']')" prop="content">
-          <el-checkbox v-model="useEditor">使用富文本编辑器</el-checkbox>
+          <el-checkbox v-model="useEditorCheck">使用富文本编辑器</el-checkbox>
           <!-- bugfix:tinymce每次查看详情内容不更新问题  https://blog.csdn.net/qq_39367226/article/details/103186116 -->
-          <tinymce v-if="useEditor && dialogFormVisible" ref="editor" v-model="temp.content" :height="300" @blur="onInputBlur" />
+          <tinymce v-if="(useEditorCheck) && dialogFormVisible" ref="editor" v-model="temp.content" :height="300" @blur="onInputBlur" />
           <el-input v-else v-model="temp.content" type="textarea" :autosize="{ minRows: 4, maxRows: 6}" @blur="onInputBlur" />
           <div v-if="temp.type === QuestionType.Completion" style="margin-top: 10px;">
             <span>请在填空位置</span>   <el-button type="primary" @click="insertBlankFill()">插入填空符</el-button>
@@ -202,9 +202,10 @@ export default {
         isShowImageButton: true,
         isShowLinkButton: true
       },
+      useEditorCheck: false,
       dialogFormVisible: false,
       dialogStatus: '',
-      useEditor: true,
+
       // 表单验证规则
       rules: {
         questionCategoryId: [
@@ -250,6 +251,9 @@ export default {
       }
     }
   },
+  computed: {
+    // 计算属性使用： https://blog.csdn.net/LZ15932161597/article/details/107114230
+  },
   created() {
   },
   methods: {
@@ -266,7 +270,6 @@ export default {
 
     // 添加题目选项
     addQuestionOption() {
-      // debugger
       this.optionContentArr.push({ value: '' })
     },
     // 移除题目选项
@@ -347,7 +350,6 @@ export default {
 
     // 点击创建按钮
     handleCreate() {
-      debugger
       this.fetchQuestionCategoryOptions()
       this.resetTemp()
       this.dialogStatus = 'create'
@@ -399,7 +401,12 @@ export default {
 
       getQuestion(row.id).then(response => {
         this.temp = response
-        debugger
+
+        // 如果内容包含P标签，默认勾选富文本
+        if (this.temp.content.substr(0, 3) === '<p>') {
+          this.useEditorCheck = true
+        }
+
         // 拆分显示选项
         var tempOptionConentArr = response.optionContent.split(/[(\r\n)\r\n]+/) // 根据换行或者回车进行识别
         var resultArr = []

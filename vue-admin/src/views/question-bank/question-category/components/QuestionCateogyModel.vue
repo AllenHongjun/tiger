@@ -27,7 +27,7 @@
           </el-col>
         </el-row>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" prop="sorting">
-          <el-input-number v-model="temp.sorting" :min="0" :max="9999999" :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" />
+          <el-input-number v-model="temp.sorting" :min="0" :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" />
         </el-form-item>
 
       </el-form>

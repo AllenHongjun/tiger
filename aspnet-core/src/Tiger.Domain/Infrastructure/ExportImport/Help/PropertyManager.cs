@@ -51,7 +51,7 @@ namespace Tiger.Infrastructure.ExportImport.Help
         /// A task that represents the asynchronous operation
         /// The task result contains the 
         /// </returns>
-        public virtual async Task<byte[]> ExportToXlsxAsync(IList<T> itemsToExport)
+        public virtual async Task<byte[]> ExportToXlsxAsync(IList<T> itemsToExport, bool wrapText = false)
         {
             await using var stream = new MemoryStream();
             // ok, we can run the real code of the sample now
@@ -75,7 +75,7 @@ namespace Tiger.Infrastructure.ExportImport.Help
                 foreach (var items in itemsToExport)
                 {
                     CurrentObject = items;
-                    await WriteToXlsxAsync(worksheet, row++, fWorksheet: fWorksheet);
+                    await WriteToXlsxAsync(worksheet, row++, fWorksheet: fWorksheet, wrapText:wrapText);
                 }
 
                 //调整列宽: https://stackoverflow.com/questions/46200560/how-to-auto-size-excel-closedxml-cells-in-c-sharp
@@ -123,7 +123,7 @@ namespace Tiger.Infrastructure.ExportImport.Help
         /// <param name="cellOffset">Cell offset</param>
         /// <param name="fWorksheet">Filters worksheet</param>
         /// <returns>A task that represents the asynchronous operation</returns>
-        public virtual async Task WriteToXlsxAsync(IXLWorksheet worksheet, int row, int cellOffset = 0, IXLWorksheet fWorksheet = null)
+        public virtual async Task WriteToXlsxAsync(IXLWorksheet worksheet, int row, int cellOffset = 0, IXLWorksheet fWorksheet = null, bool wrapText = false)
         {
             if (CurrentObject == null)
                 return;
@@ -192,7 +192,7 @@ namespace Tiger.Infrastructure.ExportImport.Help
                         cell.Value = value;
                     }
                 }
-                cell.Style.Alignment.WrapText = false;
+                cell.Style.Alignment.WrapText = wrapText;
             }
         }
 

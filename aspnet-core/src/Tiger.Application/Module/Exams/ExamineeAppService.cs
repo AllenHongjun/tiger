@@ -1,9 +1,11 @@
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tiger.Module.Exams.Dtos;
 using Tiger.Volo.Abp.Identity;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Identity;
@@ -14,6 +16,7 @@ namespace Tiger.Module.Exams;
 /// <summary>
 /// 考试人员表(应试人；参加考试者)
 /// </summary>
+[RemoteService(IsEnabled = false)]
 public class ExamineeAppService : CrudAppService<Examinee, ExamineeDto, Guid, ExamineeGetListInput, CreateUpdateExamineeDto, CreateUpdateExamineeDto>,
     IExamineeAppService
 {

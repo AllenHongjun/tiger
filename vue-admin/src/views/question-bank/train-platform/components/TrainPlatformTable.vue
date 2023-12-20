@@ -70,7 +70,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Icon\']')" prop="icon" sortable align="left" width="220">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Icon\']')" prop="icon" align="left" width="220">
         <template slot-scope="{ row }">
           <el-image style="width: 100px; height: 40px" :src="Url.photoPrefix + row.icon" fit="contain" :preview-src-list="[Url.photoPrefix + row.icon]">
             <div slot="error" class="image-slot">
@@ -79,11 +79,11 @@
           </el-image>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:TrainPlatformUrl\']')" prop="url" sortable align="left" width="280">
+      <!-- <el-table-column :label="$t('AppQuestionBank[\'DisplayName:TrainPlatformUrl\']')" prop="url" align="left" width="280">
         <template slot-scope="{ row }">
           <el-link :href="row.url" target="_blank" type="primary">{{ row.url }}</el-link>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:CheckCode\']')" prop="checkCode" sortable align="left" width="140">
         <template slot-scope="{ row }">
           <span>{{ row.checkCode }}</span>
@@ -91,7 +91,6 @@
       </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:TokenType\']')" prop="tokenType" sortable align="left" width="160">
         <template slot-scope="{ row }">
-          <!-- <span>{{ row.tokenType }}</span> -->
           <el-tag>{{ TokenTypeMap[row.tokenType] }}</el-tag>
         </template>
       </el-table-column>
@@ -100,9 +99,14 @@
           <span>{{ row.sorting }}</span>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable" sortable align="left" width="140">
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable" sortable align="left" width="120">
         <template slot-scope="{ row }">
           <el-tag :type="( row.enable ? 'success' : 'danger')" :class="[ row.enable ? 'el-icon-check':'el-icon-close' ]" />
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('AbpUi[\'DisplayName:CreationTime\']')" prop="creationTime" align="left" width="180">
+        <template slot-scope="{ row }">
+          <span>{{ row.creationTime | moment }}</span>
         </template>
       </el-table-column>
 

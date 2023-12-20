@@ -9,10 +9,10 @@
               <el-input v-model="listQuery.filter" :placeholder="$t('AbpUi[\'PlaceholderInput\']')" clearable />
             </el-form-item>
           </el-col>
-
           <el-col :span="5">
             <el-form-item prop="questionCategoryId" :label="$t('AppQuestionBank[\'DisplayName:QuestionCateogryName\']')">
               <el-cascader
+                ref="categoryCascader"
                 v-model="listQuery.questionCategoryId"
                 :options="questionCategoryOptions"
                 :props="{ checkStrictly: true, value:'id', label:'name',children:'children',emitPath:false}"
@@ -20,10 +20,10 @@
                 style="width:230px;"
                 clearable
                 filterable
+                @change="categoryChange"
               />
             </el-form-item>
           </el-col>
-
           <el-col :span="4">
             <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="jobType">
               <el-select v-model="listQuery.type" placeholder="-" filterable clearable>
@@ -36,7 +36,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-
           <el-col :span="4">
             <el-form-item prop="degree" :label="$t('AppQuestionBank[\'DisplayName:Degree\']')">
               <el-select v-model="listQuery.degree" placeholder="-" filterable clearable>
@@ -49,7 +48,6 @@
               </el-select>
             </el-form-item>
           </el-col>
-
           <el-col :span="4">
             <el-button-group>
               <el-button type="primary" class="filter-item" icon="el-icon-search" @click="handleFilter">
@@ -65,7 +63,6 @@
             </el-button-group>
           </el-col>
         </el-row>
-
         <el-collapse-transition>
           <div v-show="advanced">
             <el-row :gutter="20">
@@ -145,6 +142,11 @@
           <span>{{ row.answer }}</span>
         </template>
       </el-table-column>
+      <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Score\']')" prop="Score" align="left" width="120" :show-overflow-tooltip="true">
+        <template slot-scope="{ row }">
+          <span>{{ row.score }}</span>
+        </template>
+      </el-table-column>
       <el-table-column :label="$t('AppQuestionBank[\'DisplayName:Type\']')" prop="Type" align="left" width="100">
         <template slot-scope="{ row }">
           <el-tag v-if="QuestionTypeMap[row.type]" type="primary">{{ QuestionTypeMap[row.type] }}</el-tag>
@@ -198,7 +200,7 @@ import UploadSingleExcel from '@/components/UploadSingleExcel/index.vue'
 
 import baseListQuery, { checkPermission } from '@/utils/abp'
 import { pickerRangeWithHotKey } from '@/utils/picker'
-import { listToTree } from '@/utils/helpers/tree-helper'
+import { listToTree, recurtionToTree } from '@/utils/helpers/tree-helper'
 import { downloadByData } from '@/utils/download'
 
 import { QuestionType, QuestionTypeMap, QuestionDegree, QuestionDegreeMap, QuestionDegreeTypeMap, Degree, Type } from '../datas/typing'
@@ -249,8 +251,14 @@ export default {
     exportQuestionXlsxTemplate,
     fetchOptions() {
       getAllQuestionCategory().then(response => {
-        this.questionCategoryOptions = listToTree(response.items)
+        this.questionCategoryOptions = recurtionToTree(response.items)
       })
+    },
+    categoryChange(val) {
+      if (!this.$refs.categoryCascader.checkedValue) {
+        // 此处不清空，接口会传递后端字符串null导致无法解析
+        this.listQuery.questionCategoryId = undefined
+      }
     },
     datePickerChange(value) {
       if (!value) {

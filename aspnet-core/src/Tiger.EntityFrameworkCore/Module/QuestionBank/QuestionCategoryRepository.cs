@@ -14,6 +14,10 @@ public class QuestionCategoryRepository : EfCoreRepository<TigerDbContext, Quest
     {
     }
     
+    public async Task<QuestionCategory> GetByName(string name)
+    {
+        return await DbContext.Set<QuestionCategory>().FirstOrDefaultAsync(x => x.Name == name);
+    }
 
     public override  IQueryable<QuestionCategory> WithDetails()
     {

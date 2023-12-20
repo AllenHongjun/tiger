@@ -25,12 +25,10 @@
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Sorting\']')" prop="sorting">
-          <el-input v-model="temp.sorting" type="number" />
+          <el-input-number v-model="temp.sorting" :min="0" />
         </el-form-item>
         <el-form-item :label="$t('AppQuestionBank[\'DisplayName:Enable\']')" prop="enable">
-          <el-switch
-            v-model="temp.enable"
-          />
+          <el-switch v-model="temp.enable" />
         </el-form-item>
 
       </el-form>

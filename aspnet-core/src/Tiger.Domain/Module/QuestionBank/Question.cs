@@ -162,24 +162,20 @@ namespace Tiger.Module.QuestionBank
             string content,
             string optionContent,
             int? optionSize,
-            string optionA,
-            string optionB,
-            string optionC,
-            string optionD,
-            string optionE,
             string answer,
+            decimal score,
             QuestionDegree degree,
             string analysis,
             string source,
-            string helpMessage,
-            string helpVideo,
-            string fileUrl,
-            string fileName,
-            bool isShow,
-            bool enable,
-            bool isShowTextButton,
-            bool isShowImageButton,
-            bool isShowLinkButton
+            string helpMessage = "",
+            string helpVideo = "",
+            string fileUrl = "",
+            string fileName = "",
+            bool isShow = true,
+            bool enable = true,
+            bool isShowTextButton = false,
+            bool isShowImageButton = false,
+            bool isShowLinkButton = false
         ) : base(id)
         {
             TenantId = tenantId;
@@ -191,6 +187,7 @@ namespace Tiger.Module.QuestionBank
             OptionContent = optionContent;
             OptionSize = optionSize;
             Answer = answer;
+            Score = score;
             Degree = degree;
             Analysis = analysis;
             Source = source;

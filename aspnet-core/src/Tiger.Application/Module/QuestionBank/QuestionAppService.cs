@@ -1,4 +1,5 @@
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2010.CustomUI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,11 +30,15 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
     #region 字段和构造函数
     private readonly IQuestionRepository _repository;
+    private readonly IQuestionCategoryRepository _categoryRepository;
 
-    public QuestionAppService(IQuestionRepository repository) : base(repository)
+    public QuestionAppService(
+        IQuestionRepository repository, 
+        IQuestionCategoryRepository categoryRepository) : base(repository)
     {
         LocalizationResource = typeof(QuestionBankResources);
         _repository = repository;
+        _categoryRepository=categoryRepository;
     }
     #endregion
 
@@ -57,12 +62,6 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
 
     public override async Task<PagedResultDto<QuestionDto>> GetListAsync(QuestionGetListInput input)
     {
-        // TODO:获取关联表的数据 
-        /*
-         1. 二次查询
-         2. joio关联查询数据
-         3. 导航属性 关联数据
-         */
         return await base.GetListAsync(input);
     }
 
@@ -101,6 +100,30 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
     #endregion
 
     #region 导入/导出
+
+    protected QuestionType GetQuestionType(string name)
+    {
+        // TODO：重构一个通用的遍历枚举的方法
+        QuestionType type = QuestionType.None;
+        if (name == L["DisplayName:TrueOrFalse"]) type = QuestionType.TrueOrFalse;
+        if (name == L["DisplayName:SingleChoice"]) type = QuestionType.SingleChoice;
+        if (name == L["DisplayName:MultipleChoice"]) type = QuestionType.MultipleChoice;
+        if (name == L["DisplayName:Completion"]) type = QuestionType.Completion;
+        if (name == L["DisplayName:QA"]) type = QuestionType.QA;
+        if (name == L["DisplayName:PracticalTraining"]) type = QuestionType.PracticalTraining;
+        return type;
+    }
+
+    protected QuestionDegree GetQuestionDegree(string name)
+    {
+        QuestionDegree degree = QuestionDegree.UnlimitedDifficulty;
+        if (name == L["DisplayName:UnlimitedDifficulty"]) degree = QuestionDegree.UnlimitedDifficulty;
+        if (name == L["DisplayName:Simple"]) degree = QuestionDegree.Simple;
+        if (name == L["DisplayName:Ordinary"]) degree = QuestionDegree.Ordinary;
+        if (name == L["DisplayName:Difficult"]) degree = QuestionDegree.Difficult;
+        return degree;
+    }
+
     /// <summary>
     /// 从xlsx导入
     /// </summary>
@@ -134,39 +157,78 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
                     break;
 
                 manager.ReadFromXlsx(worksheet, iRow);
+                Guid id = manager.GetProperty("Id").GuidValue;
+                Question question = null;
+                var isNew = id == Guid.Empty;
 
-                var question = await _repository.GetAsync(manager.GetProperty("Id").GuidValue);
+                // 根据分类名称查询分类
+                var category = await _categoryRepository.GetByName(manager.GetProperty(L["DisplayName:QuestionCateogryName"]).StringValue);
+                if (category == null) throw new UserFriendlyException(L["CategoryIsNotFound"], manager.GetProperty(L["DisplayName:QuestionCateogryName"]).StringValue);
 
-                var isNew = question == null;
-
-                question ??= new Question(GuidGenerator.Create(), CurrentTenant.Id, manager.GetProperty("Content").StringValue);
-
-                foreach (var property in manager.GetProperties)
+                // 移除每个选项开头的A B C D ,后保存到数据库中
+                string optionContent = manager.GetProperty(L["DisplayName:OptionContent"]).StringValue;
+                if (!string.IsNullOrWhiteSpace(optionContent))
                 {
-                    if (property.PropertyName == L["DisplayName:Content"]) question.Content = property.StringValue;
-                    if (property.PropertyName == L["DisplayName:QuestionCateogryName"]) question.QuestionCategoryId = property.GuidValue;
-                    if (property.PropertyName == L["DisplayName:Type"]) question.Type = (QuestionType)property.IntValue;
-                    if (property.PropertyName == L["DisplayName:OptionContent"]) question.OptionContent = property.StringValue;
-                    if (property.PropertyName == L["DisplayName:Answer"]) question.Answer = property.StringValue;
-                    if (property.PropertyName == L["DisplayName:Degree"]) question.Degree = (QuestionDegree)property.IntValue;
-                    if (property.PropertyName == L["DisplayName:Analysis"]) question.Analysis = property.StringValue;
-                    if (property.PropertyName == L["DisplayName:Source"]) question.Source = property.StringValue;
-                    if (property.PropertyName == L["DisplayName:Enable"]) question.Enable = property.BooleanValue;
+                    // C#下分割string （spilt）回车换行符（\r\n）
+                    var optionContentArr = optionContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                    List<string> temp = new List<string>();
+                    for (int i = 0; i < optionContentArr.Length; i++)
+                    {
+                        temp.Add(optionContentArr[i].Substring(2));
+                    }
+                    optionContent = string.Join("\r\n", temp);
                 }
 
                 if (isNew)
+                {
+                    question ??= new Question(
+                        GuidGenerator.Create(), 
+                        CurrentTenant.Id,
+                        category.Id,
+                        null,
+                        GetQuestionType(manager.GetProperty(L["DisplayName:Type"]).StringValue),
+                        "",
+                        manager.GetProperty(L["DisplayName:Content"]).StringValue,
+                        optionContent,
+                        null,
+                        manager.GetProperty(L["DisplayName:Answer"]).StringValue,
+                        manager.GetProperty(L["DisplayName:Score"]).DecimalValue,
+                        GetQuestionDegree(manager.GetProperty(L["DisplayName:Answer"]).StringValue),
+                        manager.GetProperty(L["DisplayName:Analysis"]).StringValue,
+                        manager.GetProperty(L["DisplayName:Source"]).StringValue
+                        );
                     await _repository.InsertAsync(question);
+                }
                 else
+                {
+                    question = await _repository.GetAsync(manager.GetProperty("Id").GuidValue);
+                    foreach (var property in manager.GetProperties)
+                    {
+                        if (property.PropertyName == L["DisplayName:QuestionCateogryName"]) {
+                            question.QuestionCategoryId = category.Id;
+                        } 
+                        if (property.PropertyName == L["DisplayName:Type"]) question.Type = GetQuestionType(property.StringValue);
+                        if (property.PropertyName == L["DisplayName:Content"]) question.Content = property.StringValue;
+                        if (property.PropertyName == L["DisplayName:OptionContent"]) question.OptionContent = optionContent;
+                        if (property.PropertyName == L["DisplayName:Answer"]) question.Answer = property.StringValue;
+                        if (property.PropertyName == L["DisplayName:Score"]) question.Score = property.DecimalValue;
+                        if (property.PropertyName == L["DisplayName:Degree"]) question.Degree = GetQuestionDegree(property.StringValue);
+                        if (property.PropertyName == L["DisplayName:Analysis"]) question.Analysis = property.StringValue;
+                        if (property.PropertyName == L["DisplayName:Source"]) question.Source = property.StringValue;
+                    }
                     await _repository.UpdateAsync(question);
+                }
 
                 iRow++;
             }
         }
         else
         {
-            throw new Exception("文件不能空");
+            throw new Exception(L["FileIsEmpty"]);
         }
     }
+
+    
 
     /// <summary>
     /// Export to XLSX
@@ -175,25 +237,40 @@ public class QuestionAppService : CrudAppService<Question, QuestionDto, Guid, Qu
     /// <returns>查询到的所有角色</returns>
     public virtual async Task<IActionResult> ExportToXlsxAsync(QuestionGetListInput input)
     {
-        var list = CreateFilteredQuery(input).ToList();
+        input.MaxResultCount = input.MaxResultCount == 1 ? 1 : int.MaxValue;
+        var list = await base.GetListAsync(input);
+
+        var alphas = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
         //property manager 
         var manager = new PropertyManager<QuestionDto>(new[]
         {
                 new PropertyByName<QuestionDto>("Id", p => p.Id),
                 new PropertyByName<QuestionDto>(L["DisplayName:QuestionCateogryName"], p => p.QuestionCateogryName),
-                new PropertyByName<QuestionDto>(L["DisplayName:Type"], p => p.Type), // TODO:获取枚举值的注释描述 封装的方法
+                new PropertyByName<QuestionDto>(L["DisplayName:Type"], p => L["DisplayName:" + p.Type + ""]),
                 new PropertyByName<QuestionDto>(L["DisplayName:Content"], p => p.Content),
-                new PropertyByName<QuestionDto>(L["DisplayName:OptionContent"], p => p.OptionContent),
-                new PropertyByName<QuestionDto>(L["DisplayName:OptionSize"], p => p.OptionSize),
+                new PropertyByName<QuestionDto>(L["DisplayName:OptionContent"], p => {
+                    // 单元格中每个选项一行，然后每个选项前面拼上 A  B  C 等选项
+                    if (!string.IsNullOrWhiteSpace(p.OptionContent))
+                    {
+                        // C#下分割string （spilt）回车换行符（\r\n）
+                        var optionContentArr = p.OptionContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                        List<string> temp = new List<string>();
+                        for (int i = 0; i < optionContentArr.Length; i++)
+                        {
+                            temp.Add( alphas[i] + ". " + optionContentArr[i]);
+                        }
+                        p.OptionContent = string.Join("\r\n", temp);
+                    }
+                    return p.OptionContent;
+                }),
                 new PropertyByName<QuestionDto>(L["DisplayName:Answer"], p => p.Answer),
-                new PropertyByName<QuestionDto>(L["DisplayName:Degree"], p => p.Degree), // TODO:获取枚举值的注释描述 封装的方法
+                new PropertyByName<QuestionDto>(L["DisplayName:Degree"], p => L["DisplayName:" + p.Degree + ""]),
                 new PropertyByName<QuestionDto>(L["DisplayName:Analysis"], p => p.Analysis),
                 new PropertyByName<QuestionDto>(L["DisplayName:Source"], p => p.Source),
-                new PropertyByName<QuestionDto>(L["DisplayName:Enable"], p => p.Enable),
             });
 
-        var bytes = await manager.ExportToXlsxAsync(ObjectMapper.Map<List<Question>, List<QuestionDto>>(list));
+        var bytes = await manager.ExportToXlsxAsync(list.Items.ToList(), true);
 
         return new FileContentResult(bytes, MimeTypes.TextXlsx);
     } 

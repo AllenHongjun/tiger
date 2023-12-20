@@ -9,6 +9,7 @@ namespace Tiger.Module.QuestionBank
     /// </summary>
     public enum QuestionType
     {
+        None = 0,
         /// <summary>
         /// 判断题
         /// </summary>
@@ -32,6 +33,7 @@ namespace Tiger.Module.QuestionBank
         /// <summary>
         /// 计算题
         /// </summary>
+        [Obsolete]
         Calculation = 5,
 
         /// <summary>
@@ -42,11 +44,13 @@ namespace Tiger.Module.QuestionBank
         /// <summary>
         /// B型题
         /// </summary>
+        [Obsolete]
         Btype = 7,
 
         /// <summary>
         /// 简答题
         /// </summary>
+        [Obsolete]
         ShortAnswer = 8,
 
         /// <summary>
@@ -54,4 +58,6 @@ namespace Tiger.Module.QuestionBank
         /// </summary>
         PracticalTraining = 9,
     }
+
+    
 }

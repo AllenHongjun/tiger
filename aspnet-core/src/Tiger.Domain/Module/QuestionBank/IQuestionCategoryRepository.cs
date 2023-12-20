@@ -9,4 +9,5 @@ namespace Tiger.Module.QuestionBank;
 /// </summary>
 public interface IQuestionCategoryRepository : IRepository<QuestionCategory, Guid>
 {
+    Task<QuestionCategory> GetByName(string name);
 }
